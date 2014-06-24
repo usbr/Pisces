@@ -1,0 +1,155 @@
+Note that the following shell scripts use the 'curl' utility.
+If using the 'wget'utility, change syntax to be something like this
+wget \
+-o wget.log \
+--output-document=2136_SOIL.csv \ --post-data='intervalType=Current&report=SOIL&timeseries=Hourly&format=copy&sitenum=2136&interval=YEAR' \
+http://www.wcc.nrcs.usda.gov/nwcc/view
+
+
+================================================
+Script to get Current NWCC SNOTEL/SCAN Data
+================================================
+#!/bin/sh
+# Script: getcurrent.sh
+# Purpose: get current data for a station
+# Input: station_id, report_type, series and interval
+# Output: csv-formatted file
+# Maggie Dunklee, 2010, National Water Climate Center, All Data is Provisional and subject to change
+# Email: maggie.dunklee@por.usda.gov
+if  [[ $# -ne 4  ]] 
+then
+    echo "Script to get Current data"
+    echo "usage: $0 STATION  REPORT_TYPE   TIME_SERIES  INTERVAL "
+    echo "where: "
+    echo "      STATION is numeric is 2095, 302, etc"
+    echo "      REPORT_TYPE is  STAND (standard snotel), SOIL (soil temp and moisture) SCAN (standard scan), ALL (all), WEATHER (atmospheric)"
+    echo "      TIME_SERIES is Daily or Hourly or Hour:HH"
+    echo "      INTERVAL is current DAY or WEEK or YEAR (calendar year) or WATERYEAR (current waterhyear)"
+    exit
+fi
+
+export STATION=$1
+export REPORT=$2
+export SERIES=$3
+export INTERVAL=$4
+export INTERVALTYPE=Current
+
+curl "http://www.wcc.nrcs.usda.gov/nwcc/view?intervalType=$INTERVALTYPE+&report=$REPORT&timeseries=$SERIES&format=copy&sitenum=$STATION&interval=$INTERVAL" -o $STATION-$INTERVAL.csv
+================================================
+Script to get Historic NWCC SNOTEL/SCAN Data
+================================================
+#!/bin/sh
+#Script: gethistoric.sh
+#Purpose: get historic data for a station
+#Input: station_id, report_type, series year mon <optional day>
+#Output: csv-formatted file
+#Maggie Dunklee, 2010, National Water Climate Center, All Data is Provisional
+#
+if  [[ $# -lt 5  ]] 
+then
+    echo "Script to get historic data"
+    echo "usage: $0 STATION   REPORT_TYPE   TIME_SERIES   YEAR   MONTH   DAY"
+    echo "where: "
+    echo "      STATION is numeric is 2095, 302, etc"
+    echo "      REPORT_TYPE is  SOIL (soil temp and moisture) SCAN (standard scan), ALL (all), WEATHER (atmospheric)"
+    echo "      TIME_SERIES is Daily or Hourly or Hour:HH"
+    echo "      YEAR is YYYY"
+    echo "      MONTH is MM or CY (calendar year), or WY  (water year)"
+    echo "      Optional DAY is DD"
+    exit
+fi
+
+export STATION=$1
+export REPORT=$2
+export SERIES=$3
+export YEAR=$4
+export MONTH=$5
+export DAY=$6
+
+export INTERVALTYPE=Historic
+
+curl "http://www.wcc.nrcs.usda.gov/nwcc/view?intervalType=$INTERVALTYPE+&report=$REPORT&timeseries=$SERIES&format=copy&sitenum=$STATION&year=$YEAR&month=$MONTH&day=$DAY" -o $STATION-$YEAR$MONTH$DAY.csv
+=========================================================================
+Using an inventory.csv file to construct a period of record pull of data
+========================================================================
+To get a list of SCAN stations with start and end years, use our inventory,
+choosing 'SCAN' as the network and 'Download'.
+        http://www.wcc.nrcs.usda.gov/nwcc/inventory
+
+Once you get the inventory you want, save it in csv format
+You can parse this file (using awk if unix) to create a script
+to get period of record script data for the files you need.
+        station id
+        start wateryear
+        end wateryear
+
+=========================================================================
+Scripts to produce script to get period of record data from an inventory
+==========================================================================
+#!/bin/sh
+#Script: inventoryloop.sh
+#Purpose: Prints out commands to get period of record calendar year reports for a station
+#Input: A csv-formatted inventory file from http://www.wcc.nrcs.usda.gov/inventory
+#Calls: stationloop.sh
+#Maggie Dunklee, 2010, National Water Climate Center, All Data is Provisional
+#
+if  [[ $# -lt 3  ]] 
+then
+    echo "usage: $0 INVENTORY_FILE   REPORT_TYPE   TIME_SERIES"
+    echo "where: "
+    echo "      STATION is numeric is 2095, 302, etc"
+    echo "      REPORT is  SOIL (soil temp and moisture) SCAN (standard scan), ALL (all), WEATHER (atmospheric)"
+    echo "      SERIES is Daily or Hourly"
+    exit
+fi
+
+export INVENTORY_FILE=$1
+export REPORT_TYPE=$2
+export TIME_SERIES=$3
+
+export LIST=`grep -v station $INVENTORY_FILE | awk -F',' '{ print $2"-"$3"-"$4 }' | awk -F'-' '{ print "sh,stationloop.sh,"$1","$2","$5 }'`
+for nugget in ${LIST}
+do
+        `echo $nugget $REPORT_TYPE $TIME_SERIES | sed s/","/" "/g`
+done
+
+==========
+#!/bin/sh
+#Script: stationloop.sh
+#Purpose: Prints out commands to call gethistoric.sh to get a calendar year SNOTEL report
+#Input: none
+#Output: commands to standard out 
+#Calls: script gethistoric.sh
+#Maggie Dunklee, 2010, National Water Climate Center, All Data is Provisional
+#
+if  [[ $# -lt 4 ]] 
+then
+    echo "usage: $0 STATION_ID  START_YEAR  END_YEAR  REPORT_TYPE  TIME_SERIES"
+    echo "where: "
+    echo "      STATION is numeric is 2095, 302, etc"
+    echo "      START_YEAR is YYYY"
+    echo "          END_YEAR is YYYY"
+    echo "      REPORT_TYPE is  SOIL (soil temp and moisture) SCAN (standard scan), ALL (all), WEATHER (atmospheric)"
+    echo "      SERIES is Daily or Hourly"
+    exit
+fi
+
+export STATION=$1
+export START_YEAR=$2
+export END_YEAR=$3
+export REPORT_TYPE=$4
+export TIME_SERIES=$5
+
+# Deal with future date
+export THIS_YEAR=`date +%G`
+if [[ $END_YEAR -eq '2100' ]] 
+then
+        END_YEAR=$THIS_YEAR
+fi
+
+export YEAR=$START_YEAR
+while [ $YEAR -le $END_YEAR ] 
+do 
+        echo "sh gethistoric.sh $STATION $REPORT_TYPE $TIME_SERIES $YEAR CY"
+        YEAR=$(($YEAR+1))
+done

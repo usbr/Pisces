@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link href="http://www.usgs.gov/styles/common.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/custom.css" rel="stylesheet" type="text/css">
+<link href="/stylesheets/ida.css" rel="stylesheet" type="text/css">
+<title>USGS Instantaneous Data Archive - IDA</title>
+<meta name="description" content="USGS Instantaneous Data Archive">
+<meta name="keywords" content="USGS instantaneous data, instantaneous values, unit values, IDA">
+<meta name="robots" content="index,follow">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+<script type="text/javascript" src="/scripts/cfform.js"></script>
+<script type="text/javascript" src="/scripts/masks.js"></script>
+<script type="text/javascript">
+<!--
+    function  _CF_checkCFForm_1(_CF_this)
+    {
+        //reset on submit
+        _CF_error_exists = false;
+        _CF_error_messages = new Array();
+        _CF_error_fields = new Object();
+        _CF_FirstErrorField = null;
+
+        //form element fromdate required check
+        if( _CF_hasValue(_CF_this['fromdate'], "TEXT", false ) )
+        {
+            //form element fromdate 'DATE' validation checks
+            if (!_CF_checkdate(_CF_this['fromdate'].value, true))
+            {
+                _CF_onError(_CF_this, "fromdate", _CF_this['fromdate'].value, "The RETRIEVE FROM DATE is missing or incorrectly formatted (yyyy-mm-dd).");
+                _CF_error_exists = true;
+            }
+
+        }else {
+            _CF_onError(_CF_this, "fromdate", _CF_this['fromdate'].value, "The RETRIEVE FROM DATE is missing or incorrectly formatted (yyyy-mm-dd).");
+            _CF_error_exists = true;
+        }
+
+        //form element todate required check
+        if( _CF_hasValue(_CF_this['todate'], "TEXT", false ) )
+        {
+            //form element todate 'DATE' validation checks
+            if (!_CF_checkdate(_CF_this['todate'].value, true))
+            {
+                _CF_onError(_CF_this, "todate", _CF_this['todate'].value, "The RETRIEVE TO DATE is missing or incorrectly formatted (yyyy-mm-dd).");
+                _CF_error_exists = true;
+            }
+
+        }else {
+            _CF_onError(_CF_this, "todate", _CF_this['todate'].value, "The RETRIEVE TO DATE is missing or incorrectly formatted (yyyy-mm-dd).");
+            _CF_error_exists = true;
+        }
+
+
+        //display error messages and return success
+        if( _CF_error_exists )
+        {
+            if( _CF_error_messages.length > 0 )
+            {
+                // show alert() message
+                _CF_onErrorAlert(_CF_error_messages);
+                // set focus to first form error, if the field supports js focus().
+                if( _CF_this[_CF_FirstErrorField].type == "text" )
+                { _CF_this[_CF_FirstErrorField].focus(); }
+
+            }
+            return false;
+        }else {
+            return true;
+        }
+    }
+//-->
+</script>
+</head>
+
+<body>
+<!-- BEGIN USGS Header Template -->
+<div id="usgscolorband">
+	<div id="usgsbanner">
+		<div id="usgsidentifier"><a href="http://www.usgs.gov/"><img src="/images/header_graphic_usgsIdentifier_white.jpg" alt="USGS - science for a changing world" title="U.S. Geological Survey Home Page" width="178" height="72" /></a></div>
+		<div id="usgsccsabox">
+			<div id="usgsccsa">
+			  <br /><a href="http://www.usgs.gov/">USGS Home</a>
+			  <br /><a href="http://www.usgs.gov/ask/">Contact USGS</a>
+			  <br /><a href="http://search.usgs.gov/">Search USGS</a>
+              <br />
+			</div>
+		</div>
+	</div>
+</div>
+<div id="usgstitle">
+	<p>Instantaneous Data Archive - IDA</p>
+</div>
+<!-- END USGS Header Template -->
+<!-- BEGIN IDA Menu -->
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td height="25" bgcolor="#006699" class="tmenu">
+	<a href="#content" title="Skip menu and goto main content."></a>
+	&nbsp;
+	<a href="index.cfm" class="tmenu">Home</a>&nbsp;/&nbsp;
+	<a href="about_site.cfm" class="tmenu">About IDA</a>&nbsp;/&nbsp;
+	<a href="freq_asked_ques.cfm" class="tmenu">Frequently Asked Questions</a>&nbsp;/&nbsp;
+	<a href="feedback.cfm" class="tmenu">Questions and Feedback</a>&nbsp;/&nbsp;
+	<a href="help.cfm" class="tmenu">Help</a>&nbsp;/&nbsp;
+	<a href="http://waterdata.usgs.gov/nwis" target="_blank" class="tmenu" title="NWISWeb - opens in new window">Other Water Data-NWISWeb</a>&nbsp;/&nbsp;
+	</td>
+</tr>
+</table>
+<!-- End IDA Menu -->
+<a name="content"></a>
+
+<h4>Geographic Area: Idaho
+</h4>
+<p>Period of record for site: <b>13069500 / SNAKE RIVER NR BLACKFOOT ID</b></p>
+
+	<p><a href="view_roadmaps.cfm?sn=13069500">View</a> data summary report</p>
+
+	<table border="1" cellpadding="1" cellspacing="0" width="300">
+	<tr><th bgcolor="#CCCC99">From</th>
+	<th bgcolor="#cccc99">To</th>
+	<th bgcolor="#cccc99">Count</th>
+	</tr>
+	<tr><td align="center">1987-03-24</td><td align="center">2008-09-30</td><td align="center">   694,542</td></tr>
+	</table><br>
+	<form name="CFForm_1" action="http://140.218.6.16/~dataaccess/cgiinfo.com" method="post" onsubmit="return _CF_checkCFForm_1(this)">
+		<b>Retrieve data from:</b> <input name="fromdate"  value="2008-09-20" id="fromdate" 
+		 type="text" maxlength="10"  size="10"  />		
+					<b>to:</b> <input name="todate" value="2008-09-30" id="todate" type="text" maxlength="10"  size="10"  /> (YYYY-MM-DD)<br>
+		<br>
+		<input name="mindatetime" id="mindatetime" type="hidden" value="1987-03-24 00:00:00.0" /> 
+		<input name="maxdatetime" id="maxdatetime" type="hidden" value="2008-09-30 23:45:00.0" /> <input name="site_no" id="site_no" type="hidden" value="13069500" />
+		<b>Tab-delimited data:</b> <select name="rtype">
+
+							<option value="1">Save to file</option>
+							<option value="2">Save to compressed file</option>
+							<option value="3">Display in browser</option>
+							</select> <input name="submit1" id="submit1" type="submit" value="Retrieve Data" />
+		
+		<p><font color="red">Retrieval may take several minutes depending upon the amount of data requested.</font></p>
+	</form>
+
+<form action="index.cfm" method="post"><input type="submit" value="Select a different Geographic Area or Site Number"></form>
+
+<form action="index.cfm?ncd=16" method="post"><input type="submit" value="Select a different Site Number for Geographic Area: Idaho
+"></form>
+<!-- BEGIN USGS Footer Template -->
+<div id="usgsfooter">
+	<p id="usgsfooterbar">
+		<a href="http://www.usgs.gov/laws/accessibility.html" title="Accessibility Policy (Section 508)">Accessibility</a>
+		<a href="http://www.usgs.gov/foia/" title="Freedom of Information Act">FOIA</a>
+		<a href="http://www.usgs.gov/laws/privacy.html" title="Privacy policies of the U.S. Geological Survey.">Privacy</a>
+		<a href="http://www.usgs.gov/laws/policies_notices.html" title="Policies and notices that govern information posted on USGS Web sites.">Policies and Notices</a>
+	</p>
+	
+	<p id="usgsfootertext">
+		<a href="http://www.takepride.gov/"><img src="/images/footer_graphic_takePride.jpg" alt="Take Pride in America logo" title="Take Pride in America Home Page" width="60" height="58" /></a>
+		<a href="http://usa.gov/"><img src="/images/footer_graphic_usagov.jpg" alt="USA.gov logo" title="USAGov: Government Made Easy" width="90" height="26" /></a>
+		<a href="http://www.doi.gov/">U.S. Department of the Interior</a> |
+		<a href="http://www.usgs.gov/">U.S. Geological Survey</a><br />
+		URL: http://ida.water.usgs.gov/ida/available_records.cfm<br />
+		Page Contact Information: <a href="feedback.cfm">IDA Support Team </a> or <a href="Mailto:GS-W_Help_IDA@usgs.gov">GS-W_Help_IDA@usgs.gov</a><br />
+		
+Last Modified: 10/08/2008 
+	</p>
+</div>
+<!-- END USGS Footer Template -->
+
+</body>
+</html>

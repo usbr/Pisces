@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="CropDatesDataSet" targetNamespace="http://tempuri.org/CropDatesDataSet.xsd" xmlns:mstns="http://tempuri.org/CropDatesDataSet.xsd" xmlns="http://tempuri.org/CropDatesDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="Ag_Hyd_Tech_DatabaseConnectionString" IsAppSettingsProperty="true" Modifier="Assembly" Name="Ag_Hyd_Tech_DatabaseConnectionString (Settings)" PropertyReference="ApplicationSettings.Reclamation.TimeSeries.Properties.Settings.GlobalReference.Default.Ag_Hyd_Tech_DatabaseConnectionString" Provider="System.Data.OleDb" />
+        </Connections>
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="CropDatesDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="CropDatesDataSet" msprop:Generator_UserDSName="CropDatesDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="CropDates" msprop:Generator_TableClassName="CropDatesDataTable" msprop:Generator_TableVarName="tableCropDates" msprop:Generator_RowChangedName="CropDatesRowChanged" msprop:Generator_TablePropName="CropDates" msprop:Generator_RowDeletingName="CropDatesRowDeleting" msprop:Generator_RowChangingName="CropDatesRowChanging" msprop:Generator_RowEvHandlerName="CropDatesRowChangeEventHandler" msprop:Generator_RowDeletedName="CropDatesRowDeleted" msprop:Generator_RowClassName="CropDatesRow" msprop:Generator_UserTableName="CropDates" msprop:Generator_RowEvArgName="CropDatesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="index" msprop:Generator_ColumnVarNameInTable="columnindex" msprop:Generator_ColumnPropNameInRow="index" msprop:Generator_ColumnPropNameInTable="indexColumn" msprop:Generator_UserColumnName="index" type="xs:int" />
+              <xs:element name="year" msprop:Generator_ColumnVarNameInTable="columnyear" msprop:Generator_ColumnPropNameInRow="year" msprop:Generator_ColumnPropNameInTable="yearColumn" msprop:Generator_UserColumnName="year" type="xs:int" minOccurs="0" />
+              <xs:element name="sortindex" msprop:Generator_ColumnVarNameInTable="columnsortindex" msprop:Generator_ColumnPropNameInRow="sortindex" msprop:Generator_ColumnPropNameInTable="sortindexColumn" msprop:Generator_UserColumnName="sortindex" type="xs:int" minOccurs="0" />
+              <xs:element name="group" msprop:Generator_ColumnVarNameInTable="columngroup" msprop:Generator_ColumnPropNameInRow="group" msprop:Generator_ColumnPropNameInTable="groupColumn" msprop:Generator_UserColumnName="group" type="xs:int" minOccurs="0" />
+              <xs:element name="cbtt" msprop:Generator_ColumnVarNameInTable="columncbtt" msprop:Generator_ColumnPropNameInRow="cbtt" msprop:Generator_ColumnPropNameInTable="cbttColumn" msprop:Generator_UserColumnName="cbtt" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="cropcurvenumber" msprop:Generator_ColumnVarNameInTable="columncropcurvenumber" msprop:Generator_ColumnPropNameInRow="cropcurvenumber" msprop:Generator_ColumnPropNameInTable="cropcurvenumberColumn" msprop:Generator_UserColumnName="cropcurvenumber" type="xs:int" minOccurs="0" />
+              <xs:element name="cropname" msprop:Generator_ColumnVarNameInTable="columncropname" msprop:Generator_ColumnPropNameInRow="cropname" msprop:Generator_ColumnPropNameInTable="cropnameColumn" msprop:Generator_UserColumnName="cropname" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="4" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="startdate" msprop:Generator_ColumnVarNameInTable="columnstartdate" msprop:Generator_ColumnPropNameInRow="startdate" msprop:Generator_ColumnPropNameInTable="startdateColumn" msprop:Generator_UserColumnName="startdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="fullcoverdate" msprop:Generator_ColumnVarNameInTable="columnfullcoverdate" msprop:Generator_ColumnPropNameInRow="fullcoverdate" msprop:Generator_ColumnPropNameInTable="fullcoverdateColumn" msprop:Generator_UserColumnName="fullcoverdate" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="terminatedate" msprop:Generator_ColumnVarNameInTable="columnterminatedate" msprop:Generator_ColumnPropNameInRow="terminatedate" msprop:Generator_ColumnPropNameInTable="terminatedateColumn" msprop:Generator_UserColumnName="terminatedate" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:CropDates" />
+      <xs:field xpath="mstns:index" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

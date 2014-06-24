@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Reclamation.TimeSeries.SQLSeriesCatalog">
+    <Position X="8" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAKAAgIAAAAIABAgAAAAgAREACAAAAAAAAAARQAA=</HashCode>
+      <FileName>SQLSeriesCatalog.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Reclamation.TimeSeries.SQLTimeSeriesDatabase">
+    <Position X="3.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BAQAACAAAAIBgBABAAAABAQIAAEAAAAAQAAIAkAQQAA=</HashCode>
+      <FileName>SQLTimeSeriesDatabase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Reclamation.TimeSeries.TimeSeriesDatabase">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAKAAAAAAABAIAAAAgAQIAAEAAAAAQAAYAwBAAAA=</HashCode>
+      <FileName>TimeSeriesDatabase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Reclamation.TimeSeries.SeriesCatalog">
+    <Position X="5.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAIAAKgCAICAQDAQQABAFgYiAQEASAI0QAAIAAFQICg=</HashCode>
+      <FileName>SeriesCatalog.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Reclamation.TimeSeries.TimeSeriesDatabaseList">
+    <Position X="0.5" Y="5.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAgIAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TimeSeriesDatabaseList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Reclamation.TimeSeries.AnalysisType">
+    <Position X="8.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAACCAQAIAAACAAAAAEAAACAAAAAAA=</HashCode>
+      <FileName>Explorer.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Reclamation.TimeSeries.TimeInterval" Collapsed="true">
+    <Position X="0.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABABAAAACAAAAAAAAAAAAQAAAAAAAAAAAgAAAAAAgA=</HashCode>
+      <FileName>Series.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

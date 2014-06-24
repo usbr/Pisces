@@ -1,0 +1,19 @@
+emi qd, phxo qj, baso qd, talo qj, mido qj, jcto qj, 
+emi qd, phxo qj, baso qd talo qj, mido qj, jcto qj, 
+phxo qj, talo qj, mido qj, jcto qj, baso qd
+phxo qj, talo qj, mido qj, jcto qj
+phxo qj, talo qj, 
+emi pp, lbco pp, phxo qj, talo qj, baso qd
+mdfo pp, emi pp, lbco pp, phxo qj, talo qj, baso qd
+mdfo pp, emi pp, lbco pp, phxo qj, talo qj
+mdfo pp, emi pp, lbco pp, phxo qj
+mdfo pp, emi pp, lbco pp, phxo
+mdfo pp, emi pp, lbco pp
+mdfo pp, emi pp,
+mdfo pp,
+emi qd, baso qd, phxo qj, bcto qd, mfdo qd, bcco qj,bjbo qd
+emi qd, baso qd, phxo qj, bcto qd, mfdo qd, bcco qd,bjbo qd
+emi qd, bcao qd, talo qj, baso qd
+emi qj, aslo qj, talo qj, phxo qj, bcco qj
+emi qd,bcao qd, baso qd,bcto qd, mfdo qd, bjbo qd
+emi qd,bcao qd

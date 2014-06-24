@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="HydrometDataSet" targetNamespace="http://tempuri.org/HydrometDataSet.xsd" xmlns:mstns="http://tempuri.org/HydrometDataSet.xsd" xmlns="http://tempuri.org/HydrometDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="HydrometDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="HydrometDataSet" msprop:Generator_UserDSName="HydrometDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="daily_calculation" msprop:Generator_TableClassName="daily_calculationDataTable" msprop:Generator_TableVarName="tabledaily_calculation" msprop:Generator_RowChangedName="daily_calculationRowChanged" msprop:Generator_TablePropName="daily_calculation" msprop:Generator_RowDeletingName="daily_calculationRowDeleting" msprop:Generator_RowChangingName="daily_calculationRowChanging" msprop:Generator_RowEvHandlerName="daily_calculationRowChangeEventHandler" msprop:Generator_RowDeletedName="daily_calculationRowDeleted" msprop:Generator_RowClassName="daily_calculationRow" msprop:Generator_UserTableName="daily_calculation" msprop:Generator_RowEvArgName="daily_calculationRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
+              <xs:element name="db" msprop:Generator_ColumnVarNameInTable="columndb" msprop:Generator_ColumnPropNameInRow="db" msprop:Generator_ColumnPropNameInTable="dbColumn" msprop:Generator_UserColumnName="db" type="xs:string" default="" minOccurs="0" />
+              <xs:element name="group_name" msprop:Generator_ColumnVarNameInTable="columngroup_name" msprop:Generator_ColumnPropNameInRow="group_name" msprop:Generator_ColumnPropNameInTable="group_nameColumn" msprop:Generator_UserColumnName="group_name" type="xs:string" minOccurs="0" />
+              <xs:element name="series_name" msprop:Generator_ColumnVarNameInTable="columnseries_name" msprop:Generator_ColumnPropNameInRow="series_name" msprop:Generator_ColumnPropNameInTable="series_nameColumn" msprop:Generator_UserColumnName="series_name" type="xs:string" minOccurs="0" />
+              <xs:element name="equation" msprop:Generator_ColumnVarNameInTable="columnequation" msprop:Generator_ColumnPropNameInRow="equation" msprop:Generator_ColumnPropNameInTable="equationColumn" msprop:Generator_UserColumnName="equation" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="shifts" msprop:Generator_TableClassName="shiftsDataTable" msprop:Generator_TableVarName="tableshifts" msprop:Generator_RowChangedName="shiftsRowChanged" msprop:Generator_TablePropName="shifts" msprop:Generator_RowDeletingName="shiftsRowDeleting" msprop:Generator_RowChangingName="shiftsRowChanging" msprop:Generator_RowEvHandlerName="shiftsRowChangeEventHandler" msprop:Generator_RowDeletedName="shiftsRowDeleted" msprop:Generator_RowClassName="shiftsRow" msprop:Generator_UserTableName="shifts" msprop:Generator_RowEvArgName="shiftsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:nullValue="_throw" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
+              <xs:element name="cbtt" msprop:Generator_ColumnVarNameInTable="columncbtt" msprop:Generator_ColumnPropNameInRow="cbtt" msprop:Generator_ColumnPropNameInTable="cbttColumn" msprop:Generator_UserColumnName="cbtt" type="xs:string" minOccurs="0" />
+              <xs:element name="pcode" msprop:Generator_ColumnVarNameInTable="columnpcode" msprop:Generator_ColumnPropNameInRow="pcode" msprop:Generator_ColumnPropNameInTable="pcodeColumn" msprop:Generator_UserColumnName="pcode" type="xs:string" minOccurs="0" />
+              <xs:element name="date_measured" msprop:Generator_ColumnVarNameInTable="columndate_measured" msprop:Generator_ColumnPropNameInRow="date_measured" msprop:Generator_ColumnPropNameInTable="date_measuredColumn" msprop:Generator_UserColumnName="date_measured" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="discharge" msprop:Generator_ColumnVarNameInTable="columndischarge" msprop:Generator_ColumnPropNameInRow="discharge" msprop:Generator_ColumnPropNameInTable="dischargeColumn" msprop:Generator_UserColumnName="discharge" type="xs:double" minOccurs="0" />
+              <xs:element name="stage" msprop:Generator_ColumnVarNameInTable="columnstage" msprop:Generator_ColumnPropNameInRow="stage" msprop:Generator_ColumnPropNameInTable="stageColumn" msprop:Generator_UserColumnName="stage" type="xs:double" minOccurs="0" />
+              <xs:element name="shift" msprop:Generator_ColumnVarNameInTable="columnshift" msprop:Generator_ColumnPropNameInRow="shift" msprop:Generator_ColumnPropNameInTable="shiftColumn" msprop:Generator_UserColumnName="shift" type="xs:double" minOccurs="0" />
+              <xs:element name="comments" msprop:Generator_ColumnVarNameInTable="columncomments" msprop:Generator_ColumnPropNameInRow="comments" msprop:Generator_ColumnPropNameInTable="commentsColumn" msprop:Generator_UserColumnName="comments" type="xs:string" minOccurs="0" />
+              <xs:element name="username" msprop:Generator_ColumnVarNameInTable="columnusername" msprop:Generator_ColumnPropNameInRow="username" msprop:Generator_ColumnPropNameInTable="usernameColumn" msprop:Generator_UserColumnName="username" type="xs:string" minOccurs="0" />
+              <xs:element name="date_entered" msprop:Generator_ColumnVarNameInTable="columndate_entered" msprop:Generator_ColumnPropNameInRow="date_entered" msprop:Generator_ColumnPropNameInTable="date_enteredColumn" msprop:Generator_UserColumnName="date_entered" type="xs:dateTime" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:daily_calculation" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="shifts_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:shifts" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

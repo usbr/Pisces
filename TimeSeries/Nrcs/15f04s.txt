@@ -1,0 +1,46 @@
+United States           Natural Resources              Water and Climate Center
+Department of           Conservation
+Agriculture             Service                                    Portland,OR
+ 
+                            D A T A   R E P O R T
+                  ** Provisional data, subject to revision **
+                                 01/14/11
+ 
+--------------------------------------------------------------------------------
+						       Change In
+	                            Snow Water   Snow  Snow Water  Change In
+Site Name               Date Time   Equivalent  Depth  Equivalent  Snow Depth
+------------------------------------------------------------------------------
+ATLANTA SUMMIT         01/07 0000       16.1     58.0
+                       01/08 0000       16.1     57.0       0.0        -1.0
+                       01/09 0000       16.0     57.0      -0.1         0.0
+                       01/10 0000       15.9     57.0      -0.1         0.0
+                       01/11 0000       15.9     56.0       0.0        -1.0
+                       01/12 0000       16.0     56.0       0.1         0.0
+                       01/13 0000       16.8     61.0       0.8         5.0
+                       01/14 0000       17.4     64.0       0.6         3.0
+ 
+------------------------------------------------------------------------------
+ 
+
+
+
+        ******* Provisional data, subject to revision. *******
+
+     Channel labels used are sensor dependent and may vary between sites.
+
+        -  Precip(YTD) - October 1 to date.
+        -  Snow Water Equivalent (PILL) and Precipitation (PREC)
+	   are recorded in inches.
+        -  Temperature data converted to degrees Fahrenheit (TEMP, TMAX,
+	   TMIN and TAVG).
+        -  TGSI, Temperature at ground snow interface, is in degrees Celsius.
+        -  Wind data are recorded in miles per day.
+        -  WND6, WMX6 AND WDR6 data are recorded in miles per 6-hour period.
+        -  Solar Radiation (SRAD) data are recorded in watts per square meter.
+        -  -99.9 or -99.99 indicates invalid data received.
+        -  Current days data posted after 5:30 PT daily.
+	-  M = Equipment problem or missing data.
+        -  Snow Depth (SDJC) are recorded in inches.
+ -----------------------------------------------------------------------------
+

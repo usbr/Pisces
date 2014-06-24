@@ -38,6 +38,7 @@ Here is an example in C# that finds the minimum and maximum temperature each day
         }
 
 -- Programmer Help Wanted --
+The directory Pisces_open compiles with just open source libraries.  Howerver, some functionality is limited.
 * ZedGraph support is very limited. Several graphs don't yet work with ZedGraph.  
 * HEC-DSS files load slow using the command line DSSUTIL.exe.  A more tightly integrated method would likely be faster.
-
+* An open source Spreadsheet component is needed. (excelreader, or npoi)?

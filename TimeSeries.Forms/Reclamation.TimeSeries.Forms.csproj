@@ -1,0 +1,808 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Reclamation.TimeSeries.Forms</RootNamespace>
+    <AssemblyName>Reclamation.TimeSeries.Forms</AssemblyName>
+    <SignAssembly>False</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>True</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>True</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Forecasting|AnyCPU'">
+    <DebugSymbols>True</DebugSymbols>
+    <OutputPath>bin\Forecasting\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Forecasting|x86'">
+    <DebugSymbols>True</DebugSymbols>
+    <OutputPath>bin\x86\Forecasting\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WatchDog|AnyCPU'">
+    <DebugSymbols>True</DebugSymbols>
+    <OutputPath>bin\WatchDog\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WatchDog|x86'">
+    <DebugSymbols>True</DebugSymbols>
+    <OutputPath>bin\x86\WatchDog\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'poet|AnyCPU'">
+    <DebugSymbols>True</DebugSymbols>
+    <OutputPath>bin\poet\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'poet|x86'">
+    <DebugSymbols>True</DebugSymbols>
+    <OutputPath>bin\x86\poet\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'pisces|AnyCPU'">
+    <DebugSymbols>True</DebugSymbols>
+    <OutputPath>bin\pisces\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'pisces|x86'">
+    <DebugSymbols>True</DebugSymbols>
+    <OutputPath>bin\x86\pisces\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DgvFilterPopup">
+      <HintPath>..\ThirdParty\DgvFilterPopup.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Aga.Controls">
+      <HintPath>..\ThirdParty\Aga.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="ZedGraph">
+      <HintPath>..\ThirdParty\ZedGraph.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Calculations\BasicEquation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Calculations\BasicEquation.Designer.cs">
+      <DependentUpon>BasicEquation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Calculations\CalculationProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Calculations\CalculationProperties.Designer.cs">
+      <DependentUpon>CalculationProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Calculations\PiscesObjectTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Calculations\PiscesObjectTextBox.Designer.cs">
+      <DependentUpon>PiscesObjectTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSumRange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSumRange.Designer.cs">
+      <DependentUpon>FormSumRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphing\GraphExplorerView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\GraphExplorerView.Designer.cs">
+      <DependentUpon>GraphExplorerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphing\IGraphDataLoader.cs" />
+    <Compile Include="Graphing\ITimeSeriesGraph.cs" />
+    <Compile Include="Graphing\TimeSeriesZedGraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\TimeSeriesZedGraph.Designer.cs">
+      <DependentUpon>TimeSeriesZedGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphing\ZedGraphDataLoader.cs" />
+    <Compile Include="ImportForms\ImportOWRD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportForms\ImportOWRD.Designer.cs">
+      <DependentUpon>ImportOWRD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScenarioReferenceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ScenarioReferenceControl.Designer.cs">
+      <DependentUpon>ScenarioReferenceControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScenarioSelectorCCProjections.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ScenarioSelectorCCProjections.designer.cs">
+      <DependentUpon>ScenarioSelectorCCProjections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GCM_CheckBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GCM_CheckBox.designer.cs">
+      <DependentUpon>GCM_CheckBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputScaleToVolume.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportDatabaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportDatabaseForm.designer.cs">
+      <DependentUpon>ImportDatabaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportForms\ExcelImportWizard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportForms\ExcelImportWizard.Designer.cs">
+      <DependentUpon>ExcelImportWizard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportForms\ImportCr10x.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportForms\ImportCr10x.Designer.cs">
+      <DependentUpon>ImportCr10x.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportForms\ImportNrcsSnotel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportForms\ImportNrcsSnotel.Designer.cs">
+      <DependentUpon>ImportNrcsSnotel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportForms\ImportUsgsData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportForms\ImportUsgsData.Designer.cs">
+      <DependentUpon>ImportUsgsData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Options.Designer.cs">
+      <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ParentChangedEventArgs.cs" />
+    <Compile Include="ScenarioSelectorCCProjectionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScenarioSelectorCCProjectionsForm.Designer.cs">
+      <DependentUpon>ScenarioSelectorCCProjectionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FolderProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FolderProperties.Designer.cs">
+      <DependentUpon>FolderProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalSettings.cs" />
+    <Compile Include="ImportForms\SelectAccessSeries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportForms\SelectAccessSeries.Designer.cs">
+      <DependentUpon>SelectAccessSeries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CorrelationOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CorrelationOptions.Designer.cs">
+      <DependentUpon>CorrelationOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExceedanceOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExceedanceOptions.Designer.cs">
+      <DependentUpon>ExceedanceOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MonthRangePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MonthRangePicker.Designer.cs">
+      <DependentUpon>MonthRangePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MovingAverageOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MovingAverageOptions.Designer.cs">
+      <DependentUpon>MovingAverageOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RangePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RangePicker.Designer.cs">
+      <DependentUpon>RangePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="OperationsModelSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OperationsModelSelector.Designer.cs">
+      <DependentUpon>OperationsModelSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SeriesProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeriesProperties.Designer.cs">
+      <DependentUpon>SeriesProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SeriesListSumForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeriesListSumForm.Designer.cs">
+      <DependentUpon>SeriesListSumForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SortChangedEventArgs.cs" />
+    <Compile Include="TabPageManager.cs" />
+    <Compile Include="TimeSelectorBeginEndWaterYear.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimeSelectorBeginEndWaterYear.Designer.cs">
+      <DependentUpon>TimeSelectorBeginEndWaterYear.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSeriesTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tree\HydrometCommandLine.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tree\HydrometCommandLine.designer.cs">
+      <DependentUpon>HydrometCommandLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tree\PiscesTree.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tree\PiscesTree.Designer.cs">
+      <DependentUpon>PiscesTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportForms\ImportHydromet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportForms\ImportHydromet.Designer.cs">
+      <DependentUpon>ImportHydromet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MonthlySummaryOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MonthlySummaryOptions.Designer.cs">
+      <DependentUpon>MonthlySummaryOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProbabilityOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ProbabilityOptions.Designer.cs">
+      <DependentUpon>ProbabilityOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScenarioSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScenarioSelector.Designer.cs">
+      <DependentUpon>ScenarioSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="MonthDayRangePicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MonthDayRangePicker.Designer.cs">
+      <DependentUpon>MonthDayRangePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MonthDayPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MonthDayPicker.Designer.cs">
+      <DependentUpon>MonthDayPicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsPropertyGrid.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsPropertyGrid.Designer.cs">
+      <DependentUpon>SettingsPropertyGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StatisiticalMethodOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="StatisiticalMethodOptions.Designer.cs">
+      <DependentUpon>StatisiticalMethodOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InputMoveTo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InputOffset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DisplayOptionsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisplayOptionsDialog.Designer.cs">
+      <DependentUpon>DisplayOptionsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SummaryOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SummaryOptions.Designer.cs">
+      <DependentUpon>SummaryOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExceedanceLevelPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ExceedanceLevelPicker.Designer.cs">
+      <DependentUpon>ExceedanceLevelPicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MonthPicker.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MonthPicker.Designer.cs">
+      <DependentUpon>MonthPicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeWindowSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimeWindowSelector.Designer.cs">
+      <DependentUpon>TimeWindowSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SummaryHydrographOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SummaryHydrographOptions.Designer.cs">
+      <DependentUpon>SummaryHydrographOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSeriesOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimeSeriesOptions.Designer.cs">
+      <DependentUpon>TimeSeriesOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSeriesTableView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Tree\TimeSeriesTreeModel.cs" />
+    <Compile Include="Update.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Update.Designer.cs">
+      <DependentUpon>Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WaterYearOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WaterYearOptions.Designer.cs">
+      <DependentUpon>WaterYearOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="YearSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="YearSelector.Designer.cs">
+      <DependentUpon>YearSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="YearTypeSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="YearTypeSelector.Designer.cs">
+      <DependentUpon>YearTypeSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSelectorBeginEnd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimeSelectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Calculations\BasicEquation.resx">
+      <DependentUpon>BasicEquation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Calculations\CalculationProperties.resx">
+      <DependentUpon>CalculationProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Calculations\PiscesObjectTextBox.resx">
+      <DependentUpon>PiscesObjectTextBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSumRange.resx">
+      <DependentUpon>FormSumRange.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\GraphExplorerView.resx">
+      <DependentUpon>GraphExplorerView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\TimeSeriesZedGraph.resx">
+      <DependentUpon>TimeSeriesZedGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportForms\ImportOWRD.resx">
+      <DependentUpon>ImportOWRD.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScenarioReferenceControl.resx">
+      <DependentUpon>ScenarioReferenceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScenarioSelectorCCProjections.resx">
+      <DependentUpon>ScenarioSelectorCCProjections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GCM_CheckBox.resx">
+      <DependentUpon>GCM_CheckBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputScaleToVolume.resx">
+      <DependentUpon>InputScaleToVolume.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportDatabaseForm.resx">
+      <DependentUpon>ImportDatabaseForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportForms\ExcelImportWizard.resx">
+      <DependentUpon>ExcelImportWizard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportForms\ImportCr10x.resx">
+      <DependentUpon>ImportCr10x.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportForms\ImportNrcsSnotel.resx">
+      <DependentUpon>ImportNrcsSnotel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportForms\ImportUsgsData.resx">
+      <DependentUpon>ImportUsgsData.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Options.resx">
+      <DependentUpon>Options.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScenarioSelectorCCProjectionsForm.resx">
+      <DependentUpon>ScenarioSelectorCCProjectionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CorrelationOptions.resx">
+      <DependentUpon>CorrelationOptions.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FolderProperties.resx">
+      <DependentUpon>FolderProperties.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportForms\SelectAccessSeries.resx">
+      <DependentUpon>SelectAccessSeries.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonthRangePicker.resx">
+      <DependentUpon>MonthRangePicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MovingAverageOptions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MovingAverageOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RangePicker.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RangePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OperationsModelSelector.resx">
+      <DependentUpon>OperationsModelSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeriesProperties.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SeriesProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeriesListSumForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SeriesListSumForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeSelectorBeginEndWaterYear.resx">
+      <DependentUpon>TimeSelectorBeginEndWaterYear.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeSeriesTable.resx">
+      <DependentUpon>TimeSeriesTable.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tree\HydrometCommandLine.resx">
+      <DependentUpon>HydrometCommandLine.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tree\PiscesTree.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>PiscesTree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportForms\ImportHydromet.resx">
+      <DependentUpon>ImportHydromet.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonthlySummaryOptions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MonthlySummaryOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScenarioSelector.resx">
+      <DependentUpon>ScenarioSelector.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonthDayRangePicker.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MonthDayRangePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputMoveTo.resx">
+      <DependentUpon>InputMoveTo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InputOffset.resx">
+      <DependentUpon>InputOffset.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonthDayPicker.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MonthDayPicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisplayOptionsDialog.resx">
+      <DependentUpon>DisplayOptionsDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SummaryOptions.resx">
+      <DependentUpon>SummaryOptions.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExceedanceLevelPicker.resx">
+      <DependentUpon>ExceedanceLevelPicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonthPicker.resx">
+      <DependentUpon>MonthPicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeWindowSelector.resx">
+      <DependentUpon>TimeWindowSelector.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsPropertyGrid.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SettingsPropertyGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StatisiticalMethodOptions.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>StatisiticalMethodOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SummaryHydrographOptions.resx">
+      <DependentUpon>SummaryHydrographOptions.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeSeriesOptions.resx">
+      <DependentUpon>TimeSeriesOptions.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeSeriesTableView.resx">
+      <DependentUpon>TimeSeriesTableView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Update.resx">
+      <DependentUpon>Update.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaterYearOptions.resx">
+      <DependentUpon>WaterYearOptions.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YearSelector.resx">
+      <DependentUpon>YearSelector.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YearTypeSelector.resx">
+      <DependentUpon>YearTypeSelector.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeSelectorBeginEnd.resx">
+      <DependentUpon>TimeSelectorBeginEnd.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeSelectorForm.resx">
+      <DependentUpon>TimeSelectorForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagramTree.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Reclamation.Core.csproj">
+      <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
+      <Name>Reclamation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeSeries\Reclamation.TimeSeries.csproj">
+      <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
+      <Name>Reclamation.TimeSeries</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Tree\jppisces_expert_history.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

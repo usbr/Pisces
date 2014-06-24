@@ -1,0 +1,171 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Reclamation.TimeSeries.Forms.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="UserWaterYears" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1977 2001 2005</Value>
+    </Setting>
+    <Setting Name="SeriesColors" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Red&lt;/string&gt;
+  &lt;string&gt;Green&lt;/string&gt;
+  &lt;string&gt;Blue&lt;/string&gt;
+  &lt;string&gt;Black&lt;/string&gt;
+  &lt;string&gt;Orange&lt;/string&gt;
+  &lt;string&gt;Aquamarine&lt;/string&gt;
+  &lt;string&gt;Beige&lt;/string&gt;
+  &lt;string&gt;DarkGreen&lt;/string&gt;
+  &lt;string&gt;Purple&lt;/string&gt;
+  &lt;string&gt;Aqua&lt;/string&gt;
+  &lt;string&gt;Bisque&lt;/string&gt;
+  &lt;string&gt;BlanchedAlmond&lt;/string&gt;
+  &lt;string&gt;BlueViolet&lt;/string&gt;
+  &lt;string&gt;Brown&lt;/string&gt;
+  &lt;string&gt;BurlyWood&lt;/string&gt;
+  &lt;string&gt;CadetBlue&lt;/string&gt;
+  &lt;string&gt;Chartreuse&lt;/string&gt;
+  &lt;string&gt;Chocolate&lt;/string&gt;
+  &lt;string&gt;Coral&lt;/string&gt;
+  &lt;string&gt;CornflowerBlue&lt;/string&gt;
+  &lt;string&gt;Cornsilk&lt;/string&gt;
+  &lt;string&gt;Crimson&lt;/string&gt;
+  &lt;string&gt;Cyan&lt;/string&gt;
+  &lt;string&gt;DarkBlue&lt;/string&gt;
+  &lt;string&gt;DarkCyan&lt;/string&gt;
+  &lt;string&gt;DarkGoldenrod&lt;/string&gt;
+  &lt;string&gt;DarkGray&lt;/string&gt;
+  &lt;string&gt;DarkKhaki&lt;/string&gt;
+  &lt;string&gt;DarkMagenta&lt;/string&gt;
+  &lt;string&gt;AntiqueWhite&lt;/string&gt;
+  &lt;string&gt;DarkOliveGreen&lt;/string&gt;
+  &lt;string&gt;DarkOrange&lt;/string&gt;
+  &lt;string&gt;DarkOrchid&lt;/string&gt;
+  &lt;string&gt;DarkRed&lt;/string&gt;
+  &lt;string&gt;DarkSalmon&lt;/string&gt;
+  &lt;string&gt;DarkSeaGreen&lt;/string&gt;
+  &lt;string&gt;DarkSlateBlue&lt;/string&gt;
+  &lt;string&gt;DarkSlateGray&lt;/string&gt;
+  &lt;string&gt;DarkTurquoise&lt;/string&gt;
+  &lt;string&gt;DarkViolet&lt;/string&gt;
+  &lt;string&gt;DeepPink&lt;/string&gt;
+  &lt;string&gt;DeepSkyBlue&lt;/string&gt;
+  &lt;string&gt;DimGray&lt;/string&gt;
+  &lt;string&gt;DodgerBlue&lt;/string&gt;
+  &lt;string&gt;Firebrick&lt;/string&gt;
+  &lt;string&gt;FloralWhite&lt;/string&gt;
+  &lt;string&gt;ForestGreen&lt;/string&gt;
+  &lt;string&gt;Fuchsia&lt;/string&gt;
+  &lt;string&gt;Gainsboro&lt;/string&gt;
+  &lt;string&gt;GhostWhite&lt;/string&gt;
+  &lt;string&gt;Gold&lt;/string&gt;
+  &lt;string&gt;Goldenrod&lt;/string&gt;
+  &lt;string&gt;Gray&lt;/string&gt;
+  &lt;string&gt;Green&lt;/string&gt;
+  &lt;string&gt;GreenYellow&lt;/string&gt;
+  &lt;string&gt;Honeydew&lt;/string&gt;
+  &lt;string&gt;HotPink&lt;/string&gt;
+  &lt;string&gt;IndianRed&lt;/string&gt;
+  &lt;string&gt;Indigo&lt;/string&gt;
+  &lt;string&gt;Ivory&lt;/string&gt;
+  &lt;string&gt;Khaki&lt;/string&gt;
+  &lt;string&gt;Lavender&lt;/string&gt;
+  &lt;string&gt;LavenderBlush&lt;/string&gt;
+  &lt;string&gt;LawnGreen&lt;/string&gt;
+  &lt;string&gt;LemonChiffon&lt;/string&gt;
+  &lt;string&gt;LightBlue&lt;/string&gt;
+  &lt;string&gt;LightCoral&lt;/string&gt;
+  &lt;string&gt;LightCyan&lt;/string&gt;
+  &lt;string&gt;LightGoldenrodYellow&lt;/string&gt;
+  &lt;string&gt;LightGray&lt;/string&gt;
+  &lt;string&gt;LightGreen&lt;/string&gt;
+  &lt;string&gt;LightPink&lt;/string&gt;
+  &lt;string&gt;LightSalmon&lt;/string&gt;
+  &lt;string&gt;LightSeaGreen&lt;/string&gt;
+  &lt;string&gt;LightSkyBlue&lt;/string&gt;
+  &lt;string&gt;LightSlateGray&lt;/string&gt;
+  &lt;string&gt;LightSteelBlue&lt;/string&gt;
+  &lt;string&gt;LightYellow&lt;/string&gt;
+  &lt;string&gt;Lime&lt;/string&gt;
+  &lt;string&gt;LimeGreen&lt;/string&gt;
+  &lt;string&gt;Linen&lt;/string&gt;
+  &lt;string&gt;Magenta&lt;/string&gt;
+  &lt;string&gt;Maroon&lt;/string&gt;
+  &lt;string&gt;MediumAquamarine&lt;/string&gt;
+  &lt;string&gt;MediumBlue&lt;/string&gt;
+  &lt;string&gt;MediumOrchid&lt;/string&gt;
+  &lt;string&gt;MediumPurple&lt;/string&gt;
+  &lt;string&gt;MediumSeaGreen&lt;/string&gt;
+  &lt;string&gt;MediumSlateBlue&lt;/string&gt;
+  &lt;string&gt;MediumSpringGreen&lt;/string&gt;
+  &lt;string&gt;MediumTurquoise&lt;/string&gt;
+  &lt;string&gt;MediumVioletRed&lt;/string&gt;
+  &lt;string&gt;MidnightBlue&lt;/string&gt;
+  &lt;string&gt;MintCream&lt;/string&gt;
+  &lt;string&gt;MistyRose&lt;/string&gt;
+  &lt;string&gt;Moccasin&lt;/string&gt;
+  &lt;string&gt;NavajoWhite&lt;/string&gt;
+  &lt;string&gt;Navy&lt;/string&gt;
+  &lt;string&gt;OldLace&lt;/string&gt;
+  &lt;string&gt;Olive&lt;/string&gt;
+  &lt;string&gt;OliveDrab&lt;/string&gt;
+  &lt;string&gt;OrangeRed&lt;/string&gt;
+  &lt;string&gt;Orchid&lt;/string&gt;
+  &lt;string&gt;PaleGoldenrod&lt;/string&gt;
+  &lt;string&gt;PaleGreen&lt;/string&gt;
+  &lt;string&gt;PaleTurquoise&lt;/string&gt;
+  &lt;string&gt;PaleVioletRed&lt;/string&gt;
+  &lt;string&gt;PapayaWhip&lt;/string&gt;
+  &lt;string&gt;PeachPuff&lt;/string&gt;
+  &lt;string&gt;Peru&lt;/string&gt;
+  &lt;string&gt;Pink&lt;/string&gt;
+  &lt;string&gt;Plum&lt;/string&gt;
+  &lt;string&gt;PowderBlue&lt;/string&gt;
+  &lt;string&gt;RosyBrown&lt;/string&gt;
+  &lt;string&gt;RoyalBlue&lt;/string&gt;
+  &lt;string&gt;SaddleBrown&lt;/string&gt;
+  &lt;string&gt;Salmon&lt;/string&gt;
+  &lt;string&gt;SandyBrown&lt;/string&gt;
+  &lt;string&gt;SeaGreen&lt;/string&gt;
+  &lt;string&gt;SeaShell&lt;/string&gt;
+  &lt;string&gt;Sienna&lt;/string&gt;
+  &lt;string&gt;Silver&lt;/string&gt;
+  &lt;string&gt;SkyBlue&lt;/string&gt;
+  &lt;string&gt;SlateBlue&lt;/string&gt;
+  &lt;string&gt;SlateGray&lt;/string&gt;
+  &lt;string&gt;Snow&lt;/string&gt;
+  &lt;string&gt;SpringGreen&lt;/string&gt;
+  &lt;string&gt;SteelBlue&lt;/string&gt;
+  &lt;string&gt;Tan&lt;/string&gt;
+  &lt;string&gt;Teal&lt;/string&gt;
+  &lt;string&gt;Thistle&lt;/string&gt;
+  &lt;string&gt;Tomato&lt;/string&gt;
+  &lt;string&gt;Turquoise&lt;/string&gt;
+  &lt;string&gt;Violet&lt;/string&gt;
+  &lt;string&gt;Wheat&lt;/string&gt;
+  &lt;string&gt;WhiteSmoke&lt;/string&gt;
+  &lt;string&gt;Yellow&lt;/string&gt;
+  &lt;string&gt;YellowGreen&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="SeriesWidth" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;1&lt;/string&gt;
+  &lt;string&gt;2&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="UsgsSiteNumber" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="HydrometInput" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pal af</Value>
+    </Setting>
+    <Setting Name="HydrometT1" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">1989-10-01</Value>
+    </Setting>
+    <Setting Name="SumVolumeSiteName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">heii_quaf</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
