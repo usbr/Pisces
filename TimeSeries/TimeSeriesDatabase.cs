@@ -190,6 +190,7 @@ namespace Reclamation.TimeSeries
 
             m_seriesProperties = new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
             m_seriesProperties.ExtendedProperties.Add("datetime", DateTime.Now.ToString());
+            //m_seriesProperties.ExtendedProperties.Add("nextid", m_server.NextID("seriesproperties", "id"));
 
             string sql = "select * from seriesproperties ";
             m_server.FillTable(m_seriesProperties, sql);
@@ -217,8 +218,10 @@ namespace Reclamation.TimeSeries
                 tbl.Rows.Add(r.ItemArray);
             }
 
+            tbl.AcceptChanges();
             return tbl;
 
+           
         }
 
 
@@ -599,7 +602,14 @@ namespace Reclamation.TimeSeries
                 return 1;
             }
             int max = Convert.ToInt32(tbl.Rows[0][1]);
-            return (max + 1);
+            var rval = (max + 1);
+
+            var rval2 = m_server.NextID("seriescatalog", "id");
+
+            if (rval != rval2)
+                throw new Exception("error");
+
+            return rval;
         }
 
 

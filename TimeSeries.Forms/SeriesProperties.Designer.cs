@@ -67,19 +67,19 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxPOR1 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tabPageAdvanced = new System.Windows.Forms.TabPage();
+            this.label18 = new System.Windows.Forms.Label();
+            this.dgvProperties = new System.Windows.Forms.DataGridView();
             this.label16 = new System.Windows.Forms.Label();
             this.textBoxProvider = new System.Windows.Forms.TextBox();
             this.labelSortOrder = new System.Windows.Forms.Label();
             this.textBoxSortOrder = new System.Windows.Forms.TextBox();
             this.tabPageNotes = new System.Windows.Forms.TabPage();
             this.textBoxNotes = new System.Windows.Forms.TextBox();
-            this.dgvProperties = new System.Windows.Forms.DataGridView();
-            this.label18 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPageAdvanced.SuspendLayout();
-            this.tabPageNotes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProperties)).BeginInit();
+            this.tabPageNotes.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -342,7 +342,7 @@ namespace Reclamation.TimeSeries.Forms
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(388, 386);
+            this.tabPageGeneral.Size = new System.Drawing.Size(416, 397);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
@@ -475,6 +475,26 @@ namespace Reclamation.TimeSeries.Forms
             this.tabPageAdvanced.Text = "Advanced";
             this.tabPageAdvanced.UseVisualStyleBackColor = true;
             // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(19, 307);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(53, 13);
+            this.label18.TabIndex = 48;
+            this.label18.Text = "properties";
+            // 
+            // dgvProperties
+            // 
+            this.dgvProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvProperties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProperties.Location = new System.Drawing.Point(106, 284);
+            this.dgvProperties.Name = "dgvProperties";
+            this.dgvProperties.Size = new System.Drawing.Size(288, 107);
+            this.dgvProperties.TabIndex = 47;
+            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -515,7 +535,7 @@ namespace Reclamation.TimeSeries.Forms
             this.tabPageNotes.Location = new System.Drawing.Point(4, 22);
             this.tabPageNotes.Name = "tabPageNotes";
             this.tabPageNotes.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNotes.Size = new System.Drawing.Size(388, 386);
+            this.tabPageNotes.Size = new System.Drawing.Size(416, 397);
             this.tabPageNotes.TabIndex = 3;
             this.tabPageNotes.Text = "Notes";
             this.tabPageNotes.UseVisualStyleBackColor = true;
@@ -531,23 +551,6 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxNotes.Size = new System.Drawing.Size(366, 347);
             this.textBoxNotes.TabIndex = 0;
             // 
-            // dgvProperties
-            // 
-            this.dgvProperties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProperties.Location = new System.Drawing.Point(106, 284);
-            this.dgvProperties.Name = "dgvProperties";
-            this.dgvProperties.Size = new System.Drawing.Size(288, 107);
-            this.dgvProperties.TabIndex = 47;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(19, 307);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(53, 13);
-            this.label18.TabIndex = 48;
-            this.label18.Text = "properties";
-            // 
             // SeriesProperties
             // 
             this.AcceptButton = this.buttonOK;
@@ -558,7 +561,6 @@ namespace Reclamation.TimeSeries.Forms
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SeriesProperties";
@@ -568,9 +570,9 @@ namespace Reclamation.TimeSeries.Forms
             this.tabPageGeneral.PerformLayout();
             this.tabPageAdvanced.ResumeLayout(false);
             this.tabPageAdvanced.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProperties)).EndInit();
             this.tabPageNotes.ResumeLayout(false);
             this.tabPageNotes.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvProperties)).EndInit();
             this.ResumeLayout(false);
 
         }

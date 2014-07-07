@@ -71,10 +71,17 @@ namespace Reclamation.TimeSeries.Forms
             comboBoxTimeInterval.SelectedIndex = 0;
             comboBoxTimeInterval.SelectedItem = m_series.TimeInterval.ToString();
 
-            dgvProperties.DataSource = m_series.TimeSeriesDatabase.GetSeriesProperties(m_series.ID);
+            tblSeriesProperties = m_series.TimeSeriesDatabase.GetSeriesProperties(m_series.ID);
+            tblSeriesProperties.Columns["id"].AutoIncrement = true;
+            tblSeriesProperties.Columns["id"].AutoIncrementSeed = m_series.TimeSeriesDatabase.Server.NextID("seriesproperties", "id");
+            tblSeriesProperties.Columns["seriesid"].DefaultValue = m_series.ID;
+            dgvProperties.DataSource = tblSeriesProperties;
+            dgvProperties.Columns["id"].Visible = false;
+            dgvProperties.Columns["seriesid"].Visible = false;
+
         }
-        
-        
+
+        TimeSeriesDatabaseDataSet.seriespropertiesDataTable tblSeriesProperties;
 
 
 
@@ -102,6 +109,10 @@ namespace Reclamation.TimeSeries.Forms
             m_series.Enabled = this.checkBoxActive.Checked;
             m_series.TimeInterval = TimeSeriesDatabase.TimeIntervalFromString(this.comboBoxTimeInterval.Text);
             //m_series.Alias = this.textBoxAlias.Text;
+            if (tblSeriesProperties != null && m_series.TimeSeriesDatabase != null)
+            {
+                m_series.TimeSeriesDatabase.Server.SaveTable(tblSeriesProperties);
+            }
         }
 
         private void buttonBuildExpression_Click(object sender, EventArgs e)

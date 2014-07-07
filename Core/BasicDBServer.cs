@@ -44,6 +44,27 @@ namespace Reclamation.Core
 
 
         /// <summary>
+        /// Returns the next largest value in a column 
+        /// If the table is empty return 1
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
+        public virtual int NextID(string tableName, string columnName)
+        {
+            string sql = "select count(*) as count,max(" + columnName + ") as max from " + tableName
+               + " Where id >0 ";
+            DataTable tbl =Table("seriescatalog", sql);
+            int count = Convert.ToInt32(tbl.Rows[0]["count"]);
+            if (count == 0)
+            {
+                return 1;
+            }
+            int max = Convert.ToInt32(tbl.Rows[0][1]);
+            return (max + 1);
+        }
+
+        /// <summary>
         /// modifies tablename for use in more portable queries
         /// this base version wraps with [] for SQL server when there is a space in the name
         /// 
