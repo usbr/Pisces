@@ -96,18 +96,6 @@ namespace Reclamation.TimeSeries
            
 
             Logger.OnLogEvent += Logger_OnLogEvent;
-            // TO DO calculations with property 'DaysBack=n'  
-            // for example daily QU calculations default back 7 days (when running previous day)
-            if (Properties.ContainsKey("DaysBack") && t2.Date == DateTime.Now.Date)
-            {
-                var n = Convert.ToInt32(Properties["DaysBack"]);
-                t1a = t1a.AddDays(-n);
-            }
-            else
-            {
-                //if( this.TimeInterval == TimeSeries.TimeInterval.Daily)
-                t1a = t1.AddDays(-1); // for PU we need previous days PU
-            }
 
             var seriesBeforeCalc = this.Clone();
             //if( this.TimeInterval == TimeSeries.TimeInterval.Irregular)

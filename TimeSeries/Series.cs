@@ -233,6 +233,9 @@ namespace Reclamation.TimeSeries
             set { m_db = value; }
         }
 
+        /// <summary>
+        /// Used by CalculationSeries
+        /// </summary>
         public Dictionary<string, string> Properties 
         {
          get {
@@ -240,7 +243,7 @@ namespace Reclamation.TimeSeries
 
                  if (m_db != null)
                  {
-                     var tbl = m_db.GetSeriesProperties(this.ID);
+                     var tbl = m_db.GetSeriesProperties(this.ID,true);
                      foreach (DataRow row in tbl.Rows)
                      {
                          rval.Add(row["name"].ToString(), row["value"].ToString());

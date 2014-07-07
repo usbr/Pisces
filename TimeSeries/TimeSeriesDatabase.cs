@@ -200,7 +200,7 @@ namespace Reclamation.TimeSeries
 
 
 
-        public TimeSeriesDatabaseDataSet.seriespropertiesDataTable GetSeriesProperties(int id )
+        public TimeSeriesDatabaseDataSet.seriespropertiesDataTable GetSeriesProperties(int id, bool useCache=false )
         {
 
             //var m_seriesProperties = new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
@@ -211,7 +211,7 @@ namespace Reclamation.TimeSeries
 
             var tbl = new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
 
-            var rows = GetSeriesProperties(true).Select("seriesid = " + id);
+            var rows = GetSeriesProperties(useCache).Select("seriesid = " + id);
 
             foreach (DataRow r in rows)
             {

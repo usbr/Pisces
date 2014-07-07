@@ -94,8 +94,16 @@ namespace Reclamation.TimeSeries
                     Console.WriteLine("skipping calc");
                     continue;
                 }
-                
-                s.Calculate(t1, t2); // Calculate() also saves to local time series database.
+
+                var t1a = t1;
+                // for example daily QU calculations default back 7 days (when running previous day)
+                if (s.Properties.ContainsKey("DaysBack") && t2.Date == DateTime.Now.AddDays(-1).Date)
+                {
+                    var daysBack = Convert.ToInt32(s.Properties["DaysBack"]);
+                    t1a = t1a.AddDays(-daysBack);
+                }
+
+                s.Calculate(t1a, t2); // Calculate() also saves to local time series database.
 
                 
                 if (s.Count == 0 || s.CountMissing() > 0)
