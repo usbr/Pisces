@@ -54,8 +54,8 @@ namespace Reclamation.TimeSeries
                 MergeCheckMassBalance(tsdaily, s);
             }
 
-            // If dissagregated data ends before daily, append daily 
-            if (s.MaxDateTime < tsdaily.MaxDateTime)
+            // If dissagregated data ends before daily, append daily, if merging
+            if (merge && s.MaxDateTime < tsdaily.MaxDateTime)
             {
                 Append(tsdaily, s);
             }
