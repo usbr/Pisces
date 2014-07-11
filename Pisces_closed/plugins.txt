@@ -1,0 +1,6 @@
+﻿Reclamation.TimeSeries.Excel.dll
+Reclamation.TimeSeries.Modsim.dll
+Reclamation.TimeSeries.OracleHdb.dll
+Reclamation.TimeSeries.Urgsim.dll
+Reclamation.TimeSeries.ArmyCorps.dll
+

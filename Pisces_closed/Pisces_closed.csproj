@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{AFEC5AE2-BB6A-4316-BA66-85CD8CAE7E2D}</ProjectGuid>
+    <ProjectGuid>{60537C98-6E33-42F7-9B7D-9B326ABC019E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Pisces</RootNamespace>
@@ -161,6 +161,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\ThirdParty\NUnit-2.6.0.12051\bin\framework\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="SpreadsheetGear">
+      <HintPath>..\PaidThirdParty\SpreadsheetGear.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -184,12 +187,18 @@
     <Reference Include="System.Xml" />
     <Reference Include="TeeChart, Version=3.5.3470.15475, Culture=neutral, PublicKeyToken=9c8126276c77bdb7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\TimeSeries.Graphing\TeeChart.dll</HintPath>
+      <HintPath>..\PaidThirdParty\TeeChart.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
+    </Compile>
+    <Compile Include="FormTeeChartLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTeeChartLicense.Designer.cs">
+      <DependentUpon>FormTeeChartLicense.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="ServerDatabaseDialog.resx">
       <DependentUpon>ServerDatabaseDialog.cs</DependentUpon>
@@ -218,10 +227,14 @@
     <Compile Include="ServerDatabaseDialog.Designer.cs">
       <DependentUpon>ServerDatabaseDialog.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="FormTeeChartLicense.resx">
+      <DependentUpon>FormTeeChartLicense.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PiscesForm.resx">
       <DependentUpon>PiscesForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -236,12 +249,12 @@
       <DependentUpon>ScenarioSelectorUrgwom.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="..\Private.config">
+      <Link>Private.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Private.config">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
@@ -306,17 +319,33 @@
     <None Include="Resources\folder_closed_32.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\HdbPoet\HdbPoet.csproj">
+      <Project>{B60964F8-8699-4638-9460-68262E4D37A3}</Project>
+      <Name>HdbPoet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Reclamation.Core.csproj">
       <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
       <Name>Reclamation.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
-      <Project>{a7e73f2a-ca66-4bc8-934a-b5068c566f10}</Project>
-      <Name>Reclamation.TimeSeries.Forms</Name>
+    <ProjectReference Include="..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj">
+      <Project>{37B543F5-03A5-479E-B20C-7B4ACC53D16A}</Project>
+      <Name>Reclamation.TimeSeries.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj">
+      <Project>{862135B0-793A-4F06-B731-26C61B3AD068}</Project>
+      <Name>Reclamation.TimeSeries.Graphing</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeSeries.Modsim\Reclamation.TimeSeries.Modsim.csproj">
       <Project>{DBA88BAF-7CD3-4D67-9777-D843987CAEEC}</Project>
       <Name>Reclamation.TimeSeries.Modsim</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeSeries.OracleHdb\Reclamation.TimeSeries.OracleHdb.csproj">
+      <Project>{E8E40DB3-E59C-40B1-875D-C1A04D177986}</Project>
+      <Name>Reclamation.TimeSeries.OracleHdb</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
+      <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>
+      <Name>Reclamation.TimeSeries.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeSeries\Reclamation.TimeSeries.csproj">
       <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
