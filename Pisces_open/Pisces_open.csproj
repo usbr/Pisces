@@ -256,6 +256,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\ThirdParty\DSSUTL.EXE">
+      <Link>DSSUTL.EXE</Link>
+    </Content>
     <Content Include="..\ThirdParty\SQLite\SQLite.Interop.dll">
       <Link>SQLite.Interop.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
