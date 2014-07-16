@@ -907,12 +907,29 @@ namespace Reclamation.TimeSeries
         /// instead of mean daily average
         /// </summary>
         /// <param name="beginningDate">align starting with this date </param>
-        public static SeriesList SummaryHydrograph(Series s, int[] exceedanceLevels, 
+        public static SeriesList SummaryHydrograph(Series sIn, int[] exceedanceLevels, 
             DateTime beginningDate, bool max, bool min, bool avg, bool removeEmptySeries)
         {
             // I'm thinking daily data, but this 
             // may also work for monthly if the day of month is consistent.
-            
+
+            // JR - If series is monthly, change dates such that the values are assigned 
+            // to the beginning of each month. This is a work-around to having the leap days
+            // being thrown out for dates with an end-of-month convention or for series with
+            // irregular observations dates per month
+            Series s = new Series();
+            if (sIn.TimeInterval == TimeInterval.Monthly)
+            {
+                s = sIn.Clone();
+                foreach (var row in sIn)
+                {
+                    s.Add(new DateTime(row.DateTime.Year, row.DateTime.Month, 1,
+                        0, 0, 0), row.Value, row.Flag);
+                }
+            }
+            else
+            { s = sIn; }
+
             SeriesList eList = new SeriesList();
             Series smax = null;
             Series smin = null;
