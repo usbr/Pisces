@@ -28,10 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxSeriesName = new System.Windows.Forms.TextBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.basicEquation1 = new Reclamation.TimeSeries.Forms.Calculations.BasicEquation();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxUnits = new System.Windows.Forms.TextBox();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
@@ -51,6 +57,10 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.label2);
+            this.splitContainer1.Panel2.Controls.Add(this.textBoxUnits);
+            this.splitContainer1.Panel2.Controls.Add(this.label1);
+            this.splitContainer1.Panel2.Controls.Add(this.textBoxSeriesName);
             this.splitContainer1.Panel2.Controls.Add(this.buttonCancel);
             this.splitContainer1.Panel2.Controls.Add(this.buttonOK);
             this.splitContainer1.Panel2.Controls.Add(this.basicEquation1);
@@ -59,6 +69,23 @@
             this.splitContainer1.SplitterDistance = 267;
             this.splitContainer1.SplitterWidth = 16;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(198, 85);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "series name";
+            // 
+            // textBoxSeriesName
+            // 
+            this.textBoxSeriesName.Location = new System.Drawing.Point(267, 82);
+            this.textBoxSeriesName.Name = "textBoxSeriesName";
+            this.textBoxSeriesName.Size = new System.Drawing.Size(122, 20);
+            this.textBoxSeriesName.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.textBoxSeriesName, "enter a simple name  like boise_flow");
             // 
             // buttonCancel
             // 
@@ -93,6 +120,23 @@
             this.basicEquation1.Size = new System.Drawing.Size(632, 500);
             this.basicEquation1.TabIndex = 0;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(199, 105);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(29, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "units";
+            // 
+            // textBoxUnits
+            // 
+            this.textBoxUnits.Location = new System.Drawing.Point(267, 105);
+            this.textBoxUnits.Name = "textBoxUnits";
+            this.textBoxUnits.Size = new System.Drawing.Size(122, 20);
+            this.textBoxUnits.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.textBoxUnits, "enter a simple name  like boise_flow");
+            // 
             // CalculationProperties
             // 
             this.AcceptButton = this.buttonOK;
@@ -106,6 +150,7 @@
             this.ShowIcon = false;
             this.Text = "Calculation Properties";
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -117,5 +162,10 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private BasicEquation basicEquation1;
+        private System.Windows.Forms.TextBox textBoxSeriesName;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxUnits;
     }
 }
