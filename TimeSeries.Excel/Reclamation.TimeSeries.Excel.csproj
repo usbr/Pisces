@@ -73,10 +73,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Aga.Controls">
-      <HintPath>..\..\Pisces\ThirdParty\Aga.Controls.dll</HintPath>
+      <HintPath>..\ThirdParty\Aga.Controls.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\..\Pisces\ThirdParty\NUnit-2.6.0.12051\bin\framework\nunit.framework.dll</HintPath>
+      <HintPath>..\ThirdParty\NUnit-2.6.0.12051\bin\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="SpreadsheetGear">
       <HintPath>..\PaidThirdParty\SpreadsheetGear.dll</HintPath>
@@ -91,7 +91,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Pisces\AssemblyVersion.cs">
+    <Compile Include="..\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="ImportExcelDatabase.cs">
@@ -117,11 +117,11 @@
     <Compile Include="Tests\TestSpreadsheetGearSeries.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Pisces\Core\Reclamation.Core.csproj">
+    <ProjectReference Include="..\Core\Reclamation.Core.csproj">
       <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
       <Name>Reclamation.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Pisces\TimeSeries\Reclamation.TimeSeries.csproj">
+    <ProjectReference Include="..\TimeSeries\Reclamation.TimeSeries.csproj">
       <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
       <Name>Reclamation.TimeSeries</Name>
     </ProjectReference>
