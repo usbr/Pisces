@@ -754,7 +754,7 @@ namespace Reclamation.TimeSeries
             return m_server.TableExists(tableName);
         }
 
-        private string SafeTableName(string tableName)
+        public static string SafeTableName(string tableName)
         {
             return Regex.Replace(tableName, @"[^A-Za-z0-9_\-]", "_").ToLower();
         }
