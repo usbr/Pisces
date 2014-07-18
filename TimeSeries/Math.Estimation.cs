@@ -218,21 +218,6 @@ namespace Reclamation.TimeSeries
         public static Series MlrInterpolation(List<string> sInputs, int yearStart, int yearEnd,
             int[] months, double fitTolerance, TimeSeriesDatabase DB, bool waterYear = true)
         {
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            // THIS IS THE CODE THAT WAS USED TO BUILD AND TEST THIS METHOD
-            //var pDB = new Reclamation.Core.SQLiteServer(@"V:\PN6200\J_Rocha\Projects\Programming\PiscesMLRdata\CVAIsample.pdb");
-            //TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB);
-            //// Inputs. Sources for these will have to be defined for the production version
-            //// sInput[0] is the series that has missing valus to be interpolated
-            //var sInputs = new List<string>();
-            //sInputs.AddRange(new List<string>() { "CVAI PM", "IDHI PM", "LWMI PM", "GAVI PM" });
-            //int yearStart = 1950;
-            //int yearEnd = 2012;
-            //int[] months = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-            //double fitTolerance = 0.80;
-            //var s = Reclamation.TimeSeries.Math.MlrInterpolation(sInputs, yearStart, yearEnd, months, fitTolerance, DB);
-            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            
             // Define data read dates
             DateTime tStart, tEnd;
             if (waterYear)
