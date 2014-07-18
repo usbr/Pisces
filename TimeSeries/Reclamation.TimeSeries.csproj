@@ -351,6 +351,7 @@
     <Compile Include="Hydromet\SutronRatingTable.cs" />
     <Compile Include="Hydromet\SutronRatingTableRecord.cs" />
     <Compile Include="Hydromet\Tests\TestForecasting.cs" />
+    <Compile Include="Math.Estimation.cs" />
     <Compile Include="Math.TableLookup.cs" />
     <Compile Include="Parser\Tests\TestParser.cs" />
     <Compile Include="Parser\Tests\TestParserWithDatabase.cs" />
@@ -434,7 +435,6 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="JulianIndex.cs" />
     <Compile Include="Math.DissagregationUofI.cs" />
-    <Compile Include="Math.Estimatation.cs" />
     <Compile Include="Math.Hydromet.cs" />
     <Compile Include="Math.Statistics.Daily.cs" />
     <Compile Include="Nrcs\AwdbWebService.cs" />
