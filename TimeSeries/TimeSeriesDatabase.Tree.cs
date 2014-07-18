@@ -198,7 +198,17 @@ namespace Reclamation.TimeSeries
 
             List<int> parentsIncluded = new List<int>();
 
-            var rows = m_SeriesCatalog.Select("name like '%" + Filter + "%'");
+            var filters = Filter.Split(',');
+            var sql = "";
+            for (int i = 0; i < filters.Length; i++)
+            {
+                if (i > 0)
+                    sql += " or ";
+
+                sql += "name like '%" + m_server.SafeSqlLikeClauseLiteral( filters[i].Trim()) + "%'";
+            }
+            
+            var rows = m_SeriesCatalog.Select(sql);
             foreach (var item in rows)
             {
                 item["keep"] = true;
