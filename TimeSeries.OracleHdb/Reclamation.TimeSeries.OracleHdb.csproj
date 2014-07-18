@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Reclamation.TimeSeries.OracleHdb</RootNamespace>
     <AssemblyName>Reclamation.TimeSeries.OracleHdb</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -72,6 +73,9 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="hdb-poet">
+      <HintPath>.\hdb-poet.exe</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -91,10 +95,6 @@
     <Compile Include="ImportFromHdb.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HdbPoet\HdbPoet.csproj">
-      <Project>{B60964F8-8699-4638-9460-68262E4D37A3}</Project>
-      <Name>HdbPoet</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core\Reclamation.Core.csproj">
       <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
       <Name>Reclamation.Core</Name>
