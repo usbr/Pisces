@@ -135,9 +135,9 @@ namespace Reclamation.TimeSeries.Graphing
             {
                series = CreateSeries(list.Text.Text[i]);
                 //string units = list[i].Units;
-                
+               pane.CurveList.Add(series);    
             }
-            pane.CurveList.Add(series);
+            
         }
 
 
