@@ -21,6 +21,11 @@ namespace Reclamation.TimeSeries.Graphing
             pane = chart1.GraphPane;
         }
 
+        private void LabelYaxis(SeriesList list)
+        {
+            pane.YAxis.Title.Text = String.Join(", ", list.Text.UniqueUnits);
+        }
+
         public void DrawTimeSeries(SeriesList list, string title, string subTitle,
             bool undoZoom,bool multiLeftAxis=false)
         {
@@ -36,8 +41,8 @@ namespace Reclamation.TimeSeries.Graphing
             chart1.RestoreScale(chart1.GraphPane);
             pane.YAxis.Scale.Mag = 0;
             pane.YAxis.Scale.Format = "#,#";
-
-            chart1.Refresh();
+            LabelYaxis(list);
+           chart1.Refresh();
         }
 
         public void DrawSorted(SeriesList list, string title, string subTitle,string xAxisTitle)
@@ -65,11 +70,13 @@ namespace Reclamation.TimeSeries.Graphing
             //pane.XAxis.Scale.MajorUnit = DateUnit.Day;
             //pane.XAxis.Scale.MajorStep = 1;
 
-            pane.YAxis.Title.Text = String.Join(", ", list.Text.UniqueUnits);
+            LabelYaxis(list);
            chart1.AxisChange();
             chart1.Refresh();
             
         }
+
+       
         public void DrawWaterYears(SeriesList list, string title, string subTitle, bool multiLeftAxis = false)
         {
             CreateSeries(list, title, subTitle,true,multiLeftAxis);
@@ -77,7 +84,9 @@ namespace Reclamation.TimeSeries.Graphing
             {
                 FillTimeSeries(list[i], chart1.GraphPane.CurveList[i]);
             }
-            FormatBottomAxisWaterYearStyle();
+            pane.XAxis.Type = AxisType.Date;
+            pane.XAxis.Scale.Format = "MMM d";
+            pane.AxisChange();
             chart1.Refresh();
         }
 
@@ -98,12 +107,6 @@ namespace Reclamation.TimeSeries.Graphing
 
 
         }
-        private void FormatBottomAxisWaterYearStyle()
-        {
-            var pane = chart1.GraphPane;
-            pane.XAxis.Type = AxisType.Date;
-            pane.XAxis.Scale.Format = "MMM d";
-        }
 
         internal void DrawCorrelation(Series s1, Series s2, string title, string subTitle)
         {
@@ -119,6 +122,9 @@ namespace Reclamation.TimeSeries.Graphing
 
             FillCorrelation(s1, s2, series1);
             chart1.GraphPane.CurveList.Add(series1);
+
+            chart1.AxisChange();
+            chart1.Refresh();
         }
         /// <summary>
         /// Creates basic graph with empty series
@@ -149,12 +155,12 @@ namespace Reclamation.TimeSeries.Graphing
 
         internal void Clear(bool undoZoom )
         {
-
-            var pane = this.chart1.GraphPane;
             pane.Title.Text = "";
             pane.XAxis.Title.Text = "";
             pane.Y2Axis.Title.Text = "";
             pane.CurveList.Clear();
+            chart1.AxisChange();
+            chart1.Refresh();
         }
 
 
