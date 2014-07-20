@@ -213,42 +213,19 @@ namespace Reclamation.TimeSeries
         /// <param name="yearEnd"></param>
         /// <param name="months"></param>
         /// <param name="fitTolerance"></param>
-        /// <param name="DB"></param>
         /// <param name="waterYear"></param>
-        public static Series MlrInterpolation(List<string> sInputs, int yearStart, int yearEnd,
-            int[] months, double fitTolerance, TimeSeriesDatabase DB, bool waterYear = true)
+        public static Series MlrInterpolation(SeriesList sList, DateTime t1,DateTime t2,
+            int[] months, double fitTolerance)
         {
-            // Define data read dates
-            DateTime tStart, tEnd;
-            if (waterYear)
-            { tStart = new DateTime(yearStart, 10, 1); tEnd = new DateTime(yearEnd, 9, DateTime.DaysInMonth(yearEnd, 9)); }
-            else
-            { tStart = new DateTime(yearStart, 1, 1); tEnd = new DateTime(yearEnd, 12, 31); }
-
             // Populate SeriesLists
-            var sList = new SeriesList();
             var sListFill = new SeriesList();
-            foreach (var item in sInputs)
-            { sList.Add(DB.GetSeriesFromName(item)); sListFill.Add(DB.GetSeriesFromName(item)); }
-            sList.Read(tStart, tEnd); sListFill.Read(tStart, tEnd);
-
-            // [JR] This method relies on missing data flags to find missing data; needs to be tested for manually imported Series 
-            string missingFlag = "";
-            foreach (var sItem in sList)
-            {
-                if (sItem.TimeInterval == TimeInterval.Hourly || sItem.TimeInterval == TimeInterval.Daily || sItem.TimeInterval == TimeInterval.Irregular)
-                { missingFlag = "m"; }
-                else if (sItem.TimeInterval == TimeInterval.Monthly)
-                { missingFlag = "(null)"; }
-                else
-                { throw new Exception("Series Time Interval not defined for " + sItem.Name); }
+            foreach (var item in sList)
+            {     
+                sListFill.Add(item.Copy()); 
             }
 
             // Get dates to be filled with interpolated values
-            var fillDates = new List<DateTime>();
-            var missing = sList[0].Subset(String.Format("[flag] = '{0}'", missingFlag));
-            foreach (var item in missing)
-            { fillDates.Add(item.DateTime); }
+            var missing = sList[0].GetMissing();
 
             // Delete common dates where at least 1 data point is missing for any of the input series
             // This is done because the MLR routine does not support missing data. Missing data causes
@@ -259,7 +236,7 @@ namespace Reclamation.TimeSeries
                 for (int j = 0; j < sList.Count; j++)
                 {
                     Point jthPt = sList[j][i];
-                    if (jthPt.Flag == missingFlag || !months.Contains(jthPt.DateTime.Month))
+                    if (jthPt.IsMissing || !months.Contains(jthPt.DateTime.Month))
                     {
                         for (int k = 0; k < sList.Count; k++) //delete this date from all Series in the list
                         { sList[k].RemoveAt(i); }
@@ -272,12 +249,12 @@ namespace Reclamation.TimeSeries
             List<string> mlrOut = new List<string>();
             mlrOut.Add("");
             mlrOut.Add("MLR Output\t\t\t\t\tRun Date: "+DateTime.Now);
-            mlrOut.Add("Estimated Series: " + sInputs[0]);
+            mlrOut.Add("Estimated Series: " + sList[0].Name);
             var sEstimators = "";
-            for (int i = 1; i < sInputs.Count; i++)
-            { sEstimators = sEstimators + sInputs[i] + ", "; }
+            for (int i = 1; i < sList.Count; i++)
+            { sEstimators = sEstimators + sList[i].Name + ", "; }
             mlrOut.Add("Estimator Series: " + sEstimators.Remove(sEstimators.Length - 2));
-            mlrOut.Add("Regression Date Range: " + tStart.Date + " - " + tEnd.Date);
+            mlrOut.Add("Regression Date Range: " + t1.Date + " - " + t2.Date);
             var monEstimators = "";
             foreach (var item in months)
             { monEstimators = monEstimators + item + ", "; }
@@ -329,31 +306,32 @@ namespace Reclamation.TimeSeries
 
                     // Fill missing dates and generate a SeriesList for final Series output
                     var sOut = new Series(); //initialize Series to be added to output SeriesList
-                    foreach (var fillT in fillDates)
+                    foreach (var fillT in missing)
                     {
                         double fillVal;
                         try
                         {
-                            fillVal = sListFill[combo[0]][fillT].Value * mlrCoeffs[1];
+                            fillVal = sListFill[combo[0]][fillT.DateTime].Value * mlrCoeffs[1];
                             for (int i = 2; i < mlrCoeffs.Count(); i++)
-                            { fillVal = fillVal + sListFill[combo[i - 1]][fillT].Value * mlrCoeffs[i]; }
+                            { fillVal = fillVal + sListFill[combo[i - 1]][fillT.DateTime].Value * mlrCoeffs[i]; }
                             fillVal = fillVal + mlrCoeffs[0];
                             if (fillVal < 0.0)
-                            { sOut.Add(fillT, -99.99, "NoDataForInterpolation"); }
+                            { sOut.Add(fillT.DateTime, -99.99, "NoDataForInterpolation"); }
                             else
-                            { sOut.Add(fillT, fillVal, rVal.ToString("F05")); } //[JR] this assigns the R value as the flag, can be switched to R-Squared...
+                            { sOut.Add(fillT.DateTime, fillVal, rVal.ToString("F05")); } //[JR] this assigns the R value as the flag, can be switched to R-Squared...
                         }
                         catch
-                        { sOut.Add(fillT, -99.99, "NoDataForInterpolation"); }
+                        { sOut.Add(fillT.DateTime, Point.MissingValueFlag, "NoDataForInterpolation"); }
                     }
                     // Add the output Series to a SeriesList
                     sOutList.Add(sOut);
 
                     // Populate report
                     mlrOut.Add("");
-                    string equationString = "MLR Equation: " + sInputs[0] + " = ";
+                    string equationString = "MLR Equation: " + sList[0].Name + " = ";
                     for (int ithCoeff = 1; ithCoeff < mlrCoeffs.Count(); ithCoeff++)
-                    { equationString = equationString + mlrCoeffs[ithCoeff].ToString("F04") + "(" + sInputs[combo[ithCoeff - 1]] + ") + "; }
+                    { equationString = equationString + mlrCoeffs[ithCoeff].ToString("F04") + "(" 
+                        + sList[combo[ithCoeff - 1]].Name + ") + "; }
                     equationString = equationString + mlrCoeffs[0].ToString("F04");
                     mlrOut.Add(equationString);
                     mlrOut.Add("Correlation Coefficient = " + rVal.ToString("F04"));
@@ -375,8 +353,8 @@ namespace Reclamation.TimeSeries
             // Generate output Series
             var sOutFinal = sListFill[0].Copy();
             // Rmove the Points to be filled in the original input Series
-            for (int i = fillDates.Count - 1; i >= 0; i--)
-            { sOutFinal.RemoveAt(sOutFinal.IndexOf(fillDates[i])); }
+            for (int i = missing.Count - 1; i >= 0; i--)
+            { sOutFinal.RemoveAt(sOutFinal.IndexOf(missing[i].DateTime)); }
             // Find the best fit out of all the estimated values
             // Loops through the dates
             foreach (var sRow in sOutList[0]) 
@@ -413,7 +391,7 @@ namespace Reclamation.TimeSeries
     /// Source: http://stackoverflow.com/questions/548402/list-all-possible-combinations-of-k-integers-between-1-n-n-choose-k
     /// Downloaded and tested 18JULY2014 - JR
     /// </summary>
-    public class AllPossibleCombination
+    internal class AllPossibleCombination
     {
         // Initialize required variables
         int n, k;
