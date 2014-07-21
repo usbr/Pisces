@@ -352,7 +352,7 @@ namespace Reclamation.TimeSeries
                 DateTime t = new DateTime(pt.DateTime.Year, pt.DateTime.Month, numDays);
                 
                 // Accounts for missing values by setting them to zero
-                if (pt.Flag == PointFlag.Missing || pt.Value == -999.0) //[JR] -999 in this line is a hack to exclude missing months that are coming ou the MonthlyAverage() call...
+                if (pt.IsMissing) //[JR] hack to exclude missing months that are coming out of the MonthlyAverage() call...
                 { sMonthTot.Add(t, 0.0); }
                 else
                 { sMonthTot.Add(t, pt.Value * numDays); }
