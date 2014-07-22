@@ -8,6 +8,12 @@ using Reclamation.TimeSeries.Estimation;
 
 namespace Pisces.NunitTests.SeriesMath
 {
+    /// Tests for basic Multiple Linear Regression
+    /// Feb and May have missing data
+    ///
+    ///  The relationship between Series1 and Series2
+    ///  is different for different months.
+    ///
     [TestFixture]
     public class TestEstimation
     {
