@@ -18,7 +18,7 @@ namespace Reclamation.TimeSeries.Estimation
         /// <param name="fitTolerance"></param>
         /// <param name="waterYear"></param>
         public static MultipleLinearRegressionResults MlrInterpolation(SeriesList sList, DateTime t1, DateTime t2,
-            int[] months, double fitTolerance)
+            int[] months, double fitTolerance, bool fillSelectedMonths = false)
         {
             // KT if there is not enough data (for example only 1 pont ) need to ignore that data set?
 
@@ -32,7 +32,17 @@ namespace Reclamation.TimeSeries.Estimation
 
             // Get dates to be filled with interpolated values
             var missing = sList[0].GetMissing();
-
+            if (fillSelectedMonths) //overwrites the 'missing' variable with another Series that only contains the selected dates in the input
+            {
+                Series missingSubset = new Series();
+                foreach (var row in missing)
+                {
+                    if (months.Contains(row.DateTime.Month))
+                    { missingSubset.Add(row); }
+                }
+                missing = missingSubset;
+            }
+            
             // Delete common dates where at least 1 data point is missing for any of the input series
             // This is done because the MLR routine does not support missing data. Missing data causes
             // data misalignments and throws off the regression... This section also deletes data for 
@@ -66,7 +76,7 @@ namespace Reclamation.TimeSeries.Estimation
             { monEstimators = monEstimators + item + ", "; }
             mlrOut.Add("Months Used: " + monEstimators.Remove(monEstimators.Length - 2));
             mlrOut.Add("");
-            mlrOut.Add("------------------------------------------------------------------------------------");
+            mlrOut.Add("====================================================================================");
 
             
             // Initialize output SeriesList
@@ -118,6 +128,7 @@ namespace Reclamation.TimeSeries.Estimation
                         double fillVal;
                         try
                         {
+                            // This evaluates the equation generated during the MLR estimation. Same equation-code format as above
                             fillVal = sListFill[combo[0]][fillT.DateTime].Value * mlrCoeffs[1];
                             for (int i = 2; i < mlrCoeffs.Count(); i++)
                             { fillVal = fillVal + sListFill[combo[i - 1]][fillT.DateTime].Value * mlrCoeffs[i]; }
@@ -178,7 +189,7 @@ namespace Reclamation.TimeSeries.Estimation
                 {
                     Point estPt = sOutList[i][estT];
                     valItems.Add(estPt.Value);
-                    if (estPt.Value < 0.0) //add 0 correlation value if the estimated value < 0
+                    if (estPt.Value < 0.0) //add 0 correlation value if the estimated value < 0, [JR] this prevents the use of this routine to estimate negative values...
                     { flagItems.Add(0.0); }
                     else
                     { flagItems.Add(Convert.ToDouble(estPt.Flag)); }
