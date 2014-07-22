@@ -298,6 +298,9 @@
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="DataTableSeries.cs" />
+    <Compile Include="Estimation\AllPossibleCombination.cs" />
+    <Compile Include="Estimation\MultipleLinearRegression.cs" />
+    <Compile Include="Estimation\MultipleLinearRegressionResults.cs" />
     <Compile Include="ExcelReaderSeries1.cs" />
     <Compile Include="Hydromet\ArchiveFile.cs" />
     <Compile Include="Hydromet\ArchiveFileRecord.cs" />

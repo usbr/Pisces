@@ -67,7 +67,7 @@ namespace Reclamation.TimeSeries
             foreach (var pt in this)
             {
                 if (pt.IsMissing)
-                    this.Add(pt);
+                    rval.Add(pt);
             }
             return rval;
         }

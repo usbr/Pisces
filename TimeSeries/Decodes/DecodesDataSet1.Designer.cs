@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 #pragma warning disable 1591
-
+#pragma warning disable 3005
 namespace Reclamation.TimeSeries.Decodes {
     
     
@@ -11157,3 +11157,4 @@ namespace Reclamation.TimeSeries.Decodes {
 }
 
 #pragma warning restore 1591
+#pragma warning restore 3005
