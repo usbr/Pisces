@@ -897,7 +897,7 @@ namespace Reclamation.TimeSeries
 
         internal TimeSeriesDatabaseDataSet.sitecatalogRow GetSiteRow(string siteID)
         {
-            string sql = "Select * from sitecatalog where siteid = '" + siteID + "'";
+            string sql = "Select * from sitecatalog where lower(siteid) = '" + siteID.ToLower() + "'";
             var tbl = new TimeSeriesDatabaseDataSet.sitecatalogDataTable();
             m_server.FillTable(tbl, sql);
             if (tbl.Rows.Count == 0)
