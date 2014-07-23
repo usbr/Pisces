@@ -55,10 +55,11 @@ namespace Pisces.NunitTests.SeriesMath
             CreateSeries();
 
             var y = MultipleLinearRegression.MlrInterpolation(list, t1, t2, new int[] { 4, 5, 6 }, .7, true);
+            y.EstimatedSeries.WriteToConsole();
             var may = y.EstimatedSeries["2000-5-1"];
             Assert.AreEqual(5, may.Value,0.01, "may value should be 5");
             var feb = y.EstimatedSeries["2000-2-1"];
-            Assert.IsTrue(may.IsMissing, "Value in Feb should not be estimated");
+            Assert.IsTrue(feb.IsMissing, "Value in Feb should not be estimated");
 
         }
         /// Series1 is twice the value of Series2 (Jan,Feb,Mar)
