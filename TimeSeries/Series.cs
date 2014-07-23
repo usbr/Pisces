@@ -56,8 +56,22 @@ namespace Reclamation.TimeSeries
             }
             return _missingRecordCount;
         }
+
+        /// <summary>
+        /// Series of all missing records
+        /// </summary>
+        public Series GetMissing()
+        {
+            var rval = this.Clone();
+            _missingRecordCount = 0;
+            foreach (var pt in this)
+            {
+                if (pt.IsMissing)
+                    rval.Add(pt);
+            }
+            return rval;
+        }
     
-        
         
         
         public string ScenarioName = "";
@@ -1894,7 +1908,7 @@ namespace Reclamation.TimeSeries
         }
 
         /// <summary>
-        /// Enforce consistent range of data
+        /// Enforce consistent range of data for Daily Data
         /// </summary>
         /// <param name="t1"></param>
         /// <param name="t2"></param>

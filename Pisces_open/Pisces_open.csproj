@@ -18,7 +18,7 @@
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ApplicationIcon>Fish_icon_3.ico</ApplicationIcon>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -33,6 +33,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -311,7 +312,7 @@
       <Name>Reclamation.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
-      <Project>{a7e73f2a-ca66-4bc8-934a-b5068c566f10}</Project>
+      <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>
       <Name>Reclamation.TimeSeries.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeSeries.Modsim\Reclamation.TimeSeries.Modsim.csproj">
