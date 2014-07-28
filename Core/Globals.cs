@@ -17,6 +17,13 @@ namespace Reclamation.Core
                 if (s == null || s == "")
                     throw new Exception("Error: TestDataPath is not defined in the config file");
 
+                if (!Directory.Exists(s))
+                {
+                    var s2 = ConfigurationManager.AppSettings["TestDataPath2"];
+                    if (s2 != "" && s2 != null)
+                        s = s2;
+                }
+
                 return s;
             }
         }

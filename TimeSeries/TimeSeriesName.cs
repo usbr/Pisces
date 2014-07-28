@@ -27,7 +27,7 @@ namespace Reclamation.TimeSeries
                 Init(name, "daily");
             else if (interval == TimeInterval.Monthly)
                 Init(name, "monthly");
-            else throw new ArgumentException("interval " + interval.ToString() + " not supported");
+            else throw new ArgumentException("TimeSeriesName: interval " + interval.ToString() + " not supported ");
         }
         public TimeSeriesName(string name, string defaultInterval = "")
         {

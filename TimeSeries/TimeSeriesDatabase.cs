@@ -897,6 +897,7 @@ namespace Reclamation.TimeSeries
 
         internal TimeSeriesDatabaseDataSet.sitecatalogRow GetSiteRow(string siteID)
         {
+            Logger.WriteLine("GetSiteRow('"+siteID+"')");
             string sql = "Select * from sitecatalog where lower(siteid) = '" + siteID.ToLower() + "'";
             var tbl = new TimeSeriesDatabaseDataSet.sitecatalogDataTable();
             m_server.FillTable(tbl, sql);
@@ -995,6 +996,9 @@ namespace Reclamation.TimeSeries
         public Series GetSeriesFromTableName(string tableName, string prefix="",bool createMissing=false)
         {
             Logger.WriteLine("GetSeriesFromTableName(" + tableName + ", '" + prefix+"')");
+            if (prefix.ToLower() == "irregular")
+                prefix = "instant"; // inconsistency..
+
             if (Regex.IsMatch(tableName, "^[0-9]")) // table name starting with number is not allowed
             {
                 tableName = "_" + tableName; // append with underscore
