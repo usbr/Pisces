@@ -145,7 +145,8 @@ namespace Reclamation.TimeSeries
       get
       {
         if( Flag == PointFlag.Missing
-           || this.Value == Point.MissingValueFlag)
+           || this.Value == Point.MissingValueFlag
+           || double.IsNaN(this.Value) )
         {
           return true;
         }
