@@ -381,6 +381,7 @@
     <Compile Include="Tests\SeriesFeatures\TestSubset.cs" />
     <Compile Include="Tests\SeriesFeatures\TestYearRange.cs" />
     <Compile Include="Tests\SeriesMath\AverageTest.cs" />
+    <Compile Include="Tests\SeriesMath\TestET.cs" />
     <Compile Include="Tests\SeriesMath\TestMerge.cs" />
     <Compile Include="Tests\SeriesMath\DailyCalculatorTest.cs" />
     <Compile Include="Tests\SeriesMath\TestAdd.cs" />
