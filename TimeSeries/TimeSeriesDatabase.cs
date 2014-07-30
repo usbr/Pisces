@@ -1326,13 +1326,14 @@ namespace Reclamation.TimeSeries
         /// Import is saved to the tablename defined in the Series s.DataTable.TableName
         /// the table will be created if necessary. Properties such as units will be used
         /// when creating a new series, otherwise the Series Properties are ignored.
+        /// Computes data dependent on the imported data
+        /// Returns List of computed data.
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="flagData"></param>
-        public void ImportSeriesUsingTableName(Series s, bool createIfMissing,string folderName="" ,
+        public SeriesList ImportSeriesUsingTableName(Series s, bool createIfMissing,string folderName="" ,
             bool setQualityFlags=false,
             bool computeDependencies=false)
         {
+            var rval = new SeriesList();
             Logger.WriteLine("ImportSeriesUsingTableName" + s.Table.TableName);
             FixInvalidTableName(s);
 
@@ -1382,9 +1383,12 @@ namespace Reclamation.TimeSeries
                     var cs = item as CalculationSeries;
                     // TO DO.. some calcs should go back 1 weeek. i.e.  QU
                     cs.Calculate(s.MinDateTime,s.MaxDateTime);
+                    if (cs.Count > 0)
+                        rval.Add(cs);
                 }
 
             }
+            return rval;
         }
 
         private PiscesFolder GetOrCreateFolder(string folderName)

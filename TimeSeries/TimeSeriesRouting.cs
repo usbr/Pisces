@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 namespace Reclamation.TimeSeries
 {
 
-    public enum RouteOptions { Incoming, Outgoing, Both };
+    public enum RouteOptions { None,Incoming, Outgoing, Both };
 
     public class TimeSeriesRouting
     {

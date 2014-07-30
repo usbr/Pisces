@@ -311,52 +311,6 @@ END DATA
             return s;
         }
 
-        ///// <summary>
-        ///// Save instant data to hydromet dayfiles
-        ///// </summary>
-        ///// <param name="s"></param>
-        ///// <param name="username"></param>
-        ///// <param name="password"></param>
-        //public static void Save(Series s, string cbtt, string pcode, string username, string password)
-        //{
-        //    if (s.Count == 0)
-        //        return;
-
-        //    // break the date range into small chunks to be easy on the server during saving
-
-
-        //    Series subset = new Series();
-        //    for (int i = 0; i < s.Count; i++)
-        //    {
-        //        subset.Add(s[i]);
-
-        //        if (subset.Count >= 200 || i == s.Count - 1) // work in chunks of 200 entries
-        //        {
-        //            SaveToHydromet(subset, cbtt, pcode, username, password);
-        //            subset.Clear();
-        //            if (i != s.Count - 1)
-        //            {
-        //                //Reclamation.Core.ssh.Utility.Close();
-        //                Console.WriteLine(DateTime.Now.ToString() + " Pausing for 2 seconds ");
-        //                System.Threading.Thread.Sleep(1000 * 2 );
-                     
-        //            }
-        //        }
-        //    }
-
-
-        //}
-
-        //private static void SaveToHydromet(Series s, string cbtt, string pcode, string user, string password)
-        //{
-
-        //    string fn = FileUtility.GetTempFileName(".txt");
-        //    WriteToHydrometFile(s, cbtt, pcode, user, fn);
-        //    string remoteFilename = HydrometDataUtility.CreateRemoteFileName(user, HydrometDataBase.Dayfiles);
-        //    var result = HydrometEdits.SaveInstantData(user, password, fn, remoteFilename,false);
-        //    Console.WriteLine(result);
-        //}
-
         public static void WriteToHydrometFile(Series s, string cbtt, string pcode, string user, string filename, bool append = false)
         {
 
