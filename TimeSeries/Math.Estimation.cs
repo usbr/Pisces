@@ -203,8 +203,27 @@ namespace Reclamation.TimeSeries
             return sEstInterpQOut;
         }
 
-        
-    
+
+        /// <summary>
+        /// Method to interpolate missing values within a Series via Multiple Linear Regression
+        /// </summary>
+        /// <param name="fitTolerance"></param>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        [FunctionAttribute("Performs a Multiple Linear Regression using different combinations of the input interpolator Series " +
+            "and assigns the best fit as the interpolated value so long as the input fit tolerance is met.",
+            "MLRInterpolation(fitTolerance = value between 0.0 & 1.0, Series-0 to be interpolated, Series-1 used for interpolation, " +
+            "Series-2 used for interpolation, Series-3, Series-4, ...")]
+        public static Series MLRInterpolationPisces(double fitTolerance, params Series[] s)
+        {
+            SeriesList sList = new SeriesList();
+            foreach (var item in s)
+            { sList.Add(item); }
+            var sOut = Reclamation.TimeSeries.Estimation.MultipleLinearRegression.MlrInterpolation(sList,
+                new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 }, fitTolerance);
+
+            return sOut.EstimatedSeries;
+        }
 
     }
 
