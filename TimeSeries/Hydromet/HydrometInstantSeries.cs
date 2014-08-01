@@ -407,7 +407,7 @@ END DATA
                 }
                 else
                 {
-                    Console.WriteLine(s.SiteName+":"+s.Parameter+ "skipped duplicate datetime "+t.ToString() );
+                    Logger.WriteLine(s.SiteName+":"+s.Parameter+ "skipped duplicate datetime "+t.ToString() );
                 }
 
 			}

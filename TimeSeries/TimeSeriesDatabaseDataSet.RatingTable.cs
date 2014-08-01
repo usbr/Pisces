@@ -89,20 +89,20 @@ namespace Reclamation.TimeSeries
             private Point Lookup(Point pt)
             {
                 if (pt.IsMissing)
-                    return Point.Missing;
+                    return new Point(pt.DateTime, Point.MissingValueFlag);
 
 
                 if (pt.Value > MaxXValue())
-                    return Point.Missing;
+                    return new Point(pt.DateTime, Point.MissingValueFlag);
 
                 if (pt.Value < MinXValue())
-                    return Point.Missing;
+                    return new Point(pt.DateTime, Point.MissingValueFlag);
 
 
                 double d = Lookup(pt.Value);
 
                 if (d == Point.MissingValueFlag)
-                    return Point.Missing;
+                    return new Point(pt.DateTime, Point.MissingValueFlag);
 
                 return new Point(pt.DateTime, d);
             }
