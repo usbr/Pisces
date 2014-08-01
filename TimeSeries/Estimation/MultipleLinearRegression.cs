@@ -17,7 +17,7 @@ namespace Reclamation.TimeSeries.Estimation
         /// <param name="months"></param>
         /// <param name="fitTolerance"></param>
         /// <param name="waterYear"></param>
-        public static MultipleLinearRegressionResults MlrInterpolation(SeriesList sList, DateTime t1, DateTime t2,
+        public static MultipleLinearRegressionResults MlrInterpolation(SeriesList sList, 
             int[] months, double fitTolerance, bool fillSelectedMonths = false)
         {
             // KT if there is not enough data (for example only 1 pont ) need to ignore that data set?
@@ -70,7 +70,7 @@ namespace Reclamation.TimeSeries.Estimation
             for (int i = 1; i < sList.Count; i++)
             { sEstimators = sEstimators + sList[i].Name + ", "; }
             mlrOut.Add("Estimator Series: " + sEstimators.Remove(sEstimators.Length - 2));
-            mlrOut.Add("Regression Date Range: " + t1.Date + " - " + t2.Date);
+            mlrOut.Add("Regression Date Range: " + sList[0].MinDateTime + " - " + sList[0].MaxDateTime);
             var monEstimators = "";
             foreach (var item in months)
             { monEstimators = monEstimators + item + ", "; }
