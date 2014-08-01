@@ -386,7 +386,7 @@ END DATA
 
                 string name = "instant_" + cbtt + "_" + pcode;
                 name = name.ToLower();
-                var idx = rval.IndexOfNamedSeries(name);
+                var idx = rval.IndexOfTableName(name);
                 Series s;
                 if (idx >= 0)
                     s = rval[idx];
@@ -395,7 +395,8 @@ END DATA
                     s = new Series();
                     s.SiteName = cbtt;
                     s.Parameter = pcode;
-                    s.Name = name;
+                    s.Name = cbtt + "_" + pcode;
+                    s.Name = s.Name.ToLower();
                     s.Table.TableName = name;
                     rval.Add(s);
                 }

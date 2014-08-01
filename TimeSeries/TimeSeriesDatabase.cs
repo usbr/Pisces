@@ -1352,6 +1352,12 @@ namespace Reclamation.TimeSeries
             {// create new series.
                 if (createIfMissing)
                 {
+                    if (folderName == "")
+                    {
+                        TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
+                        if (tn.interval != "")
+                            folderName = tn.interval;
+                    }
 
                     PiscesFolder folder = null;
                     if (folderName != "")
@@ -1393,7 +1399,7 @@ namespace Reclamation.TimeSeries
 
         private PiscesFolder GetOrCreateFolder(string folderName)
         {
-            var sr = GetSeriesRow("Name ='" + folderName + "'");
+            var sr = GetSeriesRow("Name ='" + folderName + "' and isfolder = 1");
             if (sr == null)
             {
                 return AddFolder(folderName);

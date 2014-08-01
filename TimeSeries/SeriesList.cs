@@ -769,12 +769,12 @@ namespace Reclamation.TimeSeries
       $
        */
 
-      public int IndexOfNamedSeries(string name)
+      public int IndexOfTableName(string name)
       {
 
           for (int i = 0; i < this.Count; i++)
           {
-              if (this[i].Name == name)
+              if (this[i].Table.TableName == name)
                   return i;
           }
 
