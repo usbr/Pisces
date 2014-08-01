@@ -36,7 +36,7 @@ namespace Pisces.NunitTests.SeriesMath
         {
             CreateSeries();
             
-           var x = MultipleLinearRegression.MlrInterpolation(list, t1, t2, new int[] { 1, 2,3 }, .7, true);
+           var x = MultipleLinearRegression.MlrInterpolation(list, new int[] { 1, 2,3 }, .7, true);
            Console.WriteLine("Results:");
            x.EstimatedSeries.WriteToConsole();
            Console.WriteLine(String.Join("\n", x.Report));
@@ -54,7 +54,7 @@ namespace Pisces.NunitTests.SeriesMath
         {
             CreateSeries();
 
-            var y = MultipleLinearRegression.MlrInterpolation(list, t1, t2, new int[] { 4, 5, 6 }, .7, true);
+            var y = MultipleLinearRegression.MlrInterpolation(list, new int[] { 4, 5, 6 }, .7, true);
             y.EstimatedSeries.WriteToConsole();
             var may = y.EstimatedSeries["2000-5-1"];
             Assert.AreEqual(5, may.Value,0.01, "may value should be 5");
