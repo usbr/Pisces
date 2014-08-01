@@ -359,7 +359,7 @@ END DATA
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static SeriesList HydrometDMS4DataToSeriesList(string fileName)
+        public static SeriesList HydrometDMS3DataToSeriesList(string fileName)
         {
             var rval = new SeriesList();
 
@@ -375,7 +375,7 @@ END DATA
                 string cbtt = tf[i].Substring(15, 8).Trim();
                 string pcode = tf[i].Substring(24, 9).Trim();
                 string strValue = tf[i].Substring(34,10);
-                string strFlagCode = tf[i].Substring(56, 2);
+                string strFlagCode = tf[i].Substring(56, 3);
                 double val =0;
 
                 if( !double.TryParse(strValue,out val))
