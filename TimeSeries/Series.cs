@@ -1529,15 +1529,28 @@ namespace Reclamation.TimeSeries
 
 
 
+
+       
         /// <summary>
         /// Removes all points that have a value of Point.MissingValueFlag
+        /// or that are flagged bad
         /// </summary>
         /// <returns></returns>
         public int RemoveMissing()
         {
             int rval = 0;
             string valcolName = table.Columns[m_valueColumnIndex].ColumnName;
-            DataRow[] remove = table.Select("ISNull([" + valcolName + "],"+Point.MissingValueFlag +") =" + Point.MissingValueFlag);
+
+            string sql = "ISNull([" + valcolName + "]," + Point.MissingValueFlag + ") =" + Point.MissingValueFlag;
+
+            if (HasFlags)
+            {
+                sql += " or  " + m_flagColumnName + " LIKE '" + PointFlag.QualityLow + "%' ";
+                sql += " or  " + m_flagColumnName + " LIKE '" + PointFlag.QualityHigh + "%' ";
+                sql += " or  " + m_flagColumnName + " LIKE '" + PointFlag.QualityRateOfChange + "%' ";
+            }
+
+            DataRow[] remove = table.Select(sql);
             
             foreach (DataRow row in remove)
             {

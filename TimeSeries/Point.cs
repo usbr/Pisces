@@ -15,8 +15,10 @@ namespace Reclamation.TimeSeries
         public const string Interpolated = "N";
         public const string QualityHigh = "+";
         public const string QualityLow = "-";
+        public const string QualityRateOfChange = "^";
 
     }
+
 
 
     // Interpolated, Missing, Edited, Computed, Raw
@@ -125,15 +127,6 @@ namespace Reclamation.TimeSeries
         //Notes = "";
     }
 
-        //public Point(DateTime date, double value, string flag, double percent, string notes)
-        //{
-        //    this.DateTime = date;
-        //    this.Value = value;
-        //    this.Flag = flag;
-        //    Percent = percent;
-        //   // this.Notes = notes;
-        //}
-
 
     public static Point operator *(Point pt, double value)
     {
@@ -208,5 +201,19 @@ namespace Reclamation.TimeSeries
             s += "\t" + this.Value.ToString("F2");
             return s;
         }
-	}
+
+        public bool FlaggedBad
+        {
+            get
+            {
+                if (Flag.IndexOf(PointFlag.QualityHigh) == 0
+                    || Flag.IndexOf(PointFlag.QualityLow) == 0
+                    || Flag.IndexOf(PointFlag.QualityRateOfChange) == 0)
+                    return true;
+
+                return false;
+            }
+
+        }
+    }
 }
