@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Reclamation.TimeSeries.Estimation
 {
-    class MultipleLinearRegressionResults
+    public class MultipleLinearRegressionResults
     {
         public string[] Report { get; set; }
         public Series EstimatedSeries { get; set; }
