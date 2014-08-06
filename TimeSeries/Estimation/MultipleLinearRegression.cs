@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Reclamation.TimeSeries.Estimation
 {
-    class MultipleLinearRegression
+    public class MultipleLinearRegression
     {
         /// <summary>
         /// MLR Interpolation Report
