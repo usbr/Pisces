@@ -361,6 +361,7 @@
     <Compile Include="Parser\Tests\TestParserWithDatabase.cs" />
     <Compile Include="ExcelDataReaderSeries.cs" />
     <Compile Include="TestData.cs" />
+    <Compile Include="Tests\Database\TestSqLiteUnixTime.cs" />
     <Compile Include="Tests\Database\TestMultiDatabaseSupport.cs" />
     <Compile Include="Tests\Database\TestQualityLimits.cs" />
     <Compile Include="Tests\Database\TimeSeriesDatabaseTest.cs" />

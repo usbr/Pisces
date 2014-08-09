@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio Express 2013 for Windows Desktop
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries", "TimeSeries\Reclamation.TimeSeries.csproj", "{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.Core", "Core\Reclamation.Core.csproj", "{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}"
@@ -48,6 +50,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries.Graphing", "TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj", "{862135B0-793A-4F06-B731-26C61B3AD068}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pisces_closed", "Pisces_closed\Pisces_closed.csproj", "{60537C98-6E33-42F7-9B7D-9B326ABC019E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "..\..\..\..\..\temp\ConsoleApplication1\ConsoleApplication1.csproj", "{4E837EDF-543A-480F-8E04-9995E706D53C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -551,6 +555,36 @@ Global
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.WatchDog|Mixed Platforms.Build.0 = WatchDog|x86
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.WatchDog|x86.ActiveCfg = WatchDog|x86
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.WatchDog|x86.Build.0 = WatchDog|x86
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Forecasting|Any CPU.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Forecasting|Any CPU.Build.0 = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Forecasting|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Forecasting|Mixed Platforms.Build.0 = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Forecasting|x86.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.pisces|Any CPU.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.pisces|Any CPU.Build.0 = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.pisces|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.pisces|Mixed Platforms.Build.0 = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.pisces|x86.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.poet|Any CPU.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.poet|Any CPU.Build.0 = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.poet|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.poet|Mixed Platforms.Build.0 = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.poet|x86.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.Release|x86.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.WatchDog|Any CPU.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.WatchDog|Any CPU.Build.0 = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.WatchDog|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.WatchDog|Mixed Platforms.Build.0 = Release|Any CPU
+		{4E837EDF-543A-480F-8E04-9995E706D53C}.WatchDog|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
