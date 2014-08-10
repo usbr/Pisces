@@ -17,8 +17,9 @@ namespace Pisces.NunitTests.Database
             File.Delete(@"c:\temp\unixtime.db");
             File.Delete(@"c:\temp\stringtime.db");
             int size = 5;
-            var server1 = new SQLiteServer(@"Data Source=c:\temp\unixtime.db;datetimeformat=UnixEpoch;");
+            var server1 = new SQLiteServer(@"c:\temp\unixtime.db;");
             var db1 = new TimeSeriesDatabase(server1);
+            db1.UnixDateTime = true;
             db1.AddSeries(CreateSeries(size));
             ReadSeries(db1,size);
 

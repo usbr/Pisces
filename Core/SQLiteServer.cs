@@ -46,8 +46,19 @@ namespace Reclamation.Core
         }
         public string FileName { get; set; }
 
-        public SQLiteServer(string connString)
+         private bool UnixTimeStamps
         {
+            get
+            {
+                var datetimeformat = ConnectionStringUtility.GetToken(ConnectionString, "datetimeformat", "");
+                return datetimeformat == "UnixEpoch";
+            }
+        }
+        
+
+        public SQLiteServer(string connString )
+        {
+            
             if (File.Exists(connString) || connString.IndexOf("=") < 0)
             {
                 ConnectionString = "Data Source=" + connString + ";";
@@ -58,7 +69,6 @@ namespace Reclamation.Core
             ConnectionString = connString;
             FileName = ConnectionStringUtility.GetToken(connString, "Data Source", "");
             }
-
             
         }
 
@@ -570,16 +580,16 @@ namespace Reclamation.Core
             }
             return rval;
         }
-
+        ///
+        ///http://stackoverflow.com/questions/10797011/sql-lite-data-types-c-sharp
+        ///
         public override string PortableDateString(DateTime t, string fmt)
         {
+            if( UnixTimeStamps)
+                return System.Data.SQLite.SQLiteConvert.ToUnixEpoch(t).ToString();
+
             return "datetime(" + base.PortableDateString(t, fmt) + ")";
         }
-
-
-
-
-
 
         public override void Vacuum()
         {

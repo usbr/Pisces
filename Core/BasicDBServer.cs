@@ -83,7 +83,8 @@ namespace Reclamation.Core
 
         /// <summary>
         /// Formats a date in string format suitable for use in a where clause
-        /// overriden by SQLiteServer to wrap with dattime function
+        /// overriden by SQLiteServer to wrap with datetime function
+        /// or to use Unix integer for the DateTime
         /// </summary>
         /// <param name="t"></param>
         /// <param name="fmt"></param>

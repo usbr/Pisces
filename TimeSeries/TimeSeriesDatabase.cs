@@ -136,8 +136,52 @@ namespace Reclamation.TimeSeries
             m_parser = new SeriesExpressionParser(this, lookup);
             factory = new TimeSeriesFactory(this);
             m_quality = new Quality(this);
+
+
+            SetUnixDateTime(UnixDateTime);
             
-            //m_importer = new TimeSeriesImporter(this);
+        }
+
+
+        /// <summary>
+        /// set UnixDateTime to true for disk  efficent sqlite timeseries data
+        /// </summary>
+        public bool UnixDateTime
+        {
+            get {
+                return this.Settings.ReadBoolean("UnixDateTime", false);
+            }
+            set
+            {
+                SetUnixDateTime(value);
+
+            }
+        }
+        /// <summary>
+        /// Set UnixDateTime in connection string and piscesInfo table
+        /// </summary>
+        /// <param name="value"></param>
+        private void SetUnixDateTime(bool value)
+        {
+            if (!(m_server is SQLiteServer))
+                return;
+
+            this.Settings.Set("UnixDateTime", value);
+            this.Settings.Save();
+            var m_unixDateTime = value;
+            if (m_unixDateTime)
+            {
+                var cs = this.Server.ConnectionString;
+                cs = ConnectionStringUtility.Modify(cs, "datetimeformat", "UnixEpoch");
+                this.Server.ConnectionString = cs;
+            }
+            else
+            {
+                var cs = this.Server.ConnectionString;
+                cs = ConnectionStringUtility.Modify(cs, "datetimeformat", "Default");
+                this.Server.ConnectionString = cs;
+
+            }
         }
 
         private void InitSettings()
@@ -1214,9 +1258,9 @@ namespace Reclamation.TimeSeries
 
             if (tbl.Rows.Count == 0)
             {
-                Console.WriteLine("Creating Root Folder in database '"+m_server.Name+"'");
+                Logger.WriteLine("Creating Root Folder in database '"+m_server.Name+"'");
                 int id = NextSDI();
-                Console.WriteLine("id = "+id);
+                Logger.WriteLine("id = "+id);
                // DataRow row = tbl.NewRow();
                // row["id"] = id;
                // row["ParentID"] = id;
@@ -1225,9 +1269,9 @@ namespace Reclamation.TimeSeries
                // row["Name"] = m_server.Name;
                 tbl.AddFolder(m_server.Name,id, id);
                // tbl.Rows.Add(row);
-                Console.WriteLine("before save: tbl.rows[0][id]= "+tbl.Rows[0]["id"].ToString());
+                Logger.WriteLine("before save: tbl.rows[0][id]= "+tbl.Rows[0]["id"].ToString());
                 m_server.SaveTable(tbl);
-                Console.WriteLine("Root folder created");
+                Logger.WriteLine("Root folder created");
             }
         }
 
