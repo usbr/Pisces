@@ -611,7 +611,7 @@ namespace Reclamation.TimeSeries
 
         protected virtual void ReadCore()
         {
-            ReadCore(TimeSeriesDatabase.MinDateTime.AddYears(1), TimeSeriesDatabase.MaxDateTime.AddYears(-1));
+            ReadCore(TimeSeriesDatabase.MinDateTime, TimeSeriesDatabase.MaxDateTime);
         }
 
 

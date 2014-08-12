@@ -829,13 +829,17 @@ namespace Reclamation.TimeSeries
 
         public DataTable ReadTimeSeriesTable(int sdi, DateTime t1, DateTime t2)
         {
-           // DataRow row = SeriesCatalogRow(sdi);
-             var sr = GetSeriesRow(sdi);
+            var sr = GetSeriesRow(sdi);
             string tableName = sr.TableName;
-            string sql = "SELECT * from " +m_server.PortableTableName( tableName)
-                + " WHERE datetime >= " + m_server.PortableDateString(t1, dateTimeFormat)
+            string sql = "SELECT * from " + m_server.PortableTableName(tableName);
+
+            if (t1 != MinDateTime && t2 != MaxDateTime)
+            {
+                sql += " WHERE datetime >= " + m_server.PortableDateString(t1, dateTimeFormat)
                 + " AND "
-            + " datetime <= " + m_server.PortableDateString(t2, dateTimeFormat);
+                + " datetime <= " + m_server.PortableDateString(t2, dateTimeFormat);
+            }
+            sql += " order by datetime ";
 
 
             if (!m_server.TableExists(tableName))
