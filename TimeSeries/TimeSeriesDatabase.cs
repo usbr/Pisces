@@ -833,7 +833,7 @@ namespace Reclamation.TimeSeries
             string tableName = sr.TableName;
             string sql = "SELECT * from " + m_server.PortableTableName(tableName);
 
-            if (t1 != MinDateTime && t2 != MaxDateTime)
+            if (t1 != MinDateTime || t2 != MaxDateTime)
             {
                 sql += " WHERE datetime >= " + m_server.PortableDateString(t1, dateTimeFormat)
                 + " AND "
