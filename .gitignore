@@ -162,3 +162,4 @@ Pisces
 /Pisces_closed_karl.sln
 /packages
 /.nuget/NuGet.exe
+/TimeSeries.Excel/bin/Debug/SpreadsheetGear.dll
