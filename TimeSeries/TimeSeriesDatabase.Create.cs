@@ -50,14 +50,14 @@ namespace Reclamation.TimeSeries
                 + " elevation " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " timezone " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " install " + m_server.PortableCharacterType(30) + " not null default '', "
-                + " horizontal_datum nvarchar(30)  not null default '',"
-                + " vertical_datum nvarchar(30)  not null default '', "
+                + " horizontal_datum " + m_server.PortableCharacterType(30) + "  not null default '',"
+                + " vertical_datum " + m_server.PortableCharacterType(30) + "  not null default '', "
                 + " vertical_accuracy float not null default 0,  "
-                + " elevation_method nvarchar(100)  not null default '', "
-                + " tz_offset nvarchar(10)  not null default '',  "
-                + " active_flag nvarchar(1) not null default 'T', "
-                + " type nvarchar(100) not null default '', "
-                + " responsibility nvarchar(30) not null default '' "
+                + " elevation_method " + m_server.PortableCharacterType(100) + "  not null default '', "
+                + " tz_offset " + m_server.PortableCharacterType(10) + "  not null default '',  "
+                + " active_flag " + m_server.PortableCharacterType(1) + " not null default 'T', "
+                + " type " + m_server.PortableCharacterType(100) + " not null default '', "
+                + " responsibility " + m_server.PortableCharacterType(30) + " not null default '' "
 
                 + " )";
                 ExecuteCreateTable(m_server, sql);
