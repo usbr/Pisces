@@ -61,13 +61,10 @@ namespace Reclamation.TimeSeries
              // SQLiteServer
             BasicDBServer svr=null;
 
-            if (Path.GetExtension(path).ToLower() == ".pdb")
-            {
-                if (create)
-                    SQLiteServer.CreateNewDatabase(path);
+            if (create)
+                SQLiteServer.CreateNewDatabase(path);
 
-                svr = new SQLiteServer(path);
-            }
+            svr = new SQLiteServer(path);
 
             m_db = new TimeSeriesDatabase(svr);
             Defaults(m_db);
