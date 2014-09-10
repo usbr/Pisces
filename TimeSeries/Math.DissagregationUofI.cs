@@ -70,6 +70,15 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// Main Streamflow Disaggregation script
         /// Follows procedures laid out by UofI's A.Acharya and Dr.Ryu
+        /// We programmed a monthly-to-daily-disaggregation method in 2012 initially 
+        /// based on some research by University of Idaho academics; the paper that the 
+        /// program is based can be found in the links below. We've since made several 
+        /// modifications to the program mainly to make it more robust in the sense that 
+        /// it handles more cases that would have resulted in errors and to 
+        /// make the mass-balancing more appropriate. 
+        ///
+        /// Published Journal Article - http://ascelibrary.org/doi/abs/10.1061/(ASCE)HE.1943-5584.0000818
+        ///Article Manuscript - http://water.cals.uidaho.edu/publications/SimpleDisaggregation_Acharya_2013.pdf
         /// </summary>
         /// <param name="daily">daily series (cfs)</param>
         /// <param name="monthly">monthly series (cfs or acre-feet)</param>

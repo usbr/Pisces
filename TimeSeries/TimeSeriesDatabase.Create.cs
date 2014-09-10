@@ -34,6 +34,13 @@ namespace Reclamation.TimeSeries
         {
             if (!m_server.TableExists("sitecatalog"))
             {
+                /*CREATE TABLE sitecatalog ( siteid   nvarchar(256)  not null primary key,  description  nvarchar(1024)  not null default '',  state  nvarchar(30)  not null default '',
+  latitude  nvarchar(30)  not null default '',  longitude  nvarchar(30)  not null default '',  elevation  nvarchar(30)  not null default '',
+  timezone  nvarchar(30)  not null default '',  install  nvarchar(30)  not null default '' , horizontal_datum nvarchar(30)  not null default '',
+ vertical_datum nvarchar(30)  not null default '', vertical_accuracy float not null default 0, elevation_method nvarchar(100)  not null default '',
+ tz_offset nvarchar(10)  not null default '', active_flag nvarchar(1) not null default 'T', type nvarchar(100) not null default '', responsibility nvarchar(30) not null default ''  );
+                */
+
                 string sql = "Create Table sitecatalog "
                 + "( siteid  " + m_server.PortableCharacterType(256) + " not null primary key, "
                 + " description " + m_server.PortableCharacterType(1024) + " not null default '', "
@@ -42,11 +49,20 @@ namespace Reclamation.TimeSeries
                 + " longitude " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " elevation " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " timezone " + m_server.PortableCharacterType(30) + " not null default '', "
-                + " install " + m_server.PortableCharacterType(30) + " not null default '' "
+                + " install " + m_server.PortableCharacterType(30) + " not null default '', "
+                + " horizontal_datum " + m_server.PortableCharacterType(30) + "  not null default '',"
+                + " vertical_datum " + m_server.PortableCharacterType(30) + "  not null default '', "
+                + " vertical_accuracy float not null default 0,  "
+                + " elevation_method " + m_server.PortableCharacterType(100) + "  not null default '', "
+                + " tz_offset " + m_server.PortableCharacterType(10) + "  not null default '',  "
+                + " active_flag " + m_server.PortableCharacterType(1) + " not null default 'T', "
+                + " type " + m_server.PortableCharacterType(100) + " not null default '', "
+                + " responsibility " + m_server.PortableCharacterType(30) + " not null default '' "
+
                 + " )";
                 ExecuteCreateTable(m_server, sql);
 
-            } 
+            }
         }
 
         private void CreateSitePropertiesTable()

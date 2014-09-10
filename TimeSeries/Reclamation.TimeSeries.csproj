@@ -225,9 +225,8 @@
     <Reference Include="alglibnet2">
       <HintPath>..\ThirdParty\alglibnet2.dll</HintPath>
     </Reference>
-    <Reference Include="MathNet.Numerics, Version=3.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MathNet.Numerics.3.2.1\lib\net35\MathNet.Numerics.dll</HintPath>
+    <Reference Include="MathNet.Numerics">
+      <HintPath>..\..\..\C#Projects\Test\packages\MathNet.Numerics.3.2.1\lib\net35\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -250,7 +249,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Threading">
-      <HintPath>..\packages\TaskParallelLibrary.1.0.2856.0\lib\Net35\System.Threading.dll</HintPath>
+      <HintPath>..\..\..\C#Projects\Test\packages\TaskParallelLibrary.1.0.2856.0\lib\Net35\System.Threading.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
@@ -648,6 +647,7 @@
     <Compile Include="TimeWindow.cs" />
     <Compile Include="UrgwomSeries.cs" />
     <Compile Include="UrgwomUtility.cs" />
+    <Compile Include="Usgs\UsgsRatingTables.cs" />
     <Compile Include="Usgs\UsgsRealTimeSeries.cs" />
     <Compile Include="Usgs\UsgsUtility.cs" />
     <Compile Include="Usgs\UsgsDailiyValueSeries.cs" />
