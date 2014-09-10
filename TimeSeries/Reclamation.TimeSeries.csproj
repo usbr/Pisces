@@ -647,6 +647,7 @@
     <Compile Include="TimeWindow.cs" />
     <Compile Include="UrgwomSeries.cs" />
     <Compile Include="UrgwomUtility.cs" />
+    <Compile Include="Usgs\UsgsRatingTables.cs" />
     <Compile Include="Usgs\UsgsRealTimeSeries.cs" />
     <Compile Include="Usgs\UsgsUtility.cs" />
     <Compile Include="Usgs\UsgsDailiyValueSeries.cs" />
