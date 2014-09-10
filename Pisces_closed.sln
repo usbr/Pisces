@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetUsace", "..\Hydromet\Get
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "www.usbr.gov", "V:\PN6200\Hydromet\Web\www.usbr.gov\", "{9D9D7541-AB81-4744-B73C-89BB78307521}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
 		Debug.AspNetCompiler.VirtualPath = "/www.usbr.gov"
 		Debug.AspNetCompiler.PhysicalPath = "V:\PN6200\Hydromet\Web\www.usbr.gov\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\www.usbr.gov\"
