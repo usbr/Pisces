@@ -454,14 +454,13 @@ namespace Reclamation.TimeSeries.Modsim
         /// </summary>
         private void LinkOutput(string modsimName, string columnName, DateTime t1, DateTime t2)
         {
-            //string d = "TsDate";
-            //if (columnName == "NaturalFlow" || columnName == "StorLeft" || 
-            //    columnName == "Accrual")
-            //{
-            //    d = "EndDate";
-            //}
+            string dt = "TsDate";
+            if (columnName == "GroupStorLeft" || columnName == "StorLeft")
+            {
+                dt = "EndDate";
+            }
 
-            string sql = " SELECT TimeSteps.TSDate, LinksOutput." + columnName //+ SQLMultiplyByScale(columnName)
+            string sql = " SELECT TimeSteps." + dt + ", LinksOutput." + columnName //+ SQLMultiplyByScale(columnName)
                     + " FROM (LinksOutput INNER JOIN TimeSteps ON LinksOutput.TSIndex = TimeSteps.TSIndex) "
                     + " INNER JOIN LinksInfo ON LinksOutput.LNumber = LinksInfo.LNumber "
                     + " where LinksInfo.LName = '" + modsimName + "'";
