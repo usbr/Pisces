@@ -14,31 +14,59 @@ namespace Reclamation.TimeSeries.Usgs
     public class UsgsRatingTable
     {
         private static string hydrometRTFs = Path.Combine(ConfigurationManager.AppSettings["LocalConfigurationDataPath"], "rating_tables");
-
+        
+        // Define Class properties
         public string idNumber;
         public string cbtt;
+        public string units;
+        public string stationName;
+        public string timeZone;
+        public string ratingTableVersion;
+        public string ratingTableComments;
+        public string ratingTableExpansion;
         public TextFile webRdbTable;
         public TextFile fileRdbTable;
         public DataTable hjTable;
         public DataTable qTable;
+        public DataTable fullRatingTable;
 
-        public void SetIdNumber(string idNumber)
-        { this.idNumber = idNumber; }
-
-        public void GetRDBTableFromWeb()
-        {
-            var usgsStation = this.idNumber;
-            // NWIS URL
+        /// <summary>
+        /// Main constructor for this class
+        /// </summary>
+        /// <param name="idNumber"></param>
+        public void GetRDBTableFromWeb(string idNumber)
+        { 
+            this.idNumber = idNumber;
+            
+            // Get and assign RDB file from the web
             string nwisURL = "http://waterdata.usgs.gov/nwisweb/get_ratings?site_no=XXXXXXXX&file_type=exsa";
-            // Get new RTF from web
-            var newData = Web.GetPage(nwisURL.Replace("XXXXXXXX", usgsStation));
+            var newData = Web.GetPage(nwisURL.Replace("XXXXXXXX", idNumber));
             if (newData.Count() == 0)
             { throw new Exception("NWIS data not found. Check inputs or retry later."); }
             TextFile newRDB = new TextFile();
             foreach (var item in newData)
             { newRDB.Add(item); }
             newRDB.DeleteLine(newRDB.Length - 1); //last line from web is blank and the exisitng RDB does not have an empty last line
-            this.webRdbTable= newRDB;
+            this.webRdbTable = newRDB;
+            
+            // Get and assign RDB file properties
+            var tempFile = Path.GetTempFileName();
+            this.webRdbTable.SaveAs(tempFile);
+            var rdbFile = new TextFile(tempFile);
+            var rdbFileString = rdbFile.FileContents;
+            var rdbItems = rdbFileString.Split('"').ToList();//[JR] these separate the rdb file into searchable chunks
+            var unitsIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("LABEL=")).ToList();
+            var stationNameIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("STATION NAME=")).ToList();
+            var timeZoneIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("TIME_ZONE=")).ToList();
+            var versionIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("RATING ID=")).ToList();
+            var commentsIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("COMMENT=")).ToList();
+            var expansionIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("RATING EXPANSION=")).ToList();
+            this.units = rdbItems[unitsIdx[0] + 1].ToString().Replace("\"", "");
+            this.stationName = rdbItems[stationNameIdx[0] + 1].ToString().Replace("\"", "");
+            this.timeZone = rdbItems[timeZoneIdx[0] + 1].ToString().Replace("\"", "");
+            this.ratingTableVersion = rdbItems[versionIdx[0] + 1].ToString().Replace("\"", "");
+            this.ratingTableComments = rdbItems[commentsIdx[0] + 1].ToString().Replace("\"", "");
+            this.ratingTableExpansion = rdbItems[expansionIdx[0] + 1].ToString().Replace("\"", "");
         }
 
         public void GetRDBTableFromFile()
@@ -83,12 +111,12 @@ namespace Reclamation.TimeSeries.Usgs
             Regex rShift = new Regex("SHIFT_PREV STAGE(.*?)SHIFT_PREV COMMENT", RegexOptions.Singleline);
             var shiftTextRow = rShift.Match(rdbFileString);
             var shifts = Regex.Matches(shiftTextRow.Value, "\"([^\"]*)\"");
-            var shiftTable = new DataTable();
-            shiftTable.Columns.Add(new DataColumn("stage", typeof(double)));
-            shiftTable.Columns.Add(new DataColumn("shift", typeof(double)));
+            var hjTable = new DataTable();
+            hjTable.Columns.Add(new DataColumn("stage", typeof(double)));
+            hjTable.Columns.Add(new DataColumn("shift", typeof(double)));
             for (int i = 0; i < shifts.Count; i++)
             {
-                var shiftRow = shiftTable.NewRow();
+                var shiftRow = hjTable.NewRow();
                 try//some stage-shoft pairs are nans
                 {
                     shiftRow["stage"] = Convert.ToDouble(shifts[i].ToString().Replace("\"", ""));
@@ -99,7 +127,7 @@ namespace Reclamation.TimeSeries.Usgs
                     shiftRow["stage"] = double.NaN;
                     shiftRow["shift"] = double.NaN;
                 }
-                shiftTable.Rows.Add(shiftRow);
+                hjTable.Rows.Add(shiftRow);
                 i++;
             }
             // Define Logarithmic coefficient pairs in a C# DataTable
@@ -154,13 +182,25 @@ namespace Reclamation.TimeSeries.Usgs
             }
             if (qTable.Rows.Count < 1)
             { throw new Exception("No skeletal points found for station: " + this.cbtt); }
-            this.hjTable = shiftTable;
+            this.hjTable = hjTable;
             this.qTable = qTable;
         }
 
-        
+        public void CreateFullRatingTableFromWeb()
+        { CreateFullRatingTable(this.webRdbTable); }
+
+        public void CreateFullRatingTableFromFile()
+        { CreateFullRatingTable(this.fileRdbTable); }
+
+        private void CreateFullRatingTable(TextFile rdbFile)
+        {
+            var tempFile = Path.GetTempFileName();
+            rdbFile.SaveAs(tempFile);
+            rdbFile = new TextFile(tempFile);
+            // [JR] work in progress
+
+        }
+
+
     }
-
-
-    
 }
