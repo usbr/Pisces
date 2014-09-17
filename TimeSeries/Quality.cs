@@ -39,14 +39,14 @@ namespace Reclamation.TimeSeries
                 if (pt.IsMissing)
                     continue;
 
-                if ( !row.IsLowNull()  &&  pt.Value < row.Low)
+                if ( !row.IslowNull()  &&  pt.Value < row.low)
                 {
                     pt.Flag = PointFlag.QualityLow;
                     s[i] = pt;
                     continue;
                 }
 
-                if (!row.IsHighNull() && pt.Value > row.High)
+                if (!row.IshighNull() && pt.Value > row.high)
                 {
                     pt.Flag = PointFlag.QualityHigh;
                     s[i] = pt;
@@ -55,7 +55,7 @@ namespace Reclamation.TimeSeries
 
                 // To DO. rate of change
 
-                if (!row.IsChangeNull() )
+                if (!row.IschangeNull() )
                 {
                     //"^"
 

@@ -1436,6 +1436,8 @@ namespace Reclamation.TimeSeries
                 {
                     var cs = item as CalculationSeries;
                     // TO DO.. some calcs should go back 1 weeek. i.e.  QU
+                    // this is currently being done in TimeSeriesCalculator
+                    // for daily data.
                     cs.Calculate(s.MinDateTime,s.MaxDateTime);
                     if (cs.Count > 0)
                         rval.Add(cs);
@@ -1458,6 +1460,11 @@ namespace Reclamation.TimeSeries
             }
         }
 
+        /// <summary>
+        /// enforce that tableName doesn't start with number,
+        /// and remove dashes in table name
+        /// </summary>
+        /// <param name="s"></param>
         private static void FixInvalidTableName(Series s)
         {
             var tn = s.Table.TableName;

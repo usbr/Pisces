@@ -12,7 +12,7 @@ namespace Reclamation.TimeSeries {
 
     public partial class TimeSeriesDatabaseDataSet {
 
-        partial class AlarmDataTable
+        partial class alarmDataTable
         {
         }
 
