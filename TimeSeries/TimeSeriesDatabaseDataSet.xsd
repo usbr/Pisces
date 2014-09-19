@@ -153,10 +153,10 @@
         <xs:element name="quality_limit" msprop:Generator_TableClassName="quality_limitDataTable" msprop:Generator_TableVarName="tablequality_limit" msprop:Generator_RowChangedName="quality_limitRowChanged" msprop:Generator_TablePropName="quality_limit" msprop:Generator_RowDeletingName="quality_limitRowDeleting" msprop:Generator_RowChangingName="quality_limitRowChanging" msprop:Generator_RowEvHandlerName="quality_limitRowChangeEventHandler" msprop:Generator_RowDeletedName="quality_limitRowDeleted" msprop:Generator_RowClassName="quality_limitRow" msprop:Generator_UserTableName="quality_limit" msprop:Generator_RowEvArgName="quality_limitRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="TableMask" msprop:Generator_ColumnVarNameInTable="columnTableMask" msprop:Generator_ColumnPropNameInRow="TableMask" msprop:Generator_ColumnPropNameInTable="TableMaskColumn" msprop:Generator_UserColumnName="TableMask" type="xs:string" />
-              <xs:element name="High" msprop:Generator_ColumnVarNameInTable="columnHigh" msprop:Generator_ColumnPropNameInRow="High" msprop:Generator_ColumnPropNameInTable="HighColumn" msprop:Generator_UserColumnName="High" type="xs:double" minOccurs="0" />
-              <xs:element name="Low" msprop:Generator_ColumnVarNameInTable="columnLow" msprop:Generator_ColumnPropNameInRow="Low" msprop:Generator_ColumnPropNameInTable="LowColumn" msprop:Generator_UserColumnName="Low" type="xs:double" minOccurs="0" />
-              <xs:element name="Change" msprop:Generator_ColumnVarNameInTable="columnChange" msprop:Generator_ColumnPropNameInRow="Change" msprop:Generator_ColumnPropNameInTable="ChangeColumn" msprop:Generator_UserColumnName="Change" type="xs:double" minOccurs="0" />
+              <xs:element name="tablemask" msprop:Generator_ColumnVarNameInTable="columntablemask" msprop:Generator_ColumnPropNameInRow="tablemask" msprop:Generator_ColumnPropNameInTable="tablemaskColumn" msprop:Generator_UserColumnName="tablemask" type="xs:string" />
+              <xs:element name="high" msprop:Generator_ColumnVarNameInTable="columnhigh" msprop:Generator_ColumnPropNameInRow="high" msprop:Generator_ColumnPropNameInTable="highColumn" msprop:Generator_UserColumnName="high" type="xs:double" minOccurs="0" />
+              <xs:element name="low" msprop:Generator_ColumnVarNameInTable="columnlow" msprop:Generator_ColumnPropNameInRow="low" msprop:Generator_ColumnPropNameInTable="lowColumn" msprop:Generator_UserColumnName="low" type="xs:double" minOccurs="0" />
+              <xs:element name="change" msprop:Generator_ColumnVarNameInTable="columnchange" msprop:Generator_ColumnPropNameInRow="change" msprop:Generator_ColumnPropNameInTable="changeColumn" msprop:Generator_UserColumnName="change" type="xs:double" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -171,16 +171,24 @@
               <xs:element name="elevation" msprop:Generator_ColumnVarNameInTable="columnelevation" msprop:Generator_ColumnPropNameInRow="elevation" msprop:Generator_ColumnPropNameInTable="elevationColumn" msprop:Generator_UserColumnName="elevation" type="xs:string" minOccurs="0" />
               <xs:element name="timezone" msprop:Generator_ColumnVarNameInTable="columntimezone" msprop:Generator_ColumnPropNameInRow="timezone" msprop:Generator_ColumnPropNameInTable="timezoneColumn" msprop:Generator_UserColumnName="timezone" type="xs:string" default="" minOccurs="0" />
               <xs:element name="install" msprop:Generator_ColumnVarNameInTable="columninstall" msprop:Generator_ColumnPropNameInRow="install" msprop:Generator_ColumnPropNameInTable="installColumn" msprop:Generator_UserColumnName="install" type="xs:string" minOccurs="0" />
+              <xs:element name="horizontal_datum" msprop:Generator_ColumnVarNameInTable="columnhorizontal_datum" msprop:Generator_ColumnPropNameInRow="horizontal_datum" msprop:Generator_ColumnPropNameInTable="horizontal_datumColumn" msprop:Generator_UserColumnName="horizontal_datum" type="xs:string" minOccurs="0" />
+              <xs:element name="vertical_datum" msprop:Generator_ColumnVarNameInTable="columnvertical_datum" msprop:Generator_ColumnPropNameInRow="vertical_datum" msprop:Generator_ColumnPropNameInTable="vertical_datumColumn" msprop:Generator_UserColumnName="vertical_datum" type="xs:string" minOccurs="0" />
+              <xs:element name="vertical_accuracy" msprop:Generator_ColumnVarNameInTable="columnvertical_accuracy" msprop:Generator_ColumnPropNameInRow="vertical_accuracy" msprop:Generator_ColumnPropNameInTable="vertical_accuracyColumn" msprop:Generator_UserColumnName="vertical_accuracy" type="xs:double" minOccurs="0" />
+              <xs:element name="elevation_method" msprop:Generator_ColumnVarNameInTable="columnelevation_method" msprop:Generator_ColumnPropNameInRow="elevation_method" msprop:Generator_ColumnPropNameInTable="elevation_methodColumn" msprop:Generator_UserColumnName="elevation_method" type="xs:string" minOccurs="0" />
+              <xs:element name="tz_offset" msprop:Generator_ColumnVarNameInTable="columntz_offset" msprop:Generator_ColumnPropNameInRow="tz_offset" msprop:Generator_ColumnPropNameInTable="tz_offsetColumn" msprop:Generator_UserColumnName="tz_offset" type="xs:string" minOccurs="0" />
+              <xs:element name="active_flag" msprop:Generator_ColumnVarNameInTable="columnactive_flag" msprop:Generator_ColumnPropNameInRow="active_flag" msprop:Generator_ColumnPropNameInTable="active_flagColumn" msprop:Generator_UserColumnName="active_flag" type="xs:string" minOccurs="0" />
+              <xs:element name="type" msprop:Generator_ColumnVarNameInTable="columntype" msprop:Generator_ColumnPropNameInRow="type" msprop:Generator_ColumnPropNameInTable="typeColumn" msprop:Generator_UserColumnName="type" type="xs:string" minOccurs="0" />
+              <xs:element name="responsibility" msprop:Generator_ColumnVarNameInTable="columnresponsibility" msprop:Generator_ColumnPropNameInRow="responsibility" msprop:Generator_ColumnPropNameInTable="responsibilityColumn" msprop:Generator_UserColumnName="responsibility" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Alarm" msprop:Generator_TableClassName="AlarmDataTable" msprop:Generator_TableVarName="tableAlarm" msprop:Generator_RowChangedName="AlarmRowChanged" msprop:Generator_TablePropName="Alarm" msprop:Generator_RowDeletingName="AlarmRowDeleting" msprop:Generator_RowChangingName="AlarmRowChanging" msprop:Generator_RowEvHandlerName="AlarmRowChangeEventHandler" msprop:Generator_RowDeletedName="AlarmRowDeleted" msprop:Generator_RowClassName="AlarmRow" msprop:Generator_UserTableName="Alarm" msprop:Generator_RowEvArgName="AlarmRowChangeEvent">
+        <xs:element name="alarm" msprop:Generator_TableClassName="alarmDataTable" msprop:Generator_TableVarName="tablealarm" msprop:Generator_RowChangedName="alarmRowChanged" msprop:Generator_TablePropName="alarm" msprop:Generator_RowDeletingName="alarmRowDeleting" msprop:Generator_RowChangingName="alarmRowChanging" msprop:Generator_RowEvHandlerName="alarmRowChangeEventHandler" msprop:Generator_RowDeletedName="alarmRowDeleted" msprop:Generator_RowClassName="alarmRow" msprop:Generator_UserTableName="alarm" msprop:Generator_RowEvArgName="alarmRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="TableMask" msdata:Caption="TableName" msprop:Generator_ColumnVarNameInTable="columnTableMask" msprop:Generator_ColumnPropNameInRow="TableMask" msprop:Generator_ColumnPropNameInTable="TableMaskColumn" msprop:Generator_UserColumnName="TableMask" type="xs:string" />
-              <xs:element name="High" msprop:Generator_ColumnVarNameInTable="columnHigh" msprop:Generator_ColumnPropNameInRow="High" msprop:Generator_ColumnPropNameInTable="HighColumn" msprop:Generator_UserColumnName="High" type="xs:double" minOccurs="0" />
-              <xs:element name="Low" msprop:Generator_ColumnVarNameInTable="columnLow" msprop:Generator_ColumnPropNameInRow="Low" msprop:Generator_ColumnPropNameInTable="LowColumn" msprop:Generator_UserColumnName="Low" type="xs:double" minOccurs="0" />
-              <xs:element name="Change" msprop:Generator_ColumnVarNameInTable="columnChange" msprop:Generator_ColumnPropNameInRow="Change" msprop:Generator_ColumnPropNameInTable="ChangeColumn" msprop:Generator_UserColumnName="Change" type="xs:double" minOccurs="0" />
+              <xs:element name="tablemask" msdata:Caption="TableName" msprop:Generator_ColumnVarNameInTable="columntablemask" msprop:Generator_ColumnPropNameInRow="tablemask" msprop:Generator_ColumnPropNameInTable="tablemaskColumn" msprop:Generator_UserColumnName="tablemask" type="xs:string" />
+              <xs:element name="high" msprop:Generator_ColumnVarNameInTable="columnhigh" msprop:Generator_ColumnPropNameInRow="high" msprop:Generator_ColumnPropNameInTable="highColumn" msprop:Generator_UserColumnName="high" type="xs:double" minOccurs="0" />
+              <xs:element name="low" msprop:Generator_ColumnVarNameInTable="columnlow" msprop:Generator_ColumnPropNameInRow="low" msprop:Generator_ColumnPropNameInTable="lowColumn" msprop:Generator_UserColumnName="low" type="xs:double" minOccurs="0" />
+              <xs:element name="change" msprop:Generator_ColumnVarNameInTable="columnchange" msprop:Generator_ColumnPropNameInRow="change" msprop:Generator_ColumnPropNameInTable="changeColumn" msprop:Generator_UserColumnName="change" type="xs:double" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -224,15 +232,15 @@
     </xs:unique>
     <xs:unique name="quality_limit_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:quality_limit" />
-      <xs:field xpath="mstns:TableMask" />
+      <xs:field xpath="mstns:tablemask" />
     </xs:unique>
     <xs:unique name="sitecatalog_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:sitecatalog" />
       <xs:field xpath="mstns:siteid" />
     </xs:unique>
-    <xs:unique name="Alarm_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:Alarm" />
-      <xs:field xpath="mstns:TableMask" />
+    <xs:unique name="alarm_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:alarm" />
+      <xs:field xpath="mstns:tablemask" />
     </xs:unique>
     <xs:unique name="seriesproperties_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:seriesproperties" />
