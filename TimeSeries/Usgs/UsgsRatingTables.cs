@@ -14,13 +14,13 @@ namespace Reclamation.TimeSeries.Usgs
     public class UsgsRatingTable
     {
         // Define Class properties
-         string idNumber;
-         string units;
-         string stationName;
-         string timeZone;
-         string ratingTableVersion;
-         string ratingTableComments;
-         string ratingTableExpansion;
+        string idNumber;
+        string units;
+        string stationName;
+        string timeZone;
+        string ratingTableVersion;
+        string ratingTableComments;
+        string ratingTableExpansion;
         public TextFile webRdbTable;
         public TextFile fileRdbTable;
         public DataTable hjTable;
@@ -68,8 +68,6 @@ namespace Reclamation.TimeSeries.Usgs
             this.ratingTableComments = rdbItems[commentsIdx[0] + 1].ToString().Replace("\"", "");
             this.ratingTableExpansion = rdbItems[expansionIdx[0] + 1].ToString().Replace("\"", "");
         }
-
-        
 
         public void CreateShiftAndFlowTablesFromWeb()
         { CreateShiftAndFlowTables(this.webRdbTable); }
@@ -176,15 +174,35 @@ namespace Reclamation.TimeSeries.Usgs
         public void CreateFullRatingTableFromFile()
         { CreateFullRatingTable(this.fileRdbTable); }
 
+        /// <summary>
+        /// This method generates the full table from the RDB file
+        /// </summary>
+        /// <param name="rdbFile"></param>
         private void CreateFullRatingTable(TextFile rdbFile)
         {
+            // Build container DataTable
+            DataTable ratingTable = new DataTable();
+            ratingTable.Columns.Add(new DataColumn("Stage", typeof(double)));
+            ratingTable.Columns.Add(new DataColumn("Shift", typeof(double)));
+            ratingTable.Columns.Add(new DataColumn("Flow", typeof(double)));
+            // Save RDB file
             var tempFile = Path.GetTempFileName();
             rdbFile.SaveAs(tempFile);
             rdbFile = new TextFile(tempFile);
+            // Loop through each RDB file row to find the data
+            int headerRow = rdbFile.IndexOf("INDEP	SHIFT	DEP	STOR") + 2;
+            for (int i = headerRow; i < rdbFile.Length; i++)
+            {
+                var row = rdbFile[i];
+                var newRow = ratingTable.NewRow();
+                var rowVals = rdbFile[i].Split('\t');
+                newRow["Stage"] = Convert.ToDouble(rowVals[0]);
+                newRow["Shift"] = Convert.ToDouble(rowVals[1]);
+                newRow["Flow"] = Convert.ToDouble(rowVals[2]);
+                ratingTable.Rows.Add(newRow);
+            }
             // [JR] work in progress
-
+            this.fullRatingTable = ratingTable;
         }
-
-
     }
 }
