@@ -41,7 +41,13 @@ namespace Reclamation.TimeSeries
             foreach (var vn in vars)
             {
                 TimeSeriesName tn = new TimeSeriesName(vn,cName.interval);
-             
+
+                if (tn.GetTableName() == cs.Table.TableName)
+                {
+                    Logger.WriteLine(cs.Expression);
+                    Logger.WriteLine("Warning: prevented recursive dependency "+tn.GetTableName());
+                    continue;
+                }
                 var dependents = list.FindAll(x => x.Table.TableName == tn.GetTableName() );
 
                 foreach (var d in dependents)
