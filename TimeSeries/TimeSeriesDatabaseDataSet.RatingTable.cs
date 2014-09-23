@@ -59,6 +59,7 @@ namespace Reclamation.TimeSeries
             public string YUnits = "";
             public string XUnits = "";
             public string Name = "";
+            public string EditDate = "";
 
             /// <summary>
             /// Lookup values for each point in the Series
