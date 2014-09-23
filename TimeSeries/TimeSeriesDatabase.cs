@@ -114,11 +114,52 @@ namespace Reclamation.TimeSeries
             //set { factory = value; }
         }
 
+
+        /// <summary>
+        /// Constructor of TimeSeriesDatabase
+        /// </summary>
+        /// <param name="server"></param>
+        public TimeSeriesDatabase(BasicDBServer server)
+        {
+            InitDatabaseSettings(server);
+
+            LookupOption lookup = LookupOption.SeriesName;
+
+            var opt = m_settings.Get("LookupOption", "");
+
+            if (opt == "TableName")
+            {
+                lookup = LookupOption.TableName;
+            }
+
+            InitWithLookup(server, lookup);
+        }
+
         /// <summary>
         /// Constructor of TimeSeriesDatabase
         /// </summary>
         /// <param name="server"></param>
         public TimeSeriesDatabase(BasicDBServer server, LookupOption lookup = LookupOption.SeriesName)
+        {
+            InitDatabaseSettings(server);
+            InitWithLookup(server, lookup);
+        }
+
+
+        private void InitWithLookup(BasicDBServer server, LookupOption lookup)
+        {
+            InitDatabaseSettings(server);
+            m_settings.Set("LookupOption", lookup.ToString());
+            m_settings.Save();
+
+            m_parser = new SeriesExpressionParser(this, lookup);
+            factory = new TimeSeriesFactory(this);
+            m_quality = new Quality(this);
+
+            SetUnixDateTime(UnixDateTime);
+        }
+
+        private void InitDatabaseSettings(BasicDBServer server)
         {
             Filter = "";
             m_server = server;
@@ -133,13 +174,6 @@ namespace Reclamation.TimeSeries
             InitSettings();
 
             CreateRootFolder();
-            m_parser = new SeriesExpressionParser(this, lookup);
-            factory = new TimeSeriesFactory(this);
-            m_quality = new Quality(this);
-
-
-            SetUnixDateTime(UnixDateTime);
-            
         }
 
 
