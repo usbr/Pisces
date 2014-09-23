@@ -13,31 +13,31 @@ namespace Reclamation.TimeSeries.Usgs
 {
     public class UsgsRatingTable
     {
-        private static string hydrometRTFs = Path.Combine(ConfigurationManager.AppSettings["LocalConfigurationDataPath"], "rating_tables");
-        
         // Define Class properties
-        public string idNumber;
-        public string cbtt;
-        public string units;
-        public string stationName;
-        public string timeZone;
-        public string ratingTableVersion;
-        public string ratingTableComments;
-        public string ratingTableExpansion;
+         string idNumber;
+         string units;
+         string stationName;
+         string timeZone;
+         string ratingTableVersion;
+         string ratingTableComments;
+         string ratingTableExpansion;
         public TextFile webRdbTable;
         public TextFile fileRdbTable;
         public DataTable hjTable;
         public DataTable qTable;
         public DataTable fullRatingTable;
 
+        private string ratingTablePath;
+
         /// <summary>
         /// Main constructor for this class
         /// </summary>
         /// <param name="idNumber"></param>
-        public void GetRDBTableFromWeb(string idNumber)
-        { 
+        public UsgsRatingTable(string idNumber, string ratingTablePath)
+        {
             this.idNumber = idNumber;
-            
+            this.ratingTablePath = ratingTablePath;
+
             // Get and assign RDB file from the web
             string nwisURL = "http://waterdata.usgs.gov/nwisweb/get_ratings?site_no=XXXXXXXX&file_type=exsa";
             var newData = Web.GetPage(nwisURL.Replace("XXXXXXXX", idNumber));
@@ -69,23 +69,7 @@ namespace Reclamation.TimeSeries.Usgs
             this.ratingTableExpansion = rdbItems[expansionIdx[0] + 1].ToString().Replace("\"", "");
         }
 
-        public void GetRDBTableFromFile()
-        {
-            var usgsStation = this.idNumber;
-            var inputText = new CsvFile(Path.Combine(hydrometRTFs, "usgs_site_list.csv"));
-            var cbttList = inputText.Select(string.Format("[site_id] = {0}", usgsStation));
-            if (cbttList.Length != 1)
-            {
-                // [JR] message saying the site number is not currently saved in hydromet or is duplicated in the master list
-                this.fileRdbTable = null;
-                this.cbtt = "";
-            }
-            else
-            {
-                this.cbtt = cbttList[0]["cbtt"].ToString().ToUpper();
-                this.fileRdbTable = new TextFile(Path.Combine(hydrometRTFs, this.cbtt + ".rdb"));
-            }
-        }
+        
 
         public void CreateShiftAndFlowTablesFromWeb()
         { CreateShiftAndFlowTables(this.webRdbTable); }
@@ -181,7 +165,7 @@ namespace Reclamation.TimeSeries.Usgs
                 qTable.Rows.Add(qRow);
             }
             if (qTable.Rows.Count < 1)
-            { throw new Exception("No skeletal points found for station: " + this.cbtt); }
+            { throw new Exception("No skeletal points found for station: " + this.stationName); }
             this.hjTable = hjTable;
             this.qTable = qTable;
         }
