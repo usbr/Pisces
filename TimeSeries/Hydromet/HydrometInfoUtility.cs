@@ -779,19 +779,21 @@ namespace Reclamation.TimeSeries.Hydromet
 
             string[] data = Web.GetPage(url);
             TextFile tf = new TextFile(data);
-            
+
             /*
              <table border="1" summary="Expanded Rating Table">	<tr align="center">
 <th width="80px"><b>ft</b></th>
 <th width="80px"><b>cfs</b></th>
 </tr>
+             * 
+             * Table Edit Date: 18-SEP-2014 02:22
 <tr align="right"><td>2440.01</td><td>-704.00</td></tr>
 <tr align="right"><td>2440.02</td><td>-704.00</td></tr>
 <tr align="right"><td>2440.03</td><td>-704.00</td></tr>
 <tr align="right"><td>2440.04</td><td>-704.00</td></tr>
              */
 
-            
+
             TimeSeriesDatabaseDataSet.RatingTableDataTable t = new TimeSeriesDatabaseDataSet.RatingTableDataTable();
             int idx = tf.IndexOfBothRegex("<th.*</th>", "<th.*</th>");
             if (idx >= 0)
@@ -799,6 +801,13 @@ namespace Reclamation.TimeSeries.Hydromet
                 t.XUnits = Regex.Match(tf[idx],     @"<th.*<b>(?<x>\w*)</b>").Groups[1].Value;
                 t.YUnits = Regex.Match(tf[idx + 1], @"<th.*<b>(?<x>\w*)</b>").Groups[1].Value;
             }
+            //<br>Table Edit Date: 18-SEP-2014 02:22<br>Today's Date: 23-SEP-2014 06:54
+            var idxDate = tf.IndexOfRegex("Table Edit Date:.*<br>");
+            if( idxDate>=0)
+            {
+                t.EditDate = Regex.Match(tf[idxDate], "Table Edit Date:(?<date>.*)<br>").Groups[1].Value;
+            }
+
             
             Regex re = new Regex(@"<tr.*?>(?<x>[\d\.\-\+]{1,12})</td><td>(?<y>[\d\.\-\+]{1,12})</td>");
             for (int i = idx+2; i < tf.Length; i++)

@@ -81,9 +81,8 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="SpreadsheetGear, Version=5.1.1.162, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\SpreadsheetGear.dll</HintPath>
+    <Reference Include="SpreadsheetGear">
+      <HintPath>..\PaidThirdParty\SpreadsheetGear.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

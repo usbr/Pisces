@@ -131,7 +131,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\tchart_licenses.licx" />
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="TimeSeriesTeeChartGraph.resx">
       <DependentUpon>TimeSeriesTeeChartGraph.cs</DependentUpon>
