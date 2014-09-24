@@ -130,6 +130,10 @@ namespace Reclamation.TimeSeries
             if (fc.IndexOf(t) >= 0 && !fc[t].IsMissing )
                      resid = fc[t].Value;
 
+            if (t == t.FirstOfMonth() &&  // residual should not keep going.
+                (fc.IndexOf(t) < 0 || fc[t].IsMissing))
+                return Point.MissingValueFlag;
+
             return resid;
         }
 
