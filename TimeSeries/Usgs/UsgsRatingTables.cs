@@ -201,7 +201,6 @@ namespace Reclamation.TimeSeries.Usgs
                 newRow["Flow"] = Convert.ToDouble(rowVals[2]);
                 ratingTable.Rows.Add(newRow);
             }
-            // [JR] work in progress
             this.fullRatingTable = ratingTable;
         }
     }
