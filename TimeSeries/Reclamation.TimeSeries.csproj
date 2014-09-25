@@ -359,6 +359,7 @@
     <Compile Include="Hydromet\Tests\TestForecasting.cs" />
     <Compile Include="Math.Estimation.cs" />
     <Compile Include="Math.TableLookup.cs" />
+    <Compile Include="Owrd\OwrdRatingTables.cs" />
     <Compile Include="Parser\Tests\TestParser.cs" />
     <Compile Include="Parser\Tests\TestParserWithDatabase.cs" />
     <Compile Include="ExcelDataReaderSeries.cs" />
