@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Reclamation.Core;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 namespace Reclamation.TimeSeries.Hydromet
 {
 
@@ -136,7 +137,6 @@ namespace Reclamation.TimeSeries.Hydromet
 
             CreateColumnNames(hasFlag, columnNames, tbl);
 
-
 			for(int i=idxDates; i<idx2; i++)
 			{
                 
@@ -154,10 +154,13 @@ namespace Reclamation.TimeSeries.Hydromet
 				DataRow row = tbl.NewRow();
 
                 DateTime date = DateTime.Now;
-                if (!DateTime.TryParse(parts[0],out date))
+
+
+                //if (!DateTime.TryParse(parts[0], out date))
+                if( !LinuxUtility.TryParseDateTime(parts[0],out date))
                 {
-                    Logger.WriteLine("Error parsing date " + parts[0]);
-                    break;
+                        Logger.WriteLine("Error parsing date " + parts[0]);
+                        break;
                 }
 
                 if( endOfMonth)
