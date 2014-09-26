@@ -80,6 +80,9 @@ namespace Reclamation.TimeSeries.Owrd
         /// <param name="rdbFile"></param>
         private void CreateFullRatingTable(TextFile rdbFile)
         {
+            var tempFile = Path.GetTempFileName();
+            rdbFile.SaveAs(tempFile);
+            rdbFile = new TextFile(tempFile);
             var rdbFileString = rdbFile.FileContents;
             var rdbItems = rdbFileString.Split('\t', '\r', '\n').ToList();//[JR] these separate the rdb file into searchable chunks
             var dataRowIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains(stationNumber)).ToList();
