@@ -74,7 +74,9 @@ namespace Reclamation.TimeSeries
 
             bool appendToFile = false; // for output file.
             var list1 = m_db.Factory.GetCalculationSeries(TimeInterval.Daily,filter,propertyFilter);
+            Console.WriteLine("Computing daily values for  "+list1.Count+" series" );
             TimeSeriesDependency td = new TimeSeriesDependency(list1);
+            
             var sorted = td.Sort();
             foreach (var s in sorted)
             {
