@@ -20,8 +20,8 @@ namespace Reclamation.TimeSeries.Owrd
         DateTime ratingBeginDate;
         DateTime recorderCorrectionDate;
         DateTime shiftEffectiveDate;
-        TextFile webRdbTable;
-        TextFile fileRdbTable;
+        public TextFile webRdbTable;
+        public TextFile fileRdbTable;
         public DataTable shiftTable;
         public DataTable fullRatingTable;
         string ratingTablePath;

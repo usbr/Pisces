@@ -22,8 +22,8 @@ namespace Reclamation.TimeSeries.IdahoPower
         string equation;
         DateTime ratingBeginDate;
         DateTime ratingEndDate;
-        TextFile webRdbTable;
-        TextFile fileRdbTable;
+        public TextFile webRdbTable;
+        public TextFile fileRdbTable;
         public DataTable fullRatingTable;
         string ratingTablePath;
 
