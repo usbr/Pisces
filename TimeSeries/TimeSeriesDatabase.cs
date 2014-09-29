@@ -1015,9 +1015,9 @@ namespace Reclamation.TimeSeries
             return Factory.GetSeries(id);
         }
 
-        public IEnumerable<Series> GetSeries(TimeInterval interval, string filter)
+        public IEnumerable<Series> GetSeries(TimeInterval interval, string filter,string propertyFilter="")
         {
-            var ie = factory.GetSeries(interval, filter);
+            var ie = factory.GetSeries(interval, filter,propertyFilter);
 
             return ie;
             //throw new NotImplementedException();

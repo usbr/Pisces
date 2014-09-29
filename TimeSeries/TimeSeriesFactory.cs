@@ -21,12 +21,13 @@ namespace Reclamation.TimeSeries
             this.db = db;
         }
 
-        public IEnumerable<Series> GetSeries(TimeInterval interval, string filter = "")
+        public IEnumerable<Series> GetSeries(TimeInterval interval, string filter = "",string propertyFilter="")
         {
             string sql = " timeinterval = '" + interval.ToString() + "'";
             if (filter != "")
                 sql += " AND " + filter;
 
+            sql += GetPropertySQLAndClause(propertyFilter);
             var sc = db.GetSeriesCatalog(sql);
 
             foreach (var sr in sc)
@@ -49,24 +50,14 @@ namespace Reclamation.TimeSeries
         public List<CalculationSeries> GetCalculationSeries(TimeInterval interval, string filter="", string propertyFilter="")
         {
 
-            string keyFilter = "";
-            string valueFilter = "";
-
-            if (propertyFilter != "" && propertyFilter.IndexOf(":") >= 0)
-            {
-                keyFilter = propertyFilter.Split(':')[0];
-                valueFilter = propertyFilter.Split(':')[1];
-            }
+            
 
             string sql = "provider = 'CalculationSeries' AND "
                 + " timeinterval = '" + interval.ToString() + "'";
             if (filter != "")
                 sql += " AND "+filter;
 
-            if (keyFilter != "")
-            {
-                sql += " AND  id in (select seriesid from seriesproperties where name='" + keyFilter + "' and value='" + valueFilter + "') ";
-            }
+            sql += GetPropertySQLAndClause(propertyFilter);
 
             //sql += "  order by ( position('instant_' in expression)>0)  desc, siteid";
             sql += "  order by  siteid";
@@ -87,6 +78,25 @@ namespace Reclamation.TimeSeries
             return list1;
 
             
+        }
+
+        private static string GetPropertySQLAndClause(string propertyFilter)
+        {
+            var propertySQL = "";
+            string keyFilter = "";
+            string valueFilter = "";
+
+            if (propertyFilter != "" && propertyFilter.IndexOf(":") >= 0)
+            {
+                keyFilter = propertyFilter.Split(':')[0];
+                valueFilter = propertyFilter.Split(':')[1];
+            }
+
+            if (keyFilter != "")
+            {
+                propertySQL = " AND  id in (select seriesid from seriesproperties where name='" + keyFilter + "' and value='" + valueFilter + "') ";
+            }
+            return propertySQL;
         }
 
 
