@@ -226,10 +226,10 @@
       <HintPath>..\ThirdParty\alglibnet2.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics">
-      <HintPath>..\packages\MathNet.Numerics.3.2.3\lib\net35\MathNet.Numerics.dll</HintPath>
+      <HintPath>..\..\..\C#Projects\Test\packages\MathNet.Numerics.3.2.3\lib\net35\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\..\..\C#Projects\Test\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -357,6 +357,7 @@
     <Compile Include="Hydromet\SutronRatingTable.cs" />
     <Compile Include="Hydromet\SutronRatingTableRecord.cs" />
     <Compile Include="Hydromet\Tests\TestForecasting.cs" />
+    <Compile Include="IdahoPower\IdahoPowerRatingTables.cs" />
     <Compile Include="Math.Estimation.cs" />
     <Compile Include="Math.TableLookup.cs" />
     <Compile Include="Owrd\OwrdRatingTables.cs" />
