@@ -16,9 +16,21 @@ namespace Reclamation.TimeSeries
 
             public static Series ComputeSeries(Series s, string fileName)
             {
+                var rval = new Series();
+                
+                var fn = Path.Combine(Path.Combine(Globals.LocalConfigurationDataPath, "rating_tables"), fileName);
+                if (!File.Exists(fn))
+                {
+                    string msg = "Error: File not found " + fn;
+                    Console.WriteLine(msg);
+                    Logger.WriteLine(msg);
+                    rval.TimeInterval = s.TimeInterval;    
+                    return rval;
+                }
+
                 var rt = new RatingTableDataTable();
-                rt.ReadTable(fileName);
-                var rval = rt.Lookup(s);
+                rt.ReadTable(fn);
+                rval = rt.Lookup(s);
                 rval.TimeInterval = s.TimeInterval;
                 return rval;
             }
@@ -28,8 +40,8 @@ namespace Reclamation.TimeSeries
             {
                 //m_cbtt = cbtt;
                 //tring fileName = cbtt + "_" + pcode + ".txt";
-                var fn = Path.Combine(Path.Combine(Globals.LocalConfigurationDataPath, "rating_tables"), fileName);
-                var tf = new TextFile(fn.ToLower());
+                
+                var tf = new TextFile(fileName.ToLower());
                 int idx = tf.IndexOf("BEGIN TABLE"); // hydromet raw dumps
                 if (idx < 0)
                     idx = 0;

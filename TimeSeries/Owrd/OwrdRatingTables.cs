@@ -11,6 +11,13 @@ using Reclamation.Core;
 
 namespace Reclamation.TimeSeries.Owrd
 {
+    /// <summary>
+    /// Oregon Water Resources Department Rating Tables.
+    /// http://apps.wrd.state.or.us/apps/sw/hydro_near_real_time/hydro_download.aspx?dataset=RatingCurve&format=tsv&station_nbr=14030000
+    ///Format: TSV – tab delimited text
+    ///                HTML – html preformatted text
+    ///                XLS – Microsoft Excel
+    /// </summary>
     public class OwrdRatingTables
     {
         // Define class properties
@@ -43,11 +50,9 @@ namespace Reclamation.TimeSeries.Owrd
             var newData = Web.GetPage(owrdURL.Replace("XXXXXXXX", idNumber));
             if (newData.Count() == 0)
             { throw new Exception("OWRD data not found. Check inputs or retry later."); }
-            TextFile newRDB = new TextFile();
-            foreach (var item in newData)
-            { newRDB.Add(item); }
-            newRDB.DeleteLine(newRDB.Length - 1); //last line from web is blank and the exisitng RDB does not have an empty last line
-            this.webRdbTable = newRDB;
+
+            webRdbTable = new TextFile(newData);
+            webRdbTable.DeleteLine(webRdbTable.Length - 1); //last line from web is blank and the exisitng RDB does not have an empty last line
 
             // Get and assign RDB file properties
             var tempFile = Path.GetTempFileName();
