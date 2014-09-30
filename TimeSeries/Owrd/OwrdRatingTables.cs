@@ -23,6 +23,7 @@ namespace Reclamation.TimeSeries.Owrd
         // Define class properties
         public string stationNumber;
         string ratingNumber;
+        public string downloadURL;
         public double recorderCorrectionValue;
         DateTime ratingBeginDate;
         DateTime recorderCorrectionDate;
@@ -47,6 +48,7 @@ namespace Reclamation.TimeSeries.Owrd
             // Get and assign rating table file from the web
             string owrdURL = "http://apps.wrd.state.or.us/apps/sw/hydro_near_real_time/"+
                 "hydro_download.aspx?dataset=RatingCurve&format=tsv&station_nbr=XXXXXXXX";
+            downloadURL = owrdURL.Replace("XXXXXXXX", idNumber);
             var newData = Web.GetPage(owrdURL.Replace("XXXXXXXX", idNumber));
             if (newData.Count() == 0)
             { throw new Exception("OWRD data not found. Check inputs or retry later."); }

@@ -21,6 +21,7 @@ namespace Reclamation.TimeSeries.Usgs
         string ratingTableVersion;
         string ratingTableComments;
         string ratingTableExpansion;
+        public string downloadURL;
         public TextFile webRdbTable;
         public TextFile fileRdbTable;
         public DataTable hjTable;
@@ -40,6 +41,7 @@ namespace Reclamation.TimeSeries.Usgs
 
             // Get and assign RDB file from the web
             string nwisURL = "http://waterdata.usgs.gov/nwisweb/get_ratings?site_no=XXXXXXXX&file_type=exsa";
+            downloadURL = nwisURL.Replace("XXXXXXXX", idNumber);
             var newData = Web.GetPage(nwisURL.Replace("XXXXXXXX", idNumber));
             if (newData.Count() == 0)
             { throw new Exception("NWIS data not found. Check inputs or retry later."); }

@@ -16,6 +16,7 @@ namespace Reclamation.TimeSeries.IdahoPower
         // Define class properties
         public string stationNumber;
         public string cbtt;
+        public string downloadURL;
         int expandedPoints;
         int originalPoints;
         public string remarks;
@@ -33,8 +34,9 @@ namespace Reclamation.TimeSeries.IdahoPower
             this.ratingTablePath = ratingTablePath;
 
             // Get and assign rating table file from the web
-            string owrdURL = "https://ps.idahopower.com/RatingsService/Index?id=XXXX";
-            var newData = Web.GetPage(owrdURL.Replace("XXXX", cbtt));
+            string idprURL = "https://ps.idahopower.com/RatingsService/Index?id=XXXX";
+            downloadURL = idprURL.Replace("XXXXXXXX", cbtt);
+            var newData = Web.GetPage(idprURL.Replace("XXXX", cbtt));
             if (newData.Count() == 0)
             { throw new Exception("OWRD data not found. Check inputs or retry later."); }
             TextFile newRDB = new TextFile();
