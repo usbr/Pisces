@@ -1514,7 +1514,18 @@ namespace Reclamation.TimeSeries
 
         }
 
-       
+        public void Inventory()
+        {
+            Console.WriteLine("Inventory of Database "+m_server.Name);
+            Console.WriteLine("Tables in Database:"+m_server.TableNames().Count());
+
+            Console.WriteLine("Instant Series:"+GetSeriesCatalog("timeinterval = 'Irregular'").Count());
+            Console.WriteLine("Daily Series:" + GetSeriesCatalog("timeinterval = 'Daily'").Count());
+            Console.WriteLine("Monthly Series:" + GetSeriesCatalog("timeinterval = 'Monthly'").Count());
+            Console.WriteLine("Series in Catalog: "+GetSeriesCatalog().Count());
+            Console.WriteLine("");
+
+        }
        
     }
 }
