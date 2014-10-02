@@ -94,6 +94,8 @@ namespace Reclamation.TimeSeries.Owrd
             var rdbItems = rdbFileString.Split('\t', '\r', '\n').ToList();//[JR] these separate the rdb file into searchable chunks
             var dataRowIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains(stationNumber)).ToList();
 
+            double recorderCorrection = this.recorderCorrectionValue;
+
             // Build full rating table
             DataTable fullRatingTable = new DataTable();
             fullRatingTable.Columns.Add(new DataColumn("Stage", typeof(double)));
@@ -108,7 +110,7 @@ namespace Reclamation.TimeSeries.Owrd
                 var shiftedFlow = Convert.ToDouble(rdbItems[row + 4].ToString());
 
                 var newRow = fullRatingTable.NewRow();
-                newRow["Stage"] = shiftedStage;
+                newRow["Stage"] = shiftedStage + recorderCorrection;
                 newRow["Shift"] = shiftedStage - ratingStage;
                 newRow["Flow"] = shiftedFlow;
                 fullRatingTable.Rows.Add(newRow);
