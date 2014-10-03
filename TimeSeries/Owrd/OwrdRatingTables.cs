@@ -110,7 +110,7 @@ namespace Reclamation.TimeSeries.Owrd
                 var shiftedFlow = Convert.ToDouble(rdbItems[row + 4].ToString());
 
                 var newRow = fullRatingTable.NewRow();
-                newRow["Stage"] = shiftedStage + recorderCorrection;
+                newRow["Stage"] = shiftedStage - recorderCorrection;
                 newRow["Shift"] = shiftedStage - ratingStage;
                 newRow["Flow"] = shiftedFlow;
                 fullRatingTable.Rows.Add(newRow);
