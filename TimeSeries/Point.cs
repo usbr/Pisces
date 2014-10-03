@@ -5,13 +5,13 @@ namespace Reclamation.TimeSeries
 
     public static class PointFlag
     {
-        public const string Edited = "E";
+        public const string Edited = "e"; // edit, math
         public const string None = "";
         public const string Inserted = "I";
         public const string Locked = "L";
         public const string Computed = "C";
-        public const string Estimated = "Est";
-        public const string Missing = "(null)";
+        public const string Estimated = "E";
+        public const string Missing = "m";
         public const string Interpolated = "N";
         public const string QualityHigh = "+";
         public const string QualityLow = "-";
