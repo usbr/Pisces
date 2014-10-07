@@ -2017,6 +2017,33 @@ namespace Reclamation.TimeSeries
         {
             if (other == null) return false;
             return (this.ID.Equals(other.ID));
-        }  
+        }
+
+        static TimeSeriesDependency s_instantDependencies;
+        static TimeSeriesDependency s_dailyDependencies;
+        internal SeriesList GetDependentCalculations(TimeSeries.TimeInterval timeInterval)
+        {
+            if( timeInterval == TimeSeries.TimeInterval.Irregular)
+            {
+                if (s_instantDependencies == null)
+                {
+                    var rawCalcList = this.TimeSeriesDatabase.Factory.GetCalculationSeries(timeInterval, "", "");
+                    s_instantDependencies = new TimeSeriesDependency(rawCalcList);
+                }
+                return s_instantDependencies.LookupCalculations(this);
+            }
+            else if (timeInterval == TimeSeries.TimeInterval.Daily)
+            {
+                if (s_dailyDependencies == null)
+                {
+                    var rawCalcList = this.TimeSeriesDatabase.Factory.GetCalculationSeries(timeInterval, "", "");
+                    s_dailyDependencies = new TimeSeriesDependency(rawCalcList);
+                }
+                return s_dailyDependencies.LookupCalculations(this);
+            }
+
+            throw new NotImplementedException("Error: GetDependentCalculations does not support "+timeInterval);
+
+        }
     }
 }

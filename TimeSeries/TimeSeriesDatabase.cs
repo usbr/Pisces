@@ -1404,16 +1404,17 @@ namespace Reclamation.TimeSeries
 
 
         /// <summary>
-        /// Import Series into the database.
-        /// Import is saved to the tablename defined in the Series s.DataTable.TableName
+        /// Import Series s into the database.
+        /// Series s is saved to the tablename defined in the Series s.DataTable.TableName
         /// the table will be created if necessary. Properties such as units will be used
-        /// when creating a new series, otherwise the Series Properties are ignored.
+        /// when creating a new series
         /// Computes data dependent on the imported data
         /// Returns List of computed data.
         /// </summary>
         public SeriesList ImportSeriesUsingTableName(Series s, bool createIfMissing,string folderName="" ,
             bool setQualityFlags=false,
-            bool computeDependencies=false)
+            bool computeDependencies=false,
+            bool computeDailyEachMidnight=false)
         {
             var rval = new SeriesList();
             Logger.WriteLine("ImportSeriesUsingTableName" + s.Table.TableName);
@@ -1461,10 +1462,11 @@ namespace Reclamation.TimeSeries
 
             if (computeDependencies)
             {
-                // Calculate dependent data.
-                var rawCalcList = factory.GetCalculationSeries(s.TimeInterval, "", "");
-                TimeSeriesDependency dep =new TimeSeriesDependency(rawCalcList);
-                var calcList = dep.LookupCalculations(s);
+                // Calculate dependent data. (same interval)
+//                var rawCalcList = factory.GetCalculationSeries(s.TimeInterval, "", "");
+  ///              TimeSeriesDependency dep =new TimeSeriesDependency(rawCalcList);
+     //           var calcList = dep.LookupCalculations(s);
+                var calcList = s.GetDependentCalculations(s.TimeInterval);
                 Logger.WriteLine("Found " + calcList.Count + " calculations to update ");
                 foreach (var item in calcList)
                 {
@@ -1475,6 +1477,19 @@ namespace Reclamation.TimeSeries
                     cs.Calculate(s.MinDateTime,s.MaxDateTime);
                     if (cs.Count > 0)
                         rval.Add(cs);
+                }
+
+            // check for midnight values, and initiate daily calculations.
+                if(computeDailyEachMidnight && s.TimeInterval == TimeInterval.Irregular)
+                {
+                    for (int i = 0; i < s.Count; i++)
+                    {
+                        var pt = s[i];
+                        if (pt.DateTime.IsMidnight())
+                        {
+                            s.GetDependentCalculations(TimeInterval.Daily);
+                        }
+                    }
                 }
 
             }

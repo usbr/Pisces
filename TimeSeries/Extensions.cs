@@ -29,6 +29,10 @@ namespace Reclamation.TimeSeries
         {
             return new DateTime(t.Year, t.Month, 16);
         }
-        
+        public static bool IsMidnight(this DateTime t)
+        {
+            return (t.Hour == 0 && t.Minute == 0 && t.Second == 0);
+        }
+       
     }
 }
