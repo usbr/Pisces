@@ -84,11 +84,7 @@ namespace Reclamation.TimeSeries
 
                 foreach (var pt in s)
                 {
-
-                    if (pt.IsMissing)
-                        rval.AddMissing(pt.DateTime);
-                    else
-                        rval.Add(Lookup(pt));
+                    rval.Add(Lookup(pt));
                 }
 
                 return rval;
@@ -109,7 +105,12 @@ namespace Reclamation.TimeSeries
                     return new Point(pt.DateTime, Point.MissingValueFlag);
 
                 if (pt.Value < MinXValue())
+                { // if last value on table computes zero, then extrapolate a zero.
+                    if (System.Math.Abs(MinYValue()) < 0.01)
+                        return new Point(pt.DateTime, 0, PointFlag.Edited); 
+
                     return new Point(pt.DateTime, Point.MissingValueFlag);
+                }
 
 
                 double d = Lookup(pt.Value);
@@ -128,6 +129,14 @@ namespace Reclamation.TimeSeries
 
                 return this[0].x;
             }
+            private double MinYValue()
+            {
+                if (Rows.Count == 0)
+                    return Point.MissingValueFlag;
+
+                return this[0].y;
+            }
+
             private double MaxXValue()
             {
                 if (Rows.Count == 0)

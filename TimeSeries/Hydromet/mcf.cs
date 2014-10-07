@@ -69,6 +69,18 @@ namespace Reclamation.TimeSeries.Hydromet {
                 }
             }
 
+            TextFile m_owrd_sites;
+            public bool IsOwrd
+            {
+                get
+                {
+                    if (m_owrd_sites == null)
+                        m_owrd_sites = new TextFile(FileUtility.GetFileReference("owrd_sites.txt"));
+
+                    return m_owrd_sites.IndexOfRegex(this.SITE.Trim() + "$") >= 0;
+                }
+            }
+
             TextFile m_idahopower_sites;
             public bool IsIdahoPower
             {
