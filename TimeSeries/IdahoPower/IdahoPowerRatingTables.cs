@@ -85,7 +85,7 @@ namespace Reclamation.TimeSeries.IdahoPower
                 var shiftedFlow = Convert.ToDouble(row[3].ToString());
 
                 var newRow = fullRatingTable.NewRow();
-                newRow["Stage"] = shiftedStage;
+                newRow["Stage"] = ratingStage;
                 newRow["Shift"] = Convert.ToDouble((shiftedStage - ratingStage).ToString("F03"));
                 newRow["Flow"] = shiftedFlow;
                 fullRatingTable.Rows.Add(newRow);
