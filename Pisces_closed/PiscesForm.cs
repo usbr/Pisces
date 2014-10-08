@@ -283,8 +283,10 @@ namespace Reclamation.TimeSeries.Forms
                 {
                     var s = explorer1.SelectedSeries[0];
                      msg = s.Name;
-                    if (s is CalculationSeries)
-                        msg += " = " + s.Expression;
+                     if (s is CalculationSeries)
+                         msg += " = " + s.Expression;
+                     else
+                         msg += " table name: " + s.Table.TableName;
                 }
                 SetMessageText(msg);
             }
