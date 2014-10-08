@@ -38,64 +38,49 @@ namespace Reclamation.TimeSeries.DataLogger
          */
 
         TextFile tf;
-        string[] valid_pcodes;
         public string FileFormat;
         public string SiteName;
         string[] infoHeader;
         string[] dataHeader;
-        static Dictionary<string,Series> dict = new Dictionary<string, Series>();
-        public LoggerNetFile(string[] valid_pcodes, string filename)
+         Dictionary<string,Series> dict = new Dictionary<string, Series>();
+        public LoggerNetFile(string filename)
         {
-            this.valid_pcodes = valid_pcodes;
             tf = new TextFile(filename);
             if (tf.Length > 0)
             {
                 infoHeader = tf[0].Replace("\"","").Split(',');
-                dataHeader = tf[1].Replace("\"", "").Split(',');
+                // HACK for WS_mph in some Utah Sites...
+                dataHeader = tf[1].Replace("\"", "").Replace("WS_mph","WS").Split(',');
                 FileFormat = infoHeader[0];
                 SiteName = infoHeader[1];
             }
         }
 
-        
-        public static Series[] ReadFiles(string[] valid_pcodes,string inputDir,string processedDir, int maxFiles=10)
-        {
-            int count = 0;
-            dict.Clear();
+        public bool IsValid { 
+            get{
+                bool validFomat = FileFormat.Contains("TOACI1") || FileFormat.Contains("TOA5");
+                if( !validFomat)
+                    Console.WriteLine("Error: bad file format "+infoHeader);
 
-            var files = Directory.GetFiles(inputDir, "*.dat");
-            foreach (var item in files)
-            {
-                // only process files that have finished writing.. wait 2 seconds to be sure
-                FileInfo fi = new FileInfo(item);
-                if (fi.CreationTime.AddSeconds(2) > DateTime.Now)
-                    continue;
-                Console.WriteLine(" processing " + item);
 
-                LoggerNetFile lf = new LoggerNetFile(valid_pcodes,item);
+                bool validSite = Path.GetFileName(tf.FileName).IndexOf(SiteName) == 0;
+                if( !validSite)
+                    Console.WriteLine("Error: site name in file does not match filename '"+tf.FileName+"' "+SiteName);
 
-                lf.ReadFileIntoSeries();
-                var dest =  Path.Combine(processedDir, Path.GetFileName(item));
-                if (File.Exists(dest))
-                    File.Delete(dest);
-                File.Move(item,dest);
-
-                if (count >= maxFiles)
-                    break;
-                count++;
+                return validFomat && validSite;
             }
-
-            return dict.Values.ToArray();
         }
 
-        private void ReadFileIntoSeries()
+
+        public SeriesList ToSeries(string[] valid_pcodes)
         {
             foreach (var pcode in dataHeader) 
+            
             {
                 int idx = Array.IndexOf(dataHeader,pcode);
                 if (idx >=0 && Array.IndexOf(valid_pcodes, pcode) >=0)
                 {
-                    string key =  SiteName.ToLower() + "_" + pcode.ToLower();
+                    string key =  "instant_"+SiteName.ToLower() + "_" + pcode.ToLower();
                     Series s = new Series();
                     if (dict.ContainsKey(key))
                     {
@@ -104,9 +89,10 @@ namespace Reclamation.TimeSeries.DataLogger
                     else
                     {
 
-                        s.Name = SiteName;
+                        s.Name = key;
                         s.Parameter = pcode;
                         s.Table.TableName = key;
+                        s.SiteName = SiteName;
                         dict.Add(key, s);
                     }
 
@@ -115,26 +101,35 @@ namespace Reclamation.TimeSeries.DataLogger
                         var tokens = tf[i].Replace("\"","").Split(',');
                         double d =0;
                         DateTime t;
-                        if( DateTime.TryParse(tokens[0],out t)
-                            && double.TryParse(tokens[idx],out d) )
+                        if (DateTime.TryParse(tokens[0], out t)
+                            && double.TryParse(tokens[idx], out d))
                         {
                             if (s.IndexOf(t) >= 0)
                             {
-                                Logger.WriteLine("skipping duplicate point ");
+                                Logger.WriteLine("LoggerNetFile: skipping duplicate point ");
                             }
                             else
                             {
                                 s.Add(t, d);
                             }
                         }
+                        else
+                        {
+                            Logger.WriteLine("LoggerNetFile: Skipping line " + tf[i]);
+                        }
                     }
                 }
 
             }
+            SeriesList sl = new SeriesList();
+            sl.AddRange(dict.Values.ToArray());
+            return sl;
         //    Logger.WriteLine("Found " + rval.Count + " parameters in " + tf.FileName);
         }
 
 
 
+
+       
     }
 }

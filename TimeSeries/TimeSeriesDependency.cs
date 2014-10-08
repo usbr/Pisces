@@ -147,7 +147,7 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="inputSeries"></param>
         /// <returns></returns>
-        public SeriesList LookupCalculations(Series inputSeries)
+        public SeriesList LookupCalculations(string tableName, TimeInterval interval)
         {
             var rval = new SeriesList();
 
@@ -159,18 +159,18 @@ namespace Reclamation.TimeSeries
                     var vars = cs.GetDependendVariables();
                     foreach (var varName in vars)
                     {
-                        TimeSeriesName tn = new TimeSeriesName(varName, inputSeries.TimeInterval);
+                        TimeSeriesName tn = new TimeSeriesName(varName, interval);
                         AddToDictionary(tn.GetTableName(), cs);    
                     }
                 }
             }
 
-            Logger.WriteLine("LookupCalculations(" + inputSeries.Name + ")");
+            Logger.WriteLine("LookupCalculations(" + tableName + ")");
             Logger.WriteLine("inputDictionary.Count = " + inputDictionary.Count);
 
-            if (this.inputDictionary.ContainsKey(inputSeries.Table.TableName))
+            if (this.inputDictionary.ContainsKey(tableName))
             {
-                rval.AddRange(inputDictionary[inputSeries.Table.TableName].ToArray());
+                rval.AddRange(inputDictionary[tableName].ToArray());
             }
 
             return rval;

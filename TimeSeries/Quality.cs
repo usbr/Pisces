@@ -77,21 +77,27 @@ namespace Reclamation.TimeSeries
         /// <returns></returns>
         private TimeSeriesDatabaseDataSet.quality_limitRow GetRow(string tableName)
         {
-            // try exact match first.
-
+            // try exact match first.   instant_odsw_ob
+             
            var rows =  m_limit.Select("TableMask = '" + tableName + "'");
-
            if (rows.Length == 1)
                return rows[0] as TimeSeriesDatabaseDataSet.quality_limitRow;
 
-            // try to separate tablename into prefix using '_'  boii_ob  => 'boii','ob'
-           var tokens = tableName.Split('_');
-           if (tokens.Length == 2)
-           {
-                rows = m_limit.Select("TableMask like '[*]_" + tokens[1] + "'");
-                if( rows.Length ==1)
-                    return rows[0] as TimeSeriesDatabaseDataSet.quality_limitRow;
-           }
+           TimeSeriesName tn = new TimeSeriesName(tableName);
+
+           // try site specific next:  odsw_ob
+           var mask = tn.siteid + "_" + tn.pcode;
+            rows = m_limit.Select("TableMask = '" + mask + "'");
+           if (rows.Length == 1)
+               return rows[0] as TimeSeriesDatabaseDataSet.quality_limitRow;
+
+            // try parameter alone next
+
+            mask = tn.pcode;
+           rows = m_limit.Select("TableMask like '[*]_" + mask + "'");
+           if (rows.Length == 1)
+               return rows[0] as TimeSeriesDatabaseDataSet.quality_limitRow;
+
 
             return null;
         }
