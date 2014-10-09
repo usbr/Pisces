@@ -799,7 +799,7 @@ namespace Reclamation.TimeSeries
                 {
                     count = m_server.SaveTable(table);
                 }
-            Logger.WriteLine("Saved " + count + " records ");
+            Logger.WriteLine("Saved " + count + " records "+ table.TableName+" "+m_server.DataSource);
 
             return count;
         }
@@ -985,7 +985,7 @@ namespace Reclamation.TimeSeries
             m_server.FillTable(tbl, sql);
             if (tbl.Rows.Count == 0)
             {
-                Logger.WriteLine("Error:  Could not find site with ID = '" + siteID + "'");
+                Logger.WriteLine("Error: GetSiteRow() Could not find site with ID = '" + siteID + "'");
                 return null;
             }
             var rval = tbl[0];
@@ -1447,6 +1447,8 @@ namespace Reclamation.TimeSeries
                         folder = GetOrCreateFolder(folderName);
                     else
                         folder = RootFolder;
+
+                    Logger.WriteLine("Info: ImportSeriesUsingTableName() created series "+s.Name);
                     AddSeries(s, folder);
                 }
                 else
@@ -1472,7 +1474,7 @@ namespace Reclamation.TimeSeries
         {
             SeriesList rval = new SeriesList();
             var calcList = GetDependentCalculations(s.Table.TableName, s.TimeInterval);
-            Logger.WriteLine("Found " + calcList.Count + " calculations to update ");
+            Logger.WriteLine("Found " + calcList.Count +" " + s.TimeInterval +" calculations to update ");
             foreach (var item in calcList)
             {
                 var cs = item as CalculationSeries;
@@ -1493,11 +1495,12 @@ namespace Reclamation.TimeSeries
                     if (pt.DateTime.IsMidnight())
                     {
                         calcList = GetDependentCalculations(s.Table.TableName, TimeInterval.Daily);
+                        Logger.WriteLine("Found " + calcList.Count + " daily calculations to update ");
                         foreach (var item in calcList)
                         {
                             var cs = item as CalculationSeries;
                             Console.WriteLine(cs.Name + " = " + cs.Expression);
-                            cs.Calculate(pt.DateTime, pt.DateTime);
+                            cs.Calculate(pt.DateTime.AddDays(-1).Date, pt.DateTime);
                         }
                     }
                 }
@@ -1505,8 +1508,8 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
-        static TimeSeriesDependency s_instantDependencies;
-        static TimeSeriesDependency s_dailyDependencies;
+         TimeSeriesDependency m_instantDependencies;
+         TimeSeriesDependency m_dailyDependencies;
 
         /// <summary>
         /// Find calculations that depend on this series (tableName) 
@@ -1520,21 +1523,23 @@ namespace Reclamation.TimeSeries
             // cache with s_instantDependencies speed up from 174 seconds to 28 seconds (agrimet test)
             if (timeInterval == TimeSeries.TimeInterval.Irregular)
             {
-                if (s_instantDependencies == null)
+                if (m_instantDependencies == null)
                 {
                     var rawCalcList = Factory.GetCalculationSeries(timeInterval, "", "");
-                    s_instantDependencies = new TimeSeriesDependency(rawCalcList);
+                    Logger.WriteLine("Info: GetDependentCalculations, found " + rawCalcList.Count
+                           + " caluclation series");
+                    m_instantDependencies = new TimeSeriesDependency(rawCalcList);
                 }
-                return s_instantDependencies.LookupCalculations(tableName,timeInterval);
+                return m_instantDependencies.LookupCalculations(tableName,timeInterval);
             }
             else if (timeInterval == TimeSeries.TimeInterval.Daily)
             {
-                if (s_dailyDependencies == null)
+                if (m_dailyDependencies == null)
                 {
                     var rawCalcList = this.Factory.GetCalculationSeries(timeInterval, "", "");
-                    s_dailyDependencies = new TimeSeriesDependency(rawCalcList);
+                    m_dailyDependencies = new TimeSeriesDependency(rawCalcList);
                 }
-                return s_dailyDependencies.LookupCalculations(tableName,timeInterval);
+                return m_dailyDependencies.LookupCalculations(tableName,timeInterval);
             }
 
             throw new NotImplementedException("Error: GetDependentCalculations does not support " + timeInterval);

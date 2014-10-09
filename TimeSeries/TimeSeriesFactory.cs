@@ -69,8 +69,8 @@ namespace Reclamation.TimeSeries
             foreach (var sr in sc)
             {
                 var s = GetSeries(sr) as CalculationSeries;
-                if (db.Parser != null)
-                    s.Parser = db.Parser;
+                //if (db.Parser != null)
+                    //s.Parser = db.Parser;
 
                 //yield return s;
                 list1.Add(s);

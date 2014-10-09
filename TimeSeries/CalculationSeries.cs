@@ -20,10 +20,13 @@ namespace Reclamation.TimeSeries
     {
         public CalculationSeries(TimeSeriesDatabase db,TimeSeriesDatabaseDataSet.SeriesCatalogRow sr):base(db,sr)
         {
+            m_parser = db.Parser;
+            m_db = db;
             Init();
         }
         public CalculationSeries(TimeSeriesDatabase db)
         {
+            m_parser = db.Parser;
             m_db = db;
             Init();
         }
@@ -182,6 +185,9 @@ namespace Reclamation.TimeSeries
         /// </summary>
         private string ExpressionPreProcessor()
         {
+            if (SiteID == "")
+                return Expression;
+
             string rval = Expression.Replace("%site%", SiteID); // TO DO.. SiteID 
 
             // check for %site%.elevation or other lookups in sitecatalog table
@@ -222,6 +228,7 @@ namespace Reclamation.TimeSeries
                 {
                     if (m_db != null)
                     {
+                        //m_parser = m_db.Parser;
                         m_parser = new SeriesExpressionParser(m_db);
                         m_parser.VariableResolver.Add("this", this);
                     }
@@ -233,10 +240,10 @@ namespace Reclamation.TimeSeries
                 }
                 return m_parser;
             }
-            set
-            {
-                m_parser = value;
-            }
+            //set
+            //{
+            //    m_parser = value;
+            //}
         }
 
 

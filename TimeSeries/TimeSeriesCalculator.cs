@@ -48,7 +48,7 @@ namespace Reclamation.TimeSeries
             if (sr == null)
                 return null;
             var cs = m_db.GetSeries(sr.id) as CalculationSeries;
-            cs.Parser = m_db.Parser; 
+            //cs.Parser = m_db.Parser; 
 
             return cs;
         }
