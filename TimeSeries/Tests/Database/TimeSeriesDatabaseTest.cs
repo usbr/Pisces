@@ -151,12 +151,12 @@ namespace Pisces.NunitTests.Database
         public void HydrometDailyFactory()
         {
             Series s = new Reclamation.TimeSeries.Hydromet.HydrometDailySeries("jck", "af");
-            s.Read();
+            s.Read(DateTime.Now.AddDays(-365), DateTime.Now.Date);
             int sdi = db.AddSeries(s);
             Assert.AreEqual("acre-feet", s.Units);
 
             s = db.GetSeries(sdi);
-            s.Read();
+            s.Read(DateTime.Now.AddDays(-365),DateTime.Now.Date);
 
             Assert.IsTrue(s.Count> 100);
             Assert.IsTrue(s.ConnectionString.Contains("jck"));
