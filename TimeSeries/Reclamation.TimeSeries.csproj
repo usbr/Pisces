@@ -248,7 +248,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Threading">
-      <HintPath>..\..\..\C#Projects\Test\packages\TaskParallelLibrary.1.0.2856.0\lib\Net35\System.Threading.dll</HintPath>
+      <HintPath>..\packages\TaskParallelLibrary.1.0.2856.0\lib\Net35\System.Threading.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web.Extensions" />
