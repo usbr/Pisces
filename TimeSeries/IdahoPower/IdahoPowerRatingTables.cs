@@ -35,7 +35,7 @@ namespace Reclamation.TimeSeries.IdahoPower
 
             // Get and assign rating table file from the web
             string idprURL = "https://ps.idahopower.com/RatingsService/Index?id=XXXX";
-            downloadURL = idprURL.Replace("XXXXXXXX", cbtt);
+            downloadURL = idprURL.Replace("XXXX", cbtt);
             var newData = Web.GetPage(idprURL.Replace("XXXX", cbtt));
             if (newData.Count() == 0)
             { throw new Exception("OWRD data not found. Check inputs or retry later."); }
