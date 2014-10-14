@@ -1464,17 +1464,23 @@ namespace Reclamation.TimeSeries
 
             if (computeDependencies)
             {
-
-                rval = ComputeDependencies(s, computeDailyEachMidnight);
+               rval = ComputeDependencies(s);
             }
+            if (computeDailyEachMidnight)
+            {
+                var calcList = ComputeDailyOnMidnight(s);
+                // TO DO: other daily dependencies such as TALSYS
+            }
+
             return rval;
         }
 
-        private SeriesList ComputeDependencies(Series s, bool computeDailyEachMidnight)
+        private SeriesList ComputeDependencies(Series s)
         {
             SeriesList rval = new SeriesList();
             var calcList = GetDependentCalculations(s.Table.TableName, s.TimeInterval);
-            Logger.WriteLine("Found " + calcList.Count +" " + s.TimeInterval +" calculations to update ");
+            if( calcList.Count >0)
+               Logger.WriteLine("Found " + calcList.Count +" " + s.TimeInterval +" calculations to update ");
             foreach (var item in calcList)
             {
                 var cs = item as CalculationSeries;
@@ -1485,9 +1491,15 @@ namespace Reclamation.TimeSeries
                 if (cs.Count > 0)
                     rval.Add(cs);
             }
+            
+            return rval;
+        }
 
+        private SeriesList ComputeDailyOnMidnight(Series s)
+        {
+            var calcList = new SeriesList();
             // check for midnight values, and initiate daily calculations.
-            if (computeDailyEachMidnight && s.TimeInterval == TimeInterval.Irregular)
+            if ( s.TimeInterval == TimeInterval.Irregular)
             {
                 for (int i = 0; i < s.Count; i++)
                 {
@@ -1495,7 +1507,8 @@ namespace Reclamation.TimeSeries
                     if (pt.DateTime.IsMidnight())
                     {
                         calcList = GetDependentCalculations(s.Table.TableName, TimeInterval.Daily);
-                        Logger.WriteLine("Found " + calcList.Count + " daily calculations to update ");
+                        if(calcList.Count >0)
+                          Console.WriteLine("Found " + calcList.Count + " daily calculations to update ");
                         foreach (var item in calcList)
                         {
                             var cs = item as CalculationSeries;
@@ -1505,7 +1518,7 @@ namespace Reclamation.TimeSeries
                     }
                 }
             }
-            return rval;
+            return calcList;
         }
 
          TimeSeriesDependency m_instantDependencies;

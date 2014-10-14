@@ -63,9 +63,12 @@ namespace Reclamation.TimeSeries.DataLogger
                     Console.WriteLine("Error: bad file format "+infoHeader);
 
 
-                bool validSite = Path.GetFileName(tf.FileName).IndexOf(SiteName) == 0;
-                if( !validSite)
-                    Console.WriteLine("Error: site name in file does not match filename '"+tf.FileName+"' "+SiteName);
+                bool validSite = Path.GetFileName(tf.FileName).IndexOf(SiteName.Trim()) == 0;
+                if (!validSite)
+                {
+                    Console.WriteLine("Error: site name in file does not match filename.");
+                    Console.WriteLine("Filename: '" + tf.FileName + "'  siteName: '" + SiteName + "'");
+                }
 
                 return validFomat && validSite;
             }
