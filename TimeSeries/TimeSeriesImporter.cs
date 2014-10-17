@@ -7,18 +7,14 @@ using System.Text;
 namespace Reclamation.TimeSeries
 {
     /// <summary>
-    /// TimeSeriesImporter Manages importing data with following features:
-    /// 1) set flags
-    /// 2) active alarms (TO DO)
-    /// 3) compute dependent data (same interval)
-    /// 4) compute daily data when encountering midnight values
+    /// TimeSeriesImporter Manages importing data
+    
     /// </summary>
     public class TimeSeriesImporter
     {
 
         TimeSeriesDatabase m_db;
         RouteOptions m_routing;
-        SeriesList calculationQueue = new SeriesList();
         Quality m_quality;
 
         public TimeSeriesImporter(TimeSeriesDatabase db, RouteOptions routing=RouteOptions.None)
@@ -28,24 +24,33 @@ namespace Reclamation.TimeSeries
             m_quality = new Quality(m_db);
         }
 
-        public void Import(Series s, 
-            bool computeDependencies = false,
-            bool computeDailyEachMidnight = false)
+        public void Import(Series s)
         {
             var sl = new SeriesList();
             sl.Add(s);
-            Import(s, computeDependencies, computeDailyEachMidnight);
+            Import(sl, false, false);
 
         }
 
-        public void Import(SeriesList items,
+
+        /// <summary>
+        /// Imports time series data,
+        /// 1) set flags
+        /// 2) active alarms (TO DO)
+        /// 3) compute dependent data (same interval)
+        /// 4) compute daily data when encountering midnight values
+        /// </summary>
+        /// <param name="inputSeriesList"></param>
+        /// <param name="computeDependencies"></param>
+        /// <param name="computeDailyEachMidnight"></param>
+        public void Import(SeriesList inputSeriesList,
             bool computeDependencies = false,
             bool computeDailyEachMidnight = false)
         {
-            calculationQueue = new SeriesList();
-            var computedSeries = new SeriesList();
+            var calculationQueue = new SeriesList();
+            var routingList = new SeriesList();
 
-            foreach (var s in items)
+            foreach (var s in inputSeriesList)
             {
                 // set flags.
                 Logger.WriteLine("Checking Flags ");
@@ -56,29 +61,33 @@ namespace Reclamation.TimeSeries
 
                 if (computeDependencies)
                 {
-                    computedSeries = ComputeDependenciesSameInterval(s);
+                    routingList = ComputeDependenciesSameInterval(s);
                 }
                 if (computeDailyEachMidnight)
                 {
-                    var calcList = ComputeDailyOnMidnight(s);
-
-                    if (calcList.Count > 0)
+                    var x = ComputeDailyOnMidnight(s);
+                    foreach (var item in x)
                     {
-                        Console.WriteLine("Found dependencies: " + s.Table.TableName);
-                        foreach (var item in calcList)
-                        {
-                            Console.WriteLine(">>> " + item.Table.TableName + ": " + item.Expression);
-                        }
+                        if (!calculationQueue.ContainsTableName(item))
+                            calculationQueue.Add(item);
                     }
-
-                    computedSeries.AddRange(calcList);
                 }
             }
 
+            // do Actual Computations now. (in proper order...)
+            
+            foreach (Series item in calculationQueue)
+            {
+                Console.WriteLine(">>> " + item.Table.TableName + ": " + item.Expression);
+                var cs = item as CalculationSeries;
+                cs.Calculate(inputSeriesList.MinDateTime.Date, inputSeriesList.MaxDateTime);
+                if (cs.Count > 0)
+                    routingList.Add(cs);
+            }
 
             // route data to other locations.
-            foreach (Series item in computedSeries)
-            {
+            foreach (var item in routingList)
+            	{
                 TimeSeriesName tn = new TimeSeriesName(item.Table.TableName);
                 if (item.TimeInterval == TimeInterval.Irregular)
                     TimeSeriesRouting.RouteInstant(item, tn.siteid, tn.pcode, m_routing);
@@ -122,7 +131,7 @@ namespace Reclamation.TimeSeries
                         var x = GetDailyDependents(s.Table.TableName);
                         foreach (var item in x)
                         {
-                            if (calcList.IndexOfTableName(item.Table.TableName) < 0)
+                            if (!calcList.ContainsTableName(item))
                                 calcList.AddRange(x);
                         }
                     }
@@ -165,7 +174,7 @@ namespace Reclamation.TimeSeries
         /// <param name="tableName"></param>
         /// <param name="timeInterval"></param>
         /// <returns></returns>
-        internal SeriesList GetDependentCalculations(string tableName, TimeSeries.TimeInterval timeInterval)
+         SeriesList GetDependentCalculations(string tableName, TimeSeries.TimeInterval timeInterval)
         {
             // cache with s_instantDependencies speed up from 174 seconds to 28 seconds (agrimet test)
             if (timeInterval == TimeSeries.TimeInterval.Irregular)
