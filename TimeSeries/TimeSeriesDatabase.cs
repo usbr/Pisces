@@ -62,7 +62,6 @@ namespace Reclamation.TimeSeries
     {
         BasicDBServer m_server;
         TimeSeriesDatabaseSettings m_settings;
-        Quality m_quality;
         SeriesExpressionParser m_parser;
 
         public SeriesExpressionParser Parser
@@ -154,7 +153,7 @@ namespace Reclamation.TimeSeries
 
             m_parser = new SeriesExpressionParser(this, lookup);
             factory = new TimeSeriesFactory(this);
-            m_quality = new Quality(this);
+            
 
             SetUnixDateTime(UnixDateTime);
         }
@@ -1402,7 +1401,7 @@ namespace Reclamation.TimeSeries
 
         //}
 
-        SeriesList calculationQueue = new SeriesList();
+        
 
         /// <summary>
         /// Import Series s into the database.
@@ -1412,23 +1411,11 @@ namespace Reclamation.TimeSeries
         /// Computes data dependent on the imported data
         /// Returns List of computed data.
         /// </summary>
-        public SeriesList ImportSeriesUsingTableName(Series s, bool createIfMissing,string folderName="" ,
-            bool setQualityFlags=false,
-            bool computeDependencies=false,
-            bool computeDailyEachMidnight=false)
+        public void ImportSeriesUsingTableName(Series s, bool createIfMissing,
+            string folderName="" )
         {
-            var rval = new SeriesList();
             Logger.WriteLine("ImportSeriesUsingTableName" + s.Table.TableName);
             FixInvalidTableName(s);
-
-            if (setQualityFlags)
-            {
-                Logger.WriteLine("Checking Flags ");
-                m_quality.SetFlags(s);
-            }
-
-            // To Do.. check for alarms..
-
 
             var sr  = GetSeriesRow("TableName ='" + s.Table.TableName.ToLower() +"'");
 
@@ -1463,134 +1450,9 @@ namespace Reclamation.TimeSeries
             }
           //  OnAfterSave(new SeriesEventArgs(s));    
 
-            if (computeDependencies)
-            {
-               rval = ComputeDependenciesSameInterval(s);
-            }
-            if (computeDailyEachMidnight)
-            {
-                var calcList = ComputeDailyOnMidnight(s);
-
-                if (calcList.Count > 0)
-                {
-                    Console.WriteLine("Found dependencies: "+s.Table.TableName);
-                    foreach (var item in calcList)
-                    {
-                        Console.WriteLine(">>> "+item.Table.TableName+": " + item.Expression);
-                    }
-                }
-
-                rval.AddRange(calcList);
-            }
-
-            return rval;
         }
 
-        private SeriesList ComputeDependenciesSameInterval(Series s)
-        {
-            SeriesList rval = new SeriesList();
-            var calcList = GetDependentCalculations(s.Table.TableName, s.TimeInterval);
-            if( calcList.Count >0)
-               Logger.WriteLine("Found " + calcList.Count +" " + s.TimeInterval +" calculations to update ");
-            foreach (var item in calcList)
-            {
-                var cs = item as CalculationSeries;
-                // TO DO.. some calcs should go back 1 weeek. i.e.  QU
-                // this is currently being done in TimeSeriesCalculator
-                // for daily data.
-                cs.Calculate(s.MinDateTime, s.MaxDateTime);
-                if (cs.Count > 0)
-                    rval.Add(cs);
-            }
-            
-            return rval;
-        }
-
-        private SeriesList ComputeDailyOnMidnight(Series s)
-        {
-            var calcList = new SeriesList();
-            // check for midnight values, and initiate daily calculations.
-            if ( s.TimeInterval == TimeInterval.Irregular)
-            {
-                for (int i = 0; i < s.Count; i++)
-                {
-                    var pt = s[i];
-                    if (pt.DateTime.IsMidnight())
-                    {
-                        var x = GetDailyDependents(s.Table.TableName);
-                        foreach (var item in x)
-                        {
-                            if (calcList.IndexOfTableName(item.Table.TableName) < 0)
-                                calcList.AddRange(x);
-                        }
-                    }
-                }
-            }
-            return calcList;
-        }
-
-        /// <summary>
-        /// gets daily dependents for this series (tablename)
-        /// </summary>
-        /// <param name="tableName"></param>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        private SeriesList GetDailyDependents(string tableName)
-        {
-            SeriesList rval = new SeriesList();
-            TimeSeriesName tn = new TimeSeriesName(tableName);
-            var calcList = GetDependentCalculations(tableName, TimeInterval.Daily);
-            //if (calcList.Count > 0)
-              //  Logger.WriteLine("Found " + calcList.Count + " daily calculations to update ref:"+tableName);
-            foreach (var item in calcList)
-            {
-                // prevent recursive?
-                rval.Add(item);
-                // check for daily that depends on daily.
-                var x = GetDailyDependents(item.Table.TableName);
-                rval.AddRange(x);
-            }
-            return rval;
-        }
-
-         TimeSeriesDependency m_instantDependencies;
-         TimeSeriesDependency m_dailyDependencies;
-
-        /// <summary>
-        /// Find calculations that depend on this series (tableName) 
-        /// These calculations will have the series as input
-        /// </summary>
-        /// <param name="tableName"></param>
-        /// <param name="timeInterval"></param>
-        /// <returns></returns>
-        internal SeriesList GetDependentCalculations(string tableName,TimeSeries.TimeInterval timeInterval)
-        {
-            // cache with s_instantDependencies speed up from 174 seconds to 28 seconds (agrimet test)
-            if (timeInterval == TimeSeries.TimeInterval.Irregular)
-            {
-                if (m_instantDependencies == null)
-                {
-                    var rawCalcList = Factory.GetCalculationSeries(timeInterval, "", "");
-                    Logger.WriteLine("Info: GetDependentCalculations, found " + rawCalcList.Count
-                           + " caluclation series");
-                    m_instantDependencies = new TimeSeriesDependency(rawCalcList);
-                }
-                return m_instantDependencies.LookupCalculations(tableName,timeInterval);
-            }
-            else if (timeInterval == TimeSeries.TimeInterval.Daily)
-            {
-                if (m_dailyDependencies == null)
-                {
-                    var rawCalcList = this.Factory.GetCalculationSeries(timeInterval, "", "");
-                    m_dailyDependencies = new TimeSeriesDependency(rawCalcList);
-                }
-                return m_dailyDependencies.LookupCalculations(tableName,timeInterval);
-            }
-
-            throw new NotImplementedException("Error: GetDependentCalculations does not support " + timeInterval);
-
-        }
-
+        
 
         private PiscesFolder GetOrCreateFolder(string folderName)
         {

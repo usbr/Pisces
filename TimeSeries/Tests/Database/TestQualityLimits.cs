@@ -31,7 +31,10 @@ namespace Pisces.NunitTests.Database
             s.Add("1-4-2013", 150);
 
             //db.TimeSeriesImporter.Process(s);
-            db.ImportSeriesUsingTableName(s, true, setQualityFlags: true);
+            TimeSeriesImporter ti = new TimeSeriesImporter(db);
+            ti.Import(s);
+
+            //db.ImportSeriesUsingTableName(s, true, setQualityFlags: true);
             s = db.GetSeriesFromTableName("karl_ob");
             s.Read();
             Console.WriteLine("has flags = " + s.HasFlags);
