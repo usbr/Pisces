@@ -1574,7 +1574,7 @@ namespace Reclamation.TimeSeries
             StringBuilder sb = new StringBuilder();
 
             string fmt = DateTimeFormat;
-
+            sb.Append(Name + " ");
             sb.Append("Date\tValue");
             if (HasFlags)
             {
@@ -2020,5 +2020,10 @@ namespace Reclamation.TimeSeries
         }
 
 
+
+        public bool IsEmpty {
+
+            get { return Count == 0; }
+             }
     }
 }

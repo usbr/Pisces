@@ -33,7 +33,7 @@ namespace Reclamation.TimeSeries
         {
             var rval = new List<CalculationSeries>();
 
-            var vars = cs.GetDependendVariables();
+            var vars = cs.GetDependentVariables();
             string msg = cs.Table.TableName + " depends on :";
 
             TimeSeriesName cName = new TimeSeriesName(cs.Table.TableName);
@@ -156,7 +156,7 @@ namespace Reclamation.TimeSeries
                 inputDictionary = new Dictionary<string, List<CalculationSeries>>();
                 foreach (CalculationSeries cs in list)
                 {
-                    var vars = cs.GetDependendVariables();
+                    var vars = cs.GetDependentVariables();
                     foreach (var varName in vars)
                     {
                         TimeSeriesName tn = new TimeSeriesName(varName, interval);

@@ -19,6 +19,15 @@ namespace Reclamation.TimeSeries.Hydromet
             Series minTemp, Series maxTemp, Series dewTemp, Series wind,
             Series solar, double latitude, double z)
         {
+            if (minTemp.IsEmpty || maxTemp.IsEmpty  || wind.IsEmpty ||
+                dewTemp.IsEmpty || solar.IsEmpty || avgTemp.IsEmpty ||
+                MissingDate(minTemp,t) || MissingDate(maxTemp,t) || MissingDate(wind,t) ||
+                MissingDate(dewTemp,t) || MissingDate(solar,t) || MissingDate(avgTemp,t)   )
+            {
+                Console.WriteLine("Error: Missing data in Kimberly-Penman ET");
+                return new Point(t, Point.MissingValueFlag, PointFlag.Missing);
+            }
+
             // Define equation variables which rely on collected "Daily" data.
             double minTempData;
             double maxTempData;
@@ -88,7 +97,11 @@ namespace Reclamation.TimeSeries.Hydromet
             }
             return new Point(t, System.Math.Round(ETr, 2), PointFlag.Computed);
         }
-        
+
+        private static bool MissingDate(Series s, DateTime t)
+        {
+            return s.IndexOf(t) >= 0;
+        }
         
         /// <summary>
         /// Solar calculation using Fortran method

@@ -47,7 +47,7 @@ namespace Reclamation.TimeSeries.Parser.Tests
 
             CalculationSeries cs = new CalculationSeries("test");
             cs.Expression = expression;
-            var vars = cs.GetDependendVariables();
+            var vars = cs.GetDependentVariables();
             // "prvo"  is a string NOT a variable.
             foreach (var item in vars)
             {

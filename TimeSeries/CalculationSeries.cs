@@ -66,7 +66,7 @@ namespace Reclamation.TimeSeries
         //    return rval.ToArray();
         //}
 
-        internal string[] GetDependendVariables()
+        internal string[] GetDependentVariables()
         {
             List<string> rval = new List<string>();
             string equation = ExpressionPreProcessor();
@@ -75,7 +75,7 @@ namespace Reclamation.TimeSeries
             {
                 if (this.Table.TableName == n)
                 {
-                    Console.WriteLine("Warning: possible recursive dependency: "+n);
+                    Logger.WriteLine("warning: possible recursive dependency: "+n);
                     continue;
                 }
 

@@ -1402,6 +1402,7 @@ namespace Reclamation.TimeSeries
 
         //}
 
+        SeriesList calculationQueue = new SeriesList();
 
         /// <summary>
         /// Import Series s into the database.
@@ -1464,18 +1465,28 @@ namespace Reclamation.TimeSeries
 
             if (computeDependencies)
             {
-               rval = ComputeDependencies(s);
+               rval = ComputeDependenciesSameInterval(s);
             }
             if (computeDailyEachMidnight)
             {
                 var calcList = ComputeDailyOnMidnight(s);
-                // TO DO: other daily dependencies such as TALSYS
+
+                if (calcList.Count > 0)
+                {
+                    Console.WriteLine("Found dependencies: "+s.Table.TableName);
+                    foreach (var item in calcList)
+                    {
+                        Console.WriteLine(">>> "+item.Table.TableName+": " + item.Expression);
+                    }
+                }
+
+                rval.AddRange(calcList);
             }
 
             return rval;
         }
 
-        private SeriesList ComputeDependencies(Series s)
+        private SeriesList ComputeDependenciesSameInterval(Series s)
         {
             SeriesList rval = new SeriesList();
             var calcList = GetDependentCalculations(s.Table.TableName, s.TimeInterval);
@@ -1506,19 +1517,40 @@ namespace Reclamation.TimeSeries
                     var pt = s[i];
                     if (pt.DateTime.IsMidnight())
                     {
-                        calcList = GetDependentCalculations(s.Table.TableName, TimeInterval.Daily);
-                        if(calcList.Count >0)
-                          Console.WriteLine("Found " + calcList.Count + " daily calculations to update ");
-                        foreach (var item in calcList)
+                        var x = GetDailyDependents(s.Table.TableName);
+                        foreach (var item in x)
                         {
-                            var cs = item as CalculationSeries;
-                            Console.WriteLine(cs.Name + " = " + cs.Expression);
-                            cs.Calculate(pt.DateTime.AddDays(-1).Date, pt.DateTime);
+                            if (calcList.IndexOfTableName(item.Table.TableName) < 0)
+                                calcList.AddRange(x);
                         }
                     }
                 }
             }
             return calcList;
+        }
+
+        /// <summary>
+        /// gets daily dependents for this series (tablename)
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        private SeriesList GetDailyDependents(string tableName)
+        {
+            SeriesList rval = new SeriesList();
+            TimeSeriesName tn = new TimeSeriesName(tableName);
+            var calcList = GetDependentCalculations(tableName, TimeInterval.Daily);
+            //if (calcList.Count > 0)
+              //  Logger.WriteLine("Found " + calcList.Count + " daily calculations to update ref:"+tableName);
+            foreach (var item in calcList)
+            {
+                // prevent recursive?
+                rval.Add(item);
+                // check for daily that depends on daily.
+                var x = GetDailyDependents(item.Table.TableName);
+                rval.AddRange(x);
+            }
+            return rval;
         }
 
          TimeSeriesDependency m_instantDependencies;

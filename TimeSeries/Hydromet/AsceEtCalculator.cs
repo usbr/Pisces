@@ -53,6 +53,17 @@ namespace Reclamation.TimeSeries.Hydromet
              double z,
              double Cd, double Cn)
         {
+
+            if (minTemp.IsEmpty || maxTemp.IsEmpty || windRun.IsEmpty ||
+               dewTemp.IsEmpty || solar.IsEmpty || avgTemp.IsEmpty ||
+               MissingDate(minTemp, t) || MissingDate(maxTemp, t) || MissingDate(windRun, t) ||
+               MissingDate(dewTemp,t) || MissingDate(solar,t) || MissingDate(avgTemp,t)   )
+             
+            {
+                Console.WriteLine("\nMissing data in ASCE-EWRI ET Method " + t.ToShortDateString());
+                return new Point(t, Point.MissingValueFlag, PointFlag.Missing);
+            }
+
             // Define equation variables which rely on collected "Daily" data.
             double minTempData =  CheckForMissing(minTemp[t],"min temp").Value;
             double maxTempData = CheckForMissing(maxTemp[t],"max temp").Value;
@@ -64,9 +75,7 @@ namespace Reclamation.TimeSeries.Hydromet
                 || dewTemp[t].IsMissing || solar[t].IsMissing)
             {
                 Console.WriteLine("\nMissing data in ASCE-EWRI ET Method " + t.ToShortDateString());
-                var missing =  new Point(t, Point.MissingValueFlag);
-                missing.Flag = PointFlag.Missing;
-                return missing;
+                return new Point(t, Point.MissingValueFlag, PointFlag.Missing);
             }
 
 
@@ -116,7 +125,10 @@ namespace Reclamation.TimeSeries.Hydromet
             //return ETr;
         }
 
-
+         private static bool MissingDate(Series s, DateTime t)
+         {
+             return s.IndexOf(t) >= 0;
+         }
 
 
         /// <summary>

@@ -85,9 +85,16 @@ namespace Reclamation.TimeSeries
             // throw away and re-read mm
             if (mm.Count == 0)
             {
-                Console.WriteLine("Error:DailyEtKimberlyPenman  MM data not found");
+                Console.WriteLine("Error:DailyEtKimberlyPenman  MM (max temperature) data not found");
                 return rval;
             }
+            if (mn.Count == 0)
+            {
+                Console.WriteLine("Error:DailyEtKimberlyPenman  MN (min temperature) data not found");
+                return rval;
+            }
+
+
               mm.Read(mm[0].DateTime.AddDays(-3), mm[mm.Count - 1].DateTime);
 
             rval.TimeInterval = TimeInterval.Daily;
