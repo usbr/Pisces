@@ -35,7 +35,7 @@ namespace Pisces.NunitTests.SeriesMath
             fb.Add("1-3-2013", 3);
             fb.Add("1-4-2013", 4);
             TimeSeriesImporter ti = new TimeSeriesImporter(db);
-            ti.Import(fb);// this should force a calculation...
+            ti.Import(fb,computeDependencies:true);// this should force a calculation...
 
             var af = db.GetSeriesFromTableName("instant_karl_af");
             Assert.NotNull(af, "Series not created");

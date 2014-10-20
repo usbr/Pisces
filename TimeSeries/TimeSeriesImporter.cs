@@ -24,11 +24,12 @@ namespace Reclamation.TimeSeries
             m_quality = new Quality(m_db);
         }
 
-        public void Import(Series s)
+        public void Import(Series s, bool computeDependencies = false,
+            bool computeDailyEachMidnight = false)
         {
             var sl = new SeriesList();
             sl.Add(s);
-            Import(sl, false, false);
+            Import(sl, computeDependencies, computeDailyEachMidnight);
 
         }
 
@@ -65,7 +66,7 @@ namespace Reclamation.TimeSeries
                 }
                 if (computeDailyEachMidnight)
                 {
-                    var x = ComputeDailyOnMidnight(s);
+                    var x = GetDailyCalculationsIfMidnight(s);
                     foreach (var item in x)
                     {
                         if (!calculationQueue.ContainsTableName(item))
@@ -74,15 +75,40 @@ namespace Reclamation.TimeSeries
                 }
             }
 
-            // do Actual Computations now. (in proper order...)
-            
-            foreach (Series item in calculationQueue)
+            if (calculationQueue.Count >0)
             {
-                Console.WriteLine(">>> " + item.Table.TableName + ": " + item.Expression);
-                var cs = item as CalculationSeries;
-                cs.Calculate(inputSeriesList.MinDateTime.Date, inputSeriesList.MaxDateTime);
-                if (cs.Count > 0)
-                    routingList.Add(cs);
+                // do Actual Computations now. (in proper order...)
+                var list = new List<CalculationSeries>();
+                foreach (Series item in calculationQueue)
+                {
+                    list.Add(item as CalculationSeries);
+                }
+                TimeSeriesDependency td = new TimeSeriesDependency(list);
+                var sortedCalculations = td.Sort();
+                foreach (CalculationSeries cs in sortedCalculations)
+                {
+                    Console.Write(">>> " + cs.Table.TableName + ": " + cs.Expression);
+                    //var cs = item as CalculationSeries;
+                    var t1 = inputSeriesList.MinDateTime.Date;
+                    var t2 = inputSeriesList.MaxDateTime;
+
+                    if (t1.Date == t2.AddDays(-1).Date) // spans midnight, compute yesterday.
+                    {
+                        t1 = t1.Date;
+                        t2 = t1.Date;
+                    }
+
+                    cs.Calculate(t1, t2);
+                    if (cs.Count > 0)
+                    {
+                        routingList.Add(cs);
+                        if( cs.CountMissing() >0)
+                        
+                            Console.WriteLine(" Missing "+cs.CountMissing()+" records");
+                        else
+                            Console.WriteLine(" OK");
+                    }
+                } 
             }
 
             // route data to other locations.
@@ -117,7 +143,7 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
-        private SeriesList ComputeDailyOnMidnight(Series s)
+        private SeriesList GetDailyCalculationsIfMidnight(Series s)
         {
             var calcList = new SeriesList();
             // check for midnight values, and initiate daily calculations.

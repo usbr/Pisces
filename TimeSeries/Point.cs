@@ -192,13 +192,13 @@ namespace Reclamation.TimeSeries
     public override string ToString()
     {
       string s = this.DateTime.ToString(Series.DateTimeFormatInstantaneous);
-      s += "\t"+this.Value.ToString("F2");
+      s += " "+this.Value.ToString("F2");
       return s;
     }
         public string ToString(string dateFormat)
         {
             string s = this.DateTime.ToString(dateFormat);
-            s += "\t" + this.Value.ToString("F2");
+            s += " " + this.Value.ToString("F2");
             return s;
         }
 

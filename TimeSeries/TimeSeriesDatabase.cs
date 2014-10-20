@@ -260,49 +260,24 @@ namespace Reclamation.TimeSeries
 
         TimeSeriesDatabaseDataSet.seriespropertiesDataTable m_seriesProperties = null;
 
-        public TimeSeriesDatabaseDataSet.seriespropertiesDataTable GetSeriesProperties(bool useCache=false)
+
+        /// <summary>
+        /// Manage rows from the SeriesProperties table
+        /// </summary>
+        /// <param name="seriesid">series id</param>
+        /// <param name="useCache"></param>
+        /// <returns></returns>
+        public TimeSeriesDatabaseDataSet.seriespropertiesDataTable GetSeriesProperties(int seriesid=-1,bool useCache=false)
         {
-          if (m_seriesProperties != null &&  useCache)
+          if (m_seriesProperties != null &&  useCache && m_seriesProperties.Seriesid == seriesid)
              return m_seriesProperties;
 
-            m_seriesProperties = new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
+            m_seriesProperties = new TimeSeriesDatabaseDataSet.seriespropertiesDataTable(this,seriesid);
             m_seriesProperties.ExtendedProperties.Add("datetime", DateTime.Now.ToString());
-            //m_seriesProperties.ExtendedProperties.Add("nextid", m_server.NextID("seriesproperties", "id"));
-
-            string sql = "select * from seriesproperties ";
-            m_server.FillTable(m_seriesProperties, sql);
+            
             return m_seriesProperties;
         }
 
-
-
-
-        public TimeSeriesDatabaseDataSet.seriespropertiesDataTable GetSeriesProperties(int id, bool useCache=false )
-        {
-
-            //var m_seriesProperties = new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
-            //string sql = "select * from seriesproperties where seriesid = "+id ;
-            //m_server.FillTable(m_seriesProperties, sql);
-            //return m_seriesProperties;
-
-
-            var tbl = new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
-
-            var rows = GetSeriesProperties(useCache).Select("seriesid = " + id);
-
-            foreach (DataRow r in rows)
-            {
-                tbl.Rows.Add(r.ItemArray);
-            }
-
-            tbl.AcceptChanges();
-            return tbl;
-
-           
-        }
-
-
-      
 
         public bool AnyUrgsimSeries()
         {
