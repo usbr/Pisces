@@ -57,12 +57,14 @@ namespace Reclamation.TimeSeries
                 Logger.WriteLine("Checking Flags ");
                 m_quality.SetFlags(s);
                 // To Do.. check for alarms..
-
+                
                 m_db.ImportSeriesUsingTableName(s, true, "");
+                routingList.Add(s);
 
                 if (computeDependencies)
                 {
-                    routingList = ComputeDependenciesSameInterval(s);
+                    var z = ComputeDependenciesSameInterval(s);
+                    routingList.AddRange(z);
                 }
                 if (computeDailyEachMidnight)
                 {

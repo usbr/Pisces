@@ -20,19 +20,14 @@ namespace Reclamation.TimeSeries {
         {
             int m_seriesid;
 
-            public int Seriesid
-            {
-                get { return m_seriesid; }
-                set { m_seriesid = value; }
-            }
             TimeSeriesDatabase m_db;
-            public seriespropertiesDataTable (TimeSeriesDatabase db , int seriesid):base()
+            public seriespropertiesDataTable (TimeSeriesDatabase db ):base()
 	    {
-            db.Server.FillTable(this, "Select * from seriesproperties");
+            string sql = "Select * from seriesproperties";
+
+            db.Server.FillTable(this, sql);
             this.TableName = "seriesproperties";
                 m_db = db;
-                m_seriesid = seriesid;
-
         }
 
             public void Save()

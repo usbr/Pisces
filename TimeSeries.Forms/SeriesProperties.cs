@@ -71,11 +71,12 @@ namespace Reclamation.TimeSeries.Forms
             comboBoxTimeInterval.SelectedIndex = 0;
             comboBoxTimeInterval.SelectedItem = m_series.TimeInterval.ToString();
 
-            tblSeriesProperties = m_series.TimeSeriesDatabase.GetSeriesProperties(m_series.ID);
+            tblSeriesProperties = m_series.Properties;
             tblSeriesProperties.Columns["id"].AutoIncrement = true;
-            tblSeriesProperties.Columns["id"].AutoIncrementSeed = m_series.TimeSeriesDatabase.Server.NextID("seriesproperties", "id");
+            tblSeriesProperties.Columns["id"].AutoIncrementSeed = m_series.Properties.NextID();
             tblSeriesProperties.Columns["seriesid"].DefaultValue = m_series.ID;
             dgvProperties.DataSource = tblSeriesProperties;
+            tblSeriesProperties.DefaultView.RowFilter = "seriesid=" + m_series.ID;
             dgvProperties.Columns["id"].Visible = false;
             dgvProperties.Columns["seriesid"].Visible = false;
 

@@ -257,7 +257,7 @@ namespace Reclamation.TimeSeries
                 if (m_db == null)
                     return new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
 
-                return m_db.GetSeriesProperties(this.ID, true);
+                return m_db.GetSeriesProperties(true);
             }
         }
 

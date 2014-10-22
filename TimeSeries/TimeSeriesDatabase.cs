@@ -267,12 +267,12 @@ namespace Reclamation.TimeSeries
         /// <param name="seriesid">series id</param>
         /// <param name="useCache"></param>
         /// <returns></returns>
-        public TimeSeriesDatabaseDataSet.seriespropertiesDataTable GetSeriesProperties(int seriesid=-1,bool useCache=false)
+        public TimeSeriesDatabaseDataSet.seriespropertiesDataTable GetSeriesProperties(bool useCache=false)
         {
-          if (m_seriesProperties != null &&  useCache && m_seriesProperties.Seriesid == seriesid)
+          if (m_seriesProperties != null &&  useCache )
              return m_seriesProperties;
 
-            m_seriesProperties = new TimeSeriesDatabaseDataSet.seriespropertiesDataTable(this,seriesid);
+            m_seriesProperties = new TimeSeriesDatabaseDataSet.seriespropertiesDataTable(this);
             m_seriesProperties.ExtendedProperties.Add("datetime", DateTime.Now.ToString());
             
             return m_seriesProperties;
