@@ -127,7 +127,7 @@ namespace Reclamation.TimeSeries.Hydromet
 
          private static bool MissingDate(Series s, DateTime t)
          {
-             return s.IndexOf(t) >= 0;
+             return s.IndexOf(t) < 0;
          }
 
 
