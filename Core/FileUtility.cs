@@ -80,7 +80,8 @@ namespace Reclamation.Core
                 ProcessDirectory(subdirectory);
         }
 
-        public static void CopyFiles(string srcPath, string destPath, string searchPattern = "*.*", bool overwrite = true)
+        public static void CopyFiles(string srcPath, string destPath, string searchPattern = "*.*", bool overwrite = true,
+            bool preserveAttributes=false)
         {
             string[] files = Directory.GetFiles(srcPath, searchPattern);
             foreach (string srcFile in files)
@@ -93,6 +94,9 @@ namespace Reclamation.Core
                 else
                 {
                 File.Copy(srcFile, destFile,overwrite);
+                File.SetCreationTime(destFile, File.GetCreationTime(srcFile));
+                File.SetLastAccessTime(destFile, File.GetLastAccessTime(srcFile));
+                File.SetLastWriteTime(destFile, File.GetLastWriteTime(srcFile));
                 }
             }
         }

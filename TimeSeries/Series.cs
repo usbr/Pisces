@@ -250,22 +250,15 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// Used by CalculationSeries
         /// </summary>
-        public Dictionary<string, string> Properties 
+        public TimeSeriesDatabaseDataSet.seriespropertiesDataTable Properties 
         {
-         get {
-                 var rval = new Dictionary<string, string>();
+            get
+            {
+                if (m_db == null)
+                    return new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
 
-                 if (m_db != null)
-                 {
-                     var tbl = m_db.GetSeriesProperties(this.ID,true);
-                     foreach (DataRow row in tbl.Rows)
-                     {
-                         rval.Add(row["name"].ToString(), row["value"].ToString());
-                     }
-                 }
-
-            return rval;
-         }
+                return m_db.GetSeriesProperties(true);
+            }
         }
 
         public Series(TimeSeriesDatabase db, SeriesCatalogRow sr):base(sr) // 23 references

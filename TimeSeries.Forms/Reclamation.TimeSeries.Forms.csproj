@@ -786,7 +786,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="License-LGPL.txt" />
     <Content Include="Tree\jppisces_expert_history.txt" />
   </ItemGroup>
   <ItemGroup>

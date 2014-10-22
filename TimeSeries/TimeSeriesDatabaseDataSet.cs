@@ -18,6 +18,22 @@ namespace Reclamation.TimeSeries {
 
         public partial class seriespropertiesDataTable
         {
+            int m_seriesid;
+
+            TimeSeriesDatabase m_db;
+            public seriespropertiesDataTable (TimeSeriesDatabase db ):base()
+	    {
+            string sql = "Select * from seriesproperties";
+
+            db.Server.FillTable(this, sql);
+            this.TableName = "seriesproperties";
+                m_db = db;
+        }
+
+            public void Save()
+            {
+                m_db.Server.SaveTable(this);
+            }
             public int NextID()
             {
                 if (this.Rows.Count > 0)
@@ -26,7 +42,34 @@ namespace Reclamation.TimeSeries {
                 }
                 return 1;
 
-                //return (this.Rows.Count + 1);
+            }
+
+            public bool Contains(string name)
+            {
+                return Select("name='" + name + "' and seriesid = " + m_seriesid).Length == 1;
+            }
+
+            public string Get(string name, string defaultValue)
+            {
+                var rows = Select("name='"+name+"' and seriesid = "+m_seriesid);
+                if (rows.Length != 1)
+                    return defaultValue;
+
+                return rows[0]["value"].ToString();
+            }
+
+            public void Set(string name, string value)
+            {
+                var rows = Select("name='" + name + "' and seriesid = " + m_seriesid);
+                if (rows.Length == 0)
+                {
+                    AddseriespropertiesRow(NextID(), m_seriesid, name, value);
+                }
+                else
+                {
+                    rows[0]["value"] = value;
+                }
+
             }
         }
         public partial class SeriesCatalogDataTable
