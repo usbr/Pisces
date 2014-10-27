@@ -426,11 +426,11 @@ namespace Reclamation.TimeSeries.Hydromet
         /// <param name="pCode">Hydromet PCode</param>
         /// <param name="yearEnd">End of 30year date range (1990, 2000, 2010, ...)</param>
         /// <returns></returns>
-        public static Series Get30YearAverage(string cbtt, string pCode, int yearEnd)
+        public static Series Get30YearAverage(string cbtt, string pCode, int yearEnd,HydrometHost svr)
         {
             // Define input and output series
             Series sOut = new Series();
-            var s = new HydrometDailySeries(cbtt, pCode);
+            var s = new HydrometDailySeries(cbtt, pCode,svr);
             // Define date ranges to read
             int year1 = yearEnd - 29;
             var t1 = new DateTime(year1 - 1, 10, 1);
