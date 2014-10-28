@@ -46,19 +46,43 @@ namespace Reclamation.TimeSeries.DataLogger
         public LoggerNetFile(string filename)
         {
             tf = new TextFile(filename);
+            ParseHeader();
+        }
+        public LoggerNetFile(TextFile  tf)
+        {
+            this.tf = tf;
+            ParseHeader();
+        }
+
+        public static bool IsValidFile(TextFile tf)
+        {
+            var x = new LoggerNetFile(tf);
+            return x.IsValidFormat();
+        }
+        private void ParseHeader()
+        {
+            
             if (tf.Length > 0)
             {
-                infoHeader = tf[0].Replace("\"","").Split(',');
+                infoHeader = tf[0].Replace("\"", "").Split(',');
                 // HACK for WS_mph in some Utah Sites...
-                dataHeader = tf[1].Replace("\"", "").Replace("WS_mph","WS").Split(',');
+                dataHeader = tf[1].Replace("\"", "").Replace("WS_mph", "WS").Split(',');
                 FileFormat = infoHeader[0];
                 SiteName = infoHeader[1];
             }
         }
 
+        private bool IsValidFormat()
+        {
+             bool validFomat = FileFormat.Contains("TOACI1") || FileFormat.Contains("TOA5");
+            return validFomat;
+        }
+
         public bool IsValid { 
             get{
-                bool validFomat = FileFormat.Contains("TOACI1") || FileFormat.Contains("TOA5");
+
+                bool validFomat = IsValidFormat();
+
                 if( !validFomat)
                     Console.WriteLine("Error: bad file format "+infoHeader);
 
