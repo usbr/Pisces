@@ -352,6 +352,13 @@ END DATA
             return val.ToString("F2").PadRight(10);
         }
 
+
+        public static bool IsValidDMS3(TextFile tf)
+        {
+            var header = "yyyyMMMdd hhmm cbtt     PC        NewValue   OldValue   Flag user";
+            return tf.Length > 0 && tf[0].IndexOf(header) == 0;
+        }
+
         /// <summary>
         /// converts DMS3 formated data for 'dayflag.exe' prorgram into SeriesList
         /// each series is named  instant_cbtt_pcode,
@@ -359,11 +366,10 @@ END DATA
         /// </summary>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static SeriesList HydrometDMS3DataToSeriesList(string fileName)
+        public static SeriesList HydrometDMS3DataToSeriesList(TextFile tf)
         {
             var rval = new SeriesList();
 
-            TextFile tf = new TextFile(fileName);
             for (int i = 1; i < tf.Length; i++) // skip first row (header)
 			{
                 var strDate = tf[i].Substring(0,14);
