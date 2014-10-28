@@ -39,6 +39,10 @@ namespace Reclamation.TimeSeries
                     Logger.WriteLine("Error parsing date '" + str + "'");
                     continue;
                 }
+
+                if (t < t1 || t > t2)
+                    continue;
+
                 str = data.Rows[j][valueColumnName].ToString();
                 if (!Double.TryParse(str, out d))
                 {
