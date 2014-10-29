@@ -53,7 +53,7 @@ namespace Reclamation.Core
         public virtual int NextID(string tableName, string columnName)
         {
             string sql = "select count(*) as count,max(" + columnName + ") as max from " + tableName
-               + " Where id >0 ";
+               + " Where "+columnName+" >0 ";
             DataTable tbl =Table("seriescatalog", sql);
             int count = Convert.ToInt32(tbl.Rows[0]["count"]);
             if (count == 0)
