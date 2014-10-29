@@ -77,28 +77,28 @@ namespace Reclamation.TimeSeries.Decodes
             }
         }
 
-        public static void AddEquipment(DecodesDataSet decodes)  {
+    //    public static void AddEquipment(DecodesDataSet decodes)  {
 
 
-            var e = decodes.equipmentmodel;
-            var ep = decodes.equipmentproperty; 
+    //        var e = decodes.equipmentmodel;
+    //        var ep = decodes.equipmentproperty; 
 
-            e.AddequipmentmodelRow(1, "MCF-S", "Sutron", "", "", "DCP");
-            e.AddequipmentmodelRow(2, "MCF-A", "FTX", "TX312", "", "DCP");
-            e.AddequipmentmodelRow(3, "MCF-D", "Design Analysis", "", "", "DCP");
-            e.AddequipmentmodelRow(4, "MCF-V", "Vitel", "", "", "DCP");
-            e.AddequipmentmodelRow(5, "CR1000", "CSV", "", "", "TransportMedium");
-
-
-
-            ep.AddequipmentpropertyRow(1, "DataOrder", "D");
-            ep.AddequipmentpropertyRow(2, "DataOrder", "A");
-            ep.AddequipmentpropertyRow(3, "DataOrder", "D");
-            ep.AddequipmentpropertyRow(4, "DataOrder", "D");
-            ep.AddequipmentpropertyRow(5, "DataOrder", "A");
+    //        e.AddequipmentmodelRow(1, "MCF-S", "Sutron", "", "", "DCP");
+    //        e.AddequipmentmodelRow(2, "MCF-A", "FTX", "TX312", "", "DCP");
+    //        e.AddequipmentmodelRow(3, "MCF-D", "Design Analysis", "", "", "DCP");
+    //        e.AddequipmentmodelRow(4, "MCF-V", "Vitel", "", "", "DCP");
+    //        e.AddequipmentmodelRow(5, "CR1000", "CSV", "", "", "TransportMedium");
 
 
-    }
+
+    //        ep.AddequipmentpropertyRow(1, "DataOrder", "D");
+    //        ep.AddequipmentpropertyRow(2, "DataOrder", "A");
+    //        ep.AddequipmentpropertyRow(3, "DataOrder", "D");
+    //        ep.AddequipmentpropertyRow(4, "DataOrder", "D");
+    //        ep.AddequipmentpropertyRow(5, "DataOrder", "A");
+
+
+    //}
 
         public static void UpdateServer(PostgreSQL svr, DecodesDataSet decodes)
         {

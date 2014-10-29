@@ -62,7 +62,7 @@ namespace Reclamation.TimeSeries.DataLogger
         private void ParseHeader()
         {
             
-            if (tf.Length > 0)
+            if (tf.Length > 1)
             {
                 infoHeader = tf[0].Replace("\"", "").Split(',');
                 // HACK for WS_mph in some Utah Sites...

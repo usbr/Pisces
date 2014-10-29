@@ -355,7 +355,7 @@ END DATA
 
         public static bool IsValidDMS3(TextFile tf)
         {
-            var header = "yyyyMMMdd hhmm cbtt     PC        NewValue   OldValue   Flag user";
+            var header = "yyyyMMMdd hhmm cbtt     PC        NewValue   OldValue   Flag";
             return tf.Length > 0 && tf[0].IndexOf(header) == 0;
         }
 
