@@ -187,7 +187,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripSeparator4,
             this.menuProperties});
             this.contextMenuStripTree.Name = "contextMenuStripTree";
-            this.contextMenuStripTree.Size = new System.Drawing.Size(165, 236);
+            this.contextMenuStripTree.Size = new System.Drawing.Size(165, 214);
             // 
             // toolStripMenuItem2
             // 
@@ -469,7 +469,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 28);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Size = new System.Drawing.Size(924, 534);
             this.splitContainer1.SplitterDistance = 338;
@@ -604,7 +604,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemAddFolder.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddFolder.Image")));
             this.toolStripMenuItemAddFolder.Name = "toolStripMenuItemAddFolder";
             this.toolStripMenuItemAddFolder.Size = new System.Drawing.Size(417, 24);
-            this.toolStripMenuItemAddFolder.Text = "Add Folder";
+            this.toolStripMenuItemAddFolder.Text = "Add Folder/Site";
             this.toolStripMenuItemAddFolder.Click += new System.EventHandler(this.newFolder_Click);
             // 
             // toolStripSeparator2
@@ -903,7 +903,7 @@ namespace Reclamation.TimeSeries.Forms
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PiscesForm";
             this.Text = "Title";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExplorerForm_FormClosing);

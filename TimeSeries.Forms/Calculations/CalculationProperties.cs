@@ -51,16 +51,15 @@ namespace Reclamation.TimeSeries.Forms.Calculations
             if (m_series.IsValidExpression(basicEquation1.SeriesExpression, out errorMessage))
             {
                 m_series.Expression = basicEquation1.SeriesExpression;
-                var a = this.textBoxSeriesName.Text.Trim();
+                var a = this.basicEquation1.SeriesName;
                 if (a != "")
                 {
                     m_series.Name = a;
                     m_series.Table.TableName=TimeSeriesDatabase.SafeTableName(a);
                 }
-                a = this.textBoxUnits.Text.Trim();
+                a = basicEquation1.Units.Trim();
                 if (a != "")
                     m_series.Units = a;
-                
             }
             else
             {

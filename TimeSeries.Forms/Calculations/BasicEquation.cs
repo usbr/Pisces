@@ -30,6 +30,17 @@ namespace Reclamation.TimeSeries.Forms.Calculations
             get { return this.textBoxMath.Text; }
             set { this.textBoxMath.Text = value; }
         }
+
+        public string SeriesName
+        {
+            get { return this.textBoxSeriesName.Text; }
+        }
+        public string Units
+        {
+            get { return this.textBoxUnits.Text; }
+        }
+
+
         public TimeInterval TimeInterval
         {
             get
