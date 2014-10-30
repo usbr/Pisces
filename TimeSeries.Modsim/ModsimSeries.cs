@@ -396,7 +396,8 @@ namespace Reclamation.TimeSeries.Modsim
                 columnName = "Hydro_State";
             }
             // assumes date should be MidDate --Leslie
-            string sql = "SELECT TimeSteps.MidDate, RESOutput." + columnName //+ SQLMultiplyByScale(columnName)
+            /* BLounsbury - Why MidDate? - Changing to tsdate to match flow/demand/etc */
+            string sql = "SELECT TimeSteps.TsDate, RESOutput." + columnName //+ SQLMultiplyByScale(columnName)
                     + " FROM (TimeSteps INNER JOIN RESOutput ON TimeSteps.TSIndex = RESOutput.TSIndex) "
                     + " INNER JOIN NodesInfo ON RESOutput.NNo = NodesInfo.NNumber "
                     + " where NodesInfo.NName = '" + modsimName + "' AND "
