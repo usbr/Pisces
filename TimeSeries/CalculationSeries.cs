@@ -146,7 +146,6 @@ namespace Reclamation.TimeSeries
 
                     Logger.WriteLine("Calculation result has " + result.Series.Count + " rows");
                     this.TimeInterval = result.Series.TimeInterval;
-                    this.Units = result.Series.Units; 
 
                     this.Table = result.Series.Table;
                     this.Table.AcceptChanges();// prevents error releated to Deleted rows from Trim() above.
