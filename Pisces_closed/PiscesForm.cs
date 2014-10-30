@@ -427,8 +427,14 @@ namespace Reclamation.TimeSeries.Forms
 
         private void newFolder_Click(object sender, EventArgs e)
         {
-            PiscesFolder f = CurrentFolder;
-            DB.AddFolder(f,"");
+            var d = new Reclamation.TimeSeries.Forms.ImportForms.AddSite(DB);
+
+            if (d.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+
+             //   PiscesFolder f = CurrentFolder;
+               // DB.AddFolder(f, "");
+            }
         }
 
         private void Enabling()
