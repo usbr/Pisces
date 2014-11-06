@@ -90,8 +90,8 @@ namespace Reclamation.TimeSeries.Owrd
                 var shiftedFlow = Convert.ToDouble(row[4]);
 
                 var newRow = fullRatingTable.NewRow();
-                newRow["Stage"] = shiftedStage - recorderCorrectionValue;
-                newRow["Shift"] = shiftedStage - ratingStage; //shiftTable.Lookup(shiftedStage - recorderCorrectionValue);
+                newRow["Stage"] = ratingStage - recorderCorrectionValue;
+                newRow["Shift"] = shiftTable.Interpolate(ratingStage - recorderCorrectionValue);
                 newRow["Flow"] = shiftedFlow;
                 fullRatingTable.Rows.Add(newRow);
             }

@@ -90,6 +90,23 @@ namespace Reclamation.TimeSeries
                 return rval;
             }
 
+
+            public double Interpolate(double val)
+            {
+                if (val > MaxXValue())
+                    return Point.MissingValueFlag;
+
+                if (val < MinXValue())
+                { // if last value on table computes zero, then extrapolate a zero.
+                    if (System.Math.Abs(MinYValue()) < 0.01)
+                        return 0;
+
+                    return Point.MissingValueFlag;
+                }
+
+
+               return Math.Interpolate(this, val, this.columnx.ColumnName, this.columny.ColumnName);
+            }
             /// <summary>
             /// Lookup value in RatingTable
             /// </summary>
