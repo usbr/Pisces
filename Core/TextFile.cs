@@ -498,7 +498,12 @@ namespace Reclamation.Core
         }
 
 
+        public string ReadString(string label)
+        {
+            return ParseLine(label, 0, this.Length - 1);
+        }
 
+        [Obsolete("Use ReadString instead")]
         public string ParseLine(string label)
         {
             return ParseLine(label, 0, this.Length - 1);
