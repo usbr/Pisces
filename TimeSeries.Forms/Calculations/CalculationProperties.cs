@@ -28,6 +28,7 @@ namespace Reclamation.TimeSeries.Forms.Calculations
 
             m_series = s;
             ReadSeriesProperties();
+            this.LoadList(basicEquation1.ComboBoxUnits, DBunits);
         }
 
         private void ReadSeriesProperties()

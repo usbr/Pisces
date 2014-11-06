@@ -18,6 +18,7 @@ namespace Reclamation.TimeSeries.Forms.Calculations
         {
             InitializeComponent();
             this.listBoxFunctions.Items.Clear();
+            this.labelToolTip.Text = "";
             var fa = ParserFunction.GetPiscesFunctionAttributes();
 
             listBoxFunctions.Items.AddRange((from a in fa select a.Example).ToArray<string>());
@@ -37,7 +38,11 @@ namespace Reclamation.TimeSeries.Forms.Calculations
         }
         public string Units
         {
-            get { return this.textBoxUnits.Text; }
+            get { return this.comboBoxUnits.Text; }
+        }
+        public ComboBox ComboBoxUnits
+        {
+            get { return this.comboBoxUnits; } 
         }
 
 
