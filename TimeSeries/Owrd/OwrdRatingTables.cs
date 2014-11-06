@@ -28,11 +28,11 @@ namespace Reclamation.TimeSeries.Owrd
         DateTime ratingBeginDate;
         DateTime recorderCorrectionDate;
         DateTime shiftEffectiveDate;
-        public TextFile webRdbTable;
+        public TextFile rawTable;
         public DataTable fullRatingTable;
 
         /// <summary>
-        /// Main constructor for this class
+        /// OwrdRatingTables constructor
         /// </summary>
         /// <param name="idNumber"></param>
         /// <param name="ratingTablePath"></param>
@@ -48,31 +48,23 @@ namespace Reclamation.TimeSeries.Owrd
             if (newData.Count() == 0)
             { throw new Exception("OWRD data not found. Check inputs or retry later."); }
 
-            webRdbTable = new TextFile(newData);
-            webRdbTable.DeleteLine(webRdbTable.Length - 1); //last line from web is blank and the exisitng RDB does not have an empty last line
+            rawTable = new TextFile(newData);
+            rawTable.DeleteLine(rawTable.Length - 1); //last line from web is blank and the exisitng RDB does not have an empty last line
 
-            // Get and assign RDB file properties
-            var tempFile = Path.GetTempFileName();
-            this.webRdbTable.SaveAs(tempFile);
-            ReadTableFromDisk(tempFile);
+            ReadProperties();
+            CreateFullRatingTable(this.rawTable);
+
 
         }
 
-        private void ReadTableFromDisk(string filename)
+        private void ReadProperties()
         {
-            var rdbFile = new TextFile(filename);
-            this.ratingNumber = rdbFile.ReadString("RATING_NBR");
-            this.ratingBeginDate = rdbFile.ReadDate("RATING_BEGIN_DATE");
-            this.recorderCorrectionValue = rdbFile.ReadSingle("RECORDER_CORRECTION_VALUE");
-            this.recorderCorrectionDate = rdbFile.ReadDate("RECORDER_CORRECTION_DATE");
-            this.shiftEffectiveDate = rdbFile.ReadDate("SHIFT_EFFECTIVE_DATE");
+            this.ratingNumber = rawTable.ReadString("RATING_NBR");
+            this.ratingBeginDate = rawTable.ReadDate("RATING_BEGIN_DATE");
+            this.recorderCorrectionValue = rawTable.ReadSingle("RECORDER_CORRECTION_VALUE");
+            this.recorderCorrectionDate = rawTable.ReadDate("RECORDER_CORRECTION_DATE");
+            this.shiftEffectiveDate = rawTable.ReadDate("SHIFT_EFFECTIVE_DATE");
         }
-
-        public void CreateFullRatingTableFromWeb()
-        { CreateFullRatingTable(this.webRdbTable); }
-
-        //public void CreateFullRatingTableFromFile()
-        //{ CreateFullRatingTable(this.fileRdbTable); }
 
         /// <summary>
         /// This method generates the full table from the RDB file
@@ -105,13 +97,6 @@ namespace Reclamation.TimeSeries.Owrd
             }
             this.fullRatingTable = fullRatingTable;
         }
-
-
-        //public void CreateShiftTableFromWeb()
-        //{ CreateShiftTable(this.webRdbTable); }
-
-        //public void CreateShiftTableFromFile()
-        //{ CreateShiftTable(this.fileRdbTable); }
 
         /// <summary>
         /// This method creates the shift table based on the 'lower'-'mid'-'upper' values specified in the owrd RDB file
