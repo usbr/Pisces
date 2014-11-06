@@ -6,6 +6,8 @@ using Reclamation.TimeSeries;
 using System.IO;
 using Reclamation.TimeSeries.Hydromet;
 using Reclamation.Core;
+using Reclamation.TimeSeries.Owrd;
+using System.Configuration;
 
 namespace Pisces.NunitTests.SeriesMath
 {
@@ -48,6 +50,21 @@ namespace Pisces.NunitTests.SeriesMath
         }
 
 
+
+        [Test]
+        public void OwrdRatingTable()
+        {
+            var path = Path.Combine(ConfigurationManager.AppSettings["LocalConfigurationDataPath"], "rating_tables");
+
+            OwrdRatingTables rt = new OwrdRatingTables("14030000",path);
+            
+            //TimeSeriesDatabaseDataSet.RatingTableDataTable.
+           // var x = rt.Lookup(1281.95);
+           // Assert.AreEqual(4543763, x, .01);
+            //var s = new HydrometInstantSeries("gcl", "fb");
+
+            //TestRatingTable 
+        }
 
        [Test]
        public void HydrometRatingTable()
