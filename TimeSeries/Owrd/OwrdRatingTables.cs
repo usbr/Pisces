@@ -18,19 +18,17 @@ namespace Reclamation.TimeSeries.Owrd
     ///                HTML – html preformatted text
     ///                XLS – Microsoft Excel
     /// </summary>
-    public class OwrdRatingTables
+    public class OwrdRatingTables 
     {
         // Define class properties
-        public string stationNumber;
+        string stationNumber;
         string ratingNumber;
         public string downloadURL;
-        public double recorderCorrectionValue;
+        double recorderCorrectionValue;
         DateTime ratingBeginDate;
         DateTime recorderCorrectionDate;
         DateTime shiftEffectiveDate;
         public TextFile webRdbTable;
-        public TextFile fileRdbTable;
-        public DataTable shiftTable;
         public DataTable fullRatingTable;
         string ratingTablePath;
 
@@ -46,7 +44,7 @@ namespace Reclamation.TimeSeries.Owrd
             this.ratingTablePath = ratingTablePath;
 
             // Get and assign rating table file from the web
-            string owrdURL = "http://apps.wrd.state.or.us/apps/sw/hydro_near_real_time/"+
+            string owrdURL = "http://apps.wrd.state.or.us/apps/sw/hydro_near_real_time/" +
                 "hydro_download.aspx?dataset=RatingCurve&format=tsv&station_nbr=XXXXXXXX";
             downloadURL = owrdURL.Replace("XXXXXXXX", idNumber);
             var newData = Web.GetPage(owrdURL.Replace("XXXXXXXX", idNumber));
@@ -60,26 +58,19 @@ namespace Reclamation.TimeSeries.Owrd
             var tempFile = Path.GetTempFileName();
             this.webRdbTable.SaveAs(tempFile);
             var rdbFile = new TextFile(tempFile);
-            var rdbFileString = rdbFile.FileContents;
-            var rdbItems = rdbFileString.Split('\t', '\r', '\n').ToList();//[JR] these separate the rdb file into searchable chunks
-            var ratingNumberIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("RATING_NBR")).ToList();
-            var ratingBeginDateIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("RATING_BEGIN_DATE")).ToList();
-            var recorderCorrectionValueIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("RECORDER_CORRECTION_VALUE")).ToList();
-            var recorderCorrectionDateIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("RECORDER_CORRECTION_DATE")).ToList();
-            var shiftEffectiveDateIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("SHIFT_EFFECTIVE_DATE")).ToList();
-            this.ratingNumber = rdbItems[ratingNumberIdx[0] + 1].ToString();
-            this.ratingBeginDate = DateTime.Parse(rdbItems[ratingBeginDateIdx[0] + 1].ToString());
-            this.recorderCorrectionValue = Convert.ToDouble(rdbItems[recorderCorrectionValueIdx[0] + 1].ToString());
-            this.recorderCorrectionDate = DateTime.Parse(rdbItems[recorderCorrectionDateIdx[0] + 1].ToString());
-            this.shiftEffectiveDate = DateTime.Parse(rdbItems[shiftEffectiveDateIdx[0] + 1].ToString());
-        }
+            this.ratingNumber = rdbFile.ReadString("RATING_NBR");
+            this.ratingBeginDate = rdbFile.ReadDate("RATING_BEGIN_DATE");
+            this.recorderCorrectionValue = rdbFile.ReadSingle("RECORDER_CORRECTION_VALUE");
+            this.recorderCorrectionDate = rdbFile.ReadDate("RECORDER_CORRECTION_DATE");
+            this.shiftEffectiveDate = rdbFile.ReadDate("SHIFT_EFFECTIVE_DATE");
 
+        }
 
         public void CreateFullRatingTableFromWeb()
         { CreateFullRatingTable(this.webRdbTable); }
 
-        public void CreateFullRatingTableFromFile()
-        { CreateFullRatingTable(this.fileRdbTable); }
+        //public void CreateFullRatingTableFromFile()
+        //{ CreateFullRatingTable(this.fileRdbTable); }
 
         /// <summary>
         /// This method generates the full table from the RDB file
@@ -87,66 +78,64 @@ namespace Reclamation.TimeSeries.Owrd
         /// <param name="rdbFile"></param>
         private void CreateFullRatingTable(TextFile rdbFile)
         {
-            var tempFile = Path.GetTempFileName();
-            rdbFile.SaveAs(tempFile);
-            rdbFile = new TextFile(tempFile);
-            var rdbFileString = rdbFile.FileContents;
-            var rdbItems = rdbFileString.Split('\t', '\r', '\n').ToList();//[JR] these separate the rdb file into searchable chunks
-            var dataRowIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains(stationNumber)).ToList();
-
-            double recorderCorrection = this.recorderCorrectionValue;
-
             // Build full rating table
+            var shiftTable = CreateShiftTable(rdbFile);
             DataTable fullRatingTable = new DataTable();
             fullRatingTable.Columns.Add(new DataColumn("Stage", typeof(double)));
             fullRatingTable.Columns.Add(new DataColumn("Shift", typeof(double)));
             fullRatingTable.Columns.Add(new DataColumn("Flow", typeof(double)));
-            for (int i = 1; i < dataRowIdx.Count; i++)
+            int idx1 = rdbFile.IndexOf("station_nbr") + 1;
+            for (int i = idx1; i < rdbFile.Length; i++)
             {
-                var row = dataRowIdx[i];
-                var ratingStage = Convert.ToDouble(rdbItems[row + 1].ToString());
-                var ratingFlow = Convert.ToDouble(rdbItems[row + 2].ToString());
-                var shiftedStage = Convert.ToDouble(rdbItems[row + 3].ToString());
-                var shiftedFlow = Convert.ToDouble(rdbItems[row + 4].ToString());
+                var row = rdbFile[i].Split('\t');
+                if (row.Length < 5)
+                    continue;
+                var ratingStage = Convert.ToDouble(row[1]);
+                var ratingFlow = Convert.ToDouble(row[2]);
+                var shiftedStage = Convert.ToDouble(row[3]);
+                var shiftedFlow = Convert.ToDouble(row[4]);
 
                 var newRow = fullRatingTable.NewRow();
-                newRow["Stage"] = shiftedStage - recorderCorrection;
-                newRow["Shift"] = shiftedStage - ratingStage;
+                newRow["Stage"] = shiftedStage - recorderCorrectionValue;
+                newRow["Shift"] = shiftedStage - ratingStage; //shiftTable.Lookup(shiftedStage - recorderCorrectionValue);
                 newRow["Flow"] = shiftedFlow;
                 fullRatingTable.Rows.Add(newRow);
             }
             this.fullRatingTable = fullRatingTable;
         }
 
-        public void CreateShiftTableFromWeb()
-        { CreateShiftTable(this.webRdbTable); }
 
-        public void CreateShiftTableFromFile()
-        { CreateShiftTable(this.fileRdbTable); }
+        //public void CreateShiftTableFromWeb()
+        //{ CreateShiftTable(this.webRdbTable); }
+
+        //public void CreateShiftTableFromFile()
+        //{ CreateShiftTable(this.fileRdbTable); }
 
         /// <summary>
         /// This method creates the shift table based on the 'lower'-'mid'-'upper' values specified in the owrd RDB file
         /// </summary>
         /// <param name="rdbFile"></param>
-        private void CreateShiftTable(TextFile rdbFile)
+        private TimeSeriesDatabaseDataSet.RatingTableDataTable CreateShiftTable(TextFile rdbFile)
         {
-            var rdbFileString = rdbFile.FileContents;
-            var rdbItems = rdbFileString.Split('\t', '\r', '\n').ToList();//[JR] these separate the rdb file into searchable chunks
-            var shiftStageLoIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("SHIFT_LOWER_STAGE")).ToList();
-            var shiftStageMdIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("SHIFT_MID_STAGE")).ToList();
-            var shiftStageHiIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("SHIFT_UPPER_STAGE")).ToList();
-            var shiftValueLoIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("SHIFT_LOWER_VALUE")).ToList();
-            var shiftValueMdIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("SHIFT_MID_VALUE")).ToList();
-            var shiftValueHiIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("SHIFT_UPPER_VALUE")).ToList();
+            double gh1 = rdbFile.ReadSingle("SHIFT_LOWER_STAGE");
+            var shift1 = rdbFile.ReadSingle("SHIFT_LOWER_VALUE");
+            double gh2 = rdbFile.ReadSingle("SHIFT_MID_STAGE");
+            var shift2 = rdbFile.ReadSingle("SHIFT_MID_VALUE");
+            double gh3 = rdbFile.ReadSingle("SHIFT_UPPER_STAGE");
+            var shift3 = rdbFile.ReadSingle("SHIFT_UPPER_VALUE");
+
+            if (gh1 == 0 && gh2 == 0 && gh3 == 0)
+            {
+                gh2 = 5.0;
+                gh3 = 100;
+            }
 
             // Build shift table
-            DataTable shiftTable = new DataTable();
-            shiftTable.Columns.Add(new DataColumn("Stage", typeof(double)));
-            shiftTable.Columns.Add(new DataColumn("Shift", typeof(double)));
-            shiftTable.Rows.Add(Convert.ToDouble(rdbItems[shiftStageLoIdx[0] + 1]), Convert.ToDouble(rdbItems[shiftValueLoIdx[0] + 1]));
-            shiftTable.Rows.Add(Convert.ToDouble(rdbItems[shiftStageMdIdx[0] + 1]), Convert.ToDouble(rdbItems[shiftValueMdIdx[0] + 1]));
-            shiftTable.Rows.Add(Convert.ToDouble(rdbItems[shiftStageHiIdx[0] + 1]), Convert.ToDouble(rdbItems[shiftValueHiIdx[0] + 1]));
-            this.shiftTable = shiftTable;
+            var tbl = new TimeSeriesDatabaseDataSet.RatingTableDataTable();
+            tbl.AddRatingTableRow(gh1, shift1);
+            tbl.AddRatingTableRow(gh2, shift2);
+            tbl.AddRatingTableRow(gh3, shift3);
+            return tbl;
         }
     
     
