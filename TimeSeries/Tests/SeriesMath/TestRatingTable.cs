@@ -54,9 +54,7 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void OwrdRatingTable()
         {
-            var path = Path.Combine(ConfigurationManager.AppSettings["LocalConfigurationDataPath"], "rating_tables");
-
-            OwrdRatingTables rt = new OwrdRatingTables("14030000",path);
+            OwrdRatingTables rt = new OwrdRatingTables("14030000");
             
             //TimeSeriesDatabaseDataSet.RatingTableDataTable.
            // var x = rt.Lookup(1281.95);

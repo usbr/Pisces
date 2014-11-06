@@ -28,16 +28,13 @@ namespace Reclamation.TimeSeries.Usgs
         public DataTable qTable;
         public DataTable fullRatingTable;
 
-        private string ratingTablePath;
-
         /// <summary>
         /// Main constructor for this class
         /// </summary>
         /// <param name="idNumber"></param>
-        public UsgsRatingTable(string idNumber, string ratingTablePath)
+        public UsgsRatingTable(string idNumber)
         {
             this.idNumber = idNumber;
-            this.ratingTablePath = ratingTablePath;
 
             // Get and assign RDB file from the web
             string nwisURL = "http://waterdata.usgs.gov/nwisweb/get_ratings?site_no=XXXXXXXX&file_type=exsa";

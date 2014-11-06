@@ -26,12 +26,10 @@ namespace Reclamation.TimeSeries.IdahoPower
         public TextFile webRdbTable;
         public TextFile fileRdbTable;
         public DataTable fullRatingTable;
-        string ratingTablePath;
 
-        public IdahoPowerRatingTables(string cbtt, string ratingTablePath)
+        public IdahoPowerRatingTables(string cbtt)
         {
             this.cbtt = cbtt;
-            this.ratingTablePath = ratingTablePath;
 
             // Get and assign rating table file from the web
             string idprURL = "https://ps.idahopower.com/RatingsService/Index?id=XXXX";

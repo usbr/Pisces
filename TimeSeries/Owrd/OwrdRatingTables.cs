@@ -30,18 +30,15 @@ namespace Reclamation.TimeSeries.Owrd
         DateTime shiftEffectiveDate;
         public TextFile webRdbTable;
         public DataTable fullRatingTable;
-        string ratingTablePath;
-
 
         /// <summary>
         /// Main constructor for this class
         /// </summary>
         /// <param name="idNumber"></param>
         /// <param name="ratingTablePath"></param>
-        public OwrdRatingTables(string idNumber, string ratingTablePath)
+        public OwrdRatingTables(string idNumber )
         {
             this.stationNumber = idNumber;
-            this.ratingTablePath = ratingTablePath;
 
             // Get and assign rating table file from the web
             string owrdURL = "http://apps.wrd.state.or.us/apps/sw/hydro_near_real_time/" +
@@ -57,13 +54,18 @@ namespace Reclamation.TimeSeries.Owrd
             // Get and assign RDB file properties
             var tempFile = Path.GetTempFileName();
             this.webRdbTable.SaveAs(tempFile);
-            var rdbFile = new TextFile(tempFile);
+            ReadTableFromDisk(tempFile);
+
+        }
+
+        private void ReadTableFromDisk(string filename)
+        {
+            var rdbFile = new TextFile(filename);
             this.ratingNumber = rdbFile.ReadString("RATING_NBR");
             this.ratingBeginDate = rdbFile.ReadDate("RATING_BEGIN_DATE");
             this.recorderCorrectionValue = rdbFile.ReadSingle("RECORDER_CORRECTION_VALUE");
             this.recorderCorrectionDate = rdbFile.ReadDate("RECORDER_CORRECTION_DATE");
             this.shiftEffectiveDate = rdbFile.ReadDate("SHIFT_EFFECTIVE_DATE");
-
         }
 
         public void CreateFullRatingTableFromWeb()
