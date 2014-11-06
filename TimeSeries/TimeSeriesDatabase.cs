@@ -479,6 +479,57 @@ namespace Reclamation.TimeSeries
             return this.factory.GetFolder(si.id);
         }
 
+        /// <summary>
+        /// Adds new site using template subset of a SeriesCatalog
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="template">copy this sereis catalog changing the siteid </param>
+        /// <param name="SiteName"></param>
+        /// <param name="SiteID"></param>
+        /// <param name="elevation"></param>
+        /// <param name="Lat"></param>
+        /// <param name="Lon"></param>
+        /// <param name="TimeZone"></param>
+        /// <param name="Install"></param>
+        public void AddSiteWithTemplate(PiscesFolder parent, 
+            TimeSeriesDatabaseDataSet.SeriesCatalogDataTable template, string SiteName, string SiteID, 
+            string state,string elevation, string Lat, string Lon, string TimeZone, string Install)            
+        {
+          
+            var siteCatalog = GetSiteCatalog();
+            var rows = siteCatalog.Select("siteid='"+SiteID+"'");
+            if (rows.Length == 0)  // check if site exists before creating.
+            {
+                siteCatalog.AddsitecatalogRow(SiteID, SiteName, state, Lat, Lon, elevation, TimeZone, Install, "", "", 0, "", "", "", "", "");
+                Server.SaveTable(siteCatalog);
+            }
+
+            var siteFolder = GetOrCreateFolder(SiteID, parent);
+            var sc = GetSeriesCatalog();
+            var instant = sc.AddFolder("instant", siteFolder.ID);
+            var daily = sc.AddFolder("daily", siteFolder.ID);
+
+            foreach (var item in template)
+            {
+                int id = sc.NextID();
+                int parentID = siteFolder.ID;
+
+                if (item.TimeInterval == "Daily" )
+                    parentID = daily;
+                if( item.TimeInterval == "Irregular")
+                    parentID = instant;
+
+
+
+                sc.AddSeriesCatalogRow(id,parentID, false, id, item.iconname, item.Name, item.siteid, item.Units, 
+                        item.TimeInterval, item.Parameter, item.TableName, item.Provider, item.ConnectionString, item.Expression, item.Notes, item.enabled);
+
+           }
+            Server.SaveTable(sc);
+            
+
+        }
+
         int NextSortOrder(int parentID)
         {
             string sql = "select sortorder from seriescatalog "
@@ -1099,23 +1150,23 @@ namespace Reclamation.TimeSeries
 
         PiscesFolder m_missingFolder = null;
 
-        /// <summary>
-        /// Creates or returns folder named 'missing'
-        /// for importing data not defined.
-        /// </summary>
-        /// <returns></returns>
-        private int GetOrCreateFoldera(string name)
-        {
-            var tbl = GetSeriesCatalog("name = '"+name+"'");
-            if (tbl.Rows.Count == 1)
-            {
-                return Convert.ToInt32(tbl.Rows[0]["name"]);
-            }
+        ///// <summary>
+        ///// Creates or returns folder named 'missing'
+        ///// for importing data not defined.
+        ///// </summary>
+        ///// <returns></returns>
+        //private int GetOrCreateFoldera(string name)
+        //{
+        //    var tbl = GetSeriesCatalog("name = '"+name+"'");
+        //    if (tbl.Rows.Count == 1)
+        //    {
+        //        return Convert.ToInt32(tbl.Rows[0]["name"]);
+        //    }
 
 
 
-            return -1;
-        }
+        //    return -1;
+        //}
 
 
 
@@ -1429,11 +1480,14 @@ namespace Reclamation.TimeSeries
 
         
 
-        private PiscesFolder GetOrCreateFolder(string folderName)
+        private PiscesFolder GetOrCreateFolder(string folderName, PiscesFolder parent=null)
         {
             var sr = GetSeriesRow("Name ='" + folderName + "' and isfolder = 1");
             if (sr == null)
             {
+                if (parent != null)
+                    return AddFolder(parent, folderName);
+                else
                 return AddFolder(folderName);
             }
             else
@@ -1441,6 +1495,8 @@ namespace Reclamation.TimeSeries
                 return this.Factory.GetFolder(sr.id);
             }
         }
+
+        
 
         /// <summary>
         /// enforce that tableName doesn't start with number,
