@@ -43,15 +43,19 @@
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxState = new System.Windows.Forms.TextBox();
             this.textBoxInstall = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxTimezone = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBoxElevatoion = new System.Windows.Forms.TextBox();
+            this.textBoxElevation = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
+            this.labelError = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -81,9 +85,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 43);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 17);
+            this.label2.Size = new System.Drawing.Size(43, 17);
             this.label2.TabIndex = 3;
-            this.label2.Text = "description";
+            this.label2.Text = "name";
             // 
             // textBoxdescription
             // 
@@ -95,7 +99,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 42);
+            this.label3.Location = new System.Drawing.Point(25, 66);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 17);
             this.label3.TabIndex = 5;
@@ -103,7 +107,7 @@
             // 
             // textBoxlatitude
             // 
-            this.textBoxlatitude.Location = new System.Drawing.Point(101, 39);
+            this.textBoxlatitude.Location = new System.Drawing.Point(100, 63);
             this.textBoxlatitude.Name = "textBoxlatitude";
             this.textBoxlatitude.Size = new System.Drawing.Size(166, 22);
             this.textBoxlatitude.TabIndex = 4;
@@ -111,7 +115,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 67);
+            this.label4.Location = new System.Drawing.Point(25, 91);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(66, 17);
             this.label4.TabIndex = 7;
@@ -119,7 +123,7 @@
             // 
             // textBoxlongitude
             // 
-            this.textBoxlongitude.Location = new System.Drawing.Point(101, 64);
+            this.textBoxlongitude.Location = new System.Drawing.Point(100, 88);
             this.textBoxlongitude.Name = "textBoxlongitude";
             this.textBoxlongitude.Size = new System.Drawing.Size(166, 22);
             this.textBoxlongitude.TabIndex = 6;
@@ -159,6 +163,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.labelError);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Controls.Add(this.label1);
@@ -183,20 +189,23 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(350, 15);
+            this.comboBox1.Location = new System.Drawing.Point(348, 30);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(218, 24);
             this.comboBox1.TabIndex = 4;
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label8);
+            this.tabPage2.Controls.Add(this.textBoxState);
             this.tabPage2.Controls.Add(this.textBoxInstall);
             this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.textBoxTimezone);
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.textBoxElevatoion);
+            this.tabPage2.Controls.Add(this.textBoxElevation);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.textBoxlatitude);
@@ -209,9 +218,25 @@
             this.tabPage2.Text = "advanced";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(25, 38);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(39, 17);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "state";
+            // 
+            // textBoxState
+            // 
+            this.textBoxState.Location = new System.Drawing.Point(100, 35);
+            this.textBoxState.Name = "textBoxState";
+            this.textBoxState.Size = new System.Drawing.Size(38, 22);
+            this.textBoxState.TabIndex = 14;
+            // 
             // textBoxInstall
             // 
-            this.textBoxInstall.Location = new System.Drawing.Point(101, 145);
+            this.textBoxInstall.Location = new System.Drawing.Point(100, 169);
             this.textBoxInstall.Name = "textBoxInstall";
             this.textBoxInstall.Size = new System.Drawing.Size(166, 22);
             this.textBoxInstall.TabIndex = 13;
@@ -219,7 +244,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 148);
+            this.label7.Location = new System.Drawing.Point(26, 172);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(44, 17);
             this.label7.TabIndex = 12;
@@ -227,7 +252,7 @@
             // 
             // textBoxTimezone
             // 
-            this.textBoxTimezone.Location = new System.Drawing.Point(101, 119);
+            this.textBoxTimezone.Location = new System.Drawing.Point(100, 143);
             this.textBoxTimezone.Name = "textBoxTimezone";
             this.textBoxTimezone.Size = new System.Drawing.Size(166, 22);
             this.textBoxTimezone.TabIndex = 11;
@@ -235,7 +260,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(27, 122);
+            this.label6.Location = new System.Drawing.Point(26, 146);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(65, 17);
             this.label6.TabIndex = 10;
@@ -244,18 +269,18 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 94);
+            this.label5.Location = new System.Drawing.Point(25, 118);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(65, 17);
             this.label5.TabIndex = 9;
             this.label5.Text = "elevation";
             // 
-            // textBoxElevatoion
+            // textBoxElevation
             // 
-            this.textBoxElevatoion.Location = new System.Drawing.Point(101, 91);
-            this.textBoxElevatoion.Name = "textBoxElevatoion";
-            this.textBoxElevatoion.Size = new System.Drawing.Size(166, 22);
-            this.textBoxElevatoion.TabIndex = 8;
+            this.textBoxElevation.Location = new System.Drawing.Point(100, 115);
+            this.textBoxElevation.Name = "textBoxElevation";
+            this.textBoxElevation.Size = new System.Drawing.Size(166, 22);
+            this.textBoxElevation.TabIndex = 8;
             // 
             // panel2
             // 
@@ -290,6 +315,24 @@
             this.buttonOK.TabIndex = 6;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
+            // 
+            // labelError
+            // 
+            this.labelError.AutoSize = true;
+            this.labelError.ForeColor = System.Drawing.Color.Red;
+            this.labelError.Location = new System.Drawing.Point(359, 47);
+            this.labelError.Name = "labelError";
+            this.labelError.Size = new System.Drawing.Size(0, 17);
+            this.labelError.TabIndex = 6;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(352, 7);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(62, 17);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "template";
             // 
             // AddSite
             // 
@@ -332,7 +375,7 @@
         private System.Windows.Forms.TextBox textBoxTimezone;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxElevatoion;
+        private System.Windows.Forms.TextBox textBoxElevation;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
@@ -340,5 +383,9 @@
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxState;
+        private System.Windows.Forms.Label labelError;
+        private System.Windows.Forms.Label label9;
     }
 }

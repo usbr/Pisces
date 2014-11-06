@@ -87,7 +87,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuCompactDB = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DataMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAddFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAddSite = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemAddSeries = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAddExcel = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,6 +128,7 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolStripMenuItemAddFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -250,7 +251,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemNewFolder.Name = "toolStripMenuItemNewFolder";
             this.toolStripMenuItemNewFolder.Size = new System.Drawing.Size(417, 24);
             this.toolStripMenuItemNewFolder.Text = "Folder";
-            this.toolStripMenuItemNewFolder.Click += new System.EventHandler(this.newFolder_Click);
+            this.toolStripMenuItemNewFolder.Click += new System.EventHandler(this.newSite);
             // 
             // toolStripSeparator6
             // 
@@ -571,6 +572,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.DataMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemAddFolder,
+            this.toolStripMenuItemAddSite,
             this.toolStripSeparator2,
             this.toolStripMenuItemAddSeries,
             this.toolStripMenuItemAddExcel,
@@ -599,13 +601,13 @@ namespace Reclamation.TimeSeries.Forms
             this.DataMenu.Text = "&Data";
             this.DataMenu.Click += new System.EventHandler(this.DataMenu_Click);
             // 
-            // toolStripMenuItemAddFolder
+            // toolStripMenuItemAddSite
             // 
-            this.toolStripMenuItemAddFolder.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddFolder.Image")));
-            this.toolStripMenuItemAddFolder.Name = "toolStripMenuItemAddFolder";
-            this.toolStripMenuItemAddFolder.Size = new System.Drawing.Size(417, 24);
-            this.toolStripMenuItemAddFolder.Text = "Add Folder/Site";
-            this.toolStripMenuItemAddFolder.Click += new System.EventHandler(this.newFolder_Click);
+            this.toolStripMenuItemAddSite.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddSite.Image")));
+            this.toolStripMenuItemAddSite.Name = "toolStripMenuItemAddSite";
+            this.toolStripMenuItemAddSite.Size = new System.Drawing.Size(417, 24);
+            this.toolStripMenuItemAddSite.Text = "Add Site";
+            this.toolStripMenuItemAddSite.Click += new System.EventHandler(this.newSite);
             // 
             // toolStripSeparator2
             // 
@@ -893,6 +895,14 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // toolStripMenuItemAddFolder
+            // 
+            this.toolStripMenuItemAddFolder.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddFolder.Image")));
+            this.toolStripMenuItemAddFolder.Name = "toolStripMenuItemAddFolder";
+            this.toolStripMenuItemAddFolder.Size = new System.Drawing.Size(417, 24);
+            this.toolStripMenuItemAddFolder.Text = "Add Folder";
+            this.toolStripMenuItemAddFolder.Click += new System.EventHandler(this.toolStripMenuItemAddFolder_Click);
+            // 
             // PiscesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -953,7 +963,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem DataMenu;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddFolder;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddSite;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddSeries;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddExcel;
@@ -1016,6 +1026,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem connectToServer;
         private System.Windows.Forms.ToolStripMenuItem addOwrd;
         private System.Windows.Forms.ToolStripMenuItem toolStripAddOWRD;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddFolder;
         //private System.Windows.Forms.ToolStripMenuItem menuUpdate;
 
     }

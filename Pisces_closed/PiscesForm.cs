@@ -425,15 +425,22 @@ namespace Reclamation.TimeSeries.Forms
         }
 
 
-        private void newFolder_Click(object sender, EventArgs e)
+        private void toolStripMenuItemAddFolder_Click(object sender, EventArgs e)
+        {
+            PiscesFolder f = CurrentFolder;
+            f = DB.AddFolder(f, "");
+        }
+
+
+        private void newSite(object sender, EventArgs e)
         {
             var d = new Reclamation.TimeSeries.Forms.ImportForms.AddSite(DB);
 
             if (d.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-
-             //   PiscesFolder f = CurrentFolder;
-               // DB.AddFolder(f, "");
+                DB.AddSiteWithTemplate(CurrentFolder, d.SeriesCatalog, d.SiteName, d.SiteID, 
+                    d.State,d.Elevation, d.Lat, d.Lon, d.TimeZone, d.Install);
+                DatabaseChanged();
             }
         }
 
@@ -459,7 +466,7 @@ namespace Reclamation.TimeSeries.Forms
 
          bool canAddStuff = (CurrentFolder != null);
 
-         toolStripMenuItemAddFolder.Enabled = canAddStuff;
+         toolStripMenuItemAddSite.Enabled = canAddStuff;
          toolStripMenuItemAddAccess.Enabled = canAddStuff;
          toolStripMenuItemAddExcel.Enabled = canAddStuff;
          toolStripMenuItemAddHydromet.Enabled = canAddStuff;
@@ -937,6 +944,7 @@ namespace Reclamation.TimeSeries.Forms
                 return;
         }
 
+       
 
        
        
