@@ -1806,6 +1806,9 @@ namespace Reclamation.TimeSeries
              t = t.AddMonths(1);
              return new DateTime(t.Year, t.Month, 1);//DateTime.DaysInMonth(t.Year, t.Month));
             }
+            if (TimeInterval == TimeSeries.TimeInterval.Irregular)
+                return t.AddMinutes(15);
+
             throw new InvalidOperationException(" Increment not implemented for " + TimeInterval.ToString());
         }
         ///// <summary>
@@ -1918,7 +1921,6 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="t1"></param>
         /// <param name="t2"></param>
-        /// </summary>
         protected void NormalizeDaily(DateTime t1, DateTime t2)
         {
             if (t2 < t1)

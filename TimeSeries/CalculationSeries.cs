@@ -137,6 +137,15 @@ namespace Reclamation.TimeSeries
                     result = null;
                 }
 
+                if (result != null && result.IsDouble)
+                { // constant expression, need to convert to a Series.
+                    Series constant = new Series();
+                    constant.TimeInterval = this.TimeInterval;
+                    constant = Math.FillMissingWithZero(constant, t1, t2);
+                    constant = Math.Add(constant, result.Double);
+
+                    result = new ParserResult(constant);
+                }
 
                 if (result != null &&  result.IsSeries)
                 {
