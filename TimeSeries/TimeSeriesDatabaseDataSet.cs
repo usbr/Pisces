@@ -18,7 +18,6 @@ namespace Reclamation.TimeSeries {
 
         public partial class seriespropertiesDataTable
         {
-            int m_seriesid;
 
             TimeSeriesDatabase m_db;
             public seriespropertiesDataTable (TimeSeriesDatabase db ):base()
@@ -44,26 +43,26 @@ namespace Reclamation.TimeSeries {
 
             }
 
-            public bool Contains(string name)
+            public bool Contains(string name, int seriesID)
             {
-                return Select("name='" + name + "' and seriesid = " + m_seriesid).Length == 1;
+                return Select("name='" + name + "' and seriesid = " + seriesID).Length == 1;
             }
 
-            public string Get(string name, string defaultValue)
+            public string Get(string name, string defaultValue, int seriesID)
             {
-                var rows = Select("name='"+name+"' and seriesid = "+m_seriesid);
+                var rows = Select("name='" + name + "' and seriesid = " + seriesID);
                 if (rows.Length != 1)
                     return defaultValue;
 
                 return rows[0]["value"].ToString();
             }
 
-            public void Set(string name, string value)
+            public void Set(string name, string value, int seriesID)
             {
-                var rows = Select("name='" + name + "' and seriesid = " + m_seriesid);
+                var rows = Select("name='" + name + "' and seriesid = " + seriesID);
                 if (rows.Length == 0)
                 {
-                    AddseriespropertiesRow(NextID(), m_seriesid, name, value);
+                    AddseriespropertiesRow(NextID(), seriesID, name, value);
                 }
                 else
                 {

@@ -105,9 +105,9 @@ namespace Reclamation.TimeSeries
                t2a = t2.AddDays(1); // we may need midnight value in the next day.
 
                // for example daily QU calculations default back 7 days (when running previous day)
-               if (Properties!= null &&  Properties.Contains("DaysBack") ) // && t2.Date == DateTime.Now.AddDays(-1).Date)
+               if (Properties!= null &&  Properties.Contains("DaysBack",this.ID) ) // && t2.Date == DateTime.Now.AddDays(-1).Date)
                {
-                   var daysBack = Convert.ToInt32(Properties.Get("DaysBack","0"));
+                   var daysBack = Convert.ToInt32(Properties.Get("DaysBack","0",this.ID));
                    t1a = t1a.AddDays(-daysBack);
                }
             
