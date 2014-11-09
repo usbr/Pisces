@@ -2,7 +2,7 @@ Pisces
 ======
 June 24, 2014
 
-Pisces is a desktop application that graphs and analyzes time series data. Pisces is designed to organize, graph, and analyze natural resource data that varies with time: gauge height, river flow, water temperature, etc. 
+Pisces is a time series database including a desktop application that graphs and analyzes time series data. Pisces is designed to organize, graph, and analyze natural resource data that varies with time: gauge height, river flow, water temperature, etc. 
 
 Download Pisces and user manual here: http://www.usbr.gov/pn/hydromet/pisces
  
