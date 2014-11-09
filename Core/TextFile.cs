@@ -435,7 +435,7 @@ namespace Reclamation.Core
         public DateTime ReadDate(string label)
         {
             DateTime rval;
-            string s = ParseLine(label);
+            string s = ReadString(label);
             try
             {
                 rval = Convert.ToDateTime(s);
@@ -460,7 +460,7 @@ namespace Reclamation.Core
         public int ReadInt(string label)
         {
             int rval;
-            string s = ParseLine(label);
+            string s = ReadString(label);
             try
             {
                 rval = Convert.ToInt32(s);
@@ -484,7 +484,7 @@ namespace Reclamation.Core
         public float ReadSingle(string label)
         {
             float rval;
-            string s = ParseLine(label);
+            string s = ReadString(label);
             try
             {
                 rval = Convert.ToSingle(s);
