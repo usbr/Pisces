@@ -95,6 +95,24 @@ namespace Reclamation.TimeSeries.Parser.Tests
             Assert.AreEqual(15,c[0].Value,0.001);
         }
 
+        [Test]
+        public void ConstantInteger()
+        {
+
+            CalculationSeries c = new CalculationSeries();
+            c.TimeInterval = TimeInterval.Daily;
+            c.Name = "constant_series";
+            c.Expression = "14";
+            db.AddSeries(c);
+
+            DateTime t1 = new DateTime(2014, 10, 1);
+            DateTime t2 = new DateTime(2014, 10, 5);
+
+            c.Calculate(t1, t2);
+
+            Assert.AreEqual(5, c.Count);
+            Assert.AreEqual(14, c[0].Value, 0.001);
+        }
 
         [Test]
         public void VariableNames()
