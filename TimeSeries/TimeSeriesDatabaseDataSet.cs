@@ -70,6 +70,18 @@ namespace Reclamation.TimeSeries {
                 }
 
             }
+
+            /// <summary>
+            /// Copies properties from one series to another
+            /// </summary>
+            internal void DuplicateProperties(int currentID, int newID)
+            {
+                var rows = Select("id = " + currentID);
+                foreach (var item in rows)
+                {
+                    AddseriespropertiesRow(NextID(), newID, item["name"].ToString(), item["value"].ToString());
+                }
+            }
         }
         public partial class SeriesCatalogDataTable
         {

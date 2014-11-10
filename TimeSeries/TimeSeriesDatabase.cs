@@ -508,7 +508,8 @@ namespace Reclamation.TimeSeries
             var sc = GetSeriesCatalog();
             var instant = sc.AddFolder("instant", siteFolder.ID);
             var daily = sc.AddFolder("daily", siteFolder.ID);
-
+            var series_properties = GetSeriesProperties();
+            
             foreach (var item in template)
             {
                 int id = sc.NextID();
@@ -520,11 +521,12 @@ namespace Reclamation.TimeSeries
                     parentID = instant;
 
 
-
                 sc.AddSeriesCatalogRow(id,parentID, false, id, item.iconname, item.Name, item.siteid, item.Units, 
                         item.TimeInterval, item.Parameter, item.TableName, item.Provider, item.ConnectionString, item.Expression, item.Notes, item.enabled);
 
+                series_properties.DuplicateProperties(item.id, id);
            }
+            series_properties.Save();
             Server.SaveTable(sc);
             
 

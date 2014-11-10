@@ -98,6 +98,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             // find all folders with same name as siteID
             m_seriesCatalog = m_db.GetSeriesCatalog("siteid = '" + templateName + "'");
             // replace template name with new siteid.
+          //  m_seriesCatalog.Columns.Add("oldId", typeof(Int32));
             foreach (var item in m_seriesCatalog)
             {
                 item.Name = item.Name.Replace(templateName, newName);
