@@ -20,7 +20,7 @@ namespace Reclamation.TimeSeries
         /// Path for incoming data files
         /// </summary>
         /// <returns></returns>
-        public static string GetIncommingFileName(string prefix, string cbtt, string pcode)
+        private static string GetIncommingFileName(string prefix, string cbtt, string pcode)
         {
             string incoming = ConfigurationManager.AppSettings["incoming"];
             return Path.Combine(incoming, GetUniqueFileName(incoming,prefix, cbtt, pcode));
@@ -61,13 +61,34 @@ namespace Reclamation.TimeSeries
             return fileName;
         }
 
-        public static void Route(Series s, string cbtt, string pcode, RouteOptions route = RouteOptions.Both)
+        /// <summary>
+        /// Routes a list of Series as a group 
+        /// hydromet cbtt is copied from list[i].SiteName
+        /// hydromet pcode is copied from list[i].Parameter
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="route"></param>
+        /// <param name="name">identity used as part of filename </param>
+        public static void RouteDaily(SeriesList list, string name, RouteOptions route = RouteOptions.Both)
         {
-            if (s.TimeInterval == TimeInterval.Daily)
-                RouteDaily(s, cbtt, pcode, route);
-            else if (s.TimeInterval == TimeInterval.Irregular)
+
+            string fileName = "";
+
+            if (route == RouteOptions.Both || route == RouteOptions.Outgoing)
             {
-                RouteInstant(s, cbtt, pcode, route);
+                fileName = GetOutgoingFileName("daily", name, "all");
+                Console.WriteLine(fileName);
+                HydrometDailySeries.WriteToArcImportFile(list, fileName);
+            }
+
+            if (route == RouteOptions.Both || route == RouteOptions.Incoming)
+            {
+                foreach (var s in list)
+                {
+                    fileName = GetIncommingFileName("daily", s.SiteName, s.Parameter);
+                    s.WriteCsv(fileName, true);
+                }
+
             }
         }
 
@@ -79,29 +100,30 @@ namespace Reclamation.TimeSeries
         /// <param name="list"></param>
         /// <param name="route"></param>
         /// <param name="name">identity used as part of filename </param>
-        public static void RouteDaily(SeriesList list, string name,RouteOptions route = RouteOptions.Both)
+        public static void RouteInstant(SeriesList list, string name, RouteOptions route = RouteOptions.Both)
         {
-           
+
             string fileName = "";
 
             if (route == RouteOptions.Both || route == RouteOptions.Outgoing)
             {
-                fileName = GetOutgoingFileName("daily", name, "all");
-                Console.WriteLine(fileName);
-                HydrometDailySeries.WriteToArcImportFile(list,fileName);
-            }
 
-            if (route == RouteOptions.Both || route == RouteOptions.Incoming)
-            {
+                fileName = GetOutgoingFileName("instant", name, "all");
+                Console.WriteLine(fileName);
                 foreach (var s in list)
                 {
-                    fileName = GetIncommingFileName("daily", s.SiteName, s.Parameter);
-                    s.WriteCsv(fileName, true);    
+                  HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), fileName);
                 }
-                
             }
+            else
+            {
+                throw new NotImplementedException("incoming not supported.");
+            }
+
+           
         }
 
+        
 
         public static void RouteDaily(Series s, string cbtt, string pcode, RouteOptions route = RouteOptions.Both)
         {

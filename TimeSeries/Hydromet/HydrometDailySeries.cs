@@ -366,14 +366,14 @@ namespace Reclamation.TimeSeries.Hydromet
             bool append=false)
         {
             SeriesList A = new SeriesList();
-            s.SiteName = cbtt;
+            s.SiteID = cbtt;
             s.Parameter = pcode;
             A.Add(s);
             WriteToArcImportFile(A,outputFileName,append);
         }
         /// <summary>
         /// Writes Daily Series data to a temporary file.
-        /// hydromet cbtt is copied from Series[].SiteName
+        /// hydromet cbtt is copied from Series[].SiteID
         /// hydromet pcode is copied from Series[].Parameter
         /// </summary>
         /// <param name="list"></param>
@@ -409,7 +409,7 @@ namespace Reclamation.TimeSeries.Hydromet
                             val = 998877;
 
                         output.WriteLine(pt.DateTime.ToString("MM/dd/yyyy")
-                            + " " + s.SiteName.PadRight(12).ToUpper()
+                            + " " + s.SiteID.PadRight(12).ToUpper()
                             + " " + s.Parameter.PadRight(9).ToUpper()
                             + " " + val.ToString("F2").PadRight(13)
                             + " " + 998877.ToString("F2").PadRight(13));

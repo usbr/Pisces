@@ -24,12 +24,18 @@ namespace Reclamation.TimeSeries
             m_quality = new Quality(m_db);
         }
 
-        public void Import(Series s, bool computeDependencies = false,
+        /// <summary>
+        /// Imports a single series (used for testing)
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="computeDependencies"></param>
+        /// <param name="computeDailyEachMidnight"></param>
+        internal void Import(Series s, bool computeDependencies = false,
             bool computeDailyEachMidnight = false)
         {
             var sl = new SeriesList();
             sl.Add(s);
-            Import(sl, computeDependencies, computeDailyEachMidnight);
+            Import(sl, computeDependencies, computeDailyEachMidnight,"test");
 
         }
 
@@ -46,7 +52,8 @@ namespace Reclamation.TimeSeries
         /// <param name="computeDailyEachMidnight"></param>
         public void Import(SeriesList inputSeriesList,
             bool computeDependencies = false,
-            bool computeDailyEachMidnight = false)
+            bool computeDailyEachMidnight = false,
+            string importTag="data")
         {
             var calculationQueue = new SeriesList();
             var routingList = new SeriesList();
@@ -113,15 +120,22 @@ namespace Reclamation.TimeSeries
                 } 
             }
 
+            SeriesList instantRoute = new SeriesList();
+            SeriesList dailyRoute = new SeriesList();
             // route data to other locations.
             foreach (var item in routingList)
             	{
                 TimeSeriesName tn = new TimeSeriesName(item.Table.TableName);
+                item.Parameter = tn.pcode;
+                item.SiteID = tn.siteid;
                 if (item.TimeInterval == TimeInterval.Irregular)
-                    TimeSeriesRouting.RouteInstant(item, tn.siteid, tn.pcode, m_routing);
+                    instantRoute.Add(item); 
                 if (item.TimeInterval == TimeInterval.Daily)
-                    TimeSeriesRouting.RouteDaily(item, tn.siteid, tn.pcode, m_routing);
+                    dailyRoute.Add(item); 
             }
+
+            TimeSeriesRouting.RouteInstant(instantRoute, importTag, m_routing);
+            TimeSeriesRouting.RouteDaily(dailyRoute, importTag, m_routing);
 
 
         }

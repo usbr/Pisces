@@ -85,7 +85,7 @@ namespace Reclamation.TimeSeries.Owrd
                 if (row.Length < 5)
                     continue;
                 var ratingStage = Convert.ToDouble(row[1]);
-                var ratingFlow = Convert.ToDouble(row[2]);
+               // var ratingFlow = Convert.ToDouble(row[2]);
                 var shiftedStage = Convert.ToDouble(row[3]);
                 var shiftedFlow = Convert.ToDouble(row[4]);
 
@@ -122,6 +122,7 @@ namespace Reclamation.TimeSeries.Owrd
             tbl.AddRatingTableRow(gh1, shift1);
             tbl.AddRatingTableRow(gh2, shift2);
             tbl.AddRatingTableRow(gh3, shift3);
+            tbl.AddRatingTableRow(gh3*5, shift3); // extrapolate out
             return tbl;
         }
     
