@@ -380,7 +380,8 @@ namespace Reclamation.TimeSeries.Hydromet
         /// <returns>FileName created with Series data</returns>
         public static void WriteToArcImportFile(SeriesList list, string outputFileName, bool append=false)
         {
-            //string hydrometScript = FileUtility.GetTempFileName(".txt")
+            if (list.Count == 0)
+                return;
             bool oldFile = File.Exists(outputFileName);
 
             StreamWriter output = new StreamWriter(outputFileName,append);

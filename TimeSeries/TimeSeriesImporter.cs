@@ -62,7 +62,7 @@ namespace Reclamation.TimeSeries
             {
                 // set flags.
                 Logger.WriteLine("Checking Flags ");
-                m_quality.SetFlags(s);
+                m_quality.SetFlags(s); // to do, log/email flagged data
                 // To Do.. check for alarms..
                 
                 m_db.ImportSeriesUsingTableName(s, true, "");

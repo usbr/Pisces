@@ -313,6 +313,8 @@ END DATA
 
         public static void WriteToHydrometFile(Series s, string cbtt, string pcode, string user, string filename, bool append = false)
         {
+            if (s.Count == 0)
+                return;
 
             bool oldFile = File.Exists(filename);
 

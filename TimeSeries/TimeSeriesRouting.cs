@@ -112,7 +112,7 @@ namespace Reclamation.TimeSeries
                 Console.WriteLine(fileName);
                 foreach (var s in list)
                 {
-                  HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), fileName);
+                  HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), fileName,true);
                 }
             }
             else
