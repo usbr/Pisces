@@ -39,7 +39,10 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
         public TimeSeriesDatabaseDataSet.SeriesCatalogDataTable SeriesCatalog
         {
-            get { return m_seriesCatalog; }
+            get {
+                m_seriesCatalog.AcceptChanges();
+                return m_seriesCatalog; 
+            }
         }
 
         public string SiteID
