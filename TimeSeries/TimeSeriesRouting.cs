@@ -71,6 +71,8 @@ namespace Reclamation.TimeSeries
         /// <param name="name">identity used as part of filename </param>
         public static void RouteDaily(SeriesList list, string name, RouteOptions route = RouteOptions.Both)
         {
+            if (list.Count == 0)
+                return;
 
             string fileName = "";
 
@@ -104,6 +106,8 @@ namespace Reclamation.TimeSeries
         {
 
             string fileName = "";
+            if (route == RouteOptions.None)
+                return;
 
             if (route == RouteOptions.Both || route == RouteOptions.Outgoing)
             {

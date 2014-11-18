@@ -65,7 +65,7 @@ namespace Reclamation.TimeSeries
                 m_quality.SetFlags(s); // to do, log/email flagged data
                 // To Do.. check for alarms..
                 
-                m_db.ImportSeriesUsingTableName(s, true, "");
+                m_db.ImportSeriesUsingTableName(s,  "");
                 routingList.Add(s);
 
                 if (computeDependencies)
@@ -133,7 +133,7 @@ namespace Reclamation.TimeSeries
                 if (item.TimeInterval == TimeInterval.Daily)
                     dailyRoute.Add(item); 
             }
-
+            Console.WriteLine("Routing data");
             TimeSeriesRouting.RouteInstant(instantRoute, importTag, m_routing);
             TimeSeriesRouting.RouteDaily(dailyRoute, importTag, m_routing);
 

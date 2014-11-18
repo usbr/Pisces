@@ -41,7 +41,7 @@ namespace Reclamation.TimeSeries
             Parse();
             if (!Valid)
             {
-                Console.WriteLine("Invalid name '" + name + "'");
+                Console.WriteLine("Init(): Invalid name '" + name + "'   [" +defaultInterval+"]" );
             }
         }
 
@@ -61,7 +61,7 @@ namespace Reclamation.TimeSeries
             if( Valid)
             return interval + "_" + siteid + "_" + pcode;
 
-            throw new Exception("Invalid name");
+            throw new Exception("GetTableName(): Invalid name");
         }
 
          private void Parse()

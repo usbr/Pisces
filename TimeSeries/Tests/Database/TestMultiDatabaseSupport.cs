@@ -50,6 +50,7 @@ namespace Pisces.NunitTests.Database
             foreach (var tn in tables)
             {
                 svr.RunSqlCommand("drop table \"" + tn + "\"");
+                Console.WriteLine(tn);
             }
             TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
             BasicDatabaseTest(db);
@@ -87,7 +88,7 @@ namespace Pisces.NunitTests.Database
         public static void BasicDatabaseTest(TimeSeriesDatabase db)
         {
 
-            Assert.AreEqual(1, db.GetSeriesCatalog().Rows.Count, " initial catalog should have root");
+            Assert.IsTrue(db.GetSeriesCatalog().Rows.Count ==1 , " initial catalog should have root");
             Reclamation.TimeSeries.Hydromet.HydrometInfoUtility.AutoUpdate = true;
             DateTime t2 = DateTime.Now.Date.AddDays(-10);
             DateTime t1 = DateTime.Now.Date.AddDays(-30);

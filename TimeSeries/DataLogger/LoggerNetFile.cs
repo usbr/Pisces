@@ -101,13 +101,12 @@ namespace Reclamation.TimeSeries.DataLogger
 
         public SeriesList ToSeries(string[] valid_pcodes)
         {
-            foreach (var pcode in dataHeader) 
-            
+            foreach (var pcode in dataHeader)
             {
-                int idx = Array.IndexOf(dataHeader,pcode);
-                if (idx >=0 && Array.IndexOf(valid_pcodes, pcode) >=0)
+                int idx = Array.IndexOf(dataHeader, pcode);
+                if (idx >= 0 && Array.IndexOf(valid_pcodes, pcode) >= 0)
                 {
-                    string key =  "instant_"+SiteName.ToLower() + "_" + pcode.ToLower();
+                    string key = "instant_" + SiteName.ToLower() + "_" + pcode.ToLower();
                     Series s = new Series();
                     if (dict.ContainsKey(key))
                     {
@@ -125,8 +124,8 @@ namespace Reclamation.TimeSeries.DataLogger
 
                     for (int i = 2; i < tf.Length; i++)
                     {
-                        var tokens = tf[i].Replace("\"","").Split(',');
-                        double d =0;
+                        var tokens = tf[i].Replace("\"", "").Split(',');
+                        double d = 0;
                         DateTime t;
                         if (DateTime.TryParse(tokens[0], out t)
                             && double.TryParse(tokens[idx], out d))
@@ -145,8 +144,8 @@ namespace Reclamation.TimeSeries.DataLogger
                             Logger.WriteLine("LoggerNetFile: Skipping line " + tf[i]);
                         }
                     }
+                    Logger.WriteLine("LoggerNetFile.ToSeries(): " + key + " has " + s.Count + " items");
                 }
-
             }
             SeriesList sl = new SeriesList();
             sl.AddRange(dict.Values.ToArray());

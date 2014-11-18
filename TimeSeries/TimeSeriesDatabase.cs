@@ -837,10 +837,15 @@ namespace Reclamation.TimeSeries
             string stn = SafeTableName(prefix);
 
             if (!TableNameInUse(stn))
+            {
                 return stn;
-
-            return stn+ DateTime.Now.ToString("yyyyMMMddHHmmssfff").ToLower();
-
+            }
+            else
+            {
+                var rval = stn + DateTime.Now.ToString("yyyyMMMddHHmmssfff").ToLower();
+                Logger.WriteLine(stn + " is allready being used. Creating unique name "+rval);
+                return rval;
+            }
         }
 
         /// <summary>
@@ -1439,43 +1444,43 @@ namespace Reclamation.TimeSeries
         /// Computes data dependent on the imported data
         /// Returns List of computed data.
         /// </summary>
-        public void ImportSeriesUsingTableName(Series s, bool createIfMissing,
-            string folderName="" )
+        public void ImportSeriesUsingTableName(Series s, string folderName="" )
         {
-            Logger.WriteLine("ImportSeriesUsingTableName" + s.Table.TableName);
+            Logger.WriteLine("ImportSeriesUsingTableName: '" + s.Table.TableName+"'");
             FixInvalidTableName(s);
 
-            var sr  = GetSeriesRow("TableName ='" + s.Table.TableName.ToLower() +"'");
+            var sr  = GetSeriesRow("tablename ='" + s.Table.TableName.ToLower() +"'");
 
             if (sr == null)
             {// create new series.
-                if (createIfMissing)
+                sr = GetNewSeriesRow();
+                Logger.WriteLine("table: " + s.Table.TableName + " does not exist in the catalog");
+                if (folderName == "")
                 {
-                    if (folderName == "")
-                    {
-                        TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
-                        if (tn.interval != "")
-                            folderName = tn.interval;
-                    }
-
-                    PiscesFolder folder = null;
-                    if (folderName != "")
-                        folder = GetOrCreateFolder(folderName);
-                    else
-                        folder = RootFolder;
-
-                    Logger.WriteLine("Info: ImportSeriesUsingTableName() created series "+s.Name);
-                    AddSeries(s, folder);
+                    TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
+                    if (tn.interval != "")
+                        folderName = tn.interval;
                 }
+
+                PiscesFolder folder = null;
+                if (folderName != "")
+                    folder = GetOrCreateFolder(folderName);
                 else
-                {
-                    Logger.WriteLine("Warning:  Skipped importing " + s.Table.TableName + " it does not exists in the database");
-                }
+                    folder = RootFolder;
+
+                sr.ParentID = folder.ID;
+
+                Logger.WriteLine("Info: ImportSeriesUsingTableName()  series: " + s.Name + " tablename=" + s.Table.TableName);
+                sr.TableName = s.Table.TableName;
+
+                m_server.SaveTable(sr.Table);
+
             }
-            else
-            {
-                 ImportTimeSeriesTable(s.Table, sr, DatabaseSaveOptions.UpdateExisting);
-            }
+            
+
+            
+                ImportTimeSeriesTable(s.Table, sr, DatabaseSaveOptions.UpdateExisting);
+            
           //  OnAfterSave(new SeriesEventArgs(s));    
 
         }
