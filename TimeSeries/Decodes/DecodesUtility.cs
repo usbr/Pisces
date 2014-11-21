@@ -31,9 +31,7 @@ namespace Reclamation.TimeSeries.Decodes
                 {
                     Console.WriteLine("Notice Existing data. "+tableNames[i]+" has "+tbl.Rows.Count+" rows ");
                 }
-                
             }
-
             return ds;
         }
 
@@ -68,14 +66,14 @@ namespace Reclamation.TimeSeries.Decodes
             ds.WriteXmlSchema(outputFilename);
         }
 
-        public static void TruncateTablesaa(PostgreSQL svr)
-        {
-            foreach (var tableName in tableNames)
-            {
-                string sql = "delete from " + tableName ;
-                svr.RunSqlCommand(sql);
-            }
-        }
+        //public static void TruncateTablesaa(PostgreSQL svr)
+        //{
+        //    foreach (var tableName in tableNames)
+        //    {
+        //        string sql = "delete from " + tableName ;
+        //        svr.RunSqlCommand(sql);
+        //    }
+        //}
 
     //    public static void AddEquipment(DecodesDataSet decodes)  {
 
