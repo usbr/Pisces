@@ -1393,7 +1393,7 @@ namespace Reclamation.TimeSeries
          /// </summary>
          /// <param name="daily"></param>
          /// <returns></returns>
-         internal static Series StartOfMonth(Series daily)
+         public static Series StartOfMonth(Series daily)
          {
              var rval = new Series();
              if (daily.Count == 0)
