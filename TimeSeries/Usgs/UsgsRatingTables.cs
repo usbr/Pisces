@@ -42,30 +42,16 @@ namespace Reclamation.TimeSeries.Usgs
             var newData = Web.GetPage(nwisURL.Replace("XXXXXXXX", idNumber));
             if (newData.Count() == 0)
             { throw new Exception("NWIS data not found. Check inputs or retry later."); }
-            TextFile newRDB = new TextFile();
-            foreach (var item in newData)
-            { newRDB.Add(item); }
-            newRDB.DeleteLine(newRDB.Length - 1); //last line from web is blank and the exisitng RDB does not have an empty last line
-            this.webRdbTable = newRDB;
+            webRdbTable = new TextFile(newData);
+            webRdbTable.DeleteLine(webRdbTable.Length - 1); //last line from web is blank and the exisitng RDB does not have an empty last line
             
             // Get and assign RDB file properties
-            var tempFile = Path.GetTempFileName();
-            this.webRdbTable.SaveAs(tempFile);
-            var rdbFile = new TextFile(tempFile);
-            var rdbFileString = rdbFile.FileContents;
-            var rdbItems = rdbFileString.Split('"').ToList();//[JR] these separate the rdb file into searchable chunks
-            var unitsIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("LABEL=")).ToList();
-            var stationNameIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("STATION NAME=")).ToList();
-            var timeZoneIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("TIME_ZONE=")).ToList();
-            var versionIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("RATING ID=")).ToList();
-            var commentsIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("COMMENT=")).ToList();
-            var expansionIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("RATING EXPANSION=")).ToList();
-            this.units = rdbItems[unitsIdx[0] + 1].ToString().Replace("\"", "");
-            this.stationName = rdbItems[stationNameIdx[0] + 1].ToString().Replace("\"", "");
-            this.timeZone = rdbItems[timeZoneIdx[0] + 1].ToString().Replace("\"", "");
-            this.ratingTableVersion = rdbItems[versionIdx[0] + 1].ToString().Replace("\"", "");
-            this.ratingTableComments = rdbItems[commentsIdx[0] + 1].ToString().Replace("\"", "");
-            this.ratingTableExpansion = rdbItems[expansionIdx[0] + 1].ToString().Replace("\"", "");
+            this.units = webRdbTable.ReadString("LABEL=").Replace("\"", "");
+            this.stationName = webRdbTable.ReadString("STATION NAME=").Replace("\"", "");
+            this.timeZone = webRdbTable.ReadString("TIME_ZONE=").Replace("\"", "");
+            this.ratingTableVersion = webRdbTable.ReadString("RATING ID=").Replace("\"", "");
+            this.ratingTableComments = webRdbTable.ReadString("COMMENT=").Replace("\"", "");
+            this.ratingTableExpansion = webRdbTable.ReadString("RATING EXPANSION=").Replace("\"", "");
         }
 
         public void CreateShiftAndFlowTablesFromWeb()
@@ -89,28 +75,7 @@ namespace Reclamation.TimeSeries.Usgs
             var breakptIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("BREAKPOINT")).ToList();//get breakpoint idx
             var offsetIdx = Enumerable.Range(0, rdbItems.Count).Where(i => rdbItems[i].Contains("OFFSET")).ToList();//get offset idx
             // Generate HJ Table by defining stage-shift pairs within a C# DataTable
-            Regex rShift = new Regex("SHIFT_PREV STAGE(.*?)SHIFT_PREV COMMENT", RegexOptions.Singleline);
-            var shiftTextRow = rShift.Match(rdbFileString);
-            var shifts = Regex.Matches(shiftTextRow.Value, "\"([^\"]*)\"");
-            var hjTable = new DataTable();
-            hjTable.Columns.Add(new DataColumn("stage", typeof(double)));
-            hjTable.Columns.Add(new DataColumn("shift", typeof(double)));
-            for (int i = 0; i < shifts.Count; i++)
-            {
-                var shiftRow = hjTable.NewRow();
-                try//some stage-shoft pairs are nans
-                {
-                    shiftRow["stage"] = Convert.ToDouble(shifts[i].ToString().Replace("\"", ""));
-                    shiftRow["shift"] = Convert.ToDouble(shifts[i + 1].ToString().Replace("\"", ""));
-                }
-                catch
-                {
-                    shiftRow["stage"] = double.NaN;
-                    shiftRow["shift"] = double.NaN;
-                }
-                hjTable.Rows.Add(shiftRow);
-                i++;
-            }
+            var hjTable = CreateHJTable(rdbFileString);
             // Define Logarithmic coefficient pairs in a C# DataTable
             var coeffTable = new DataTable();
             coeffTable.Columns.Add(new DataColumn("breakpoint", typeof(double)));
@@ -166,6 +131,39 @@ namespace Reclamation.TimeSeries.Usgs
             this.hjTable = hjTable;
             this.qTable = qTable;
         }
+
+        private DataTable CreateHJTable(string rdbFileString)
+        {
+            Regex rShift = new Regex("SHIFT_PREV STAGE(.*?)SHIFT_PREV COMMENT", RegexOptions.Singleline);
+            var shiftTextRow = rShift.Match(rdbFileString);
+            var shifts = Regex.Matches(shiftTextRow.Value, "\"([^\"]*)\"");
+            var hjTable = new DataTable();
+            hjTable.Columns.Add(new DataColumn("stage", typeof(double)));
+            hjTable.Columns.Add(new DataColumn("shift", typeof(double)));
+            for (int i = 0; i < shifts.Count; i++)
+            {
+                var shiftRow = hjTable.NewRow();
+
+                shiftRow["stage"] = ReadShift(shifts[i].Value);
+                shiftRow["shift"] = ReadShift(shifts[i + 1].Value);
+
+                hjTable.Rows.Add(shiftRow);
+                i++;
+            }
+            
+
+            return hjTable;
+        }
+
+        private double ReadShift(string shiftText)
+        {
+            shiftText = shiftText.Replace("\"", "");
+            double rval = 0;
+            double.TryParse(shiftText, out rval);
+
+            return rval;
+        }
+
 
         public void CreateFullRatingTableFromWeb()
         { CreateFullRatingTable(this.webRdbTable); }
