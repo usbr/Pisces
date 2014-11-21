@@ -124,10 +124,10 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        [FunctionAttribute("series","Max(series1,double)")]
-        public static Series Max(Series s,double value)
+        [FunctionAttribute("series","Max(series1)")]
+        public static double Max(Series s)
         {
-            Series rval = s.Copy();
+            var rval = double.MinValue;
             for (int i = 0; i < s.Count; i++)
             {
                 Point pt = s[i];
@@ -136,8 +136,7 @@ namespace Reclamation.TimeSeries
                     continue;
                 }
 
-                pt.Value = System.Math.Max(pt.Value,value);
-                rval[i] = pt;
+                rval = System.Math.Max(pt.Value,rval);
             }
             return rval;
         }
@@ -148,10 +147,10 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        [FunctionAttribute("series", "Min(series1,double)")]
-        public static Series Min(Series s, double value)
+        [FunctionAttribute("series", "Min(series1)")]
+        public static double Min(Series s)
         {
-            Series rval = s.Copy();
+            var rval = double.MinValue;
             for (int i = 0; i < s.Count; i++)
             {
                 Point pt = s[i];
@@ -159,9 +158,7 @@ namespace Reclamation.TimeSeries
                 {
                     continue;
                 }
-
-                pt.Value = System.Math.Min(pt.Value, value);
-                rval[i] = pt;
+               rval =  System.Math.Min(pt.Value,rval);
             }
             return rval;
         }
@@ -1344,6 +1341,11 @@ namespace Reclamation.TimeSeries
          public static Series MonthlySum(Series daily)
          {
              return MonthlyValues(daily, Math.Sum);
+         }
+         [FunctionAttribute("Computes a monthly Max", "MonthlyMax(daily)")]
+         public static Series MonthlyMax(Series daily)
+         {
+             return MonthlyValues(daily, Math.Max);
          }
 
          //[FunctionAttribute("Computes monthly value from Hydromet", "HydrometMonthlyCalculator(monthlyCbtt,monthlyPcode)")]

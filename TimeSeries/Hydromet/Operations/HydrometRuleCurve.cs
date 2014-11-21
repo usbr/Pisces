@@ -90,9 +90,32 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             var rval = new SeriesList();
 
                 Series s = CreateRuleLine(0, t1, t2);
-                s = Reclamation.TimeSeries.Math.Max(-s + totalSpace,0);
+                s = Max(-s + totalSpace,0);
                 rval.Add(s);
 
+            return rval;
+        }
+
+
+        /// <summary>
+        /// computes the Max value 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+         static Series Max(Series s, double value)
+        {
+            Series rval = s.Copy();
+            for (int i = 0; i < s.Count; i++)
+            {
+                Point pt = s[i];
+                if (pt.IsMissing)
+                {
+                    continue;
+                }
+
+                pt.Value = System.Math.Max(pt.Value, value);
+                rval[i] = pt;
+            }
             return rval;
         }
 
@@ -111,7 +134,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
                 Series s = CreateRuleLine(levels[i], t1, t2) * percent;
                 s = -s + totalSpace;
 
-                s = Reclamation.TimeSeries.Math.Max(s, 0);
+                s = Max(s, 0);
                 rval.Add(s);
             }
             
