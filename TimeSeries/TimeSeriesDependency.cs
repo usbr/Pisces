@@ -160,6 +160,9 @@ namespace Reclamation.TimeSeries
                     foreach (var varName in vars)
                     {
                         TimeSeriesName tn = new TimeSeriesName(varName, interval);
+                        if( !tn.Valid )
+                            Console.WriteLine("Error: Skipped Invalid equation .... "+cs.Expression);
+                        else
                         AddToDictionary(tn.GetTableName(), cs);    
                     }
                 }
