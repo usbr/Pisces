@@ -1393,9 +1393,11 @@ namespace Reclamation.TimeSeries
          /// </summary>
          /// <param name="daily"></param>
          /// <returns></returns>
+         [FunctionAttribute(" Returns monthly data the first value in each month.", "StartOfMonth(daily)")]
          public static Series StartOfMonth(Series daily)
          {
              var rval = new Series();
+             rval.TimeInterval = TimeInterval.Monthly;
              if (daily.Count == 0)
                  return rval;
 
