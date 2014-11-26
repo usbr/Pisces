@@ -91,7 +91,7 @@ namespace Reclamation.TimeSeries.Owrd
 
                 var newRow = fullRatingTable.NewRow();
                 newRow["Stage"] = ratingStage - recorderCorrectionValue;
-                newRow["Shift"] = shiftTable.Interpolate(ratingStage - recorderCorrectionValue);
+                newRow["Shift"] = shiftTable.InterpolateExtrapolateLow(ratingStage - recorderCorrectionValue);
                 newRow["Flow"] = shiftedFlow;
                 fullRatingTable.Rows.Add(newRow);
             }

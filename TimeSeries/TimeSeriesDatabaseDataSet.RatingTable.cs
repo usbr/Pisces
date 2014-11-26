@@ -90,6 +90,24 @@ namespace Reclamation.TimeSeries
                 return rval;
             }
 
+            /// <summary>
+            /// interpolation for OWRD shifts.
+            /// extrapolate values lower than minimum using the minimum
+            /// </summary>
+            /// <param name="val"></param>
+            /// <returns></returns>
+            public double InterpolateExtrapolateLow(double val)
+            {
+                if (val > MaxXValue())
+                    return Point.MissingValueFlag;
+
+                if (val < MinXValue())
+                { 
+                    return MinYValue();
+                }
+
+                return Math.Interpolate(this, val, this.columnx.ColumnName, this.columny.ColumnName);
+            }
 
             public double Interpolate(double val)
             {
