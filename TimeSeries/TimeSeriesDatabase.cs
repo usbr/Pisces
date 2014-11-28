@@ -1537,6 +1537,14 @@ namespace Reclamation.TimeSeries
             Console.WriteLine("");
 
         }
+
+        public void DailySummaryReport(DateTime t1 , DateTime t2)
+        {
+            var sc = GetSeriesCatalog("timeinterval = 'Daily'");
+
+
+
+        }
        
     }
 }
