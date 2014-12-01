@@ -99,17 +99,32 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             string templateName = this.comboBox1.SelectedValue.ToString().ToLower();
             string newName = this.SiteID.ToLower();
             // find all folders with same name as siteID
-            m_seriesCatalog = m_db.GetSeriesCatalog("siteid = '" + templateName + "'");
+            var tbl = m_db.GetSeriesCatalog("siteid = '" + templateName + "'");
             // replace template name with new siteid.
           //  m_seriesCatalog.Columns.Add("oldId", typeof(Int32));
-            foreach (var item in m_seriesCatalog)
+            foreach (var item in tbl)
             {
                 item.Name = item.Name.Replace(templateName, newName);
                 item.siteid = newName;
                 item.TableName = item.TableName.Replace(templateName,newName);
             }
 
+            AddRows(tbl);
+            SetupDataGridView();
+        }
 
+        private void AddRows(TimeSeriesDatabaseDataSet.SeriesCatalogDataTable tbl)
+        {
+            var r = m_seriesCatalog.NewSeriesCatalogRow();
+            foreach (var item in tbl)
+            {
+                r.ItemArray = item.ItemArray;
+                m_seriesCatalog.AddSeriesCatalogRow(r);
+            }
+        }
+
+        private void SetupDataGridView()
+        {
             this.dataGridView1.DataSource = null;
             this.dataGridView1.DataSource = m_seriesCatalog;
             this.dataGridView1.Columns["id"].Visible = false;
@@ -121,6 +136,64 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             this.dataGridView1.Columns["connectionstring"].Visible = false;
             this.dataGridView1.Columns["notes"].Visible = false;
             this.dataGridView1.Columns["enabled"].Visible = false;
+        }
+
+        private void buttonIndividuals_Click(object sender, EventArgs e)
+        {
+            var siteID =this.textBoxSiteID.Text.Trim(); 
+              if (siteID == "")
+            {
+                labelError.Text = "a siteid must be entered";
+                return;
+            }
+            labelError.Text = "";
+            if (this.checkBoxQ.Checked)
+            {
+                AddInstantRow(siteID, "feet", "gh");
+                AddInstantRow(siteID, "cfs", "q","FileRatingTable(%site%_gh,\"%site%.csv\")");
+                AddInstantRow(siteID, "cfs", "hj", "FileRatingTable(%site%_gh,\"%site%_shift.csv\")");
+
+                AddDailyRow(siteID, "cfs", "qd", "DailyAverage(instant_%site%_q,10)");
+                AddDailyRow(siteID, "cfs", "gd", "DailyAverage(instant_%site%_gh,10)");
+                AddDailyRow(siteID, "cfs", "hj", "DailyAverage(instant_%site%_hj,10)");
+            }
+            if (this.checkBoxWaterTemp.Checked)
+            {
+
+                AddInstantRow(siteID, "degF", "wf");
+
+                AddDailyRow(siteID, "cfs", "wi", "DailyMin(instant_%site%_wf,10)");
+                AddDailyRow(siteID, "cfs", "wk", "DailyMax(instant_%site%_wf,10)");
+                AddDailyRow(siteID, "cfs", "wz", "DailyAverage(instant_%site%_wf,10)");
+            }
+
+
+            SetupDataGridView();
+        }
+
+        private void AddInstantRow(string siteID, string units, string pcode, string expression = "")
+        {
+            var provider = "Series";
+            string iconName = "";
+            if (expression != "")
+            {
+                provider = "CalculationSeries";
+                iconName = "sum";
+            }
+            m_seriesCatalog.AddSeriesCatalogRow(m_seriesCatalog.NextID(), 0, false, 1,iconName, siteID + "_" + pcode, siteID, units, "Irregular",
+             pcode, "instant_" + siteID + "_" + pcode, provider,"", expression, "", true);
+        }
+        private void AddDailyRow(string siteID, string units, string pcode, string expression = "")
+        {
+            var provider = "Series";
+            string iconName = "";
+            if (expression != "")
+            {
+                provider = "CalculationSeries";
+                iconName = "sum";
+            }
+            m_seriesCatalog.AddSeriesCatalogRow(m_seriesCatalog.NextID(), 0, false, 1, iconName, siteID + "_" + pcode, siteID, units, "Daily",
+             pcode, "instant_" + siteID + "_" + pcode, provider, "", expression, "", true);
         }
 
 

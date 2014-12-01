@@ -227,7 +227,7 @@ namespace Reclamation.TimeSeries
         public TimeSeriesDatabaseDataSet.sitecatalogDataTable GetSiteCatalog()
         {
             var tbl = new TimeSeriesDatabaseDataSet.sitecatalogDataTable();
-            m_server.FillTable(tbl);
+            m_server.FillTable(tbl,"select * from sitecatalog order by siteid");
             return tbl;
         }
 

@@ -40,6 +40,8 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.labelError = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -54,14 +56,17 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
-            this.labelError = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.checkBoxWaterTemp = new System.Windows.Forms.CheckBox();
+            this.checkBoxQ = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonIndividuals = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxSiteID
@@ -85,9 +90,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 43);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 17);
+            this.label2.Size = new System.Drawing.Size(69, 17);
             this.label2.TabIndex = 3;
-            this.label2.Text = "name";
+            this.label2.Text = "site name";
             // 
             // textBoxdescription
             // 
@@ -155,14 +160,15 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 84);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 96);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(691, 471);
+            this.dataGridView1.Size = new System.Drawing.Size(691, 459);
             this.dataGridView1.TabIndex = 4;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.labelError);
             this.panel1.Controls.Add(this.button1);
@@ -174,12 +180,30 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(691, 81);
+            this.panel1.Size = new System.Drawing.Size(691, 93);
             this.panel1.TabIndex = 5;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(284, 6);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(62, 17);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "template";
+            // 
+            // labelError
+            // 
+            this.labelError.AutoSize = true;
+            this.labelError.ForeColor = System.Drawing.Color.Red;
+            this.labelError.Location = new System.Drawing.Point(359, 47);
+            this.labelError.Name = "labelError";
+            this.labelError.Size = new System.Drawing.Size(0, 17);
+            this.labelError.TabIndex = 6;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(585, 18);
+            this.button1.Location = new System.Drawing.Point(576, 6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(72, 23);
             this.button1.TabIndex = 5;
@@ -191,7 +215,7 @@
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(348, 30);
+            this.comboBox1.Location = new System.Drawing.Point(352, 3);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(218, 24);
             this.comboBox1.TabIndex = 4;
@@ -316,23 +340,46 @@
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             // 
-            // labelError
+            // checkBoxWaterTemp
             // 
-            this.labelError.AutoSize = true;
-            this.labelError.ForeColor = System.Drawing.Color.Red;
-            this.labelError.Location = new System.Drawing.Point(359, 47);
-            this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(0, 17);
-            this.labelError.TabIndex = 6;
+            this.checkBoxWaterTemp.AutoSize = true;
+            this.checkBoxWaterTemp.Location = new System.Drawing.Point(8, 31);
+            this.checkBoxWaterTemp.Name = "checkBoxWaterTemp";
+            this.checkBoxWaterTemp.Size = new System.Drawing.Size(135, 21);
+            this.checkBoxWaterTemp.TabIndex = 8;
+            this.checkBoxWaterTemp.Text = "water temp degF";
+            this.checkBoxWaterTemp.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // checkBoxQ
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(352, 7);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(62, 17);
-            this.label9.TabIndex = 7;
-            this.label9.Text = "template";
+            this.checkBoxQ.AutoSize = true;
+            this.checkBoxQ.Location = new System.Drawing.Point(8, 11);
+            this.checkBoxQ.Name = "checkBoxQ";
+            this.checkBoxQ.Size = new System.Drawing.Size(167, 21);
+            this.checkBoxQ.TabIndex = 9;
+            this.checkBoxQ.Text = "gage height,shift,flow,";
+            this.checkBoxQ.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.buttonIndividuals);
+            this.groupBox1.Controls.Add(this.checkBoxQ);
+            this.groupBox1.Controls.Add(this.checkBoxWaterTemp);
+            this.groupBox1.Location = new System.Drawing.Point(348, 30);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(314, 60);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            // 
+            // buttonIndividuals
+            // 
+            this.buttonIndividuals.Location = new System.Drawing.Point(236, 21);
+            this.buttonIndividuals.Name = "buttonIndividuals";
+            this.buttonIndividuals.Size = new System.Drawing.Size(72, 23);
+            this.buttonIndividuals.TabIndex = 11;
+            this.buttonIndividuals.Text = "add";
+            this.buttonIndividuals.UseVisualStyleBackColor = true;
+            this.buttonIndividuals.Click += new System.EventHandler(this.buttonIndividuals_Click);
             // 
             // AddSite
             // 
@@ -353,6 +400,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -387,5 +436,9 @@
         private System.Windows.Forms.TextBox textBoxState;
         private System.Windows.Forms.Label labelError;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button buttonIndividuals;
+        private System.Windows.Forms.CheckBox checkBoxQ;
+        private System.Windows.Forms.CheckBox checkBoxWaterTemp;
     }
 }
