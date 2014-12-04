@@ -14,7 +14,25 @@ namespace Pisces.NunitTests.SeriesMath
     public class DailyCalculatorTest
     {
 
-      
+        [Test]
+        public void MathMax()
+        {
+            //DailyCalculator.
+            DateTime t = new DateTime(2012, 12, 6);
+            ConstantSeries s1 = new ConstantSeries("s1", "aa", -1);
+            s1.TimeInterval = TimeInterval.Daily;
+            Reclamation.TimeSeries.Parser.SeriesExpressionParser.Debug = true;
+            var s = new CalculationSeries();
+            s.Expression = "Max(s1,0)";
+            s.TimeInterval = TimeInterval.Daily;
+            s.Parser.VariableResolver = new VariableResolver();
+            s.Parser.VariableResolver.Add("s1", s1);
+
+            s.Calculate(t, t.AddDays(2));
+            s.WriteToConsole();
+            Assert.AreEqual(3, s.Count);
+
+        }
 
         [Test]
         public void ValeQU()

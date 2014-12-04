@@ -117,15 +117,55 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
-
+        /// <summary>
+        /// computes the Max value
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        [FunctionAttribute("series", "Max(series1,double)")]
+        public static Series Max(Series s, double value)
+        {
+            Series rval = s.Copy();
+            for (int i = 0; i < s.Count; i++)
+            {
+                Point pt = s[i];
+                if (pt.IsMissing)
+                {
+                    continue;
+                }
+                pt.Value = System.Math.Max(pt.Value, value);
+                rval[i] = pt;
+            }
+            return rval;
+        }
+        /// <summary>
+        /// computes the Min value
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        [FunctionAttribute("series", "Min(series1,double)")]
+        public static Series Min(Series s, double value)
+        {
+            Series rval = s.Copy();
+            for (int i = 0; i < s.Count; i++)
+            {
+                Point pt = s[i];
+                if (pt.IsMissing)
+                {
+                    continue;
+                }
+                pt.Value = System.Math.Min(pt.Value, value);
+                rval[i] = pt;
+            }
+            return rval;
+        }
 
         /// <summary>
         /// computes the Max value 
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        [FunctionAttribute("series","Max(series1)")]
-        public static double Max(Series s)
+        public static double MaxValue(Series s)
         {
             var rval = double.MinValue;
             for (int i = 0; i < s.Count; i++)
@@ -147,8 +187,7 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        [FunctionAttribute("series", "Min(series1)")]
-        public static double Min(Series s)
+        public static double MinValue(Series s)
         {
             var rval = double.MaxValue;
             for (int i = 0; i < s.Count; i++)
@@ -1346,7 +1385,13 @@ namespace Reclamation.TimeSeries
          [FunctionAttribute("Computes a monthly Max", "MonthlyMax(daily)")]
          public static Series MonthlyMax(Series daily)
          {
-             return MonthlyValues(daily, Math.Max);
+             return MonthlyValues(daily, Math.MaxValue);
+         }
+
+         [FunctionAttribute("Computes a monthly Min", "MonthlyMin(daily)")]
+         public static Series MonthlyMin(Series daily)
+         {
+             return MonthlyValues(daily, Math.MinValue);
          }
 
          [FunctionAttribute("Computes a monthly Min", "MonthlyMin(daily)")]
