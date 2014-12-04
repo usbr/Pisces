@@ -185,6 +185,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\ThirdParty\ExcelDataReader\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>..\packages\MySql.Data.6.9.5\lib\net20\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Npgsql">
       <HintPath>..\ThirdParty\Npsql\Npgsql.dll</HintPath>
     </Reference>
@@ -219,6 +222,7 @@
     <Compile Include="ExcelUtility.cs" />
     <Compile Include="FixedWidthTextFile.cs" />
     <Compile Include="LinuxUtility.cs" />
+    <Compile Include="MySqlServer.cs" />
     <Compile Include="NetworkUtility.cs" />
     <Compile Include="PostgreSQL.cs" />
     <Compile Include="DataGridSelection.cs" />

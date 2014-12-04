@@ -150,7 +150,7 @@ namespace Reclamation.TimeSeries
         [FunctionAttribute("series", "Min(series1)")]
         public static double Min(Series s)
         {
-            var rval = double.MinValue;
+            var rval = double.MaxValue;
             for (int i = 0; i < s.Count; i++)
             {
                 Point pt = s[i];
@@ -1342,10 +1342,17 @@ namespace Reclamation.TimeSeries
          {
              return MonthlyValues(daily, Math.Sum);
          }
+
          [FunctionAttribute("Computes a monthly Max", "MonthlyMax(daily)")]
          public static Series MonthlyMax(Series daily)
          {
              return MonthlyValues(daily, Math.Max);
+         }
+
+         [FunctionAttribute("Computes a monthly Min", "MonthlyMin(daily)")]
+         public static Series MonthlyMin(Series daily)
+         {
+             return MonthlyValues(daily, Math.Min);
          }
 
          //[FunctionAttribute("Computes monthly value from Hydromet", "HydrometMonthlyCalculator(monthlyCbtt,monthlyPcode)")]
@@ -1393,7 +1400,6 @@ namespace Reclamation.TimeSeries
          /// </summary>
          /// <param name="daily"></param>
          /// <returns></returns>
-         [FunctionAttribute(" Returns monthly data the first value in each month.", "StartOfMonth(daily)")]
          public static Series StartOfMonth(Series daily)
          {
              var rval = new Series();

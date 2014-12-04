@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries", "TimeSeries\Reclamation.TimeSeries.csproj", "{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.Core", "Core\Reclamation.Core.csproj", "{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}"
@@ -22,26 +22,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HdbPoet", "..\HdbPoet\HdbPoet.csproj", "{B60964F8-8699-4638-9460-68262E4D37A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetUsace", "..\Hydromet\GetUsace\GetUsace.csproj", "{035F594F-8B4C-4A32-AD96-D31E11BE0A37}"
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "www.usbr.gov", "V:\PN6200\Hydromet\Web\www.usbr.gov\", "{9D9D7541-AB81-4744-B73C-89BB78307521}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
-		Debug.AspNetCompiler.VirtualPath = "/www.usbr.gov"
-		Debug.AspNetCompiler.PhysicalPath = "V:\PN6200\Hydromet\Web\www.usbr.gov\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\www.usbr.gov\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/www.usbr.gov"
-		Release.AspNetCompiler.PhysicalPath = "V:\PN6200\Hydromet\Web\www.usbr.gov\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\www.usbr.gov\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "51055"
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries.Excel", "TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj", "{37B543F5-03A5-479E-B20C-7B4ACC53D16A}"
 EndProject
@@ -434,36 +414,6 @@ Global
 		{035F594F-8B4C-4A32-AD96-D31E11BE0A37}.WatchDog|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{035F594F-8B4C-4A32-AD96-D31E11BE0A37}.WatchDog|Mixed Platforms.Build.0 = Release|Any CPU
 		{035F594F-8B4C-4A32-AD96-D31E11BE0A37}.WatchDog|x86.ActiveCfg = Release|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Forecasting|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Forecasting|Any CPU.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Forecasting|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Forecasting|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Forecasting|x86.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.pisces|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.pisces|Any CPU.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.pisces|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.pisces|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.pisces|x86.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.poet|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.poet|Any CPU.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.poet|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.poet|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.poet|x86.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.Release|x86.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.WatchDog|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.WatchDog|Any CPU.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.WatchDog|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.WatchDog|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9D9D7541-AB81-4744-B73C-89BB78307521}.WatchDog|x86.ActiveCfg = Debug|Any CPU
 		{37B543F5-03A5-479E-B20C-7B4ACC53D16A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{37B543F5-03A5-479E-B20C-7B4ACC53D16A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37B543F5-03A5-479E-B20C-7B4ACC53D16A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

@@ -22,7 +22,7 @@ namespace Reclamation.Core
     /// last command that was sent to server.
     /// </summary>
     protected string lastSqlCeCommand;
-    string lastMessage = "";
+   // string lastMessage = "";
 
       /// <summary>
     /// Creates a BasicDBServer object with connection string details defined
@@ -652,7 +652,7 @@ Alan
     {
        
       int rval =0;
-      this.lastMessage = "";
+      //this.lastMessage = "";
       var myConnection = new NpgsqlConnection(SqlConnString);
       myConnection.Open();
       var myCommand = new NpgsqlCommand();
@@ -682,7 +682,7 @@ Alan
 
         Logger.WriteLine(e.ToString());
         Logger.WriteLine("Error running "+sql);
-        this.lastMessage = e.ToString();
+        //this.lastMessage = e.ToString();
         throw e;
       }
       finally
