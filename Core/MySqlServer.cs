@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.IO;
 namespace Reclamation.Core
 {
     public class MySqlServer:BasicDBServer
@@ -14,11 +15,34 @@ namespace Reclamation.Core
         {
            MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
             b.Server = server;
-            b.UserID = WindowsUtility.GetShortUserName();
-            b.Password = Guid.NewGuid().ToString();
+            b.UserID = GetWindowsUserName()+"@localhost";
+            b.Password = GeneratePassword();
             b.Database = dbname;
             this.ConnectionString = b.ConnectionString;
+            string msg = ConnectionString;
+            if (b.Password.Length > 0)
+                msg = msg.Replace("password=" + b.Password, "password=" + "xxxxx");
+            Logger.WriteLine(msg);
+            this.ConnectionString = "server=localhost;uid=root;" +
+    "pwd=;database=timeseries;";
+            Logger.WriteLine(ConnectionString);
 
+        }
+
+
+        private static string GeneratePassword()
+        {
+            string fileName = FileUtility.GetFileReference("mysql_key.txt");
+
+            if (File.Exists(fileName))
+            {
+                return GetWindowsUserName() + File.ReadAllText(fileName);
+            }
+            else
+            {
+                Logger.WriteLine("Error:  missing mysql_key.txt");
+                throw new FileNotFoundException("mysql_key.txt");
+            }
         }
         public override string DataSource
         {
@@ -76,6 +100,33 @@ namespace Reclamation.Core
             if (tableName.Trim().IndexOf(" ") > 0)
                 tableName = "`" + tableName + "`";
             return Table(tableName, "select * from " + tableName + "");
+        }
+        public override void FillTable(DataTable dataTable, string sql)
+        {
+            base.SqlCommands.Add("Fill(" + dataTable.TableName + ")");
+            string strAccessSelect = sql;
+
+            var myAccessConn = new MySqlConnection(ConnectionString);
+            var myAccessCommand = new MySqlCommand(strAccessSelect, myAccessConn);
+            var myDataAdapter = new MySqlDataAdapter(myAccessCommand);
+
+            //Console.WriteLine(sql);
+            SqlCommands.Add(sql);
+            try
+            {
+                myAccessConn.Open();
+                myDataAdapter.Fill(dataTable);
+            }
+            catch (Exception e)
+            {
+                string msg = "Error reading from database " + sql + " Exception " + e.ToString();
+                Console.WriteLine(msg);
+                throw e;
+            }
+            finally
+            {
+                myAccessConn.Close(); //
+            }
         }
 
         public override int SaveTable(DataTable dataTable)
@@ -171,5 +222,26 @@ namespace Reclamation.Core
       return rval;
     }
 
+     /// <summary>
+     /// gets a list of all 'base tables'
+     /// </summary>
+     /// <returns></returns>
+     public override string[] TableNames()
+     {
+         string sql = "Select table_Name from Information_schema.Tables where table_schema = '" + GetDefaultSchema() + "' order by table_name ";
+         DataTable tbl = Table("schema", sql);
+         string[] rval = new string[tbl.Rows.Count];
+         for (int i = 0; i < tbl.Rows.Count; i++)
+         {
+             rval[i] = tbl.Rows[i]["table_Name"].ToString();
+         }
+         return rval;
+     }
+
+     private string GetDefaultSchema()
+     {
+         var b = new MySqlConnectionStringBuilder(ConnectionString);
+         return b.Database; 
+     }
     }
 }

@@ -1394,11 +1394,6 @@ namespace Reclamation.TimeSeries
              return MonthlyValues(daily, Math.MinValue);
          }
 
-         [FunctionAttribute("Computes a monthly Min", "MonthlyMin(daily)")]
-         public static Series MonthlyMin(Series daily)
-         {
-             return MonthlyValues(daily, Math.Min);
-         }
 
          //[FunctionAttribute("Computes monthly value from Hydromet", "HydrometMonthlyCalculator(monthlyCbtt,monthlyPcode)")]
          //public static Series HydrometMonthlyCalculator(string monthlyCbtt, string monthlyPcode)

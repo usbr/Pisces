@@ -1947,7 +1947,7 @@ namespace Reclamation.TimeSeries {
             
             private global::System.Data.DataColumn columnlow;
             
-            private global::System.Data.DataColumn columnchange;
+            private global::System.Data.DataColumn columndelta;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -2008,9 +2008,9 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn changeColumn {
+            public global::System.Data.DataColumn deltaColumn {
                 get {
-                    return this.columnchange;
+                    return this.columndelta;
                 }
             }
             
@@ -2051,13 +2051,13 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public quality_limitRow Addquality_limitRow(string tablemask, double high, double low, double change) {
+            public quality_limitRow Addquality_limitRow(string tablemask, double high, double low, double delta) {
                 quality_limitRow rowquality_limitRow = ((quality_limitRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         tablemask,
                         high,
                         low,
-                        change};
+                        delta};
                 rowquality_limitRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowquality_limitRow);
                 return rowquality_limitRow;
@@ -2090,7 +2090,7 @@ namespace Reclamation.TimeSeries {
                 this.columntablemask = base.Columns["tablemask"];
                 this.columnhigh = base.Columns["high"];
                 this.columnlow = base.Columns["low"];
-                this.columnchange = base.Columns["change"];
+                this.columndelta = base.Columns["delta"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2102,8 +2102,8 @@ namespace Reclamation.TimeSeries {
                 base.Columns.Add(this.columnhigh);
                 this.columnlow = new global::System.Data.DataColumn("low", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnlow);
-                this.columnchange = new global::System.Data.DataColumn("change", typeof(double), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnchange);
+                this.columndelta = new global::System.Data.DataColumn("delta", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndelta);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columntablemask}, true));
                 this.columntablemask.AllowDBNull = false;
@@ -2732,7 +2732,7 @@ namespace Reclamation.TimeSeries {
             
             private global::System.Data.DataColumn columnlow;
             
-            private global::System.Data.DataColumn columnchange;
+            private global::System.Data.DataColumn columndelta;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -2793,9 +2793,9 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn changeColumn {
+            public global::System.Data.DataColumn deltaColumn {
                 get {
-                    return this.columnchange;
+                    return this.columndelta;
                 }
             }
             
@@ -2836,13 +2836,13 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public alarmRow AddalarmRow(string tablemask, double high, double low, double change) {
+            public alarmRow AddalarmRow(string tablemask, double high, double low, double delta) {
                 alarmRow rowalarmRow = ((alarmRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         tablemask,
                         high,
                         low,
-                        change};
+                        delta};
                 rowalarmRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowalarmRow);
                 return rowalarmRow;
@@ -2875,7 +2875,7 @@ namespace Reclamation.TimeSeries {
                 this.columntablemask = base.Columns["tablemask"];
                 this.columnhigh = base.Columns["high"];
                 this.columnlow = base.Columns["low"];
-                this.columnchange = base.Columns["change"];
+                this.columndelta = base.Columns["delta"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2887,8 +2887,8 @@ namespace Reclamation.TimeSeries {
                 base.Columns.Add(this.columnhigh);
                 this.columnlow = new global::System.Data.DataColumn("low", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnlow);
-                this.columnchange = new global::System.Data.DataColumn("change", typeof(double), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnchange);
+                this.columndelta = new global::System.Data.DataColumn("delta", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndelta);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columntablemask}, true));
                 this.columntablemask.AllowDBNull = false;
@@ -4027,17 +4027,17 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public double change {
+            public double delta {
                 get {
                     try {
-                        return ((double)(this[this.tablequality_limit.changeColumn]));
+                        return ((double)(this[this.tablequality_limit.deltaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'change\' in table \'quality_limit\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'delta\' in table \'quality_limit\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablequality_limit.changeColumn] = value;
+                    this[this.tablequality_limit.deltaColumn] = value;
                 }
             }
             
@@ -4067,14 +4067,14 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IschangeNull() {
-                return this.IsNull(this.tablequality_limit.changeColumn);
+            public bool IsdeltaNull() {
+                return this.IsNull(this.tablequality_limit.deltaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetchangeNull() {
-                this[this.tablequality_limit.changeColumn] = global::System.Convert.DBNull;
+            public void SetdeltaNull() {
+                this[this.tablequality_limit.deltaColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -4583,17 +4583,17 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public double change {
+            public double delta {
                 get {
                     try {
-                        return ((double)(this[this.tablealarm.changeColumn]));
+                        return ((double)(this[this.tablealarm.deltaColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'change\' in table \'alarm\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'delta\' in table \'alarm\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablealarm.changeColumn] = value;
+                    this[this.tablealarm.deltaColumn] = value;
                 }
             }
             
@@ -4623,14 +4623,14 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IschangeNull() {
-                return this.IsNull(this.tablealarm.changeColumn);
+            public bool IsdeltaNull() {
+                return this.IsNull(this.tablealarm.deltaColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetchangeNull() {
-                this[this.tablealarm.changeColumn] = global::System.Convert.DBNull;
+            public void SetdeltaNull() {
+                this[this.tablealarm.deltaColumn] = global::System.Convert.DBNull;
             }
         }
         

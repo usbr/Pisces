@@ -42,7 +42,7 @@ namespace Reclamation.TimeSeries
                 */
 
                 string sql = "Create Table sitecatalog "
-                + "( siteid  " + m_server.PortableCharacterType(256) + " not null primary key, "
+                + "( siteid  " + m_server.PortableCharacterType(255) + " not null primary key, "
                 + " description " + m_server.PortableCharacterType(1024) + " not null default '', "
                 + " state " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " latitude " + m_server.PortableCharacterType(30) + " not null default '', "
@@ -119,7 +119,7 @@ namespace Reclamation.TimeSeries
             if (!m_server.TableExists("piscesinfo"))
             {
                 string sql = "Create Table piscesinfo "
-                + "( name  "+m_server.PortableCharacterType(256)+" not null primary key, "
+                + "( name  "+m_server.PortableCharacterType(255)+" not null primary key, "
                 + " value "+m_server.PortableCharacterType(1024)+" not null default '' "
                 + " )";
                 ExecuteCreateTable(m_server, sql);
@@ -238,9 +238,9 @@ namespace Reclamation.TimeSeries
             string sql = "Create Table quality_limit "
                 + " ( "
                 + " tablemask " + m_server.PortableCharacterType(100) + " not null primary key,"
-                + " High float null default null, "
-                + " Low float null default null, "
-                + " Change float null default null "
+                + " high float null default null, "
+                + " low float null default null, "
+                + " delta float null default null "
                 + "  )";
 
             ExecuteCreateTable(m_server, sql);

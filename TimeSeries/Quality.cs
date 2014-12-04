@@ -55,7 +55,7 @@ namespace Reclamation.TimeSeries
 
                 // To DO. rate of change
 
-                if (!row.IschangeNull() )
+                if (!row.IsdeltaNull() )
                 {
                     //"^"
 

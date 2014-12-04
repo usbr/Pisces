@@ -13,10 +13,22 @@ namespace Pisces.NunitTests.Database
 
         public static void Main()
         {
+            Logger.EnableLogger();
             var t = new TestMultiDatabaseSupport();
-            t.TestSQLite();
+            t.TestMySQL();
         }
 
+        [Test]
+        public void TestMySQL()
+        {
+            var svr = new MySqlServer();
+
+            var db = new TimeSeriesDatabase(svr);
+
+            BasicDatabaseTest(db);
+        }
+
+      
         [Test]
         public void TestSQLite()
         {
