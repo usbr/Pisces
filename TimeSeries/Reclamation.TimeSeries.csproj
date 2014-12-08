@@ -22,7 +22,7 @@
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Reclamation.TimeSeries</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <FileUpgradeFlags>
@@ -222,7 +222,8 @@
     <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Pisces.NunitTests.Database.TestMultiDatabaseSupport</StartupObject>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="alglibnet2">
