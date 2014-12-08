@@ -5,6 +5,7 @@ using System.Text;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.IO;
+using System.Configuration;
 namespace Reclamation.Core
 {
     public class MySqlServer:BasicDBServer
@@ -242,6 +243,25 @@ namespace Reclamation.Core
      {
          var b = new MySqlConnectionStringBuilder(ConnectionString);
          return b.Database; 
+     }
+
+     public static BasicDBServer GetMySqlServer(string databaseName)
+     {
+         MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
+         b.UserID = ConfigurationManager.AppSettings["MySqlUser"];
+         b.Server = ConfigurationManager.AppSettings["MySqlServer"];
+         b.Database = databaseName;
+
+         if (LinuxUtility.IsLinux())
+         {//Linux login is from config file.  Assuming localhost access
+             return new MySqlServer(b.ConnectionString);
+         }
+         else
+         { // use windows login for username
+             b.UserID = GetWindowsUserName();
+             b.Password = GeneratePassword();
+             return new MySqlServer(b.ConnectionString);
+         }
      }
     }
 }
