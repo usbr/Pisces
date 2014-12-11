@@ -371,7 +371,9 @@ namespace Reclamation.Core
         private static void SetupProxy(HttpWebRequest request)
         {
             if (IsRunningOnMono())
-                return; 
+                return;
+            if (NetworkUtility.Intranet)
+                return; // assuming internal network does not have proxy. 100% performance boost
                 IWebProxy proxy = WebRequest.GetSystemWebProxy();
                 proxy.Credentials = (System.Net.NetworkCredential)CredentialCache.DefaultCredentials;
                 request.Proxy = proxy;
