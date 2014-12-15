@@ -31,6 +31,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
            this.comboBox1.DataSource = m_sites;
            this.comboBox1.DisplayMember = "siteid";
            this.comboBox1.ValueMember = "siteid";
+           comboBox1.SelectedValue = "boii";
            m_seriesCatalog = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
             
         }
@@ -115,9 +116,9 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
         private void AddRows(TimeSeriesDatabaseDataSet.SeriesCatalogDataTable tbl)
         {
-            var r = m_seriesCatalog.NewSeriesCatalogRow();
             foreach (var item in tbl)
             {
+                var r = m_seriesCatalog.NewSeriesCatalogRow();
                 r.ItemArray = item.ItemArray;
                 m_seriesCatalog.AddSeriesCatalogRow(r);
             }
@@ -194,6 +195,35 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             }
             m_seriesCatalog.AddSeriesCatalogRow(m_seriesCatalog.NextID(), 0, false, 1, iconName, siteID + "_" + pcode, siteID, units, "Daily",
              pcode, "instant_" + siteID + "_" + pcode, provider, "", expression, "", true);
+        }
+
+        TimeSeriesDatabaseDataSet.sitecatalogDataTable m_siteCatalog;
+        TimeSeriesDatabaseDataSet.sitecatalogRow m_siteRow;
+
+        private void textBoxSiteID_TextChanged(object sender, EventArgs e)
+        {
+
+            if (textBoxdescription.Text.Trim() == "" && textBoxSiteID.Text.Trim().Length >2)
+            {
+                if (m_siteCatalog == null)
+                {
+                    m_siteCatalog = m_db.GetSiteCatalog();
+                }
+
+                m_siteRow = m_siteCatalog.FindBysiteid(textBoxSiteID.Text.Trim());
+                if (m_siteRow != null)
+                {
+                    this.textBoxdescription.Text = m_siteRow.description;
+                    this.textBoxElevation.Text = m_siteRow.elevation;
+                    this.textBoxlatitude.Text = m_siteRow.latitude;
+                    this.textBoxlongitude.Text = m_siteRow.longitude;
+                    this.textBoxInstall.Text = m_siteRow.install;
+                    this.textBoxTimezone.Text = m_siteRow.timezone;
+                    this.textBoxState.Text = m_siteRow.state;
+                }
+
+            }
+
         }
 
 
