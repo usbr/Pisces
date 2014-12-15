@@ -698,23 +698,7 @@ namespace Reclamation.TimeSeries
 
         public int NextSDI()
         {
-            string sql = "select count(*) as count,max(id) as max from seriescatalog"
-                + " Where id >0 ";
-            DataTable tbl = m_server.Table("seriescatalog", sql);
-            int count = Convert.ToInt32(tbl.Rows[0]["count"]);
-            if (count == 0)
-            {
-                return 1;
-            }
-            int max = Convert.ToInt32(tbl.Rows[0][1]);
-            var rval = (max + 1);
-
-            var rval2 = m_server.NextID("seriescatalog", "id");
-
-            if (rval != rval2)
-                throw new Exception("error");
-
-            return rval;
+            return m_server.NextID("seriescatalog", "id");
         }
 
 
@@ -1453,7 +1437,7 @@ namespace Reclamation.TimeSeries
 
             if (sr == null)
             {// create new series.
-                sr = GetNewSeriesRow();
+                //sr = GetNewSeriesRow();
                 Logger.WriteLine("table: " + s.Table.TableName + " does not exist in the catalog");
                 if (folderName == "")
                 {
@@ -1468,6 +1452,7 @@ namespace Reclamation.TimeSeries
                 else
                     folder = RootFolder;
 
+                sr = GetNewSeriesRow(); 
                 sr.ParentID = folder.ID;
 
                 Logger.WriteLine("Info: ImportSeriesUsingTableName()  series: " + s.Name + " tablename=" + s.Table.TableName);
