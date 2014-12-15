@@ -15,7 +15,7 @@ namespace Pisces.NunitTests.SeriesMath
         static void Main(string[] argList)
         {
             var x = new TestRatingTableDependency();
-            x.HCDI();
+            x.ImportDecodesFiles();
         }
         public TestRatingTableDependency()
         {
@@ -23,7 +23,7 @@ namespace Pisces.NunitTests.SeriesMath
 
 
         [Test]
-        public void HCDI()
+        public void ImportDecodesFiles()
         {
             
             var fn1 = FileUtility.GetTempFileNameInDirectory(@"c:\temp", ".pdb", "ratings");

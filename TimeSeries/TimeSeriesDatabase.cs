@@ -1452,7 +1452,9 @@ namespace Reclamation.TimeSeries
                 else
                     folder = RootFolder;
 
-                sr = GetNewSeriesRow(); 
+                sr = GetNewSeriesRow();
+                sr.Name = s.Name;
+                sr.Parameter = s.Parameter;
                 sr.ParentID = folder.ID;
 
                 Logger.WriteLine("Info: ImportSeriesUsingTableName()  series: " + s.Name + " tablename=" + s.Table.TableName);
