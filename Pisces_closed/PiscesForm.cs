@@ -920,7 +920,6 @@ namespace Reclamation.TimeSeries.Forms
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            DB.ImportFromDecodesOutputDirectory(DB.Settings.ReadString("DecodesOutputDirectory", ""));
         }
 
         private void toolStripMenuItemStandalone_Click(object sender, EventArgs e)

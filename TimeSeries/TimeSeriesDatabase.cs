@@ -1357,17 +1357,6 @@ namespace Reclamation.TimeSeries
 
         }
 
-        public void ImportFromDecodesOutputDirectory(string path)
-        {
-            if (path.Trim() == "" || !Directory.Exists(path))
-                return;
-            Console.WriteLine("Reading from '"+path +"'");
-
-            var di = new Reclamation.TimeSeries.Decodes.DecodesImporter(this);
-
-            di.Import(path);
-        }
-
 
         /// <summary>
         /// breaks links to external data and make a local copy

@@ -416,7 +416,6 @@
     <Compile Include="Tests\SeriesTypes\Cr10xTest.cs" />
     <Compile Include="Tests\SeriesTypes\Snotel.cs" />
     <Compile Include="Tests\SeriesTypes\TestBpaHydsimSeries.cs" />
-    <Compile Include="Tests\SeriesTypes\TestDecodesImporter.cs" />
     <Compile Include="Tests\SeriesTypes\TestExcelReaderSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestHydromet.cs" />
     <Compile Include="Tests\SeriesTypes\TestReadTextFile.cs" />
@@ -434,8 +433,6 @@
     <Compile Include="IPlugin.cs" />
     <Compile Include="Math.ET.cs" />
     <Compile Include="DataLogger\LoggerNetFile.cs" />
-    <Compile Include="Decodes\DecodesParser.cs" />
-    <Compile Include="Decodes\DecodesImporter.cs" />
     <Compile Include="Decodes\DecodesDataSet.cs">
       <DependentUpon>DecodesDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>
