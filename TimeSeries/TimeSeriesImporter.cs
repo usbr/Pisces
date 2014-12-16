@@ -7,8 +7,9 @@ using System.Text;
 namespace Reclamation.TimeSeries
 {
     /// <summary>
-    /// TimeSeriesImporter Manages importing data
-    
+    /// TimeSeriesImporter Manages importing data,
+    /// determines if calculations need to be made and flags data
+    /// based on quality limits
     /// </summary>
     public class TimeSeriesImporter
     {

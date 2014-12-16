@@ -510,7 +510,7 @@ namespace Reclamation.TimeSeries.Forms
                 {
                     Series s = v as Series;
                     string tmpExp = s.Expression;
-                    SeriesProperties p = new SeriesProperties(s, DB.GetUniqueUnits());
+                    SeriesProperties p = new SeriesProperties(s, DB);
                     if (p.ShowDialog() == DialogResult.OK)
                     {
                         DB.SaveProperties(s);

@@ -8,13 +8,18 @@ namespace Reclamation.TimeSeries
     /// <summary>
     /// Manages quality limits and flagging data
     /// </summary>
-    class Quality
+    public class Quality
     {
         TimeSeriesDatabase m_db;
         TimeSeriesDatabaseDataSet.quality_limitDataTable m_limit;
         public Quality( TimeSeriesDatabase db)
         {
             m_db = db;
+            if (m_limit == null)
+            {
+                m_limit = new TimeSeriesDatabaseDataSet.quality_limitDataTable();
+                m_db.Server.FillTable(m_limit);
+            }
         }
 
         public void SetFlags(Series s)
@@ -22,11 +27,7 @@ namespace Reclamation.TimeSeries
             if (m_db == null)
                 return;
 
-            if (m_limit == null)
-            {
-                m_limit = new TimeSeriesDatabaseDataSet.quality_limitDataTable();
-                m_db.Server.FillTable(m_limit);
-            }
+            
 
             var row = GetRow(s.Table.TableName);
 
@@ -75,7 +76,7 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="tableName"></param>
         /// <returns></returns>
-        private TimeSeriesDatabaseDataSet.quality_limitRow GetRow(string tableName)
+        public TimeSeriesDatabaseDataSet.quality_limitRow GetRow(string tableName)
         {
             // try exact match first.   instant_odsw_ob
              
@@ -102,5 +103,23 @@ namespace Reclamation.TimeSeries
             return null;
         }
 
+
+        public void SaveLimits(string tableName, double high, double low, int change)
+        {
+            var row = GetRow(tableName);
+            if (row == null)
+            {
+                row = m_limit.Newquality_limitRow();
+            }
+            row.tablemask = tableName;
+            row.high = high;
+            row.low = low;
+            
+            if( row.RowState == System.Data.DataRowState.Detached )
+               m_limit.Addquality_limitRow(row);
+
+            m_db.Server.SaveTable(m_limit);
+
+        }
     }
 }

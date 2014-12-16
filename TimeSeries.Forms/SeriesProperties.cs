@@ -11,18 +11,19 @@ namespace Reclamation.TimeSeries.Forms
 {
     public partial class SeriesProperties : Form
     {
-
-
+        Quality m_quality;
         public SeriesProperties()
         {
             m_series = new Series();
             InitializeComponent();
-
         }
         Series m_series;
-
-        public SeriesProperties(Series  s, string[] DBunits)
+        TimeSeriesDatabase m_db;
+        public SeriesProperties(Series  s, TimeSeriesDatabase db)
         {
+            m_db = db;
+            m_quality = new Quality(m_db);
+            string[] DBunits = db.GetUniqueUnits();
             if (s == null)
             {
                 throw new ArgumentNullException();
@@ -33,6 +34,22 @@ namespace Reclamation.TimeSeries.Forms
             ReadSeriesProperties();
             this.textBoxExpression.Enabled =  s is CalculationSeries;
             buttonBuildExpression.Enabled = s is CalculationSeries;
+            LoadQualityLimits();
+        }
+
+        private void LoadQualityLimits()
+        {
+            this.textBoxHigh.Text = "";
+            this.textBoxLow.Text = "";
+
+            var quality_row  = m_quality.GetRow(m_series.Table.TableName);
+            if( quality_row != null)
+            {
+                if (!quality_row.IshighNull() )
+                    this.textBoxHigh.Text = quality_row.high.ToString("F2");
+                if (!quality_row.IslowNull())
+                    this.textBoxLow.Text = quality_row.low.ToString("F2");
+            }
         }
 
         private void ReadSeriesProperties()
@@ -113,7 +130,23 @@ namespace Reclamation.TimeSeries.Forms
             if (tblSeriesProperties != null && m_series.TimeSeriesDatabase != null)
             {
                 m_series.TimeSeriesDatabase.Server.SaveTable(tblSeriesProperties);
+                SaveQualityLimits();
             }
+        }
+
+        private void SaveQualityLimits()
+        {
+
+            if (this.textBoxHigh.Modified || this.textBoxLow.Modified)
+            {
+                double high, low;
+                if( double.TryParse(this.textBoxHigh.Text,out high)
+                    && double.TryParse(this.textBoxLow.Text,out low))
+                   m_quality.SaveLimits(m_series.Table.TableName,high,low,0);
+                else
+                    MessageBox.Show("Error: could not read High and Low limits. They must be numbers.");
+            }
+
         }
 
         private void buttonBuildExpression_Click(object sender, EventArgs e)
