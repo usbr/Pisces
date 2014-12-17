@@ -55,8 +55,8 @@ namespace Reclamation.TimeSeries.Hydromet
             //Added exceptions for potantially erroneous values for WR and SR rollovers.
             if (minTemp[t].IsMissing || maxTemp[t].IsMissing || wind[t].IsMissing ||
                 dewTemp[t].IsMissing || solar[t].IsMissing || avgTemp[t].IsMissing ||
-                avgTemp[tm1].IsMissing || avgTemp[tm2].IsMissing ||
-                avgTemp[tm3].IsMissing)
+               MissingDate( avgTemp,tm1)|| MissingDate(avgTemp,tm2) ||
+               MissingDate( avgTemp,tm3))
             {
                 return new Point(t, Point.MissingValueFlag, PointFlag.Missing);
             }
