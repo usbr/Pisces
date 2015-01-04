@@ -258,7 +258,7 @@ namespace Reclamation.Core
             cell.CellStyle = m_dateCellStyle;
         }
 
-        internal void Save(string filename)
+        public void Save(string filename)
         {
             //Write the stream data of workbook to the root directory
             FileStream file = new FileStream(filename, FileMode.Create);
