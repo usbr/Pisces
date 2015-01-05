@@ -13,42 +13,48 @@ namespace Pisces.NunitTests.SeriesTypes
     /// Summary description for Snotel
     /// </summary>
     [TestFixture]
-    public class Snotel
+    public class TestSnotel
     {
-        public Snotel()
+        public TestSnotel()
         {
-            //
-            // TODO: Add constructor logic here
-            //
         }
-
-  
-
 
 
         [Test]
         public void TestNrcsWebService()
         {
 
-            DateTime t1 = new DateTime(2013,9,29);
-            DateTime t2 = new DateTime(2013,9,29);
+            DateTime t1 = new DateTime(2013, 9, 29);
+            DateTime t2 = new DateTime(2013, 9, 29);
 
-            TestSite("jkpi",SnotelParameterCodes.PRCP,t1,t2,1.9);         
-            TestSite("jkpi", SnotelParameterCodes.PREC,t1,t2,36);         
+            SnotelTest("jkpi", SnotelParameterCodes.PRCP, t1, t2, 1.9);
+            SnotelTest("jkpi", SnotelParameterCodes.PREC, t1, t2, 36);
+            //               var x = ws.getData(tag, "PREC", 1, null, Reclamation.TimeSeries.NoaaAWDB.duration.DAILY, true, beginDate, endDate);
+        }
 
-//               var x = ws.getData(tag, "PREC", 1, null, Reclamation.TimeSeries.NoaaAWDB.duration.DAILY, true, beginDate, endDate);
-               
-           }
-
-        private static void TestSite(string cbtt, SnotelParameterCodes param, DateTime t1, DateTime t2, double expected)
+        [Test]
+        public void SnowCourse()
         {
-                  string triplet = SnotelSeries.GetTriplet(cbtt);
-               SnotelSeries s = new SnotelSeries(triplet, param);
-               s.WriteToConsole();
+            Logger.EnableLogger();
+            string triplet = "16F02:ID:SNOW";
+            var s = new SnotelSeries(triplet, SnotelParameterCodes.WTEQ);
+
+            DateTime t1 = new DateTime(2014, 12, 31);
+            DateTime t2 = new DateTime(2015, 1, 1);
+            s.Read(t1, t2);
+            Console.WriteLine("Bogus Basin (16F02)");
+            s.WriteToConsole();
+        }
+
+        private static void SnotelTest(string cbtt, SnotelParameterCodes param, DateTime t1, DateTime t2, double expected, string network = "SNTL")
+        {
+            string triplet = SnotelSeries.GetTriplet(cbtt,network);
+            SnotelSeries s = new SnotelSeries(triplet, param);
+            s.WriteToConsole();
             s.Read(t1,t2);
             Assert.AreEqual(expected,s[0].Value,0.01);
-
         }
+       
 
            // ws.getData(
            
@@ -9739,7 +9745,8 @@ namespace Pisces.NunitTests.SeriesTypes
             
             //s.Read();
             s.Read(DateTime.Parse("2009-10-1"), DateTime.Parse("2009-10-16"));
-            Assert.AreEqual(1.3, s["10-14-2009"].Value,0.01); 
+            Assert.AreEqual(1.3, s["10-14-2009"].Value,0.01);
+            s.WriteToConsole();
             //Assert.AreEqual(9.1, s["12-15-2003"].Value, 0.01);
         }
     }

@@ -414,7 +414,7 @@
     <Compile Include="Tests\SeriesMath\TestUofIDisaggregation.cs" />
     <Compile Include="Tests\SeriesMath\TestWaterYear.cs" />
     <Compile Include="Tests\SeriesTypes\Cr10xTest.cs" />
-    <Compile Include="Tests\SeriesTypes\Snotel.cs" />
+    <Compile Include="Tests\SeriesTypes\TestSnotel.cs" />
     <Compile Include="Tests\SeriesTypes\TestBpaHydsimSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestExcelReaderSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestHydromet.cs" />

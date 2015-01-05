@@ -177,6 +177,15 @@ namespace Reclamation.TimeSeries.Hydromet
         }
 
 
+         
+        public static string LookupNessid(string cbtt)
+        {
+            var rows = Site.Select("SITE='" + cbtt + "'");
+            if (rows.Length == 1)
+                return rows[0]["NESSID"].ToString();
+            return "";
+        }
+
 
         public static string LookupAltID(string cbtt)
         {

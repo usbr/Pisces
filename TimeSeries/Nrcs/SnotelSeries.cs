@@ -57,7 +57,7 @@ namespace Reclamation.TimeSeries.Nrcs
     }
 
     /// <summary>
-    /// Read Daily snotel data from NRCS web service
+    /// Read Daily snotel , or SnowCourse data from NRCS web service
     /// http://www.wcc.nrcs.usda.gov/awdbWebService/webservice/testwebservice.jsf
     /// </summary>
     public class SnotelSeries:Series
@@ -86,6 +86,13 @@ namespace Reclamation.TimeSeries.Nrcs
         }
 
 
+
+        private static string NetworkFromTriplet(string triplet)
+        {
+            var parts = triplet.Split(':');
+            return parts[2];
+        }
+
         protected override void ReadCore(DateTime t1, DateTime t2)
         {
             try
@@ -93,8 +100,20 @@ namespace Reclamation.TimeSeries.Nrcs
                 
                 var ws = new AwdbWebService();
 
+                var dur = duration.DAILY;
+
+                
+                if (NetworkFromTriplet(m_triplet) == "SNOW")
+                    dur = duration.SEMIMONTHLY;
+
+                Console.WriteLine("duration = "+dur);
+                Console.WriteLine(m_triplet);
+
                 Nrcs.data[] data = ws.getData(new string[] { m_triplet }, Parameter, 1, null,
-                    duration.DAILY, true, t1.ToString("yyyy-MM-dd"), t2.ToString("yyyy-MM-dd"),false);
+                    dur, true, t1.ToString("yyyy-MM-dd"), t2.ToString("yyyy-MM-dd"),false);
+
+                Console.WriteLine(t1.ToString("yyyy-MM-dd"));
+                Console.WriteLine(t2.ToString("yyyy-MM-dd"));
 
                 if (data.Length == 0)
                     return;
@@ -104,7 +123,7 @@ namespace Reclamation.TimeSeries.Nrcs
                     Logger.WriteLine("Error: no data at " + m_triplet);
                     return;
                 }
-                if (data[0].duration != duration.DAILY)
+                if (data[0].duration != dur)
                     throw new InvalidOperationException("duration returned does not match requested");
 
                 if( data[0].values == null)
@@ -157,7 +176,7 @@ namespace Reclamation.TimeSeries.Nrcs
 
         }
         
-        public static string GetTriplet(string cbtt)
+        public static string GetTriplet(string cbtt, string network="SNTL")
         {
             var csv = NrcsSnotelSeries.SnotelSites;
             var rows = csv.Select("cbtt='" + cbtt + "'");
@@ -168,7 +187,7 @@ namespace Reclamation.TimeSeries.Nrcs
             String siteID = r["SiteID"].ToString();
             String state = r["State"].ToString();
 
-            return siteID + ":" + state + ":SNTL";
+            return siteID + ":" + state + ":"+network;
 
         }
     }
