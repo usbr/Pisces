@@ -685,6 +685,17 @@ namespace Reclamation.TimeSeries.Forms
             }
 
         }
+        private void addHDBConfigFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "HDB Files |*.hdb|AllFiles|*.*";
+
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ImportFromHdb.Import(dlg.FileName, DB, CurrentFolder);
+                DatabaseChanged();
+            }
+        }
 
         /// <summary>
         /// URGWOM is a custom RiverWare model.
