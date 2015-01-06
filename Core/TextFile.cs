@@ -521,7 +521,7 @@ namespace Reclamation.Core
         {
             TextFile txtFile = this;
             int rowIndex = txtFile.IndexOf(label,startIndex);
-            if (rowIndex < 0)
+            if (rowIndex < 0 || rowIndex >endIndex)
                 return "";
 
             string line = txtFile[rowIndex];

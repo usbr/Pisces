@@ -32,8 +32,8 @@ namespace Pisces.NunitTests.SeriesMath
             var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
             Logger.EnableLogger();
             FileUtility.CleanTempPath();
-            var tmpDir = CopyTestFileToTempDirectory("decodes_dms3.txt");
-           CopyTestFileToTempDirectory("decodes_lapo.txt");
+            var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_dms3.txt");
+           CopyTestDecodesFileToTempDirectory("decodes_lapo.txt");
 
 
             var c = new CalculationSeries("instant_hcdi_q");
@@ -59,7 +59,7 @@ namespace Pisces.NunitTests.SeriesMath
             Assert.IsTrue(s.Count > 0,"No flow data computed");
         }
 
-        private static string CopyTestFileToTempDirectory(string fileName)
+        internal static string CopyTestDecodesFileToTempDirectory(string fileName)
         {
          
             var fn = Path.Combine(Path.Combine(Globals.TestDataPath, "decodes"), fileName);

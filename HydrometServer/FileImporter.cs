@@ -1,6 +1,7 @@
 ﻿using Reclamation.Core;
 using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.DataLogger;
+using Reclamation.TimeSeries.Decodes;
 using Reclamation.TimeSeries.Hydromet;
 using System;
 using System.Collections.Generic;
@@ -84,9 +85,15 @@ namespace HydrometServer
                         sl = lf.ToSeries(validPcodes);
                     }
                 }
+                else if (DecodesDumpFile.IsValidFile(tf))
+                {
+                    DecodesDumpFile df = new DecodesDumpFile(tf);
+                    importTag = "raw";
+                    sl = df.ToSeries();
+                }
                 else
                 {
-                    Console.WriteLine("skipped Unknown File Format: "+fn);
+                    Console.WriteLine("skipped Unknown File Format: " + fn);
                     return;
                 }
 
