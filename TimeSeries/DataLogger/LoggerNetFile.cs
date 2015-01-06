@@ -61,10 +61,12 @@ namespace Reclamation.TimeSeries.DataLogger
         }
         private void ParseHeader()
         {
-            
+            FileFormat = "Error";
             if (tf.Length > 1)
             {
                 infoHeader = tf[0].Replace("\"", "").Split(',');
+                if (infoHeader.Length < 2)
+                    return;
                 // HACK for WS_mph in some Utah Sites...
                 dataHeader = tf[1].Replace("\"", "").Replace("WS_mph", "WS").Split(',');
                 FileFormat = infoHeader[0];
@@ -74,6 +76,7 @@ namespace Reclamation.TimeSeries.DataLogger
 
         private bool IsValidFormat()
         {
+            
              bool validFomat = FileFormat.Contains("TOACI1") || FileFormat.Contains("TOA5");
             return validFomat;
         }

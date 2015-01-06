@@ -27,22 +27,25 @@ namespace Reclamation.Core
       /// <summary>
     /// Creates a BasicDBServer object with connection string details defined
     /// by a config file on Linux, or using AD on Windows.
-    /// PostgresServer and PostgresUser  are defined in the config file
+    /// PostgresServer and PostgresUser  may be defined in the config file
       /// </summary>
       /// <param name="databaseName"></param>
       /// <returns></returns>
-    public static BasicDBServer GetPostgresServer(string databaseName) //, string searchPath="")
+    public static BasicDBServer GetPostgresServer(string databaseName, string serverName="") 
     {
+        string server = serverName;
+        if(server == "") // use config file.
+          server = ConfigurationManager.AppSettings["PostgresServer"];
+
         if (LinuxUtility.IsLinux())
         {
-            string server = ConfigurationManager.AppSettings["PostgresServer"];
             string user = ConfigurationManager.AppSettings["PostgresUser"];
             string cs = "Server=" + server + ";Database=" + databaseName + ";User id=" + user + ";";
             return new PostgreSQL(cs);
         }
         else
         {
-            string cs = PostgreSQL.CreateADConnectionString(ConfigurationManager.AppSettings["PostgresServer"], databaseName);
+            string cs = PostgreSQL.CreateADConnectionString(server, databaseName);
             return new PostgreSQL(cs);
         }
     }

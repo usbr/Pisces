@@ -124,8 +124,14 @@ namespace Reclamation.TimeSeries {
                 //return (this.Rows.Count + 1);
             }
 
+            public SeriesCatalogRow GetParent(SeriesCatalogRow row)
+            {
+                var items = this.Select("id = " + row.ParentID);
+                if (items.Length == 1)
+                    return items[0] as SeriesCatalogRow;
 
-           
+                return null;
+            }
         }
 
         public partial class ScenarioRow

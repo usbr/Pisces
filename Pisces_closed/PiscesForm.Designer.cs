@@ -130,6 +130,7 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.addHDBConfigFile = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -189,7 +190,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripSeparator4,
             this.menuProperties});
             this.contextMenuStripTree.Name = "contextMenuStripTree";
-            this.contextMenuStripTree.Size = new System.Drawing.Size(165, 236);
+            this.contextMenuStripTree.Size = new System.Drawing.Size(165, 214);
             // 
             // toolStripMenuItem2
             // 
@@ -595,6 +596,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemAddModsim,
             this.toolStripMenuItemAddRdfSingleRun,
             this.toolStripMenuItemAddRdfMultipleRun,
+            this.addHDBConfigFile,
             this.AddHDBModel,
             this.addHDB,
             this.toolStripMenuItem9,
@@ -913,6 +915,14 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // addHDBConfigFile
+            // 
+            this.addHDBConfigFile.Image = ((System.Drawing.Image)(resources.GetObject("addHDBConfigFile.Image")));
+            this.addHDBConfigFile.Name = "addHDBConfigFile";
+            this.addHDBConfigFile.Size = new System.Drawing.Size(417, 24);
+            this.addHDBConfigFile.Text = "Add HDB Config File ...";
+            this.addHDBConfigFile.Click += new System.EventHandler(this.addHDBConfigFile_Click);
+            // 
             // PiscesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1038,6 +1048,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem toolStripAddOWRD;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddFolder;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem addHDBConfigFile;
         //private System.Windows.Forms.ToolStripMenuItem menuUpdate;
 
     }
