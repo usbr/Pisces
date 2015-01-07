@@ -85,9 +85,9 @@ namespace HydrometServer
                         sl = lf.ToSeries(validPcodes);
                     }
                 }
-                else if (DecodesDumpFile.IsValidFile(tf))
+                else if (DecodesRawFile.IsValidFile(tf))
                 {
-                    DecodesDumpFile df = new DecodesDumpFile(tf);
+                    DecodesRawFile df = new DecodesRawFile(tf);
                     importTag = "raw";
                     sl = df.ToSeries();
                 }

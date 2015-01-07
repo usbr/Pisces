@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="GoesMessageDataSet" targetNamespace="http://tempuri.org/GoesMessageDataSet.xsd" xmlns:mstns="http://tempuri.org/GoesMessageDataSet.xsd" xmlns="http://tempuri.org/GoesMessageDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="GoesMessageDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="GoesMessageDataSet" msprop:Generator_UserDSName="GoesMessageDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Message" msprop:Generator_TableClassName="MessageDataTable" msprop:Generator_TableVarName="tableMessage" msprop:Generator_TablePropName="Message" msprop:Generator_RowDeletingName="MessageRowDeleting" msprop:Generator_RowChangingName="MessageRowChanging" msprop:Generator_RowEvHandlerName="MessageRowChangeEventHandler" msprop:Generator_RowDeletedName="MessageRowDeleted" msprop:Generator_UserTableName="Message" msprop:Generator_RowChangedName="MessageRowChanged" msprop:Generator_RowEvArgName="MessageRowChangeEvent" msprop:Generator_RowClassName="MessageRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nessid" msprop:Generator_ColumnVarNameInTable="columnnessid" msprop:Generator_ColumnPropNameInRow="nessid" msprop:Generator_ColumnPropNameInTable="nessidColumn" msprop:Generator_UserColumnName="nessid" type="xs:string" minOccurs="0" />
+              <xs:element name="GMT" msprop:Generator_ColumnVarNameInTable="columnGMT" msprop:Generator_ColumnPropNameInRow="GMT" msprop:Generator_ColumnPropNameInTable="GMTColumn" msprop:Generator_UserColumnName="GMT" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="MST" msprop:Generator_ColumnVarNameInTable="columnMST" msprop:Generator_ColumnPropNameInRow="MST" msprop:Generator_ColumnPropNameInTable="MSTColumn" msprop:Generator_UserColumnName="MST" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="failure" msprop:Generator_ColumnVarNameInTable="columnfailure" msprop:Generator_ColumnPropNameInRow="failure" msprop:Generator_ColumnPropNameInTable="failureColumn" msprop:Generator_UserColumnName="failure" type="xs:string" minOccurs="0" />
+              <xs:element name="power" msprop:Generator_ColumnVarNameInTable="columnpower" msprop:Generator_ColumnPropNameInRow="power" msprop:Generator_ColumnPropNameInTable="powerColumn" msprop:Generator_UserColumnName="power" type="xs:string" minOccurs="0" />
+              <xs:element name="freq" msprop:Generator_ColumnVarNameInTable="columnfreq" msprop:Generator_ColumnPropNameInRow="freq" msprop:Generator_ColumnPropNameInTable="freqColumn" msprop:Generator_UserColumnName="freq" type="xs:string" minOccurs="0" />
+              <xs:element name="mod" msprop:Generator_ColumnVarNameInTable="columnmod" msprop:Generator_ColumnPropNameInRow="mod" msprop:Generator_ColumnPropNameInTable="modColumn" msprop:Generator_UserColumnName="mod" type="xs:string" minOccurs="0" />
+              <xs:element name="dataquality" msprop:Generator_ColumnVarNameInTable="columndataquality" msprop:Generator_ColumnPropNameInRow="dataquality" msprop:Generator_ColumnPropNameInTable="dataqualityColumn" msprop:Generator_UserColumnName="dataquality" type="xs:string" minOccurs="0" />
+              <xs:element name="channel" msprop:Generator_ColumnVarNameInTable="columnchannel" msprop:Generator_ColumnPropNameInRow="channel" msprop:Generator_ColumnPropNameInTable="channelColumn" msprop:Generator_UserColumnName="channel" type="xs:string" minOccurs="0" />
+              <xs:element name="satellite" msprop:Generator_ColumnVarNameInTable="columnsatellite" msprop:Generator_ColumnPropNameInRow="satellite" msprop:Generator_ColumnPropNameInTable="satelliteColumn" msprop:Generator_UserColumnName="satellite" type="xs:string" minOccurs="0" />
+              <xs:element name="drgs" msprop:Generator_ColumnVarNameInTable="columndrgs" msprop:Generator_ColumnPropNameInRow="drgs" msprop:Generator_ColumnPropNameInTable="drgsColumn" msprop:Generator_UserColumnName="drgs" type="xs:string" minOccurs="0" />
+              <xs:element name="length" msprop:Generator_ColumnVarNameInTable="columnlength" msprop:Generator_ColumnPropNameInRow="length" msprop:Generator_ColumnPropNameInTable="lengthColumn" msprop:Generator_UserColumnName="length" type="xs:int" minOccurs="0" />
+              <xs:element name="message" msprop:Generator_ColumnVarNameInTable="columnmessage" msprop:Generator_ColumnPropNameInRow="message" msprop:Generator_ColumnPropNameInTable="messageColumn" msprop:Generator_UserColumnName="message" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

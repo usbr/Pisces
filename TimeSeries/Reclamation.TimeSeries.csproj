@@ -304,7 +304,16 @@
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="DataTableSeries.cs" />
-    <Compile Include="Decodes\DecodesDumpFile.cs" />
+    <Compile Include="Decodes\DecodesRawFile.cs" />
+    <Compile Include="Decodes\GoesMessageDataSet.cs">
+      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Decodes\GoesMessageDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Estimation\AllPossibleCombination.cs" />
     <Compile Include="Estimation\MultipleLinearRegression.cs" />
     <Compile Include="Estimation\MultipleLinearRegressionResults.cs" />
@@ -574,6 +583,17 @@
     </None>
     <None Include="Decodes\DecodesDataSet.xss">
       <DependentUpon>DecodesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Decodes\GoesMessageDataSet.xsc">
+      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Decodes\GoesMessageDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GoesMessageDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Decodes\GoesMessageDataSet.xss">
+      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
     </None>
     <None Include="Hydromet\mcf.xsc">
       <DependentUpon>mcf.xsd</DependentUpon>

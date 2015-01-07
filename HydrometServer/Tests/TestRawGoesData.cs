@@ -21,18 +21,19 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void ProcessRawFile()
         {
-            
+            Performance perf = new Performance();
             var fn1 = FileUtility.GetTempFileNameInDirectory(@"c:\temp", ".pdb", "rawgoes");
             Console.WriteLine(fn1);
             var svr = new SQLiteServer(fn1);
             var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
             Logger.EnableLogger();
             FileUtility.CleanTempPath();
-            var tmpDir =  TestRatingTableDependency.CopyTestDecodesFileToTempDirectory("raw_20150106-1132.txt");
+            var tmpDir = TestRatingTableDependency.CopyTestDecodesFileToTempDirectory("bigi.txt");
 
             FileImporter import = new FileImporter(db);
-            import.Import(tmpDir, RouteOptions.None);
-
+            import.Import(tmpDir, RouteOptions.Outgoing);
+            //Assert.IsTrue(db.GetSeriesCatalog().Count>1);
+            perf.Report();// 5.4 seconds 
         }
 
         
