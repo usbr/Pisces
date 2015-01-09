@@ -145,14 +145,13 @@ namespace Reclamation.Core
 
 
 
-        public static string[] SheetNames(string fileName)
+        public string[] SheetNames(string fileName)
         {
             var rval = new List<string>();
 
-            NpoiExcel xls = new NpoiExcel(fileName);
-            for (int i = 0; i < xls.npoi_workbook.NumberOfSheets; i++ )
+            for (int i = 0; i < this.npoi_workbook.NumberOfSheets; i++ )
             {
-                rval.Add(xls.npoi_workbook.GetSheetName(i));
+                rval.Add(npoi_workbook.GetSheetName(i));
             }
             return rval.ToArray();
         }
@@ -182,36 +181,40 @@ namespace Reclamation.Core
                for (int col = 0; col < table.Columns.Count; col++)
                {
                   var cell = row.CreateCell(col);
-                   var obj = table.Rows[rowIndex][col];
-                  switch (dataTypes[col])
-                  {
-                        
-                      case "System.Int32":
-                          SetInt(cell, obj);
-                          break;
-                      case "System.Integer":
-                          SetInt(cell, obj);
-                          break;
-                      case "System.Double":
-                          SetDouble(cell, obj);
-                          break;
-                      case "System.String":
-                          SetString(cell, obj);
-                          break;
-                      case "System.DateTime":
-                          SetDateTime(cell, obj);
-                          break;
-                      case "System.Boolean":
-                          SetBool(cell, obj);
-                          break;
-                      default:
-                          SetString(cell, obj);
-                          break;
-                  }
+                  var obj = table.Rows[rowIndex][col];
+                  var strDataType = dataTypes[col];
+                  SetCellValue(cell, obj, strDataType);
                }
 
 			}
-            //dstRange.CopyFromDataTable(table, SpreadsheetGear.Data.SetDataFlags.None);
+        }
+
+        private void SetCellValue(ICell cell, object obj, string strDataType)
+        {
+            switch (strDataType)
+            {
+                case "System.Int32":
+                    SetInt(cell, obj);
+                    break;
+                case "System.Integer":
+                    SetInt(cell, obj);
+                    break;
+                case "System.Double":
+                    SetDouble(cell, obj);
+                    break;
+                case "System.String":
+                    SetString(cell, obj);
+                    break;
+                case "System.DateTime":
+                    SetDateTime(cell, obj);
+                    break;
+                case "System.Boolean":
+                    SetBool(cell, obj);
+                    break;
+                default:
+                    SetString(cell, obj);
+                    break;
+            }
         }
 
         private void SetBool(ICell cell, object obj)
@@ -326,11 +329,18 @@ namespace Reclamation.Core
         public void SetCellDouble(int sheetIndex, string cellRef, double val)
         {
             GetCell(sheetIndex, cellRef).SetCellValue(val);
-
         }
+
+        //public void SetCellDate(int sheetIndex, int rowIndex, int colIndex, object t)
+        //{
+        //    var cell = GetCell(sheetIndex, rowIndex, colIndex);
+        //    SetDateTime(cell, t);
+        //}
+
         private ICell GetCell(int sheetIndex, string cellRef )
         {
             var sheet = npoi_workbook.GetSheetAt(sheetIndex);
+            
             CellReference cr = new CellReference(cellRef);
             var row = sheet.GetRow(cr.Row);
             if (row == null)
@@ -338,6 +348,14 @@ namespace Reclamation.Core
             var cell = row.GetCell(cr.Col);
             if (cell == null)
                 cell = row.CreateCell(cr.Col);
+            return cell;
+        }
+
+        private ICell GetCell(int sheetIndex, int rowIndex , int colIndex)
+        {
+            var sheet = npoi_workbook.GetSheetAt(sheetIndex);
+            var row = CellUtil.GetRow(rowIndex, sheet);
+            var cell = CellUtil.GetCell(row, colIndex);
             return cell;
         }
         
@@ -367,6 +385,110 @@ namespace Reclamation.Core
             // TO DO.  date time.
             //if(cell.CellType == NPOI.SS.UserModel.CellType.
             return typeof(string);
+        }
+
+        public void InsertDataTable(int sheetIndex, string cellRef,DataTable tbl)
+        {
+            CellReference cr = new CellReference(cellRef);
+            // insert column names
+            for (int c = 0; c < tbl.Columns.Count; c++)
+            {
+                var cell = GetCell(sheetIndex, cr.Row , cr.Col + c);
+                SetCellValue(cell, tbl.Columns[c].ColumnName,"System.String");
+            }
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                for (int c = 0; c < tbl.Columns.Count; c++)
+                {
+                    var cell = GetCell(sheetIndex, cr.Row + i+1, cr.Col + c);
+                    SetCellValue(cell, tbl.Rows[i][c], tbl.Columns[c].DataType.ToString());
+                }
+            }
+        }
+        /*
+General
+0
+0.00
+#,##0
+#,##0.00
+"$"#,##0_);("$"#,##0)
+"$"#,##0_);[Red]("$"#,##0)
+"$"#,##0.00_);("$"#,##0.00)
+"$"#,##0.00_);[Red]("$"#,##0.00)
+0%
+0.00%
+0.00E+00
+# ?/?
+# ??/??
+m/d/yy
+d-mmm-yy
+d-mmm
+mmm-yy
+h:mm AM/PM
+h:mm:ss AM/PM
+h:mm
+h:mm:ss
+m/d/yy h:mm
+reserved-0x17
+reserved-0x18
+reserved-0x19
+reserved-0x1A
+reserved-0x1B
+reserved-0x1C
+reserved-0x1D
+reserved-0x1E
+reserved-0x1F
+reserved-0x20
+reserved-0x21
+reserved-0x22
+reserved-0x23
+reserved-0x24
+#,##0_);(#,##0)
+#,##0_);[Red](#,##0)
+#,##0.00_);(#,##0.00)
+#,##0.00_);[Red](#,##0.00)
+_("$"* #,##0_);_("$"* (#,##0);_("$"* "-"_);_(@_)
+_(* #,##0_);_(* (#,##0);_(* "-"_);_(@_)
+_("$"* #,##0.00_);_("$"* (#,##0.00);_("$"* "-"??_);_(@_
+_(* #,##0.00_);_(* (#,##0.00);_(* "-"??_);_(@_)
+mm:ss
+[h]:mm:ss
+mm:ss.0
+##0.0E+0
+@
+         
+         */
+
+        public void FormatRange(int sheetIndex, int r1, int c1, int r2, int c2, string fmt)
+        {
+            CellReference a1 = new CellReference(r1, c1);
+            CellReference a2 = new CellReference(r2, c2);
+            AreaReference a = new AreaReference(a1, a2);
+            FormatRef(sheetIndex, a,fmt);
+        }
+        public void FormatRange(int sheetIndex, string rangeRef, string fmt)
+        {
+            //for (int i = 0; i < HSSFDataFormat.NumberOfBuiltinBuiltinFormats; i++)
+           // {
+            //    Console.WriteLine(HSSFDataFormat.GetBuiltinFormat((short)i));
+           // }
+            AreaReference ar = new AreaReference(rangeRef);
+            FormatRef(sheetIndex, ar,fmt);
+        }
+
+        private void FormatRef(int sheetIndex,  AreaReference ar, string fmt)
+        {
+            var cellRef = ar.GetAllReferencedCells();
+            var cellStyle = npoi_workbook.CreateCellStyle();
+            cellStyle.DataFormat = HSSFDataFormat.GetBuiltinFormat(fmt);
+
+            foreach (var item in cellRef)
+            {
+                var cell = GetCell(sheetIndex, item.Row, item.Col);
+                cell.CellStyle = cellStyle;
+            }
+
+            Console.WriteLine(cellRef);
         }
     }
 }
