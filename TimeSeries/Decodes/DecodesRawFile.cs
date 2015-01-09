@@ -57,7 +57,10 @@ namespace Reclamation.TimeSeries.Decodes
                     TimeSpan ts = new TimeSpan(msg.MST.Hour,msg.MST.Minute,msg.MST.Second);
                     var timeerr = ts.TotalSeconds - expectedSeconds;
 
-                   
+                    int parity = 0;
+                    if( msg.failure == "?")
+                        parity =1;
+                    Add(cbtt, "PARITY",msg.MST, parity);
                    Add(cbtt, "POWER", msg.MST, Convert.ToDouble(msg.power));
                    Add(cbtt, "MSGLEN", msg.MST, msg.length);
 
@@ -72,7 +75,7 @@ namespace Reclamation.TimeSeries.Decodes
 
             }
             SeriesList rval = new SeriesList();
-
+            rval.AddRange(seriesDict.Values);
             return rval;
         }
 
@@ -103,6 +106,7 @@ namespace Reclamation.TimeSeries.Decodes
             else
             {
                 s = new Series();
+                this.seriesDict.Add(name, s);
             }
 
             s.SiteName = cbtt;
