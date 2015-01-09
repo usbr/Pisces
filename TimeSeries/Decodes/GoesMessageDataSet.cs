@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reclamation.Core;
+using System;
 namespace Reclamation.TimeSeries.Decodes {
     
     
@@ -75,6 +76,7 @@ namespace Reclamation.TimeSeries.Decodes {
                 rval.length = Convert.ToInt32(data.Substring(32, 5));
                 rval.message = data.Substring(37);
 
+                Logger.WriteLine("gmt.Kind"+t.Kind);
                 rval.MST = ConvertToMountainTime(t);
 
             }
@@ -87,9 +89,21 @@ namespace Reclamation.TimeSeries.Decodes {
         }
         internal static DateTime ConvertToMountainTime(DateTime utc)
         {
-            DateTime mountain = TimeZoneInfo.ConvertTimeBySystemTimeZoneId
-                (utc, "Mountain Standard Time");
-
+            DateTime mountain;
+            if (LinuxUtility.IsLinux())
+            {
+                TimeZoneInfo tzi = TimeZoneInfo.FindSystemTimeZoneById("US/Mountain");
+                Console.WriteLine("try ConvertTimeFromUtc");
+                mountain = TimeZoneInfo.ConvertTimeFromUtc(utc, tzi);
+                //Console.WriteLine("try other way..");
+                //mountain = TimeZoneInfo.ConvertTimeBySystemTimeZoneId
+                // (utc, "US/Mountain");
+            }
+            else
+            {
+                mountain = TimeZoneInfo.ConvertTimeBySystemTimeZoneId
+                    (utc, "Mountain Standard Time");
+            }
             //Console.WriteLine("{0} (UTC) = {1} Mountain time", utc, mountain);
             return mountain;
         }
