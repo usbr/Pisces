@@ -99,6 +99,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingTableDownload.cs" />
+    <Compile Include="Tests\TestRawGoesData.cs" />
     <Compile Include="Tests\TestMidnightCalculation.cs" />
     <Compile Include="Tests\TestRatingTableDependency.cs" />
   </ItemGroup>
