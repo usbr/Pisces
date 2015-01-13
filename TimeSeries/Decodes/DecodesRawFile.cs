@@ -79,6 +79,8 @@ namespace Reclamation.TimeSeries.Decodes
             return rval;
         }
 
+        public static string[] QualityParameters = new string[] { "PARITY","POWER","MSGLEN","LENERR","TIMEERR"};
+
         private static string SiteLookup(string keyColumnName, string key, string columnName)
         {
             var site = Hydromet.HydrometInfoUtility.Site;

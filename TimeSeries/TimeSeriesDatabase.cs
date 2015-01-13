@@ -508,6 +508,8 @@ namespace Reclamation.TimeSeries
             var sc = GetSeriesCatalog();
             var instant = sc.AddFolder("instant", siteFolder.ID);
             var daily = sc.AddFolder("daily", siteFolder.ID);
+            var quality = sc.AddFolder("quality", siteFolder.ID);
+
             var series_properties = GetSeriesProperties();
             
             foreach (var item in template)
@@ -520,7 +522,10 @@ namespace Reclamation.TimeSeries
                 if( item.TimeInterval == "Irregular")
                     parentID = instant;
 
-
+                if (Decodes.DecodesRawFile.QualityParameters.Contains(item.Name.ToUpper()))
+                {
+                    parentID = quality;
+                }
                 sc.AddSeriesCatalogRow(id,parentID, false, id, item.iconname, item.Name, item.siteid, item.Units, 
                         item.TimeInterval, item.Parameter, item.TableName, item.Provider, item.ConnectionString, item.Expression, item.Notes, item.enabled);
 

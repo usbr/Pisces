@@ -160,15 +160,19 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             }
             if (this.checkBoxWaterTemp.Checked)
             {
-
                 AddInstantRow(siteID, "degF", "wf");
-
                 AddDailyRow(siteID, "cfs", "wi", "DailyMin(instant_%site%_wf,10)");
                 AddDailyRow(siteID, "cfs", "wk", "DailyMax(instant_%site%_wf,10)");
                 AddDailyRow(siteID, "cfs", "wz", "DailyAverage(instant_%site%_wf,10)");
             }
 
-
+            if( this.checkBoxQuality.Checked)
+            {
+                foreach (var item in Reclamation.TimeSeries.Decodes.DecodesRawFile.QualityParameters)
+                {
+                    AddInstantRow(siteID, "", item.ToLower());  
+                }
+            }
             SetupDataGridView();
         }
 
