@@ -71,12 +71,20 @@ namespace Reclamation.TimeSeries
             m_db.ReadSettingsFromDatabase(TimeWindow);
         }
 
-        public void ConnectToPostgres(string server, string database)
+        public void ConnectToServer(string server, string database,  DatabaseType t)
         {
-            // PostgreSQL
-            var cs = PostgreSQL.CreateADConnectionString(server, database);
-            var svr = new PostgreSQL(cs);
-            
+            string cs = ""; // connection string
+            BasicDBServer svr = null;
+            if (t == DatabaseType.PostgreSql)
+            {
+                cs = PostgreSQL.CreateADConnectionString(server, database);
+                svr = new PostgreSQL(cs);
+            }
+            if (t == DatabaseType.MySQL)
+            {
+              svr=  MySqlServer.GetMySqlServer(server, database);
+            }
+
             m_db = new TimeSeriesDatabase(svr);
             Defaults(m_db);
             m_db.ReadSettingsFromDatabase(TimeWindow);

@@ -245,11 +245,11 @@ namespace Reclamation.Core
          return b.Database; 
      }
 
-     public static BasicDBServer GetMySqlServer(string databaseName)
+     public static BasicDBServer GetMySqlServer(string server, string databaseName, string user = "")
      {
          MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
-         b.UserID = ConfigurationManager.AppSettings["MySqlUser"];
-         b.Server = ConfigurationManager.AppSettings["MySqlServer"];
+         b.UserID = user;
+         b.Server = server;
          b.Database = databaseName;
 
          if (LinuxUtility.IsLinux())

@@ -671,7 +671,7 @@ namespace Reclamation.TimeSeries.Forms
 
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    explorer1.ConnectToPostgres(dlg.ServerName, dlg.DatabaseName);
+                    explorer1.ConnectToServer(dlg.ServerName, dlg.DatabaseName,dlg.DatabaseType);
                     DatabaseChanged();
                 }
             }

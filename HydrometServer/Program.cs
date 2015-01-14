@@ -274,7 +274,9 @@ namespace HydrometServer
             else if (ConfigurationManager.AppSettings["MySqlDatabase"] != null)
             {// use config file (postgresql is default)
                 var dbname = ConfigurationManager.AppSettings["MySqlDatabase"];
-                var svr = MySqlServer.GetMySqlServer(dbname);
+                var server = ConfigurationManager.AppSettings["MySqlServer"];
+                var user = ConfigurationManager.AppSettings["MySqlUser"];
+                var svr = MySqlServer.GetMySqlServer(server, dbname, user);
                 Console.WriteLine(svr.ConnectionString);
                 var db = new TimeSeriesDatabase(svr, LookupOption.TableName);
                 db.Parser.RecursiveCalculations = false;
