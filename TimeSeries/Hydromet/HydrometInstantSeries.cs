@@ -331,7 +331,11 @@ END DATA
                 Point pt = s[i];
 
                 var flagCode = DayFiles.FlagCode(pt.Flag);
-
+                if (pt.IsMissing)
+                {
+                    flagCode = DayFiles.FlagCode("m");
+                    pt.Value = missing;
+                }
 
                 string str = pt.DateTime.ToString("yyyyMMMdd HHmm").ToUpper()
                               + " " + cbtt.ToUpper().PadRight(8)
