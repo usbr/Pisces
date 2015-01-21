@@ -16,7 +16,7 @@ namespace Reclamation.TimeSeries
         {
 
             var rval = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, fileName);
-
+            rval.RemoveMissing();
             return rval;
 
         }

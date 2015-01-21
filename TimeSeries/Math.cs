@@ -902,7 +902,8 @@ namespace Reclamation.TimeSeries
             Series rval = s.Copy();
             Logger.WriteLine("FillMissingWithZero("+rval.Name+")");
             Logger.WriteLine("before fill s.Count=" + rval.Count);
-            if (rval.TimeInterval != TimeInterval.Daily && rval.TimeInterval != TimeInterval.Monthly)
+            if (rval.TimeInterval != TimeInterval.Daily && rval.TimeInterval != TimeInterval.Monthly
+                && rval.TimeInterval != TimeInterval.Hourly)
             {
                 Logger.WriteLine(rval.TimeInterval.ToString() + " not supported in FillMissingWithZero");
                 return rval;

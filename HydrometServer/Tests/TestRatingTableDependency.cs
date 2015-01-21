@@ -59,6 +59,34 @@ namespace Pisces.NunitTests.SeriesMath
             Assert.IsTrue(s.Count > 0,"No flow data computed");
         }
 
+        [Test]
+        public void ImportDecodesWithMissingGageHeight()
+        {
+
+            var fn1 = FileUtility.GetTempFileNameInDirectory(@"c:\temp", ".pdb", "mabo");
+            Console.WriteLine(fn1);
+            var svr = new SQLiteServer(fn1);
+            var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
+            Logger.EnableLogger();
+            FileUtility.CleanTempPath();
+            var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_mabo_missing_gh.txt");
+
+            var c = new CalculationSeries("instant_mabo_q");
+            c.Expression = "FileRatingTable(mabo_gh,\"mabo.csv\")";
+            db.AddSeries(c);
+
+            FileImporter import = new FileImporter(db);
+            import.Import(tmpDir, RouteOptions.Outgoing, computeDependencies: true);
+            db.Inventory();
+
+            var s = db.GetSeriesFromTableName("instant_mabo_q");
+
+            s.Read();
+
+            Assert.IsTrue(s.Count > 0, "No flow data computed");
+        }
+
+
         internal static string CopyTestDecodesFileToTempDirectory(string fileName)
         {
          

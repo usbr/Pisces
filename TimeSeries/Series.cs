@@ -1806,6 +1806,9 @@ namespace Reclamation.TimeSeries
              t = t.AddMonths(1);
              return new DateTime(t.Year, t.Month, 1);//DateTime.DaysInMonth(t.Year, t.Month));
             }
+            if (TimeInterval == TimeSeries.TimeInterval.Hourly)
+               return  t.AddHours(1);
+
             if (TimeInterval == TimeSeries.TimeInterval.Irregular)
                 return t.AddMinutes(15);
 
