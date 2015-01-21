@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>USGS ** USGS 10059500 BEAR LAKE OUTLET CANAL NEAR PARIS, ID</title>
+<link rel="stylesheet" href="/nwisweb/icons/nwisweb.css" type="text/css" />
+
+
+
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+<!--
+function helph(foo)
+ {
+ if (document.images)
+  {
+  helpon=new Image(12, 12);
+  helpon.src="/nwisweb/icons/buttons/helph.gif";
+  document[foo].src= helpon.src;
+  }
+ }
+function helpn(foo)
+ {
+ if (document.images)
+  {
+  helpoff=new Image(12, 12);
+  helpoff.src="/nwisweb/icons/buttons/help.gif";
+  document[foo].src= helpoff.src;
+  }
+ }
+
+function popup(link)
+ {
+  if (! window.focus)return true;
+  var href;
+  if (typeof(link) == 'string')
+     href=link;
+  else
+     href=link.href;
+  window.open(href, ',type=fullWindow,fullscreen,scrollbars=yes');
+  return false;
+ }
+
+// -->
+//]]>
+</script>
+
+
+</head>
+<body bgcolor="#FFEFD4">
+<!--<a href="#maintext">Skip Navigation Links</a>-->
+<!-- SERVER LEVEL BANNER -->
+
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+<!--
+
+function server_level_navigation_manager()
+ {
+ var local_cgi_url_base = "/nwis";
+ var national_host_url  = "";
+ //alert(national_host_url);
+ var office_index  = document.select_office.office.selectedIndex;
+ var office  = document.select_office.office.options[ office_index ].value;
+ var my_office = "usa";
+ if(office == my_office) {
+   var url = local_cgi_url_base + '/'; }
+ else {
+   var url = national_host_url + '/' + office + "/nwis/"; }
+ var program_index = document.select_office.program.selectedIndex;
+ var program = document.select_office.program.options[ program_index ].value;
+
+ var url   = url + program;
+
+ window.location = (url);
+ return (false);
+ }
+//-->
+//]]>
+</script>
+
+<form name="select_office" action="/nwis" id="select_office">
+<table border="0" cellspacing="0" width="100%" cellpadding="3">
+ <tr bgcolor="#000080">
+  <td colspan="5">
+   <a href="http://www.usgs.gov"><img src="/nwisweb/icons/nwisweb_banner_l3.gif " width="80" height="21" border="0"
+   alt="USGS Science for a changing world"/></a>
+  </td>
+ </tr>
+ <tr><td colspan="5"></td></tr>
+ <tr bgcolor="#000080">
+  <td>
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-2"> &nbsp; <br />
+   <b>&nbsp; <a href="http://water.usgs.gov"><font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif">
+   <u>Water Resources</u></font></a></b></font>
+  </td>
+  <td><div>
+   <font color="#AAAAAA" face="Verdana,Arial,Helvetica,sans-serif" size="+1">National Water Information System: Web Interface</font>
+   <a href="#top_of_page"><img src="/nwisweb/icons/1pixel.gif" width="1" height="1" border="0" alt="skip navigation"></img></a></div>
+  </td>
+  <td  nowrap="nowrap" width="4%"><div>
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-2">
+    <label accesskey="c" for="program"><strong>Data Category:</strong></label><br />
+<select name="program" id="program" tabindex="1">
+<option value="nwis">Home</option>
+<option value="rt">Real-time</option>
+<option value="si" selected="selected">Site Information</option>
+<option value="sw">Surface Water</option>
+<option value="gw">Ground Water</option>
+<option value="qw">Water Quality</option>
+</select></font></div>
+  </td>
+  <td  nowrap="nowrap" width="4%"><div>
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-2">
+   <label accesskey="A" for="office"><strong>Geographic Area:</strong></label><br />
+<select onchange="return server_level_navigation_manager();" name='office' id="office" tabindex="1">
+ <option value="usa">United States
+</option><option value="al">Alabama</option>
+<option value="ak">Alaska</option>
+<option value="az">Arizona</option>
+<option value="ar">Arkansas</option>
+<option value="ca">California</option>
+<option value="co">Colorado</option>
+<option value="ct">Connecticut</option>
+<option value="de">Delaware</option>
+<option value="dc">Dist. of Columbia</option>
+<option value="fl">Florida</option>
+<option value="ga">Georgia</option>
+<option value="hi">Hawaii</option>
+<option value="id">Idaho</option>
+<option value="il">Illinois</option>
+<option value="in">Indiana</option>
+<option value="ia">Iowa</option>
+<option value="ks">Kansas</option>
+<option value="ky">Kentucky</option>
+<option value="la">Louisiana</option>
+<option value="me">Maine</option>
+<option value="md">Maryland</option>
+<option value="ma">Massachusetts</option>
+<option value="mi">Michigan</option>
+<option value="mn">Minnesota</option>
+<option value="ms">Mississippi</option>
+<option value="mo">Missouri</option>
+<option value="mt">Montana</option>
+<option value="ne">Nebraska</option>
+<option value="nv">Nevada</option>
+<option value="nh">New Hampshire</option>
+<option value="nj">New Jersey</option>
+<option value="nm">New Mexico</option>
+<option value="ny">New York</option>
+<option value="nc">North Carolina</option>
+<option value="nd">North Dakota</option>
+<option value="oh">Ohio</option>
+<option value="ok">Oklahoma</option>
+<option value="or">Oregon</option>
+<option value="pa">Pennsylvania</option>
+<option value="pr">Puerto Rico</option>
+<option value="ri">Rhode Island</option>
+<option value="sc">South Carolina</option>
+<option value="sd">South Dakota</option>
+<option value="tn">Tennessee</option>
+<option value="tx">Texas</option>
+<option value="ut">Utah</option>
+<option value="vt">Vermont</option>
+<option value="vi">Virgin Islands</option>
+<option value="va">Virginia</option>
+<option value="wa">Washington</option>
+<option value="wv">West Virginia</option>
+<option value="wi">Wisconsin</option>
+<option value="wy">Wyoming</option>
+</select></font></div>
+  </td>
+  <td align="right" valign="bottom" width="1%">
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-2">
+   <input accesskey="g" type="submit" alt="submit" value="GO" onclick="return server_level_navigation_manager()"></input></font>
+  </td>
+ </tr>
+</table>
+</form>
+<a name="top_of_page"></a>
+
+
+<!-- SYSTEM MESSAGE -->
+
+
+<!-- NWISWeb System Message -->
+
+
+<!-- Old RT_WWW Redirect -->
+
+<a name="maintext"></a>
+<!-- PAGE_TITLE -->
+
+
+<!-- STATEWIDE TEXT -->
+
+
+<br /><h2>USGS 10059500 BEAR LAKE OUTLET CANAL NEAR PARIS, ID</h2><center><!-- STATION LEVEL NAVIGATION -->
+
+<script language="JavaScript" type="text/javascript">
+<!--
+function station_navigation_manager_1()
+ {
+ var national_host_url  = "http://nwis.waterdata.usgs.gov";
+ var local_cgi_url_base = "";
+ var program_index      = document.station_navigation_1.program.selectedIndex;
+ var program    = document.station_navigation_1.program.options[ program_index ].value;
+ var site_no    = document.station_navigation_1.site_no.value;
+ var agency_cd  = document.station_navigation_1.agency_cd.value;
+ var ref_module = '';
+ if(program.match(/dv|dvstat|monthly|annual/)){
+         ref_module = "";
+	 if(ref_module == ""){
+	     ref_module = "&amp;referred_module=sw"
+	 }
+     }
+ // Hardcoding stay_local variable here due to javascript incompatiblities
+ var stay_local = 0;
+ if (program_index <= 4 || program.match(/dv|dvstat|monthly|annual/)){
+   stay_local = 1;
+   }
+ var url = '';
+ if (program == "epa_huc_surf"){
+   url = "http://cfpub.epa.gov/surf/huc.cfm?huc_code=16010201";
+   }
+ else {
+   if (stay_local == 1){
+     url = "/nwis/";
+     }
+   else {
+     if (national_host_url){
+       url = "http://nwis.waterdata.usgs.gov/id/nwis/";
+       }
+     else {
+       url = "/nwis/";
+       }
+     }
+     var dv_pattern = /dvstat|monthly|annual/;
+     if(program.match(dv_pattern)){
+
+       url =  url + program + "/?search_site_no=" + site_no + "&amp;agency_cd=" + agency_cd  + ref_module + "&amp;format=sites_selection_links";
+       }
+     else {
+       url =  url + program + "/?site_no=" + site_no + "&agency_cd=" + agency_cd + ref_module;
+       }
+   }
+ window.location = (url);
+ return (false);
+ }
+//-->
+</script>
+
+<form name="station_navigation_1" action="/nwis">
+<table border="0" width="576" bgcolor="#000080" cellspacing="0" cellpadding="5">
+ <tr>
+  <td align="center" nowrap="nowrap">
+   <label accesskey="A" for="select_data_1"><font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-1">
+   <strong> &nbsp; Available data for this site &nbsp; </strong>
+   </font></label>
+  </td>
+  <td width="5%" align="center" >
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-1">
+   <select onchange="return station_navigation_manager_1();" name='program' id="select_data_1">
+<option value="nwisman" selected="selected">Site home page</option>
+<option value="nwismap" >Site map</option>
+<option value="dv" >Time-series: &nbsp; Daily data</option>
+<option value="dvstat" >Time-series: &nbsp; Daily statistics</option>
+<option value="monthly" >Time-series: &nbsp; Monthly statistics</option>
+<option value="annual" >Time-series: &nbsp; Annual statistics</option>
+<option value="qwdata" >Water-Quality: &nbsp; Field/Lab samples</option>
+<option value="epa_huc_surf" >Offsite: &nbsp; EPA Surf your Watershed</option>
+</select>
+   </font>
+  </td>
+  <td width="5%" align="center">
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-1" />
+   <input type="hidden" alt="Site Number" name="site_no"   value="10059500" />
+   <input type="hidden" alt="Agency Code" name="agency_cd" value="USGS" />
+   <input type="submit" alt="Submit" value="GO" onclick="return station_navigation_manager_1()" />
+  </td>
+ </tr>
+</table>
+</form>
+</center>
+<h3>&nbsp; Stream/River Site</h3>
+
+<!-- begin station information -->
+<table border="0" width="100%" >
+ <tr>
+  <td width="35"> &nbsp; </td>
+  <td>
+   <table border="0" width="90%" cellpadding="4">
+    <tr>
+     <td>  <dl>
+  <dt><strong>LOCATION</strong></dt>
+  <dd>Latitude  42°13'00", &nbsp; Longitude 111°20'35" &nbsp; NAD27 <br /></dd>
+  <dd>Bear Lake County, Idaho &nbsp; , Hydrologic Unit 16010201  </dd></dl>
+<dl> <dt><strong>DESCRIPTION</strong></dt><dd>Drainage area: 0.01 square miles</dd><dd>Datum of gage: 5,912.60 feet above sea level &nbsp; NGVD29.</dd></dl><dl><dt><strong>AVAILABLE DATA:</strong></dt><dd><table border="1">
+<tr>
+ <th>Data Type</th>
+ <th>Begin Date</th>
+ <th>End Date</th>
+ <th>Count</th>
+</tr>
+<tr><td><strong><a href="/nwis/dv?site_no=10059500">Daily Data</a>
+</strong></td><td></td><td></td><td></td></tr>
+<tr><td> &nbsp;&nbsp; Temperature, water, degrees Celsius</td><td>1975-12-09</td><td>1977-10-31</td><td align="right">601</td></tr>
+<tr><td> &nbsp;&nbsp; Discharge, cubic feet per second</td><td>1922-01-01</td><td>1991-09-30</td><td align="right">25109</td></tr>
+<tr><td> &nbsp;&nbsp; Specific conductance, water, unfiltered, microsiemens per centimeter at 25 degrees Celsius</td><td>1975-12-09</td><td>1977-10-13</td><td align="right">553</td></tr>
+<tr><td><strong><a href="/nwis/dvstat?search_site_no=10059500&amp;format=sites_selection_links">Daily Statistics</a>
+</strong></td><td></td><td></td><td></td></tr>
+<tr><td> &nbsp;&nbsp;&nbsp;&nbsp; Discharge, cubic feet per second</td><td>1922-01-02</td><td>1991-09-30</td><td align="right">25108</td></tr>
+<tr><td><strong><a href="/nwis/monthly?search_site_no=10059500&amp;format=sites_selection_links">Monthly Statistics</a>
+</strong></td><td></td><td></td><td></td></tr>
+<tr><td> &nbsp;&nbsp;&nbsp;&nbsp; Discharge, cubic feet per second</td><td>1922-01</td><td>1991-09</td><td></td></tr>
+<tr><td><strong><a href="/nwis/annual?search_site_no=10059500&amp;format=sites_selection_links">Annual Statistics</a>
+</strong></td><td></td><td></td><td></td></tr>
+<tr><td> &nbsp;&nbsp;&nbsp;&nbsp; Discharge, cubic feet per second</td><td>1922</td><td>1991</td><td></td></tr>
+<tr><td><strong><a href="/nwis/qwdata/?site_no=10059500">Field/Lab water-quality samples</a>
+</strong></td><td>1947-08-16</td><td>1977-10-14</td><td align="right">109</td></tr>
+</table>
+</dd></dl><dl><dt><strong>OPERATION:</strong></dt>
+ <dd>Record for this site is maintained by the USGS Utah Water Science Center</dd>
+ <dd><strong>Email questions about this site to
+  <a href="/nwis/feedback/?to=Utah NWISWeb Data Inquiries&site_state_abbrev=id&site_district_abbrev=ut">Utah NWISWeb Data Inquiries</a></dd></dl>
+ </strong>
+</td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</table>
+
+<!--</p>-->
+<!-- end station information -->
+<hr />
+      <table border="0" width="95%" cellpadding="0" cellspacing="0">
+ <tr>
+  <td width="25%" nowrap="nowrap" colspan="2"><a href="/nwis/feedback/?to=NWISWeb Data Inquiries">
+  <b>Questions about sites/data?</b></a>
+  </td>
+  <td align="right" width="50%"><a href="#top_of_page">Top</a></td>
+ </tr>
+ <tr>
+  <td width="25%" nowrap="nowrap" colspan="2"><a href="/nwis/feedback/?to=NWISWeb Support Team">
+  <b>Feedback on this web site</b></a>
+  </td>
+  <td align="right"><a href="http://ga.water.usgs.gov/edu/dictionary.html">Explanation of terms</a></td>
+ </tr>
+</table>
+
+<address>
+ <font size="-1">
+ ** USGS 10059500 BEAR LAKE OUTLET CANAL NEAR PARIS, ID<br />
+ http://waterdata.usgs.gov/nwis/nwisman?<br /><br />
+ Retrieved on 2007-03-12 12:59:54 EDT<br />
+ <a href="http://www.doi.gov">Department of the Interior</a>,
+ <a href="http://www.usgs.gov">U.S. Geological Survey</a><br />
+ 
+ <a href="http://www.usgs.gov/privacy.html">Privacy Statement</a> ||
+ <a href="http://www.usgs.gov/disclaimer.html">Disclaimer</a> ||
+ <a href="http://www.usgs.gov/accessibility.html">Accessibility</a> ||
+ <a href="http://www.usgs.gov/foia">FOIA</a> ||
+ <a href="http://waterdata.usgs.gov/nwis/news"><span class="news">News</span></a> ||
+ <a href="http://waterdata.usgs.gov/nwis/news/?automated_retrieval_info"><span class="news">Automated Retrievals</span></a><br />
+ </font>
+</address>
+<font size="-2"> 1.18 &nbsp; 0.96 ca02<br /></font>
+</body>
+</html>
+

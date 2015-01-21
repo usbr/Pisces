@@ -1,0 +1,15 @@
+(Jck_AF[ t - 1 ] – Jck_AF[t])/1.98347
+ + Jck_QD
+
+5/9*(this-32)
+
+--- Time expressions ---
+[t-1]
+[t]
+[t+1]
+  [t +   5 ]
+-- invalid times 
+[t +    ]
+[t4]
+[ 3]
+t 3

@@ -1,0 +1,26 @@
+
+     HECDSS Condensed Catalog of Record Pathnames in File \\ibr1pnrfp001\pndata\PN6200\KTarbet\PiscesTestData\data\HecDss\
+
+     Catalog Created on Jun 16, 2014 at 14:07    File Created on Apr 11, 1991
+     Number of Records:     32                   DSS Version 6-MY,  File 6-LA
+     Sort Order: ABCFED
+
+ Tag       A Part       B Part      C Part        F Part  E Part  D Part
+
+ GLE-FLOW  GREEN RIVER  GLENFIR     FLOW          EDIT    1HOUR   01APR1992 - 01MAY1992
+ GLE-FLOW  - - - - -    - - - - -   - - - - - -   OBS     1HOUR   01APR1992 - 01MAY1992
+ GLE-PREC  - - - - -    - - - - -   PRECIP-INC    OBS     1HOUR   01APR1992 - 01JUN1992
+ OAK-AIRT  - - - - -    OAKVILLE    AIRTEMP       OBS     1HOUR   01MAY1992
+ OAK-ELEV  - - - - -    - - - - -   ELEVATION     OBS     1HOUR   01MAY1992
+ OAK-FLOW  - - - - -    - - - - -   FLOW-RES OUT  OBS     1HOUR   01MAY1992
+ OAK-PREC  - - - - -    - - - - -   PRECIP-INC    OBS     1HOUR   01MAY1992
+ OAK-STAG  - - - - -    - - - - -   STAGE-OUT     OBS     1HOUR   01MAY1992
+ OAK-STOR  - - - - -    - - - - -   STORAGE       OBS     1HOUR   01MAY1992
+ WAL-FLOW  - - - - -    WALNUT      FLOW-RES OUT  OBS     1HOUR   01APR1992 - 01MAY1992
+ WAL-PREC  - - - - -    - - - - -   PRECIP-INC    OBS     1HOUR   01APR1992 - 01MAY1992
+ WAL-STOR  - - - - -    - - - - -   STORAGE       OBS     1HOUR   01APR1992 - 01MAY1992
+ DEER-RT   MY BASIN     DEER CREEK  STAGE-FLOW    USGS    (null)  (null)
+ RIV-FLOW  - - - - -    RIVERSIDE   FLOW          OBS     1HOUR   01MAR1990 - 01MAY1990
+ RIV-PREC  - - - - -    - - - - -   PRECIP-INC    OBS     1HOUR   01MAR1990 - 01MAY1990
+ RIV-STAG  - - - - -    - - - - -   STAGE         OBS     1HOUR   01MAR1990 - 01MAY1990
+ RIV-TEMP  - - - - -    - - - - -   TEMP-AIR      OBS     1HOUR   01MAR1990 - 01MAY1990

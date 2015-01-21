@@ -44,7 +44,7 @@ namespace Pisces.NunitTests.SeriesTypes
                 Console.WriteLine(s.Messages[i]);                
             }
 
-            Assert.IsTrue(s.Count > 1000, "not enought data in " + filename);
+            Assert.IsTrue(s.Count > 1000, "not enough data in " + filename);
 
         }
 

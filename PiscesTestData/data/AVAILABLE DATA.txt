@@ -1,0 +1,463 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>USGS ** USGS 13032500 SNAKE RIVER NR IRWIN ID</title>
+<meta http-equiv="P3P" content='policyref="http://waterdata.usgs.gov/w3c/p3p.xml"' />
+<link rel="P3Pv1" href="http://waterdata.usgs.gov/w3c/p3p.xml" type="text/xml" />
+  <link rel="stylesheet" type="text/css" href="/nwisweb/stylesheets/USGS_common.css" />
+  <link rel="stylesheet" type="text/css" href="/nwisweb/stylesheets/USGS_custom.css" />
+  <link rel="stylesheet" type="text/css" href="/nwisweb/stylesheets/nwisweb.css" />
+
+
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+<!--
+function helph(foo)
+ {
+ if (document.images)
+  {
+  helpon=new Image(12, 12);
+  helpon.src="/nwisweb/icons/buttons/helph.gif";
+  document[foo].src= helpon.src;
+  }
+ }
+function helpn(foo)
+ {
+ if (document.images)
+  {
+  helpoff=new Image(12, 12);
+  helpoff.src="/nwisweb/icons/buttons/help.gif";
+  document[foo].src= helpoff.src;
+  }
+ }
+function popup(link)
+ {
+  if (! window.focus)return true;
+  var href;
+  if (typeof(link) == 'string')
+     href=link;
+  else
+     href=link.href;
+  window.open(href, ',type=fullWindow,fullscreen,scrollbars=yes');
+  return false;
+ }
+
+// -->
+//]]>
+</script>
+
+
+</head>
+<body bgcolor="#FFEFD4">
+<!--<a href="#maintext">Skip Navigation Links</a>-->
+<!-- SERVER LEVEL BANNER -->
+
+<script language="JavaScript" type="text/javascript">
+//<![CDATA[
+<!--
+
+function server_level_navigation_manager()
+ {
+ var local_cgi_url_base = "/nwis";
+ var national_host_url  = "";
+ //alert(national_host_url);
+ var office_index  = document.select_office.office.selectedIndex;
+ var office  = document.select_office.office.options[ office_index ].value;
+ var my_office = "usa";
+ if(office == my_office) {
+   var url = local_cgi_url_base + '/'; }
+ else {
+   var url = national_host_url + '/' + office + "/nwis/"; }
+ var program_index = document.select_office.program.selectedIndex;
+ var program = document.select_office.program.options[ program_index ].value;
+
+ var url   = url + program;
+
+ window.location = (url);
+ return (false);
+ }
+//-->
+//]]>
+</script>
+
+<form name="select_office" action="/nwis" id="select_office">
+<table border="0" cellspacing="0" width="100%" cellpadding="3">
+ <tr bgcolor="#000080">
+  <td colspan="5">
+
+  <!-- BEGIN USGS Header Template -->
+  <div id="usgscolorband">
+    <div id="usgsbanner">
+      <div id="usgsidentifier"><a href="http://www.usgs.gov/"><img src="/nwisweb/icons/USGS_header_graphic_usgsIdentifier_white.jpg"
+         alt="USGS - science for a changing world" title="U.S. Geological Survey Home Page" width="178" height="72" /></a>
+      </div>
+      <div id="usgsccsabox">
+        <div id="usgsccsa">
+          <br /><a href="http://www.usgs.gov/">USGS Home</a>
+          <br /><a href="http://www.usgs.gov/ask/">Contact USGS</a>
+          <br /><a href="http://www.usgs.gov/search/">Search USGS</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="usgstitle">
+    <p>National Water Information System: Web Interface</p>
+  </div>
+  <!-- END USGS Header Template -->
+
+  </td>
+ </tr>
+ <tr bgcolor="#000080">
+  <td>
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-2">
+   <b>&nbsp; <a href="http://water.usgs.gov"><font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif">
+   <u>USGS Water Resources</u></font></a></b> &nbsp; &nbsp;  </font>
+  </td>
+  <td><div>
+   <a href="#top_of_page"></a></div>
+  </td>
+  <td  nowrap="nowrap" width="4%"><div>
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-2">
+    <label accesskey="c" for="program"><strong>Data Category:</strong></label><br />
+<select name="program" id="program" tabindex="1">
+<option value="nwis">Home</option>
+<option value="rt">Real-time</option>
+<option value="si" selected="selected">Site Information</option>
+<option value="sw">Surface Water</option>
+<option value="gw">Ground Water</option>
+<option value="qw">Water Quality</option>
+</select></font></div>
+  </td>
+  <td  nowrap="nowrap" width="4%"><div>
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-2">
+   <label accesskey="A" for="office"><strong>Geographic Area:</strong></label><br />
+<select onchange="return server_level_navigation_manager();" name='office' id="office" tabindex="1">
+ <option value="usa">United States
+</option><option value="al">Alabama</option>
+<option value="ak">Alaska</option>
+<option value="aq">American Samoa</option>
+<option value="az">Arizona</option>
+<option value="ar">Arkansas</option>
+<option value="ca">California</option>
+<option value="co">Colorado</option>
+<option value="ct">Connecticut</option>
+<option value="de">Delaware</option>
+<option value="dc">Dist. of Columbia</option>
+<option value="fl">Florida</option>
+<option value="ga">Georgia</option>
+<option value="gu">Guam</option>
+<option value="hi">Hawaii</option>
+<option value="id">Idaho</option>
+<option value="il">Illinois</option>
+<option value="in">Indiana</option>
+<option value="ia">Iowa</option>
+<option value="ks">Kansas</option>
+<option value="ky">Kentucky</option>
+<option value="la">Louisiana</option>
+<option value="me">Maine</option>
+<option value="md">Maryland</option>
+<option value="ma">Massachusetts</option>
+<option value="mi">Michigan</option>
+<option value="mn">Minnesota</option>
+<option value="ms">Mississippi</option>
+<option value="mo">Missouri</option>
+<option value="mt">Montana</option>
+<option value="ne">Nebraska</option>
+<option value="nv">Nevada</option>
+<option value="nh">New Hampshire</option>
+<option value="nj">New Jersey</option>
+<option value="nm">New Mexico</option>
+<option value="ny">New York</option>
+<option value="nc">North Carolina</option>
+<option value="nd">North Dakota</option>
+<option value="mp">Northern Mariana Islands</option>
+<option value="oh">Ohio</option>
+<option value="ok">Oklahoma</option>
+<option value="or">Oregon</option>
+<option value="pa">Pennsylvania</option>
+<option value="pr">Puerto Rico</option>
+<option value="ri">Rhode Island</option>
+<option value="sc">South Carolina</option>
+<option value="sd">South Dakota</option>
+<option value="tn">Tennessee</option>
+<option value="tx">Texas</option>
+<option value="ut">Utah</option>
+<option value="vt">Vermont</option>
+<option value="vi">Virgin Islands</option>
+<option value="va">Virginia</option>
+<option value="wa">Washington</option>
+<option value="wv">West Virginia</option>
+<option value="wi">Wisconsin</option>
+<option value="wy">Wyoming</option>
+</select></font></div>
+  </td>
+  <td align="right" valign="bottom" width="1%">
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-2">
+   <input accesskey="g" type="submit" alt="submit" value="GO" onclick="return server_level_navigation_manager()"></input></font>
+  </td>
+ </tr>
+</table>
+</form>
+<a name="top_of_page"></a>
+
+
+<!-- SYSTEM MESSAGE -->
+
+
+<!-- NWISWeb System Message -->
+<style type="text/css">
+<!--
+.style1 {
+        font-weight: bold;
+}
+-->
+</style>
+<table border="0" class="news">
+<tr>
+<td>News: <a href="/nwis/news?Access=0">Recent changes</a></td>
+</tr>
+</table>
+
+
+<a name="maintext"></a>
+<!-- PAGE_TITLE -->
+
+
+<!-- STATEWIDE TEXT -->
+
+
+<br /><h2>USGS 13032500 SNAKE RIVER NR IRWIN ID</h2><center><!-- STATION LEVEL NAVIGATION -->
+
+<script language="JavaScript" type="text/javascript">
+<!--
+function station_navigation_manager_1()
+ {
+ var national_host_url  = "http://nwis.waterdata.usgs.gov";
+ var local_cgi_url_base = "";
+ var program_index      = document.station_navigation_1.program.selectedIndex;
+ var program    = document.station_navigation_1.program.options[ program_index ].value;
+ var site_no    = document.station_navigation_1.site_no.value;
+ var agency_cd  = document.station_navigation_1.agency_cd.value;
+ var ref_module = '';
+ if(program.match(/dv|dvstat|monthly|annual/)){
+         ref_module = "";
+      if(ref_module == ""){
+          ref_module = "&amp;referred_module=sw"
+      }
+     }
+ // Hardcoding stay_local variable here due to javascript incompatiblities
+ var stay_local = 0;
+ if (program_index <= 4 || program.match(/dv|dvstat|monthly|annual|measurements/)){
+   stay_local = 1;
+   }
+ var url = '';
+ if (program == "epa_huc_surf"){
+   url = "http://cfpub.epa.gov/surf/huc.cfm?huc_code=17040104";
+   }
+ else if (program == "ida"){
+   url = "http://ida.water.usgs.gov/ida/available_records.cfm?sn=13032500";
+   }
+ else if (program == "adr"){
+   url = "http://wdr.water.usgs.gov/wy2007/pdfs/13032500.2007.pdf";
+   }
+ else {
+   if (stay_local == 1){
+     url = "/nwis/";
+     }
+   else {
+     if (national_host_url){
+       url = "http://nwis.waterdata.usgs.gov/id/nwis/";
+       }
+     else {
+       url = "/nwis/";
+       }
+     }
+     var dv_pattern = /dvstat|monthly|annual/;
+     if(program.match(dv_pattern)){
+       url =  url + program + "/?search_site_no=" + site_no + "&amp;agency_cd=" + agency_cd  + ref_module + "&amp;format=sites_selection_links";
+       }
+     else {
+       url =  url + program + "/?site_no=" + site_no + "&agency_cd=" + agency_cd + ref_module;
+       }
+   }
+ window.location = (url);
+ return (false);
+ }
+//-->
+</script>
+
+<form name="station_navigation_1" action="/nwis">
+<table border="0" width="576" bgcolor="#000080" cellspacing="0" cellpadding="5">
+ <tr>
+  <td align="center" nowrap="nowrap">
+   <label accesskey="A" for="select_data_1"><font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-1">
+   <strong> &nbsp; Available data for this site &nbsp; </strong>
+   </font></label>
+  </td>
+  <td width="5%" align="center" >
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-1">
+   <select onchange="return station_navigation_manager_1();" name='program' id="select_data_1">
+<option value="nwisman" selected="selected">SUMMARY OF ALL AVAILABLE DATA</option>
+<option value="nwismap" >Site map</option>
+<option value="uv" >Time-series: &nbsp; Real-time data</option>
+<option value="dv" >Time-series: &nbsp; Daily data</option>
+<option value="dvstat" >Time-series: &nbsp; Daily statistics</option>
+<option value="monthly" >Time-series: &nbsp; Monthly statistics</option>
+<option value="annual" >Time-series: &nbsp; Annual statistics</option>
+<option value="peak" >Surface-water: &nbsp; Peak streamflow</option>
+<option value="measurements" >Surface-water: &nbsp; Field measurements</option>
+<option value="qwdata" >Water-Quality: &nbsp; Field/Lab samples</option>
+<option value="ida" > &nbsp; &nbsp; Offsite: &nbsp; Instantaneous data archive</option>
+<option value="adr" > &nbsp; &nbsp; Offsite: &nbsp; Annual data report(s)</option>
+<option value="epa_huc_surf" > &nbsp; &nbsp; Offsite: &nbsp; EPA Surf your Watershed</option>
+</select>
+   </font>
+  </td>
+  <td width="5%" align="center">
+   <font color="#FFFFFF" face="Verdana,Arial,Helvetica,sans-serif" size="-1" />
+   <input type="hidden" alt="Site Number" name="site_no"   value="13032500" />
+   <input type="hidden" alt="Agency Code" name="agency_cd" value="USGS" />
+   <input type="submit" alt="Submit" value="GO" onclick="return station_navigation_manager_1()" />
+  </td>
+ </tr>
+</table>
+</form>
+</center>
+<h3>&nbsp; Stream Site</h3>
+
+<!-- begin station information -->
+<table border="0" width="100%" >
+ <tr>
+  <td width="35"> &nbsp; </td>
+  <td>
+   <table border="0" width="90%" cellpadding="4">
+    <tr>
+     <td>  <dl>
+  <dt><strong>DESCRIPTION:</strong></dt>
+  <dd>Latitude  43°21'03", &nbsp; Longitude 111°13'08" &nbsp; NAD83<br /></dd>
+  <dd>Bonneville County, Idaho,  Hydrologic Unit 17040104</dd>
+<dd>Drainage area: 5,225 square miles</dd><dd>Contributing drainage area: 5,225 square miles,</dd><dd>Datum of gage: 5,353 feet above sea level &nbsp; NGVD29.</dd></dl><dl><dt><strong>AVAILABLE DATA:</strong></dt><dd><table border="1" cellpadding="1" cellspacing="0">
+<tr>
+ <th>Data Type</th>
+ <th>Begin Date</th>
+ <th>End Date</th>
+ <th>Count</th>
+</tr>
+<tr><td><strong>&nbsp;<a href="/nwis/uv?site_no=13032500">Real-time</a></strong></td>
+ <td colspan="3" align="center"> -- Previous 60 days -- </td>
+</tr>
+<tr><td colspan="4"><strong><a href="/nwis/dv?site_no=13032500"> &nbsp;Daily Data</a></strong></td></tr>
+<tr><td> &nbsp;&nbsp;&nbsp; Temperature, water, degrees Celsius&nbsp;</td><td>&nbsp;1977-05-17&nbsp;</td><td>&nbsp;2005-01-30&nbsp;</td><td align="right">&nbsp;1736&nbsp;</td></tr>
+<tr><td> &nbsp;&nbsp;&nbsp; Discharge, cubic feet per second&nbsp;</td><td>&nbsp;1935-03-30&nbsp;</td><td>&nbsp;2009-02-05&nbsp;</td><td align="right">&nbsp;22841&nbsp;</td></tr>
+<tr><td colspan="4"><strong>&nbsp;<a href="/nwis/dvstat?search_site_no=13032500&amp;format=sites_selection_links">Daily Statistics</a>&nbsp;</strong></td></tr>
+<tr><td> &nbsp;&nbsp;&nbsp; Discharge, cubic feet per second&nbsp;</td><td>&nbsp;1935-03-30&nbsp;</td><td>&nbsp;2008-09-30&nbsp;</td><td align="right">22713&nbsp;</td></tr>
+<tr><td colspan="4"><strong>&nbsp;<a href="/nwis/monthly?search_site_no=13032500&amp;format=sites_selection_links">Monthly Statistics</a>&nbsp;</strong></td></tr>
+<tr><td> &nbsp;&nbsp;&nbsp; Discharge, cubic feet per second&nbsp;</td><td>&nbsp;1935-03&nbsp;</td><td>&nbsp;2008-09&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td colspan="4"><strong>&nbsp;<a href="/nwis/annual?search_site_no=13032500&amp;format=sites_selection_links">Annual Statistics</a>&nbsp;</strong></td></tr>
+<tr><td> &nbsp;&nbsp;&nbsp; Discharge, cubic feet per second&nbsp;</td><td>&nbsp;1935&nbsp;</td><td>&nbsp;2008&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td nowrap><strong>&nbsp;<a href="/nwis/peak/?site_no=13032500">Peak streamflow</a></strong></td><td>&nbsp;1934-05-09&nbsp;</td><td>&nbsp;2008-06-02&nbsp;</td><td align="right">&nbsp;66&nbsp;</td></tr>
+<tr><td nowrap><strong>&nbsp;<a href="/nwis/measurements/?site_no=13032500">Field measurements</a></strong></td><td>&nbsp;1935-04-03&nbsp;</td><td>&nbsp;2009-01-16&nbsp;</td><td align="right">&nbsp;644&nbsp;</td></tr>
+<tr><td nowrap><strong>&nbsp;<a href="/nwis/qwdata/?site_no=13032500">Field/Lab water-quality samples</a></strong></td><td>&nbsp;1985-10-10&nbsp;</td><td>&nbsp;1998-10-23&nbsp;</td><td align="right">&nbsp;106&nbsp;</td></tr>
+<tr align="center"><td><strong><br />Additional Data Sources</td><td><strong><br />Begin Date</strong></td><td><strong><br />End Date</strong></td><td><strong><br />Count</strong></td></tr>
+<tr><td nowrap><strong>&nbsp;<a href="http://ida.water.usgs.gov/ida/available_records.cfm?sn=13032500" target="_blank">Instantaneous Data Archive</a></strong> &nbsp;**offsite**</td><td>&nbsp;1987-08-21&nbsp;</td><td>&nbsp;2007-09-30&nbsp;</td><td align="right">&nbsp;651650&nbsp;</td></tr>
+<tr><td nowrap><strong>&nbsp;<a href="http://wdr.water.usgs.gov/wy2007/pdfs/13032500.2007.pdf" target="_blank">Annual Water Data Report (pdf)</a></strong> &nbsp;**offsite**</td><td>&nbsp;2006&nbsp;</td><td>&nbsp;2007&nbsp;</td><td align="right">&nbsp;2&nbsp;</td></tr>
+</table>
+</dd></dl><dl><dt><strong>OPERATION:</strong></dt>
+ <dd>Record for this site is maintained by the USGS Idaho Water Science Center</dd>
+ <dd><strong>Email questions about this site to
+  <a href="/nwis/feedback/?to=Idaho Water-Data Inquiries&site_state_abbrev=id&site_district_abbrev=id">Idaho Water-Data Inquiries</a></dd></dl>
+ </strong>
+<dl><dt><strong>ADDITIONAL INFORMATION</strong></dt><dd><pre><pre>
+LOCATION.--Lat 43° 21&#39;03&quot;, long 111° 13&#39;08&quot;, in NE1/4 NE1/4 sec.7, 
+T.1 S., R.45 E., Bonneville County, Palisades Dam quad., Hydrologic Unit 17040104, 
+on right bank at U.S. Bureau of Reclamation headquarters, 1.5 mi downstream from 
+Palisades Dam, 2 mi upstream from Palisades Creek, 5 mi southeast of Irwin, and 
+at mile 900.2.
+
+DRAINAGE AREA.--5,225 mi2.
+
+PERIOD OF RECORD.--March to October 1935, April to October 1936, May 1949 to 
+current year. Records for station &quot;at Calamity Point, near Irwin&quot; April to 
+August 1934, April to October 1935, April to October 1936, March 1939 to 
+September 1941 are equivalent to those for this station.
+
+REVISED RECORDS.--WSP 1217: Drainage area.
+
+GAGE.--Water-stage recorder. Datum of gage is 5,353.00 ft above NGVD of 1929 
+(levels by U.S. Bureau of Reclamation). Mar. 30, 1935 to Oct. 31, 1936, 
+water-stage recorder at site 3.5 mi downstream at different datum. 
+May 1, 1949 to Mar. 22, 1950, nonrecording gage at site 1,100 ft downstream 
+at datum 1.9 ft higher.
+
+REMARKS.--Flow regulated by Jackson Lake and Palisades Reservoir. Diversion from 
+tributaries above station for irrigation in Wyoming and Idaho of about 95,300 acres 
+(1966 determination).
+
+EXTREMES FOR PERIOD OF RECORD.--Maximum discharge, 40,400 ft3/s June 19-22, 1997; 
+maximum gage height, 15.25 ft, June 19, 20, 1997; minimum, 19 ft3/s Nov. 8, 1956, 
+result of discharge measurement.
+
+EXTREMES OUTSIDE PERIOD OF RECORD.--Flood in early June 1894 probably was higher 
+than that of June 19-22, 1997.
+</pre>
+
+<h4>Station operated in cooperation with U.S. Bureau of
+Reclamation.</h4>
+</pre></dd></dl></td>
+    </tr>
+   </table>
+  </td>
+ </tr>
+</table>
+
+<!--</p>-->
+<!-- end station information -->
+<hr />
+  <table border="0" width="95%" cellpadding="0" cellspacing="0">
+ <tr>
+  <td width="25%" nowrap="nowrap" colspan="2"><a href="/nwis/feedback/?to=Idaho NWISWeb Data Inquiries&site_district_abbrev=id">
+  <b>Questions about sites/data?</b></a>
+  </td>
+  <td align="right" width="50%"><a href="#top_of_page">Top</a></td>
+ </tr>
+ <tr>
+  <td width="25%" nowrap="nowrap" colspan="2"><a href="/nwis/feedback/?to=Idaho NWISWeb Maintainer&site_district_abbrev=id">
+  <b>Feedback on this web site</b></a>
+  </td>
+  <td align="right"><a href="http://ga.water.usgs.gov/edu/dictionary.html">Explanation of terms</a></td>
+ </tr>
+    <tr>
+   <td width="25%" nowrap="nowrap" colspan="2">&nbsp;</td> 
+   <td align="right"><a href="http:/nwis/help/help?form=email">Subscribe for NWISWeb changes</a></td>
+ </tr>
+ 
+</table>
+
+  <a href="http:/nwis/news/?automated_retrieval_info"><b>Automated retrievals</b></a><br />
+
+<!-- BEGIN USGS Footer Template -->
+<div id="usgsfooter">
+  <p id="usgsfooterbar">
+  <a href="http://www.usgs.gov/accessibility.html" title="Accessibility Policy (Section 508)">Accessibility</a>
+  <a href="http://www.usgs.gov/foia/" title="Freedom of Information Act">FOIA</a>
+  <a href="http://www.usgs.gov/privacy.html" title="Privacy policies of the U.S. Geological Survey.">Privacy</a>
+  <a href="http://www.usgs.gov/policies_notices.html" title="Policies and notices that govern information posted on USGS Web sites.">Policies and Notices</a>
+  </p>
+  <p id="usgsfootertext">
+    <a href="http://www.takepride.gov/"><img src="/nwisweb/icons/USGS_footer_graphic_takePride.jpg" alt="Take Pride in America logo"
+         title="Take Pride in America Home Page" width="60" height="58" /></a>
+    <a href="http://usa.gov/"><img src="/nwisweb/icons/USGS_footer_graphic_usagov.jpg" alt="USA.gov logo" title="USAGov: Government Made Easy" width="90" height="26" /></a>
+
+    <a href="http://www.doi.gov/">U.S. Department of the Interior</a> |
+    <a href="http://www.usgs.gov/">U.S. Geological Survey</a><br />
+    <b>Title: ** USGS 13032500 SNAKE RIVER NR IRWIN ID <br />
+    URL: http://waterdata.usgs.gov/nwis/nwisman?<br /><br /></b>
+    Page Contact Information: <a href="/nwis/feedback/?to=Idaho NWISWeb Maintainer&site_district_abbrev=id">Idaho NWISWeb Maintainer</a><br />
+    Page Last Modified: 2009-02-07 00:27:23 EST<br />
+    <font size="-2"> 0.79 &nbsp; 0.75 va05<br /></font>
+   </p>
+</div>
+<!-- END USGS Footer Template -->
+</body>
+</html>
+
