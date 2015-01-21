@@ -1610,6 +1610,56 @@ namespace Reclamation.TimeSeries
 
             return Math.ShiftToYear(rval, 2000);
         }
-        
+
+        /// <summary>
+        /// Used as a very simple model for Thyroid medication (levothyroxine) decay
+        /// Example input HourlyResidual(Seriesdose,  72 hours)
+        /// 72 hours assuming each does residual drops linearly in 3 days 
+        /// </summary>
+        /// <param name="dose"></param>
+        /// <param name="frequency"></param>
+        /// <param name="decayHours"></param>
+        /// <returns></returns>
+        [FunctionAttribute("Computes an hourly residual based on input series and decay of each input in hours. ",
+         "HourlyResidual(Seriesdose, decayHours)")]
+        public static Series HourlyResidual(Series SeriesDose, double decayHours)
+        {
+
+            Series rval = new Series("Thyroid");
+            rval.TimeInterval = TimeInterval.Hourly;
+
+            if (SeriesDose.Count == 0)
+                return rval;
+            // fill in hourly data.
+            rval = Math.FillMissingWithZero(rval, SeriesDose.MinDateTime, SeriesDose.MaxDateTime);
+
+            for (int i = 0; i < SeriesDose.Count; i++)
+            {
+                var pt = SeriesDose[i];
+                if (pt.IsMissing)
+                    continue;
+                Series s = new Series("tmp");
+                s.TimeInterval = TimeInterval.Hourly;
+                double residula = pt.Value;
+                double decay = pt.Value / decayHours;
+                var t = pt.DateTime;
+                do
+                {
+                    s.Add(t, residula);
+                    t = t.AddHours(1);
+                    residula -= decay;
+                    if (residula < 0)
+                        residula = 0;
+                } while ( t <= SeriesDose.MaxDateTime);
+
+                rval = Math.SumSetMissingToZero(new Series[]{rval, s});
+                //rval = rval + s;
+            }
+
+
+
+            return rval;
+        }
+   
     }
 }
