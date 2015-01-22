@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reclamation.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,13 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Pisces
+namespace Reclamation.TimeSeries.Forms
 {
     public partial class ServerDatabaseDialog : Form
     {
+        
         public ServerDatabaseDialog()
         {
             InitializeComponent();
+            this.comboBoxDbType.SelectedIndex = 0;
         }
 
         public string ServerName
@@ -25,6 +28,17 @@ namespace Pisces
             }
         }
 
+        public DatabaseType DatabaseType
+        {
+            get
+            {
+                if (this.comboBoxDbType.SelectedItem.ToString().ToLower()
+                    == "mysql")
+                    return DatabaseType.MySQL;
+
+                return DatabaseType.PostgreSql;
+            }
+        }
         public string DatabaseName
         {
             get

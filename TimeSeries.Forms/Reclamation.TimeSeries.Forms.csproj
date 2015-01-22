@@ -388,6 +388,12 @@
     <Compile Include="SeriesListSumForm.Designer.cs">
       <DependentUpon>SeriesListSumForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ServerDatabaseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ServerDatabaseDialog.Designer.cs">
+      <DependentUpon>ServerDatabaseDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="SortChangedEventArgs.cs" />
     <Compile Include="TabPageManager.cs" />
     <Compile Include="TimeSelectorBeginEndWaterYear.cs">
@@ -657,6 +663,9 @@
     <EmbeddedResource Include="SeriesListSumForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>SeriesListSumForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ServerDatabaseDialog.resx">
+      <DependentUpon>ServerDatabaseDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TimeSelectorBeginEndWaterYear.resx">
       <DependentUpon>TimeSelectorBeginEndWaterYear.cs</DependentUpon>

@@ -194,9 +194,6 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <EmbeddedResource Include="ServerDatabaseDialog.resx">
-      <DependentUpon>ServerDatabaseDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <Compile Include="PiscesForm.cs">
       <CustomToolNamespace>Pisces2</CustomToolNamespace>
       <SubType>Form</SubType>
@@ -214,12 +211,6 @@
     </Compile>
     <Compile Include="ScenarioSelectorUrgwom.Designer.cs">
       <DependentUpon>ScenarioSelectorUrgwom.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ServerDatabaseDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ServerDatabaseDialog.Designer.cs">
-      <DependentUpon>ServerDatabaseDialog.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="PiscesForm.resx">
       <DependentUpon>PiscesForm.cs</DependentUpon>
