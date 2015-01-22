@@ -51,7 +51,7 @@ namespace Reclamation.Core.Tests
 
             string fnk = @"c:\temp\karl.xls"; 
             xls.Save(fnk);
-            System.Diagnostics.Process.Start(fnk);
+            //System.Diagnostics.Process.Start(fnk);
 
         }
 

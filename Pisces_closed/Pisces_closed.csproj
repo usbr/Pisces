@@ -221,7 +221,6 @@
     <Compile Include="ScenarioSelectorUrgwom.Designer.cs">
       <DependentUpon>ScenarioSelectorUrgwom.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
     <EmbeddedResource Include="FormTeeChartLicense.resx">
       <DependentUpon>FormTeeChartLicense.cs</DependentUpon>
     </EmbeddedResource>
