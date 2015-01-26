@@ -56,6 +56,17 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             get { return this.textBoxdescription.Text; }
         }
 
+        public string Program
+        {
+            get {
+                if (radioButtonAgriMet.Checked)
+                    return "agrimet";
+                if( radioButtonHydromet.Checked )
+                    return "hydromet";
+                return "";
+            }
+        }
+
         public string Elevation
         {
             get { return this.textBoxElevation.Text; }
