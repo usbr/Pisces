@@ -14,7 +14,7 @@ namespace Reclamation.TimeSeries.Owrd
     {
 
         string station_nbr;
-        string dataset;
+        OwrdDataSet dataset;
         bool m_includeProvisional=false;
 
         public enum OwrdDataSet {MDF ,
@@ -40,7 +40,7 @@ namespace Reclamation.TimeSeries.Owrd
     ///Measurements
     ///RatingCurve</param>
         /// </summary>
-        public OwrdSeries(string station_nbr, string dataset="MDF", bool includeProvisional=false)
+        public OwrdSeries(string station_nbr,  OwrdDataSet dataset= OwrdDataSet.MDF, bool includeProvisional=false)
         {
             this.station_nbr = station_nbr;
             this.m_includeProvisional = includeProvisional;
@@ -48,18 +48,27 @@ namespace Reclamation.TimeSeries.Owrd
             Init(dataset);
         }
 
-        private void Init(string dataset)
+        private void Init(OwrdDataSet dataset)
         {
             TimeInterval = TimeInterval.Daily;
-            if (dataset == "MDF")
+            if (dataset == OwrdDataSet.MDF)
                 Units = "cfs";
-            if (dataset == "Midnight_Volume")
+            if (dataset == OwrdDataSet.Midnight_Volume )
                 Units = "acre-feet";
-            if (dataset == "Midnight_Stage")
+            if (dataset == OwrdDataSet.Midnight_Stage)
                 Units = "feet";
-
-            if( dataset == OwrdDataSet.Mean_Daily_Stage.ToString()  )
+            if( dataset == OwrdDataSet.Mean_Daily_Stage )
                Units = "feet";
+            if (dataset == OwrdDataSet.Instantaneous_Flow)
+            {
+                Units = "cfs";
+                TimeInterval = TimeSeries.TimeInterval.Irregular;
+            }
+            if (dataset == OwrdDataSet.Instantaneous_Stage)
+            {
+                Units = "feet";
+                TimeInterval = TimeSeries.TimeInterval.Irregular;
+            }
 
             ConnectionString = "StationNumber="+station_nbr+";DataSet=" + dataset + ";Provisional=" + m_includeProvisional;
             SetName();
@@ -95,7 +104,10 @@ namespace Reclamation.TimeSeries.Owrd
         }
         public OwrdSeries(TimeSeriesDatabase db, TimeSeriesDatabaseDataSet.SeriesCatalogRow sr ):base(db,sr)
         {
-            dataset = ConnectionStringUtility.GetToken(this.ConnectionString, "DataSet", "MDF");
+            
+
+            var str_dataset = ConnectionStringUtility.GetToken(this.ConnectionString, "DataSet", "MDF");
+            dataset =  (OwrdDataSet)System.Enum.Parse(typeof(OwrdDataSet), str_dataset);
             m_includeProvisional = ConnectionStringUtility.GetBoolean(this.ConnectionString, "Provisional",false);
             station_nbr = ConnectionStringUtility.GetToken(this.ConnectionString, "StationNumber", "");
         }
@@ -155,18 +167,21 @@ namespace Reclamation.TimeSeries.Owrd
                 DateTime t = Convert.ToDateTime(csv.Rows[i]["record_date"]);
 
                 string colName = "midnight_volume_acft";
-                if (dataset == "MDF")
+                if (dataset == OwrdDataSet.Midnight_Stage)
                     colName = "mean_daily_flow_cfs";
-                if (dataset == OwrdDataSet.Instantaneous_Stage.ToString())
+                if (dataset == OwrdDataSet.Instantaneous_Stage)
                     colName = "instananteous_stage_ft";
 
-                if (dataset == OwrdDataSet.Instantaneous_Flow.ToString())
+                if (dataset == OwrdDataSet.Instantaneous_Flow)
                     colName = "instananteous_flow_cfs";
 
                 if (csv.Rows[i][colName] == DBNull.Value ||
                     csv.Rows[i][colName].ToString().Trim() == "")
                 {
-                    AddMissing(t);
+                    if (this.IndexOf(t) < 0)
+                    {
+                        AddMissing(t);
+                    }
                     continue;
                 }
 
@@ -174,12 +189,15 @@ namespace Reclamation.TimeSeries.Owrd
                 string flag = csv.Rows[i]["published_status"].ToString();
 
                 if (flag == "Published" || flag == "PUB" || m_includeProvisional)
-                    Add(t, value, flag);
+                {
+                    if (this.IndexOf(t) < 0)
+                        Add(t, value, flag);
+                }
 
 
             }
 
-            if( Count >0)
+            if( Count >0 && this.TimeInterval == TimeSeries.TimeInterval.Daily)
             NormalizeDaily(MinDateTime, MaxDateTime);
         }
 
