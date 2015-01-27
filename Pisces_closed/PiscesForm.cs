@@ -439,7 +439,7 @@ namespace Reclamation.TimeSeries.Forms
             if (d.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 DB.AddSiteWithTemplate(CurrentFolder, d.SeriesCatalog, d.SiteName, d.SiteID, 
-                    d.State,d.Elevation, d.Lat, d.Lon, d.TimeZone, d.Install);
+                    d.State,d.Elevation, d.Lat, d.Lon, d.TimeZone, d.Install,d.Program);
                 DatabaseChanged();
             }
         }

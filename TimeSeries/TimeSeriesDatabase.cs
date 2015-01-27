@@ -493,7 +493,7 @@ namespace Reclamation.TimeSeries
         /// <param name="Install"></param>
         public void AddSiteWithTemplate(PiscesFolder parent, 
             TimeSeriesDatabaseDataSet.SeriesCatalogDataTable template, string SiteName, string SiteID, 
-            string state,string elevation, string Lat, string Lon, string TimeZone, string Install)            
+            string state,string elevation, string Lat, string Lon, string TimeZone, string Install, string program)            
         {
           
             var siteCatalog = GetSiteCatalog();
@@ -522,14 +522,16 @@ namespace Reclamation.TimeSeries
                 if( item.TimeInterval == "Irregular")
                     parentID = instant;
 
-                if (Decodes.DecodesRawFile.QualityParameters.Contains(item.Name.ToUpper()))
+                if (Decodes.DecodesRawFile.QualityParameters.Contains(item.Parameter.ToUpper()))
                 {
                     parentID = quality;
                 }
                 sc.AddSeriesCatalogRow(id,parentID, false, id, item.iconname, item.Name, item.siteid, item.Units, 
                         item.TimeInterval, item.Parameter, item.TableName, item.Provider, item.ConnectionString, item.Expression, item.Notes, item.enabled);
 
-                series_properties.DuplicateProperties(item.id, id);
+
+                series_properties.AddseriespropertiesRow(series_properties.NextID(), id, "program", program);
+                //series_properties.DuplicateProperties(series item.id, id);
            }
             series_properties.Save();
             Server.SaveTable(sc);
