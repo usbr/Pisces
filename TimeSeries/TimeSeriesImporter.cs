@@ -72,6 +72,7 @@ namespace Reclamation.TimeSeries
                 if (computeDependencies)
                 {
                     var z = ComputeDependenciesSameInterval(s);
+                    //TO DO set flags on computed....
                     routingList.AddRange(z);
                 }
                 if (computeDailyEachMidnight)

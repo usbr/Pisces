@@ -78,9 +78,18 @@ namespace Reclamation.TimeSeries {
             {
                 var rows = Select("seriesid = " + currentID);
                 foreach (var item in rows)
-                {
+                { 
                     AddseriespropertiesRow(NextID(), newID, item["name"].ToString(), item["value"].ToString());
                 }
+            }
+        }
+
+        public partial class sitecatalogDataTable
+        {
+            
+            public void AddsitecatalogRow(string siteid, string description, string state)
+            {
+                AddsitecatalogRow(siteid, description, state,"","","","","","","",0,"","","","","");
             }
         }
         public partial class SeriesCatalogDataTable
@@ -187,6 +196,8 @@ namespace Reclamation.TimeSeries {
         }
 
         }
+
+        
     }
 }
 

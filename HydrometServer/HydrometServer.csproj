@@ -60,7 +60,7 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>HydrometServer.Program</StartupObject>
+    <StartupObject>Pisces.NunitTests.SeriesMath.TestRatingTableDependency</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.core">
@@ -125,6 +125,12 @@
   <ItemGroup>
     <Content Include="..\..\Pisces\ThirdParty\SQLite\SQLite.Interop.dll">
       <Link>SQLite.Interop.dll</Link>
+    </Content>
+    <Content Include="..\PiscesTestData\data\decodes\decodes_dms3.txt">
+      <Link>Tests\decodes_dms3.txt</Link>
+    </Content>
+    <Content Include="..\PiscesTestData\data\decodes\decodes_lapo.txt">
+      <Link>Tests\decodes_lapo.txt</Link>
     </Content>
   </ItemGroup>
   <ItemGroup>

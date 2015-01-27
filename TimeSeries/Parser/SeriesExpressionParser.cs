@@ -382,7 +382,7 @@ ISBN: 0072134852
                     GetToken();
                     return;
                 case Types.STRING:
-                    result = new ParserResult(token);
+                     result = new ParserResult(token);
                     GetToken();
                     return;
 
