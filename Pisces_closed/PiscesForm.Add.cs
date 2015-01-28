@@ -383,7 +383,7 @@ namespace Reclamation.TimeSeries.Forms
 
                     foreach (string siteID in dlg.SiteIDs)
                     {
-                        string ds = dlg.OwrdDataSet.ToString();
+                        var ds = dlg.OwrdDataSet;
                         var s = new Owrd.OwrdSeries(siteID, ds,dlg.IncludeProvisional);
                         s.Read(dlg.T1, dlg.T2);
 
