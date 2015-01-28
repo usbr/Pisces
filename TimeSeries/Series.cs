@@ -1527,6 +1527,7 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// Removes all points that have a value of Point.MissingValueFlag
         /// </summary>
+        /// <param name="removeFlagged">also remove data flagged bad. i.e '+' or '-' or '^' </param>
         /// <returns></returns>
         public int RemoveMissing(bool removeFlagged=false)
         {
