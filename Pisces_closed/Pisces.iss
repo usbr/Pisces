@@ -29,7 +29,7 @@ SolidCompression=yes
 ;VersionInfoCompany="Reclamation"
 PrivilegesRequired=lowest
 
-SetupIconFile=".\images\fish_icon_blue.ico"
+SetupIconFile=".\images\Fish_icon_3.ico"
 
 
 
