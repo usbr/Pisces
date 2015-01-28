@@ -191,6 +191,8 @@ namespace Reclamation.TimeSeries
             public double Lookup(double p)
             {
                 var r = FindByx(p);
+                if (r == null)
+                    return Point.MissingValueFlag;
                 return r.y;
             }
         }

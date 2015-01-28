@@ -21,14 +21,20 @@ namespace Pisces.NunitTests.SeriesMath
         static void Main(string[] argList)
         {
             var x = new TestRatingTableDependency();
-            x.ImportDecodesFiles();
+            x.ImportDecodesAndProcessWithFlagLimits();
         }
         public TestRatingTableDependency()
         {
         }
 
+        /// <summary>
+        /// This test imports satellite decoded data for a site lapo
+        /// lapo has a rating tables setup for flow calculations
+        /// lapo has quality limits set for both gage height (gh) and flow (q)
+        /// assertions check if proper flags are set based on the limits
+        /// </summary>
         [Test]
-        public void ImportDecodesFiles()
+        public void ImportDecodesAndProcessWithFlagLimits()
         {
             var fn1 = FileUtility.GetTempFileNameInDirectory(@"c:\temp", ".pdb", "ratings");
             Console.WriteLine(fn1);
@@ -37,53 +43,48 @@ namespace Pisces.NunitTests.SeriesMath
          
             Logger.EnableLogger();
             FileUtility.CleanTempPath();
-            var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_dms3.txt");
-           var lapofn = CopyTestDecodesFileToTempDirectory("decodes_lapo.txt");
-
+            var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_lapo.txt");
             
-           var rtlapo = CreateTempRatingTable("lapo.csv", new double[] {3.50,3.54,5.54 },
-                                             new double[] {1,2,10 });
+           var rtlapo = CreateTempRatingTable("lapo.csv", new double[] {3.50,3.54,3.55,5.54 },
+                                             new double[] {1,2,3,10 });
             // set limits  gh: low=3.53, high 3.6,  rate of change/hour 1
            Quality q = new Quality(db);
            q.SaveLimits("instant_lapo_gh", 3.6, 3.53, 1.0);
-
-           var rthcdi = CreateTempRatingTable("hcdi.csv", new double[] { 65.21, 65.22, 65.23, 65.24, 65.25 },
-                                                         new double[] { 100,200,300,400,500});
+           q.SaveLimits("instant_lapo_q", 5, 1, 0);
 
            var site = db.GetSiteCatalog();
            site.AddsitecatalogRow("lapo", "", "OR");
-           site.AddsitecatalogRow("hcdi", "", "OR");
            db.Server.SaveTable(site);
-            var c = new CalculationSeries("instant_hcdi_q");
-            c.Expression = "FileRatingTable(hcdi_gh,\""+rthcdi+"\")";
-            db.AddSeries(c);
-            c = new CalculationSeries("instant_lapo_q");
+            var c = new CalculationSeries("instant_lapo_q");
             c.SiteID = "lapo";
             c.Expression = "FileRatingTable(%site%_gh,\""+rtlapo+"\")";
             db.AddSeries(c);
 
-
-
-            db.Inventory();
-            SeriesExpressionParser.Debug = true;
+            //SeriesExpressionParser.Debug = true;
             FileImporter import = new FileImporter(db);
             import.Import(tmpDir,RouteOptions.None,computeDependencies:true);
             db.Inventory();
 
-            var s = db.GetSeriesFromTableName("instant_hcdi_q");
-            s.Read();
-            Assert.IsTrue(s.Count > 0, "No flow data computed hcdi");
+
+            var s = db.GetSeriesFromTableName("instant_lapo_gh");
+            var expectedFlags = new string[] { "", "", "", "+", "", "", "", "-" };
+            for (int i = 0; i < s.Count; i++)
+            {
+                  Assert.AreEqual(expectedFlags[i], s[i].Flag, " flag not expected ");
+            }
 
             s = db.GetSeriesFromTableName("instant_lapo_q");
             s.Read();
-            var expectedFlags = new string[]{"","","","+","","","","-"};
+            Assert.IsTrue(s.Count > 0, "No flow data computed lapo");
+            s.WriteToConsole(true);
+             // computed flows should be: 2 2 2 10 2 2 1
+            expectedFlags = new string[]{"","","","+","","","","-"}; //q>=1 and q<= 5
             for (int i = 0; i < s.Count; i++)
             {
-                s[i].Flag
+                 Assert.AreEqual(expectedFlags[i], s[i].Flag," flag not expected "); 
             }
 
-            Assert.IsTrue(s.Count > 0, "No flow data computed lapo");
-
+            
 
             SeriesExpressionParser.Debug = false;
             
