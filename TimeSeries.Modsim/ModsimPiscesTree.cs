@@ -37,7 +37,6 @@ namespace Reclamation.TimeSeries.Modsim
             seriesCatalog = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
             if (File.Exists(fileName))
             {
-                Ver8_1Upgrade.UpgradeDates = Ver8_1Upgrade.Ver8_1DateUpgrade.Upgrade;
                 XYFileReader.Read(mi, fileName);
                 m_xyFilename = Path.GetFileNameWithoutExtension(fileName);
             }

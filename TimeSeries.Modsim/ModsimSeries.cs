@@ -13,7 +13,7 @@ namespace Reclamation.TimeSeries.Modsim
 
 
     /// <summary>
-    /// Reads modsim version 8.0 - 8.2 input and output
+    /// Reads modsim version 8.0 - 8.4 input and output
     /// ModsimSeries is a wrapper around a Modsim.TimeSeries.  
     /// Has the ability to scale data and display data in different units than the xy file has. 
     /// You can edit using cfs but save in acre-feet.
@@ -251,7 +251,6 @@ namespace Reclamation.TimeSeries.Modsim
                     m_mi.fname = m_xyFilename;
                 }
 
-                Ver8_1Upgrade.UpgradeDates = Ver8_1Upgrade.Ver8_1DateUpgrade.Upgrade;
                 XYFileReader.Read(m_mi, m_mi.fname);
                 ModsimInput(modsimName,t1,t2);//, timeSeriesName);
             }
@@ -344,7 +343,7 @@ namespace Reclamation.TimeSeries.Modsim
         private void ReservoirStorageOutput(string modsimName, string columnName, DateTime t1, DateTime t2)
         {
             // using EndDate -- karl
-            string sql = "SELECT TimeSteps.EndDate, RES_STOROutput." + columnName //+ SQLMultiplyByScale(columnName)
+            string sql = "SELECT TimeSteps.TSDate, RES_STOROutput." + columnName //+ SQLMultiplyByScale(columnName)
                     + " FROM (TimeSteps INNER JOIN RES_STOROutput ON TimeSteps.TSIndex = RES_STOROutput.TSIndex) "
                     + " INNER JOIN NodesInfo ON RES_STOROutput.NNo = NodesInfo.NNumber "
                     + " where NodesInfo.NName = '" + modsimName + "'  AND"
@@ -364,27 +363,7 @@ namespace Reclamation.TimeSeries.Modsim
             }
 
             DataTable tbl = AccessDB.Table(m_databaseName, "RES_STOROutput", sql);
-            AdjustEndDate(tbl, columnName);
             InitTimeSeries(tbl, Units, this.TimeInterval, true);
-        }
-
-        private void AdjustEndDate(DataTable tbl, string colName)
-        {
-            // prior to Modsim 8.2 ending resevoir contents, targets, and storage right data
-            // was in the same timestep minus one second. Modsim 8.2 redefined targets and 
-            // ending storage to be at the beginning of the next timestep.
-            if (this.TimeInterval != TimeInterval.Daily && this.TimeInterval != TimeInterval.Monthly)
-            {
-                return;
-            }
-            if (tbl.Columns.Contains("EndDate") & m_xyFileVersion < new Version("8.2"))
-            {
-                foreach (DataRow row in tbl.Rows)
-                {
-                    row[0] = row.Field<DateTime>("EndDate").AddSeconds(1);
-
-                }
-            }
         }
 
         /// returns MODSIM Reservoir (other than storage) output
@@ -439,7 +418,6 @@ namespace Reclamation.TimeSeries.Modsim
             }
 
             DataTable tbl = AccessDB.Table(m_databaseName, "DEMOutput", sql);
-            AdjustEndDate(tbl, columnName);
             InitTimeSeries(tbl, Units, TimeInterval, true);
         }
 
@@ -455,13 +433,7 @@ namespace Reclamation.TimeSeries.Modsim
         /// </summary>
         private void LinkOutput(string modsimName, string columnName, DateTime t1, DateTime t2)
         {
-            string dt = "TsDate";
-            if (columnName == "GroupStorLeft" || columnName == "StorLeft")
-            {
-                dt = "EndDate";
-            }
-
-            string sql = " SELECT TimeSteps." + dt + ", LinksOutput." + columnName //+ SQLMultiplyByScale(columnName)
+            string sql = " SELECT TimeSteps.TsDate, LinksOutput." + columnName //+ SQLMultiplyByScale(columnName)
                     + " FROM (LinksOutput INNER JOIN TimeSteps ON LinksOutput.TSIndex = TimeSteps.TSIndex) "
                     + " INNER JOIN LinksInfo ON LinksOutput.LNumber = LinksInfo.LNumber "
                     + " where LinksInfo.LName = '" + modsimName + "'";
@@ -485,7 +457,6 @@ namespace Reclamation.TimeSeries.Modsim
 
             Performance perf = new Performance();
             DataTable tbl = AccessDB.Table(m_databaseName, "LinksOutput", sql);
-            AdjustEndDate(tbl, columnName);
             perf.Report();
             InitTimeSeries(tbl, Units, TimeInterval, true);
         }

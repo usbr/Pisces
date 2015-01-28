@@ -17,7 +17,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ApplicationIcon>Fish_icon_3.ico</ApplicationIcon>
+    <ApplicationIcon>images\Fish_icon_3.ico</ApplicationIcon>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -274,7 +274,6 @@
       <Link>Reclamation.TimeSeries.ArmyCorps.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Fish_icon_3.ico" />
     <Content Include="images\access.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -290,6 +289,7 @@
     <Content Include="images\ExcelLink.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\Fish_icon_3.ico" />
     <Content Include="images\owrd.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -378,7 +378,13 @@
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>rem call "$(SolutionDir)build_installer.bat"   "$(SolutionDir)"</PostBuildEvent>
+    <PostBuildEvent>if exist "$(DevEnvDir)..\tools\vsvars32.bat" goto :largeaddressaware
+
+:largeaddressaware
+if $(PlatformName)==x86 (
+    call "$(DevEnvDir)..\tools\vsvars32.bat"
+    editbin /largeaddressaware "$(TargetPath)"
+)</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

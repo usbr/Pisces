@@ -125,16 +125,16 @@ namespace Reclamation.TimeSeries.Modsim
         }
 
 
-        public static int RoundAndScale(Model mi, double val)
+        public static long RoundAndScale(Model mi, double val)
         {
-            int rval;
+            long rval;
             double d;
             int scale = Convert.ToInt32(mi.CalcScaleFactor());
             int precision = GetPrecisionFromScale(scale);
 
             d = System.Math.Round(val, precision, MidpointRounding.ToEven) * scale;
-            rval = Convert.ToInt32(d);
-
+            rval = Convert.ToInt64(d);
+            
             return rval;
         }
 
