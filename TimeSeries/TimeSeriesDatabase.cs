@@ -63,7 +63,17 @@ namespace Reclamation.TimeSeries
         BasicDBServer m_server;
         TimeSeriesDatabaseSettings m_settings;
         SeriesExpressionParser m_parser;
+        Quality m_quality;
 
+        public Quality Quality
+        {
+            get
+            {
+                if (m_quality == null)
+                    m_quality = new Quality(this);
+                return m_quality;
+            }
+        }
         public SeriesExpressionParser Parser
         {
             get { return m_parser; }

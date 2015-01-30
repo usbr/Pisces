@@ -157,8 +157,16 @@ namespace Reclamation.TimeSeries
 
                     Logger.WriteLine("Calculation result has " + result.Series.Count + " rows");
                     this.TimeInterval = result.Series.TimeInterval;
-
+                    string tableName = this.Table.TableName;
+                    
                     this.Table = result.Series.Table;
+                    this.Table.TableName = tableName;
+                    if (m_db != null)
+                    {
+                        Logger.WriteLine("Setting Flags");
+                        m_db.Quality.SetFlags(this);
+                    }
+
                     this.Table.AcceptChanges();// prevents error releated to Deleted rows from Trim() above.
                     foreach (DataRow row in this.Table.Rows)
                     {

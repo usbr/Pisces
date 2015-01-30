@@ -22,6 +22,10 @@ namespace Reclamation.TimeSeries
             }
         }
 
+        /// <summary>
+        /// Sets flags on this series based on quality_limit settings
+        /// </summary>
+        /// <param name="s"></param>
         public void SetFlags(Series s)
         {
             if (m_db == null)

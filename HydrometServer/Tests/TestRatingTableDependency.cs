@@ -21,6 +21,7 @@ namespace Pisces.NunitTests.SeriesMath
         static void Main(string[] argList)
         {
             var x = new TestRatingTableDependency();
+            x.ImportDecodesWithMissingGageHeight();
             x.ImportDecodesAndProcessWithFlagLimits();
         }
         public TestRatingTableDependency()
@@ -50,7 +51,7 @@ namespace Pisces.NunitTests.SeriesMath
             // set limits  gh: low=3.53, high 3.6,  rate of change/hour 1
            Quality q = new Quality(db);
            q.SaveLimits("instant_lapo_gh", 3.6, 3.53, 1.0);
-           q.SaveLimits("instant_lapo_q", 5, 1, 0);
+           q.SaveLimits("instant_lapo_q", 5, 1.1, 0);
 
            var site = db.GetSiteCatalog();
            site.AddsitecatalogRow("lapo", "", "OR");
@@ -81,13 +82,28 @@ namespace Pisces.NunitTests.SeriesMath
             expectedFlags = new string[]{"","","","+","","","","-"}; //q>=1 and q<= 5
             for (int i = 0; i < s.Count; i++)
             {
-                 Assert.AreEqual(expectedFlags[i], s[i].Flag," flag not expected "); 
+                 Assert.AreEqual(expectedFlags[i], s[i].Flag," Flag check on Flow (Q) "); 
             }
 
             
 
             SeriesExpressionParser.Debug = false;
             
+        }
+
+        private string CreateTempRatingTable(string filename, double min, double max, Func<double,double> f,
+            double increment = 0.01)
+        {
+            var x = new System.Collections.Generic.List<double>();
+            var y = new System.Collections.Generic.List<double>();
+            double x1 = min;
+            do
+            {
+                x.Add(x1);
+                y.Add(f(x1));
+                x1 += increment;
+            } while (x1 <=max);
+            return CreateTempRatingTable(filename, x.ToArray(), y.ToArray());
         }
 
         private string CreateTempRatingTable(string filename, double[] gh, double[] q)
@@ -104,9 +120,13 @@ namespace Pisces.NunitTests.SeriesMath
             return path;
         }
 
+        /// <summary>
+        /// missing gage height data is input with magic value 998877 (hydromet convention)
+        /// flow calculations should not use this missing value to compute missing flow
+        /// </summary>
         [Test]
         public void ImportDecodesWithMissingGageHeight()
-        {
+        { 
 
             var fn1 = FileUtility.GetTempFileNameInDirectory(@"c:\temp", ".pdb", "mabo");
             Console.WriteLine(fn1);
@@ -115,9 +135,9 @@ namespace Pisces.NunitTests.SeriesMath
             Logger.EnableLogger();
             FileUtility.CleanTempPath();
             var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_mabo_missing_gh.txt");
-
+            var ratingTableFileName =CreateTempRatingTable("mabo.csv", 2.37, 2.8, x => (x*10));
             var c = new CalculationSeries("instant_mabo_q");
-            c.Expression = "FileRatingTable(mabo_gh,\"mabo.csv\")";
+            c.Expression = "FileRatingTable(mabo_gh,\""+ratingTableFileName+"\")";
             db.AddSeries(c);
 
             FileImporter import = new FileImporter(db);
@@ -125,9 +145,9 @@ namespace Pisces.NunitTests.SeriesMath
             db.Inventory();
 
             var s = db.GetSeriesFromTableName("instant_mabo_q");
-
+           
             s.Read();
-
+            Assert.IsTrue(s.CountMissing() == 0);
             Assert.IsTrue(s.Count > 0, "No flow data computed");
         }
 

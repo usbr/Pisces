@@ -114,9 +114,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Tests\App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="rating_tables.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
