@@ -7,5 +7,6 @@ script:
 - wget http://nuget.org/nuget.exe
 - cp nuget.exe ./.nuget/NuGet.exe
 - chmod a+x ./.nuget/NuGet.exe
+- export EnableNuGetPackageRestore=true
 - xbuild Pisces_open.sln
 - nunit-console Pisces_open/bin/Debug/Reclamation.TimeSeries.dll
