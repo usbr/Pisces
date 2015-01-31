@@ -1,3 +1,5 @@
+![Pisces Build](https://api.travis-ci.org/usbr/Pisces.svg)
+
 Pisces   
 ======
 June 24, 2014
