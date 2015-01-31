@@ -285,7 +285,7 @@
     <Compile Include="ImportDatabaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImportDatabaseForm.designer.cs">
+    <Compile Include="ImportDatabaseForm.Designer.cs">
       <DependentUpon>ImportDatabaseForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportForms\ExcelImportWizard.cs">
