@@ -1,0 +1,8 @@
+
+## Travis CI Integration
+language: c
+install:
+- sudo apt-get install mono-devel mono-gmcs nunit-console
+script:
+- xbuild Pisces_open.sln
+- nunit-console Pisces_open/bin/Debug/Reclamation.TimeSeries.dll
