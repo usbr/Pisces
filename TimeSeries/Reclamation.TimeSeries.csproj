@@ -521,10 +521,10 @@
     </Compile>
     <Compile Include="Scenario.cs" />
     <Compile Include="SimpleMathSeries.cs" />
-    <Compile Include="Noaa\SpokaneCoopSeries.cs" />
+    <Compile Include="NOAA\SpokaneCoopSeries.cs" />
     <Compile Include="TimeSeriesFactory.cs" />
-    <Compile Include="RiverWare\RiverWareSeries.cs" />
-    <Compile Include="RiverWare\RiverWareTree.cs" />
+    <Compile Include="RiverWare\RiverwareSeries.cs" />
+    <Compile Include="RiverWare\RiverwareTree.cs" />
     <Compile Include="SubtractSeries.cs" />
     <Compile Include="TimeSeriesDatabase.Upgrade.cs" />
     <Compile Include="TimeSeriesDatabaseDataSet.cs">
