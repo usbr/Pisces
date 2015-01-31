@@ -9,4 +9,4 @@ script:
 - chmod a+x ./.nuget/NuGet.exe
 - export EnableNuGetPackageRestore=true
 - xbuild Pisces_open.sln
-- nunit-console Pisces_open/bin/Debug/Reclamation.TimeSeries.dll
+- nunit-console TimeSeries/bin/Debug/Reclamation.TimeSeries.dll
