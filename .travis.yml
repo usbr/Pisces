@@ -1,6 +1,6 @@
 
 ## Travis CI Integration
-language: c
+language: csharp
 install:
 - sudo apt-get install mono-devel mono-gmcs nunit-console
 script:
