@@ -2,7 +2,7 @@
 ## Travis CI Integration
 language: csharp
 install:
-- nuget restore Pisces_closed.sln
+- nuget restore Pisces_open.sln
 - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
 - export EnableNuGetPackageRestore=true
