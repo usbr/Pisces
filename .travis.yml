@@ -7,5 +7,5 @@ script:
 - cp nuget.exe ./.nuget/NuGet.exe
 - chmod a+x ./.nuget/NuGet.exe
 - export EnableNuGetPackageRestore=true
-- xbuild Pisces_open.sln
+- xbuild Pisces_open.sln /p:PostBuildEvent="" 
 #- mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TimeSeries/bin/Debug/Reclamation.TimeSeries.dll
