@@ -5,6 +5,6 @@ install:
 - nuget restore Pisces_open.sln
 - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
-- export EnableNuGetPackageRestore=true
+- export EnableNuGetPackageRestore=false
 - xbuild Pisces_open.sln
 - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TimeSeries/bin/Debug/Reclamation.TimeSeries.dll
