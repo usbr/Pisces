@@ -16,6 +16,76 @@ namespace Reclamation.TimeSeries {
         {
         }
 
+        public partial class sitepropertiesDataTable
+        {
+
+            TimeSeriesDatabase m_db;
+            public sitepropertiesDataTable(TimeSeriesDatabase db)
+                : base()
+            {
+                string sql = "Select * from siteproperties";
+
+                db.Server.FillTable(this, sql);
+                this.TableName = "siteproperties";
+                m_db = db;
+            }
+
+
+            public Dictionary<string, object> GetDictionary(string siteid)
+            {
+                var rval = new Dictionary<string, object>();
+                var rows = Select("siteid = '" + siteid + "'");
+                foreach (var item in rows)
+                {
+                    rval.Add(item["name"].ToString(), item["value"].ToString());
+                }
+                return rval;
+            }
+            public void Save()
+            {
+                m_db.Server.SaveTable(this);
+            }
+            public int NextID()
+            {
+                if (this.Rows.Count > 0)
+                {
+                    return ((int)this.Compute("Max(id)", "") + 1);
+                }
+                return 1;
+
+            }
+
+            public bool Contains(string name, string siteid)
+            {
+                return Select("name='" + name + "' and siteid = '" + siteid+"'").Length == 1;
+            }
+
+            public string Get(string name, string defaultValue, string siteid)
+            {
+                var rows = Select("name='" + name + "' and siteid = '" + siteid+"'");
+                if (rows.Length != 1)
+                    return defaultValue;
+
+                return rows[0]["value"].ToString();
+            }
+
+            public void Set(string name, string value, string siteid)
+            {
+                var rows = Select("name='" + name + "' and siteid = '" + siteid+"'");
+                if (rows.Length == 0)
+                {
+                    AddsitepropertiesRow(NextID(), siteid, name, value);
+                }
+                else
+                {
+                    rows[0]["value"] = value;
+                }
+
+            }
+
+        }
+
+
         public partial class seriespropertiesDataTable
         {
 

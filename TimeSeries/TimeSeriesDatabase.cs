@@ -232,12 +232,17 @@ namespace Reclamation.TimeSeries
             m_settings = new TimeSeriesDatabaseSettings(m_server);
         }
 
-
-
         public TimeSeriesDatabaseDataSet.sitecatalogDataTable GetSiteCatalog()
         {
             var tbl = new TimeSeriesDatabaseDataSet.sitecatalogDataTable();
-            m_server.FillTable(tbl,"select * from sitecatalog order by siteid");
+            m_server.FillTable(tbl, "select * from sitecatalog order by siteid");
+            return tbl;
+        }
+
+        public TimeSeriesDatabaseDataSet.sitecatalogDataTable GetSiteCatalog(string filter)
+        {
+            var tbl = new TimeSeriesDatabaseDataSet.sitecatalogDataTable();
+            m_server.FillTable(tbl,"select * from sitecatalog where " + filter +"  order by siteid");
             return tbl;
         }
 
