@@ -514,7 +514,7 @@ namespace Reclamation.TimeSeries
                 Server.SaveTable(siteCatalog);
             }
 
-            var siteFolder = GetOrCreateFolder(SiteID, parent);
+            var siteFolder = GetOrCreateFolder(parent,SiteID);
             var sc = GetSeriesCatalog();
             var instant = sc.AddFolder("instant", siteFolder.ID);
             var daily = sc.AddFolder("daily", siteFolder.ID);
@@ -1479,21 +1479,35 @@ namespace Reclamation.TimeSeries
         }
 
         
-
-        private PiscesFolder GetOrCreateFolder(string folderName, PiscesFolder parent=null)
+        public PiscesFolder GetOrCreateFolder( string folderName)
         {
-            var sr = GetSeriesRow("Name ='" + folderName + "' and isfolder = 1");
-            if (sr == null)
+           return GetOrCreateFolder(null,folderName);
+        }
+        
+        public PiscesFolder GetOrCreateFolder( PiscesFolder parent=null,params string[] folderNames)
+        {
+            PiscesFolder rval = parent;
+            for (int i = 0; i < folderNames.Length; i++)
             {
-                if (parent != null)
-                    return AddFolder(parent, folderName);
+                var fn = folderNames[i];
+                string sql = "name ='" + fn + "' and isfolder = 1";
+                if (rval != null)
+                    sql += " and parentid = " + rval.ID; 
+                var sr = GetSeriesRow(sql);
+                if (sr == null)
+                {
+                    if (rval != null)
+                        rval = AddFolder(rval, fn);
+                    else
+                        rval = AddFolder(fn);
+                }
                 else
-                return AddFolder(folderName);
+                {
+                   rval = this.Factory.GetFolder(sr.id);
+                   Logger.WriteLine(" found existing folder '"+fn+"'");
+                }
             }
-            else
-            {
-                return this.Factory.GetFolder(sr.id);
-            }
+            return rval;
         }
 
         
