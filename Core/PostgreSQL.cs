@@ -31,11 +31,16 @@ namespace Reclamation.Core
       /// </summary>
       /// <param name="databaseName"></param>
       /// <returns></returns>
-    public static BasicDBServer GetPostgresServer(string databaseName, string serverName="") 
+    public static BasicDBServer GetPostgresServer(string databaseName="", string serverName="") 
     {
         string server = serverName;
         if(server == "") // use config file.
           server = ConfigurationManager.AppSettings["PostgresServer"];
+
+        if( databaseName == "")
+        {
+            databaseName = ConfigurationManager.AppSettings["TimeSeriesDatabaseName"];
+        }
 
         if (LinuxUtility.IsLinux())
         {
