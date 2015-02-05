@@ -264,14 +264,40 @@ namespace Reclamation.TimeSeries
             return tbl;
         }
 
-        public TimeSeriesDatabaseDataSet.SeriesCatalogDataTable GetSeriesCatalog(string filter)
+        /// <summary>
+        /// Returns a filtered list from the Series Catalog
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="propertyFilter"></param>
+        /// <returns></returns>
+        public TimeSeriesDatabaseDataSet.SeriesCatalogDataTable GetSeriesCatalog(string filter,string propertyFilter="")
         {
-
             var tbl = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
             string sql = "select * from seriescatalog where "+filter;
+            sql += GetSeriesPropertySQL(propertyFilter);
+            sql += "  order by  siteid";
             m_server.FillTable(tbl,sql );
             return tbl;
         }
+        private static string GetSeriesPropertySQL(string propertyFilter)
+        {
+            var propertySQL = "";
+            string keyFilter = "";
+            string valueFilter = "";
+
+            if (propertyFilter != "" && propertyFilter.IndexOf(":") >= 0)
+            {
+                keyFilter = propertyFilter.Split(':')[0];
+                valueFilter = propertyFilter.Split(':')[1];
+            }
+
+            if (keyFilter != "")
+            {
+                propertySQL = " AND  id in (select seriesid from seriesproperties where name='" + keyFilter + "' and value='" + valueFilter + "') ";
+            }
+            return propertySQL;
+        }
+
 
         TimeSeriesDatabaseDataSet.seriespropertiesDataTable m_seriesProperties = null;
 

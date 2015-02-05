@@ -60,7 +60,7 @@
     <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Pisces.NunitTests.SeriesMath.TestRatingTableDependency</StartupObject>
+    <StartupObject>HydrometServer.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="nunit.core">
@@ -114,7 +114,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="rating_tables.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

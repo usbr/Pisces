@@ -27,8 +27,7 @@ namespace Reclamation.TimeSeries
             if (filter != "")
                 sql += " AND " + filter;
 
-            sql += GetPropertySQLAndClause(propertyFilter);
-            var sc = db.GetSeriesCatalog(sql);
+            var sc = db.GetSeriesCatalog(sql,propertyFilter);
 
             foreach (var sr in sc)
             {
@@ -44,62 +43,26 @@ namespace Reclamation.TimeSeries
         ///  proper order.
         /// </summary>
         /// <param name="interval"></param>
-        /// <param name="filter"></param>
-        /// <param name="propertyFilter"></param>
+        /// <param name="filter">supplement for the SQL where clause</param>
+        /// <param name="propertyFilter">two part filter for the siteproperty table i.e.  'program:agrimet'</param>
         /// <returns></returns>
         public List<CalculationSeries> GetCalculationSeries(TimeInterval interval, string filter="", string propertyFilter="")
         {
-
-            
-
             string sql = "provider = 'CalculationSeries' AND "
                 + " timeinterval = '" + interval.ToString() + "'";
             if (filter != "")
                 sql += " AND "+filter;
 
-            sql += GetPropertySQLAndClause(propertyFilter);
-
-            //sql += "  order by ( position('instant_' in expression)>0)  desc, siteid";
-            sql += "  order by  siteid";
-
-            var sc = db.GetSeriesCatalog(sql);
-
+            var sc = db.GetSeriesCatalog(sql,propertyFilter);
 
             List<CalculationSeries> list1 = new List<CalculationSeries>();
             foreach (var sr in sc)
             {
                 var s = GetSeries(sr) as CalculationSeries;
-                //if (db.Parser != null)
-                    //s.Parser = db.Parser;
-
-                //yield return s;
                 list1.Add(s);
             }
             return list1;
-
-            
         }
-
-        private static string GetPropertySQLAndClause(string propertyFilter)
-        {
-            var propertySQL = "";
-            string keyFilter = "";
-            string valueFilter = "";
-
-            if (propertyFilter != "" && propertyFilter.IndexOf(":") >= 0)
-            {
-                keyFilter = propertyFilter.Split(':')[0];
-                valueFilter = propertyFilter.Split(':')[1];
-            }
-
-            if (keyFilter != "")
-            {
-                propertySQL = " AND  id in (select seriesid from seriesproperties where name='" + keyFilter + "' and value='" + valueFilter + "') ";
-            }
-            return propertySQL;
-        }
-
-
 
 
         public PiscesFolder GetFolder(int id)
