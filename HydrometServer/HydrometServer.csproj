@@ -95,7 +95,6 @@
   <ItemGroup>
     <Compile Include="ApplicationTrustPolicy.cs" />
     <Compile Include="FileImporter.cs" />
-    <Compile Include="Options.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingTableDownload.cs" />

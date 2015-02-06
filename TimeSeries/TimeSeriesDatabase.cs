@@ -239,10 +239,13 @@ namespace Reclamation.TimeSeries
             return tbl;
         }
 
-        public TimeSeriesDatabaseDataSet.sitecatalogDataTable GetSiteCatalog(string filter)
+        public TimeSeriesDatabaseDataSet.sitecatalogDataTable GetSiteCatalog(string filter="1=1", string propertyFilter="")
         {
             var tbl = new TimeSeriesDatabaseDataSet.sitecatalogDataTable();
-            m_server.FillTable(tbl,"select * from sitecatalog where " + filter +"  order by siteid");
+            string sql = "select * from sitecatalog where " + filter;
+            sql += GetSitePropertySQL(propertyFilter);
+            sql += "  order by  siteid";
+            m_server.FillTable(tbl, sql);
             return tbl;
         }
 
@@ -279,6 +282,7 @@ namespace Reclamation.TimeSeries
             m_server.FillTable(tbl,sql );
             return tbl;
         }
+
         private static string GetSeriesPropertySQL(string propertyFilter)
         {
             var propertySQL = "";
@@ -298,6 +302,24 @@ namespace Reclamation.TimeSeries
             return propertySQL;
         }
 
+        private static string GetSitePropertySQL(string propertyFilter)
+        {
+            var propertySQL = "";
+            string keyFilter = "";
+            string valueFilter = "";
+
+            if (propertyFilter != "" && propertyFilter.IndexOf(":") >= 0)
+            {
+                keyFilter = propertyFilter.Split(':')[0];
+                valueFilter = propertyFilter.Split(':')[1];
+            }
+
+            if (keyFilter != "")
+            {
+                propertySQL = " AND  siteid in (select siteid from siteproperties where name='" + keyFilter + "' and value='" + valueFilter + "') ";
+            }
+            return propertySQL;
+        }
 
         TimeSeriesDatabaseDataSet.seriespropertiesDataTable m_seriesProperties = null;
 
