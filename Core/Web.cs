@@ -87,11 +87,11 @@ namespace Reclamation.Core
             }
             catch (WebException ex)
             {
-                Console.WriteLine("\r\nKarl Debug0:The request URI could not be found or was malformed " + ex.Message);
+                Console.WriteLine("\r\nDebug0:The request URI could not be found or was malformed " + ex.Message);
                 if (result != null)
                 {
-                    Console.WriteLine("Karl Debug1:");
-                    Console.WriteLine("Karl Debug2: "+result.ToString());
+                    Console.WriteLine("Debug1:");
+                    Console.WriteLine("Debug2: "+result.ToString());
                 }
                 throw ex;
             }
