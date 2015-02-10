@@ -54,6 +54,7 @@ namespace HydrometWebServices
               props.Add("cbtt", s.siteid);
               props.Add("title", s.description);
               props.Add("state", s.state);
+              props.Add("type", s.type);
               var feature = new Feature(pt,props,s.siteid);
 
               fc.Features.Add(feature);

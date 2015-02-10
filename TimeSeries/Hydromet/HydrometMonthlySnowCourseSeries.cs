@@ -12,7 +12,7 @@ namespace Reclamation.TimeSeries.Hydromet
     /// and stores in appropirate place in the monthly database
     /// 
     /// </summary>
-    class HydrometMonthlySnowCourseSeries:CalculationSeries
+    class HydrometMonthlySnowCourseSeries : CalculationSeries
     {
         string m_triplet;
         public HydrometMonthlySnowCourseSeries(string triplet)
@@ -35,7 +35,7 @@ namespace Reclamation.TimeSeries.Hydromet
             }
 
             rval.Trim(t1, t2);
-        } 
+        }
 
         /// <summary>
         /// readings in days > 20 moved to next month
@@ -47,14 +47,15 @@ namespace Reclamation.TimeSeries.Hydromet
         private Point SnapPointToMonth(Point point)
         {
             if (point.DateTime.Day > 20)
-                return new Point(point.DateTime.FirstOfMonth().AddMonths(1),point.Value,"");
+                return new Point(point.DateTime.FirstOfMonth().AddMonths(1), point.Value, "");
             else
-            if( point.DateTime.Day < 10)
-                return new Point(point.DateTime.FirstOfMonth(),point.Value,"");
-            else
-            if( point.DateTime.Day >=10 || point.DateTime.Day <=20) 
-                return new Point(point.DateTime.FirstOfMonth(),point.Value,"M"); // mid-month
-            else
-                throw new InvalidOperationException("point error in SnapPointToMonth "+point.ToString());
+                if (point.DateTime.Day < 10)
+                    return new Point(point.DateTime.FirstOfMonth(), point.Value, "");
+                else
+                    if (point.DateTime.Day >= 10 || point.DateTime.Day <= 20)
+                        return new Point(point.DateTime.FirstOfMonth(), point.Value, "M"); // mid-month
+                    else
+                        throw new InvalidOperationException("point error in SnapPointToMonth " + point.ToString());
+        }
     }
 }

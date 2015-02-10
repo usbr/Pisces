@@ -63,6 +63,7 @@ namespace Reclamation.TimeSeries.Forms.MetaData
         private void buttonSave_Click(object sender, EventArgs e)
         {
             var msg = m_db.Server.SaveTable(m_sites);
+            msg += m_db.Server.SaveTable(m_props);
             labelStatus.Text = msg+ " rows saved ";
         }
     }
