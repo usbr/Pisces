@@ -46,95 +46,18 @@ namespace HydrometServer
             var inputText = new CsvFile(configFile);
             var stationUpdateList = new List<string>();
             var attachments = new List<string>();
-            string urlDownload = "";
             // Loop through each row in the input text file
             for (int k = 0; k < inputText.Rows.Count; k++)
             {
-                // Define parameters to be used for this checking iteration
-                var dRow = inputText.Rows[k];
-                string cbtt = dRow["cbtt"].ToString().ToLower();
-
-                string stationID = dRow["site_id"].ToString();
-                string emailField = dRow["email"].ToString();
-                string agency = dRow["agency"].ToString();
-
-                Console.Write(cbtt.PadRight(8, '.') + " " + agency.ToLower().PadLeft(5));
-                // Check if the RDB is currently in the system
-                string rdbFileName = Path.Combine(hydrometRTFs, cbtt + ".rdb");
-                string shiftFileName = Path.Combine(Path.Combine(hydrometRTFs, "_hj_tables"), cbtt + "_hj.csv");
-                string qFileName = Path.Combine(Path.Combine(hydrometRTFs, "_q_tables"), cbtt + "_q.csv");
-
-                // Get full RatingTableFile
-                DataTable fullRatingTable;
-                TextFile webRdbTable;
-                TextFile fileRdbTable;
-                if (agency == "USGS")
+                try
                 {
-                    usgsRatingTable = new Reclamation.TimeSeries.Usgs.UsgsRatingTable(stationID);
-                    usgsRatingTable.CreateShiftAndFlowTablesFromWeb();
-                    usgsRatingTable.CreateFullRatingTableFromWeb();
-                    fullRatingTable = usgsRatingTable.fullRatingTable;
-                    webRdbTable = usgsRatingTable.webRdbTable;
-                    urlDownload = usgsRatingTable.downloadURL;
+                    var dRow = inputText.Rows[k];
+                    UpdatesingleRatingTable(dRow, generateNewTables, inputText, stationUpdateList, attachments);
                 }
-                else if (agency == "OWRD")
+                catch (Exception e)
                 {
-                    var ratingTable = new Reclamation.TimeSeries.Owrd.OwrdRatingTables(stationID);
-                    fullRatingTable = ratingTable.fullRatingTable;
-                    webRdbTable = ratingTable.rawTable;
-                    urlDownload = ratingTable.downloadURL;
-                }
-                else if (agency == "IDPWR")
-                {
-                    var ratingTable = new Reclamation.TimeSeries.IdahoPower.IdahoPowerRatingTables(cbtt);
-                    ratingTable.CreateFullRatingTableFromWeb();
-                    fullRatingTable = ratingTable.fullRatingTable;
-                    webRdbTable = ratingTable.webRdbTable;
-                    urlDownload = ratingTable.downloadURL;
-                }
-                else
-                { throw new Exception(cbtt.ToUpper() + "'s rating table from " + agency + " is not supported."); }
 
-                // Create new RDB, files if the file does not currently exist
-                if (!File.Exists(rdbFileName))
-                {
-                    stationUpdateList.Add(@"<a href=""" + urlDownload + @""">" + cbtt + " (" +agency+ " "+ stationID + ")</a>  updated existing table");
-                    if (agency == "USGS")
-                    { WriteHjAndQTables(shiftFileName, qFileName, usgsRatingTable); }
-                    WriteCsvFiles(fullRatingTable, cbtt);
-                    Console.WriteLine("                     new table");
-                    webRdbTable.SaveAs(rdbFileName);
-                }
-                // Check the existing file for updates
-                else
-                {
-                    // Get old RTF currently on file and copy it into temp. This is done to enable overwriting if the web file has been updated.
-                    fileRdbTable = GetRDBTableFromFile(cbtt, hydrometRTFs);
-                    // Compare
-                    var fileDiff = TextFile.Compare(fileRdbTable, webRdbTable);
-                    // Save new RTF file to repository and generate new HJ and Q tables if the file was updated
-                    if (fileDiff.Count() != 0 || generateNewTables)
-                    {
-                        stationUpdateList.Add(@"<a href=""" + urlDownload + @""">" + cbtt + " (" +agency + " "+ stationID + ")</a>  updated existing table");
-                        // Copy old RDB to _Attic and save new RDB to repository
-                        if (!generateNewTables)
-                        {
-                            fileRdbTable.SaveAs(Path.Combine(Path.Combine(hydrometRTFs, "_attic"), cbtt + DateTime.Now.ToString("_yyyy-MM-dd") + ".rdb"));//[JR] relies on the existence of an '_Attic' folder in the repository
-                            webRdbTable.SaveAs(rdbFileName);
-                        }
-                        if (agency == "USGS")
-                        { WriteHjAndQTables(shiftFileName, qFileName, usgsRatingTable); }
-                        WriteCsvFiles(fullRatingTable, cbtt);
-                        // Define which attachments to add to the mail message if the 'email' field in the input file is not blank
-                        if (emailField != "")
-                        {
-                            attachments.Add(shiftFileName);
-                            attachments.Add(qFileName);
-                        }
-                        Console.WriteLine("             UPDATED");
-                    }
-                    else
-                    { Console.WriteLine("   current"); }
+                    Console.WriteLine("Error: processing table  "+e.Message);
                 }
             }
 
@@ -150,6 +73,98 @@ namespace HydrometServer
                 }
                 SendEmail(subject, emailMsg, attachments);
             }
+        }
+
+        private static void UpdatesingleRatingTable(DataRow dRow,bool generateNewTables, CsvFile inputText, List<string> stationUpdateList, List<string> attachments)
+        {
+            string urlDownload = "";
+            // Define parameters to be used for this checking iteration
+            
+            string cbtt = dRow["cbtt"].ToString().ToLower();
+
+            string stationID = dRow["site_id"].ToString();
+            string emailField = dRow["email"].ToString();
+            string agency = dRow["agency"].ToString();
+
+            Console.Write(cbtt.PadRight(8, '.') + " " + agency.ToLower().PadLeft(5));
+            // Check if the RDB is currently in the system
+            string rdbFileName = Path.Combine(hydrometRTFs, cbtt + ".rdb");
+            string shiftFileName = Path.Combine(Path.Combine(hydrometRTFs, "_hj_tables"), cbtt + "_hj.csv");
+            string qFileName = Path.Combine(Path.Combine(hydrometRTFs, "_q_tables"), cbtt + "_q.csv");
+
+            // Get full RatingTableFile
+            DataTable fullRatingTable;
+            TextFile webRdbTable;
+            TextFile fileRdbTable;
+            if (agency == "USGS")
+            {
+                usgsRatingTable = new Reclamation.TimeSeries.Usgs.UsgsRatingTable(stationID);
+                usgsRatingTable.CreateShiftAndFlowTablesFromWeb();
+                usgsRatingTable.CreateFullRatingTableFromWeb();
+                fullRatingTable = usgsRatingTable.fullRatingTable;
+                webRdbTable = usgsRatingTable.webRdbTable;
+                urlDownload = usgsRatingTable.downloadURL;
+            }
+            else if (agency == "OWRD")
+            {
+                var ratingTable = new Reclamation.TimeSeries.Owrd.OwrdRatingTables(stationID);
+                fullRatingTable = ratingTable.fullRatingTable;
+                webRdbTable = ratingTable.rawTable;
+                urlDownload = ratingTable.downloadURL;
+            }
+            else if (agency == "IDPWR")
+            {
+                var ratingTable = new Reclamation.TimeSeries.IdahoPower.IdahoPowerRatingTables(cbtt);
+                ratingTable.CreateFullRatingTableFromWeb();
+                fullRatingTable = ratingTable.fullRatingTable;
+                webRdbTable = ratingTable.webRdbTable;
+                urlDownload = ratingTable.downloadURL;
+            }
+            else
+            { throw new Exception(cbtt.ToUpper() + "'s rating table from " + agency + " is not supported."); }
+
+            // Create new RDB, files if the file does not currently exist
+            if (!File.Exists(rdbFileName))
+            {
+                stationUpdateList.Add(@"<a href=""" + urlDownload + @""">" + cbtt + " (" + agency + " " + stationID + ")</a>  updated existing table");
+                if (agency == "USGS")
+                { WriteHjAndQTables(shiftFileName, qFileName, usgsRatingTable); }
+                WriteCsvFiles(fullRatingTable, cbtt);
+                Console.WriteLine("                     new table");
+                webRdbTable.SaveAs(rdbFileName);
+            }
+            // Check the existing file for updates
+            else
+            {
+                // Get old RTF currently on file and copy it into temp. This is done to enable overwriting if the web file has been updated.
+                fileRdbTable = GetRDBTableFromFile(cbtt, hydrometRTFs);
+                // Compare
+                var fileDiff = TextFile.Compare(fileRdbTable, webRdbTable);
+                // Save new RTF file to repository and generate new HJ and Q tables if the file was updated
+                if (fileDiff.Count() != 0 || generateNewTables)
+                {
+                    stationUpdateList.Add(@"<a href=""" + urlDownload + @""">" + cbtt + " (" + agency + " " + stationID + ")</a>  updated existing table");
+                    // Copy old RDB to _Attic and save new RDB to repository
+                    if (!generateNewTables)
+                    {
+                        fileRdbTable.SaveAs(Path.Combine(Path.Combine(hydrometRTFs, "_attic"), cbtt + DateTime.Now.ToString("_yyyy-MM-dd") + ".rdb"));//[JR] relies on the existence of an '_Attic' folder in the repository
+                        webRdbTable.SaveAs(rdbFileName);
+                    }
+                    if (agency == "USGS")
+                    { WriteHjAndQTables(shiftFileName, qFileName, usgsRatingTable); }
+                    WriteCsvFiles(fullRatingTable, cbtt);
+                    // Define which attachments to add to the mail message if the 'email' field in the input file is not blank
+                    if (emailField != "")
+                    {
+                        attachments.Add(shiftFileName);
+                        attachments.Add(qFileName);
+                    }
+                    Console.WriteLine("             UPDATED");
+                }
+                else
+                { Console.WriteLine("   current"); }
+            }
+            //return urlDownload;
         }
 
         private static void WriteHjAndQTables(string shiftFileName, string qFileName,

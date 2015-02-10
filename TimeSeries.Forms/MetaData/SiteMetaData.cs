@@ -17,6 +17,7 @@ namespace Reclamation.TimeSeries.Forms.MetaData
         }
         TimeSeriesDatabase m_db;
         TimeSeriesDatabaseDataSet.sitecatalogDataTable m_sites;
+        TimeSeriesDatabaseDataSet.sitepropertiesDataTable m_props;
         public SiteMetaData(TimeSeriesDatabase db)
         {
             
@@ -24,10 +25,11 @@ namespace Reclamation.TimeSeries.Forms.MetaData
             InitializeComponent();
             comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
-
+            m_props = db.GetSiteProperties();
+            
             m_sites = db.GetSiteCatalog();
 
-            var temp = m_sites.Copy();
+            var temp = m_sites.Copy(); // copy for the combo box (selection only)
             for (int i = 0; i < temp.Rows.Count; i++)
             {
                 var r = temp.Rows[i];
@@ -49,6 +51,13 @@ namespace Reclamation.TimeSeries.Forms.MetaData
 
             var row =m_sites[comboBox1.SelectedIndex];
             this.dataRowEditor1.SetDataRow(row);
+
+            var siteid = row["siteid"].ToString();
+            m_props.Columns["siteid"].DefaultValue = siteid;
+            m_props.Columns["id"].AutoIncrement = true;
+            m_props.Columns["id"].AutoIncrementSeed = m_props.NextID();
+            m_props.DefaultView.RowFilter = "siteid = '"+siteid+"'" ;
+            this.dataGridViewSiteProperties.DataSource = m_props;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
