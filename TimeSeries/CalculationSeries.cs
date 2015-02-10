@@ -49,23 +49,6 @@ namespace Reclamation.TimeSeries
             Calculate(TimeSeriesDatabase.MinDateTime, TimeSeriesDatabase.MaxDateTime);
         }
 
-        ///// <summary>
-        ///// Returns a list of TimeSeriesNames that this calculation
-        ///// explicitly depends on (not looking recersive)
-        ///// </summary>
-        ///// <returns></returns>
-        //public TimeSeriesName[] GetDependentTimeSeriesNames()
-        //{
-        //    List<TimeSeriesName> rval = new List<TimeSeriesName>();
-
-        //    var vars = GetDependendVariables();
-        //    foreach (var item in vars)
-        //    {
-        //        rval.Add(new TimeSeriesName(item));   
-        //    }
-        //    return rval.ToArray();
-        //}
-
         internal string[] GetDependentVariables()
         {
             List<string> rval = new List<string>();
@@ -90,7 +73,7 @@ namespace Reclamation.TimeSeries
 
 
 
-        public void Calculate(DateTime t1, DateTime t2)
+        public virtual void Calculate(DateTime t1, DateTime t2)
         {
 
             var t1a = t1;

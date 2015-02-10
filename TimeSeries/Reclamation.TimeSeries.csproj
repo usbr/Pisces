@@ -225,6 +225,7 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="alglibnet2">
       <HintPath>..\ThirdParty\alglibnet2.dll</HintPath>
@@ -326,6 +327,7 @@
     <Compile Include="Hydromet\DayFile.cs" />
     <Compile Include="Hydromet\DayFileRecord.cs" />
     <Compile Include="Hydromet\DayFiles.cs" />
+    <Compile Include="Hydromet\HydrometMonthlySnowCourseSeries.cs" />
     <Compile Include="Hydromet\mcf.cs">
       <SubType>Component</SubType>
     </Compile>

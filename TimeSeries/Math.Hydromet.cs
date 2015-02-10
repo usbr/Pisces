@@ -174,6 +174,14 @@ namespace Reclamation.TimeSeries
 
             return rval;
         }
+
+        [FunctionAttribute("Reads daily NRCS snowcourse data into monthly", "DailySnowCourseToMonthly(triplet)")]
+        public static Series DailySnowCourseToMonthly(string triplet)
+        {
+            var s = new HydrometMonthlySnowCourseSeries(triplet.Replace(":", "_"));
+            return s;
+        }
+
        
     }
 }
