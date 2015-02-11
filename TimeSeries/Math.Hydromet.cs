@@ -6,6 +6,7 @@ using Reclamation.TimeSeries.Parser;
 using Reclamation.Core;
 using Reclamation.TimeSeries.Hydromet;
 using Reclamation.TimeSeries.Hydromet.Operations;
+using Reclamation.TimeSeries.Nrcs;
 
 namespace Reclamation.TimeSeries
 {
@@ -178,7 +179,7 @@ namespace Reclamation.TimeSeries
         [FunctionAttribute("Reads daily NRCS snowcourse data into monthly", "DailySnowCourseToMonthly(triplet)")]
         public static Series DailySnowCourseToMonthly(string triplet)
         {
-            var s = new HydrometMonthlySnowCourseSeries(triplet.Replace(":", "_"));
+            var s = new MonthlySnowCourseSeries(triplet);
             return s;
         }
 

@@ -109,7 +109,7 @@ namespace Reclamation.TimeSeries.Nrcs
                 Console.WriteLine("duration = "+dur);
                 Console.WriteLine(m_triplet);
 
-                Nrcs.data[] data = ws.getData(new string[] { m_triplet }, Parameter, 1, null,
+                var data = ws.getData(new string[] { m_triplet }, Parameter, 1, null,
                     dur, true, t1.ToString("yyyy-MM-dd"), t2.ToString("yyyy-MM-dd"),false);
 
                 Console.WriteLine(t1.ToString("yyyy-MM-dd"));
@@ -134,7 +134,7 @@ namespace Reclamation.TimeSeries.Nrcs
 
                 var flags = data[0].flags;
                 DateTime t = DateTime.Parse(data[0].beginDate).Date;
-
+                
                 for (int i = 0; i < vals.Count(); i++)
                 {
 
@@ -147,7 +147,21 @@ namespace Reclamation.TimeSeries.Nrcs
                         AddMissing(t);
                     }
 
+                    if( dur == duration.DAILY)
+                    {
                     t = t.AddDays(1);
+                    }
+                    else if( dur == duration.SEMIMONTHLY)
+                    {
+                        if (t.Date.Day == 1)
+                            t = t.AddDays(15);
+                        else
+                            t = t.EndOfMonth().AddDays(1);
+                        //Console.WriteLine(data[0].collectionDates[i]);
+                        //t = DateTime.Parse(data[0].collectionDates[i]);
+                    }
+
+
                 }
             }
             catch (Exception e)

@@ -264,9 +264,6 @@
       <Name>System.XML</Name>
     </Reference>
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Data.SqlServerCe">
-      <HintPath>..\ThirdParty\SQLCE3.5\System.Data.SqlServerCe.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyVersion.cs">
@@ -327,7 +324,7 @@
     <Compile Include="Hydromet\DayFile.cs" />
     <Compile Include="Hydromet\DayFileRecord.cs" />
     <Compile Include="Hydromet\DayFiles.cs" />
-    <Compile Include="Hydromet\HydrometMonthlySnowCourseSeries.cs" />
+    <Compile Include="Nrcs\MonthlySnowCourseSeries.cs" />
     <Compile Include="Hydromet\mcf.cs">
       <SubType>Component</SubType>
     </Compile>
