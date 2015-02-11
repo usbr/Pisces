@@ -161,6 +161,16 @@ namespace Reclamation.TimeSeries {
             {
                 AddsitecatalogRow(siteid, description, state,"","","","","","","",0,"","","","","");
             }
+
+            public bool Exists(string siteid)
+            {
+                var rows = Select("siteid = '" + siteid+"'");
+                if (rows.Length == 1)
+                    return true;
+                if (rows.Length > 1)
+                    Console.WriteLine("ERROR site exists more than onece " + siteid);
+                return false;
+            }
         }
         public partial class SeriesCatalogDataTable
         {
