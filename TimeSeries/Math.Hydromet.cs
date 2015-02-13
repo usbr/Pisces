@@ -183,6 +183,29 @@ namespace Reclamation.TimeSeries
             return s;
         }
 
+
+        [FunctionAttribute("Fully Contracted Rectangular Weir (Francis equation) Q=3.33*h^1.5*(length-.2*h)", "RectangularContractedWeir()")]
+        public static Series RectangularContractedWeir(Series head, double length)
+        {
+            var s = new Series();
+            var h = head.Copy();
+            h.RemoveMissing(true);
+            s = (h * -.2 + length) * 3.33 * Math.Pow(h, 1.5);
+            return s;
+        }
+
+        [FunctionAttribute("Generic weir equation width_factor*head^exponent ", "GenericWeir()")]
+        public static Series GenericWeir(Series head, double width_factor, double exponent)
+        {
+            var s = new Series();
+            var h = head.Copy();
+            h.RemoveMissing(true);
+            s = Math.Pow(h, exponent) * width_factor;
+            return s;
+        }
+
+
+
        
     }
 }

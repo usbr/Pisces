@@ -378,6 +378,7 @@
     <Compile Include="Parser\Tests\TestParser.cs" />
     <Compile Include="Parser\Tests\TestParserWithDatabase.cs" />
     <Compile Include="ExcelDataReaderSeries.cs" />
+    <Compile Include="SeriesProperties.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="Tests\Database\TestSqLiteUnixTime.cs" />
     <Compile Include="Tests\Database\TestMultiDatabaseSupport.cs" />
@@ -400,6 +401,7 @@
     <Compile Include="Tests\SeriesFeatures\TestSubset.cs" />
     <Compile Include="Tests\SeriesFeatures\TestYearRange.cs" />
     <Compile Include="Tests\SeriesMath\AverageTest.cs" />
+    <Compile Include="Tests\SeriesMath\TestWeirEquations.cs" />
     <Compile Include="Tests\SeriesMath\TestET.cs" />
     <Compile Include="Tests\SeriesMath\TestMerge.cs" />
     <Compile Include="Tests\SeriesMath\DailyCalculatorTest.cs" />

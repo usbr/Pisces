@@ -88,9 +88,9 @@ namespace Reclamation.TimeSeries
                t2a = t2.AddDays(1); // we may need midnight value in the next day.
 
                // for example daily QU calculations default back 7 days (when running previous day)
-               if (Properties!= null &&  Properties.Contains("DaysBack",this.ID) ) // && t2.Date == DateTime.Now.AddDays(-1).Date)
+               if (Properties!= null &&  Properties.Contains("DaysBack") ) // && t2.Date == DateTime.Now.AddDays(-1).Date)
                {
-                   var daysBack = Convert.ToInt32(Properties.Get("DaysBack","0",this.ID));
+                   var daysBack = Convert.ToInt32(Properties.Get("DaysBack","0"));
                    t1a = t1a.AddDays(-daysBack);
                }
             
@@ -188,19 +188,63 @@ namespace Reclamation.TimeSeries
 
         /// <summary>
         /// Expand %site% into specific SiteID
-        /// Expand  siteid.columnName  table lookups
+        /// siteid.columnName becomes table lookup in sitecatalog
+        /// %property%.name  is a table lookups in seriesproperties
         /// such as  jck.elevation replaced with 6789.00
+        /// %property%.shift looks up the shift value 
         /// </summary>
         private string ExpressionPreProcessor()
         {
-            if (SiteID == "")
-                return Expression;
+            var rval = Expression;
+            rval = AddSiteData(rval);
+            rval = AddSeriesPropertyData(rval);
 
-            string rval = Expression.Replace("%site%", SiteID); // TO DO.. SiteID 
+            //Logger.WriteLine("Expression after preprocessor:");
+            //Logger.WriteLine(rval);
+            return rval;
+        }
 
+
+        /// <summary>
+        /// Replaces items like %property%.shift
+        /// with value in seriesproperty table, using name column for value
+        /// and  id for seriesid.
+        /// </summary>
+        /// <param name="rval"></param>
+        /// <returns></returns>
+        private string AddSeriesPropertyData(string rval)
+        {
+            string pattern = "(?<!\")(?<prop>%property%)\\.(?<name>[a-zA-Z]+[0-9]*)";
+
+            var m = Regex.Match(rval, pattern);
+            while (m.Success )
+            {
+                string name = m.Groups["name"].Value;
+                if (this.Properties.Contains(name))
+                {
+                    var val = Properties.Get(name);
+                    if( val != "")
+                     rval = rval.Replace(m.Groups[0].Value,val );
+                }
+                
+                m = Regex.Match(rval, pattern);
+            }
+
+            return rval;
+        }
+
+        private string AddSiteData(string rval)
+        {
             // check for %site%.elevation or other lookups in sitecatalog table
             //           abei.latitude
-            string pattern = "(?<!\")(?<siteid>"+ SiteID+")\\.(?<column>[a-zA-Z]+)";
+
+            if (SiteID == "")
+                return rval;
+
+            rval = rval.Replace("%site%", SiteID); // TO DO.. SiteID 
+
+
+            string pattern = "(?<!\")(?<siteid>" + SiteID + ")\\.(?<column>[a-zA-Z]+)";
             var m = Regex.Match(rval, pattern);
             while (m.Success && m_db != null)
             {
@@ -213,16 +257,12 @@ namespace Reclamation.TimeSeries
                 }
                 else
                 {
-                //    Logger.WriteLine("Error (ExpressionPreprocessor) doing lookup on " + site + "." + colName);
+                    //    Logger.WriteLine("Error (ExpressionPreprocessor) doing lookup on " + site + "." + colName);
                     break;
                 }
 
                 m = Regex.Match(rval, pattern);
             }
-
-
-            //Logger.WriteLine("Expression after preprocessor:");
-            //Logger.WriteLine(rval);
             return rval;
         }
 

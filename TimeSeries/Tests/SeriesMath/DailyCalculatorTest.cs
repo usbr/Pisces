@@ -48,7 +48,7 @@ namespace Pisces.NunitTests.SeriesMath
             s.Calculate(t,t);
 
             Assert.AreEqual(1, s.Count);
-            Assert.AreEqual(575.75, s[t].Value, 0.01);
+            Assert.AreEqual(573.75, s[t].Value, 0.01);
 
         }
 

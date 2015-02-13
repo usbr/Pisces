@@ -247,17 +247,26 @@ namespace Reclamation.TimeSeries
             set { m_db = value; }
         }
 
+
+
+        SeriesProperties m_seriesProperties = null;
         /// <summary>
         /// Used by CalculationSeries
         /// </summary>
-        public TimeSeriesDatabaseDataSet.seriespropertiesDataTable Properties 
+        public SeriesProperties Properties 
         {
             get
             {
                 if (m_db == null)
-                    return new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
-
-                return m_db.GetSeriesProperties(true);
+                {
+                    if (m_seriesProperties == null)
+                        m_seriesProperties = new SeriesProperties(ID);
+                    return m_seriesProperties;
+                }
+                else
+                {
+                    return new SeriesProperties(ID, m_db);
+                }
             }
         }
 
@@ -534,9 +543,15 @@ namespace Reclamation.TimeSeries
         {
             ReadCore(t1, t2);
 
-
+            if (AfterRead != null)
+            {
+                AfterRead(this, new EventArgs());
+            }
             ExportSeriesToDatabase();
+
         }
+
+        public event EventHandler AfterRead;
 
         private void ExportSeriesToDatabase()
         {

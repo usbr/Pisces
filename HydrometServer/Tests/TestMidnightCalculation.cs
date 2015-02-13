@@ -90,7 +90,7 @@ namespace Pisces.NunitTests.SeriesMath
             db.AddSeries(c);
             c = db.GetSeriesFromTableName("daily_wrdo_pu");
 
-            c.Properties.Set("DaysBack", "7",c.ID);
+            c.Properties.Set("DaysBack", "7");
             c.Properties.Save();
             c = new CalculationSeries("daily_wrdo_mx");
             c.Expression = "DailyMax(instant_wrdo_obx)";
