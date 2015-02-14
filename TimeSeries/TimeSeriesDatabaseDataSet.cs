@@ -174,21 +174,21 @@ namespace Reclamation.TimeSeries {
         }
         public partial class SeriesCatalogDataTable
         {
-            public void AddSeriesCatalogRow(Series s, int id, int parentID, string tableName="")
+            public void AddSeriesCatalogRow(Series s, int id, int parentID, string tableName = "")
             {
                 AddSeriesCatalogRow(id, parentID, false, 0, s.Source, s.Name, s.SiteName, s.Units,
-                    s.TimeInterval.ToString(), s.Parameter, tableName, s.Provider, s.ConnectionString, s.Expression, s.Notes,true);
+                    s.TimeInterval.ToString(), s.Parameter, tableName, s.Provider, s.ConnectionString, s.Expression, s.Notes, true);
             }
 
             public int AddFolder(string folderName, int id, int parentID)
             {
-                AddSeriesCatalogRow(id, parentID, true, 0, "", folderName,"", "","","","","","","","",false);
+                AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "", false);
                 return id;
             }
             public int AddFolder(string folderName, int parentID)
             {
                 int id = NextID();
-                AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "",false);
+                AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "", false);
                 return id;
 
             }
@@ -204,7 +204,7 @@ namespace Reclamation.TimeSeries {
 
             public int NextID()
             {
-                if ( this.Rows.Count >0)
+                if (this.Rows.Count > 0)
                 {
                     return ((int)this.Compute("Max(id)", "") + 1);
                 }
@@ -220,6 +220,21 @@ namespace Reclamation.TimeSeries {
                     return items[0] as SeriesCatalogRow;
 
                 return null;
+            }
+
+            public int AddInstantRow(string siteID, string units, string pcode, string expression)
+            {
+                var provider = "Series";
+                string iconName = "";
+                if (expression != "")
+                {
+                    provider = "CalculationSeries";
+                    iconName = "sum";
+                }
+                int rval = NextID();
+                AddSeriesCatalogRow(rval, 0, false, 1, iconName, siteID + "_" + pcode, siteID, units, "Irregular",
+                 pcode, "instant_" + siteID + "_" + pcode, provider, "", expression, "", true);
+                return rval;
             }
         }
 

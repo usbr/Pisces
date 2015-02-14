@@ -165,16 +165,24 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 AddInstantRow(siteID, "cfs", "q","FileRatingTable(%site%_gh,\"%site%.csv\")");
                 AddInstantRow(siteID, "cfs", "hj", "FileRatingTable(%site%_gh,\"%site%_shift.csv\")");
 
-                AddDailyRow(siteID, "cfs", "qd", "DailyAverage(instant_%site%_q,10)");
-                AddDailyRow(siteID, "cfs", "gd", "DailyAverage(instant_%site%_gh,10)");
-                AddDailyRow(siteID, "cfs", "hj", "DailyAverage(instant_%site%_hj,10)");
+             //   AddDailyRow(siteID, "cfs", "qd", "DailyAverage(instant_%site%_q,10)");
+              //  AddDailyRow(siteID, "cfs", "gd", "DailyAverage(instant_%site%_gh,10)");
+               // AddDailyRow(siteID, "cfs", "hj", "DailyAverage(instant_%site%_hj,10)");
             }
             if (this.checkBoxWaterTemp.Checked)
             {
                 AddInstantRow(siteID, "degF", "wf");
-                AddDailyRow(siteID, "cfs", "wi", "DailyMin(instant_%site%_wf,10)");
-                AddDailyRow(siteID, "cfs", "wk", "DailyMax(instant_%site%_wf,10)");
-                AddDailyRow(siteID, "cfs", "wz", "DailyAverage(instant_%site%_wf,10)");
+               // AddDailyRow(siteID, "cfs", "wi", "DailyMin(instant_%site%_wf,10)");
+               // AddDailyRow(siteID, "cfs", "wk", "DailyMax(instant_%site%_wf,10)");
+               // AddDailyRow(siteID, "cfs", "wz", "DailyAverage(instant_%site%_wf,10)");
+            }
+
+            if (this.checkBoxGenericWeir.Checked)
+            {
+                //AddInstantRow(siteID, "feet", "ch");
+                //AddInstantRow(siteID, "cfs", "qc", "GenericWeir(%site%_ch+%property%.shift+1.2,28.5,1.5)");
+                //AddInstantRow(siteID, "cfs", "hh", "");
+
             }
 
             if( this.checkBoxQuality.Checked)
@@ -189,16 +197,10 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
         private void AddInstantRow(string siteID, string units, string pcode, string expression = "")
         {
-            var provider = "Series";
-            string iconName = "";
-            if (expression != "")
-            {
-                provider = "CalculationSeries";
-                iconName = "sum";
-            }
-            m_seriesCatalog.AddSeriesCatalogRow(m_seriesCatalog.NextID(), 0, false, 1,iconName, siteID + "_" + pcode, siteID, units, "Irregular",
-             pcode, "instant_" + siteID + "_" + pcode, provider,"", expression, "", true);
+            m_seriesCatalog.AddInstantRow(siteID, units, pcode, expression);
         }
+
+       
         private void AddDailyRow(string siteID, string units, string pcode, string expression = "")
         {
             var provider = "Series";

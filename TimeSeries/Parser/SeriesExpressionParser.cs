@@ -18,6 +18,9 @@ ISBN: 0072134852
     /*  
        This module contains the recursive descent 
        parser that recognizes variables. 
+     * 
+     * REad(t1,t2) is called on a function that returns a series, but has no series arguments
+     * 
     */
 
 

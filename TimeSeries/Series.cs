@@ -1808,7 +1808,7 @@ namespace Reclamation.TimeSeries
         //    return rval;
         //}
         /// <summary>
-        /// (for Monthly or daily time step)given a date, return the next time step date
+        /// Return the next time step based on the interval.
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>

@@ -19,7 +19,7 @@ namespace Pisces.NunitTests.SeriesMath
         {
             //DailyCalculator.
             DateTime t = new DateTime(2012, 12, 6);
-            ConstantSeries s1 = new ConstantSeries("s1", "aa", -1);
+            ConstantSeries s1 = new ConstantSeries("s1", "aa", -1, TimeInterval.Daily);
             s1.TimeInterval = TimeInterval.Daily;
             Reclamation.TimeSeries.Parser.SeriesExpressionParser.Debug = true;
             var s = new CalculationSeries();

@@ -204,6 +204,13 @@ namespace Reclamation.TimeSeries
             return s;
         }
 
+        [FunctionAttribute("ConstantSeries ", "Constant(s,constant)")]
+        public static Series InstantConstant(double constant)
+        {
+            ConstantSeries cs = new ConstantSeries("", "", constant,TimeInterval.Irregular);
+            return cs; 
+        }
+
 
 
        
