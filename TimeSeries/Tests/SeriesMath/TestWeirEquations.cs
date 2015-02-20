@@ -60,6 +60,7 @@ namespace Pisces.NunitTests.SeriesMath
                ch.Add(t1, 0.67);
                ch.Add(t2, 0.08);
            });
+           ch.Properties.Set("shift", "-0.22");
            //6/11/2014  1:15	0.67	 	60.4
            //6/11/2014 14:00	0.08	 	31.1
 
@@ -68,8 +69,8 @@ namespace Pisces.NunitTests.SeriesMath
            var c = new CalculationSeries("canal_flow");
            c.Parser.VariableResolver.Add("afci_ch", new ParserResult(ch));
            c.TimeInterval = TimeInterval.Irregular;
-           c.Properties.Set("shift", "-0.22");
-           c.Expression = "GenericWeir(afci_ch+%property%.shift+1.2,28.5,1.5)";
+           
+           c.Expression = "GenericWeir(afci_ch,1.2,28.5,1.5)";
            c.Calculate(); 
 
 

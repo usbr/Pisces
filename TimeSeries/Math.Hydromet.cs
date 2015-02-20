@@ -194,21 +194,28 @@ namespace Reclamation.TimeSeries
             return s;
         }
 
-        [FunctionAttribute("Generic weir equation width_factor*head^exponent ", "GenericWeir()")]
-        public static Series GenericWeir(Series head, double width_factor, double exponent)
+        [FunctionAttribute("Generic weir equation width_factor*(head+offset+shift)^exponent ", "GenericWeir()")]
+        public static Series GenericWeir(Series head,double offset, double width_factor, double exponent)
         {
+            double shift = Convert.ToDouble(head.Properties.Get("shift", "0"));
             var s = new Series();
             var h = head.Copy();
             h.RemoveMissing(true);
+            h = h + offset + shift;
             s = Math.Pow(h, exponent) * width_factor;
             return s;
         }
 
-        [FunctionAttribute("ConstantSeries ", "Constant(s,constant)")]
-        public static Series InstantConstant(double constant)
+        [FunctionAttribute("ConstantShift ", "ConstantShift(h)")]
+        public static Series ConstantShift(Series h)
         {
-            ConstantSeries cs = new ConstantSeries("", "", constant,TimeInterval.Irregular);
-            return cs; 
+            double shift = Convert.ToDouble(h.Properties.Get("shift", "0"));
+            var rval = h.Copy();
+            rval.RemoveMissing();
+            rval = rval * 0.0;
+            rval = rval + shift;
+
+            return rval;
         }
 
 
