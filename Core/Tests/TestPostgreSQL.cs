@@ -17,7 +17,7 @@ namespace Reclamation.Core.Tests
             return svr;
         }
 
-        [Test]
+        [Test, Category("DatabaseServer")]
         public void ADLogin()
         {
 

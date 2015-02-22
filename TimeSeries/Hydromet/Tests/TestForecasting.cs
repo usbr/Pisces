@@ -39,7 +39,7 @@ namespace Reclamation.TimeSeries.Hydromet.Tests
         }
 
 
-        [Test]
+        [Test, Category("Internal")]
         public void TestHydrometRuleCurve()
         {
             var residual = new HydrometDailySeries("prv", "fcresid");
