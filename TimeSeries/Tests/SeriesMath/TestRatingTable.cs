@@ -18,14 +18,17 @@ namespace Pisces.NunitTests.SeriesMath
         public void ReservoirContentsWithDatabase()
         {
             Logger.EnableLogger();
-            var fn = @"c:\temp\test_rating_table.pdb";
+            var fn = FileUtility.GetTempFileName(".pdb");
             System.IO.File.Delete(fn);
 
             SQLiteServer svr = new SQLiteServer(fn);
             var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
 
             var c = new CalculationSeries("instant_karl_af");
-            c.Expression = "FileRatingTable(instant_karl_fb,\"karl_af.txt\")";
+            var path = Path.Combine(Globals.TestDataPath, "rating_tables");
+            path = Path.Combine(path, "karl_af.txt");
+
+            c.Expression = "FileRatingTable(instant_karl_fb,\""+path+"\")";
             c.TimeInterval = TimeInterval.Irregular;
             db.AddSeries(c);
 
@@ -86,7 +89,9 @@ namespace Pisces.NunitTests.SeriesMath
            Series s = new Series();
            s.Add(DateTime.Now.Date, 1281.95);
 
-           var af = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, "gcl_af.txt");
+           var path = Path.Combine(Globals.TestDataPath, "rating_tables");
+           path = Path.Combine(path, "gcl_af.txt");
+           var af = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path);
 
 
            var x = af[0].Value;

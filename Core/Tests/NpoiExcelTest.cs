@@ -64,7 +64,7 @@ namespace Reclamation.Core.Tests
             xls.SaveDataTable(tbl, "newsheet");
              
             string fn= FileUtility.GetTempFileName(".xls");// @"c:\temp\karl.xls";
-
+            File.Delete(fn);
             xls.Save(fn);
 
             DataTable tbl2 = xls.ReadDataTable("newsheet");
