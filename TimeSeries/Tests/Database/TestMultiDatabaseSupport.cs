@@ -18,7 +18,7 @@ namespace Pisces.NunitTests.Database
             t.TestMySQL();
         }
 
-        [Test]
+        [Test, Category("DatabaseServer")]
         public void TestMySQL()
         {
             var svr = new MySqlServer();
@@ -42,16 +42,16 @@ namespace Pisces.NunitTests.Database
             BasicDatabaseTest(db);
         }
 
-      
 
 
-        [Test]
+
+        [Test, Category("DatabaseServer")]
         public void TestActiveDirectoryConnectionPostgresql()
         {
             var svr = TestPostgreSQL.GetPGServer();
         }
 
-        [Test]
+        [Test, Category("DatabaseServer")]
         public void TestPostgresql()
         {
             // using database nunit owned by user running the test
@@ -68,7 +68,7 @@ namespace Pisces.NunitTests.Database
             BasicDatabaseTest(db);
         }
 
-        [Test]
+        [Test, Category("DatabaseServer")]
         public void TestSqlServer()
         {
             /*
