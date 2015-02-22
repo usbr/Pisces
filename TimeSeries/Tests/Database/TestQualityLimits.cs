@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Reclamation.Core;
 using Reclamation.TimeSeries.Hydromet;
 using Reclamation.TimeSeries;
+using System.IO;
 
 namespace Pisces.NunitTests.Database
 {
@@ -13,8 +14,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void TestSQLite()
         {
-            var fn = @"c:\temp\test_quality.db";
-            System.IO.File.Delete(fn);
+            var fn = FileUtility.GetTempFileName(".pdb"); 
 
             SQLiteServer svr = new SQLiteServer(fn);
             var db = new TimeSeriesDatabase(svr);
