@@ -32,7 +32,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void TestSQLite()
         {
-            var fn =FileUtility.GetTempFileNameInDirectory(@"c:\temp", ".pdb");
+            var fn = FileUtility.GetTempFileName(".pdb");
             System.IO.File.Delete(fn);
 
             SQLiteServer svr = new SQLiteServer(fn);

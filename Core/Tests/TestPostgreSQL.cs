@@ -32,7 +32,7 @@ namespace Reclamation.Core.Tests
         /// <summary>
         /// AgriMet crops charts use a reserved word in the column name
         /// </summary>
-        [Test]
+        [Test, Category("DatabaseServer")]
         public void ColumnNameReservedWord()
         {
             var psql = GetPGServer();

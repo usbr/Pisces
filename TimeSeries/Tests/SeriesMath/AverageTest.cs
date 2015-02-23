@@ -82,7 +82,7 @@ units:feet
 			for(int i=0; i<ts.Count; i++)
 			{
 				double val = ts.Lookup(date);
-        Assert.AreEqual(goodValues[i],val,0.01);
+        Assert.AreEqual(goodValues[i],val,0.1);
 				date = date.AddDays(1);
 			}
 		}

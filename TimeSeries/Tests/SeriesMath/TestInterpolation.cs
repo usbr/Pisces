@@ -3,6 +3,8 @@ using System.Data;
 using NUnit.Framework;
 using Reclamation.TimeSeries;
 using DateTime = System.DateTime;
+using Reclamation.Core;
+using System.IO;
 
 namespace Pisces.NunitTests.SeriesMath
 {
@@ -129,10 +131,10 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void InterpolateWithStyle()
         {
-            //string path = System.IO.Path.Combine(Reclamation.Core.Globals.TestDataPath, "UofIDisaggregation.sdf");
-            string path = System.IO.Path.Combine(Reclamation.Core.Globals.TestDataPath, "UofIDisaggregationTest.pdb");
-            
-            //Reclamation.Core.SqlServerCompact pDB = new Reclamation.Core.SqlServerCompact(path);
+            string zipFile = Path.Combine(Globals.TestDataPath, "UofIDisaggregationTest.zip");
+            var path = FileUtility.GetTempFileName(".pdb");
+            ZipFile.UnzipFile(zipFile, path);
+
             Reclamation.Core.SQLiteServer pDB = new Reclamation.Core.SQLiteServer(path);
             TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB);
             Series sReal = DB.GetSeriesFromName("SS_Day_Mean"); sReal.Read();
