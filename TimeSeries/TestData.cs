@@ -135,13 +135,18 @@ namespace Reclamation.TimeSeries
        * */
       get 
       { 
-          DataSet ds = new DataSet();
-          var fn = DataPath + "\\banks.xml";
-          Console.WriteLine(fn);
-        ds.ReadXml(fn);
-        DataTable tbl = ds.Tables[0];
-        Console.WriteLine(tbl.Rows.Count+" rows in table");
-         return new Series(tbl,"feet",TimeInterval.Irregular);
+          var fn = DataPath + "\\banks.csv";
+          TextSeries s = new TextSeries(fn);
+          s.Read();
+          Console.WriteLine(s.Count);
+          return s;
+          //DataSet ds = new DataSet();
+          
+        //  Console.WriteLine(fn);
+        //ds.ReadXml(fn);
+        //DataTable tbl = ds.Tables[0];
+        //Console.WriteLine(tbl.Rows.Count+" rows in table");
+        // return new Series(tbl,"feet",TimeInterval.Irregular);
       }
     }
 		public static Series Simple1Day
