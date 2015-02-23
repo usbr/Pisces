@@ -136,9 +136,11 @@ namespace Reclamation.TimeSeries
       get 
       { 
           DataSet ds = new DataSet();
-        
-        ds.ReadXml(DataPath+"\\banks.xml");
+          var fn = DataPath + "\\banks.xml";
+          Console.WriteLine(fn);
+        ds.ReadXml(fn);
         DataTable tbl = ds.Tables[0];
+        Console.WriteLine(tbl.Rows.Count+" rows in table");
          return new Series(tbl,"feet",TimeInterval.Irregular);
       }
     }
