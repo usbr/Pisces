@@ -1590,6 +1590,8 @@ namespace Reclamation.TimeSeries
             }
             sb.Append("\r\n");
 
+            if (this.Count == 0)
+                sb.Append("<empty>");
             int numRows = this.Count;
 
             for (int i = 0; i < numRows; i++)

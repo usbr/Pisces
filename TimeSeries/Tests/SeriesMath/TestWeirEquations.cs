@@ -57,9 +57,14 @@ namespace Pisces.NunitTests.SeriesMath
 
            ch.AfterRead += new EventHandler(delegate(object o, EventArgs a)
            {
-               ch.Add(t1, 0.67);
-               ch.Add(t2, 0.08);
+               AddSomeData(ch, t1, t2);
            });
+           AddSomeData(ch, t1, t2);
+           ch.Read();
+           Series tmp =Reclamation.TimeSeries.Math.GenericWeir(ch, 1.2, 28.5, 1.5);
+           Assert.AreEqual(2, tmp.Count);
+
+           
            ch.Properties.Set("shift", "-0.22");
            //6/11/2014  1:15	0.67	 	60.4
            //6/11/2014 14:00	0.08	 	31.1
@@ -78,6 +83,12 @@ namespace Pisces.NunitTests.SeriesMath
            Assert.AreEqual(60.4, c[t1].Value, 0.1);
            Assert.AreEqual(31.1, c[t2].Value, 0.1);
 
+       }
+
+       private static void AddSomeData(Series ch, DateTime t1, DateTime t2)
+       {
+           ch.Add(t1, 0.67);
+           ch.Add(t2, 0.08);
        }
 
 

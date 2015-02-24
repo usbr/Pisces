@@ -37,13 +37,13 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void ImportDecodesAndProcessWithFlagLimits()
         {
-            var fn1 = FileUtility.GetTempFileNameInDirectory(@"c:\temp", ".pdb", "ratings");
+            Logger.EnableLogger();
+            FileUtility.CleanTempPath();
+            var fn1 = FileUtility.GetTempFileName(".pdb");
             Console.WriteLine(fn1);
             var svr = new SQLiteServer(fn1);
             var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
          
-            Logger.EnableLogger();
-            FileUtility.CleanTempPath();
             var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_lapo.txt");
             
            var rtlapo = CreateTempRatingTable("lapo.csv", new double[] {3.50,3.54,3.55,5.54 },
@@ -63,7 +63,7 @@ namespace Pisces.NunitTests.SeriesMath
 
             //SeriesExpressionParser.Debug = true;
             FileImporter import = new FileImporter(db);
-            import.Import(tmpDir,RouteOptions.None,computeDependencies:true);
+            import.Import(tmpDir,RouteOptions.None,computeDependencies:true,searchPattern:"*.txt");
             db.Inventory();
 
 
@@ -85,10 +85,7 @@ namespace Pisces.NunitTests.SeriesMath
                  Assert.AreEqual(expectedFlags[i], s[i].Flag," Flag check on Flow (Q) "); 
             }
 
-            
-
             SeriesExpressionParser.Debug = false;
-            
         }
 
         private string CreateTempRatingTable(string filename, double min, double max, Func<double,double> f,
@@ -126,14 +123,14 @@ namespace Pisces.NunitTests.SeriesMath
         /// </summary>
         [Test]
         public void ImportDecodesWithMissingGageHeight()
-        { 
-
-            var fn1 = FileUtility.GetTempFileNameInDirectory(@"c:\temp", ".pdb", "mabo");
+        {
+            FileUtility.CleanTempPath();
+            var fn1 = FileUtility.GetTempFileName(".pdb");
             Console.WriteLine(fn1);
             var svr = new SQLiteServer(fn1);
             var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
             Logger.EnableLogger();
-            FileUtility.CleanTempPath();
+            
             var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_mabo_missing_gh.txt");
             var ratingTableFileName =CreateTempRatingTable("mabo.csv", 2.37, 2.8, x => (x*10));
             var c = new CalculationSeries("instant_mabo_q");
@@ -141,7 +138,7 @@ namespace Pisces.NunitTests.SeriesMath
             db.AddSeries(c);
 
             FileImporter import = new FileImporter(db);
-            import.Import(tmpDir, RouteOptions.Outgoing, computeDependencies: true);
+            import.Import(tmpDir, RouteOptions.Outgoing, computeDependencies: true,searchPattern:"*.txt");
             db.Inventory();
 
             var s = db.GetSeriesFromTableName("instant_mabo_q");

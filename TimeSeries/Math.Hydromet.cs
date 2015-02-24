@@ -194,7 +194,7 @@ namespace Reclamation.TimeSeries
             return s;
         }
 
-        [FunctionAttribute("Generic weir equation width_factor*(head+offset+shift)^exponent ", "GenericWeir()")]
+        [FunctionAttribute("Generic weir equation width_factor*(head+offset+shift)^exponent ", "GenericWeir(head,offset,width_factor,exponent)")]
         public static Series GenericWeir(Series head,double offset, double width_factor, double exponent)
         {
             double shift = Convert.ToDouble(head.Properties.Get("shift", "0"));
