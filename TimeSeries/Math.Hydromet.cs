@@ -73,8 +73,8 @@ namespace Reclamation.TimeSeries
         /// <param name="forecast">Daily Forecast(acre-feet) computed from Monthly forecast</param>
         /// <param name="runoff">Daily runoff gage (cfs)</param>
         /// <param name="residual">Residual forecast - input to initilize calculations</param>
-        /// <returns>residula forecaset in acre-feet</returns>
-        [FunctionAttribute("Compute Residual Forecast", "HydrometResidualForecast(cbtt,pcode)")]
+        /// <returns>residual forecaset in acre-feet</returns>
+        [FunctionAttribute("Compute Residual Forecast", "HydrometResidualForecast(forecast,runoff,residual)")]
         public static Series HydrometResidualForecast(Series forecast, Series runoff, Series residual)
         {
             var rval = new Series();
