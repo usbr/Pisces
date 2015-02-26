@@ -1,4 +1,4 @@
-![Pisces Build](https://api.travis-ci.org/usbr/Pisces.svg)
+[![Pisces Build](https://api.travis-ci.org/usbr/Pisces.svg)](https://travis-ci.org/usbr/Pisces)
 [![Build status](https://ci.appveyor.com/api/projects/status/vrtk5m141gfrb6gt?svg=true)](https://ci.appveyor.com/project/ktarbet/pisces)
 
 Pisces   
