@@ -313,6 +313,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Decodes\McfDecodesConverter.cs" />
+    <Compile Include="Decodes\McfToDecodes.cs" />
+    <Compile Include="Decodes\UnitConversion.cs" />
     <Compile Include="Estimation\AllPossibleCombination.cs" />
     <Compile Include="Estimation\MultipleLinearRegression.cs" />
     <Compile Include="Estimation\MultipleLinearRegressionResults.cs" />
