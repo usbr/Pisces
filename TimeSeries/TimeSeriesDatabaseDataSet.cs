@@ -185,21 +185,48 @@ namespace Reclamation.TimeSeries {
                 AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "", false);
                 return id;
             }
-            public int AddFolder(string folderName, int parentID)
+            public int AddFolder(string folderName, int parentID=-1)
             {
                 int id = NextID();
+                if (parentID == -1)
+                    parentID = id;
                 AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "", false);
                 return id;
-
+            }
+            public int GetOrCreateFolder( params string[] folderNames)
+            {
+                int rval = -1;
+                for (int i = 0; i < folderNames.Length; i++)
+                {
+                    var fn = folderNames[i];
+                    if (FolderExists(fn, rval))
+                    {
+                        rval = FolderID(fn, rval);
+                        Logger.WriteLine(" found existing folder '" + fn + "'");
+                    }
+                    else
+                    {
+                       rval = AddFolder(fn,rval);
+                    }
+                }
+                return rval;
             }
 
-
-            public bool FolderExists(string folderName, int parentID)
+            private int FolderID(string name, int parentid= -1)
             {
-                DataRow[] foundFolder = this.Select(string.Format("Name = '{0}' and IsFolder = True and parentid = {1}", folderName, parentID));
+                string sql = "name = '"+name+"' and isfolder = true ";
+                if( parentid != -1)
+                    sql += " and parentid = "+parentid ;
+                DataRow[] foundFolder = this.Select(sql);
                 if (foundFolder.Length == 1)
-                    return true;
-                return false;
+                    return Convert.ToInt32(foundFolder[0]["id"]);
+
+                return -1;
+            }
+
+            public bool FolderExists(string folderName, int parentID=-1)
+            {
+                return FolderID(folderName, parentID) >= 0;
             }
 
             public int NextID()
@@ -222,7 +249,7 @@ namespace Reclamation.TimeSeries {
                 return null;
             }
 
-            public int AddInstantRow(string siteID, string units, string pcode, string expression)
+            public int AddInstantRow(string siteID, int parentid, string units, string pcode, string expression="")
             {
                 var provider = "Series";
                 string iconName = "";
@@ -231,9 +258,15 @@ namespace Reclamation.TimeSeries {
                     provider = "CalculationSeries";
                     iconName = "sum";
                 }
+                string tableName = "instant_" + siteID + "_" + pcode;
+
+                var rows = Select("tablename = '" + tableName + "'");
+                if( rows.Length >0)
+                    Console.WriteLine("Warning table:'"+tableName+"' allready exists");
+
                 int rval = NextID();
-                AddSeriesCatalogRow(rval, 0, false, 1, iconName, siteID + "_" + pcode, siteID, units, "Irregular",
-                 pcode, "instant_" + siteID + "_" + pcode, provider, "", expression, "", true);
+                AddSeriesCatalogRow(rval, parentid, false, 1, iconName, siteID + "_" + pcode, siteID, units, "Irregular",
+                 pcode, tableName, provider, "", expression, "", true);
                 return rval;
             }
         }
