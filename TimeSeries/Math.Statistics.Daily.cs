@@ -492,7 +492,7 @@ namespace Reclamation.TimeSeries
          "DailyMax(series1)")]
         public static Series DailyMax(Series source)
         {
-            Series rval = source.Clone();
+            Series rval = source.Clone(); 
             source.RemoveMissing(true);
             if (source.Count > 0)
             {
