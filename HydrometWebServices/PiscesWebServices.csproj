@@ -7,7 +7,7 @@
     <ProjectGuid>{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HydrometWebServices</RootNamespace>
+    <RootNamespace>PiscesWebServices</RootNamespace>
     <AssemblyName>HydrometWebServices</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>PiscesWebServices.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="GeoJSON.Net">
       <HintPath>..\packages\GeoJSON.Net.0.0.33\lib\GeoJSON.Net.dll</HintPath>
@@ -42,6 +45,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,9 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Instant.cs" />
     <Compile Include="SiteDump.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Reclamation.Core.csproj">

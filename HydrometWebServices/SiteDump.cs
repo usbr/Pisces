@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HydrometWebServices
+namespace PiscesWebServices
 {
     /// <summary>
     /// dump site data from Pisces meta-data in GEOJson format
