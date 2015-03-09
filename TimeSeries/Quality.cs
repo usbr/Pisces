@@ -22,6 +22,10 @@ namespace Reclamation.TimeSeries
             }
         }
 
+        /// <summary>
+        /// Sets flags on this series based on quality_limit settings
+        /// </summary>
+        /// <param name="s"></param>
         public void SetFlags(Series s)
         {
             if (m_db == null)
@@ -104,7 +108,7 @@ namespace Reclamation.TimeSeries
         }
 
 
-        public void SaveLimits(string tableName, double high, double low, int change)
+        public void SaveLimits(string tableName, double high, double low, double changePerHour=0)
         {
             var row = GetRow(tableName);
             if (row == null)
@@ -114,6 +118,7 @@ namespace Reclamation.TimeSeries
             row.tablemask = tableName;
             row.high = high;
             row.low = low;
+            row.delta = changePerHour;
             
             if( row.RowState == System.Data.DataRowState.Detached )
                m_limit.Addquality_limitRow(row);

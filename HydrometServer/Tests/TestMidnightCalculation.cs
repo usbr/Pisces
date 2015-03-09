@@ -21,7 +21,8 @@ namespace Pisces.NunitTests.SeriesMath
         TimeSeriesDatabase db;
         public TestMidnightCalculation()
         {
-            string fn = FileUtility.GetTempFileNameInDirectory(@"c:\temp",".pdb","midnight");
+            FileUtility.CleanTempPath();
+            string fn = FileUtility.GetTempFileName(".pdb");
             Console.WriteLine(fn);
             var svr = new SQLiteServer(fn);
             db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
@@ -38,11 +39,10 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void wrdo()
         {
-            //Logger.EnableLogger();
-            FileUtility.CleanTempPath();
+            Logger.EnableLogger();
             var dir = FileUtility.GetTempPath();
             var testDir = Path.Combine(Globals.TestDataPath, "wrdo");
-            FileUtility.CopyFiles(testDir, dir,"*.*",true,true);
+            FileUtility.CopyFiles(testDir, dir,"*.dat",true,true);
 
 
             var c = new Series("daily_wrdo_mm"); //needed to 
@@ -90,7 +90,7 @@ namespace Pisces.NunitTests.SeriesMath
             db.AddSeries(c);
             c = db.GetSeriesFromTableName("daily_wrdo_pu");
 
-            c.Properties.Set("DaysBack", "7",c.ID);
+            c.Properties.Set("DaysBack", "7");
             c.Properties.Save();
             c = new CalculationSeries("daily_wrdo_mx");
             c.Expression = "DailyMax(instant_wrdo_obx)";
@@ -119,13 +119,8 @@ namespace Pisces.NunitTests.SeriesMath
             c.TimeInterval = TimeInterval.Daily;
             db.AddSeries(c);
 
-
-
-
-
-           //Reclamation.TimeSeries.Parser.SeriesExpressionParser.Debug = true;
             FileImporter fi = new FileImporter(db);
-            fi.Import(dir, computeDailyOnMidnight: true);
+            fi.Import(dir, computeDailyOnMidnight: true,searchPattern:"*.dat");
 
 
             var s = db.GetSeriesFromTableName("daily_wrdo_ym");

@@ -225,6 +225,7 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="alglibnet2">
       <HintPath>..\ThirdParty\alglibnet2.dll</HintPath>
@@ -234,6 +235,7 @@
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -262,9 +264,6 @@
       <Name>System.XML</Name>
     </Reference>
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Data.SqlServerCe">
-      <HintPath>..\ThirdParty\SQLCE3.5\System.Data.SqlServerCe.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\AssemblyVersion.cs">
@@ -314,6 +313,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Decodes\McfDecodesConverter.cs" />
+    <Compile Include="Decodes\McfToDecodes.cs" />
+    <Compile Include="Decodes\UnitConversion.cs" />
     <Compile Include="Estimation\AllPossibleCombination.cs" />
     <Compile Include="Estimation\MultipleLinearRegression.cs" />
     <Compile Include="Estimation\MultipleLinearRegressionResults.cs" />
@@ -325,6 +327,7 @@
     <Compile Include="Hydromet\DayFile.cs" />
     <Compile Include="Hydromet\DayFileRecord.cs" />
     <Compile Include="Hydromet\DayFiles.cs" />
+    <Compile Include="Nrcs\MonthlySnowCourseSeries.cs" />
     <Compile Include="Hydromet\mcf.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -378,6 +381,7 @@
     <Compile Include="Parser\Tests\TestParser.cs" />
     <Compile Include="Parser\Tests\TestParserWithDatabase.cs" />
     <Compile Include="ExcelDataReaderSeries.cs" />
+    <Compile Include="SeriesProperties.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="Tests\Database\TestSqLiteUnixTime.cs" />
     <Compile Include="Tests\Database\TestMultiDatabaseSupport.cs" />
@@ -400,6 +404,7 @@
     <Compile Include="Tests\SeriesFeatures\TestSubset.cs" />
     <Compile Include="Tests\SeriesFeatures\TestYearRange.cs" />
     <Compile Include="Tests\SeriesMath\AverageTest.cs" />
+    <Compile Include="Tests\SeriesMath\TestWeirEquations.cs" />
     <Compile Include="Tests\SeriesMath\TestET.cs" />
     <Compile Include="Tests\SeriesMath\TestMerge.cs" />
     <Compile Include="Tests\SeriesMath\DailyCalculatorTest.cs" />
@@ -521,10 +526,10 @@
     </Compile>
     <Compile Include="Scenario.cs" />
     <Compile Include="SimpleMathSeries.cs" />
-    <Compile Include="Noaa\SpokaneCoopSeries.cs" />
+    <Compile Include="NOAA\SpokaneCoopSeries.cs" />
     <Compile Include="TimeSeriesFactory.cs" />
-    <Compile Include="RiverWare\RiverWareSeries.cs" />
-    <Compile Include="RiverWare\RiverWareTree.cs" />
+    <Compile Include="RiverWare\RiverwareSeries.cs" />
+    <Compile Include="RiverWare\RiverwareTree.cs" />
     <Compile Include="SubtractSeries.cs" />
     <Compile Include="TimeSeriesDatabase.Upgrade.cs" />
     <Compile Include="TimeSeriesDatabaseDataSet.cs">

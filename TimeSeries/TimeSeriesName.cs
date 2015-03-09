@@ -38,7 +38,7 @@ namespace Reclamation.TimeSeries
         {
             m_defaultInterval = defaultInterval;
             m_name = name;
-            Parse();
+            Parse();   
             if (!Valid)
             {
                 Console.WriteLine("Init(): Invalid name '" + name + "'   [" +defaultInterval+"]" );

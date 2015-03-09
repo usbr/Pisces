@@ -33,7 +33,7 @@ namespace Reclamation.TimeSeries.Parser.Tests
         public void StringParameter()
         {
 
-            string expression = "HydrometRuleCurve(\"prvo\",fc))";
+            string expression = "HydrometRuleCurve(\"c:\\temp\\prvo\",fc))";
 
             string subExpression;
             ParserFunction f;
@@ -42,7 +42,7 @@ namespace Reclamation.TimeSeries.Parser.Tests
             Assert.AreEqual("HydrometRuleCurve", f.Name);
             Assert.AreEqual(2, f.Parameters.Length);
 
-            Assert.AreEqual("\"prvo\"", f.Parameters[0]);
+            Assert.AreEqual("\"c:\\temp\\prvo\"", f.Parameters[0]);
             Assert.AreEqual("fc", f.Parameters[1]);
 
             CalculationSeries cs = new CalculationSeries("test");

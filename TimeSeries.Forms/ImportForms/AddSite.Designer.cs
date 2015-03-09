@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBoxSiteID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,7 +41,12 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButtonHydromet = new System.Windows.Forms.RadioButton();
+            this.radioButtonAgriMet = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxGenericWeir = new System.Windows.Forms.CheckBox();
+            this.checkBoxRectWeir = new System.Windows.Forms.CheckBox();
             this.checkBoxQuality = new System.Windows.Forms.CheckBox();
             this.buttonIndividuals = new System.Windows.Forms.Button();
             this.checkBoxQ = new System.Windows.Forms.CheckBox();
@@ -62,17 +68,19 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.radioButtonAgriMet = new System.Windows.Forms.RadioButton();
-            this.radioButtonHydromet = new System.Windows.Forms.RadioButton();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.textBoxRectLength = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxSiteID
@@ -153,7 +161,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(748, 639);
+            this.tabControl1.Size = new System.Drawing.Size(861, 639);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage1
@@ -164,7 +172,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new System.Drawing.Size(740, 610);
+            this.tabPage1.Size = new System.Drawing.Size(853, 610);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "new site";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -173,11 +181,11 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 159);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 203);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(734, 449);
+            this.dataGridView1.Size = new System.Drawing.Size(847, 405);
             this.dataGridView1.TabIndex = 4;
             // 
             // panel1
@@ -196,11 +204,51 @@
             this.panel1.Location = new System.Drawing.Point(3, 2);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(734, 157);
+            this.panel1.Size = new System.Drawing.Size(847, 201);
             this.panel1.TabIndex = 5;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.radioButtonHydromet);
+            this.groupBox2.Controls.Add(this.radioButtonAgriMet);
+            this.groupBox2.Location = new System.Drawing.Point(22, 70);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(213, 70);
+            this.groupBox2.TabIndex = 11;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "program";
+            // 
+            // radioButtonHydromet
+            // 
+            this.radioButtonHydromet.AutoSize = true;
+            this.radioButtonHydromet.Checked = true;
+            this.radioButtonHydromet.Location = new System.Drawing.Point(18, 46);
+            this.radioButtonHydromet.Name = "radioButtonHydromet";
+            this.radioButtonHydromet.Size = new System.Drawing.Size(88, 21);
+            this.radioButtonHydromet.TabIndex = 1;
+            this.radioButtonHydromet.TabStop = true;
+            this.radioButtonHydromet.Text = "hydromet";
+            this.radioButtonHydromet.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonAgriMet
+            // 
+            this.radioButtonAgriMet.AutoSize = true;
+            this.radioButtonAgriMet.Location = new System.Drawing.Point(18, 19);
+            this.radioButtonAgriMet.Name = "radioButtonAgriMet";
+            this.radioButtonAgriMet.Size = new System.Drawing.Size(76, 21);
+            this.radioButtonAgriMet.TabIndex = 0;
+            this.radioButtonAgriMet.TabStop = true;
+            this.radioButtonAgriMet.Text = "agrimet";
+            this.radioButtonAgriMet.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.textBox3);
+            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.textBoxRectLength);
+            this.groupBox1.Controls.Add(this.checkBoxGenericWeir);
+            this.groupBox1.Controls.Add(this.checkBoxRectWeir);
             this.groupBox1.Controls.Add(this.checkBoxQuality);
             this.groupBox1.Controls.Add(this.buttonIndividuals);
             this.groupBox1.Controls.Add(this.checkBoxQ);
@@ -209,9 +257,33 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(353, 79);
+            this.groupBox1.Size = new System.Drawing.Size(478, 141);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
+            // 
+            // checkBoxGenericWeir
+            // 
+            this.checkBoxGenericWeir.AutoSize = true;
+            this.checkBoxGenericWeir.Location = new System.Drawing.Point(9, 95);
+            this.checkBoxGenericWeir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxGenericWeir.Name = "checkBoxGenericWeir";
+            this.checkBoxGenericWeir.Size = new System.Drawing.Size(226, 21);
+            this.checkBoxGenericWeir.TabIndex = 14;
+            this.checkBoxGenericWeir.Text = "canal: ch,qc,shift (generic weir)";
+            this.toolTip1.SetToolTip(this.checkBoxGenericWeir, "width_factor*head^exponent");
+            this.checkBoxGenericWeir.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRectWeir
+            // 
+            this.checkBoxRectWeir.AutoSize = true;
+            this.checkBoxRectWeir.Location = new System.Drawing.Point(9, 74);
+            this.checkBoxRectWeir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxRectWeir.Name = "checkBoxRectWeir";
+            this.checkBoxRectWeir.Size = new System.Drawing.Size(251, 21);
+            this.checkBoxRectWeir.TabIndex = 13;
+            this.checkBoxRectWeir.Text = "canal: ch,qc,shift (rectangular weir)";
+            this.toolTip1.SetToolTip(this.checkBoxRectWeir, "Q=3.33*h^1.5*(length-.2*h)");
+            this.checkBoxRectWeir.UseVisualStyleBackColor = true;
             // 
             // checkBoxQuality
             // 
@@ -238,7 +310,7 @@
             // checkBoxQ
             // 
             this.checkBoxQ.AutoSize = true;
-            this.checkBoxQ.Location = new System.Drawing.Point(8, 11);
+            this.checkBoxQ.Location = new System.Drawing.Point(9, 11);
             this.checkBoxQ.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxQ.Name = "checkBoxQ";
             this.checkBoxQ.Size = new System.Drawing.Size(167, 21);
@@ -249,7 +321,7 @@
             // checkBoxWaterTemp
             // 
             this.checkBoxWaterTemp.AutoSize = true;
-            this.checkBoxWaterTemp.Location = new System.Drawing.Point(8, 31);
+            this.checkBoxWaterTemp.Location = new System.Drawing.Point(9, 32);
             this.checkBoxWaterTemp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxWaterTemp.Name = "checkBoxWaterTemp";
             this.checkBoxWaterTemp.Size = new System.Drawing.Size(135, 21);
@@ -314,7 +386,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage2.Size = new System.Drawing.Size(739, 541);
+            this.tabPage2.Size = new System.Drawing.Size(740, 610);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "advanced";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -395,15 +467,15 @@
             this.panel2.Location = new System.Drawing.Point(0, 550);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(748, 89);
+            this.panel2.Size = new System.Drawing.Size(861, 89);
             this.panel2.TabIndex = 9;
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(634, 50);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonCancel.Location = new System.Drawing.Point(747, 50);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 28);
             this.buttonCancel.TabIndex = 7;
@@ -414,47 +486,43 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(634, 15);
-            this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonOK.Location = new System.Drawing.Point(747, 15);
+            this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 28);
             this.buttonOK.TabIndex = 6;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // textBoxRectLength
             // 
-            this.groupBox2.Controls.Add(this.radioButtonHydromet);
-            this.groupBox2.Controls.Add(this.radioButtonAgriMet);
-            this.groupBox2.Location = new System.Drawing.Point(22, 70);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(213, 70);
-            this.groupBox2.TabIndex = 11;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "program";
+            this.textBoxRectLength.Location = new System.Drawing.Point(313, 73);
+            this.textBoxRectLength.Name = "textBoxRectLength";
+            this.textBoxRectLength.Size = new System.Drawing.Size(53, 22);
+            this.textBoxRectLength.TabIndex = 15;
             // 
-            // radioButtonAgriMet
+            // textBox2
             // 
-            this.radioButtonAgriMet.AutoSize = true;
-            this.radioButtonAgriMet.Location = new System.Drawing.Point(18, 19);
-            this.radioButtonAgriMet.Name = "radioButtonAgriMet";
-            this.radioButtonAgriMet.Size = new System.Drawing.Size(76, 21);
-            this.radioButtonAgriMet.TabIndex = 0;
-            this.radioButtonAgriMet.TabStop = true;
-            this.radioButtonAgriMet.Text = "agrimet";
-            this.radioButtonAgriMet.UseVisualStyleBackColor = true;
+            this.textBox2.Location = new System.Drawing.Point(228, 100);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 22);
+            this.textBox2.TabIndex = 16;
             // 
-            // radioButtonHydromet
+            // textBox3
             // 
-            this.radioButtonHydromet.AutoSize = true;
-            this.radioButtonHydromet.Checked = true;
-            this.radioButtonHydromet.Location = new System.Drawing.Point(18, 46);
-            this.radioButtonHydromet.Name = "radioButtonHydromet";
-            this.radioButtonHydromet.Size = new System.Drawing.Size(88, 21);
-            this.radioButtonHydromet.TabIndex = 1;
-            this.radioButtonHydromet.TabStop = true;
-            this.radioButtonHydromet.Text = "hydromet";
-            this.radioButtonHydromet.UseVisualStyleBackColor = true;
+            this.textBox3.Location = new System.Drawing.Point(413, 100);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(48, 22);
+            this.textBox3.TabIndex = 17;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(256, 74);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(51, 17);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "length:";
             // 
             // AddSite
             // 
@@ -462,7 +530,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(748, 639);
+            this.ClientSize = new System.Drawing.Size(861, 639);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -473,13 +541,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -523,5 +591,12 @@
         private System.Windows.Forms.RadioButton radioButtonHydromet;
         private System.Windows.Forms.RadioButton radioButtonAgriMet;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.CheckBox checkBoxGenericWeir;
+        private System.Windows.Forms.CheckBox checkBoxRectWeir;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxRectLength;
     }
 }

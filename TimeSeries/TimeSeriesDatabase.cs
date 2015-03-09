@@ -63,7 +63,17 @@ namespace Reclamation.TimeSeries
         BasicDBServer m_server;
         TimeSeriesDatabaseSettings m_settings;
         SeriesExpressionParser m_parser;
+        Quality m_quality;
 
+        public Quality Quality
+        {
+            get
+            {
+                if (m_quality == null)
+                    m_quality = new Quality(this);
+                return m_quality;
+            }
+        }
         public SeriesExpressionParser Parser
         {
             get { return m_parser; }
@@ -222,12 +232,20 @@ namespace Reclamation.TimeSeries
             m_settings = new TimeSeriesDatabaseSettings(m_server);
         }
 
-
-
         public TimeSeriesDatabaseDataSet.sitecatalogDataTable GetSiteCatalog()
         {
             var tbl = new TimeSeriesDatabaseDataSet.sitecatalogDataTable();
-            m_server.FillTable(tbl,"select * from sitecatalog order by siteid");
+            m_server.FillTable(tbl, "select * from sitecatalog order by siteid");
+            return tbl;
+        }
+
+        public TimeSeriesDatabaseDataSet.sitecatalogDataTable GetSiteCatalog(string filter="1=1", string propertyFilter="")
+        {
+            var tbl = new TimeSeriesDatabaseDataSet.sitecatalogDataTable();
+            string sql = "select * from sitecatalog where " + filter;
+            sql += GetSitePropertySQL(propertyFilter);
+            sql += "  order by  siteid";
+            m_server.FillTable(tbl, sql);
             return tbl;
         }
 
@@ -249,13 +267,58 @@ namespace Reclamation.TimeSeries
             return tbl;
         }
 
-        public TimeSeriesDatabaseDataSet.SeriesCatalogDataTable GetSeriesCatalog(string filter)
+        /// <summary>
+        /// Returns a filtered list from the Series Catalog
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <param name="propertyFilter"></param>
+        /// <returns></returns>
+        public TimeSeriesDatabaseDataSet.SeriesCatalogDataTable GetSeriesCatalog(string filter,string propertyFilter="")
         {
-
             var tbl = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
             string sql = "select * from seriescatalog where "+filter;
+            sql += GetSeriesPropertySQL(propertyFilter);
+            sql += "  order by  siteid";
             m_server.FillTable(tbl,sql );
             return tbl;
+        }
+
+        private static string GetSeriesPropertySQL(string propertyFilter)
+        {
+            var propertySQL = "";
+            string keyFilter = "";
+            string valueFilter = "";
+
+            if (propertyFilter != "" && propertyFilter.IndexOf(":") >= 0)
+            {
+                keyFilter = propertyFilter.Split(':')[0];
+                valueFilter = propertyFilter.Split(':')[1];
+            }
+
+            if (keyFilter != "")
+            {
+                propertySQL = " AND  id in (select seriesid from seriesproperties where name='" + keyFilter + "' and value='" + valueFilter + "') ";
+            }
+            return propertySQL;
+        }
+
+        private static string GetSitePropertySQL(string propertyFilter)
+        {
+            var propertySQL = "";
+            string keyFilter = "";
+            string valueFilter = "";
+
+            if (propertyFilter != "" && propertyFilter.IndexOf(":") >= 0)
+            {
+                keyFilter = propertyFilter.Split(':')[0];
+                valueFilter = propertyFilter.Split(':')[1];
+            }
+
+            if (keyFilter != "")
+            {
+                propertySQL = " AND  siteid in (select siteid from siteproperties where name='" + keyFilter + "' and value='" + valueFilter + "') ";
+            }
+            return propertySQL;
         }
 
         TimeSeriesDatabaseDataSet.seriespropertiesDataTable m_seriesProperties = null;
@@ -504,7 +567,7 @@ namespace Reclamation.TimeSeries
                 Server.SaveTable(siteCatalog);
             }
 
-            var siteFolder = GetOrCreateFolder(SiteID, parent);
+            var siteFolder = GetOrCreateFolder(parent,SiteID);
             var sc = GetSeriesCatalog();
             var instant = sc.AddFolder("instant", siteFolder.ID);
             var daily = sc.AddFolder("daily", siteFolder.ID);
@@ -1469,21 +1532,35 @@ namespace Reclamation.TimeSeries
         }
 
         
-
-        private PiscesFolder GetOrCreateFolder(string folderName, PiscesFolder parent=null)
+        public PiscesFolder GetOrCreateFolder( string folderName)
         {
-            var sr = GetSeriesRow("Name ='" + folderName + "' and isfolder = 1");
-            if (sr == null)
+           return GetOrCreateFolder(null,folderName);
+        }
+        
+        public PiscesFolder GetOrCreateFolder( PiscesFolder parent=null,params string[] folderNames)
+        {
+            PiscesFolder rval = parent;
+            for (int i = 0; i < folderNames.Length; i++)
             {
-                if (parent != null)
-                    return AddFolder(parent, folderName);
+                var fn = folderNames[i];
+                string sql = "name ='" + fn + "' and isfolder = 1";
+                if (rval != null)
+                    sql += " and parentid = " + rval.ID; 
+                var sr = GetSeriesRow(sql);
+                if (sr == null)
+                {
+                    if (rval != null)
+                        rval = AddFolder(rval, fn);
+                    else
+                        rval = AddFolder(fn);
+                }
                 else
-                return AddFolder(folderName);
+                {
+                   rval = this.Factory.GetFolder(sr.id);
+                   Logger.WriteLine(" found existing folder '"+fn+"'");
+                }
             }
-            else
-            {
-                return this.Factory.GetFolder(sr.id);
-            }
+            return rval;
         }
 
         

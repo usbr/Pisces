@@ -28,8 +28,12 @@ namespace Reclamation.TimeSeries.Decodes {
                 data = data.Replace("</p>","");
                 
                 var row = ParseMessage(data);
-                if( row != null)
-                  rval.AddMessageRow(row);
+                if (row != null)
+                {
+                    var newRow = rval.NewMessageRow();
+                    newRow.ItemArray = row.ItemArray;
+                    rval.AddMessageRow(newRow);
+                }
             }
 
             return rval;

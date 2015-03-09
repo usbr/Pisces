@@ -24,10 +24,17 @@ namespace Pisces.NunitTests.SeriesMath
         static DateTime t1 = new DateTime(1997, 1, 1);
         static DateTime t2 = new DateTime(1997, 12, 31);
 
+        string path = "";
+        public TestUofIDisaggregation()
+        {
+            string zipFile = Path.Combine(Globals.TestDataPath, "UofIDisaggregationTest.zip");
+            path = FileUtility.GetTempFileName(".pdb");
+            ZipFile.UnzipFile(zipFile,path);
+        }
+
         [Test]
         public void UofIDisaggregation()
         {
-            string path = Path.Combine(Globals.TestDataPath, "UofIDisaggregationTest.pdb");
             SQLiteServer pDB = new SQLiteServer(path);
             TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB);
 
@@ -50,7 +57,6 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void UofIInterpolation()
         {
-            string path = Path.Combine(Globals.TestDataPath, "UofIDisaggregationTest.pdb");
             SQLiteServer pDB = new SQLiteServer(path);
             TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB);
 
@@ -76,7 +82,6 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void TestRMSEMassBalance()
         {
-            string path = Path.Combine(Globals.TestDataPath, "UofIDisaggregationTest.pdb");
             SQLiteServer pDB = new SQLiteServer(path);
             TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB);
 
@@ -101,7 +106,6 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void TestMergeMassBalance()
         {
-            string path = Path.Combine(Globals.TestDataPath, "UofIDisaggregationTest.pdb");
             SQLiteServer pDB = new SQLiteServer(path);
             TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB);
 

@@ -12,13 +12,21 @@ namespace Reclamation.TimeSeries
         public partial class RatingTableDataTable
         {
 
-            //string m_cbtt;
-
+            /// <summary>
+            /// Compute values using a RatingTableDataTable
+            /// for example compute flows based on gage height input series
+            /// </summary>
+            /// <param name="s"></param>
+            /// <param name="fileName">rating table filename</param>
+            /// <returns></returns>
             public static Series ComputeSeries(Series s, string fileName)
             {
                 var rval = new Series();
-                
-                var fn = Path.Combine(Path.Combine(Globals.LocalConfigurationDataPath, "rating_tables"), fileName);
+                var fn = fileName;
+
+                if(!File.Exists(fn)) 
+                   fn = Path.Combine(Path.Combine(Globals.LocalConfigurationDataPath, "rating_tables"), fileName);
+
                 if (!File.Exists(fn))
                 {
                     string msg = "Error: File not found " + fn;
@@ -183,6 +191,8 @@ namespace Reclamation.TimeSeries
             public double Lookup(double p)
             {
                 var r = FindByx(p);
+                if (r == null)
+                    return Point.MissingValueFlag;
                 return r.y;
             }
         }

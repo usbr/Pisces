@@ -314,7 +314,7 @@ namespace Reclamation.TimeSeries
             while (t < s.MaxDateTime)
             {
               var subset = Math.Subset(s, new DateRange(t, t.AddDays(1)), false);
-              subset.RemoveMissing();
+              subset.RemoveMissing(true);
 
               if (subset.Count < requiredNumberOfPoints)
               {
@@ -422,7 +422,7 @@ namespace Reclamation.TimeSeries
                 {
                     break;
                 }
-                if (!point.IsMissing)
+                if (!point.IsMissing && !point.FlaggedBad)
                 {
                     val += point.Value;
                     count++;
@@ -441,7 +441,7 @@ namespace Reclamation.TimeSeries
         public static Series DailyAverage(Series s, DateTime t1, DateTime t2)
         {
             // remove missing values
-            s.RemoveMissing();
+            s.RemoveMissing(true);
             if (s.Count == 0)
             {
                 return new Series(s.Units, TimeInterval.Daily);
@@ -492,8 +492,8 @@ namespace Reclamation.TimeSeries
          "DailyMax(series1)")]
         public static Series DailyMax(Series source)
         {
-            Series rval = source.Clone();
-            source.RemoveMissing();
+            Series rval = source.Clone(); 
+            source.RemoveMissing(true);
             if (source.Count > 0)
             {
                 Point max = source[0];
@@ -529,7 +529,7 @@ namespace Reclamation.TimeSeries
            // return DailySubsetCalculator(source, Math.Min);
 
             Series rval = source.Clone();
-            source.RemoveMissing();
+            source.RemoveMissing(true);
             if (source.Count > 0)
             {
                 Point min = source[0];

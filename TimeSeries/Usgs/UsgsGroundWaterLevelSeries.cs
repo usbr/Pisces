@@ -105,7 +105,7 @@ namespace Reclamation.TimeSeries.Usgs
         {
             string[] response = Web.GetPage(url, true);
 
-            m_rdb = new UsgsRDBFile(response);
+            m_rdb = new UsgsRDBFile(response,true);
             ParsePreamble();
             m_columnName = "lev_va";
 

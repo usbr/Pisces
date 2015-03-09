@@ -49,7 +49,7 @@ namespace Reclamation.Core.Tests
 //               rng = rng.Offset(0, 1);
 //           }
 
-            string fnk = @"c:\temp\karl.xls"; 
+            string fnk = FileUtility.GetTempFileName(".xls");// @"c:\temp\karl.xls"; 
             xls.Save(fnk);
             //System.Diagnostics.Process.Start(fnk);
 
@@ -62,8 +62,9 @@ namespace Reclamation.Core.Tests
 
             NpoiExcel xls = new NpoiExcel();
             xls.SaveDataTable(tbl, "newsheet");
-
-            string fn=@"c:\temp\karl.xls";
+             
+            string fn= FileUtility.GetTempFileName(".xls");// @"c:\temp\karl.xls";
+            File.Delete(fn);
             xls.Save(fn);
 
             DataTable tbl2 = xls.ReadDataTable("newsheet");

@@ -43,6 +43,8 @@ namespace Reclamation.TimeSeries.DataLogger
         string[] infoHeader;
         string[] dataHeader;
          Dictionary<string,Series> dict = new Dictionary<string, Series>();
+         bool valid_site = false;
+
         public LoggerNetFile(string filename)
         {
             tf = new TextFile(filename);
@@ -70,7 +72,13 @@ namespace Reclamation.TimeSeries.DataLogger
                 // HACK for WS_mph in some Utah Sites...
                 dataHeader = tf[1].Replace("\"", "").Replace("WS_mph", "WS").Split(',');
                 FileFormat = infoHeader[0];
-                SiteName = infoHeader[1];
+                var fn = Path.GetFileName(tf.FileName);
+                int idx = fn.IndexOf("_");
+                if (idx > 3)
+                {
+                    SiteName = fn.Substring(0, idx);
+                    valid_site = SiteName.Length >= 3 && SiteName.Length <= 4;
+                }
             }
         }
 
@@ -90,14 +98,14 @@ namespace Reclamation.TimeSeries.DataLogger
                     Console.WriteLine("Error: bad file format "+infoHeader);
 
 
-                bool validSite = Path.GetFileName(tf.FileName).IndexOf(SiteName.Trim()) == 0;
-                if (!validSite)
-                {
-                    Console.WriteLine("Error: site name in file does not match filename.");
-                    Console.WriteLine("Filename: '" + tf.FileName + "'  siteName: '" + SiteName + "'");
-                }
+                //bool validSite = Path.GetFileName(tf.FileName).IndexOf(SiteName.Trim()) == 0;
+                //if (!validSite)
+                //{
+                //    Console.WriteLine("Error: site name in file does not match filename.");
+                //    Console.WriteLine("Filename: '" + tf.FileName + "'  siteName: '" + SiteName + "'");
+                //}
 
-                return validFomat && validSite;
+                return validFomat && valid_site;
             }
         }
 

@@ -21,6 +21,22 @@ namespace Pisces.NunitTests.SeriesMath
 	    d.MultipleDayAverageBanks();
     }
 
+    [Test]
+    public void AverageWithFlags()
+    {
+
+        Series s = new Series();
+
+        s.Add(DateTime.Parse("1/1/2013 12:30"), -55,"-");
+        s.Add(DateTime.Parse("1/1/2013 13:00"), 1);
+        s.Add(DateTime.Parse("1/1/2013 13:15"), 1);
+        s.Add(DateTime.Parse("1/1/2013 14:01"), 500,"+");
+        var avg = Math.DailyAverage(s,2);
+        avg.WriteToConsole();
+        Assert.AreEqual(1, avg.Count);
+        Assert.AreEqual(1, avg[0].Value,0.01);
+
+    }
 
     [Test]
     public void HourlyAverage()
@@ -82,7 +98,7 @@ units:feet
 			for(int i=0; i<ts.Count; i++)
 			{
 				double val = ts.Lookup(date);
-        Assert.AreEqual(goodValues[i],val,0.01);
+        Assert.AreEqual(goodValues[i],val,0.1);
 				date = date.AddDays(1);
 			}
 		}

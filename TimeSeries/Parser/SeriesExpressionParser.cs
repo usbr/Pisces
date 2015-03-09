@@ -18,6 +18,9 @@ ISBN: 0072134852
     /*  
        This module contains the recursive descent 
        parser that recognizes variables. 
+     * 
+     * REad(t1,t2) is called on a function that returns a series, but has no series arguments
+     * 
     */
 
 
@@ -382,7 +385,7 @@ ISBN: 0072134852
                     GetToken();
                     return;
                 case Types.STRING:
-                    result = new ParserResult(token);
+                     result = new ParserResult(token);
                     GetToken();
                     return;
 
@@ -429,18 +432,18 @@ ISBN: 0072134852
                     SeriesExpressionParser parser = new SeriesExpressionParser(m_db);
                     parser.VariableResolver = this.VariableResolver;
                     List<ParserResult> args = new List<ParserResult>();
-                    bool anySeries = false;
+                    bool anySeriesArgs = false;
                     for (int i = 0; i < function.Parameters.Length; i++)
                     {
                         var  a = parser.Evaluate(function.Parameters[i], this.t1, this.t2,defaultTimeInterval);
                         if (a.IsSeries)
-                            anySeries = true;
+                            anySeriesArgs = true;
                         args.Add(a);
                     }
                     if( Debug)
                        Logger.WriteLine("Evaluating function '" + function.Name + "'");
                     result =  function.Evaluate(args);
-                    if (result.IsSeries && !anySeries)
+                    if (result.IsSeries && !anySeriesArgs)
                         result.Series.Read(this.t1, this.t2);
 
                     if( result.IsSeries && Debug)

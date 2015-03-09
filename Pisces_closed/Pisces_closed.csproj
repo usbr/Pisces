@@ -246,6 +246,7 @@
     <None Include="..\Private.config">
       <Link>Private.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="App.config">
       <SubType>Designer</SubType>

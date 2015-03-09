@@ -40,10 +40,32 @@ namespace Pisces.NunitTests.SeriesTypes
             var s = new SnotelSeries(triplet, SnotelParameterCodes.WTEQ);
 
             DateTime t1 = new DateTime(2014, 12, 31);
-            DateTime t2 = new DateTime(2015, 1, 1);
+            DateTime t2 = new DateTime(2015, 3, 1);
             s.Read(t1, t2);
             Console.WriteLine("Bogus Basin (16F02)");
             s.WriteToConsole();
+        }
+
+        /// <summary>
+        /// We desire a Calculation Series that will pull SnowCourse data 
+        /// and convert that to Monthly Hydromet time stamps.
+        /// 
+        /// Functions that return a Series without Series Arguments, will have Read(t1,t2) 
+        /// called.
+        /// </summary>
+        [Test]
+        public void SnowCourseToMonthy()
+        {
+            var s = new MonthlySnowCourseSeries("16F02:ID:SNOW");
+
+            s.Read(2015, 1, 2015, 3);
+            s.WriteToConsole();
+
+            var jan = s["2015-1-1"];
+            var feb = s["2015-2-1"];
+            Assert.AreEqual(10.0, jan.Value,"January");
+            Assert.AreEqual(11.7, feb.Value, "February");
+
         }
 
         private static void SnotelTest(string cbtt, SnotelParameterCodes param, DateTime t1, DateTime t2, double expected, string network = "SNTL")

@@ -247,17 +247,26 @@ namespace Reclamation.TimeSeries
             set { m_db = value; }
         }
 
+
+
+        SeriesProperties m_seriesProperties = null;
         /// <summary>
         /// Used by CalculationSeries
         /// </summary>
-        public TimeSeriesDatabaseDataSet.seriespropertiesDataTable Properties 
+        public SeriesProperties Properties 
         {
             get
             {
                 if (m_db == null)
-                    return new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
-
-                return m_db.GetSeriesProperties(true);
+                {
+                    if (m_seriesProperties == null)
+                        m_seriesProperties = new SeriesProperties(ID);
+                    return m_seriesProperties;
+                }
+                else
+                {
+                    return new SeriesProperties(ID, m_db);
+                }
             }
         }
 
@@ -534,9 +543,15 @@ namespace Reclamation.TimeSeries
         {
             ReadCore(t1, t2);
 
-
+            if (AfterRead != null)
+            {
+                AfterRead(this, new EventArgs());
+            }
             ExportSeriesToDatabase();
+
         }
+
+        public event EventHandler AfterRead;
 
         private void ExportSeriesToDatabase()
         {
@@ -1526,17 +1541,17 @@ namespace Reclamation.TimeSeries
        
         /// <summary>
         /// Removes all points that have a value of Point.MissingValueFlag
-        /// or that are flagged bad
         /// </summary>
+        /// <param name="removeFlagged">also remove data flagged bad. i.e '+' or '-' or '^' </param>
         /// <returns></returns>
-        public int RemoveMissing()
+        public int RemoveMissing(bool removeFlagged=false)
         {
             int rval = 0;
             string valcolName = table.Columns[m_valueColumnIndex].ColumnName;
 
             string sql = "ISNull([" + valcolName + "]," + Point.MissingValueFlag + ") =" + Point.MissingValueFlag;
 
-            if (HasFlags)
+            if (HasFlags && removeFlagged)
             {
                 sql += " or  " + m_flagColumnName + " LIKE '" + PointFlag.QualityLow + "%' ";
                 sql += " or  " + m_flagColumnName + " LIKE '" + PointFlag.QualityHigh + "%' ";
@@ -1575,6 +1590,8 @@ namespace Reclamation.TimeSeries
             }
             sb.Append("\r\n");
 
+            if (this.Count == 0)
+                sb.Append("<empty>");
             int numRows = this.Count;
 
             for (int i = 0; i < numRows; i++)
@@ -1793,7 +1810,7 @@ namespace Reclamation.TimeSeries
         //    return rval;
         //}
         /// <summary>
-        /// (for Monthly or daily time step)given a date, return the next time step date
+        /// Return the next time step based on the interval.
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>

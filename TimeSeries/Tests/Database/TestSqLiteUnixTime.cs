@@ -14,16 +14,19 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void TimeStampStorage()
         {
-            File.Delete(@"c:\temp\unixtime.db");
-            File.Delete(@"c:\temp\stringtime.db");
+            var fnUnix = FileUtility.GetTempFileName(".pdb");
+            var fnString = FileUtility.GetTempFileName(".pdb");
+
+            File.Delete(fnUnix);
+            File.Delete(fnString);
             int size = 5;
-            var server1 = new SQLiteServer(@"c:\temp\unixtime.db;");
+            var server1 = new SQLiteServer(fnUnix);
             var db1 = new TimeSeriesDatabase(server1);
             db1.UnixDateTime = true;
             db1.AddSeries(CreateSeries(size));
             ReadSeries(db1,size);
 
-            var server = new SQLiteServer(@"C:\temp\stringtime.db");
+            var server = new SQLiteServer(fnString);
             var db = new TimeSeriesDatabase(server);
             db.AddSeries(CreateSeries(size));
             ReadSeries(db,size);

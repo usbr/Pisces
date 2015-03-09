@@ -31,7 +31,7 @@ namespace Reclamation.Core
                     {
                         Uri u = new Uri(item.CodeBase);
                         var dir = u.AbsolutePath;
-                        int idx = dir.ToLower().IndexOf("pisces/core/");
+                        int idx = dir.ToLower().IndexOf("pisces");
                         if (idx > 0)
                             dir = dir.Substring(0, idx+6); // include 'pisces'
                         dir = Path.Combine(dir, "PiscesTestData");

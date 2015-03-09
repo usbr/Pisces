@@ -5,9 +5,15 @@ using Reclamation.Core;
 using Reclamation.TimeSeries;
 using System.IO;
 using HydrometServer;
+using Reclamation.TimeSeries.Parser;
 
 namespace Pisces.NunitTests.SeriesMath
 {
+    /// <summary>
+    /// Test that flows are calculated when gage heights are imported.
+    /// Test that low, high and rate of change flags are set on both
+    /// gage height and dependent flow calculations.
+    /// </summary>
     [TestFixture]
     class TestRatingTableDependency
     {
@@ -15,74 +21,130 @@ namespace Pisces.NunitTests.SeriesMath
         static void Main(string[] argList)
         {
             var x = new TestRatingTableDependency();
-            x.ImportDecodesFiles();
+            x.ImportDecodesWithMissingGageHeight();
+            x.ImportDecodesAndProcessWithFlagLimits();
         }
         public TestRatingTableDependency()
         {
         }
 
-
+        /// <summary>
+        /// This test imports satellite decoded data for a site lapo
+        /// lapo has a rating tables setup for flow calculations
+        /// lapo has quality limits set for both gage height (gh) and flow (q)
+        /// assertions check if proper flags are set based on the limits
+        /// </summary>
         [Test]
-        public void ImportDecodesFiles()
+        public void ImportDecodesAndProcessWithFlagLimits()
         {
-            
-            var fn1 = FileUtility.GetTempFileNameInDirectory(@"c:\temp", ".pdb", "ratings");
+            Logger.EnableLogger();
+            FileUtility.CleanTempPath();
+            var fn1 = FileUtility.GetTempFileName(".pdb");
             Console.WriteLine(fn1);
             var svr = new SQLiteServer(fn1);
             var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
-            Logger.EnableLogger();
-            FileUtility.CleanTempPath();
-            var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_dms3.txt");
-           CopyTestDecodesFileToTempDirectory("decodes_lapo.txt");
+         
+            var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_lapo.txt");
+            
+           var rtlapo = CreateTempRatingTable("lapo.csv", new double[] {3.50,3.54,3.55,5.54 },
+                                             new double[] {1,2,3,10 });
+            // set limits  gh: low=3.53, high 3.6,  rate of change/hour 1
+           Quality q = new Quality(db);
+           q.SaveLimits("instant_lapo_gh", 3.6, 3.53, 1.0);
+           q.SaveLimits("instant_lapo_q", 5, 1.1, 0);
 
-
-            var c = new CalculationSeries("instant_hcdi_q");
-            c.Expression = "FileRatingTable(hcdi_gh,\"hcdi.csv\")";
-            db.AddSeries(c);
-            c = new CalculationSeries("instant_lapo_q");
+           var site = db.GetSiteCatalog();
+           site.AddsitecatalogRow("lapo", "", "OR");
+           db.Server.SaveTable(site);
+            var c = new CalculationSeries("instant_lapo_q");
             c.SiteID = "lapo";
-            c.Expression = "FileRatingTable(%site%_gh,\"%site%.csv\")";
+            c.Expression = "FileRatingTable(%site%_gh,\""+rtlapo+"\")";
             db.AddSeries(c);
 
-
-
-            db.Inventory();
-
+            //SeriesExpressionParser.Debug = true;
             FileImporter import = new FileImporter(db);
-            import.Import(tmpDir,RouteOptions.None,computeDependencies:true);
+            import.Import(tmpDir,RouteOptions.None,computeDependencies:true,searchPattern:"*.txt");
             db.Inventory();
 
-            var s = db.GetSeriesFromTableName("instant_hcdi_q");
 
+            var s = db.GetSeriesFromTableName("instant_lapo_gh");
+            var expectedFlags = new string[] { "", "", "", "+", "", "", "", "-" };
+            for (int i = 0; i < s.Count; i++)
+            {
+                  Assert.AreEqual(expectedFlags[i], s[i].Flag, " flag not expected ");
+            }
+
+            s = db.GetSeriesFromTableName("instant_lapo_q");
             s.Read();
+            Assert.IsTrue(s.Count > 0, "No flow data computed lapo");
+            s.WriteToConsole(true);
+             // computed flows should be: 2 2 2 10 2 2 1
+            expectedFlags = new string[]{"","","","+","","","","-"}; //q>=1 and q<= 5
+            for (int i = 0; i < s.Count; i++)
+            {
+                 Assert.AreEqual(expectedFlags[i], s[i].Flag," Flag check on Flow (Q) "); 
+            }
 
-            Assert.IsTrue(s.Count > 0,"No flow data computed");
+            SeriesExpressionParser.Debug = false;
         }
 
+        private string CreateTempRatingTable(string filename, double min, double max, Func<double,double> f,
+            double increment = 0.01)
+        {
+            var x = new System.Collections.Generic.List<double>();
+            var y = new System.Collections.Generic.List<double>();
+            double x1 = min;
+            do
+            {
+                x.Add(x1);
+                y.Add(f(x1));
+                x1 += increment;
+            } while (x1 <=max);
+            return CreateTempRatingTable(filename, x.ToArray(), y.ToArray());
+        }
+
+        private string CreateTempRatingTable(string filename, double[] gh, double[] q)
+        {
+            var tmpDir = FileUtility.GetTempPath();
+            var path = Path.Combine(tmpDir, filename);
+            StreamWriter sw = new StreamWriter(path, false);
+            sw.WriteLine("gh,q");
+            for (int i = 0; i < gh.Length; i++)
+            {
+                sw.WriteLine(gh[i].ToString("F2")+","+ q[i].ToString("F2"));
+            }
+            sw.Close();
+            return path;
+        }
+
+        /// <summary>
+        /// missing gage height data is input with magic value 998877 (hydromet convention)
+        /// flow calculations should not use this missing value to compute missing flow
+        /// </summary>
         [Test]
         public void ImportDecodesWithMissingGageHeight()
         {
-
-            var fn1 = FileUtility.GetTempFileNameInDirectory(@"c:\temp", ".pdb", "mabo");
+            FileUtility.CleanTempPath();
+            var fn1 = FileUtility.GetTempFileName(".pdb");
             Console.WriteLine(fn1);
             var svr = new SQLiteServer(fn1);
             var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
             Logger.EnableLogger();
-            FileUtility.CleanTempPath();
+            
             var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_mabo_missing_gh.txt");
-
+            var ratingTableFileName =CreateTempRatingTable("mabo.csv", 2.37, 2.8, x => (x*10));
             var c = new CalculationSeries("instant_mabo_q");
-            c.Expression = "FileRatingTable(mabo_gh,\"mabo.csv\")";
+            c.Expression = "FileRatingTable(mabo_gh,\""+ratingTableFileName+"\")";
             db.AddSeries(c);
 
             FileImporter import = new FileImporter(db);
-            import.Import(tmpDir, RouteOptions.Outgoing, computeDependencies: true);
+            import.Import(tmpDir, RouteOptions.Outgoing, computeDependencies: true,searchPattern:"*.txt");
             db.Inventory();
 
             var s = db.GetSeriesFromTableName("instant_mabo_q");
-
+           
             s.Read();
-
+            Assert.IsTrue(s.CountMissing() == 0);
             Assert.IsTrue(s.Count > 0, "No flow data computed");
         }
 

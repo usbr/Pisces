@@ -89,16 +89,16 @@ namespace Reclamation.Core
 
 
 
-        public static DataTable Read(string fileName, string workSheetName, bool captureDateTime=false)
-        {
-            var ds = ReadDataSet(fileName,true,captureDateTime);
-            return ds.Tables[workSheetName];
-        }
-        public static DataTable Read(string fileName, int workSheetIndex, bool captureDateTime=false)
-        {
-            var ds = ReadDataSet(fileName, true, captureDateTime);
-            return ds.Tables[workSheetIndex];
-        }
+        //public static DataTable Read(string fileName, string workSheetName, bool captureDateTime=false)
+        //{
+        //    var ds = ReadDataSet(fileName,true,captureDateTime);
+        //    return ds.Tables[workSheetName];
+        //}
+        //public static DataTable Read(string fileName, int workSheetIndex, bool captureDateTime=false)
+        //{
+        //    var ds = ReadDataSet(fileName, true, captureDateTime);
+        //    return ds.Tables[workSheetIndex];
+        //}
 
         /// <summary>
         /// Creates a new excel file
@@ -268,7 +268,7 @@ namespace Reclamation.Core
             npoi_workbook.Write(file);
             file.Close();
         }
-        internal DataTable ReadDataTable(int sheetIndex)
+        public DataTable ReadDataTable(int sheetIndex)
         {
 
             var sheet = npoi_workbook.GetSheetAt(sheetIndex); 
@@ -276,8 +276,7 @@ namespace Reclamation.Core
             return ReadTable(sheet);
         }
 
-
-        internal DataTable ReadDataTable(string sheetName)
+        public DataTable ReadDataTable(string sheetName)
         {
             
             var sheet = npoi_workbook.GetSheet(sheetName);

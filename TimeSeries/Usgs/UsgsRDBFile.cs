@@ -31,8 +31,10 @@ namespace Reclamation.TimeSeries.Usgs
 
             ParseFile();
         }
-        public UsgsRDBFile(string[] data)
+        bool m_allTextColumns = false;
+        public UsgsRDBFile(string[] data, bool allTextColumns=false)
         {
+            m_allTextColumns = allTextColumns;
             tf = new TextFile(data);
             ParseFile();
         }
@@ -88,7 +90,11 @@ namespace Reclamation.TimeSeries.Usgs
                         else
                             if (Columns[c].DataType == typeof(DateTime))
                             {
-                                newRow[c] = Convert.ToDateTime(tokens[c]);
+                                DateTime dt ;
+                                if( DateTime.TryParse(tokens[c], out dt))
+                                   newRow[c] = Convert.ToDateTime(dt);
+                                else
+                                    Console.WriteLine("Error parsing date '"+tokens[c]+"'" );
                             }
                             else
                             {
@@ -141,6 +147,12 @@ namespace Reclamation.TimeSeries.Usgs
                 {
                     t = types[i].Substring(types[i].Length - 1, 1);
                 }
+
+                if ( m_allTextColumns )
+                {
+                    Columns.Add(columnNames[i]).DefaultValue = "";
+                }
+                else
                 if (t == "n")
                 {
                     Columns.Add(columnNames[i], typeof(double));

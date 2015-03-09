@@ -16,6 +16,76 @@ namespace Reclamation.TimeSeries {
         {
         }
 
+        public partial class sitepropertiesDataTable
+        {
+
+            TimeSeriesDatabase m_db;
+            public sitepropertiesDataTable(TimeSeriesDatabase db)
+                : base()
+            {
+                string sql = "Select * from siteproperties";
+
+                db.Server.FillTable(this, sql);
+                this.TableName = "siteproperties";
+                m_db = db;
+            }
+
+
+            public Dictionary<string, object> GetDictionary(string siteid)
+            {
+                var rval = new Dictionary<string, object>();
+                var rows = Select("siteid = '" + siteid + "'");
+                foreach (var item in rows)
+                {
+                    rval.Add(item["name"].ToString(), item["value"].ToString());
+                }
+                return rval;
+            }
+            public void Save()
+            {
+                m_db.Server.SaveTable(this);
+            }
+            public int NextID()
+            {
+                if (this.Rows.Count > 0)
+                {
+                    return ((int)this.Compute("Max(id)", "") + 1);
+                }
+                return 1;
+
+            }
+
+            public bool Contains(string name, string siteid)
+            {
+                return Select("name='" + name + "' and siteid = '" + siteid+"'").Length == 1;
+            }
+
+            public string Get(string name, string defaultValue, string siteid)
+            {
+                var rows = Select("name='" + name + "' and siteid = '" + siteid+"'");
+                if (rows.Length != 1)
+                    return defaultValue;
+
+                return rows[0]["value"].ToString();
+            }
+
+            public void Set(string name, string value, string siteid)
+            {
+                var rows = Select("name='" + name + "' and siteid = '" + siteid+"'");
+                if (rows.Length == 0)
+                {
+                    AddsitepropertiesRow(NextID(), siteid, name, value);
+                }
+                else
+                {
+                    rows[0]["value"] = value;
+                }
+
+            }
+
+        }
+
+
         public partial class seriespropertiesDataTable
         {
 
@@ -78,44 +148,90 @@ namespace Reclamation.TimeSeries {
             {
                 var rows = Select("seriesid = " + currentID);
                 foreach (var item in rows)
-                {
+                { 
                     AddseriespropertiesRow(NextID(), newID, item["name"].ToString(), item["value"].ToString());
                 }
             }
         }
+
+        public partial class sitecatalogDataTable
+        {
+            
+            public void AddsitecatalogRow(string siteid, string description, string state)
+            {
+                AddsitecatalogRow(siteid, description, state,"","","","","","","",0,"","","","","");
+            }
+
+            public bool Exists(string siteid)
+            {
+                var rows = Select("siteid = '" + siteid+"'");
+                if (rows.Length == 1)
+                    return true;
+                if (rows.Length > 1)
+                    Console.WriteLine("ERROR site exists more than onece " + siteid);
+                return false;
+            }
+        }
         public partial class SeriesCatalogDataTable
         {
-            public void AddSeriesCatalogRow(Series s, int id, int parentID, string tableName="")
+            public void AddSeriesCatalogRow(Series s, int id, int parentID, string tableName = "")
             {
                 AddSeriesCatalogRow(id, parentID, false, 0, s.Source, s.Name, s.SiteName, s.Units,
-                    s.TimeInterval.ToString(), s.Parameter, tableName, s.Provider, s.ConnectionString, s.Expression, s.Notes,true);
+                    s.TimeInterval.ToString(), s.Parameter, tableName, s.Provider, s.ConnectionString, s.Expression, s.Notes, true);
             }
 
             public int AddFolder(string folderName, int id, int parentID)
             {
-                AddSeriesCatalogRow(id, parentID, true, 0, "", folderName,"", "","","","","","","","",false);
+                AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "", false);
                 return id;
             }
-            public int AddFolder(string folderName, int parentID)
+            public int AddFolder(string folderName, int parentID=-1)
             {
                 int id = NextID();
-                AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "",false);
+                if (parentID == -1)
+                    parentID = id;
+                AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "", false);
                 return id;
-
+            }
+            public int GetOrCreateFolder( params string[] folderNames)
+            {
+                int rval = -1;
+                for (int i = 0; i < folderNames.Length; i++)
+                {
+                    var fn = folderNames[i];
+                    if (FolderExists(fn, rval))
+                    {
+                        rval = FolderID(fn, rval);
+                        Logger.WriteLine(" found existing folder '" + fn + "'");
+                    }
+                    else
+                    {
+                       rval = AddFolder(fn,rval);
+                    }
+                }
+                return rval;
             }
 
-
-            public bool FolderExists(string folderName, int parentID)
+            private int FolderID(string name, int parentid= -1)
             {
-                DataRow[] foundFolder = this.Select(string.Format("Name = '{0}' and IsFolder = True and parentid = {1}", folderName, parentID));
+                string sql = "name = '"+name+"' and isfolder = true ";
+                if( parentid != -1)
+                    sql += " and parentid = "+parentid ;
+                DataRow[] foundFolder = this.Select(sql);
                 if (foundFolder.Length == 1)
-                    return true;
-                return false;
+                    return Convert.ToInt32(foundFolder[0]["id"]);
+
+                return -1;
+            }
+
+            public bool FolderExists(string folderName, int parentID=-1)
+            {
+                return FolderID(folderName, parentID) >= 0;
             }
 
             public int NextID()
             {
-                if ( this.Rows.Count >0)
+                if (this.Rows.Count > 0)
                 {
                     return ((int)this.Compute("Max(id)", "") + 1);
                 }
@@ -131,6 +247,27 @@ namespace Reclamation.TimeSeries {
                     return items[0] as SeriesCatalogRow;
 
                 return null;
+            }
+
+            public int AddInstantRow(string siteID, int parentid, string units, string pcode, string expression="")
+            {
+                var provider = "Series";
+                string iconName = "";
+                if (expression != "")
+                {
+                    provider = "CalculationSeries";
+                    iconName = "sum";
+                }
+                string tableName = "instant_" + siteID + "_" + pcode;
+
+                var rows = Select("tablename = '" + tableName + "'");
+                if( rows.Length >0)
+                    Console.WriteLine("Warning table:'"+tableName+"' allready exists");
+
+                int rval = NextID();
+                AddSeriesCatalogRow(rval, parentid, false, 1, iconName, siteID + "_" + pcode, siteID, units, "Irregular",
+                 pcode, tableName, provider, "", expression, "", true);
+                return rval;
             }
         }
 
@@ -187,6 +324,8 @@ namespace Reclamation.TimeSeries {
         }
 
         }
+
+        
     }
 }
 

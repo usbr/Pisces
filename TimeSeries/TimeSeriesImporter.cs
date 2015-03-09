@@ -16,13 +16,11 @@ namespace Reclamation.TimeSeries
 
         TimeSeriesDatabase m_db;
         RouteOptions m_routing;
-        Quality m_quality;
 
         public TimeSeriesImporter(TimeSeriesDatabase db, RouteOptions routing=RouteOptions.None)
         {
             m_db = db;
             m_routing = routing;
-            m_quality = new Quality(m_db);
         }
 
         /// <summary>
@@ -63,7 +61,7 @@ namespace Reclamation.TimeSeries
             {
                 // set flags.
                 Logger.WriteLine("Checking Flags ");
-                m_quality.SetFlags(s); // to do, log/email flagged data
+                m_db.Quality.SetFlags(s); // to do, log/email flagged data
                 // To Do.. check for alarms..
                 
                 m_db.ImportSeriesUsingTableName(s,  "");
@@ -149,9 +147,6 @@ namespace Reclamation.TimeSeries
             foreach (var item in calcList)
             {
                 var cs = item as CalculationSeries;
-                // TO DO.. some calcs should go back 1 weeek. i.e.  QU
-                // this is currently being done in TimeSeriesCalculator
-                // for daily data.
                 cs.Calculate(s.MinDateTime, s.MaxDateTime);
                 if (cs.Count > 0)
                     rval.Add(cs);

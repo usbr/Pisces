@@ -6,6 +6,7 @@ using Reclamation.TimeSeries.Parser;
 using Reclamation.Core;
 using Reclamation.TimeSeries.Hydromet;
 using Reclamation.TimeSeries.Hydromet.Operations;
+using Reclamation.TimeSeries.Nrcs;
 
 namespace Reclamation.TimeSeries
 {
@@ -72,8 +73,8 @@ namespace Reclamation.TimeSeries
         /// <param name="forecast">Daily Forecast(acre-feet) computed from Monthly forecast</param>
         /// <param name="runoff">Daily runoff gage (cfs)</param>
         /// <param name="residual">Residual forecast - input to initilize calculations</param>
-        /// <returns>residula forecaset in acre-feet</returns>
-        [FunctionAttribute("Compute Residual Forecast", "HydrometResidualForecast(cbtt,pcode)")]
+        /// <returns>residual forecaset in acre-feet</returns>
+        [FunctionAttribute("Compute Residual Forecast", "HydrometResidualForecast(forecast,runoff,residual)")]
         public static Series HydrometResidualForecast(Series forecast, Series runoff, Series residual)
         {
             var rval = new Series();
@@ -174,6 +175,51 @@ namespace Reclamation.TimeSeries
 
             return rval;
         }
+
+        [FunctionAttribute("Reads daily NRCS snowcourse data into monthly", "DailySnowCourseToMonthly(triplet)")]
+        public static Series DailySnowCourseToMonthly(string triplet)
+        {
+            var s = new MonthlySnowCourseSeries(triplet);
+            return s;
+        }
+
+
+        [FunctionAttribute("Fully Contracted Rectangular Weir (Francis equation) Q=3.33*h^1.5*(length-.2*h)", "RectangularContractedWeir()")]
+        public static Series RectangularContractedWeir(Series head, double length)
+        {
+            var s = new Series();
+            var h = head.Copy();
+            h.RemoveMissing(true);
+            s = (h * -.2 + length) * 3.33 * Math.Pow(h, 1.5);
+            return s;
+        }
+
+        [FunctionAttribute("Generic weir equation width_factor*(head+offset+shift)^exponent ", "GenericWeir(head,offset,width_factor,exponent)")]
+        public static Series GenericWeir(Series head,double offset, double width_factor, double exponent)
+        {
+            double shift = Convert.ToDouble(head.Properties.Get("shift", "0"));
+            var s = new Series();
+            var h = head.Copy();
+            h.RemoveMissing(true);
+            h = h + offset + shift;
+            s = Math.Pow(h, exponent) * width_factor;
+            return s;
+        }
+
+        [FunctionAttribute("ConstantShift ", "ConstantShift(h)")]
+        public static Series ConstantShift(Series h)
+        {
+            double shift = Convert.ToDouble(h.Properties.Get("shift", "0"));
+            var rval = h.Copy();
+            rval.RemoveMissing();
+            rval = rval * 0.0;
+            rval = rval + shift;
+
+            return rval;
+        }
+
+
+
        
     }
 }

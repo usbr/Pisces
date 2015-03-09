@@ -73,7 +73,7 @@ namespace Reclamation.TimeSeries
                                + "( id int not null primary key, "
                                + " siteid " + m_server.PortableCharacterType(256) + " not null default '' , "
                                + " name " + m_server.PortableCharacterType(1024) + " not null default '', "
-                               + " value " + m_server.PortableCharacterType(10) + " not null default '' "
+                               + " value " + m_server.PortableCharacterType(1024) + " not null default '' "
                                + " )";
                 ExecuteCreateTable(m_server, sql);
 

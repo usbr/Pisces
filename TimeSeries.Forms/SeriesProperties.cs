@@ -88,9 +88,9 @@ namespace Reclamation.TimeSeries.Forms
             comboBoxTimeInterval.SelectedIndex = 0;
             comboBoxTimeInterval.SelectedItem = m_series.TimeInterval.ToString();
 
-            tblSeriesProperties = m_series.Properties;
+            tblSeriesProperties = m_db.GetSeriesProperties();
             tblSeriesProperties.Columns["id"].AutoIncrement = true;
-            tblSeriesProperties.Columns["id"].AutoIncrementSeed = m_series.Properties.NextID();
+            tblSeriesProperties.Columns["id"].AutoIncrementSeed = tblSeriesProperties.NextID();
             tblSeriesProperties.Columns["seriesid"].DefaultValue = m_series.ID;
             dgvProperties.DataSource = tblSeriesProperties;
             tblSeriesProperties.DefaultView.RowFilter = "seriesid=" + m_series.ID;

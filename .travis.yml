@@ -1,0 +1,16 @@
+## Travis CI Integration
+language: csharp
+install:
+- nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+- wget http://nuget.org/nuget.exe
+- cp nuget.exe ./.nuget/NuGet.exe
+- chmod a+x ./.nuget/NuGet.exe
+- export EnableNuGetPackageRestore=true
+- xbuild Pisces_open.sln /p:PostBuildEvent="" 
+#- mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TimeSeries/bin/Debug/Reclamation.TimeSeries.dll
+notifications:
+  email:
+    recipients:
+      - ktarbet@usbr.gov
+      - jrocha@usbr.gov
