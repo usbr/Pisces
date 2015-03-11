@@ -244,6 +244,7 @@
     <Compile Include="NetworkUtility.cs" />
     <Compile Include="NpoiExcel.cs" />
     <Compile Include="Options.cs" />
+    <Compile Include="SimpleFtp.cs" />
     <Compile Include="Tests\NpoiExcelTest.cs" />
     <Compile Include="PostgreSQL.cs" />
     <Compile Include="DataGridSelection.cs" />
