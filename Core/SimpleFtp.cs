@@ -10,7 +10,7 @@ namespace Reclamation.Core
     /// <summary>
     /// http://www.codeproject.com/Tips/443588/Simple-Csharp-FTP-Class
     /// </summary>
-    class SimpleFtp
+    public class SimpleFtp
     {
         private string host = null;
         private string user = null;

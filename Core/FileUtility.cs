@@ -446,5 +446,19 @@ namespace Reclamation.Core
 
                 return rval;
             }
+
+             public static void MoveToSubDirectory(string path, string subdirectory, string file)
+            {
+                var attic = Path.Combine(path, subdirectory);
+
+                if (!Directory.Exists(attic))
+                    Directory.CreateDirectory(attic);
+
+                string dest = Path.Combine(attic, Path.GetFileName(file));
+                if (File.Exists(dest))
+                    File.Delete(dest);
+
+                File.Move(file, dest);
+            }
     }
 }

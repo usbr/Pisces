@@ -169,6 +169,16 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
               //  AddDailyRow(siteID, "cfs", "gd", "DailyAverage(instant_%site%_gh,10)");
                // AddDailyRow(siteID, "feet", "hj", "DailyAverage(instant_%site%_hj,10)");
             }
+            if (this.checkBoxCanal.Checked)
+            {
+                AddInstantRow(siteID, "feet", "ch");
+                AddInstantRow(siteID, "cfs", "qc", "FileRatingTable(%site%_ch,\"%site%.csv\")");
+                AddInstantRow(siteID, "feet", "hh", "FileRatingTable(%site%_ch,\"%site%_shift.csv\")");
+
+                //   AddDailyRow(siteID, "cfs", "qd", "DailyAverage(instant_%site%_q,10)");
+                //  AddDailyRow(siteID, "cfs", "gd", "DailyAverage(instant_%site%_gh,10)");
+                // AddDailyRow(siteID, "feet", "hj", "DailyAverage(instant_%site%_hj,10)");
+            }
             if (this.checkBoxWaterTemp.Checked)
             {
                 AddInstantRow(siteID, "degF", "wf");

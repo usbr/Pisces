@@ -45,6 +45,10 @@
             this.radioButtonHydromet = new System.Windows.Forms.RadioButton();
             this.radioButtonAgriMet = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxRectLength = new System.Windows.Forms.TextBox();
             this.checkBoxGenericWeir = new System.Windows.Forms.CheckBox();
             this.checkBoxRectWeir = new System.Windows.Forms.CheckBox();
             this.checkBoxQuality = new System.Windows.Forms.CheckBox();
@@ -69,10 +73,7 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.textBoxRectLength = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
+            this.checkBoxCanal = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -243,6 +244,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxCanal);
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.textBox3);
             this.groupBox1.Controls.Add(this.textBox2);
@@ -253,18 +255,48 @@
             this.groupBox1.Controls.Add(this.buttonIndividuals);
             this.groupBox1.Controls.Add(this.checkBoxQ);
             this.groupBox1.Controls.Add(this.checkBoxWaterTemp);
-            this.groupBox1.Location = new System.Drawing.Point(348, 30);
+            this.groupBox1.Location = new System.Drawing.Point(348, 34);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(478, 141);
+            this.groupBox1.Size = new System.Drawing.Size(478, 151);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(256, 94);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(51, 17);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "length:";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(413, 120);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(48, 22);
+            this.textBox3.TabIndex = 17;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(228, 120);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 22);
+            this.textBox2.TabIndex = 16;
+            // 
+            // textBoxRectLength
+            // 
+            this.textBoxRectLength.Location = new System.Drawing.Point(313, 93);
+            this.textBoxRectLength.Name = "textBoxRectLength";
+            this.textBoxRectLength.Size = new System.Drawing.Size(53, 22);
+            this.textBoxRectLength.TabIndex = 15;
             // 
             // checkBoxGenericWeir
             // 
             this.checkBoxGenericWeir.AutoSize = true;
-            this.checkBoxGenericWeir.Location = new System.Drawing.Point(9, 95);
+            this.checkBoxGenericWeir.Location = new System.Drawing.Point(9, 115);
             this.checkBoxGenericWeir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxGenericWeir.Name = "checkBoxGenericWeir";
             this.checkBoxGenericWeir.Size = new System.Drawing.Size(226, 21);
@@ -276,7 +308,7 @@
             // checkBoxRectWeir
             // 
             this.checkBoxRectWeir.AutoSize = true;
-            this.checkBoxRectWeir.Location = new System.Drawing.Point(9, 74);
+            this.checkBoxRectWeir.Location = new System.Drawing.Point(9, 94);
             this.checkBoxRectWeir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxRectWeir.Name = "checkBoxRectWeir";
             this.checkBoxRectWeir.Size = new System.Drawing.Size(251, 21);
@@ -288,7 +320,7 @@
             // checkBoxQuality
             // 
             this.checkBoxQuality.AutoSize = true;
-            this.checkBoxQuality.Location = new System.Drawing.Point(9, 53);
+            this.checkBoxQuality.Location = new System.Drawing.Point(9, 73);
             this.checkBoxQuality.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxQuality.Name = "checkBoxQuality";
             this.checkBoxQuality.Size = new System.Drawing.Size(245, 21);
@@ -386,7 +418,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage2.Size = new System.Drawing.Size(740, 610);
+            this.tabPage2.Size = new System.Drawing.Size(853, 610);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "advanced";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -494,35 +526,16 @@
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             // 
-            // textBoxRectLength
+            // checkBoxCanal
             // 
-            this.textBoxRectLength.Location = new System.Drawing.Point(313, 73);
-            this.textBoxRectLength.Name = "textBoxRectLength";
-            this.textBoxRectLength.Size = new System.Drawing.Size(53, 22);
-            this.textBoxRectLength.TabIndex = 15;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(228, 100);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 16;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(413, 100);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(48, 22);
-            this.textBox3.TabIndex = 17;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(256, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(51, 17);
-            this.label10.TabIndex = 18;
-            this.label10.Text = "length:";
+            this.checkBoxCanal.AutoSize = true;
+            this.checkBoxCanal.Location = new System.Drawing.Point(10, 53);
+            this.checkBoxCanal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxCanal.Name = "checkBoxCanal";
+            this.checkBoxCanal.Size = new System.Drawing.Size(169, 21);
+            this.checkBoxCanal.TabIndex = 19;
+            this.checkBoxCanal.Text = "canal height,shift,flow,";
+            this.checkBoxCanal.UseVisualStyleBackColor = true;
             // 
             // AddSite
             // 
@@ -598,5 +611,6 @@
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBoxRectLength;
+        private System.Windows.Forms.CheckBox checkBoxCanal;
     }
 }

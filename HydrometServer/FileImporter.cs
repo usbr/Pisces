@@ -107,7 +107,7 @@ namespace HydrometServer
                 if (sl.Count > 0)
                 {
                     m_importer.Import(sl, m_computeDependencies, m_computeDailyOnMidnight,importTag);
-                    MoveToSubDirectory(Path.GetDirectoryName(fn), "attic", fn);
+                    FileUtility.MoveToSubDirectory(Path.GetDirectoryName(fn), "attic", fn);
                 }
 
             }
@@ -115,24 +115,12 @@ namespace HydrometServer
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("skipping file, will move to error subdirectory " + fn);
-                MoveToSubDirectory(Path.GetDirectoryName(fn), "error", fn);
+                FileUtility.MoveToSubDirectory(Path.GetDirectoryName(fn), "error", fn);
 
             }
         }
 
-        private static void MoveToSubDirectory(string path, string subdirectory, string file)
-        {
-            var attic = Path.Combine(path, subdirectory);
-
-            if (!Directory.Exists(attic))
-                Directory.CreateDirectory(attic);
-
-            string dest = Path.Combine(attic, Path.GetFileName(file));
-            if (File.Exists(dest))
-                File.Delete(dest);
-
-            File.Move(file, dest);
-        }
+       
 
     }
 }

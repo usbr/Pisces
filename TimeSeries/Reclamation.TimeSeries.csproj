@@ -327,6 +327,7 @@
     <Compile Include="Hydromet\DayFile.cs" />
     <Compile Include="Hydromet\DayFileRecord.cs" />
     <Compile Include="Hydromet\DayFiles.cs" />
+    <Compile Include="NOAA\SimpleShef.cs" />
     <Compile Include="Nrcs\MonthlySnowCourseSeries.cs" />
     <Compile Include="Hydromet\mcf.cs">
       <SubType>Component</SubType>
