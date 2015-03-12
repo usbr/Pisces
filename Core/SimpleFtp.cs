@@ -295,7 +295,13 @@ namespace Reclamation.Core
                 ftpResponse.Close();
                 ftpRequest = null;
                 /* Return the Directory Listing as a string Array by Parsing 'directoryRaw' with the Delimiter you Append (I use | in This Example) */
-                try { string[] directoryList = directoryRaw.Split("|".ToCharArray()); return directoryList; }
+                try {
+                    if (directoryRaw == null)
+                        return new string[] { };
+
+                    string[] directoryList = directoryRaw.Split("|".ToCharArray()); 
+                    return directoryList; 
+                }
                 catch (Exception ex) { Console.WriteLine(ex.ToString()); }
             }
             catch (Exception ex) { Console.WriteLine(ex.ToString()); }
