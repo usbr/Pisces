@@ -9,6 +9,9 @@ using Reclamation.TimeSeries;
 
 namespace PiscesWebServices
 {
+    /// <summary>
+    /// http://www.codeproject.com/Articles/9433/Understanding-CGI-with-C
+    /// </summary>
     class WebUtility
     {
 
