@@ -193,6 +193,27 @@ namespace Reclamation.TimeSeries {
                 AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "", false);
                 return id;
             }
+
+            /// <summary>
+            /// returns path (list of directories) to the specified series
+            /// </summary>
+            /// <param name="id"></param>
+            /// <returns></returns>
+            public string[] GetPath(int id)
+            {
+                var rval = new List<string>();
+
+                var row = FindByid(id);
+                do{
+                  row = FindByid(row.ParentID);
+                  rval.Add(row.Name);
+                 
+                } while( row.ParentID != row.id) ; // ids equal at root level of tree
+
+                rval.Reverse();
+                return rval.ToArray();
+            }
+
             public int GetOrCreateFolder( params string[] folderNames)
             {
                 int rval = -1;
@@ -207,6 +228,7 @@ namespace Reclamation.TimeSeries {
                     else
                     {
                        rval = AddFolder(fn,rval);
+                       Logger.WriteLine("Creating folder '" + fn + "'");
                     }
                 }
                 return rval;
