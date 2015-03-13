@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Mono.Options;
+using Reclamation.TimeSeries;
+using Reclamation.Core;
+using System.IO;
 
 namespace PiscesWebServices
 {
@@ -14,15 +17,16 @@ namespace PiscesWebServices
         /// --cgi=sites --propertyFilter=program:agrimet --json_required_properties=json_extra
         /// </summary>
         /// <param name="args"></param>
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
 
             string propertyFilter="";
             var cgi = "";
             var json_property_stubs="";
             var payload = "";
-
             var p = new OptionSet();
+
+
             p.Add("cgi=","required cgi to execute cgi=sites or cgi=series",x => cgi=x);
             p.Add("json_property_stubs=", "comma separated list of properties (i.e. 'region,url,') to created empty stubs if neeed ",
                               x => json_property_stubs = x);
@@ -42,20 +46,28 @@ namespace PiscesWebServices
                 return;
             }
 
+            //PostgreSQL svr = new PostgreSQL("timeseries");
+            var fn = Path.Combine(TestData.DataPath, "mabo5.pdb");
+            SQLiteServer svr = new SQLiteServer(fn);
+            TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
+            db.Inventory();
+
             if (cgi == "sites")
             {
-                SiteDump.Execute(json_property_stubs.Split(','), propertyFilter);
+                SiteDump d = new SiteDump(db);
+                d.Execute(json_property_stubs.Split(','), propertyFilter);
             }
-            if (cgi == "instant_test")
+            if (cgi == "instant")
             {
-                Instant.Run(payload);
+                CsvWriter c = new CsvWriter(db);
+                c.Run(payload);
             }
             
         }
 
         static void ShowHelp(OptionSet p)
         {
-            Console.WriteLine("HydrometWebServices");
+            Console.WriteLine("PiscesWebServices");
             Console.WriteLine();
             Console.WriteLine("Options:");
             p.WriteOptionDescriptions(Console.Out);

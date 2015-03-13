@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using Reclamation.TimeSeries;
 
 namespace PiscesWebServices
 {
@@ -84,7 +85,8 @@ namespace PiscesWebServices
                 var edy = GetIntParam(c, "edy", t2.Day);
 
                 t1 = new DateTime(syer, smnth, sdy);
-                t2 = new DateTime(eyer, emnth, edy);
+                t2 = new DateTime(eyer, emnth, edy).EndOfDay();
+
             }
             catch (Exception)
             {

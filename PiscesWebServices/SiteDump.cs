@@ -16,17 +16,19 @@ namespace PiscesWebServices
     /// </summary>
     class SiteDump
     {
+        TimeSeriesDatabase db;
+        public SiteDump(TimeSeriesDatabase db)
+        {
+            this.db = db;
+        }
         /// <summary>
         /// Prints GEOJson dump of Sites
         /// </summary>
         /// <param name="requiredProperties">list of properties to include (if not found in siteproperties an empty string will be inserted)</param>
         /// <param name="propertyFilter">two part filter in property table i.e.  'program:agrimet'</param>
-        public static void Execute(string[] requiredProperties, string propertyFilter="")
+        public void Execute(string[] requiredProperties, string propertyFilter="")
         {
             Console.Write("Content-Type:  application/json\n\n");
-
-          var svr = PostgreSQL.GetPostgresServer();
-          var db = new TimeSeriesDatabase(svr);
 
           var features = new List<Feature>();
           FeatureCollection fc = new FeatureCollection(features);

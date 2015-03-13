@@ -15,6 +15,15 @@ namespace Reclamation.TimeSeries
             return t.Year;
         }
 
+        public static DateTime EndOfDay(this DateTime t)
+        {
+            return t.Date.AddHours(23.999999);
+        }
+
+        public static DateTime NextDay(this DateTime t)
+        {
+            return t.Date.AddDays(1);
+        }
         public static DateTime EndOfMonth(this DateTime t)
         {
             return new DateTime(t.Year, t.Month, DateTime.DaysInMonth(t.Year, t.Month));

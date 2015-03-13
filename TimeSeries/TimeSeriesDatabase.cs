@@ -273,12 +273,12 @@ namespace Reclamation.TimeSeries
         /// <param name="filter"></param>
         /// <param name="propertyFilter"></param>
         /// <returns></returns>
-        public TimeSeriesDatabaseDataSet.SeriesCatalogDataTable GetSeriesCatalog(string filter,string propertyFilter="")
+        public TimeSeriesDatabaseDataSet.SeriesCatalogDataTable GetSeriesCatalog(string filter,string propertyFilter="",string sort="order by siteid")
         {
             var tbl = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
             string sql = "select * from seriescatalog where "+filter;
             sql += GetSeriesPropertySQL(propertyFilter);
-            sql += "  order by  siteid";
+            sql += " "+sort;
             m_server.FillTable(tbl,sql );
             return tbl;
         }
