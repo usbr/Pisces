@@ -38,9 +38,9 @@ namespace HydrometServer
                 Console.WriteLine("           computes daily data");
                 Console.WriteLine("--calculate-monthly");
                 Console.WriteLine("           computes all monthly equations");
-                Console.WriteLine("--t1=1-31-2013");
+                Console.WriteLine("--t1=1-31-2013|yesterday|lastyear");
                 Console.WriteLine("           starting date: default is yesterday");
-                Console.WriteLine("--t2=1-31-2013");
+                Console.WriteLine("--t2=1-31-2013|yesterday|lastyear");
                 Console.WriteLine("           ending date: default is yesterday");
                 Console.WriteLine("--property-filter=program:agrimet");
                 Console.WriteLine("           filtering based on series properties (key:value)");
@@ -70,8 +70,8 @@ namespace HydrometServer
                 Console.WriteLine("          imports data from VAX binary archive file");
                 Console.WriteLine("--import-mpoll=/data/mpoll/mpoll.ind");
                 Console.WriteLine("          imports data from VAX binary monthly file");
-                
-   
+                Console.WriteLine("--update-daily");
+                Console.WriteLine(" updates all daily series from source data");
 
                 return;
             }
@@ -221,7 +221,16 @@ namespace HydrometServer
                 }
 
 
-               
+                if (args.Contains("update-daily"))
+                {
+                   string sql = "provider = '" + db.Server.SafeSqlLiteral(args["update-daily"]) + "'";
+                   var updateList = db.GetSeriesCatalog(sql);
+                   foreach (var item in updateList)
+                   {
+                       var s = db.GetSeries(item.id);
+                       s.Update(t1, t2);
+                   }
+                }
 
 
                 PostgreSQL.ClearAllPools(); // Hack to fix error on application exit
@@ -289,12 +298,11 @@ namespace HydrometServer
         
         private static bool CreatePostgresDatabase(Arguments args)
         {
-            var settings = ConfigurationManager.AppSettings;
-            var dbname = settings["PostgresDatabase"];
-            var owner = settings["PostgresTableOwner"];
-
             if (args.Contains("create-database"))
             {
+                var settings = ConfigurationManager.AppSettings;
+                var dbname = settings["PostgresDatabase"];
+                var owner = settings["PostgresTableOwner"];
 
                 dbname = args["create-database"];
                 Console.WriteLine("Creating Database:" + dbname);
@@ -558,13 +566,25 @@ namespace HydrometServer
             t2 = DateTime.Now.Date.AddDays(-1);
 
             if (args.Contains("t1"))
-                t1 = DateTime.Parse(args["t1"]);
+                t1 = ParseArgumentDate(args["t1"]);
             if (args.Contains("t2"))
                 t2 = DateTime.Parse(args["t2"]);
 
             Logger.WriteLine("t1= "+t1.ToShortDateString());
             Logger.WriteLine("t2= "+t2.ToShortDateString());
             
+        }
+
+        private static DateTime ParseArgumentDate(string dateString)
+        {
+            if( dateString.ToLower() == "yesterday")
+            return DateTime.Now.AddDays(-1);
+
+            if (dateString.ToLower() == "lastyear")
+                return DateTime.Now.AddDays(-365);
+
+            var t1 = DateTime.Parse(dateString);
+            return t1;
         }
 
 
