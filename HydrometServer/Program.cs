@@ -70,7 +70,11 @@ namespace HydrometServer
                 Console.WriteLine("          imports data from VAX binary archive file");
                 Console.WriteLine("--import-mpoll=/data/mpoll/mpoll.ind");
                 Console.WriteLine("          imports data from VAX binary monthly file");
-                Console.WriteLine("--update-daily");
+                Console.WriteLine("--update-daily=HydrometDailySeries");
+
+                // --update-daily=HydrometDailySeries --t1=lastyear
+                // --update-daily=HDBDailySeries  --t2=yesterday
+
                 Console.WriteLine(" updates all daily series from source data");
 
                 return;
