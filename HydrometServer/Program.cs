@@ -427,7 +427,9 @@ namespace HydrometServer
             var rval = new List<string>();
             foreach (Series s in db.GetSeries(interval, filter,propertyFilter).ToArray())
             {
-                rval.Add(s.SiteID + " " + s.Parameter);
+                TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
+                //rval.Add(s.SiteID + " " + s.Parameter);
+                rval.Add(tn.siteid + " " + tn.pcode);
                 if (rval.Count >= blockSize)
                 {
                     yield return String.Join(",",rval.ToArray());

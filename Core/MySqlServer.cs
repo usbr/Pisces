@@ -92,10 +92,23 @@ namespace Reclamation.Core
             return tbl;
         }
 
+        public override void FillTable(DataTable dataTable)
+        {
+            var tableName = dataTable.TableName;
+
+            if( MapToLowerCase)
+                if (MapToLowerCase)
+                    tableName = tableName.ToLower();
+
+            FillTable(dataTable, "Select * from " + tableName);
+        }
+
         public override DataTable Table(string tableName)
         {
             if (tableName.Trim().IndexOf(" ") > 0)
                 tableName = "`" + tableName + "`";
+            if (MapToLowerCase)
+                tableName = tableName.ToLower();
             return Table(tableName, "select * from " + tableName + "");
         }
         public override void FillTable(DataTable dataTable, string sql)
@@ -107,6 +120,10 @@ namespace Reclamation.Core
             var myAccessCommand = new MySqlCommand(strAccessSelect, myAccessConn);
             var myDataAdapter = new MySqlDataAdapter(myAccessCommand);
 
+            if (MapToLowerCase)
+            {
+                MapToLower(dataTable, myDataAdapter);
+            }
             //Console.WriteLine(sql);
             SqlCommands.Add(sql);
             try
@@ -128,9 +145,14 @@ namespace Reclamation.Core
 
         public override int SaveTable(DataTable dataTable)
         {
-            string sql = "select  * from " + dataTable.TableName + " where 2=1";
+            string tn = dataTable.TableName;
+            if( MapToLowerCase)
+                  tn = tn.ToLower();
+            string sql = "select  * from " + tn+ " where 2=1";
             return SaveTable(dataTable, sql);
         }
+
+        public bool MapToLowerCase = true;
 
         public override int SaveTable(DataTable dataTable, string sql)
         {
@@ -145,6 +167,11 @@ namespace Reclamation.Core
             MySqlCommandBuilder karlCB = new MySqlCommandBuilder(myDataAdapter);
 
             this.lastSqlCommand = sql;
+            if (MapToLowerCase)
+            {
+                MapToLower(dataTable, myDataAdapter);
+            }
+
             SqlCommands.Add(sql);
             int recordCount = 0;
             
@@ -165,7 +192,33 @@ namespace Reclamation.Core
             Logger.WriteLine("Saved "+recordCount+" records in " + perf.ElapsedSeconds + "seconds");
             return recordCount;
         }
-        
+
+        private static void MapToLower(DataTable dataTable, MySqlDataAdapter myDataAdapter)
+        {
+            var map = myDataAdapter.TableMappings.Add(dataTable.TableName.ToLower(), dataTable.TableName);
+            for (int i = 0; i < dataTable.Columns.Count; i++)
+            {
+                var cn = dataTable.Columns[i].ColumnName;
+                map.ColumnMappings.Add(cn.ToLower(), cn);
+            }
+            // PrintMapping(myDataAdapter);
+        }
+        private void PrintMapping(MySqlDataAdapter da)
+        {
+            for (int i = 0; i < da.TableMappings.Count; i++)
+            {
+                var m = da.TableMappings[i];
+                Logger.WriteLine("SourceTable:" + m.SourceTable);
+                Logger.WriteLine("DataSetTable:" + m.DataSetTable);
+                for (int j = 0; j < m.ColumnMappings.Count; j++)
+                {
+                    Logger.WriteLine("SourceColumn:" + m.ColumnMappings[j].SourceColumn);
+                    Logger.WriteLine("DataSetColumn:" + m.ColumnMappings[j].DataSetColumn);
+                }
+
+            }
+
+        }
 
         public override int RunSqlCommand(string sql)
         {
@@ -241,6 +294,15 @@ namespace Reclamation.Core
          return b.Database; 
      }
 
+        /// <summary>
+        /// GetMySqlServer
+        /// If windows based automatiallky generates login info
+        /// Linux assumes local account.
+        /// </summary>
+        /// <param name="server"></param>
+        /// <param name="databaseName"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
      public static BasicDBServer GetMySqlServer(string server, string databaseName, string user = "")
      {
          MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();

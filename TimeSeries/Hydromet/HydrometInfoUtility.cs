@@ -479,21 +479,37 @@ namespace Reclamation.TimeSeries.Hydromet
             }
         }
 
-        private static DataTable Dailykey;
+
+
+        private static DataTable DailyPcodesTable
+        {
+            get
+            {
+                string filename = "daily_pcode.csv";
+                if (m_dailypcodes == null || m_dailypcodes.TableName != filename)
+                {
+                    var fn = FileUtility.GetFileReference(filename);
+                    m_dailypcodes = new CsvFile(fn, CsvFile.FieldTypes.AllText);
+                    m_dailypcodes.TableName = filename;
+
+                }
+                return m_dailypcodes;
+            }
+        }
+
+        private static DataTable m_dailypcodes;
+
+        public static string GetParameterName(string pcode)
+        {
+            var rows =DailyPcodesTable.Select("pcode = '" + pcode + "'", "");
+            if (rows.Length > 0)
+                return rows[0]["descr"].ToString();
+            return "";
+        }
 
         private static DataTable DailyInventory
         {
             get{
-
-                string filename = "daily_pcode.csv";
-
-                if (Dailykey == null || Dailykey.TableName != filename)
-                {
-                    var fn = FileUtility.GetFileReference(filename);
-                    Dailykey = new CsvFile(fn, CsvFile.FieldTypes.AllText);
-                    Dailykey.TableName = filename;
-                    
-                }
 
                 DataTable tbl = new DataTable();
                 tbl.Columns.Add("cbtt");
@@ -511,12 +527,12 @@ namespace Reclamation.TimeSeries.Hydromet
                     string years = ArcInventory[i].Substring(21);
                     string descr = "";
                     string units = "";
-                    for (int j = 0; j < Dailykey.Rows.Count; j++)
+                    for (int j = 0; j < DailyPcodesTable.Rows.Count; j++)
                     {
-                        if (pcode == Dailykey.Rows[j]["pcode"].ToString())
+                        if (pcode == DailyPcodesTable.Rows[j]["pcode"].ToString())
                         {
-                            descr = Dailykey.Rows[j]["descr"].ToString();
-                            units = Dailykey.Rows[j]["units"].ToString();
+                            descr = DailyPcodesTable.Rows[j]["descr"].ToString();
+                            units = DailyPcodesTable.Rows[j]["units"].ToString();
                         }
                     }
 
