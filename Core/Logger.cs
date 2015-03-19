@@ -67,7 +67,7 @@ namespace Reclamation.Core
                 Console.WriteLine(message);
 
             Trace.WriteLine(DateTime.Now.ToString() + ": " + message);
-            if (LogHistory != null && s_keepHistoryInMemory)
+            if (LogHistory != null && s_keepHistoryInMemory && tag != "ui")
             {
                 LogHistory.Add(DateTime.Now.ToString() + ": " + message);
             }

@@ -180,6 +180,7 @@ namespace Reclamation.TimeSeries.Forms
             this.dataGridView1.Size = new System.Drawing.Size(460, 490);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView1_DataError);
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // contextMenuStrip1
             // 
@@ -379,6 +380,20 @@ namespace Reclamation.TimeSeries.Forms
                 Series s = this.SeriesList[0];
                 SeriesRange sr = new SeriesRange(s, sel.T1, sel.T2);
                 sr.SmoothPreservingSum();
+            }
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            var sel = new DataGridSelection(this.dataGridView1);
+
+            if (sel.IsValidDataRange())
+            {
+                Logger.WriteLine(sel.ComputeSelectedStats(), "ui");
+            }
+            else
+            {
+                Logger.WriteLine("", "ui");
             }
         }
 

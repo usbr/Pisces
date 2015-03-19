@@ -37,8 +37,10 @@ namespace Reclamation.Core
                 cell = dgv.SelectedCells[i];
 
                 if (dgv.Columns[cell.ColumnIndex].ValueType == typeof(double)
-                   ||
+                    ||
                     dgv.Columns[cell.ColumnIndex].ValueType == typeof(decimal)
+                    ||
+                    dgv.Columns[cell.ColumnIndex].ValueType == typeof(int)
                    )
                 {
                      var o = dgv[cell.ColumnIndex, cell.RowIndex].Value;
@@ -206,6 +208,27 @@ namespace Reclamation.Core
             {
                 m_isValidInterpolationSelection = true;
             }
+        }
+
+        public bool IsValidDataRange()
+        {
+            bool rval = true;
+
+            for (int i = 0; i < dgv.SelectedCells.Count; i++)
+            {
+                var cell = dgv.SelectedCells[i];
+                if (dgv.Columns[cell.ColumnIndex].ValueType != typeof(double) 
+                    &&
+                    dgv.Columns[cell.ColumnIndex].ValueType != typeof(decimal) 
+                    &&
+                    dgv.Columns[cell.ColumnIndex].ValueType != typeof(int))
+                {
+                    rval = false;
+                    break;
+                }
+            }
+        
+            return rval;
         }
 
         /// <summary>
