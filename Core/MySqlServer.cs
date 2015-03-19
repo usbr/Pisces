@@ -14,19 +14,15 @@ namespace Reclamation.Core
 
         public MySqlServer(string server="localhost",string dbname="timeseries")
         {
-           MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
-            b.Server = server;
-            b.UserID = GetWindowsUserName()+"@localhost";
-            b.Password = GeneratePassword();
-            b.Database = dbname;
-            this.ConnectionString = b.ConnectionString;
-            string msg = ConnectionString;
-            if (b.Password.Length > 0)
-                msg = msg.Replace("password=" + b.Password, "password=" + "xxxxx");
+          ConnectionString = "server="+server+";uid="
+            + GetWindowsUserName()+";" 
+            + "pwd="+GeneratePassword()+";database="+dbname+";";
+           string msg = ConnectionString;
+            if (GeneratePassword().Length > 0)
+                msg = msg.Replace("pwd=" +GeneratePassword() , "pwd=" + "xxxxx");
             Logger.WriteLine(msg);
-            this.ConnectionString = "server=localhost;uid=root;" +
-    "pwd=;database=timeseries;";
-            Logger.WriteLine(ConnectionString);
+            //this.ConnectionString = "server=localhost;uid=root;" +    "pwd=;database=timeseries;";
+            Logger.WriteLine(msg);
 
         }
 
