@@ -302,6 +302,7 @@
     <Compile Include="BpaHydsim\HydSimScenarioPicker.Designer.cs">
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="TimeSeriesDatabase.Factory.cs" />
     <Compile Include="DataTableSeries.cs" />
     <Compile Include="Decodes\DecodesRawFile.cs" />
     <Compile Include="Decodes\GoesMessageDataSet.cs">

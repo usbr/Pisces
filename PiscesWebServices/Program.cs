@@ -46,10 +46,8 @@ namespace PiscesWebServices
                 return;
             }
 
-            //PostgreSQL svr = new PostgreSQL("timeseries");
-            var fn = Path.Combine(TestData.DataPath, "mabo5.pdb");
-            SQLiteServer svr = new SQLiteServer(fn);
-            TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
+            var db = TimeSeriesDatabase.InitDatabase(new Arguments(args));
+
             db.Inventory();
 
             if (cgi == "sites")

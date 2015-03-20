@@ -21,7 +21,7 @@ namespace Pisces.NunitTests.Database
         [Test, Category("DatabaseServer")]
         public void TestMySQL()
         {
-            var svr = new MySqlServer();
+            var svr = MySqlServer.GetMySqlServer("localhost", "timeseries");
 
             var db = new TimeSeriesDatabase(svr);
 

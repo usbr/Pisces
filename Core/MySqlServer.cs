@@ -12,17 +12,10 @@ namespace Reclamation.Core
     {
         protected string lastSqlCommand;
 
-        public MySqlServer(string server="localhost",string dbname="timeseries")
+        public MySqlServer(string connectionString)
         {
-          ConnectionString = "server="+server+";uid="
-            + GetWindowsUserName()+";" 
-            + "pwd="+GeneratePassword()+";database="+dbname+";";
-           string msg = ConnectionString;
-            if (GeneratePassword().Length > 0)
-                msg = msg.Replace("pwd=" +GeneratePassword() , "pwd=" + "xxxxx");
-            Logger.WriteLine(msg);
-            //this.ConnectionString = "server=localhost;uid=root;" +    "pwd=;database=timeseries;";
-            Logger.WriteLine(msg);
+            this.ConnectionString = connectionString;
+           
 
         }
 
@@ -305,20 +298,27 @@ namespace Reclamation.Core
         /// <returns></returns>
      public static BasicDBServer GetMySqlServer(string server, string databaseName, string user = "")
      {
-         MySqlConnectionStringBuilder b = new MySqlConnectionStringBuilder();
-         b.UserID = user;
-         b.Server = server;
-         b.Database = databaseName;
+         Console.WriteLine("Linux="+LinuxUtility.IsLinux());
 
          if (LinuxUtility.IsLinux())
          {//Linux login is from config file.  Assuming localhost access
-             return new MySqlServer(b.ConnectionString);
+             var cs= "server=" + server + ";uid="
+            + WindowsUtility.GetShortUserName() + ";"
+            + "database=" + databaseName + ";";
+             Console.WriteLine(cs);
+             Logger.WriteLine(cs);
+             return new MySqlServer(cs);
          }
          else
          { // use windows login for username
-             b.UserID = GetWindowsUserName();
-             b.Password = GeneratePassword();
-             return new MySqlServer(b.ConnectionString);
+             var cs = "server=" + server + ";uid="
+           + GetWindowsUserName() + ";"
+           + "pwd=" + GeneratePassword() + ";database=" + databaseName + ";";
+             string msg = cs;
+             msg = msg.Replace("pwd=" + GeneratePassword(), "pwd=" + "xxxxx");
+             Logger.WriteLine(msg);
+
+             return new MySqlServer(cs);
          }
      }
     }

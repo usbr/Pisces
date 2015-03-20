@@ -109,10 +109,11 @@ namespace HydrometServer
 
 
             // setup connection to Database
-
-            if (CreatePostgresDatabase(args))
-                return;
-
+            if (args.Contains("create-database"))
+            {
+                if (CreatePostgresDatabase(args))
+                    return;
+            }
             var db = InitDatabase(args);
 
             bool simulate = args.Contains("simulate");
@@ -229,13 +230,14 @@ namespace HydrometServer
                 {
                    string sql = "provider = '" + db.Server.SafeSqlLiteral(args["update-daily"]) + "'";
                    var updateList = db.GetSeriesCatalog(sql);
+                   Console.WriteLine("Updating  "+updateList.Count+" Series ");
                    foreach (var item in updateList)
                    {
+                       Console.Write(item.Name +" ");
                        var s = db.GetSeries(item.id);
                        s.Update(t1, t2);
                    }
                 }
-
 
                 PostgreSQL.ClearAllPools(); // Hack to fix error on application exit
 
@@ -255,50 +257,7 @@ namespace HydrometServer
             perf.Report("HydrometServer: finished ");
         }
 
-        private static TimeSeriesDatabase InitDatabase(Arguments args )
-        {
-
-            if (args.Contains("database"))
-            {
-                if( File.Exists(args["database"]))
-                {
-                    SQLiteServer svr = new SQLiteServer(args["database"]);
-                    var db = new TimeSeriesDatabase(svr, LookupOption.TableName);
-                  return db;
-                }
-
-                int idx = args["database"].IndexOf(":");
-                if (idx > 0)
-                {// postgresql
-                 
-                }
-                throw new NotImplementedException("Please use app.config file");
-            }
-            else if( ConfigurationManager.AppSettings["PostgresDatabase"]!= null)
-            {// use config file (postgresql is default)
-                var dbname = ConfigurationManager.AppSettings["PostgresDatabase"];
-                var svr = PostgreSQL.GetPostgresServer(dbname);
-                Console.WriteLine(svr.ConnectionString);
-                var db = new TimeSeriesDatabase(svr, LookupOption.TableName);
-                db.Parser.RecursiveCalculations = false;
-                Logger.WriteLine("database initilized..");
-                return db;
-            }
-            else if (ConfigurationManager.AppSettings["MySqlDatabase"] != null)
-            {// use config file (postgresql is default)
-                var dbname = ConfigurationManager.AppSettings["MySqlDatabase"];
-                var server = ConfigurationManager.AppSettings["MySqlServer"];
-                var user = ConfigurationManager.AppSettings["MySqlUser"];
-                var svr = MySqlServer.GetMySqlServer(server, dbname, user);
-                Console.WriteLine(svr.ConnectionString);
-                var db = new TimeSeriesDatabase(svr, LookupOption.TableName);
-                db.Parser.RecursiveCalculations = false;
-                Logger.WriteLine("database initilized..");
-                return db;
-            }
-
-            throw new NotImplementedException("Please use app.config file to configure database");
-        }
+        
         
         private static bool CreatePostgresDatabase(Arguments args)
         {
@@ -574,7 +533,7 @@ namespace HydrometServer
             if (args.Contains("t1"))
                 t1 = ParseArgumentDate(args["t1"]);
             if (args.Contains("t2"))
-                t2 = DateTime.Parse(args["t2"]);
+                t2 = ParseArgumentDate(args["t2"]);
 
             Logger.WriteLine("t1= "+t1.ToShortDateString());
             Logger.WriteLine("t2= "+t2.ToShortDateString());
@@ -583,6 +542,7 @@ namespace HydrometServer
 
         private static DateTime ParseArgumentDate(string dateString)
         {
+            dateString = dateString.Trim();
             if( dateString.ToLower() == "yesterday")
             return DateTime.Now.AddDays(-1);
 

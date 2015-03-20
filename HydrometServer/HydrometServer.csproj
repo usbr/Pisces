@@ -113,7 +113,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="aApp.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Copy of App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Copy of AppMysql.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
