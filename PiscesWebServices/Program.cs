@@ -48,7 +48,11 @@ namespace PiscesWebServices
 
             var db = TimeSeriesDatabase.InitDatabase(new Arguments(args));
 
-            db.Inventory();
+            if (cgi == "inventory")
+            {
+                Console.Write("Content-Type: text/html\n\n");
+                db.Inventory();
+            }
 
             if (cgi == "sites")
             {

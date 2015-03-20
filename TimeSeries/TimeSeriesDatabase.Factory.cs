@@ -37,7 +37,7 @@ namespace Reclamation.TimeSeries
                 Logger.WriteLine("using postgresql");
                 var dbname = ConfigurationManager.AppSettings["PostgresDatabase"];
                 var svr = PostgreSQL.GetPostgresServer(dbname);
-                Console.WriteLine(svr.ConnectionString);
+                Logger.WriteLine(svr.ConnectionString);
                 var db = new TimeSeriesDatabase(svr, LookupOption.TableName);
                 db.Parser.RecursiveCalculations = false;
                 Logger.WriteLine("database initilized..");
