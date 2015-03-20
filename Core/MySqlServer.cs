@@ -302,8 +302,11 @@ namespace Reclamation.Core
 
          if (LinuxUtility.IsLinux())
          {//Linux login is from config file.  Assuming localhost access
+             if (user == "")
+                 user = WindowsUtility.GetShortUserName();
+
              var cs= "server=" + server + ";uid="
-            + WindowsUtility.GetShortUserName() + ";"
+            + user + ";"
             + "database=" + databaseName + ";";
              Logger.WriteLine(cs);
              return new MySqlServer(cs);
