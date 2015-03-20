@@ -298,14 +298,13 @@ namespace Reclamation.Core
         /// <returns></returns>
      public static BasicDBServer GetMySqlServer(string server, string databaseName, string user = "")
      {
-         Console.WriteLine("Linux="+LinuxUtility.IsLinux());
+         Logger.WriteLine("Linux="+LinuxUtility.IsLinux());
 
          if (LinuxUtility.IsLinux())
          {//Linux login is from config file.  Assuming localhost access
              var cs= "server=" + server + ";uid="
             + WindowsUtility.GetShortUserName() + ";"
             + "database=" + databaseName + ";";
-             Console.WriteLine(cs);
              Logger.WriteLine(cs);
              return new MySqlServer(cs);
          }
