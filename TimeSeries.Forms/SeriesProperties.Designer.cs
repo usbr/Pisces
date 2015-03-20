@@ -229,9 +229,9 @@ namespace Reclamation.TimeSeries.Forms
             this.label4.Location = new System.Drawing.Point(23, 185);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(69, 17);
+            this.label4.Size = new System.Drawing.Size(45, 17);
             this.label4.TabIndex = 23;
-            this.label4.Text = "site name";
+            this.label4.Text = "site id";
             // 
             // textBoxDBTableName
             // 
