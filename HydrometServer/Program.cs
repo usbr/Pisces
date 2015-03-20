@@ -114,7 +114,7 @@ namespace HydrometServer
                 if (CreatePostgresDatabase(args))
                     return;
             }
-            var db = InitDatabase(args);
+            var db = TimeSeriesDatabase.InitDatabase(args);
 
             bool simulate = args.Contains("simulate");
             bool hydrometCompare = args.Contains("hydromet-compare");
