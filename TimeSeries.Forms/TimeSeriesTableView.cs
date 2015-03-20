@@ -29,6 +29,8 @@ namespace Reclamation.TimeSeries.Forms
         private ToolBarButton toolBarButtonPaste;
         private ToolStripMenuItem interpolateToolStripMenuItem;
         private ToolStripMenuItem smoothToolStripMenuItem;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel toolStripStatusMessage;
         private System.ComponentModel.IContainer components;
 
         public TimeSeriesTableView()
@@ -112,8 +114,11 @@ namespace Reclamation.TimeSeries.Forms
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.interpolateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smoothToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusMessage = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolBar1
@@ -222,14 +227,33 @@ namespace Reclamation.TimeSeries.Forms
             this.smoothToolStripMenuItem.Text = "Smooth preserve sum";
             this.smoothToolStripMenuItem.Click += new System.EventHandler(this.smoothToolStripMenuItem_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusMessage});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 504);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(460, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 7;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusMessage
+            // 
+            this.toolStripStatusMessage.Name = "toolStripStatusMessage";
+            this.toolStripStatusMessage.Size = new System.Drawing.Size(0, 17);
+            // 
             // TimeSeriesTableView
             // 
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolBar1);
             this.Name = "TimeSeriesTableView";
             this.Size = new System.Drawing.Size(460, 526);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -389,11 +413,11 @@ namespace Reclamation.TimeSeries.Forms
 
             if (sel.IsValidDataRange())
             {
-                Logger.WriteLine(sel.ComputeSelectedStats(), "ui");
+                toolStripStatusMessage.Text = sel.ComputeSelectedStats();
             }
             else
             {
-                Logger.WriteLine("", "ui");
+                toolStripStatusMessage.Text = "";
             }
         }
 
