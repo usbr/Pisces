@@ -53,7 +53,7 @@ namespace Reclamation.TimeSeries.Hydromet
             Parameter = pcode;
             this.pcode = pcode;
             this.Table.TableName = cbtt.Trim() + "_" + pcode.Trim(); ;
-            Units = HydrometInfoUtility.LookupArchiveUnits(pcode);
+            Units = HydrometInfoUtility.LookupDailyUnits(pcode);
             this.Name = HydrometInfoUtility.LookupSiteDescription(cbtt) + " " + Units;
             this.SiteName = HydrometInfoUtility.LookupSiteDescription(cbtt);
             this.TimeInterval = TimeSeries.TimeInterval.Daily;

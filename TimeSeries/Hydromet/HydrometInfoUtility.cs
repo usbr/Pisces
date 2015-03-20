@@ -499,7 +499,7 @@ namespace Reclamation.TimeSeries.Hydromet
 
         private static DataTable m_dailypcodes;
 
-        public static string GetParameterName(string pcode)
+        public static string LookupDailyParameterName(string pcode)
         {
             var rows =DailyPcodesTable.Select("pcode = '" + pcode + "'", "");
             if (rows.Length > 0)
@@ -712,84 +712,16 @@ namespace Reclamation.TimeSeries.Hydromet
             return tbl;
 
         }
-
-        public static string LookupArchiveUnits(string pcode)
+        //LookupDailyUnits
+        public static string LookupDailyUnits(string pcode)
         {
-            pcode = pcode.ToUpper();
-            string sql = "pcode = '" + pcode + "'";
-            DataRow[] rows = ArchiveUnits.Select(sql);
 
+            var rows = DailyPcodesTable.Select("pcode = '" + pcode + "'", "");
             if (rows.Length > 0)
-            {
                 return rows[0]["units"].ToString();
-            }
-
-            return pcode;
+            return "";
         }
 
-        private static DataTable _archiveUnitsTable;
-        private static DataTable ArchiveUnits
-        {
-            get
-            {
-                if (_archiveUnitsTable == null)
-                {
-                    _archiveUnitsTable = CreateArchiveUnitsTable();
-                }
-                return _archiveUnitsTable;
-            }
-        }
-
-        private static DataTable CreateArchiveUnitsTable()
-        {
-            DataTable tbl = new DataTable("archive_units");
-            tbl.Columns.Add("pcode");
-            tbl.Columns.Add("units");
-
-
-            tbl.Rows.Add("AF", "acre-feet");
-            tbl.Rows.Add("BH", "mmHg");
-            tbl.Rows.Add("FB", "feet");
-            tbl.Rows.Add("FB2", "feet");
-            tbl.Rows.Add("GD", "feet");
-            tbl.Rows.Add("ID", "cfs");
-            tbl.Rows.Add("MM", "degrees F");
-            tbl.Rows.Add("MN", "degrees F");
-            tbl.Rows.Add("MX", "degrees F");
-            tbl.Rows.Add("NT", "mmHg");
-            tbl.Rows.Add("PC", "inches");
-            tbl.Rows.Add("PE", "inches");
-            tbl.Rows.Add("PP", "inches");
-            tbl.Rows.Add("PU", "inches");
-            tbl.Rows.Add("PX", "inches");
-            tbl.Rows.Add("QD", "cfs");
-            tbl.Rows.Add("QJ", "cfs");
-            tbl.Rows.Add("QT", "cfs");
-            tbl.Rows.Add("QU", "cfs");
-            tbl.Rows.Add("QX", "cfs");
-            tbl.Rows.Add("SO", "inches");
-            tbl.Rows.Add("SE", "inches");
-            tbl.Rows.Add("SD", "inches");
-            tbl.Rows.Add("SP", "inches");
-            tbl.Rows.Add("SR", "Langleys");
-            tbl.Rows.Add("SR2", "Langleys");
-            tbl.Rows.Add("TA", "%");
-            tbl.Rows.Add("UA", "mph");
-            tbl.Rows.Add("UD", "Degrees Azimuth");
-            tbl.Rows.Add("WK", "Degrees F");
-            tbl.Rows.Add("WI", "Degrees F");
-            tbl.Rows.Add("WF", "Degrees F"); 
-            tbl.Rows.Add("WM", "Degrees Celsius");
-            tbl.Rows.Add("WN", "Degrees Celsius");
-            tbl.Rows.Add("WR", "miles/day");
-            tbl.Rows.Add("WY", "Degrees Celsius");
-            tbl.Rows.Add("WZ", "Degrees F");
-            tbl.Rows.Add("YR", "%");
-
-            // tbl.WriteXml(@"c:\temp\archive_units.xml", XmlWriteMode.WriteSchema);
-            return tbl;
-
-        }
 
 
         public static TimeSeriesDatabaseDataSet.RatingTableDataTable GetRatingTable(string cbtt, string pcode)
