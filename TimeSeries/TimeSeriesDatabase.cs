@@ -1350,25 +1350,14 @@ namespace Reclamation.TimeSeries
         public void Export(string path)
         {
             Directory.CreateDirectory(path);
-            var sc = GetSeriesCatalog();
-            string filename = Path.Combine(path, "SeriesCatalog.csv");
-            CsvFile.WriteToCSV(sc, filename, true, true);
-            int sz = sc.Rows.Count;
 
-
-            CsvFile.WriteToCSV(this.GetScenarios(), Path.Combine(path, "scenario.csv"), true, true);
-            
-
-            for (int i = 0; i < sz; i++) 
+            foreach (var tableName in Server.TableNames())
             {
-                var si = sc[i];
-                if (!si.IsFolder && m_server.TableExists(si.TableName))
-                {
-                    DataTable t = m_server.Table(si.TableName);
-                    filename = Path.Combine(path, si.TableName + ".csv");
-                    DataTableOutput.Write(t, filename, true);
-                }
+                DataTable t = m_server.Table(tableName);
+                var filename = Path.Combine(path, tableName.ToLower() + ".csv");
+                DataTableOutput.Write(t, filename, true);   
             }
+            
         }
 
 
