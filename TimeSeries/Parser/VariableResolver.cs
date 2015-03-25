@@ -11,9 +11,8 @@ namespace Reclamation.TimeSeries.Parser
      public enum  LookupOption { SeriesName, TableName };//, TableNameDaily, TableNameInstant};
 
     /// <summary>
-    /// Basic variable resolver for 
-    /// calculation expressions.
-    /// This version requires user to add all variables in advance.
+    /// variable resolver for calculation expressions.
+    /// It is used to lookup time series data
     /// </summary>
     public class VariableResolver
     {
@@ -27,6 +26,7 @@ namespace Reclamation.TimeSeries.Parser
          }
 
 
+        
         public VariableResolver(TimeSeriesDatabase db, LookupOption lookup) 
         {
             this.db = db;
@@ -35,6 +35,11 @@ namespace Reclamation.TimeSeries.Parser
         }
 
         Dictionary<string, ParserResult> vars;
+        /// <summary>
+        /// This constructor requires user to add all variables in advance.
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="lookup"></param>
         public VariableResolver()
         {
             vars = new Dictionary<string, ParserResult>();

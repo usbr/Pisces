@@ -271,10 +271,6 @@
       <Link>SQLite.Interop.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\TimeSeries.ArmyCorps\bin\Debug\Reclamation.TimeSeries.ArmyCorps.dll">
-      <Link>Reclamation.TimeSeries.ArmyCorps.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="images\access.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -320,6 +316,10 @@
     <ProjectReference Include="..\Core\Reclamation.Core.csproj">
       <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
       <Name>Reclamation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeSeries.ArmyCorps\Reclamation.TimeSeries.ArmyCorps.csproj">
+      <Project>{859fb4f4-b299-4b36-9955-e16c05e36158}</Project>
+      <Name>Reclamation.TimeSeries.ArmyCorps</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj">
       <Project>{37B543F5-03A5-479E-B20C-7B4ACC53D16A}</Project>
