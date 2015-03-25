@@ -738,5 +738,10 @@ Alan
          return RunSqlCommand(sql);
      }
 
+     public override void Cleanup()
+     {
+         PostgreSQL.ClearAllPools(); // Hack to fix error on application exit
+     }
+
   }
 }

@@ -239,7 +239,8 @@ namespace HydrometServer
                    }
                 }
 
-                PostgreSQL.ClearAllPools(); // Hack to fix error on application exit
+                db.Server.Cleanup();
+                
 
                 File.AppendAllText(errorFileName, "HydrometServer.exe:  Completed " + DateTime.Now.ToString() + "\n");
             }

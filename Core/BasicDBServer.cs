@@ -364,6 +364,15 @@ namespace Reclamation.Core
             return Environment.UserName.ToLower();
         }
 
+
+        /// <summary>
+        /// Release database resources.
+        /// only used by Postgresql layer.
+        /// </summary>
+        public virtual void Cleanup()
+        {
+            
+        }
     }
 
 
