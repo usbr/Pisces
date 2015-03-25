@@ -307,7 +307,13 @@ namespace Reclamation.Core
                 row = sheet.GetRow(i);
                 for (int c = 0; c < row.LastCellNum; c++)
                 {
-                    newRow[c] = GetCellValue(row.GetCell(c), rval.Columns[c].DataType);
+                    var cell = row.GetCell(c);
+                    Type t = typeof( string);
+                    if (c < rval.Columns.Count)
+                    {
+                        t = rval.Columns[c].DataType;
+                        newRow[c] = GetCellValue(cell, t);
+                    }
                 }
                 rval.Rows.Add(newRow);
             }
