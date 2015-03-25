@@ -12,6 +12,7 @@ using NPOI.SS.Util;
 namespace Reclamation.Core
 {
     /// <summary>
+    /// DataTable focused Wrapper for NpoiExcel 
     /// http://poi.apache.org/spreadsheet/quick-guide.html#Iterator
     /// </summary>
     public class NpoiExcel
