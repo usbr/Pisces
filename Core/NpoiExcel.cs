@@ -47,10 +47,11 @@ namespace Reclamation.Core
             FileInfo fi = new FileInfo(filename);
             m_lastWriteTime = fi.LastWriteTime;
 
-            FileStream file = new FileStream(filename, FileMode.Open);
-            var fs = new POIFSFileSystem(file);
+            FileStream file = new FileStream(filename, FileMode.Open,FileAccess.Read);
+            npoi_workbook =WorkbookFactory.Create(file);
+            //var fs = new POIFSFileSystem(file);
 
-            npoi_workbook = new HSSFWorkbook(fs);
+            //npoi_workbook = new HSSFWorkbook(fs);
 
            // m_workbook = ReadDataSet(filename,oaDateTime:true);
            // m_workbook.DataSetName = filename;
