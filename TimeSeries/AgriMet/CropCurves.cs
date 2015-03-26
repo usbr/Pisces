@@ -31,8 +31,8 @@ namespace Reclamation.TimeSeries.AgriMet
 
         private static void ReadCoeficientsFromDisk()
         {
-
-            var fn = Path.Combine(Globals.LocalConfigurationDataPath, "cc.dat");
+            var fn = FileUtility.GetFileReference("cc.dat");
+            //var fn = Path.Combine(Globals.LocalConfigurationDataPath, "cc.dat");
 
             cc = new TextFile(fn);
             s_kc.Capacity = 101;

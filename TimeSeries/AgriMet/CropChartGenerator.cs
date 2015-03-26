@@ -34,7 +34,7 @@ namespace Reclamation.TimeSeries.AgriMet
                 var cache = new HydrometDataCache();
                 // boii, abei
                 // boii et, abei et
-                var s = String.Join(" ET,", cbttList) + " ET";
+                var s = String.Join(" ETRS,", cbttList) + " ETRS";
                 var cbttPcode = s.Split(',');
                 DateTime t1 = new DateTime(year, 1, 1);
                 DateTime t2 = new DateTime(year, 12, 31);
@@ -192,7 +192,7 @@ namespace Reclamation.TimeSeries.AgriMet
                             + t.AddDays(-1).Day.ToString().PadLeft(5)
                         + "  *      *     *     *      *    *     *");
 
-            var et = new HydrometDailySeries(cbtt, "ET");
+            var et = new HydrometDailySeries(cbtt, "ETRS");
             //var et = new KimberlyPenmanEtSeries(cbtt);
 
             // Below is the calculation to determine how many days to read back. Set to calculate based on ETr Start Date.
@@ -243,7 +243,7 @@ namespace Reclamation.TimeSeries.AgriMet
 
             //var cropRow = CropDatesDataSet.GetCropFiles(t.Year, cbtt); 
 
-            var et = new HydrometDailySeries(cbtt, "ET");
+            var et = new HydrometDailySeries(cbtt, "ETRS");
             //var et = new KimberlyPenmanEtSeries(cbtt);
 
             // Below is the calculation to determine how many days to read back. Set to calculate based on ETr Start Date.
