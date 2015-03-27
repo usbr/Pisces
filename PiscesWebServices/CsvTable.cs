@@ -22,7 +22,7 @@ namespace PiscesWebServices
             this.db = db;
         }
         /// <summary>
-        /// Prints GEOJson dump of Sites
+        /// Prints csv dump of Sites
         /// </summary>
         /// <param name="propertyFilter">two part filter in property table i.e.  'program:agrimet'</param>
         public void Execute( string propertyFilter="")
