@@ -45,11 +45,8 @@
             this.radioButtonHydromet = new System.Windows.Forms.RadioButton();
             this.radioButtonAgriMet = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxReservoir = new System.Windows.Forms.CheckBox();
             this.checkBoxCanal = new System.Windows.Forms.CheckBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBoxRectLength = new System.Windows.Forms.TextBox();
             this.checkBoxGenericWeir = new System.Windows.Forms.CheckBox();
             this.checkBoxRectWeir = new System.Windows.Forms.CheckBox();
             this.checkBoxQuality = new System.Windows.Forms.CheckBox();
@@ -74,7 +71,6 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBoxReservoir = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -247,10 +243,6 @@
             // 
             this.groupBox1.Controls.Add(this.checkBoxReservoir);
             this.groupBox1.Controls.Add(this.checkBoxCanal);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.textBoxRectLength);
             this.groupBox1.Controls.Add(this.checkBoxGenericWeir);
             this.groupBox1.Controls.Add(this.checkBoxRectWeir);
             this.groupBox1.Controls.Add(this.checkBoxQuality);
@@ -265,6 +257,17 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             // 
+            // checkBoxReservoir
+            // 
+            this.checkBoxReservoir.AutoSize = true;
+            this.checkBoxReservoir.Location = new System.Drawing.Point(8, 71);
+            this.checkBoxReservoir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxReservoir.Name = "checkBoxReservoir";
+            this.checkBoxReservoir.Size = new System.Drawing.Size(143, 21);
+            this.checkBoxReservoir.TabIndex = 20;
+            this.checkBoxReservoir.Text = "forebay, acre-feet";
+            this.checkBoxReservoir.UseVisualStyleBackColor = true;
+            // 
             // checkBoxCanal
             // 
             this.checkBoxCanal.AutoSize = true;
@@ -276,45 +279,15 @@
             this.checkBoxCanal.Text = "canal height,shift,flow,";
             this.checkBoxCanal.UseVisualStyleBackColor = true;
             // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(256, 114);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(51, 17);
-            this.label10.TabIndex = 18;
-            this.label10.Text = "length:";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(413, 140);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(48, 22);
-            this.textBox3.TabIndex = 17;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(228, 140);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
-            this.textBox2.TabIndex = 16;
-            // 
-            // textBoxRectLength
-            // 
-            this.textBoxRectLength.Location = new System.Drawing.Point(313, 113);
-            this.textBoxRectLength.Name = "textBoxRectLength";
-            this.textBoxRectLength.Size = new System.Drawing.Size(53, 22);
-            this.textBoxRectLength.TabIndex = 15;
-            // 
             // checkBoxGenericWeir
             // 
             this.checkBoxGenericWeir.AutoSize = true;
             this.checkBoxGenericWeir.Location = new System.Drawing.Point(9, 135);
             this.checkBoxGenericWeir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxGenericWeir.Name = "checkBoxGenericWeir";
-            this.checkBoxGenericWeir.Size = new System.Drawing.Size(226, 21);
+            this.checkBoxGenericWeir.Size = new System.Drawing.Size(278, 21);
             this.checkBoxGenericWeir.TabIndex = 14;
-            this.checkBoxGenericWeir.Text = "canal: ch,qc,shift (generic weir)";
+            this.checkBoxGenericWeir.Text = "canal: ch,qc,shift (generic weir ch_weir)";
             this.toolTip1.SetToolTip(this.checkBoxGenericWeir, "width_factor*head^exponent");
             this.checkBoxGenericWeir.UseVisualStyleBackColor = true;
             // 
@@ -324,9 +297,9 @@
             this.checkBoxRectWeir.Location = new System.Drawing.Point(9, 114);
             this.checkBoxRectWeir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxRectWeir.Name = "checkBoxRectWeir";
-            this.checkBoxRectWeir.Size = new System.Drawing.Size(251, 21);
+            this.checkBoxRectWeir.Size = new System.Drawing.Size(293, 21);
             this.checkBoxRectWeir.TabIndex = 13;
-            this.checkBoxRectWeir.Text = "canal: ch,qc,shift (rectangular weir)";
+            this.checkBoxRectWeir.Text = "canal: ch,qc,shift (rectangular weir) r_weir";
             this.toolTip1.SetToolTip(this.checkBoxRectWeir, "Q=3.33*h^1.5*(length-.2*h)");
             this.checkBoxRectWeir.UseVisualStyleBackColor = true;
             // 
@@ -539,17 +512,6 @@
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             // 
-            // checkBoxReservoir
-            // 
-            this.checkBoxReservoir.AutoSize = true;
-            this.checkBoxReservoir.Location = new System.Drawing.Point(8, 71);
-            this.checkBoxReservoir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxReservoir.Name = "checkBoxReservoir";
-            this.checkBoxReservoir.Size = new System.Drawing.Size(143, 21);
-            this.checkBoxReservoir.TabIndex = 20;
-            this.checkBoxReservoir.Text = "forebay, acre-feet";
-            this.checkBoxReservoir.UseVisualStyleBackColor = true;
-            // 
             // AddSite
             // 
             this.AcceptButton = this.buttonOK;
@@ -620,10 +582,6 @@
         private System.Windows.Forms.CheckBox checkBoxGenericWeir;
         private System.Windows.Forms.CheckBox checkBoxRectWeir;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBoxRectLength;
         private System.Windows.Forms.CheckBox checkBoxCanal;
         private System.Windows.Forms.CheckBox checkBoxReservoir;
     }

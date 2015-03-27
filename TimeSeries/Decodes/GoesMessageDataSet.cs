@@ -74,7 +74,7 @@ namespace Reclamation.TimeSeries.Decodes {
                 rval.freq = data.Substring(22, 2);
                 rval.mod = data.Substring(24, 1);
                 rval.dataquality = data.Substring(25, 1);
-                rval.channel = data.Substring(26, 3);
+                rval.channel = data.Substring(26, 3).TrimStart(new char[]{'0'});
                 rval.satellite = data.Substring(29, 1);
                 rval.drgs = data.Substring(30, 2);
                 rval.length = Convert.ToInt32(data.Substring(32, 5));

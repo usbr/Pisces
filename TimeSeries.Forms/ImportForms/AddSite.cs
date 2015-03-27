@@ -189,8 +189,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
             if (this.checkBoxGenericWeir.Checked)
             {
-                //AddInstantRow(siteID, "feet", "ch");
-                //AddInstantRow(siteID, "cfs", "qc", "GenericWeir(%site%_ch+%property%.shift+1.2,28.5,1.5)");
+                AddInstantRow(siteID, "feet", "ch");
+                AddInstantRow(siteID, "cfs", "qc", "GenericWeir(%site%_ch,mcf_offset,mcf_scale(width),mcf_base(exponent))");
                 //AddInstantRow(siteID, "feet", "hh", "");
 
             }

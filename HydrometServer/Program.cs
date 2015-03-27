@@ -9,6 +9,7 @@ using System.Configuration;
 using System.IO;
 using System.Windows.Forms;
 using Reclamation.TimeSeries.Parser;
+using System.Reflection;
 
 namespace HydrometServer
 {   
@@ -21,7 +22,12 @@ namespace HydrometServer
     {
         static void Main(string[] argList)
         {
-            Console.WriteLine("HydrometServer "+ Application.ProductVersion);
+            Console.Write("HydrometServer "+ Application.ProductVersion ) ;
+            Assembly asm = Assembly.GetExecutingAssembly();
+            FileInfo fi = new FileInfo(asm.Location);
+            //Console.WriteLine(fi.CreationTime);
+            Console.WriteLine(" " +fi.LastWriteTime);
+
             Arguments args = new Arguments(argList);
 
             if (args.Count == 0)
