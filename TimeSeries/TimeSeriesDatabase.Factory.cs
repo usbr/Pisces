@@ -37,7 +37,6 @@ namespace Reclamation.TimeSeries
                 Logger.WriteLine("using postgresql");
                 var dbname = ConfigurationManager.AppSettings["PostgresDatabase"];
                 var svr = PostgreSQL.GetPostgresServer(dbname);
-                Logger.WriteLine(svr.ConnectionString);
                 var db = new TimeSeriesDatabase(svr, LookupOption.TableName);
                 db.Parser.RecursiveCalculations = false;
                 Logger.WriteLine("database initilized..");
@@ -50,7 +49,6 @@ namespace Reclamation.TimeSeries
                 var server = ConfigurationManager.AppSettings["MySqlServer"];
                 var user = ConfigurationManager.AppSettings["MySqlUser"];
                 var svr = MySqlServer.GetMySqlServer(server, dbname, user);
-                //Console.WriteLine(svr.ConnectionString);
                 var db = new TimeSeriesDatabase(svr, LookupOption.TableName);
                 db.Parser.RecursiveCalculations = false;
                 Logger.WriteLine("database initilized..");
