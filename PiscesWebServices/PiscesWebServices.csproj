@@ -57,8 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CsvWriter.cs" />
-    <Compile Include="SiteDump.cs" />
+    <Compile Include="CsvTable.cs" />
+    <Compile Include="CsvTimeSeriesWriter.cs" />
+    <Compile Include="JSONSites.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCGI.cs" />

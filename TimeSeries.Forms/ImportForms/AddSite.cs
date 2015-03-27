@@ -195,6 +195,12 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
             }
 
+            if (this.checkBoxReservoir.Checked)
+            {
+                AddInstantRow(siteID, "feet", "fb");
+                AddInstantRow(siteID, "feet", "af", "FileRatingTable(%site%_fb,\"%site%.csv\")");
+            }
+
             if( this.checkBoxQuality.Checked)
             {
                 foreach (var item in Reclamation.TimeSeries.Decodes.DecodesRawFile.QualityParameters)

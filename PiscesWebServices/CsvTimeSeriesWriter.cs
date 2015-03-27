@@ -8,10 +8,10 @@ using System.Web;
 
 namespace PiscesWebServices
 {
-    public class CsvWriter
+    public class CsvTimeSeriesWriter
     {
         TimeSeriesDatabase db;
-        public CsvWriter(TimeSeriesDatabase db)
+        public CsvTimeSeriesWriter(TimeSeriesDatabase db)
         {
             this.db = db;
         }

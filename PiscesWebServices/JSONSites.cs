@@ -14,10 +14,10 @@ namespace PiscesWebServices
     /// <summary>
     /// dump site data from Pisces meta-data in GEOJson format
     /// </summary>
-    class SiteDump
+    class JSONSites
     {
         TimeSeriesDatabase db;
-        public SiteDump(TimeSeriesDatabase db)
+        public JSONSites(TimeSeriesDatabase db)
         {
             this.db = db;
         }
@@ -57,6 +57,7 @@ namespace PiscesWebServices
               props.Add("title", s.description);
               props.Add("state", s.state);
               props.Add("type", s.type);
+              props.Add("install", s.install);
               var feature = new Feature(pt,props,s.siteid);
 
               fc.Features.Add(feature);
