@@ -40,36 +40,45 @@ namespace Reclamation.TimeSeries.Decodes
                 var msg = GoesMessageDataSet.ParseMessage(tf[i]);
                 if (msg != null)
                 {
-                   string cbtt =SiteLookup("NESSID", msg.nessid, "SITE");
-                   if (cbtt.Trim() == "")
+                   var cbttList =SiteLookupMultiple("NESSID", msg.nessid, "SITE");
+
+                   if (cbttList.Length == 0)
+                   {
+                       Logger.WriteLine("Warning: no cbtt found for "+msg.nessid +"  skipping this messages");
                        continue;
-                   int expectedLength = Convert.ToInt32(SiteLookup("NESSID", msg.nessid, "SMSGLEN"));
+                   }
 
-                   int lenerr = msg.length - expectedLength;
+                   for (int c = 0; c < cbttList.Length; c++)
+                   {
 
-                   var reptime = Convert.ToInt32(SiteLookup("NESSID", msg.nessid, "REPTIM"));
-                   var primaryChannel = SiteLookup("NESSID", msg.nessid, "PCHAN");
+                       string cbtt = cbttList[c];
+                       int expectedLength = Convert.ToInt32(SiteLookup("NESSID", msg.nessid, "SMSGLEN"));
 
-                   
-                    var expectedSeconds = msg.MST.Hour * 3600 + reptime;
+                       int lenerr = msg.length - expectedLength;
 
-                    //DateTime midnight = new DateTime(msg.MST.Year,msg.MST.Month,msg.MST.Day,0,0,0);
-                    TimeSpan ts = new TimeSpan(msg.MST.Hour,msg.MST.Minute,msg.MST.Second);
-                    var timeerr = ts.TotalSeconds - expectedSeconds;
+                       var reptime = Convert.ToInt32(SiteLookup("NESSID", msg.nessid, "REPTIM"));
+                       var primaryChannel = SiteLookup("NESSID", msg.nessid, "PCHAN");
 
-                    int parity = 0;
-                    if( msg.failure == "?")
-                        parity =1;
-                    Add(cbtt, "PARITY",msg.MST, parity);
-                   Add(cbtt, "POWER", msg.MST, Convert.ToDouble(msg.power));
-                   Add(cbtt, "MSGLEN", msg.MST, msg.length);
 
-                   if (msg.channel != primaryChannel)
-                       continue;
+                       var expectedSeconds = msg.MST.Hour * 3600 + reptime;
 
-                   Add(cbtt, "LENERR", msg.MST, lenerr);
-                   Add(cbtt, "TIMEERR", msg.MST, timeerr);
+                       //DateTime midnight = new DateTime(msg.MST.Year,msg.MST.Month,msg.MST.Day,0,0,0);
+                       TimeSpan ts = new TimeSpan(msg.MST.Hour, msg.MST.Minute, msg.MST.Second);
+                       var timeerr = ts.TotalSeconds - expectedSeconds;
 
+                       int parity = 0;
+                       if (msg.failure == "?")
+                           parity = 1;
+                       Add(cbtt, "PARITY", msg.MST, parity);
+                       Add(cbtt, "POWER", msg.MST, Convert.ToDouble(msg.power));
+                       Add(cbtt, "MSGLEN", msg.MST, msg.length);
+
+                       if (msg.channel != primaryChannel)
+                           continue;
+
+                       Add(cbtt, "LENERR", msg.MST, lenerr);
+                       Add(cbtt, "TIMEERR", msg.MST, timeerr);
+                   }
                     
                 }
 
@@ -92,7 +101,22 @@ namespace Reclamation.TimeSeries.Decodes
                 return "";
             return rows[0][columnName].ToString();
         }
+        private static string[] SiteLookupMultiple(string keyColumnName, string key, string columnName)
+        {
+            var rval = new List<string>();
+            var site = Hydromet.HydrometInfoUtility.Site;
+            if (site.Rows.Count == 0)
+                return rval.ToArray();
 
+            DataRow[] rows = site.Select(keyColumnName + "='" + key + "'");
+            if (rows.Length == 0)
+                return rval.ToArray();
+            foreach (var item in rows)
+            {
+                rval.Add(item[columnName].ToString());
+            }
+            return rval.ToArray();
+        }
         
         private Series Add( string cbtt, string pcode, DateTime t, double val)
         {
