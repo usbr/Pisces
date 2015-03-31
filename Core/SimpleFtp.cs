@@ -306,7 +306,7 @@ namespace Reclamation.Core
             }
             catch (Exception ex) { Console.WriteLine(ex.ToString()); }
             /* Return an Empty string Array if an Exception Occurs */
-            return new string[] { "" };
+            return new string[] {  };
         }
 
         /* List Directory Contents in Detail (Name, Size, Created, etc.) */
