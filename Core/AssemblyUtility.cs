@@ -2,13 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
+using System.IO;
 
 namespace Reclamation.Core
 {
     public static class AssemblyUtility
     {
 
-
+        public static DateTime CreationDate()
+        {
+            Assembly asm = Assembly.GetExecutingAssembly();
+            FileInfo fi = new FileInfo(asm.Location);
+            //Console.WriteLine(fi.CreationTime);
+            return fi.CreationTime;
+        }
 
         public static string GetAssemblyPath(string assemblyName)
         {

@@ -22,11 +22,7 @@ namespace HydrometServer
     {
         static void Main(string[] argList)
         {
-            Console.Write("HydrometServer "+ Application.ProductVersion ) ;
-            Assembly asm = Assembly.GetExecutingAssembly();
-            FileInfo fi = new FileInfo(asm.Location);
-            //Console.WriteLine(fi.CreationTime);
-            Console.WriteLine(" " +fi.LastWriteTime);
+            Console.Write("HydrometServer " + Application.ProductVersion +" " + AssemblyUtility.CreationDate());
 
             Arguments args = new Arguments(argList);
 
