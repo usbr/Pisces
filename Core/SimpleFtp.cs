@@ -299,7 +299,7 @@ namespace Reclamation.Core
                     if (directoryRaw == null)
                         return new string[] { };
 
-                    string[] directoryList = directoryRaw.Split("|".ToCharArray()); 
+                    string[] directoryList = directoryRaw.Split("|".ToCharArray(),StringSplitOptions.RemoveEmptyEntries); 
                     return directoryList; 
                 }
                 catch (Exception ex) { Console.WriteLine(ex.ToString()); }
