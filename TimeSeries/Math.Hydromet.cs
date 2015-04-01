@@ -184,13 +184,13 @@ namespace Reclamation.TimeSeries
         }
 
 
-        [FunctionAttribute("Fully Contracted Rectangular Weir (Francis equation) Q=3.33*h^1.5*(length-.2*h)", "RectangularContractedWeir()")]
+        [FunctionAttribute("Fully Contracted Rectangular Weir (Francis equation) Q=3.33*h^1.5*(length-.2*h)", "RectangularContractedWeir(head,length)")]
         public static Series RectangularContractedWeir(Series head, double length)
         {
             var s = new Series();
             var h = head.Copy();
             h.RemoveMissing(true);
-            s = (h * -.2 + length) * 3.33 * Math.Pow(h, 1.5);
+            s = (h * -.2 + length) * 3.33 * Math.Pow(Math.Max(h,0.0), 1.5);
             return s;
         }
 
@@ -202,7 +202,7 @@ namespace Reclamation.TimeSeries
             var h = head.Copy();
             h.RemoveMissing(true);
             h = h + offset + shift;
-            s = Math.Pow(h, exponent) * width_factor;
+            s = Math.Pow(Math.Max(h,0), exponent) * width_factor;
             return s;
         }
 

@@ -194,6 +194,13 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 //AddInstantRow(siteID, "feet", "hh", "");
 
             }
+            if (this.checkBoxRectWeir.Checked)
+            {
+                AddInstantRow(siteID, "feet", "ch");
+                AddInstantRow(siteID, "cfs", "qc", "RectangularContractedWeir("+siteID+"_ch, mcf_scale)");
+                //AddInstantRow(siteID, "feet", "hh", "");
+
+            }
 
             if (this.checkBoxReservoir.Checked)
             {
