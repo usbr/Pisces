@@ -39,24 +39,16 @@ namespace Reclamation.TimeSeries
 
         private static string GetUniqueFileName(string dir,string prefix, string cbtt, string pcode)
         {
-            string fileName = prefix + "_" + cbtt + "_" + pcode + "_" + DateTime.Now.ToString("MMMdyyyyHHmm") + ".txt";
+            string fileName = prefix + "_" + cbtt + "_" + pcode + "_" + DateTime.Now.ToString("MMMdyyyyHHmmssfff") + ".txt";
             fileName = Path.Combine(dir, fileName.ToLower());
-            if (File.Exists(fileName))
-            {// use seconds if necessary to get unique name.
-               fileName = prefix + "_" + cbtt + "_" + pcode + "_" + DateTime.Now.ToString("MMMdyyyyHHmmss") + ".txt";
-               fileName = Path.Combine(dir, fileName.ToLower());
-            }
-            if (File.Exists(fileName))
-            {// use fractional seconds if necessary to get unique name.
-                fileName = prefix + "_" + cbtt + "_" + pcode + "_" + DateTime.Now.ToString("MMMdyyyyHHmmssff") + ".txt";
-                fileName = Path.Combine(dir, fileName.ToLower());
-            }
-
+        
             if (File.Exists(fileName))
             {
-                Console.WriteLine("ERROR: "+fileName + " allready exists");
+                Console.WriteLine("ERROR: "+fileName + " allready exists, will use GUID");
+                fileName = prefix + "_" + cbtt + "_" + pcode + "_" + Guid.NewGuid().ToString() + ".txt";
+                fileName = Path.Combine(dir, fileName.ToLower());
+        
             }
-
 
             return fileName;
         }
@@ -105,19 +97,26 @@ namespace Reclamation.TimeSeries
         public static void RouteInstant(SeriesList list, string name, RouteOptions route = RouteOptions.Both)
         {
 
-            string fileName = "";
+            
             if (route == RouteOptions.None)
                 return;
 
             if (route == RouteOptions.Both || route == RouteOptions.Outgoing)
             {
 
-                fileName = GetOutgoingFileName("instant", name, "all");
-                Console.WriteLine(fileName);
+                
+                var tmpFileName = FileUtility.GetTempFileName(".txt");
+                Console.WriteLine(tmpFileName);
                 foreach (var s in list)
                 {
-                  HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), fileName,true);
+                  HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), tmpFileName,true);
                 }
+
+                Console.WriteLine("Moving: "+tmpFileName);
+                var fileName = GetOutgoingFileName("instant", name, "all");
+                Console.WriteLine("To: " + fileName);
+                File.Move(tmpFileName, fileName);
+
             }
             else
             {
