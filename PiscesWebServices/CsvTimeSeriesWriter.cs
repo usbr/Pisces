@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using Reclamation.TimeSeries;
 using System.Linq;
 using System.Web;
+using System.IO;
 
 namespace PiscesWebServices
 {
@@ -16,8 +17,14 @@ namespace PiscesWebServices
             this.db = db;
         }
 
-        public void Run(string query = "")
+        public void Run(string query = "", string outputFile="")
         {
+            StreamWriter sw = null;
+            if (outputFile != "")
+            {
+                sw = new StreamWriter(outputFile);
+                Console.SetOut(sw);
+            }
             Console.Write("Content-Type: text/html\n\n");
             Console.Write("<pre>");
           // try 
@@ -41,10 +48,10 @@ namespace PiscesWebServices
 
             var queryCollection =  HttpUtility.ParseQueryString(query);
 
-            foreach (String s in queryCollection.AllKeys)
-            {
-                Console.WriteLine(s + " - " + queryCollection[s]);
-            }
+            //foreach (String s in queryCollection.AllKeys)
+            //{
+            //    Console.WriteLine(s + " - " + queryCollection[s]);
+            //}
 
             WriteCsv(queryCollection, TimeInterval.Irregular);
 
@@ -55,6 +62,13 @@ namespace PiscesWebServices
         //  Console.WriteLine("Error: Data");	
         //}
             Console.Write("</pre>");
+
+            if (sw != null)
+                sw.Close();
+
+            StreamWriter standardOutput = new StreamWriter(Console.OpenStandardOutput());
+            standardOutput.AutoFlush = true;
+            Console.SetOut(standardOutput);
         }
 
         private static bool ValidQuery(string query)
@@ -123,7 +137,7 @@ namespace PiscesWebServices
                 if (t3 > t2) 
                     t3 = t2;
                 sList.Read(t, t3);
-                Console.WriteLine("block: "+t.ToString()+" " + t3.ToString());
+                //Console.WriteLine("block: "+t.ToString()+" " + t3.ToString());
                 var sTable = sList.ToDataTable(!hasFlags);
                 PrintDataTable(hasFlags, sTable);
 
