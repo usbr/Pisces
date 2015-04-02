@@ -15,7 +15,17 @@ namespace Pisces.NunitTests.SeriesMath
     [TestFixture]
    public class TestWeirEquations
     {
+        [Test]
 
+        public void TestCipolettiWeir()
+        {
+            var ch = new Series();
+            DateTime t1 = DateTime.Parse("2015-2-8");
+            ch.Add(t1, 1.42);
+           var  x = Reclamation.TimeSeries.Math.CipolettiWeir(ch, 7);
+           Assert.AreEqual(39.9, x[0].Value, 0.1);
+
+        }
        [Test]
        public void TestRectangularContractedWeir()
        {
@@ -44,6 +54,11 @@ namespace Pisces.NunitTests.SeriesMath
            Assert.AreEqual(2, c.Count," expected two flow calculations");
            Assert.AreEqual(90.42, c[t1].Value, 0.01);
            Assert.AreEqual(70.69, c[t2].Value, 0.01);
+
+           ch.Read();
+           var x = Reclamation.TimeSeries.Math.RectangularContractedWeir(ch, 10);
+           Assert.AreEqual(90.42, c[0].Value, 0.01);
+           
 
        }
        [Test]

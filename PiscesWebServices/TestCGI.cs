@@ -32,12 +32,8 @@ namespace PiscesWebServices
             var fnhyd0 = FileUtility.GetTempFileName(".txt");
             Web.GetFile("http://www.usbr.gov/pn-bin/webdaycsv.pl?" + payload, fnhyd0);
 
-            var diff = TextFile.Compare(new TextFile(fn), new TextFile(fnhyd0));
+         //   var diff = TextFile.Compare(new TextFile(fn), new TextFile(fnhyd0));
 
-            foreach (var item in diff)
-            {
-                Console.WriteLine();
-            }
         }
 
         [Test]
