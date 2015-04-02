@@ -25,8 +25,14 @@ namespace PiscesWebServices
                 sw = new StreamWriter(outputFile);
                 Console.SetOut(sw);
             }
-            Console.Write("Content-Type: text/html\n\n");
-            Console.Write("<pre>");
+             Console.Write("Content-type: text/html\n\n"
+                +"<HTML>\n"
+                +"<HEAD><TITLE>Hydromet/AgriMet Data Access</title></head>\n"
+                +"<BODY BGCOLOR=#FFFFFF>\n"
+                );
+
+             WebUtility.PrintHeader();
+             Console.WriteLine("<PRE>");
           // try 
 	        {
                
@@ -119,13 +125,11 @@ namespace PiscesWebServices
                 sList.Add(s);
             }
 
-            WebUtility.PrintHeader();
-            Console.WriteLine("");
+            
             Console.WriteLine("BEGIN DATA");
-            string headLine = "                  DATE, ";
+            string headLine = "DATE, ";
             headLine += String.Join(",", tableNames);
             Console.WriteLine(headLine);
-            bool hasFlags = true;
 
             int maxDaysInMemory = 1;
             var t = t1;
@@ -138,8 +142,9 @@ namespace PiscesWebServices
                     t3 = t2;
                 sList.Read(t, t3);
                 //Console.WriteLine("block: "+t.ToString()+" " + t3.ToString());
-                var sTable = sList.ToDataTable(!hasFlags);
-                PrintDataTable(hasFlags, sTable);
+                SeriesListDataTable sTable = new SeriesListDataTable(sList, interval);
+                //var sTable = sList.ToDataTable(!hasFlags);
+                PrintDataTable( sTable);
 
                 t = t3.NextDay();
             } 
@@ -148,39 +153,52 @@ namespace PiscesWebServices
 
         }
 
-        private static void PrintDataTable(bool hasFlags, System.Data.DataTable sTable)
+        private static void PrintDataTable(System.Data.DataTable table)
         {
-            for (int i = 0; i < sTable.Rows.Count; i++)
+            for (int i = 0; i < table.Rows.Count; i++)
             {
                 string s = "";
-                for (int j = 0; j < sTable.Columns.Count; j++)
+
+                for (int j = 0; j < table.Columns.Count; j++)
                 {
-                    var o = sTable.Rows[i][j];
+                    var o = table.Rows[i][j];
                     if (j == 0)
                     {
-                        s += FormatDate(o);
+                        s += FormatDate(o) + ",";
                     }
                     else
                     {
-                        if (!hasFlags || j % 2 == 0)
-                        {
-                            s += FormatNumber(o);
-                        }
-                        else
-                        {
-                            s += FormatFlag(o);
-                        }
+                        if (table.Columns[j].DataType == typeof(string))
+                            continue;
+
+                      s += FormatNumber(o);
+
+                        bool flagColumnNext = j <table.Columns.Count-1 
+                            && table.Columns[j+1].DataType == typeof(string);
+
+                        if(flagColumnNext ) // check for flag
+                            s += FormatFlag(table.Rows[i][j+1]);
+
+                        bool lastColumn = j == table.Columns.Count - 1
+                        || flagColumnNext && j == table.Columns.Count - 2;
+                       if (!lastColumn)
+                            s += ",";
                     }
                 }
                 Console.WriteLine(s);
             }
         }
 
+        /// <summary>
+        /// format like this: 04/01/2015 18:00
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
         private static string FormatDate( object o)
         {
             var rval = "";
             var t = Convert.ToDateTime(o);
-            rval = t.ToString("G").PadLeft(22) + ", ";
+            rval = t.ToString("MM/dd/yyyy HH:mm");
             return rval;
         }
 
@@ -188,9 +206,12 @@ namespace PiscesWebServices
         {
             var rval = "";
             if (o == DBNull.Value)
-                rval = "".PadLeft(6) + ", ";
+                rval = "";//.PadLeft(6) + ", ";
             else
-                rval = o.ToString().PadLeft(6) + ", ";
+                rval = o.ToString();//.PadLeft(6) + ", ";
+
+            if (rval == "")
+                rval = " ";
             return rval;
         }
 
@@ -198,9 +219,9 @@ namespace PiscesWebServices
         {
             var rval = "";
             if (o == DBNull.Value || o.ToString() == "")
-                rval = "".PadLeft(12) + ", ";
+                rval = "".PadLeft(11);
             else
-                rval = Convert.ToDouble(o).ToString("F02").PadLeft(12) + ", ";
+                rval = Convert.ToDouble(o).ToString("F02").PadLeft(11) ;
             return rval;
         }
 

@@ -135,10 +135,10 @@ namespace PiscesWebServices
         }
         public static void PrintHeader()
         {
-            Console.WriteLine("USBR Pacific Northwest Region");
-            Console.WriteLine("Hydromet/AgriMet System Data Access");
-            Console.WriteLine(" ");
-            Console.WriteLine("Although the Bureau of Reclamation makes efforts to maintain the accuracy");
+            Console.WriteLine("<PRE>");
+            Console.WriteLine("<B>USBR Pacific Northwest Region");
+            Console.WriteLine("Hydromet/AgriMet Data Access</B><BR>");
+            Console.WriteLine("Although the US Bureau of Reclamation makes efforts to maintain the accuracy");
             Console.WriteLine("of data found in the Hydromet system databases, the data is largely unverified");
             Console.WriteLine("and should be considered preliminary and subject to change.  Data and services");
             Console.WriteLine("are provided with the express understanding that the United States Government");
@@ -147,7 +147,7 @@ namespace PiscesWebServices
             Console.WriteLine("or data obtained by access to this computer system, and the United States");
             Console.WriteLine("shall be under no liability whatsoever to any individual or group entity by");
             Console.WriteLine("reason of any use made thereof. ");
-            Console.WriteLine(" ");
+            Console.WriteLine("</PRE>");
         }
 
     }
