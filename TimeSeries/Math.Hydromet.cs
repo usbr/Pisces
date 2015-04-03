@@ -183,7 +183,13 @@ namespace Reclamation.TimeSeries
             return s;
         }
 
-
+        /// <summary>
+        /// CipolettiWeir
+        /// http://www.usbr.gov/pmts/hydraulics_lab/pubs/wmm/chap07_12.html
+        /// </summary>
+        /// <param name="head"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         [FunctionAttribute("CipolettiWeir equation 3.367*lenght*h^1.5", "CipolettiWeir(head,length)")]
         public static Series CipolettiWeir(Series head, double length)
         {
@@ -193,6 +199,14 @@ namespace Reclamation.TimeSeries
             s = Math.Pow(Math.Max(h, 0.0), 1.5) * length * 3.367;
             return s;
         }
+
+        /// <summary>
+        /// Standard Contracted Rectangular Weir Equation
+        /// http://www.usbr.gov/pmts/hydraulics_lab/pubs/wmm/
+        /// </summary>
+        /// <param name="head"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         [FunctionAttribute("Fully Contracted Rectangular Weir (Francis equation) Q=3.33*h^1.5*(length-.2*h)", "RectangularContractedWeir(head,length)")]
         public static Series RectangularContractedWeir(Series head, double length)
         {
@@ -202,6 +216,8 @@ namespace Reclamation.TimeSeries
             s = (h * -.2 + length) * 3.33 * Math.Pow(Math.Max(h, 0.0), 1.5);
             return s;
         }
+
+
         [FunctionAttribute("Generic weir equation width_factor*(head+offset+shift)^exponent ", "GenericWeir(head,offset,width_factor,exponent)")]
         public static Series GenericWeir(Series head,double offset, double width_factor, double exponent)
         {
