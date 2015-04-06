@@ -106,6 +106,7 @@ namespace Reclamation.TimeSeries
 
                 
                 var tmpFileName = FileUtility.GetTempFileName(".txt");
+                File.Delete(tmpFileName);
                 Console.WriteLine(tmpFileName);
                 foreach (var s in list)
                 {

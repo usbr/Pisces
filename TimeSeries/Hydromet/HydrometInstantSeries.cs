@@ -383,6 +383,7 @@ END DATA
                 if (!DateTime.TryParseExact(strDate, "yyyyMMMdd HHmm", new CultureInfo("en-US"), System.Globalization.DateTimeStyles.None, out t))
                 {
                     Console.WriteLine("Bad Date, Skipping line: "+tf[i]);
+                    continue;
                 }
                 string cbtt = tf[i].Substring(15, 8).Trim();
                 string pcode = tf[i].Substring(24, 9).Trim();
