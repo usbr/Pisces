@@ -1487,9 +1487,9 @@ namespace Reclamation.TimeSeries
             {// create new series.
                 //sr = GetNewSeriesRow();
                 Logger.WriteLine("table: " + s.Table.TableName + " does not exist in the catalog");
+                TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
                 if (folderName == "")
                 {
-                    TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
                     if (tn.interval != "")
                         folderName = tn.interval;
                 }
@@ -1501,6 +1501,8 @@ namespace Reclamation.TimeSeries
                     folder = RootFolder;
 
                 sr = GetNewSeriesRow();
+                sr.TimeInterval = tn.GetTimeInterval().ToString();
+                sr.siteid = tn.siteid;
                 sr.Name = s.Name;
                 sr.Parameter = s.Parameter;
                 sr.ParentID = folder.ID;

@@ -35,12 +35,7 @@ namespace Reclamation.TimeSeries.Parser
             TimeSeriesName tn = new TimeSeriesName(name);
             if( tn.HasInterval)
             {
-                if (tn.interval == "instant")
-                    interval = TimeInterval.Irregular;
-                if (tn.interval == "daily")
-                    interval = TimeInterval.Daily;
-                if (tn.interval == "monthly")
-                    interval = TimeInterval.Monthly;
+                interval = tn.GetTimeInterval();
             }
 
             if (tn.Valid)

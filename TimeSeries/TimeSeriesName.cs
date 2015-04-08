@@ -35,6 +35,19 @@ namespace Reclamation.TimeSeries
             Init(name, defaultInterval);
         }
 
+        public TimeInterval GetTimeInterval()
+        {
+            TimeInterval rval = TimeInterval.Irregular;
+            if (interval == "instant")
+                rval = TimeInterval.Irregular;
+            if (interval == "daily")
+                rval = TimeInterval.Daily;
+            if (interval == "monthly")
+                rval = TimeInterval.Monthly;
+
+            return rval;
+        }
+
         private void Init(string name, string defaultInterval)
         {
             m_defaultInterval = defaultInterval;
