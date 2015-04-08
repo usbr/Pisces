@@ -121,7 +121,10 @@ namespace Reclamation.TimeSeries {
             public string Get(string name, string defaultValue, int seriesID)
             {
                 var rows = Select("name='" + name + "' and seriesid = " + seriesID);
-                if (rows.Length != 1)
+                if (rows.Length > 1)
+                    Console.WriteLine("Warning: duplicate property " + name + " seriesid = " + seriesID);
+
+                if (rows.Length == 0)
                     return defaultValue;
 
                 return rows[0]["value"].ToString();
@@ -137,6 +140,16 @@ namespace Reclamation.TimeSeries {
                 else
                 {
                     rows[0]["value"] = value;
+
+                    if (rows.Length > 1)
+                    {// delete duplicates.
+                        for (int i = 1; i < rows.Length; i++)
+                        {
+                            rows[i].Delete();
+                            //rows[0].Table.Rows.Remove(rows[i]);   
+                        }
+                    }
+
                 }
 
             }
