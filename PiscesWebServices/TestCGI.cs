@@ -20,8 +20,8 @@ namespace PiscesWebServices
         [Test]
         public void CsvTest()
         {
-
-            string payload = "parameter=mddo ch,wcao q&syer=2015&smnth=4&sdy=1&eyer=2015&emnth=4&edy=1&format=2";
+            //http://www.usbr.gov/pn-bin/webdaycsv.pl?parameter=mddo%20ch,wcao%20q&syer=2015&smnth=4&sdy=5&eyer=2015&emnth=4&edy=5&format=2
+            string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=5&eyer=2015&emnth=4&edy=5&format=2";
             //Program.Main(new string[] { "--cgi=instant", "--payload=?"+payload });
 
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[]{}));
@@ -29,10 +29,21 @@ namespace PiscesWebServices
             var fn = FileUtility.GetTempFileName(".txt");
             c.Run(payload,fn);
 
+            TextFile tf = new TextFile(fn);
+            tf.DeleteLines(0, 1);
+
             var fnhyd0 = FileUtility.GetTempFileName(".txt");
             Web.GetFile("http://www.usbr.gov/pn-bin/webdaycsv.pl?" + payload, fnhyd0);
 
-         //   var diff = TextFile.Compare(new TextFile(fn), new TextFile(fnhyd0));
+          var diff = TextFile.Compare(tf, new TextFile(fnhyd0));
+          if (diff.Length > 0)
+          {
+              for (int i = 0; i < diff.Length; i++)
+              {
+                  Console.WriteLine(diff[i]);    
+              }
+              
+          }
 
         }
 

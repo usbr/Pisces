@@ -10,7 +10,7 @@ using System.Windows.Forms;
 namespace Reclamation.TimeSeries.Hydromet
 {
     public enum HydrometDataBase { Dayfiles, Archives, MPoll };
-    public enum HydrometHost { PN, Yakima, GreatPlains };
+    public enum HydrometHost { PN, Yakima, GreatPlains, PNLinux };
 
     /// <summary>
     /// Common hydromet helper functions
@@ -135,6 +135,7 @@ namespace Reclamation.TimeSeries.Hydromet
             if (server == HydrometHost.PN.ToString()) return HydrometHost.PN;
             if (server == HydrometHost.Yakima.ToString()) return HydrometHost.Yakima;
             if (server == HydrometHost.GreatPlains.ToString()) return HydrometHost.GreatPlains;
+            if (server == HydrometHost.PNLinux.ToString()) return HydrometHost.PNLinux; ;
 
             return HydrometHost.PN;
         }

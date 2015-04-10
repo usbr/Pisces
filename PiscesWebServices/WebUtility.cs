@@ -133,9 +133,26 @@ namespace PiscesWebServices
 
             return "";
         }
-        public static void PrintHeader()
+
+
+        public static void PrintHydrometTrailer(string message="")
         {
-            Console.WriteLine("<PRE>");
+            Console.WriteLine("</pre>");
+            Console.WriteLine("</body></html>\n\n\n");
+        }
+        /// <summary>
+        /// This header is compatable with Legacy vms code.
+        /// Some FORTRAN and other programs rely on this specific header,
+        /// used by outside agencies and corporations.
+        /// 
+        /// </summary>
+        public static void PrintHydrometHeader()
+        {
+            Console.WriteLine("<HTML>\n"
+                + "<HEAD><TITLE>Hydromet/AgriMet Data Access</title></head>\n"
+                + "<BODY BGCOLOR=#FFFFFF>");
+
+            Console.WriteLine("<p><PRE>");
             Console.WriteLine("<B>USBR Pacific Northwest Region");
             Console.WriteLine("Hydromet/AgriMet Data Access</B><BR>");
             Console.WriteLine("Although the US Bureau of Reclamation makes efforts to maintain the accuracy");
@@ -148,6 +165,8 @@ namespace PiscesWebServices
             Console.WriteLine("shall be under no liability whatsoever to any individual or group entity by");
             Console.WriteLine("reason of any use made thereof. ");
             Console.WriteLine("</PRE>");
+            Console.WriteLine("<p>");
+            Console.WriteLine("<PRE>");
         }
 
     }

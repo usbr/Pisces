@@ -6,7 +6,7 @@ namespace Reclamation.TimeSeries
     public static class PointFlag
     {
         public const string Edited = "e"; // edit, math
-        public const string None = "";
+        public const string None = " ";
         public const string Inserted = "I";
         public const string Locked = "L";
         public const string Computed = "C";

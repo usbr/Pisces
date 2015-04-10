@@ -17,6 +17,9 @@ namespace PiscesWebServices
             this.db = db;
         }
 
+        //http://pnhyd0.pn.usbr.gov/~dataaccess/webarccsv.com?parameter=BOII%20PC,ODSW%20wr,&syer=2012&smnth=1&sdy=1&eyer=2012&emnth=1&edy=10&format=3
+        //string srchStr = "http://pnhyd0.pn.usbr.gov/~dataaccess/webarccsv.com?parameter=BOII PC,ODSW wr,&syer=2012&smnth=1&sdy=1&eyer=2012&emnth=12&edy=30&format=3";
+
         public void Run(string query = "", string outputFile="")
         {
             StreamWriter sw = null;
@@ -26,13 +29,11 @@ namespace PiscesWebServices
                 Console.SetOut(sw);
             }
              Console.Write("Content-type: text/html\n\n"
-                +"<HTML>\n"
-                +"<HEAD><TITLE>Hydromet/AgriMet Data Access</title></head>\n"
-                +"<BODY BGCOLOR=#FFFFFF>\n"
+                
                 );
 
-             WebUtility.PrintHeader();
-             Console.WriteLine("<PRE>");
+             WebUtility.PrintHydrometHeader();
+             
           // try 
 	        {
                
@@ -47,19 +48,23 @@ namespace PiscesWebServices
 
                 if (!ValidQuery(query))
                 {
-                    Console.WriteLine("Error: Invalid query");
-                    Console.Write("</pre>");
+                    WebUtility.PrintHydrometTrailer("Error: Invalid query");
                     return;
                 }
 
             var queryCollection =  HttpUtility.ParseQueryString(query);
+            DateTime t1;
+            DateTime t2;
+            if (!WebUtility.GetDateRange(queryCollection, out t1, out t2))
+            {
+                Console.WriteLine("Error: Invalid dates");
+                return;
+            }
 
-            //foreach (String s in queryCollection.AllKeys)
-            //{
-            //    Console.WriteLine(s + " - " + queryCollection[s]);
-            //}
 
-            WriteCsv(queryCollection, TimeInterval.Irregular);
+            SeriesList list = CreateSeriesList(queryCollection, TimeInterval.Irregular);
+
+            WriteCsv(list, TimeInterval.Irregular,t1,t2);
 
            }
         //catch (Exception e)
@@ -67,7 +72,7 @@ namespace PiscesWebServices
         //    Logger.WriteLine(e.Message);
         //  Console.WriteLine("Error: Data");	
         //}
-            Console.Write("</pre>");
+            WebUtility.PrintHydrometTrailer();
 
             if (sw != null)
                 sw.Close();
@@ -91,45 +96,13 @@ namespace PiscesWebServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        private void WriteCsv(NameValueCollection query, TimeInterval interval)
+        private void WriteCsv(SeriesList list, TimeInterval interval, DateTime t1, DateTime t2)
         {
-            // USBR  WEBARCCSV Search String
-            //http://pnhyd0.pn.usbr.gov/~dataaccess/webarccsv.com?parameter=BOII%20PC,ODSW%20wr,&syer=2012&smnth=1&sdy=1&eyer=2012&emnth=1&edy=10&format=3
-            //string srchStr = "http://pnhyd0.pn.usbr.gov/~dataaccess/webarccsv.com?parameter=BOII PC,ODSW wr,&syer=2012&smnth=1&sdy=1&eyer=2012&emnth=12&edy=30&format=3";
-
-            DateTime t1;
-            DateTime t2;
-            if (!WebUtility.GetDateRange(query, out t1, out t2))
-            {
-                Console.WriteLine("Error: Invalid dates");
-                return ;
-            }
-
-            TimeSeriesName[] names = GetTimeSeriesName(query);
-
-            var tableNames = (from n in names select n.GetTableName()).ToArray();
-
-            var sc = db.GetSeriesCatalog("tablename in ('" + String.Join("','", tableNames) + "')");
-
-            SeriesList sList = new SeriesList();
-            foreach (var tn in names)
-            {
-                Series s = new Series();
-                
-                s.TimeInterval = interval;
-                if (sc.Select("tablename = '" + tn.GetTableName() + "'").Length == 1)
-                {
-                    s = db.GetSeriesFromTableName(tn.GetTableName());
-                }
-                s.Table.TableName = tn.GetTableName();
-                sList.Add(s);
-            }
 
             
             Console.WriteLine("BEGIN DATA");
-            string headLine = "DATE, ";
-            headLine += String.Join(",", tableNames);
-            Console.WriteLine(headLine);
+            WriteSeriesHeader(list, interval);
+            
 
             int maxDaysInMemory = 1;
             var t = t1;
@@ -140,9 +113,9 @@ namespace PiscesWebServices
 
                 if (t3 > t2) 
                     t3 = t2;
-                sList.Read(t, t3);
+                list.Read(t, t3);
                 //Console.WriteLine("block: "+t.ToString()+" " + t3.ToString());
-                SeriesListDataTable sTable = new SeriesListDataTable(sList, interval);
+                SeriesListDataTable sTable = new SeriesListDataTable(list, interval);
                 //var sTable = sList.ToDataTable(!hasFlags);
                 PrintDataTable( sTable);
 
@@ -151,6 +124,43 @@ namespace PiscesWebServices
 
             Console.WriteLine("END DATA");
 
+        }
+
+        private void WriteSeriesHeader(SeriesList list, TimeInterval interval)
+        {
+            //string headLine = "DATE, ";
+            var headLine = "DATE       TIME ";
+            foreach (var item in list)
+            {
+                TimeSeriesName tn = new TimeSeriesName(item.Table.TableName);
+                headLine += ",  "+tn.siteid.PadRight(8) + "" + tn.pcode.PadRight(8) ;
+            }
+            headLine = headLine.ToUpper();
+            Console.WriteLine(headLine);
+        }
+
+        private SeriesList CreateSeriesList(NameValueCollection query, TimeInterval interval)
+        {
+            TimeSeriesName[] names = GetTimeSeriesName(query);
+
+            var tableNames = (from n in names select n.GetTableName()).ToArray();
+
+            var sc = db.GetSeriesCatalog("tablename in ('" + String.Join("','", tableNames) + "')");
+
+            SeriesList sList = new SeriesList();
+            foreach (var tn in names)
+            {
+                Series s = new Series();
+
+                s.TimeInterval = interval;
+                if (sc.Select("tablename = '" + tn.GetTableName() + "'").Length == 1)
+                {
+                    s = db.GetSeriesFromTableName(tn.GetTableName());
+                }
+                s.Table.TableName = tn.GetTableName();
+                sList.Add(s);
+            }
+            return sList;
         }
 
         private static void PrintDataTable(System.Data.DataTable table)
@@ -204,22 +214,18 @@ namespace PiscesWebServices
 
         private static string FormatFlag( object o)
         {
-            var rval = "";
             if (o == DBNull.Value)
-                rval = "";//.PadLeft(6) + ", ";
+                return "";
             else
-                rval = o.ToString();//.PadLeft(6) + ", ";
+                return o.ToString();
 
-            if (rval == "")
-                rval = " ";
-            return rval;
         }
 
         private static string FormatNumber(object o)
         {
             var rval = "";
             if (o == DBNull.Value || o.ToString() == "")
-                rval = "".PadLeft(11);
+                rval = "";//.PadLeft(11);
             else
                 rval = Convert.ToDouble(o).ToString("F02").PadLeft(11) ;
             return rval;
