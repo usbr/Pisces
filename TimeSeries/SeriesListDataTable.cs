@@ -12,10 +12,13 @@ namespace Reclamation.TimeSeries
     /// <summary>
     /// MultipleSeriesDataTable is used to combine
     /// multiple series into a single DataTable.  
+    /// Goal to be able to edit values and flags in this
+    /// table which also modifies individual series.
     /// </summary>
     public class SeriesListDataTable : DataTable
     {
         SeriesList m_seriesList;
+        List<int> m_columnToSeries; // index to series from each column in table
         /// <summary>
         /// Creates a DataTable composed from multiple time series
         /// </summary>
@@ -23,11 +26,70 @@ namespace Reclamation.TimeSeries
             TimeInterval interval) : base(interval.ToString())
         {
             m_seriesList = list.FilteredList(interval);
-            
-            CreateMultiColumnTable();
+            m_columnToSeries = new List<int>();
+            CreateMultiColumnSchema();
+            AddData();
             AcceptChanges();
             ColumnChanged += new DataColumnChangeEventHandler(m_table_ColumnChanged);
             SetupPrimaryKey();
+        }
+
+        private void AddData()
+        {
+            Series tempSeries = new Series(this, "", TimeInterval.Irregular);
+
+            // tempSeries is not a "valid" series.  just taking advantage
+            // of insert and lookup functions
+            tempSeries.Table.Columns.Remove("flag"); // this was added by constructor above..
+
+            int colIndex = 1; // skip date column
+            do
+            {
+                Series s = m_seriesList[m_columnToSeries[colIndex]];
+                DataRow row = null;
+
+                for (int i = 0; i < s.Count; i++)
+                {
+                    Point pt = s[i];
+                    int idx = tempSeries.IndexOf(pt.DateTime);
+                    if (idx < 0)
+                    {// need new row..
+                        row = NewRow();
+                        row[0] = pt.DateTime;
+                        row[colIndex] = Point.DoubleOrNull(ref pt);
+                        if (s.HasFlags)
+                        {
+                            row[colIndex+1] = pt.Flag;
+                        }
+                        // find spot to insert 
+                        int sz = tempSeries.Count;
+                        if (sz == 0 || pt.DateTime > tempSeries.MaxDateTime)
+                        {   // append
+                            Rows.Add(row);
+                        }
+                        else
+                        {
+                            int j = tempSeries.LookupIndex(pt.DateTime);
+                            Rows.InsertAt(row, j);
+                        }
+                    }
+                    else
+                    { // using existing row
+                        row = Rows[idx];
+                        row[colIndex] = Point.DoubleOrNull(ref pt);
+                        if (s.HasFlags)
+                            row[colIndex+1] = pt.Flag;
+                        continue;
+                    }
+                }
+                colIndex++;
+                if (s.HasFlags)
+                    colIndex++;
+
+            } while (colIndex < Columns.Count-1);
+
+
+
         }
 
 
@@ -93,7 +155,7 @@ namespace Reclamation.TimeSeries
 
         }
 
-        private void CreateMultiColumnTable()
+        private void CreateMultiColumnSchema()
         {
             if (m_seriesList.Count == 0)
             {
@@ -102,6 +164,7 @@ namespace Reclamation.TimeSeries
 
             var tbl = m_seriesList[0].Table;
             AppendColumn( tbl.Columns[0], tbl.Columns[0].ColumnName); // DateTime
+            m_columnToSeries.Add(0);
 
             for (int i = 0; i < m_seriesList.Count; i++)
             {
@@ -110,28 +173,22 @@ namespace Reclamation.TimeSeries
                 TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
 
                 AppendColumn(tbl.Columns[1], tn.siteid.PadRight(8) +tn.pcode); // value column
-                if( s.HasFlags)
-                  AppendColumn(tbl.Columns[2], "flag"+(i+1)); // flag
+                m_columnToSeries.Add(i);
+                if (s.HasFlags)
+                {
+                 AppendColumn(tbl.Columns[2], "flag" + (i + 1)); // flag
+                 m_columnToSeries.Add(i);
+                }
             }
 
         }
 
-        private void AppendColumn(DataColumn dataColumn, string columnName)
+        private DataColumn AppendColumn(DataColumn dataColumn, string columnName)
         {
             DataTable tbl = dataColumn.Table;
-
             columnName = MakeUniqueColumnName(columnName);
-
-            Columns.Add(columnName, dataColumn.DataType);
-
-            for (int i = 0; i < tbl.Rows.Count; i++)
-            {
-                while (Rows.Count <= i)
-                {
-                    Rows.Add(NewRow());
-                }
-                Rows[i][columnName] = tbl.Rows[i][dataColumn.ColumnName];
-            }
+           var rval =  Columns.Add(columnName, dataColumn.DataType);
+           return rval;
         }
 
         private string MakeUniqueColumnName(string columnName)

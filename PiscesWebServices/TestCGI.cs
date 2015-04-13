@@ -21,7 +21,7 @@ namespace PiscesWebServices
         public void CsvTest()
         {
             //http://www.usbr.gov/pn-bin/webdaycsv.pl?parameter=mddo%20ch,wcao%20q&syer=2015&smnth=4&sdy=5&eyer=2015&emnth=4&edy=5&format=2
-            string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=5&eyer=2015&emnth=4&edy=5&format=2";
+            string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=4&edy=13&format=2";
             //Program.Main(new string[] { "--cgi=instant", "--payload=?"+payload });
 
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[]{}));

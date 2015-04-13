@@ -116,6 +116,7 @@ namespace PiscesWebServices
                 list.Read(t, t3);
                 //Console.WriteLine("block: "+t.ToString()+" " + t3.ToString());
                 SeriesListDataTable sTable = new SeriesListDataTable(list, interval);
+                //var sTable = list.ToDataTable(false);
                 //var sTable = sList.ToDataTable(!hasFlags);
                 PrintDataTable( sTable);
 
