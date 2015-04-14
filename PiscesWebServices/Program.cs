@@ -26,6 +26,7 @@ namespace PiscesWebServices
             var payload = "";
             var p = new OptionSet();
             var format = "json";
+            var verbose = false;
 
             p.Add("cgi=","required cgi to execute cgi=sites or cgi=series",x => cgi=x);
             p.Add("json_property_stubs=", "comma separated list of properties (i.e. 'region,url,') to created empty stubs if neeed ",
@@ -33,6 +34,7 @@ namespace PiscesWebServices
             p.Add("propertyFilter=", "property filter like program:agrimet", x => propertyFilter = x);
             p.Add("payload=","test query data for a CGI",x => payload =x);
             p.Add("format=","format json(default) | csv ",x => format=x);
+            p.Add("verbose"," get more details", x => verbose = x =="true");
             try
             {
                 p.Parse(args);
@@ -46,6 +48,9 @@ namespace PiscesWebServices
                 ShowHelp(p);
                 return;
             }
+
+            if (verbose)
+                Logger.EnableLogger();
 
             var db = TimeSeriesDatabase.InitDatabase(new Arguments(args));
 

@@ -94,6 +94,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationTrustPolicy.cs" />
+    <Compile Include="CommandLine\Daily.cs" />
+    <Compile Include="CommandLine\Instant.cs" />
+    <Compile Include="CommandLine\ArcConfig.cs" />
+    <Compile Include="CommandLine\Config.cs" />
     <Compile Include="FileImporter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

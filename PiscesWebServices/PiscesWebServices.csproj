@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>PiscesWebServices.Program</StartupObject>
+    <StartupObject>PiscesWebServices.TestCGI</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GeoJSON.Net">

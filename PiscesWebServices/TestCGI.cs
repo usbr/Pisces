@@ -13,6 +13,7 @@ namespace PiscesWebServices
     {
         public static void Main()
         {
+            //Logger.EnableLogger();
             TestCGI t = new TestCGI();
             t.CsvTest();
         }

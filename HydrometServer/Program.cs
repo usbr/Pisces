@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows.Forms;
 using Reclamation.TimeSeries.Parser;
 using System.Reflection;
+using Mono.Options;
 
 namespace HydrometServer
 {   
@@ -25,62 +26,37 @@ namespace HydrometServer
             Console.Write("HydrometServer " + Application.ProductVersion +" " + AssemblyUtility.CreationDate());
 
             Arguments args = new Arguments(argList);
+            var p = new OptionSet();
 
-            if (args.Count == 0)
+            var cli = "";
+            p.Add("cli=", "instant|daily|monthly", x => cli = x);
+
+            try
             {
-                Console.WriteLine(@"--database=c:\data\mydata.pdb|192.168.50.111:timeseries ");
-                Console.WriteLine("--import[=searchPattern]   [--computeDependencies] [--computeDailyOnMidnight]");
-                Console.WriteLine("           imports (and processes) data in incoming directory");
-                Console.WriteLine("            supports DMS3, and LoggerNet files");
-                Console.WriteLine("--debug");
-                Console.WriteLine("           prints debugging messages to console");
-                Console.WriteLine("--inventory");
-                Console.WriteLine("           prints summary inventory of database");
-                Console.WriteLine("--calculate-daily");
-                Console.WriteLine("           computes daily data");
-                Console.WriteLine("--calculate-monthly");
-                Console.WriteLine("           computes all monthly equations");
-                Console.WriteLine("--t1=1-31-2013|yesterday|lastyear");
-                Console.WriteLine("           starting date: default is yesterday");
-                Console.WriteLine("--t2=1-31-2013|yesterday|lastyear");
-                Console.WriteLine("           ending date: default is yesterday");
-                Console.WriteLine("--property-filter=program:agrimet");
-                Console.WriteLine("           filtering based on series properties (key:value)");
-                Console.WriteLine("--filter=\"siteid='boii'\"");
-                Console.WriteLine("           raw sql filter against seriescatalog");
-                Console.WriteLine("--error-log=errors.txt");
-                Console.WriteLine("           file to log error messages");
-                Console.WriteLine("--detail-log=detail.txt");
-                Console.WriteLine("           file to log error messages");
-                Console.WriteLine("--hydromet-compare");
-                Console.WriteLine("           compare computed values to hydromet values");
-                Console.WriteLine("--import-hydromet-instant");
-                Console.WriteLine("           imports hydromet instant data default (t1-3 days)");
-                Console.WriteLine("--import-hydromet-daily");
-                Console.WriteLine("           imports hydromet daily data default ( t1-100 days)");
-                Console.WriteLine("--import-hydromet-monthly");
-                Console.WriteLine("           imports hydromet monthly data ( last 5 years)");
-                Console.WriteLine("--simulate");
-                Console.WriteLine("           simulate daily calcs (echo equation but don't compute)");
-                Console.WriteLine("--create-database=timeseries");
-                Console.WriteLine("          creates a new database");
-                Console.WriteLine("--import-rating-tables=site_list.csv  [--generateNewTables]");
-                Console.WriteLine("          updates usgs,idahopower, and owrd rating tables");
-                Console.WriteLine("--import-dayfile=/data/dayfiles/2013*.DAY");
-                Console.WriteLine("          imports data from VAX binary dayfile");
-                Console.WriteLine("--import-archive=/data/archives/wy2013.acf");
-                Console.WriteLine("          imports data from VAX binary archive file");
-                Console.WriteLine("--import-mpoll=/data/mpoll/mpoll.ind");
-                Console.WriteLine("          imports data from VAX binary monthly file");
-                Console.WriteLine("--update-daily=HydrometDailySeries");
+                p.Parse(argList);
+            }
+            catch (OptionException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            if (argList.Length == 0)
+            {
+                ShowHelp(p);
+                return;
+            }
 
-                // --update-daily=HydrometDailySeries --t1=lastyear
-                // --update-daily=HDBDailySeries  --t2=yesterday
 
-                Console.WriteLine(" updates all daily series from source data");
+            if (cli != "")
+            {
+                if (cli == "instant")
+                {
+                    Console.WriteLine();
+                   CommandLine.Instant.Go();
+                }
 
                 return;
             }
+
 
 
             string errorFileName = "errors.txt";
@@ -260,6 +236,66 @@ namespace HydrometServer
             perf.Report("HydrometServer: finished ");
         }
 
+        static void ShowHelp(OptionSet p)
+        {
+            Console.WriteLine("HydrometServer");
+            Console.WriteLine();
+            Console.WriteLine("Options:");
+            p.WriteOptionDescriptions(Console.Out);
+
+
+            Console.WriteLine(@"--database=c:\data\mydata.pdb|192.168.50.111:timeseries ");
+            Console.WriteLine("--import[=searchPattern]   [--computeDependencies] [--computeDailyOnMidnight]");
+            Console.WriteLine("           imports (and processes) data in incoming directory");
+            Console.WriteLine("            supports DMS3, and LoggerNet files");
+            Console.WriteLine("--debug");
+            Console.WriteLine("           prints debugging messages to console");
+            Console.WriteLine("--inventory");
+            Console.WriteLine("           prints summary inventory of database");
+            Console.WriteLine("--calculate-daily");
+            Console.WriteLine("           computes daily data");
+            Console.WriteLine("--calculate-monthly");
+            Console.WriteLine("           computes all monthly equations");
+            Console.WriteLine("--t1=1-31-2013|yesterday|lastyear");
+            Console.WriteLine("           starting date: default is yesterday");
+            Console.WriteLine("--t2=1-31-2013|yesterday|lastyear");
+            Console.WriteLine("           ending date: default is yesterday");
+            Console.WriteLine("--property-filter=program:agrimet");
+            Console.WriteLine("           filtering based on series properties (key:value)");
+            Console.WriteLine("--filter=\"siteid='boii'\"");
+            Console.WriteLine("           raw sql filter against seriescatalog");
+            Console.WriteLine("--error-log=errors.txt");
+            Console.WriteLine("           file to log error messages");
+            Console.WriteLine("--detail-log=detail.txt");
+            Console.WriteLine("           file to log error messages");
+            Console.WriteLine("--hydromet-compare");
+            Console.WriteLine("           compare computed values to hydromet values");
+            Console.WriteLine("--import-hydromet-instant");
+            Console.WriteLine("           imports hydromet instant data default (t1-3 days)");
+            Console.WriteLine("--import-hydromet-daily");
+            Console.WriteLine("           imports hydromet daily data default ( t1-100 days)");
+            Console.WriteLine("--import-hydromet-monthly");
+            Console.WriteLine("           imports hydromet monthly data ( last 5 years)");
+            Console.WriteLine("--simulate");
+            Console.WriteLine("           simulate daily calcs (echo equation but don't compute)");
+            Console.WriteLine("--create-database=timeseries");
+            Console.WriteLine("          creates a new database");
+            Console.WriteLine("--import-rating-tables=site_list.csv  [--generateNewTables]");
+            Console.WriteLine("          updates usgs,idahopower, and owrd rating tables");
+            Console.WriteLine("--import-dayfile=/data/dayfiles/2013*.DAY");
+            Console.WriteLine("          imports data from VAX binary dayfile");
+            Console.WriteLine("--import-archive=/data/archives/wy2013.acf");
+            Console.WriteLine("          imports data from VAX binary archive file");
+            Console.WriteLine("--import-mpoll=/data/mpoll/mpoll.ind");
+            Console.WriteLine("          imports data from VAX binary monthly file");
+            Console.WriteLine("--update-daily=HydrometDailySeries");
+
+            // --update-daily=HydrometDailySeries --t1=lastyear
+            // --update-daily=HDBDailySeries  --t2=yesterday
+
+            Console.WriteLine(" updates all daily series from source data");
+
+        }
         
         
         private static bool CreatePostgresDatabase(Arguments args)
