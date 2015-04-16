@@ -303,9 +303,11 @@
     <Compile Include="BpaHydsim\HydSimScenarioPicker.Designer.cs">
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="HDB\HDBDailySeries.cs" />
     <Compile Include="SeriesListDataTable.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Tests\SeriesTypes\TestHDB.cs" />
     <Compile Include="TimeSeriesDatabase.Factory.cs" />
     <Compile Include="DataTableSeries.cs" />
     <Compile Include="Decodes\DecodesRawFile.cs" />
@@ -370,7 +372,7 @@
     <Compile Include="Hydromet\HydrometInstantSeries.cs" />
     <Compile Include="Hydromet\HydrometMonthlySeries.cs" />
     <Compile Include="Hydromet\Operations\HydrometRuleCurve.cs" />
-    <Compile Include="Hydromet\HydrometURL.cs" />
+    <Compile Include="ReclamationURL.cs" />
     <Compile Include="Hydromet\KimberlyPenmanEtSeries.cs" />
     <Compile Include="Hydromet\McfUtility.cs" />
     <Compile Include="Hydromet\MpollFile.cs" />
