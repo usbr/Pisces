@@ -182,7 +182,7 @@ namespace Reclamation.TimeSeries.Hydromet
                 + "&edy=" + t2.Day.ToString()
                 + "&format=2";
 
-            string query = HydrometURL.GetUrlToDataCgi(server, TimeSeries.TimeInterval.Daily);
+            string query = ReclamationURL.GetUrlToDataCgi(server, TimeSeries.TimeInterval.Daily);
 
             string[] data = Web.GetPage(query, payload, HydrometInfoUtility.WebCaching);
 

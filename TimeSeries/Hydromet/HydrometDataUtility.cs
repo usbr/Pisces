@@ -22,7 +22,7 @@ namespace Reclamation.TimeSeries.Hydromet
         {
             query = HydrometInfoUtility.ExpandQuery(query, HydrometDataBase.Dayfiles);
 
-            string cgiUrl = HydrometURL.GetUrlToDataCgi(svr, TimeInterval.Irregular);
+            string cgiUrl = ReclamationURL.GetUrlToDataCgi(svr, TimeInterval.Irregular);
 
             var rval = Table(cgiUrl, query, t1, t2, back);
 
@@ -58,7 +58,7 @@ namespace Reclamation.TimeSeries.Hydromet
             
             query =  HydrometInfoUtility.ExpandQuery(query, HydrometDataBase.Archives);
 
-            string cgiUrl = HydrometURL.GetUrlToDataCgi(server, TimeInterval.Daily);
+            string cgiUrl = ReclamationURL.GetUrlToDataCgi(server, TimeInterval.Daily);
 
             return Table(cgiUrl, query, t1, t2, back);
 
@@ -68,7 +68,7 @@ namespace Reclamation.TimeSeries.Hydromet
         {
             
             query = HydrometInfoUtility.ExpandQuery(query, HydrometDataBase.MPoll);
-            string cgiUrl = HydrometURL.GetUrlToDataCgi(server, TimeInterval.Monthly);
+            string cgiUrl = ReclamationURL.GetUrlToDataCgi(server, TimeInterval.Monthly);
             return Table(cgiUrl, query, t1, t2, endOfMonth: true);
         }
 

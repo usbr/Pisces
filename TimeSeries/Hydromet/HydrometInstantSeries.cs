@@ -179,7 +179,7 @@ namespace Reclamation.TimeSeries.Hydromet
         {
             string query = "";
 
-            query = HydrometURL.GetUrlToDataCgi(server, TimeSeries.TimeInterval.Irregular);
+            query = ReclamationURL.GetUrlToDataCgi(server, TimeSeries.TimeInterval.Irregular);
 
             query += "?parameter=" + cbtt + " " + pcode;
             query += "&syer=" + t1.Year;

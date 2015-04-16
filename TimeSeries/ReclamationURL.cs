@@ -6,14 +6,14 @@ using System.Configuration;
 using System.Data;
 using Reclamation.Core;
 
-namespace Reclamation.TimeSeries.Hydromet
+namespace Reclamation.TimeSeries
 {
     /// <summary>
-    /// HydrometURL manages the URL's to hydromet CGI executables
+    /// ReclamationURL manages the URL's to hydromet CGI executables
     /// for three different internal servers and one public facing server depending 
     /// on the client location.
     /// </summary>
-    public static class HydrometURL
+    public static class ReclamationURL
     {
 
         static DataTable m_table = null;
@@ -23,7 +23,7 @@ namespace Reclamation.TimeSeries.Hydromet
             get {
                 if (m_table == null)
                 {
-                    var fn = FileUtility.GetFileReference("hydrometcgi.csv");
+                    var fn = FileUtility.GetFileReference("reclamationcgi.csv");
                     m_table = new CsvFile(fn, CsvFile.FieldTypes.AllText);
                 }
                 
@@ -32,14 +32,14 @@ namespace Reclamation.TimeSeries.Hydromet
             
         }
 
-        public static string GetUrlToDataCgi(HydrometHost svr, TimeInterval interval)
+        public static string GetUrlToDataCgi(object svr, TimeInterval interval)
         {
 
             string net = "www";
             if (NetworkUtility.Intranet)
                 net = "recnet";
 
-            var qry = "HydrometServer = '" + svr.ToString() + "' and TimeInterval = '" 
+            var qry = "Server = '" + svr.ToString() + "' and TimeInterval = '" 
                 + interval.ToString() + "' and Network = '"+net+"'" ;
 
             var rows = Table.Select(qry);
