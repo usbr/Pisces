@@ -20,7 +20,7 @@ namespace PiscesWebServices
         //http://pnhyd0.pn.usbr.gov/~dataaccess/webarccsv.com?parameter=BOII%20PC,ODSW%20wr,&syer=2012&smnth=1&sdy=1&eyer=2012&emnth=1&edy=10&format=3
         //string srchStr = "http://pnhyd0.pn.usbr.gov/~dataaccess/webarccsv.com?parameter=BOII PC,ODSW wr,&syer=2012&smnth=1&sdy=1&eyer=2012&emnth=12&edy=30&format=3";
 
-        public void Run(string query = "", string outputFile="")
+        public void Run(TimeInterval interval, string query = "", string outputFile="")
         {
             StreamWriter sw = null;
             if (outputFile != "")
@@ -55,7 +55,7 @@ namespace PiscesWebServices
             var queryCollection =  HttpUtility.ParseQueryString(query);
             DateTime t1;
             DateTime t2;
-            if (!WebUtility.GetDateRange(queryCollection, out t1, out t2))
+            if (!WebUtility.GetDateRange(queryCollection, interval,out t1, out t2))
             {
                 Console.WriteLine("Error: Invalid dates");
                 return;

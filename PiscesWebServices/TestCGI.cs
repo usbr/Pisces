@@ -28,7 +28,7 @@ namespace PiscesWebServices
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[]{}));
             CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
             var fn = FileUtility.GetTempFileName(".txt");
-            c.Run(payload,fn);
+            c.Run( TimeInterval.Hourly, payload,fn);
 
             TextFile tf = new TextFile(fn);
             tf.DeleteLines(0, 1);

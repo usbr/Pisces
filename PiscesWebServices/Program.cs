@@ -76,7 +76,7 @@ namespace PiscesWebServices
             if (cgi == "instant")
             {
                 CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
-                c.Run(payload);
+                c.Run(TimeInterval.Hourly,payload);
             }
 
         }

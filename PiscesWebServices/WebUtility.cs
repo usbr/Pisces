@@ -72,13 +72,27 @@ namespace PiscesWebServices
         //    return srchString;
         //}
 
-        internal static bool GetDateRange(NameValueCollection c, out DateTime t1, out DateTime t2)
+        internal static bool GetDateRange(NameValueCollection c,TimeInterval interval,  out DateTime t1, out DateTime t2)
         {
              t1 = DateTime.Now.AddDays(-7);
              t2 = DateTime.Now;
 
             try
             {
+                var back = GetIntParam(c, "back", -1);
+                if (back != -1)
+                {
+                    if (interval == TimeInterval.Hourly)
+                        t1 = t2.AddHours(-back);
+
+                    if (interval == TimeInterval.Daily)
+                        t1 = t2.AddDays(-back);
+
+                    return true;
+                }
+
+
+
                 var syer = GetIntParam(c, "syer", t1.Year);
                 var smnth = GetIntParam(c, "smnth", t1.Month);
                 var sdy = GetIntParam(c, "sdy", t1.Day);
