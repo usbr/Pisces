@@ -12,7 +12,7 @@ namespace Pisces.NunitTests.SeriesTypes
     public class TestHDB
     {
 
-        [Test]
+        [Test, Category("Internal")]
         public void SDI1930()
         {
             var s = new HDBDailySeries(1930, HDBServer.LCHDB);
