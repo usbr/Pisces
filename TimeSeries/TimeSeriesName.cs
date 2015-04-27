@@ -35,6 +35,19 @@ namespace Reclamation.TimeSeries
             Init(name, defaultInterval);
         }
 
+        public static string GetTimeIntervalForTableName(TimeInterval interval)
+        {
+            var rval = "instant";
+            if (interval == TimeInterval.Irregular )
+                rval = "instant";
+            if (interval == TimeInterval.Daily )
+                rval = "daily";
+            if (interval == TimeInterval.Monthly)
+                rval = "monthly";
+
+            return rval;
+        }
+
         public TimeInterval GetTimeInterval()
         {
             TimeInterval rval = TimeInterval.Irregular;

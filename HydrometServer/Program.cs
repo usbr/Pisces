@@ -29,7 +29,7 @@ namespace HydrometServer
             var p = new OptionSet();
 
             var cli = "";
-            p.Add("cli=", "instant|daily|monthly", x => cli = x);
+            p.Add("cli=", "interface --cli=instant|daily|monthly", x => cli = x);
 
             try
             {
@@ -46,16 +46,7 @@ namespace HydrometServer
             }
 
 
-            if (cli != "")
-            {
-                if (cli == "instant")
-                {
-                    Console.WriteLine();
-                   CommandLine.Instant.Go();
-                }
-
-                return;
-            }
+            
 
 
 
@@ -93,6 +84,18 @@ namespace HydrometServer
                     return;
             }
             var db = TimeSeriesDatabase.InitDatabase(args);
+
+            if (cli != "")
+            {
+                if (cli == "instant")
+                {
+                    Console.WriteLine();
+                    HydrometServer.CommandLine.PiscesCommandLine cmd = new CommandLine.PiscesCommandLine(db);
+                    cmd.PiscesPrompt();
+                }
+
+                return;
+            }
 
             bool simulate = args.Contains("simulate");
             bool hydrometCompare = args.Contains("hydromet-compare");

@@ -95,6 +95,8 @@
   <ItemGroup>
     <Compile Include="ApplicationTrustPolicy.cs" />
     <Compile Include="CommandLine\Daily.cs" />
+    <Compile Include="CommandLine\PiscesCommandLine.cs" />
+    <Compile Include="CommandLine\CommandLineInput.cs" />
     <Compile Include="CommandLine\Instant.cs" />
     <Compile Include="CommandLine\ArcConfig.cs" />
     <Compile Include="CommandLine\Config.cs" />

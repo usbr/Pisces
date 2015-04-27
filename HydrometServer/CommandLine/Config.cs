@@ -85,7 +85,8 @@ namespace HydrometServer.CommandLine
         {
             get
             {
-                return (input.ToLower().Trim().Contains("g ") || input.ToLower().Trim().Contains("get "));
+                return (input.ToLower().Trim().Contains("g ") 
+                    || input.ToLower().Trim().Contains("get "));
             }
         }
         // Note for pcode need to check if IsGetAll is false and IsGetPcode is true
@@ -93,7 +94,8 @@ namespace HydrometServer.CommandLine
         {
             get
             {
-                return (input.ToLower().Trim().Contains("g/") || input.ToLower().Trim().Contains("get/"));
+                return (input.ToLower().Trim().Contains("g/") 
+                    || input.ToLower().Trim().Contains("get/"));
             }
         }
         
