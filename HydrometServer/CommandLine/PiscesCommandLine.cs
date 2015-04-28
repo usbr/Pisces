@@ -51,7 +51,7 @@ namespace HydrometServer.CommandLine
                         Console.WriteLine("site is required");
                         continue;
                     }
-
+                    Print(input,TimeInterval.Irregular);
 
                 }
                 Console.WriteLine("cmd = " + input.Command);
@@ -59,6 +59,26 @@ namespace HydrometServer.CommandLine
                 Console.WriteLine("parameters  = " + String.Join(",", input.Parameters));
 
             } while (true);
+        }
+
+        private void Print(CommandLineInput input, TimeInterval interval)
+        {
+            var list = CreateSeriesList(input, interval);
+            //SeriesListDataTable sTable = new SeriesListDataTable(list, interval);
+
+            int counter = 0;
+            foreach (var s in list)
+            {
+                s.Read(input.T1, input.T2);
+                if (s.Count <= 0)
+                    continue;
+                var pt = s[s.Count - 1];
+                if( counter == 0)// print header
+                    Console.Write(s.SiteID +"  "+pt.DateTime.ToString("MMM dd hh:mm  "));
+                Console.Write("# " +pt.Value.ToString("F2"));
+                counter++;
+            }
+
         }
 
         private SeriesList CreateSeriesList(CommandLineInput input, TimeInterval interval)

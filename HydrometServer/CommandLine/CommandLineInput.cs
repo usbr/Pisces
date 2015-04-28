@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Reclamation.TimeSeries;
 
 namespace HydrometServer.CommandLine
 {
@@ -27,6 +28,14 @@ namespace HydrometServer.CommandLine
        monthly
         
     */
+
+        public DateTime T1, T2;
+        public CommandLineInput()
+        {
+            T1 = DateTime.Now.Date;
+            T2 = DateTime.Now.EndOfDay();
+        }
+
         string pattern = @"^(?<cmd>help|exit|ex|get|g|date|date)(?<separator1>/|\s+|\=)?(?<parm1>[\,a-z0-9]+)?"
                       +@"(?<separator2>/|\s+)?(?<parm2>[\,a-z0-1]+)?";
         string input = "";
@@ -60,9 +69,7 @@ namespace HydrometServer.CommandLine
         {
             get { return m_valid; }
         }
-        public CommandLineInput()
-        {
-        }
+        
 
         Match match;
 
