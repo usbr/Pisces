@@ -23,7 +23,36 @@ namespace Reclamation.TimeSeries.Forms
     public partial class PiscesForm
     {
 
-       
+        private void addPiscesDatabase_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+                Performance p = new Performance();
+                OpenFileDialog fd = new OpenFileDialog();
+                fd.DefaultExt = "*.pdb";
+                fd.Filter = "Pisces database (*.pdb)|*.pdb";
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    SQLiteServer svr = new SQLiteServer(fd.FileName);
+                    TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
+                    DB.InsertDatabase(CurrentFolder, db);
+                    DatabaseChanged();
+                }
+                UserPreference.Save("fileName", fd.FileName);
+                p.Report("done reading " + fd.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+            
+        }
+
 
         /// <summary>
         /// Adds new Calculation Series

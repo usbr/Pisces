@@ -172,9 +172,9 @@ namespace Reclamation.TimeSeries
         }
 
 
-        public Series GetSeries(int sdi)
+        public Series GetSeries(int id)
         {
-            SeriesCatalogRow si = db.GetSeriesRow(sdi);
+            SeriesCatalogRow si = db.GetSeriesRow(id);
             return GetSeries(si);
         }
 

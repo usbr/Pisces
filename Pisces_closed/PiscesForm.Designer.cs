@@ -102,6 +102,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemAddModsim = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAddRdfSingleRun = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemAddRdfMultipleRun = new System.Windows.Forms.ToolStripMenuItem();
+            this.addHDBConfigFile = new System.Windows.Forms.ToolStripMenuItem();
             this.AddHDBModel = new System.Windows.Forms.ToolStripMenuItem();
             this.addHDB = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,7 +131,7 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.addHDBConfigFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.addPiscesDatabase = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -190,7 +191,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripSeparator4,
             this.menuProperties});
             this.contextMenuStripTree.Name = "contextMenuStripTree";
-            this.contextMenuStripTree.Size = new System.Drawing.Size(165, 214);
+            this.contextMenuStripTree.Size = new System.Drawing.Size(165, 236);
             // 
             // toolStripMenuItem2
             // 
@@ -240,6 +241,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemHydross,
             this.AddBpaHydsimmenu,
             this.Addcr10x,
+            this.addPiscesDatabase,
             this.AddUrgwom,
             this.newURGSIM,
             this.toolStripMenuItem6,
@@ -719,6 +721,14 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemAddRdfMultipleRun.Text = "Add RiverWare Multiple Run Data File (*.rdf) ";
             this.toolStripMenuItemAddRdfMultipleRun.Click += new System.EventHandler(this.AddRiverWareMultipleRdf_Click);
             // 
+            // addHDBConfigFile
+            // 
+            this.addHDBConfigFile.Image = ((System.Drawing.Image)(resources.GetObject("addHDBConfigFile.Image")));
+            this.addHDBConfigFile.Name = "addHDBConfigFile";
+            this.addHDBConfigFile.Size = new System.Drawing.Size(417, 24);
+            this.addHDBConfigFile.Text = "Add HDB Config File ...";
+            this.addHDBConfigFile.Click += new System.EventHandler(this.addHDBConfigFile_Click);
+            // 
             // AddHDBModel
             // 
             this.AddHDBModel.Image = ((System.Drawing.Image)(resources.GetObject("AddHDBModel.Image")));
@@ -915,13 +925,12 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // addHDBConfigFile
+            // addPiscesDatabase
             // 
-            this.addHDBConfigFile.Image = ((System.Drawing.Image)(resources.GetObject("addHDBConfigFile.Image")));
-            this.addHDBConfigFile.Name = "addHDBConfigFile";
-            this.addHDBConfigFile.Size = new System.Drawing.Size(417, 24);
-            this.addHDBConfigFile.Text = "Add HDB Config File ...";
-            this.addHDBConfigFile.Click += new System.EventHandler(this.addHDBConfigFile_Click);
+            this.addPiscesDatabase.Name = "addPiscesDatabase";
+            this.addPiscesDatabase.Size = new System.Drawing.Size(417, 24);
+            this.addPiscesDatabase.Text = "Add Pisces Database file";
+            this.addPiscesDatabase.Click += new System.EventHandler(this.addPiscesDatabase_Click);
             // 
             // PiscesForm
             // 
@@ -1049,6 +1058,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddFolder;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addHDBConfigFile;
+        private System.Windows.Forms.ToolStripMenuItem addPiscesDatabase;
         //private System.Windows.Forms.ToolStripMenuItem menuUpdate;
 
     }

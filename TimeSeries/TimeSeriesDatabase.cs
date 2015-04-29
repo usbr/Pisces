@@ -1592,8 +1592,39 @@ namespace Reclamation.TimeSeries
         public void DailySummaryReport(DateTime t1 , DateTime t2)
         {
             var sc = GetSeriesCatalog("timeinterval = 'Daily'");
+        }
 
 
+        /// <summary>
+        /// Insert the contents of another time series database 
+        /// at the specified folder.
+        /// </summary>
+        /// <param name="folder"></param>
+        /// <param name="db"></param>
+        public void InsertDatabase(PiscesFolder folder, TimeSeriesDatabase db)
+        {
+
+            var sc = GetSeriesCatalog();
+
+            var new_sc = db.GetSeriesCatalog();
+            for (int i = 0; i < new_sc.Rows.Count; i++)
+            {
+                var row = new_sc[i];
+                var path = new_sc.GetPath(row.id);
+
+                var folderID = sc.GetOrCreateFolder(path);
+                
+                if (!row.IsFolder)
+                {// add series
+                    var s = db.Factory.GetSeries(row.id);
+                    // TO DO verify unique tablename
+                    // to do: get time series data??? (optional)
+                    sc.AddSeriesCatalogRow(s, sc.NextID(), folderID, s.Table.TableName);
+                }
+
+            }
+
+            Server.SaveTable(sc);
 
         }
        
