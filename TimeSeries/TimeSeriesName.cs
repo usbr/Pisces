@@ -35,11 +35,28 @@ namespace Reclamation.TimeSeries
             Init(name, defaultInterval);
         }
 
+        public static string GetTableName(string database, TimeInterval interval, string siteid, string parameter)
+        {
+            string rval = database;
+
+            if (database.Trim() != "")
+                rval += "_";
+
+            rval += GetTimeIntervalForTableName(interval) + "_" + siteid;
+
+            if (parameter != "")
+                rval += "_" + parameter;
+
+            return rval.ToLower().Trim();
+        }
+
         public static string GetTimeIntervalForTableName(TimeInterval interval)
         {
             var rval = "instant";
             if (interval == TimeInterval.Irregular )
                 rval = "instant";
+            if (interval == TimeInterval.Hourly)
+                rval = "hourly";
             if (interval == TimeInterval.Daily )
                 rval = "daily";
             if (interval == TimeInterval.Monthly)

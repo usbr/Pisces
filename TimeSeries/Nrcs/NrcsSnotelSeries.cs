@@ -46,7 +46,7 @@ namespace Reclamation.TimeSeries.Nrcs
             Name = LookupName(siteNumber)+ " "+parameterName;
             this.Table.TableName = Name.Replace(" ", "_");
             base.SiteName = Name;
-            State = LookupState(siteNumber);
+           // State = LookupState(siteNumber);
             Provider = "NrcsSnotelSeries"; 
             ConnectionString = "SiteNumber="+siteNumber+";ParameterName="+parameterName;
         }
@@ -56,7 +56,7 @@ namespace Reclamation.TimeSeries.Nrcs
         {
             siteNumber =  ConnectionStringUtility.GetToken(ConnectionString, "SiteNumber", "");
             parameterName = ConnectionStringUtility.GetToken(ConnectionString, "ParameterName", "");
-            State = LookupState(siteNumber);
+            //State = LookupState(siteNumber);
         }
 
 
@@ -125,7 +125,7 @@ namespace Reclamation.TimeSeries.Nrcs
             return "";
         }
 
-        public static string LookupName(string siteNumber)
+        static string LookupName(string siteNumber)
         {
 
             if (SnotelSites != null)

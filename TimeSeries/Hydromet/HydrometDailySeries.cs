@@ -41,7 +41,7 @@ namespace Reclamation.TimeSeries.Hydromet
         public HydrometDailySeries(TimeSeriesDatabase db, TimeSeriesDatabaseDataSet.SeriesCatalogRow sr):base(db,sr)
         {
             HydrometInfoUtility.ParseConnectionString(ConnectionString, out server, out cbtt, out pcode);
-            State = HydrometInfoUtility.LookupState(cbtt);
+          //  State = HydrometInfoUtility.LookupState(cbtt);
         }
 
 
@@ -49,10 +49,11 @@ namespace Reclamation.TimeSeries.Hydromet
         {
             this.server = server;
             this.cbtt = cbtt;
-            State = HydrometInfoUtility.LookupState(cbtt);
+            //State = HydrometInfoUtility.LookupState(cbtt);
             Parameter = pcode;
             this.pcode = pcode;
-            this.Table.TableName = cbtt.Trim() + "_" + pcode.Trim(); ;
+            this.Table.TableName = TimeSeriesName.GetTableName(server.ToString(), TimeSeries.TimeInterval.Daily,
+                cbtt, pcode);
             Units = HydrometInfoUtility.LookupDailyUnits(pcode);
             this.Name = HydrometInfoUtility.LookupSiteDescription(cbtt) + " " + Units;
             this.SiteName = HydrometInfoUtility.LookupSiteDescription(cbtt);

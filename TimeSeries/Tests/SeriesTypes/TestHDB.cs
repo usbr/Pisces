@@ -15,9 +15,11 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test, Category("Internal")]
         public void SDI1930()
         {
-            var s = new HDBDailySeries(1930, HDBServer.LCHDB);
+            var s = new HDBSeries(1930,TimeInterval.Daily ,HDBServer.LCHDB);
+            
             s.Read(new DateTime(2015, 4, 1), new DateTime(2015,4, 5));
 
+            Assert.IsTrue(s.TimeInterval == TimeInterval.Daily);
             Assert.IsTrue(s.Count == 5);
             Assert.AreEqual(1084.17, s["2015-4-5"].Value,0.01);
             /*

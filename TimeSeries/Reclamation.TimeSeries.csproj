@@ -303,7 +303,7 @@
     <Compile Include="BpaHydsim\HydSimScenarioPicker.Designer.cs">
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
-    <Compile Include="HDB\HDBDailySeries.cs" />
+    <Compile Include="HDB\HDBSeries.cs" />
     <Compile Include="SeriesListDataTable.cs">
       <SubType>Component</SubType>
     </Compile>

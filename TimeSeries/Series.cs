@@ -40,7 +40,7 @@ namespace Reclamation.TimeSeries
         private int _missingRecordCount = 0;
         private string m_flagColumnName = "flag";
         private int m_valueColumnIndex = 1;
-        public string State {get; set;}
+        //public string State {get; set;}
 
         /// <summary>
         /// Number of records missing
@@ -352,7 +352,7 @@ namespace Reclamation.TimeSeries
             bool readOnly, bool hasFlags, bool hasConstraints)
         {
            
-            State = "";
+           // State = "";
 //            Expression = "";
             _readOnly = readOnly;
             this.TimeInterval = tsType;

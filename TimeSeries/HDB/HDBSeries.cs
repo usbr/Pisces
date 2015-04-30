@@ -17,24 +17,26 @@ namespace Reclamation.TimeSeries.HDB
     /// <summary>
     /// Reads Daily Data from HDB 
     /// </summary>
-    public class HDBDailySeries : Reclamation.TimeSeries.Series
+    public class HDBSeries : Reclamation.TimeSeries.Series
     {
 
         int m_sdi=-1;
         HDBServer  m_server;
-        public HDBDailySeries(int sdi,HDBServer server )
+        public HDBSeries(int sdi,TimeInterval interval, HDBServer server )
         {
             m_sdi = sdi;
             m_server = server;
             this.TimeInterval = TimeSeries.TimeInterval.Daily;
             Source = ""; //  need icon for HDB
-            Provider = "HDBDailySeries";
+            Provider = "HDBSeries";
             ConnectionString = "server=" + m_server
-            + ";sdi=" + m_sdi + ";LastUpdate=" + DateTime.Now.ToString(DateTimeFormatInstantaneous);
+            + ";sdi=" + m_sdi 
+            + ";TimeInterval="+interval.ToString()
+            +";LastUpdate=" + DateTime.Now.ToString(DateTimeFormatInstantaneous);
             Init();
         }
 
-        public HDBDailySeries(TimeSeriesDatabase db, TimeSeriesDatabaseDataSet.SeriesCatalogRow sr)
+        public HDBSeries(TimeSeriesDatabase db, TimeSeriesDatabaseDataSet.SeriesCatalogRow sr)
             : base(db, sr)
         {
             string str = ConnectionStringUtility.GetToken(ConnectionString, "server", "");
@@ -55,11 +57,14 @@ namespace Reclamation.TimeSeries.HDB
         /// <returns></returns>
         protected override Series CreateFromConnectionString()
         {
-            string str = ConnectionStringUtility.GetToken(ConnectionString, "server", "");
-            m_server = (HDBServer)Enum.Parse(typeof(HDBServer), str);
+            string svr = ConnectionStringUtility.GetToken(ConnectionString, "server", "");
+            m_server = (HDBServer)Enum.Parse(typeof(HDBServer), svr);
             m_sdi = ConnectionStringUtility.GetIntFromConnectionString(ConnectionString, "sdi");
 
-            HDBDailySeries s = new HDBDailySeries(m_sdi,m_server);
+            string sinterval = ConnectionStringUtility.GetToken(ConnectionString, "TimeInterval", "");
+            TimeInterval = (TimeInterval)Enum.Parse(typeof(TimeInterval), sinterval);
+            
+            HDBSeries s = new HDBSeries(m_sdi,TimeInterval, m_server);
             return s;
         }
         protected override void ReadCore()
@@ -74,6 +79,28 @@ namespace Reclamation.TimeSeries.HDB
                 base.ReadCore(t1, t2);
         }
 
+        /// <summary>
+        /// Returns interval string for HDB_CGI, that represents the TimeInterval
+        /// </summary>
+        /// <param name="interval"></param>
+        private static string IntervalShortName(TimeInterval interval)
+        {
+            var rval = "DY"; // daily
+
+            if (interval == TimeSeries.TimeInterval.Irregular)
+                rval = "IN";
+            if (interval == TimeSeries.TimeInterval.Hourly)
+                rval = "HR";
+            if (interval == TimeSeries.TimeInterval.Daily)
+                rval = "DY";
+            if (interval == TimeSeries.TimeInterval.Monthly)
+                rval = "MN";
+            if (interval == TimeSeries.TimeInterval.Yearly)
+                rval = "YR";
+
+            return rval;
+        }
+
         private void ReadFromWeb(DateTime t1, DateTime t2)
         {
             if (t2 >= DateTime.Now && t2.Year < 6000 )
@@ -81,8 +108,9 @@ namespace Reclamation.TimeSeries.HDB
                 t2 = DateTime.Now.Date;
             }
             //http://ibr3lcrxcn01:8080/HDB_CGI.com?sdi=1930&tstp=DY&syer=2014&smon=4&sday=2&eyer=2015&emon=4&eday=16&format=3
+            var tStep = IntervalShortName(this.TimeInterval);
             string payload = "sdi=" +m_sdi
-                +"&tstp=DY"
+                +"&tstp="+tStep
                 + "&syer=" + t1.Year.ToString()
                 + "&smon=" + t1.Month.ToString()
                 + "&sday=" + t1.Day.ToString()
