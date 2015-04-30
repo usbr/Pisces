@@ -47,6 +47,8 @@ namespace Reclamation.TimeSeries.Hydromet
             ReadOnly = true;
             this.m_cbtt = cbtt;
             this.m_pcode = pcode;
+            this.Table.TableName = TimeSeriesName.GetTableName(server.ToString(), TimeSeries.TimeInterval.Monthly,
+                cbtt, pcode);
             this.Name = FindName(cbtt);
             this.Parameter = pcode;
             this.HasFlags = true;

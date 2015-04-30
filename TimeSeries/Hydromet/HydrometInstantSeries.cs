@@ -71,6 +71,8 @@ namespace Reclamation.TimeSeries.Hydromet
             this.server = server;
             this.cbtt = cbtt;
             this.pcode = pcode;
+            this.Table.TableName = TimeSeriesName.GetTableName(server.ToString(), TimeSeries.TimeInterval.Irregular,
+                cbtt, pcode);
             Parameter = pcode;
             Units = HydrometInfoUtility.LookupDayfileUnits(pcode);
             Name = HydrometInfoUtility.LookupSiteDescription(cbtt) + " " + Units;
