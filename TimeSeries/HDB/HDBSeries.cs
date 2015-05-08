@@ -7,6 +7,7 @@ using System.Configuration;
 using System.IO;
 using System.Data.Linq;
 using System.Linq;
+using System.Net;
 
 namespace Reclamation.TimeSeries.HDB
 {
@@ -117,13 +118,22 @@ namespace Reclamation.TimeSeries.HDB
                 + "&eyer=" + t2.Year.ToString()
                 + "&emon=" + t2.Month.ToString()
                 + "&eday=" + t2.Day.ToString()
-                + "&format=3";
+                + "&format=8";
 
             string cgi = Reclamation.TimeSeries.ReclamationURL.GetUrlToDataCgi(m_server.ToString(), TimeSeries.TimeInterval.Daily);
-            Messages.Add(cgi + "?" + payload);
-            var fn = FileUtility.GetTempFileName(".txt");
-            Web.GetTextFile(cgi + "?" + payload, fn,false);
-            var data = File.ReadAllLines(fn);
+            var url = cgi + "?" + payload;
+            Messages.Add(url);
+            var x = "";
+            using (WebClient client = new WebClient())
+            {
+                x = client.DownloadString(url);
+            }
+            var data = x.Split('\n');
+            //var fn = FileUtility.GetTempFileName(".txt");
+            
+            //var data = Web.GetPage(url);
+            //Web.GetTextFile(cgi + "?" + payload, fn,false);
+            //var data = File.ReadAllLines(fn);
             //string[] data = Web.GetPage(cgi, payload, false);
 
             /*
