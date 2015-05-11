@@ -24,6 +24,7 @@ namespace Reclamation.TimeSeries
                 var rval = new Series();
                 var fn = fileName;
 
+                Logger.WriteLine("ComputeSeries(" + s.Table.TableName + "," + fileName);
                 if(!File.Exists(fn)) 
                    fn = Path.Combine(Path.Combine(Globals.LocalConfigurationDataPath, "rating_tables"), fileName);
 
@@ -159,7 +160,10 @@ namespace Reclamation.TimeSeries
                 double d = Lookup(pt.Value);
 
                 if (d == Point.MissingValueFlag)
+                {
+                    Logger.WriteLine("Rating Table Lookup failed for "+ pt.ToString());
                     return new Point(pt.DateTime, Point.MissingValueFlag);
+                }
 
                 return new Point(pt.DateTime, d);
             }
@@ -192,7 +196,12 @@ namespace Reclamation.TimeSeries
             {
                 var r = FindByx(p);
                 if (r == null)
-                    return Point.MissingValueFlag;
+                {
+                    r = FindByx(System.Math.Round(p,2));
+                    if( r==null)
+                      return Point.MissingValueFlag;
+                }
+                    
                 return r.y;
             }
         }
