@@ -1623,9 +1623,23 @@ namespace Reclamation.TimeSeries
                 }
 
             }
-
             Server.SaveTable(sc);
 
+            // Add Sites...
+            var sites = GetSiteCatalog();
+
+            var new_sites = db.GetSiteCatalog();
+            for (int i = 0; i < new_sites.Count; i++)
+            {
+                if( !sites.Exists(new_sites[i].siteid))
+                {
+                    var newRow =sites.NewsitecatalogRow();
+                    newRow.ItemArray = new_sites[i].ItemArray;
+                    sites.AddsitecatalogRow(newRow);
+                }
+            }
+
+            Server.SaveTable(sites);
         }
        
     }
