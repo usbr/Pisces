@@ -61,6 +61,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemHydross = new System.Windows.Forms.ToolStripMenuItem();
             this.AddBpaHydsimmenu = new System.Windows.Forms.ToolStripMenuItem();
             this.Addcr10x = new System.Windows.Forms.ToolStripMenuItem();
+            this.addPiscesDatabase = new System.Windows.Forms.ToolStripMenuItem();
             this.AddUrgwom = new System.Windows.Forms.ToolStripMenuItem();
             this.newURGSIM = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
@@ -131,7 +132,6 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.addPiscesDatabase = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -191,7 +191,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripSeparator4,
             this.menuProperties});
             this.contextMenuStripTree.Name = "contextMenuStripTree";
-            this.contextMenuStripTree.Size = new System.Drawing.Size(165, 236);
+            this.contextMenuStripTree.Size = new System.Drawing.Size(165, 214);
             // 
             // toolStripMenuItem2
             // 
@@ -392,6 +392,13 @@ namespace Reclamation.TimeSeries.Forms
             this.Addcr10x.Size = new System.Drawing.Size(417, 24);
             this.Addcr10x.Text = "Cr10x - Campbell Scentific";
             this.Addcr10x.Click += new System.EventHandler(this.Addcr10x_Click);
+            // 
+            // addPiscesDatabase
+            // 
+            this.addPiscesDatabase.Name = "addPiscesDatabase";
+            this.addPiscesDatabase.Size = new System.Drawing.Size(417, 24);
+            this.addPiscesDatabase.Text = "Add Pisces Database file";
+            this.addPiscesDatabase.Click += new System.EventHandler(this.addPiscesDatabase_Click);
             // 
             // AddUrgwom
             // 
@@ -924,13 +931,6 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Enabled = true;
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // addPiscesDatabase
-            // 
-            this.addPiscesDatabase.Name = "addPiscesDatabase";
-            this.addPiscesDatabase.Size = new System.Drawing.Size(417, 24);
-            this.addPiscesDatabase.Text = "Add Pisces Database file";
-            this.addPiscesDatabase.Click += new System.EventHandler(this.addPiscesDatabase_Click);
             // 
             // PiscesForm
             // 
