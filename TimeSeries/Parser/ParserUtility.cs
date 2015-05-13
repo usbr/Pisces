@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using Reclamation.Core;
 
 namespace Reclamation.TimeSeries.Parser
 {
@@ -69,7 +70,7 @@ namespace Reclamation.TimeSeries.Parser
             {
                 parms = parms.Replace(functionCall, "tag:{" + tagCounter + "}");
                 calls.Add(functionCall);
-                Console.WriteLine(functionCall);
+                Logger.WriteLine(functionCall);
                 tagCounter++;
 
             }
