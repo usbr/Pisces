@@ -278,10 +278,17 @@ namespace Reclamation.Core
                                 myDataRow[col] = Convert.ToDateTime(val[col]);
                                 break;
                             case "System.Boolean":
-                                if (val[col].ToString() == "" )
+                                if (val[col].ToString() == "")
                                     myDataRow[col] = DBNull.Value;
                                 else
+                                {
+                                    if (val[col].ToString() == "0")
+                                        myDataRow[col] = false;
+                                    else if (val[col].ToString() == "1")
+                                        myDataRow[col] = true;
+                                    else
                                     myDataRow[col] = Convert.ToBoolean(val[col]);
+                                }
                                 break;
                             default:
                                 Console.WriteLine("Invalid selection : '" + dataTypes[col] + "'");
