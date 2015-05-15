@@ -28,30 +28,13 @@ namespace Reclamation.Core
         public string ComputeSelectedStats()
         {
             var rval = "";
-            DataGridViewCell cell = null;
-
             var values = new List<double>();
-
-            for (int i = 0; i < dgv.SelectedCells.Count; i++)
+            double d;
+            foreach ( DataGridViewCell cell in dgv.SelectedCells)
             {
-                cell = dgv.SelectedCells[i];
-
-                if (dgv.Columns[cell.ColumnIndex].ValueType == typeof(double)
-                    ||
-                    dgv.Columns[cell.ColumnIndex].ValueType == typeof(decimal)
-                    ||
-                    dgv.Columns[cell.ColumnIndex].ValueType == typeof(int)
-                   )
-                {
-                     var o = dgv[cell.ColumnIndex, cell.RowIndex].Value;
-                     if (o != DBNull.Value)
-                     {
-                         var d = Convert.ToDouble(o);
-                         values.Add(d);
-                     }
-                }
+                 if( double.TryParse(cell.FormattedValue.ToString(),out d))
+                    values.Add(d);
             }
-
             if (values.Count > 0)
             {
                 rval = "Count: " + values.Count +
@@ -60,7 +43,6 @@ namespace Reclamation.Core
                     " Max: " + values.ToArray().Max().ToString("F2") +
                     " Sum: " + values.ToArray().Sum().ToString("F2");
             }
-
             return rval;
         }
 
@@ -149,18 +131,17 @@ namespace Reclamation.Core
             firstRowIndex = -1;
             lastRowIndex = -1;
 
-            DataGridViewCell cell = null;
             if (dgv.SelectedCells.Count > 0)
             {
-                cell = dgv.SelectedCells[0];
+                var cell = dgv.SelectedCells[0];
                 columnIndex = cell.ColumnIndex;
                 firstRowIndex = cell.RowIndex;
                 lastRowIndex = cell.RowIndex;
             }
 
-            for( int i =0; i< dgv.SelectedCells.Count; i++)
+            //for( int i =0; i< .Count; i++)
+            foreach (DataGridViewCell cell in dgv.SelectedCells)
             {
-                cell = dgv.SelectedCells[i];
                 if (cell.ColumnIndex == 0)
                 { // we cant interpolate or set flags in date column
                     m_validPasteSelection = false;
