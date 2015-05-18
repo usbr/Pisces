@@ -219,6 +219,12 @@ namespace Reclamation.TimeSeries {
                 var row = FindByid(id);
                 do{
                   row = FindByid(row.ParentID);
+                  if (row == null || row.Name == null)
+                  {
+                      Console.WriteLine("yikes! parent does not exist");
+                      rval.Reverse();
+                      return rval.ToArray();
+                  }
                   rval.Add(row.Name);
                  
                 } while( row.ParentID != row.id) ; // ids equal at root level of tree

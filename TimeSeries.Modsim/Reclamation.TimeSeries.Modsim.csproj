@@ -104,20 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ModsimPiscesTree.cs" />
-    <Compile Include="ModsimScenarioPicker.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ModsimScenarioPicker.Designer.cs">
-      <DependentUpon>ModsimScenarioPicker.cs</DependentUpon>
-    </Compile>
     <Compile Include="ModsimSeries.cs" />
     <Compile Include="ModsimUtilities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ModsimScenarioPicker.resx">
-      <DependentUpon>ModsimScenarioPicker.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Reclamation.Core.csproj">

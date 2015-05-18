@@ -23,6 +23,66 @@ namespace Reclamation.TimeSeries.Forms
     public partial class PiscesForm
     {
 
+        /// <summary>
+        /// SQLite convered from DSS
+        /// https://github.com/usbr/convertdss
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addSqLiteModel_Click(object sender, EventArgs e)
+        {
+            var dlg = new Reclamation.TimeSeries.ScenarioPicker.ScenarioPicker();
+
+            dlg.Text = "Select SqLite files";
+            dlg.Dialog.DefaultExt = ".db";
+            dlg.Dialog.Filter = "SQLite *.db|*.db|All Files|*.*";
+            dlg.Dialog.Title = "Open SQLite File (from DSS)";
+            try
+            {
+                DB.SuspendTreeUpdates();
+                var result = dlg.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    if (dlg.ScenariosChecked && dlg.ScenarioFiles.Count > 0)
+                    {
+                        //create scenarios
+                        ShowAsBusy("Reading data");
+                        var tblScen = DB.GetScenarios();
+                        foreach (var item in dlg.ScenarioFiles)
+                        {
+                            string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath);
+                        }
+                        //add first file in the list to the tree
+                        if (dlg.AddToTreeChecked)
+                        {
+                            SQLiteSeries.CreatePiscesTree(dlg.ScenarioFiles[0], CurrentFolder, DB);
+                        }
+                        DB.Server.SaveTable(tblScen);
+                        DatabaseChanged();
+                    }
+                    else
+                        if (dlg.AddToTreeChecked)
+                        {
+                            //add to tree, but not to scenairo list
+                            ShowAsBusy("Reading  data");
+                            for (int i = 0; i < dlg.ScenarioFiles.Count; i++)
+                            {
+                                string fn = dlg.ScenarioFiles[i].ToString();
+                              SQLiteSeries.CreatePiscesTree(fn, CurrentFolder, DB);
+                            }
+                            DatabaseChanged();
+                        }
+                }
+            }
+            finally
+            {
+                ShowAsReady("Done with Modsim import");
+                DB.ResumeTreeUpdates();
+            }
+        }
+
         private void addPiscesDatabase_Click(object sender, EventArgs e)
         {
             try

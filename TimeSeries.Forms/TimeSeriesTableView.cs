@@ -427,16 +427,8 @@ namespace Reclamation.TimeSeries.Forms
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            var sel = new DataGridSelection(this.dataGridView1);
-
-            if (sel.IsValidDataRange())
-            {
-                toolStripStatusMessage.Text = sel.ComputeSelectedStats();
-            }
-            else
-            {
-                toolStripStatusMessage.Text = "";
-            }
+            var sel = new DataGridSelection(dataGridView1);
+             toolStripStatusMessage.Text = sel.ComputeSelectedStats();
         }
 
     }
