@@ -110,7 +110,7 @@ namespace Reclamation.TimeSeries.Parser
             }
 
             // throw an error....  
-            throw new Exception("Error finding variable '" + name + "'");
+            throw new Exception("Error finding variable '" + name + "', this could indicate there are two series with the same name");
             //return new ParserResult(name); // returns a string result. ... 
 
         }
