@@ -12,7 +12,7 @@ using System.Net;
 namespace Reclamation.TimeSeries.HDB
 {
 
-    public enum HDBServer { UCHDB, LCHDB, ECAOHDB };
+    public enum HDBServer { UCHDB2, LCHDB2, ECAOHDB };
 
 
     /// <summary>
@@ -108,27 +108,36 @@ namespace Reclamation.TimeSeries.HDB
             {
                 t2 = DateTime.Now.Date;
             }
+            //http://ibr3lcrxcn01.bor.doi.net:8080/HDB_CGI.com?svr=uchdb2&sdi=1872&tstp=DY&t1=05-01-2015&t2=05-04-2015&format=2 
             //http://ibr3lcrxcn01:8080/HDB_CGI.com?sdi=1930&tstp=DY&syer=2014&smon=4&sday=2&eyer=2015&emon=4&eday=16&format=3
             var tStep = IntervalShortName(this.TimeInterval);
-            string payload = "sdi=" +m_sdi
-                +"&tstp="+tStep
-                + "&syer=" + t1.Year.ToString()
-                + "&smon=" + t1.Month.ToString()
-                + "&sday=" + t1.Day.ToString()
-                + "&eyer=" + t2.Year.ToString()
-                + "&emon=" + t2.Month.ToString()
-                + "&eday=" + t2.Day.ToString()
+            string payload = "svr=" + m_server.ToString().ToLower()
+                + "&sdi=" + m_sdi
+                + "&tstp=" + tStep
+                + "&t1=" + t1.ToString("MM-dd-yyyy")
+                + "&t2=" + t2.ToString("MM-dd-yyyy")
+                //+ "&syer=" + t1.Year.ToString()
+                //+ "&smon=" + t1.Month.ToString()
+                //+ "&sday=" + t1.Day.ToString()
+                //+ "&eyer=" + t2.Year.ToString()
+                //+ "&emon=" + t2.Month.ToString()
+                //+ "&eday=" + t2.Day.ToString()
                 + "&format=8";
+
+            
 
             string cgi = Reclamation.TimeSeries.ReclamationURL.GetUrlToDataCgi(m_server.ToString(), TimeSeries.TimeInterval.Daily);
             var url = cgi + "?" + payload;
+            Logger.WriteLine(url);
             Messages.Add(url);
             var x = "";
             using (WebClient client = new WebClient())
             {
                 x = client.DownloadString(url);
             }
+            x = x.Replace("<PRE>", "");
             var data = x.Split('\n');
+
             //var fn = FileUtility.GetTempFileName(".txt");
             
             //var data = Web.GetPage(url);
@@ -150,7 +159,7 @@ DATETIME,     SDI_1930
             
 
             int errorCount = 0;
-            for (int i = 1; i < data.Length; i++)
+            for (int i = 0; i < data.Length; i++)
             {
                 string[] tokens = data[i].Split(',');
 
