@@ -1,8 +1,8 @@
 #!/bin/bash
-cd /home/pisces/src/Pisces
+cd /data/apps/pisces/src
 X=xbuild
-echo "checking https://github.com/usbr/Pisces"
-git pull
+#echo "checking https://github.com/usbr/Pisces"
+#git pull
 export EnableNuGetPackageRestore=true
 $X ./Core/Reclamation.Core.csproj
 $X ./TimeSeries/Reclamation.TimeSeries.csproj

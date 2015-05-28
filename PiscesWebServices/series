@@ -1,0 +1,7 @@
+#!/bin/bash
+cd /data/apps/pisces/web
+echo "Content-Type: text/html"
+echo ""
+echo ""
+
+mono  PiscesWebServices.exe --cgi=series
