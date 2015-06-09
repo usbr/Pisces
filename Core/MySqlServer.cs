@@ -281,6 +281,25 @@ namespace Reclamation.Core
          return rval;
      }
 
+
+     /// <summary>
+     /// checks if table exists
+     /// </summary>
+     /// <param name="tableName"></param>
+     /// <returns></returns>
+     public override bool TableExists(string tableName)
+     {
+         if (tableName.Trim() == "")
+             return false;
+         string sql = "Select table_name from Information_schema.Tables "
+           + " WHERE table_name = '" + tableName + "' and  table_schema = '" + GetDefaultSchema() + "' ";
+         DataTable tbl = Table("exists", sql);
+         if (tbl.Rows.Count > 0)
+             return true;
+         else
+             return false;
+     }
+
      private string GetDefaultSchema()
      {
          var b = new MySqlConnectionStringBuilder(ConnectionString);

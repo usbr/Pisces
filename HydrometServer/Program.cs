@@ -212,11 +212,19 @@ namespace HydrometServer
                    string sql = "provider = '" + db.Server.SafeSqlLiteral(args["update-daily"]) + "'";
                    var updateList = db.GetSeriesCatalog(sql);
                    Console.WriteLine("Updating  "+updateList.Count+" Series ");
+
                    foreach (var item in updateList)
                    {
-                       Console.Write(item.Name +" ");
-                       var s = db.GetSeries(item.id);
-                       s.Update(t1, t2);
+                       try
+                       {
+                           Console.Write(item.Name + " ");
+                           var s = db.GetSeries(item.id);
+                           s.Update(t1, t2);
+                       }
+                       catch (Exception e)
+                       {
+                           Console.WriteLine(e.Message);
+                       }
                    }
                 }
 
