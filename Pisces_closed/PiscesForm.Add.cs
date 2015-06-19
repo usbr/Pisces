@@ -139,9 +139,16 @@ namespace Reclamation.TimeSeries.Forms
 
         void AddSeriesClick(object sender, System.EventArgs e)
         {
-            Series s = new Series();
-            s.Name = "new Series";
-            DB.AddSeries(s, CurrentFolder);
+            var a = new AddSeries();
+            if (a.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Series s = new Series();
+                s.Name = a.SeriesName;
+                s.Table.TableName = a.TableName;
+                s.TimeInterval = a.TimeInterval;
+                DB.AddSeries(s, CurrentFolder);    
+            }
+            
         }
 
         /// <summary>

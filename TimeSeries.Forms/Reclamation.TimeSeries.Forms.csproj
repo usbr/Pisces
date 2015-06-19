@@ -249,6 +249,12 @@
       <DependentUpon>TimeSeriesZedGraph.cs</DependentUpon>
     </Compile>
     <Compile Include="Graphing\ZedGraphDataLoader.cs" />
+    <Compile Include="ImportForms\AddSeries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportForms\AddSeries.Designer.cs">
+      <DependentUpon>AddSeries.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImportForms\AddSite.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -601,6 +607,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Graphing\TimeSeriesZedGraph.resx">
       <DependentUpon>TimeSeriesZedGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportForms\AddSeries.resx">
+      <DependentUpon>AddSeries.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportForms\AddSite.resx">
       <DependentUpon>AddSite.cs</DependentUpon>

@@ -56,7 +56,7 @@ namespace Reclamation.TimeSeries.Forms.Calculations
                 if (a != "")
                 {
                     m_series.Name = a;
-                    m_series.Table.TableName=TimeSeriesDatabase.SafeTableName(a);
+                    m_series.Table.TableName= basicEquation1.TimeInterval.ToString().ToLower()+"_"+ TimeSeriesDatabase.SafeTableName(a);
                 }
                 a = basicEquation1.Units.Trim();
                 if (a != "")
