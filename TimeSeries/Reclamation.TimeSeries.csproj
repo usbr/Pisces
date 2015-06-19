@@ -308,6 +308,7 @@
     <Compile Include="SeriesListDataTable.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Tests\SeriesMath\TestInterpolate2D.cs" />
     <Compile Include="Tests\SeriesTypes\TestHDB.cs" />
     <Compile Include="TimeSeriesDatabase.Factory.cs" />
     <Compile Include="DataTableSeries.cs" />
