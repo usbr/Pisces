@@ -14,7 +14,6 @@ namespace HydrometServer
 {
     /// <summary>
     /// Imports 15 minute data, and performs calculations that depend on the imported data.
-    /// files with "decodes" prefix are imported. Others are ignored.
     /// </summary>
     class FileImporter
     {
