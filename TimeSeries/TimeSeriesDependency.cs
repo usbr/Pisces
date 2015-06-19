@@ -171,9 +171,11 @@ namespace Reclamation.TimeSeries
             Logger.WriteLine("LookupCalculations(" + tableName + ")");
             Logger.WriteLine("inputDictionary.Count = " + inputDictionary.Count);
 
-            if (this.inputDictionary.ContainsKey(tableName))
+            TimeSeriesName n = new TimeSeriesName(tableName,interval);
+            var key = n.GetTableName();
+            if (this.inputDictionary.ContainsKey(key))
             {
-                rval.AddRange(inputDictionary[tableName].ToArray());
+                rval.AddRange(inputDictionary[key].ToArray());
             }
 
             return rval;

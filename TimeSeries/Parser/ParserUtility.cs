@@ -21,7 +21,7 @@ namespace Reclamation.TimeSeries.Parser
             f.Name = "";
 
             // adapted from mastering Regular Expressions 2nd edition page 430
-            string exp = @"(?<functionName>[A-Za-z]+[0-9]*)\((?<parameters>  " +
+            string exp = @"(?<functionName>[A-Za-z]+[A-Za-z0-9]*)\((?<parameters>  " +
                            "   (?>                 " +
                            "       [^()]+          " +
                            "     |                 " +
