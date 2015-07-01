@@ -78,6 +78,11 @@ namespace PiscesWebServices
                 CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
                 c.Run(TimeInterval.Hourly,payload);
             }
+            if (cgi == "site")
+            {
+                SiteInfo si = new SiteInfo(db);
+                si.Run(payload);
+            }
 
         }
 

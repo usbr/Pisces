@@ -138,7 +138,7 @@ namespace PiscesWebServices
             if (query.IndexOf(parameterName) < 0)
                 return defaultIfMissing;
             //[a-z]+\s+[a-z0-9]+
-            var m = Regex.Match(query, @"\?|\&" + parameterName + @"=(<value>[a-z0-9\s]+)");
+            var m = Regex.Match(query, @"(\?|\&)" + parameterName + @"\=(?<value>[a-z0-9\s]+)");
 
             if (m.Success)
             {

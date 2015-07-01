@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvTable.cs" />
+    <Compile Include="SiteInfo.cs" />
     <Compile Include="CsvTimeSeriesWriter.cs" />
     <Compile Include="JSONSites.cs" />
     <Compile Include="Program.cs" />
