@@ -40,15 +40,40 @@ namespace Reclamation.TimeSeries.Hydromet
 
         private static string[] GetParameters(string cbtt, HydrometDataBase db)
         {
+            var rval = new string[] { };
+
             if( db == HydrometDataBase.Archives)
-                return HydrometInfoUtility.ArchiveParameters(cbtt);
-            if( db == HydrometDataBase.Dayfiles)
-                return DayfileParameters(cbtt);
+                rval = HydrometInfoUtility.ArchiveParameters(cbtt);
+            if (db == HydrometDataBase.Dayfiles)
+            {
+                rval = DayfileParameters(cbtt);
+                if (rval.Length == 0)
+                { 
+                    return GetParameters(cbtt,TimeInterval.Irregular);
+                }
+            }
             if (db == HydrometDataBase.MPoll)
-                return MpollParameters(cbtt);
+                rval = MpollParameters(cbtt);
 
-            return new string[] { };
+            
+            return rval;
 
+        }
+
+        private static string[] GetParameters(string cbtt, TimeInterval interval)
+        {
+            var rval = new List<string>();
+            var svr = PostgreSQL.GetPostgresServer();
+            TimeSeriesDatabase p = new TimeSeriesDatabase(svr);
+            var sql = " lower(siteid) = '"+ svr.SafeSqlLiteral(cbtt.ToLower())+"' and TimeInterval = '"+interval.ToString()+"'";
+            var sc = p.GetSeriesCatalog(sql);
+            foreach (var item in sc)
+            {
+                TimeSeriesName tn = new TimeSeriesName(item.TableName);
+                rval.Add(tn.pcode);
+            }
+
+            return rval.ToArray();
         }
 
         
