@@ -564,6 +564,11 @@ Alan
 
     public override void FillTable(DataTable dataTable, string sql)
     {
+        if (dataTable.TableName == "")
+        { 
+            dataTable.TableName = "table1";
+            
+        }   
         base.SqlCommands.Add("Fill(" + dataTable.TableName + ")");
         string strAccessSelect = sql;
 
