@@ -86,9 +86,9 @@ namespace HydrometServer
             // Define parameters to be used for this checking iteration
             
             string cbtt = dRow["cbtt"].ToString().ToLower();
-
+            attachmentRecipients = "";
             string stationID = dRow["site_id"].ToString();
-            attachmentRecipients = dRow["email"].ToString();
+            var email = dRow["email"].ToString();
             string agency = dRow["agency"].ToString();
 
             Console.Write(cbtt.PadRight(8, '.') + " " + agency.ToLower().PadLeft(5));
@@ -159,8 +159,9 @@ namespace HydrometServer
                     { WriteHjAndQTables(shiftFileName, qFileName, usgsRatingTable); }
                     WriteCsvFiles(fullRatingTable, cbtt);
                     // Define which attachments to add to the mail message if the 'email' field in the input file is not blank
-                    if (attachmentRecipients != "")
+                    if (email != "")
                     {
+                        attachmentRecipients = email;
                         attachments.Add(shiftFileName);
                         attachments.Add(qFileName);
                     }
