@@ -55,6 +55,11 @@ namespace Reclamation.TimeSeries.NOAA
                             && double.TryParse(val,out num))
                         {
                             var t = new DateTime(year + 2000, month, day, hour, minute,0);
+                            if( rval.IndexOf(t)>=0)
+                            {
+                                Console.WriteLine("Skipping duplicate "+t.ToString()+" :" +num);
+                                continue;
+                            }
                             rval.Add(t, num);
                         }
                     }
