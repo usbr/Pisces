@@ -766,6 +766,13 @@ namespace Reclamation.TimeSeries.Hydromet
 
             string url = "http://www.usbr.gov/pn-bin/expandrtf.pl?site=pali&pcode=q&form=col";
 
+            if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
+            {
+                //url = "http://www.usbr.gov/gp-bin/expandrtf.pl?site=adatunco&pcode=q&form=col";
+                url = "http://www.usbr.gov/gp-bin/expandrtf.pl?site=pali&pcode=q&form=col";
+            }
+
+
             url = url.Replace("site=pali", "site=" + cbtt.Trim());
             url = url.Replace("pcode=q", "pcode=" + pcode.Trim());
 
