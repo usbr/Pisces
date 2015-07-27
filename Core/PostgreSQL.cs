@@ -104,7 +104,7 @@ Alan
       /// <param name="database"></param>
       /// <param name="userName"></param>
       /// <returns></returns>
-    public static string CreateADConnectionString(string server, string database, string userName="")
+    public static string CreateADConnectionString(string server, string database, string userName = "", string keyFile = "postgresql_key.txt")
     {
         if (database.IndexOf(";") >= 0)
             throw new Exception("invalid database name "+database);
@@ -116,7 +116,7 @@ Alan
         string passwd="";
 
         
-        string fileName =FileUtility.GetFileReference( "postgresql_key.txt");
+        string fileName =FileUtility.GetFileReference( keyFile);
 
         if (File.Exists(fileName))
         {
@@ -124,8 +124,8 @@ Alan
         }
         else
         {
-            Logger.WriteLine("Error:  missing postgresql_key.txt");
-            throw new FileNotFoundException("postgresql_key.txt");
+            Logger.WriteLine("Error:  missing "+keyFile);
+            throw new FileNotFoundException(keyFile);
         }
 
         
