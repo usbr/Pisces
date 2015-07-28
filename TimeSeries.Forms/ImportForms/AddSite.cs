@@ -191,7 +191,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             {
                 AddInstantRow(siteID, "feet", "ch");
                 AddInstantRow(siteID, "cfs", "qc", "GenericWeir(%site%_ch,mcf_offset,mcf_scale(width),mcf_base(exponent))");
-                //AddInstantRow(siteID, "feet", "hh", "");
+                AddInstantRow(siteID, "feet", "hh", "LookupShift(%site%_ch)");
 
             }
             if (this.checkBoxRectWeir.Checked)
