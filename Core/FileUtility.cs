@@ -101,7 +101,10 @@ namespace Reclamation.Core
             }
         }
 
-
+        /// <summary>
+        /// Gets a application specific temporay path
+        /// </summary>
+        /// <returns></returns>
         public static string GetTempPath()
         {
             string s = Path.GetTempPath();
