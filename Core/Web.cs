@@ -389,7 +389,13 @@ namespace Reclamation.Core
         public static string CleanHtml(string html)
         {
             html = ReplaceWithExpression(html, "<!--.*-->", "");
-            html = ReplaceWithExpression(html, "<head[^>]+>", "<head>");
+            html = ReplaceWithExpression(html, "<head[^>]+>", "");
+            html = ReplaceWithExpression(html, "</st1[^>]+>", "");
+            html = ReplaceWithExpression(html, "<st1[^>]+>", "");
+            html = ReplaceWithExpression(html, "<div[^>]+>", "<div>");
+            html = ReplaceWithExpression(html, "<html[^>]+>", "<html>");
+            html = ReplaceWithExpression(html, "<link[^>]+>", "");
+            html = ReplaceWithExpression(html, "<o[^>]+>", "");
             html = ReplaceWithExpression(html, "<meta[^>]+>", "");
             html = ReplaceWithExpression(html, "<table[^>]+>", "<table>");
             html = ReplaceWithExpression(html, "<b[^>]+>", "<b>");
