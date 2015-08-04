@@ -130,6 +130,51 @@ namespace Reclamation.TimeSeries {
                 return rows[0]["value"].ToString();
             }
 
+
+            public static void Set(string name,string value, TimeSeriesName tn, BasicDBServer svr)
+            {
+                var tableName = tn.GetTableName();
+                var sc = svr.Table("seriescatalog", "select * from seriescatalog where tablename = '" + tableName + "'");
+                if( sc.Rows.Count ==1)
+                {
+                    int id = Convert.ToInt32(sc.Rows[0]["id"]);
+                    Set(name, value, id, svr);
+                }
+                else
+                {
+                    var msg = "Error: tablename:" + tableName + "not found (or duplicated) in the seriescatalog";
+                    Logger.WriteLine(msg);
+                    throw new KeyNotFoundException(msg);
+                }
+            }
+            /// <summary>
+            /// Set property directly to database
+            /// </summary>
+            public static void Set(string name, string value, int seriesID, BasicDBServer svr)
+            {
+                var tbl = new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
+                var sql = "Select * from seriesproperties where name='" + name + "' and seriesid = " + seriesID;
+                svr.FillTable(tbl, sql);
+
+                if (tbl.Rows.Count == 0)
+                {
+                    tbl.AddseriespropertiesRow(svr.NextID("seriesproperties", "id"), seriesID, name,value);
+                }
+                else
+                {
+                    tbl.Rows[0]["value"] = value;
+                }
+
+                svr.SaveTable(tbl);
+            }
+
+
+            /// <summary>
+            /// Set property to in memory 
+            /// </summary>
+            /// <param name="name"></param>
+            /// <param name="value"></param>
+            /// <param name="seriesID"></param>
             public void Set(string name, string value, int seriesID)
             {
                 var rows = Select("name='" + name + "' and seriesid = " + seriesID);
@@ -151,7 +196,6 @@ namespace Reclamation.TimeSeries {
                     }
 
                 }
-
             }
 
             /// <summary>
@@ -165,6 +209,8 @@ namespace Reclamation.TimeSeries {
                     AddseriespropertiesRow(NextID(), newID, item["name"].ToString(), item["value"].ToString());
                 }
             }
+
+            
         }
 
         public partial class sitecatalogDataTable
