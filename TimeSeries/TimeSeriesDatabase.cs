@@ -1321,7 +1321,8 @@ namespace Reclamation.TimeSeries
                         {
                             // read file into datatable.
                             CsvFile tbl = new CsvFile(fn);
-                            tbl.TableName = GetUniqueTableName(Path.GetFileNameWithoutExtension(fn));
+                            //tbl.TableName = GetUniqueTableName(Path.GetFileNameWithoutExtension(fn));
+                            tbl.TableName = SafeTableName(Path.GetFileNameWithoutExtension(fn));
                             if (tbl.Columns.Count == 2 || tbl.Columns.Count == 3)
                             {
                                 // create/save 
@@ -1355,7 +1356,8 @@ namespace Reclamation.TimeSeries
             {
                 DataTable t = m_server.Table(tableName);
                 var filename = Path.Combine(path, tableName.ToLower() + ".csv");
-                DataTableOutput.Write(t, filename, true);   
+                CsvFile.WriteToCSV(t, filename);
+                //DataTableOutput.Write(t, filename, true);   
             }
             
         }

@@ -40,15 +40,40 @@ namespace Reclamation.TimeSeries.Hydromet
 
         private static string[] GetParameters(string cbtt, HydrometDataBase db)
         {
+            var rval = new string[] { };
+
             if( db == HydrometDataBase.Archives)
-                return HydrometInfoUtility.ArchiveParameters(cbtt);
-            if( db == HydrometDataBase.Dayfiles)
-                return DayfileParameters(cbtt);
+                rval = HydrometInfoUtility.ArchiveParameters(cbtt);
+            if (db == HydrometDataBase.Dayfiles)
+            {
+                rval = DayfileParameters(cbtt);
+                if (rval.Length == 0)
+                { 
+                    return GetParameters(cbtt,TimeInterval.Irregular);
+                }
+            }
             if (db == HydrometDataBase.MPoll)
-                return MpollParameters(cbtt);
+                rval = MpollParameters(cbtt);
 
-            return new string[] { };
+            
+            return rval;
 
+        }
+
+        private static string[] GetParameters(string cbtt, TimeInterval interval)
+        {
+            var rval = new List<string>();
+            var svr = PostgreSQL.GetPostgresServer();
+            TimeSeriesDatabase p = new TimeSeriesDatabase(svr);
+            var sql = " lower(siteid) = '"+ svr.SafeSqlLiteral(cbtt.ToLower())+"' and TimeInterval = '"+interval.ToString()+"'";
+            var sc = p.GetSeriesCatalog(sql);
+            foreach (var item in sc)
+            {
+                TimeSeriesName tn = new TimeSeriesName(item.TableName);
+                rval.Add(tn.pcode);
+            }
+
+            return rval.ToArray();
         }
 
         
@@ -224,7 +249,7 @@ namespace Reclamation.TimeSeries.Hydromet
                 string filename = "group.csv";
 
                 if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
-                    filename = "group_gp.csv";// to do... get file from GP.
+                    filename = Path.Combine("gp","group.csv");// to do... get file from GP.
 
 
                 if (s_group == null || s_group.TableName != filename )
@@ -244,7 +269,7 @@ namespace Reclamation.TimeSeries.Hydromet
             {
                 string filename = "site.csv";
                 if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
-                    filename = "site_gp.csv";
+                    filename = Path.Combine( "gp","site.csv");
 
                 if (s_site == null || s_site.TableName != filename)
                 {
@@ -264,7 +289,7 @@ namespace Reclamation.TimeSeries.Hydromet
             {
                 string filename = "pcode.csv";
                 if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
-                    filename = "pcode_gp.csv";
+                    filename = Path.Combine("gp","pcode.csv");
 
                 if (s_pcode == null || s_pcode.TableName != filename)
                 {
@@ -393,11 +418,16 @@ namespace Reclamation.TimeSeries.Hydromet
 
                 for (int i = 0; i < Pcode.Rows.Count; i++)
                 {
-                    if (Pcode.Rows[i]["PCODE"].ToString().Contains(" "))
+                    string var = Pcode.Rows[i]["PCODE"].ToString().Trim();
+                    if (var.Length <= 8)
+                        continue;
+                    string cbtt = var.Substring(0, 8).Trim();
+                    string pcode = var.Substring(8).Trim();
+                    
+                    
+                    if (pcode.Length >0 && cbtt.Length > 0)
                     {
-                        string var = Pcode.Rows[i]["PCODE"].ToString();
-                        string cbtt = var.Substring(0, 8).Trim();
-                        string pcode = var.Substring(8).Trim();
+                        
                         string years = "";
                         string descr = Pcode.Rows[i]["DESCR"].ToString();
                         // add logic to find the units of the instant series
@@ -468,7 +498,11 @@ namespace Reclamation.TimeSeries.Hydromet
             {
                 if (s_archiveInventory == null)
                 {
-                    string fn = FileUtility.GetFileReference("boise_arc.dat");
+                    var filename = "boise_arc.dat";
+                    if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
+                        filename = Path.Combine("gp", "billings_arc.dat");
+
+                    string fn = FileUtility.GetFileReference(filename);
 
                     if (File.Exists(fn))
                     {
@@ -732,6 +766,13 @@ namespace Reclamation.TimeSeries.Hydromet
 
             string url = "http://www.usbr.gov/pn-bin/expandrtf.pl?site=pali&pcode=q&form=col";
 
+            if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
+            {
+                //url = "http://www.usbr.gov/gp-bin/expandrtf.pl?site=adatunco&pcode=q&form=col";
+                url = "http://www.usbr.gov/gp-bin/expandrtf.pl?site=pali&pcode=q&form=col";
+            }
+
+
             url = url.Replace("site=pali", "site=" + cbtt.Trim());
             url = url.Replace("pcode=q", "pcode=" + pcode.Trim());
 
@@ -936,10 +977,6 @@ namespace Reclamation.TimeSeries.Hydromet
         public static string[] ArchiveParameters(string cbtt)
         {
 
-            //if (AgriMet.AgriMetLegacy.IsAgrimetSite(cbtt))
-            //{
-
-            //}
 
             string key = " " + cbtt.PadRight(12).ToUpper();
             var rval = new List<string>();

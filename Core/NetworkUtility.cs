@@ -10,38 +10,36 @@ namespace Reclamation.Core
     {
         private static bool s_intranet = false;
         private static bool knowMyIP = false;
-        private static IPHostEntry s_IPHost;
 
         public static bool Intranet
         {
             get
             {
+                string prefix = System.Configuration.ConfigurationManager.AppSettings["InternalNetworkPrefix"];
                 if (!knowMyIP)
                 {
-                    s_IPHost = Dns.GetHostEntry(Dns.GetHostName());
-                    foreach (var item in s_IPHost.AddressList)
-                    {
-                        string ip = item.ToString();
-                        
-                        
-
-                        string prefix = System.Configuration.ConfigurationManager.AppSettings["InternalNetworkPrefix"];
-
-                        if ( prefix != null && ip.IndexOf(prefix) == 0)
-                        {
-                            s_intranet = true;
-                            Logger.WriteLine("We are inside the intranet");
-
-                        }
-
-                        Logger.WriteLine(ip);
-                    }
+                    s_intranet = MyIpStartsWith(prefix);
                     knowMyIP = true;
                 }
                 return s_intranet;
             }
         }
 
-        
+        public static bool MyIpStartsWith(string prefix)
+        {
+            IPHostEntry s_IPHost = Dns.GetHostEntry(Dns.GetHostName());
+           
+            foreach (var item in s_IPHost.AddressList)
+            {
+                string ip = item.ToString();
+                if (prefix != null && ip.IndexOf(prefix) == 0)
+                {
+                    Logger.WriteLine("Yes, my Ip address starts with "+prefix);
+                    return true;
+                }
+                Logger.WriteLine(ip);
+            }
+            return false;
+        }
     }
 }

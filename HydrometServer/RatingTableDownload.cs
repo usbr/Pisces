@@ -43,16 +43,20 @@ namespace HydrometServer
         public static void UpdateRatingTables(string configFile, bool generateNewTables = false)
         {
             Console.WriteLine("reading " + configFile);
-            var inputText = new CsvFile(configFile);
+            var inputText = new CsvFile(configFile, CsvFile.FieldTypes.AllText);
             var stationUpdateList = new List<string>();
             var attachments = new List<string>();
+            List<string> attachmentRecipientList = new List<string>(); // additional recipients for USGS attachemnts
             // Loop through each row in the input text file
             for (int k = 0; k < inputText.Rows.Count; k++)
             {
                 try
                 {
                     var dRow = inputText.Rows[k];
-                    UpdatesingleRatingTable(dRow, generateNewTables, inputText, stationUpdateList, attachments);
+                    string attachmentRecipients = "";
+                    UpdatesingleRatingTable(dRow, generateNewTables, inputText, stationUpdateList, attachments, out attachmentRecipients);
+                    if (attachmentRecipients != "" && !attachmentRecipientList.Contains(attachmentRecipients) )
+                        attachmentRecipientList.Add(attachmentRecipients);
                 }
                 catch (Exception e)
                 {
@@ -71,19 +75,20 @@ namespace HydrometServer
                 {
                     emailMsg += item + "<br>";
                 }
-                SendEmail(subject, emailMsg, attachments);
+                SendEmail(subject, emailMsg, attachments, attachmentRecipientList);
             }
         }
 
-        private static void UpdatesingleRatingTable(DataRow dRow,bool generateNewTables, CsvFile inputText, List<string> stationUpdateList, List<string> attachments)
+        private static void UpdatesingleRatingTable(DataRow dRow,bool generateNewTables, CsvFile inputText,
+            List<string> stationUpdateList, List<string> attachments, out string attachmentRecipients)
         {
             string urlDownload = "";
             // Define parameters to be used for this checking iteration
             
             string cbtt = dRow["cbtt"].ToString().ToLower();
-
+            attachmentRecipients = "";
             string stationID = dRow["site_id"].ToString();
-            string emailField = dRow["email"].ToString();
+            var email = dRow["email"].ToString();
             string agency = dRow["agency"].ToString();
 
             Console.Write(cbtt.PadRight(8, '.') + " " + agency.ToLower().PadLeft(5));
@@ -154,8 +159,9 @@ namespace HydrometServer
                     { WriteHjAndQTables(shiftFileName, qFileName, usgsRatingTable); }
                     WriteCsvFiles(fullRatingTable, cbtt);
                     // Define which attachments to add to the mail message if the 'email' field in the input file is not blank
-                    if (emailField != "")
+                    if (email != "")
                     {
+                        attachmentRecipients = email;
                         attachments.Add(shiftFileName);
                         attachments.Add(qFileName);
                     }
@@ -230,11 +236,16 @@ namespace HydrometServer
             }
         }
 
-        private static void SendEmail(string subject, string body, List<string> attachments)
+        private static void SendEmail(string subject, string body, List<string> attachments, List<string> attachmentRecipientList)
         {
             MailMessage msg = new MailMessage();
             msg.IsBodyHtml = true;
             msg.To.Add(ConfigurationManager.AppSettings["rating_email_to"]);
+            if (attachmentRecipientList.Count > 0)
+            {
+                var x = String.Join(",", attachmentRecipientList);
+                msg.To.Add(x);
+            }
             msg.From = new MailAddress(ConfigurationManager.AppSettings["rating_email_reply"]);
             msg.Subject = subject;
             msg.Body = body;

@@ -132,7 +132,7 @@ namespace HydrometServer
 
 
 
-                if (args.Contains("import")) // import and process data from DECODES
+                if (args.Contains("import")) // import and process data from files
                 {
                     bool computeDependencies = args.Contains("computeDependencies");
                     bool computeDailyOnMidnight = args.Contains("computeDailyOnMidnight");
@@ -146,11 +146,6 @@ namespace HydrometServer
                     string incomingPath = ConfigurationManager.AppSettings["incoming"];
                     FileImporter importer = new FileImporter(db);
                     importer.Import(incomingPath, RouteOptions.Outgoing,computeDependencies,computeDailyOnMidnight,searchPattern);
-                    //ImportDMS3.Import(db,incomingPath); 
-
-                    //db.Import
-                    //db.TimeSeriesImporter.ProcessFiles(incomingPath, TimeInterval.Irregular);
-                    //db.TimeSeriesImporter.ProcessFiles(incomingPath, TimeInterval.Daily);
                 }
 
 

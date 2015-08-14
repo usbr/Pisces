@@ -50,7 +50,7 @@ namespace Reclamation.TimeSeries.Hydromet
                 cmd = cmd.Substring(0, idx);
             }
 
-            string pattern = "((?<prefix>\\w+)\\:\\s*)?(?<cbtt>\\w+)\\s+(?<pcode>[A-Za-z0-9\\-_]+)(\\s*\\,|\\s*$)";
+            string pattern = "((?<prefix>\\w+)\\:\\s*)?(?<cbtt>\\w+)\\s+(?<pcode>[A-Za-z0-9\\-_\\.]+)(\\s*\\,|\\s*$)";
             var mc = Regex.Matches(cmd, pattern, RegexOptions.IgnorePatternWhitespace);
 
             for (int i = 0; i < mc.Count; i++)

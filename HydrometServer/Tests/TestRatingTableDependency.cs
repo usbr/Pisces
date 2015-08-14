@@ -82,7 +82,7 @@ namespace Pisces.NunitTests.SeriesMath
             expectedFlags = new string[]{"","","","+","","","","-"}; //q>=1 and q<= 5
             for (int i = 0; i < s.Count; i++)
             {
-                 Assert.AreEqual(expectedFlags[i], s[i].Flag," Flag check on Flow (Q) "); 
+                 Assert.AreEqual(expectedFlags[i], s[i].Flag.Trim()," Flag check on Flow (Q) "); 
             }
 
             SeriesExpressionParser.Debug = false;

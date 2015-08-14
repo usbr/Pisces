@@ -14,7 +14,6 @@ namespace HydrometServer
 {
     /// <summary>
     /// Imports 15 minute data, and performs calculations that depend on the imported data.
-    /// files with "decodes" prefix are imported. Others are ignored.
     /// </summary>
     class FileImporter
     {
@@ -113,8 +112,8 @@ namespace HydrometServer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("skipping file, will move to error subdirectory " + fn);
+                Logger.WriteLine("Error:" + ex.Message);
+                Console.WriteLine("Error:  skipping file, will move to error subdirectory " + fn);
                 FileUtility.MoveToSubDirectory(Path.GetDirectoryName(fn), "error", fn);
 
             }

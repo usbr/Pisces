@@ -43,8 +43,11 @@ namespace Reclamation.TimeSeries
                 + interval.ToString() + "' and Network = '"+net+"'" ;
 
             var rows = Table.Select(qry);
-            if( rows.Length != 1)
-                throw new Exception("Error: could not lookup "+qry);
+            if (rows.Length != 1)
+            {
+                Console.WriteLine("Error: found "+rows.Length+" matches. Expected 1");
+                throw new Exception("Error: could not lookup " + qry);
+            }
 
             return rows[0]["CGI"].ToString();
            

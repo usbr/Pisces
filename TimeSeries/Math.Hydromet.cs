@@ -242,7 +242,17 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
+        [FunctionAttribute("LookupShift from series properties ", "LookupShift(ch)")]
+        public static Series LookupShift(Series ch)
+        {
+            double shift = Convert.ToDouble(ch.Properties.Get("shift", "0"));
+            var rval = ch.Copy();
+            rval.RemoveMissing();
+            rval = rval * 0.0;
+            rval = rval + shift;
 
+            return rval;
+        }
 
        
     }

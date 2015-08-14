@@ -5,6 +5,7 @@ using System.IO;
 using System.Net;
 using System.Web;
 using System.Net.NetworkInformation;
+using System.Text.RegularExpressions;
 namespace Reclamation.Core
 {
     public static class Web
@@ -377,6 +378,51 @@ namespace Reclamation.Core
                 IWebProxy proxy = WebRequest.GetSystemWebProxy();
                 proxy.Credentials = (System.Net.NetworkCredential)CredentialCache.DefaultCredentials;
                 request.Proxy = proxy;
+        }
+
+        /// <summary>
+        /// Cleans out attributes and comments and other junk from Word generated html
+        /// http://blog.codinghorror.com/cleaning-words-nasty-html/
+        /// </summary>
+        /// <param name="html"></param>
+        /// <returns></returns>
+        public static string CleanHtml(string html)
+        {
+            html = ReplaceWithExpression(html, "<!--.*-->", "");
+            html = ReplaceWithExpression(html, "<head[^>]+>", "");
+            html = ReplaceWithExpression(html, "</st1[^>]+>", "");
+            html = ReplaceWithExpression(html, "<st1[^>]+>", "");
+            html = ReplaceWithExpression(html, "<div[^>]+>", "<div>");
+            html = ReplaceWithExpression(html, "<html[^>]+>", "<html>");
+            html = ReplaceWithExpression(html, "<link[^>]+>", "");
+            html = ReplaceWithExpression(html, "<o[^>]+>", "");
+            html = ReplaceWithExpression(html, "<meta[^>]+>", "");
+            html = ReplaceWithExpression(html, "<table[^>]+>", "<table>");
+            html = ReplaceWithExpression(html, "<b[^>]+>", "<b>");
+            html = ReplaceWithExpression(html, "<tr[^>]+>", "<tr>");
+            html = ReplaceWithExpression(html, "<td[^>]+>", "<td>");
+            html = ReplaceWithExpression(html, "<p[^>]+>", "<p>");
+            html = ReplaceWithExpression(html, "<span[^>]+>", "<span>");
+            html = ReplaceWithExpression(html, "[^\u0000-\u007F]", "");
+            html = html.Replace("<o:p>", "");
+            html = html.Replace("</o:p>", "");
+            html = html.Replace("<span>", "");
+            html = html.Replace("</span>", "");
+            return html;
+        }
+
+        private static string ReplaceWithExpression(string html, string s, string replace)
+        {
+            RegexOptions o = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant;
+
+            bool isMatch = Regex.IsMatch(html, s, o);
+            if (isMatch)
+            {
+                Console.WriteLine(s);
+                var mc = Regex.Matches(html, s, o);
+            }
+            html = Regex.Replace(html, s, replace, o);
+            return html;
         }
 
     }

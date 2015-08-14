@@ -265,11 +265,17 @@ namespace Reclamation.Core
                             case "System.Int32":
                                 io.SaveInt(myDataRow, fieldNames[col], val[col]);
                                 break;
+                            case "System.Int16":
+                                io.SaveInt(myDataRow, fieldNames[col], val[col]);
+                                break;
                             case "System.Integer":
                                 io.SaveInt(myDataRow, fieldNames[col], val[col]);
                                 break;
                             case "System.Double":
                                 io.SaveDouble(myDataRow, fieldNames[col], val[col]);
+                                break;
+                            case "System.Single":
+                                io.SaveFloat(myDataRow, fieldNames[col], val[col]);
                                 break;
                             case "System.String":
                                 myDataRow[col] = val[col];

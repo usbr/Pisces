@@ -11,26 +11,9 @@ namespace Reclamation.TimeSeries.Hydromet {
     public partial class HydrometDataSet {
 
 
-       
+        
 
-
-
-        //public static shiftsDataTable GetDailyShiftsTable(DateTime since)
-        //{
-        //    string sql = "select * from shifts where cbtt = '" + cbtt + "' order by date_measured DESC, date_entered DESC LIMIT 20";
-        //    if (cbtt == "")
-        //    {
-        //        sql = "select * from shifts order by date_measured DESC, date_entered DESC";
-        //    }
-
-        //    shiftsDataTable tbl = new shiftsDataTable();
-
-        //    GetDatabaseServer("hydromet").FillTable(tbl, sql);
-        //    return tbl;
-
-        //}
-
-        public static shiftsDataTable GetShiftsTable(string cbtt="")
+        public shiftsDataTable GetShiftsTable(string cbtt="")
         {
             string sql;
 
@@ -45,12 +28,12 @@ namespace Reclamation.TimeSeries.Hydromet {
 
             shiftsDataTable tbl = new shiftsDataTable();
 
-            PostgreSQL.GetPostgresServer("hydromet").FillTable(tbl, sql);
+            GetServer().FillTable(tbl, sql);
             return tbl;
 
         }
 
-        public static shiftsDataTable GetAllShifts()
+        public shiftsDataTable GetAllShifts()
         {
             string sql;
 
@@ -58,24 +41,24 @@ namespace Reclamation.TimeSeries.Hydromet {
 
             shiftsDataTable tbl = new shiftsDataTable();
 
-            PostgreSQL.GetPostgresServer("hydromet").FillTable(tbl, sql);
+            GetServer().FillTable(tbl, sql);
             return tbl;
 
         }
 
-        public static shiftsDataTable GetDailyShifts(DateTime PreviousDay)
+        public shiftsDataTable GetDailyShifts(DateTime PreviousDay)
         {
 
             string sql = "select * from shifts where date_entered >'" + PreviousDay + "' order by date_entered";
 
             shiftsDataTable tbl = new shiftsDataTable();
 
-            PostgreSQL.GetPostgresServer("hydromet").FillTable(tbl, sql);
+            GetServer().FillTable(tbl, sql);
             return tbl;
 
         }
 
-        public static void insertshift(string cbtt, string pcode, DateTime date_measured,
+        public void insertshift(string cbtt, string pcode, DateTime date_measured,
             double? discharge, double? gage_height, double shift, string comments, DateTime date_entered)
         {
             string sql = "select * from shifts where 2=1";
@@ -83,7 +66,7 @@ namespace Reclamation.TimeSeries.Hydromet {
             
             shiftsDataTable tbl = new shiftsDataTable();
 
-            PostgreSQL.GetPostgresServer("hydromet").FillTable(tbl, sql);
+            GetServer().FillTable(tbl, sql);
             var row = tbl.NewshiftsRow();
 
             //due to our Sequence in the Dbase the id is 0 here but will add 1 to last id in dbase
@@ -106,7 +89,8 @@ namespace Reclamation.TimeSeries.Hydromet {
             row.date_entered = date_entered;
 
             tbl.AddshiftsRow(row);
-            PostgreSQL.GetPostgresServer("hydromet").SaveTable(tbl);
+
+            GetServer().SaveTable(tbl);
         }
 
 
@@ -114,7 +98,7 @@ namespace Reclamation.TimeSeries.Hydromet {
         /// using the daily_calculation table preload hydrmet data referenced in the equations
         /// </summary>
         /// <param name="groupNames"></param>
-        public static void PreloadDailyHydrometData(string[] groupNames,DateTime t1,DateTime t2)
+        public void PreloadDailyHydrometData(string[] groupNames,DateTime t1,DateTime t2)
         {
             
             string sql = "select * from daily_calculation where group_name in ( '"
@@ -122,7 +106,7 @@ namespace Reclamation.TimeSeries.Hydromet {
 
             daily_calculationDataTable tbl = new daily_calculationDataTable();
 
-            PostgreSQL.GetPostgresServer("hydromet").FillTable(tbl, sql);
+            GetServer().FillTable(tbl, sql);
 
             var cbttPcodeList = new List<string>();
 
@@ -149,6 +133,16 @@ namespace Reclamation.TimeSeries.Hydromet {
 
             HydrometDailySeries.Cache = cache;
 
+        }
+
+        private PostgreSQL GetServer()
+        {
+
+         var server = ConfigurationManager.AppSettings["PostgresServer"];
+         var dbName = this.DataSetName;
+
+         string cs = PostgreSQL.CreateADConnectionString(server, dbName,"app_user","app_key.txt");
+            return new PostgreSQL(cs);
         }
     }
 }
