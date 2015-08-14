@@ -69,6 +69,7 @@ namespace Reclamation.TimeSeries.Hydromet
             
             query = HydrometInfoUtility.ExpandQuery(query, HydrometDataBase.MPoll);
             string cgiUrl = ReclamationURL.GetUrlToDataCgi(server, TimeInterval.Monthly);
+            Logger.WriteLine("url:" + cgiUrl);
             return Table(cgiUrl, query, t1, t2, endOfMonth: true);
         }
 
