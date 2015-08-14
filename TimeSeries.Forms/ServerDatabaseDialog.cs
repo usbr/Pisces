@@ -16,14 +16,16 @@ namespace Reclamation.TimeSeries.Forms
         public ServerDatabaseDialog()
         {
             InitializeComponent();
-            this.comboBoxDbType.SelectedIndex = 0;
+            this.comboBox1.SelectedIndex = 0;
         }
+
+        //lrgs1:timeseries
 
         public string ServerName
         {
             get
             {
-                var t = this.textBoxServerDatabase.Text.Split(':');
+                var t = this.comboBox1.Text.Split(':');
                 return t[0];
             }
         }
@@ -32,8 +34,7 @@ namespace Reclamation.TimeSeries.Forms
         {
             get
             {
-                if (this.comboBoxDbType.SelectedItem.ToString().ToLower()
-                    == "mysql")
+                if (  this.comboBox1.Text.IndexOf("#mysql") >=0)
                     return DatabaseType.MySQL;
 
                 return DatabaseType.PostgreSql;
@@ -43,8 +44,10 @@ namespace Reclamation.TimeSeries.Forms
         {
             get
             {
-                var t = this.textBoxServerDatabase.Text.Split(':');
-                if( t.Length ==2)
+                // serverip:database #mysql
+                var t = this.comboBox1.Text.Split(':', '#');
+
+                if( t.Length >=2)
                 return t[1];
 
                 return "";

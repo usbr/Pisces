@@ -17,6 +17,8 @@ namespace Reclamation.TimeSeries.Decodes
         DecodesDataSet decodes;
         UnitConversion m_converter;
         int platformID;
+        int configID;
+        int decodesScriptID;
      public McfDecodesConverter(PostgreSQL svr, McfDataSet mcf, DecodesDataSet decodes)
         {
             this.svr = svr;
@@ -33,6 +35,8 @@ namespace Reclamation.TimeSeries.Decodes
         int networklistid = SetupNetworkList(networkListName);
         InsertSite(siteFilter);
         platformID = NextID(svr, "platform");
+        configID = NextID(svr, "platformconfig");
+        decodesScriptID = NextID(svr, "decodesscript");
         InsertGoesPlatform(siteFilter, networklistid);
         DecodesUtility.UpdateServer(svr, decodes);
         
@@ -129,18 +133,20 @@ namespace Reclamation.TimeSeries.Decodes
 
                 //Logger.WriteLine(parameters.Length.ToString() + " parameters at " + transmitters.Count + " SITE");
 
-                int configId = platformID;
-                int decodesScriptID = configId;
+                //int configId = platformID;
+                //int decodesScriptID = configID;
                 string dataOrder = "D";
                if( s.DCPMFG == "A")
                    dataOrder = "A";
 
-                decodes.decodesscript.AdddecodesscriptRow(decodesScriptID, configId, "ST", "Decodes", dataOrder);
+                decodes.decodesscript.AdddecodesscriptRow(decodesScriptID, configID, "ST", "Decodes", dataOrder);
 
-                BuildDecodesScripts(sitesAtTransmitter.ToArray(), siteID, parameters, configId, decodesScriptID);
-                InsertBatteryVoltScript(configId, decodesScriptID,  parameters.Length + 1, s);
+                BuildDecodesScripts(sitesAtTransmitter.ToArray(), siteID, parameters, configID, decodesScriptID);
+                InsertBatteryVoltScript(configID, decodesScriptID,  parameters.Length + 1, s);
                 m_converter.AddBatteryVoltConverter(decodesScriptID, parameters.Length + 1, s);
                 platformID++;
+                configID++;
+                decodesScriptID++;
 
            }
         }

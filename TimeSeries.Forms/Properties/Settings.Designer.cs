@@ -173,5 +173,24 @@ namespace Reclamation.TimeSeries.Forms.Properties {
                 this["ServerDatabase"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
+<ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+  <string>lrgs1.pn.usbr.gov:timeseries   #postgresql</string>
+  <string>lrgs2.pn.usbr.gov:timeseries  #postgresql</string>
+  <string>127.0.0.1:timeseries    #mysql</string>
+  <string>127.0.0.1:timeseries   #postgresql</string>
+  <string>test:timeseries     #mysql</string>
+</ArrayOfString>")]
+        public global::System.Collections.Specialized.StringCollection DatabaseList {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["DatabaseList"]));
+            }
+            set {
+                this["DatabaseList"] = value;
+            }
+        }
     }
 }

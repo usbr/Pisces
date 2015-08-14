@@ -43,7 +43,7 @@ namespace HydrometServer
         public static void UpdateRatingTables(string configFile, bool generateNewTables = false)
         {
             Console.WriteLine("reading " + configFile);
-            var inputText = new CsvFile(configFile);
+            var inputText = new CsvFile(configFile, CsvFile.FieldTypes.AllText);
             var stationUpdateList = new List<string>();
             var attachments = new List<string>();
             List<string> attachmentRecipientList = new List<string>(); // additional recipients for USGS attachemnts
