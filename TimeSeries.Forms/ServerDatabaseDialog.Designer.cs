@@ -30,8 +30,7 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxServerDatabase = new System.Windows.Forms.TextBox();
-            this.comboBoxDbType = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // button1
@@ -53,27 +52,19 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "server:database   i.e. 127.0.0.1:timeseries";
             // 
-            // textBoxServerDatabase
+            // comboBox1
             // 
-            this.textBoxServerDatabase.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Reclamation.TimeSeries.Forms.Properties.Settings.Default, "ServerDatabase", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxServerDatabase.Location = new System.Drawing.Point(38, 39);
-            this.textBoxServerDatabase.Name = "textBoxServerDatabase";
-            this.textBoxServerDatabase.Size = new System.Drawing.Size(257, 20);
-            this.textBoxServerDatabase.TabIndex = 1;
-            this.textBoxServerDatabase.Text = global::Reclamation.TimeSeries.Forms.Properties.Settings.Default.ServerDatabase;
-            // 
-            // comboBoxDbType
-            // 
-            this.comboBoxDbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxDbType.FormattingEnabled = true;
-            this.comboBoxDbType.Items.AddRange(new object[] {
-            "postgresql",
-            "mysql"});
-            this.comboBoxDbType.Location = new System.Drawing.Point(22, 88);
-            this.comboBoxDbType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.comboBoxDbType.Name = "comboBoxDbType";
-            this.comboBoxDbType.Size = new System.Drawing.Size(68, 21);
-            this.comboBoxDbType.TabIndex = 3;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "lrgs1.pn.usbr.gov:timeseries   #postgresql",
+            "lrgs2.pn.usbr.gov:timeseries  #postgresql",
+            "127.0.0.1:timeseries    #mysql",
+            "127.0.0.1:timeseries   #postgresql",
+            "test:timeseries     #mysql"});
+            this.comboBox1.Location = new System.Drawing.Point(38, 47);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(249, 21);
+            this.comboBox1.TabIndex = 4;
             // 
             // ServerDatabaseDialog
             // 
@@ -81,9 +72,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(345, 123);
-            this.Controls.Add(this.comboBoxDbType);
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxServerDatabase);
             this.Controls.Add(this.button1);
             this.Name = "ServerDatabaseDialog";
             this.Text = "Connection Information";
@@ -95,8 +85,7 @@
         #endregion
 
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBoxServerDatabase;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxDbType;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
