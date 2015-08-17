@@ -17,7 +17,7 @@ namespace Reclamation.TimeSeries.Decodes
         DecodesDataSet decodes;
         UnitConversion m_converter;
         int platformID;
-        int configID;
+        int platformConfigID;
         int decodesScriptID;
      public McfDecodesConverter(PostgreSQL svr, McfDataSet mcf, DecodesDataSet decodes)
         {
@@ -35,7 +35,7 @@ namespace Reclamation.TimeSeries.Decodes
         int networklistid = SetupNetworkList(networkListName);
         InsertSite(siteFilter);
         platformID = NextID(svr, "platform");
-        configID = NextID(svr, "platformconfig");
+        platformConfigID = NextID(svr, "platformconfig");
         decodesScriptID = NextID(svr, "decodesscript");
         InsertGoesPlatform(siteFilter, networklistid);
         DecodesUtility.UpdateServer(svr, decodes);
@@ -110,8 +110,8 @@ namespace Reclamation.TimeSeries.Decodes
                 int siteID = LookupSiteIDFromCBTT(s.SITE.Trim());
 
                  
-                pc.AddplatformconfigRow(platformID, cfgName, s.DESCR, GetManufactureCode( s.DCPMFG ));
-                p.AddplatformRow(platformID, s.GetAgencyName(), "TRUE", siteID, platformID, platformDescription, DateTime.Now,
+                pc.AddplatformconfigRow(platformConfigID, cfgName, s.DESCR, GetManufactureCode( s.DCPMFG ));
+                p.AddplatformRow(platformID, s.GetAgencyName(), "TRUE", siteID, platformConfigID, platformDescription, DateTime.Now,
                        DateTime.Now.AddYears(100).Date, platformDesignator);
 
                 decodes.transportmedium.AddtransportmediumRow(platformID, "goes-self-timed", nessid, "ST",
@@ -139,13 +139,13 @@ namespace Reclamation.TimeSeries.Decodes
                if( s.DCPMFG == "A")
                    dataOrder = "A";
 
-                decodes.decodesscript.AdddecodesscriptRow(decodesScriptID, configID, "ST", "Decodes", dataOrder);
+                decodes.decodesscript.AdddecodesscriptRow(decodesScriptID, platformConfigID, "ST", "Decodes", dataOrder);
 
-                BuildDecodesScripts(sitesAtTransmitter.ToArray(), siteID, parameters, configID, decodesScriptID);
-                InsertBatteryVoltScript(configID, decodesScriptID,  parameters.Length + 1, s);
+                BuildDecodesScripts(sitesAtTransmitter.ToArray(), siteID, parameters, platformConfigID, decodesScriptID);
+                InsertBatteryVoltScript(platformConfigID, decodesScriptID,  parameters.Length + 1, s);
                 m_converter.AddBatteryVoltConverter(decodesScriptID, parameters.Length + 1, s);
                 platformID++;
-                configID++;
+                platformConfigID++;
                 decodesScriptID++;
 
            }
