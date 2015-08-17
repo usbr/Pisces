@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace Reclamation.Core
 {
@@ -12,8 +13,7 @@ namespace Reclamation.Core
     /// <summary>
     /// Starting time of performance measurement
     /// </summary>
-		 DateTime m_start; 
-
+         Stopwatch stopwatch1;
     /// <summary>
     /// Number of seconds elapsed so far
     /// </summary>
@@ -21,16 +21,10 @@ namespace Reclamation.Core
 		{
 			get
 			{
-                if (m_paused)
-                    return m_elapsed;
-
-				DateTime t = DateTime.Now;
-				TimeSpan diff = t.Subtract(this.m_start);
-                return diff.TotalSeconds + m_elapsed;
+                return stopwatch1.ElapsedMilliseconds * 1000.0;
 			}
 		}
 
-        double m_elapsed = 0;
 
     /// <summary>
     /// prints number of seconds elapsed
@@ -64,21 +58,17 @@ namespace Reclamation.Core
     /// </summary>
 		public Performance()
 		{
-          this.m_start = DateTime.Now;
-          m_elapsed = 0;
+            stopwatch1 = new Stopwatch();
 		}
 
         public void Continue()
         {
-            this.m_start = DateTime.Now;
-            m_paused = false;
+            stopwatch1.Start();
         }
 
-        bool m_paused = false;
         public void Pause()
         {
-            m_elapsed = ElapsedSeconds;
-            m_paused = true;
+            stopwatch1.Stop();
         }
 
     /// <summary>
