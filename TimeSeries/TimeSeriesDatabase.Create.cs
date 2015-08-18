@@ -22,7 +22,7 @@ namespace Reclamation.TimeSeries
             CreateLimitTable();
             CreateSiteTable();
             CreateSitePropertiesTable();
-            CreateSiteDetailsTable();
+            CreateRefParameterTable();
             CreateSeriesPropertiesTable();
 
             UpgradeDatabase();
@@ -98,20 +98,16 @@ namespace Reclamation.TimeSeries
             }
         }
 
-        private void CreateSiteDetailsTable()
+        private void CreateRefParameterTable()
         {
-            //if (!m_server.TableExists("sitedetails"))
-            //{
-            //    string sql = "Create Table sitedetails "
-            //    + "( siteid  " + m_server.PortableCharacterType(256) + " not null primary key, "
-            //    + " name " + m_server.PortableCharacterType(1024) + " not null default '', "
-            //    + " value " + m_server.PortableCharacterType(10) + " not null default '' "
-
-
-            //    + " )";
-            //    ExecuteCreateTable(m_server, sql);
-
-            //}
+            if (!m_server.TableExists("ref_parameter"))
+            {
+                string sql = "Create Table ref_parameter "
+                + "( id  " + m_server.PortableCharacterType(100) + " not null primary key, "
+                + " description " + m_server.PortableCharacterType(1024) + " not null default '' "
+                + " )";
+                ExecuteCreateTable(m_server, sql);
+            }
         }
 
         private void CreatePiscesInfoTable()
