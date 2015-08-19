@@ -218,7 +218,7 @@ namespace Reclamation.TimeSeries {
             
             public void AddsitecatalogRow(string siteid, string description, string state)
             {
-                AddsitecatalogRow(siteid, description, state,"","","","","","","",0,"","","","","");
+                AddsitecatalogRow(siteid, description, state,"","","","","","","",0,"","","","","","");
             }
 
             public bool Exists(string siteid)

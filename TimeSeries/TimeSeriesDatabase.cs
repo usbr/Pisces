@@ -563,7 +563,7 @@ namespace Reclamation.TimeSeries
             var rows = siteCatalog.Select("siteid='"+SiteID+"'");
             if (rows.Length == 0)  // check if site exists before creating.
             {
-                siteCatalog.AddsitecatalogRow(SiteID, SiteName, state, Lat, Lon, elevation, TimeZone, Install, "", "", 0, "", "", "", "", "");
+                siteCatalog.AddsitecatalogRow(SiteID, SiteName, state, Lat, Lon, elevation, TimeZone, Install, "", "", 0, "", "", "", "", "","");
                 Server.SaveTable(siteCatalog);
             }
 

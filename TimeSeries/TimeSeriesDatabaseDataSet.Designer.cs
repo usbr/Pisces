@@ -2273,6 +2273,8 @@ namespace Reclamation.TimeSeries {
             
             private global::System.Data.DataColumn columnresponsibility;
             
+            private global::System.Data.DataColumn columnagency_region;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public sitecatalogDataTable() {
@@ -2436,6 +2438,14 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn agency_regionColumn {
+                get {
+                    return this.columnagency_region;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2487,7 +2497,8 @@ namespace Reclamation.TimeSeries {
                         string tz_offset, 
                         string active_flag, 
                         string type, 
-                        string responsibility) {
+                        string responsibility, 
+                        string agency_region) {
                 sitecatalogRow rowsitecatalogRow = ((sitecatalogRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         siteid,
@@ -2505,7 +2516,8 @@ namespace Reclamation.TimeSeries {
                         tz_offset,
                         active_flag,
                         type,
-                        responsibility};
+                        responsibility,
+                        agency_region};
                 rowsitecatalogRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowsitecatalogRow);
                 return rowsitecatalogRow;
@@ -2551,6 +2563,7 @@ namespace Reclamation.TimeSeries {
                 this.columnactive_flag = base.Columns["active_flag"];
                 this.columntype = base.Columns["type"];
                 this.columnresponsibility = base.Columns["responsibility"];
+                this.columnagency_region = base.Columns["agency_region"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2588,6 +2601,8 @@ namespace Reclamation.TimeSeries {
                 base.Columns.Add(this.columntype);
                 this.columnresponsibility = new global::System.Data.DataColumn("responsibility", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnresponsibility);
+                this.columnagency_region = new global::System.Data.DataColumn("agency_region", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnagency_region);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnsiteid}, true));
                 this.columnsiteid.AllowDBNull = false;
@@ -4345,6 +4360,22 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string agency_region {
+                get {
+                    try {
+                        return ((string)(this[this.tablesitecatalog.agency_regionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'agency_region\' in table \'sitecatalog\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablesitecatalog.agency_regionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsdescriptionNull() {
                 return this.IsNull(this.tablesitecatalog.descriptionColumn);
             }
@@ -4521,6 +4552,18 @@ namespace Reclamation.TimeSeries {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetresponsibilityNull() {
                 this[this.tablesitecatalog.responsibilityColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isagency_regionNull() {
+                return this.IsNull(this.tablesitecatalog.agency_regionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setagency_regionNull() {
+                this[this.tablesitecatalog.agency_regionColumn] = global::System.Convert.DBNull;
             }
         }
         

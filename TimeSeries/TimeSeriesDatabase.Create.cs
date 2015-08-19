@@ -57,7 +57,8 @@ namespace Reclamation.TimeSeries
                 + " tz_offset " + m_server.PortableCharacterType(10) + "  not null default '',  "
                 + " active_flag " + m_server.PortableCharacterType(1) + " not null default 'T', "
                 + " type " + m_server.PortableCharacterType(100) + " not null default '', "
-                + " responsibility " + m_server.PortableCharacterType(30) + " not null default '' "
+                + " responsibility " + m_server.PortableCharacterType(30) + " not null default '' ,"
+                + " agency_region " + m_server.PortableCharacterType(30) + " not null default '' "
 
                 + " )";
                 ExecuteCreateTable(m_server, sql);

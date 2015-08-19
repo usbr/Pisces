@@ -37,6 +37,7 @@ namespace PiscesWebServices
 
          var siteProp = new TimeSeriesDatabaseDataSet.sitepropertiesDataTable(db);
 
+         int id = 0;
           foreach (var s in sites)
           {
               var pos = new GeographicPosition(s.latitude,s.longitude);
@@ -53,12 +54,14 @@ namespace PiscesWebServices
               }
 
 
-              props.Add("cbtt", s.siteid);
+              props.Add("siteid", s.siteid);
               props.Add("title", s.description);
               props.Add("state", s.state);
               props.Add("type", s.type);
+              props.Add("region", s.agency_region);
               props.Add("install", s.install);
-              var feature = new Feature(pt,props,s.siteid);
+              id++;
+              var feature = new Feature(pt,props,id.ToString());
 
               fc.Features.Add(feature);
           }
