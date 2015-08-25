@@ -105,7 +105,7 @@ namespace Reclamation.TimeSeries
             if( Valid)
             return interval + "_" + siteid + "_" + pcode;
 
-            throw new Exception("GetTableName(): Invalid name");
+            throw new Exception("GetTableName(): Invalid name :"+interval + "_" + siteid + "_" + pcode);
         }
 
          private void Parse()

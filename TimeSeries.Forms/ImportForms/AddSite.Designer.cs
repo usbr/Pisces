@@ -159,7 +159,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(861, 639);
+            this.tabControl1.Size = new System.Drawing.Size(859, 468);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage1
@@ -170,7 +170,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new System.Drawing.Size(853, 610);
+            this.tabPage1.Size = new System.Drawing.Size(851, 439);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "new site";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -183,7 +183,7 @@
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(847, 386);
+            this.dataGridView1.Size = new System.Drawing.Size(845, 215);
             this.dataGridView1.TabIndex = 4;
             // 
             // panel1
@@ -202,7 +202,7 @@
             this.panel1.Location = new System.Drawing.Point(3, 2);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(847, 220);
+            this.panel1.Size = new System.Drawing.Size(845, 220);
             this.panel1.TabIndex = 5;
             // 
             // groupBox2
@@ -482,17 +482,17 @@
             this.panel2.Controls.Add(this.buttonCancel);
             this.panel2.Controls.Add(this.buttonOK);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 550);
+            this.panel2.Location = new System.Drawing.Point(0, 468);
             this.panel2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(861, 89);
+            this.panel2.Size = new System.Drawing.Size(859, 85);
             this.panel2.TabIndex = 9;
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(747, 50);
+            this.buttonCancel.Location = new System.Drawing.Point(745, 46);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 28);
@@ -504,7 +504,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(747, 15);
+            this.buttonOK.Location = new System.Drawing.Point(745, 11);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(4);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 28);
@@ -518,9 +518,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(861, 639);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(859, 553);
             this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.panel2);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "AddSite";
             this.Text = "AddSite";

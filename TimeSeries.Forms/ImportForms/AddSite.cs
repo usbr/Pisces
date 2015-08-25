@@ -111,7 +111,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             string templateName = this.comboBox1.SelectedValue.ToString().ToLower();
             string newName = this.SiteID.ToLower();
             // find all folders with same name as siteID
-            var tbl = m_db.GetSeriesCatalog("siteid = '" + templateName + "'");
+            var tbl = m_db.GetSeriesCatalog("siteid = '" + templateName + "' and isfolder = 0");
             // replace template name with new siteid.
           //  m_seriesCatalog.Columns.Add("oldId", typeof(Int32));
             foreach (var item in tbl)
