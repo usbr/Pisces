@@ -223,6 +223,26 @@ namespace HydrometServer
                    }
                 }
 
+                if (args.Contains("update-period-of-record"))
+                {
+                    var sc = db.GetSeriesCatalog("isfolder=0");
+
+                    var prop = db.GetSeriesProperties(true);
+                    for (int i = 0; i < sc.Count; i++)
+                    {
+                        var s = db.GetSeries(sc[i].id);
+                        var por = s.GetPeriodOfRecord();
+
+                        if (por.Count > 0)
+                        {
+                            s.Properties.Set("t1", por.T1.ToString("yyyy-MM-dd"));
+                            s.Properties.Set("t2", por.T2.ToString("yyyy-MM-dd"));
+                            Console.WriteLine(s.Name);
+                        }
+                    }
+                    db.Server.SaveTable(prop);
+                }
+               
                 db.Server.Cleanup();
                 
 
@@ -295,6 +315,8 @@ namespace HydrometServer
             Console.WriteLine("--import-mpoll=/data/mpoll/mpoll.ind");
             Console.WriteLine("          imports data from VAX binary monthly file");
             Console.WriteLine("--update-daily=HydrometDailySeries");
+            Console.WriteLine("--update-period-of-record");
+            Console.WriteLine("          updates series properties with t1 and t2 for the data");
 
             // --update-daily=HydrometDailySeries --t1=lastyear
             // --update-daily=HDBDailySeries  --t2=yesterday
