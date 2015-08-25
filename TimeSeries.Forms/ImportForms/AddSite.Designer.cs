@@ -271,7 +271,7 @@
             // checkBoxCanal
             // 
             this.checkBoxCanal.AutoSize = true;
-            this.checkBoxCanal.Location = new System.Drawing.Point(10, 53);
+            this.checkBoxCanal.Location = new System.Drawing.Point(8, 53);
             this.checkBoxCanal.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxCanal.Name = "checkBoxCanal";
             this.checkBoxCanal.Size = new System.Drawing.Size(169, 21);
@@ -282,7 +282,7 @@
             // checkBoxGenericWeir
             // 
             this.checkBoxGenericWeir.AutoSize = true;
-            this.checkBoxGenericWeir.Location = new System.Drawing.Point(9, 135);
+            this.checkBoxGenericWeir.Location = new System.Drawing.Point(8, 135);
             this.checkBoxGenericWeir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxGenericWeir.Name = "checkBoxGenericWeir";
             this.checkBoxGenericWeir.Size = new System.Drawing.Size(278, 21);
@@ -294,7 +294,7 @@
             // checkBoxRectWeir
             // 
             this.checkBoxRectWeir.AutoSize = true;
-            this.checkBoxRectWeir.Location = new System.Drawing.Point(9, 114);
+            this.checkBoxRectWeir.Location = new System.Drawing.Point(8, 114);
             this.checkBoxRectWeir.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxRectWeir.Name = "checkBoxRectWeir";
             this.checkBoxRectWeir.Size = new System.Drawing.Size(293, 21);
@@ -306,7 +306,7 @@
             // checkBoxQuality
             // 
             this.checkBoxQuality.AutoSize = true;
-            this.checkBoxQuality.Location = new System.Drawing.Point(9, 90);
+            this.checkBoxQuality.Location = new System.Drawing.Point(8, 90);
             this.checkBoxQuality.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxQuality.Name = "checkBoxQuality";
             this.checkBoxQuality.Size = new System.Drawing.Size(245, 21);
@@ -328,7 +328,7 @@
             // checkBoxQ
             // 
             this.checkBoxQ.AutoSize = true;
-            this.checkBoxQ.Location = new System.Drawing.Point(9, 11);
+            this.checkBoxQ.Location = new System.Drawing.Point(8, 11);
             this.checkBoxQ.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxQ.Name = "checkBoxQ";
             this.checkBoxQ.Size = new System.Drawing.Size(167, 21);
@@ -339,7 +339,7 @@
             // checkBoxWaterTemp
             // 
             this.checkBoxWaterTemp.AutoSize = true;
-            this.checkBoxWaterTemp.Location = new System.Drawing.Point(9, 32);
+            this.checkBoxWaterTemp.Location = new System.Drawing.Point(8, 32);
             this.checkBoxWaterTemp.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxWaterTemp.Name = "checkBoxWaterTemp";
             this.checkBoxWaterTemp.Size = new System.Drawing.Size(135, 21);
