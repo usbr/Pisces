@@ -58,6 +58,7 @@ namespace PiscesWebServices
               props.Add("title", s.description);
               props.Add("state", s.state);
               props.Add("type", s.type);
+              if( !props.ContainsKey("region"))
               props.Add("region", s.agency_region);
               props.Add("install", s.install);
               id++;
