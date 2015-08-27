@@ -233,12 +233,19 @@ namespace HydrometServer
                         var s = db.GetSeries(sc[i].id);
                         var por = s.GetPeriodOfRecord();
 
-                        if (por.Count > 0)
+                        s.Properties.Set("count", por.Count.ToString());
+
+                        if (por.Count == 0)
+                        {
+                            s.Properties.Set("t1", "");
+                            s.Properties.Set("t2", "");
+                        }
+                        else
                         {
                             s.Properties.Set("t1", por.T1.ToString("yyyy-MM-dd"));
                             s.Properties.Set("t2", por.T2.ToString("yyyy-MM-dd"));
-                            Console.WriteLine(s.Name);
                         }
+                        Console.WriteLine(s.Name);
                     }
                     db.Server.SaveTable(prop);
                 }
