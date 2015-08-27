@@ -118,7 +118,7 @@ namespace Reclamation.TimeSeries.Hydromet
                     date = date.Date.AddDays(-1);
 
 
-            string cmd = "$ interpret/nodebug acm " + date.ToString("yyyyMMMdd") + " " + stationName + " " + pcode;
+             string cmd = ArchiveCommand(stationName, pcode, date);
 
             if (arcCommands.IndexOf(cmd) < 0 && date.Date < DateTime.Now.Date)
             {
@@ -129,12 +129,12 @@ namespace Reclamation.TimeSeries.Hydromet
                     && HydrometInfoUtility.ArchiverEnabled(stationName,"AF"))
                 {
                     // run archiver for AF
-                    arcCommands.Add("$ interpret/nodebug acm " + date.ToString("yyyyMMMdd") + " " + stationName + " AF");
+                    arcCommands.Add(ArchiveCommand(stationName, "AF",date));
                 }
                 if (pcode.Trim().ToLower() == "gh" && HydrometInfoUtility.ArchiverEnabled(stationName,"Q"))
                 {
                     // run archiver for q
-                    arcCommands.Add("$ interpret/nodebug acm " + date.ToString("yyyyMMMdd") + " " + stationName + " Q");
+                    arcCommands.Add(ArchiveCommand(stationName, "Q",date));
                 }
             }
 
@@ -144,6 +144,21 @@ namespace Reclamation.TimeSeries.Hydromet
                 modcbtt.Add(stationName.Trim().ToLower());
             }
 
+        }
+
+        public static string ArchiveCommand(string cbtt, string pcode, DateTime date)
+        {
+            HydrometHost svr = HydrometInfoUtility.HydrometServerFromPreferences();
+
+            if (cbtt.Trim() == "")
+                throw new ArgumentException("cbtt cannot be blank");
+            var acm = "acm";
+            if (svr == HydrometHost.GreatPlains)
+            {
+                acm = "acm_hydro";
+            }
+            string cmd = "$ interpret " + acm + "/nodebug " + date.ToString("yyyyMMMdd") + " " + cbtt + " " + pcode;
+            return cmd;
         }
 
         private static bool MidnightParameter(string pcode)

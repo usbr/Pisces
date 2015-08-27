@@ -422,32 +422,25 @@ namespace Reclamation.TimeSeries.Hydromet
         }
 
         /// <summary>
-        /// Calculates a 30 year average for a Hydromet Series
+        /// Calculates a multi year average for a Hydromet Series
         /// </summary>
         /// <param name="cbtt">Hydromet CBTT</param>
         /// <param name="pCode">Hydromet PCode</param>
-        /// <param name="yearEnd">End of 30year date range (1990, 2000, 2010, ...)</param>
         /// <returns></returns>
-        public static Series Get30YearAverage(string cbtt, string pCode, int yearEnd,HydrometHost svr)
+        public static Series GetMultiYearAverage(string cbtt, string pCode, HydrometHost svr, DateTime t1, DateTime t2)
         {
             // Define input and output series
             Series sOut = new Series();
             var s = new HydrometDailySeries(cbtt, pCode,svr);
-            // Define date ranges to read
-            int year1 = yearEnd - 29;
-            var t1 = new DateTime(year1 - 1, 10, 1);
-            var t2 = new DateTime(yearEnd, 9, 30);
-            // Define output date range
-          //  int year = Convert.ToInt16(year1.ToString().Remove(0, 2) + yearEnd.ToString().Remove(0, 2));
-            //int t3 = (year) - 1;
-            // Read data
             s.Read(t1, t2);
             // Get daily average, shift to the output date range, and label
             var sTemp = Reclamation.TimeSeries.Math.MultiYearDailyAverage(s, 10);
             sOut = Reclamation.TimeSeries.Math.ShiftToYear(sTemp, 2000);
             sOut.Provider = "Series";
             sOut.ScenarioName = "";
-            sOut.Name = cbtt + "_" + pCode + "_" + t1.Year + "to" + t2.Year + "_30YearDailyAverage";
+
+            var yrs = (t2 - t1).Days / 365;
+            sOut.Name = cbtt + "_" + pCode + "_" + t1.Year + "to" + t2.Year + "_"+yrs +"YearDailyAverage";
             sOut.Appearance.LegendText = sOut.Name;
             return sOut;
         }
