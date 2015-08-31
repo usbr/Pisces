@@ -89,12 +89,17 @@ namespace Reclamation.TimeSeries
                 string sql = "Create Table seriesproperties "
                 + "( id int not null primary key, "
                 + " seriesid int not null default 0, " // + m_server.PortableCharacterType(256) + " not null default 0, "
-                + " name " + m_server.PortableCharacterType(1024) + " not null default '', "
+                + " name " + m_server.PortableCharacterType(100) + " not null default '', "
                 + " value " + m_server.PortableCharacterType(10) + " not null default '' "
 
 
                 + " )";
                 ExecuteCreateTable(m_server, sql);
+
+                sql = " ALTER TABLE seriesproperties  "
+                    + " ADD UNIQUE INDEX idx1 (seriesid ASC, `name` ASC)";
+
+                m_server.RunSqlCommand(sql);
 
             }
         }
