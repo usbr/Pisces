@@ -96,13 +96,18 @@ namespace Reclamation.TimeSeries
                 + " )";
                 ExecuteCreateTable(m_server, sql);
 
+                
                 sql = " ALTER TABLE seriesproperties  "
                     + " ADD UNIQUE INDEX idx1 (seriesid ASC, `name` ASC)"; //mysql
+
+                if (m_server is MySqlServer)
+                    m_server.RunSqlCommand(sql);
 
                 sql = " ALTER TABLE siteproperties "
                     + " ADD CONSTRAINT idx1 UNIQUE(siteid, name);"; // postgresql
 
-                m_server.RunSqlCommand(sql);
+                if( m_server is PostgreSQL)
+                   m_server.RunSqlCommand(sql);
 
             }
         }
