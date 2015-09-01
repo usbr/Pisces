@@ -17,8 +17,10 @@ namespace Reclamation.TimeSeries.Parser
     /// </summary>
     public class HydrometVariableResolver:VariableResolver
     {
-        public HydrometVariableResolver():base()
+        HydrometHost svr;
+        public HydrometVariableResolver(HydrometHost h= HydrometHost.PN):base()
         {
+            svr = h;
         }
 
 
@@ -45,15 +47,15 @@ namespace Reclamation.TimeSeries.Parser
 
                 if (interval ==  TimeInterval.Monthly)
                 {
-                    s = new HydrometMonthlySeries(tn.siteid, tn.pcode);
+                    s = new HydrometMonthlySeries(tn.siteid, tn.pcode,svr);
                 }
                 else if (interval == TimeInterval.Irregular)
                 {
-                    s = new HydrometInstantSeries(tn.siteid, tn.pcode);
+                    s = new HydrometInstantSeries(tn.siteid, tn.pcode,svr);
                 }
                 else if (interval == TimeInterval.Daily)
                 {
-                    s = new HydrometDailySeries(tn.siteid, tn.pcode);
+                    s = new HydrometDailySeries(tn.siteid, tn.pcode,svr);
                 }
 
                 return new ParserResult(s);

@@ -97,7 +97,10 @@ namespace Reclamation.TimeSeries
                 ExecuteCreateTable(m_server, sql);
 
                 sql = " ALTER TABLE seriesproperties  "
-                    + " ADD UNIQUE INDEX idx1 (seriesid ASC, `name` ASC)";
+                    + " ADD UNIQUE INDEX idx1 (seriesid ASC, `name` ASC)"; //mysql
+
+                sql = " ALTER TABLE siteproperties "
+                    + " ADD CONSTRAINT idx1 UNIQUE(siteid, name);"; // postgresql
 
                 m_server.RunSqlCommand(sql);
 

@@ -49,7 +49,8 @@ namespace Reclamation.TimeSeries.Forms.Calculations
         {
             string errorMessage = "";
             m_series.TimeInterval = basicEquation1.TimeInterval;
-            if (m_series.IsValidExpression(basicEquation1.SeriesExpression, out errorMessage))
+            if ( m_series.TimeSeriesDatabase.Parser.VariableResolver is Parser.HydrometVariableResolver 
+               || m_series.IsValidExpression(basicEquation1.SeriesExpression, out errorMessage))
             {
                 m_series.Expression = basicEquation1.SeriesExpression;
                 var a = this.basicEquation1.SeriesName;

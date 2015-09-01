@@ -58,8 +58,8 @@ namespace Pisces
                     SQLiteServer.CreateNewDatabase(fileName);
                 }
 
+                HydrometInfoUtility.SetDefaultHydrometServer();
 
-                UserPreference.SetDefault("HydrometServer", HydrometHost.PN.ToString(), false);
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
@@ -74,10 +74,6 @@ namespace Pisces
                 
                 explorer.Open(fileName);
                  db = explorer.Database;
-                db.OnReadSettingsFromDatabase += new EventHandler<TimeSeriesDatabaseSettingsEventArgs>(db_OnReadSettingsFromDatabase);
-                db.OnSaveSettingsToDatabase += new EventHandler<TimeSeriesDatabaseSettingsEventArgs>(db_OnSaveSettingsToDatabase);
-
-                db_OnReadSettingsFromDatabase(null, new TimeSeriesDatabaseSettingsEventArgs(db.Settings, explorer.TimeWindow));
 
                 piscesForm1 = new PiscesForm(explorer);
 
@@ -103,57 +99,9 @@ namespace Pisces
         }
 
 
-        static void db_OnReadSettingsFromDatabase(object sender, TimeSeriesDatabaseSettingsEventArgs e)
-        {
-            var m_settings = e.Settings;
-            HydrometInfoUtility.WebCaching = m_settings.ReadBoolean("HydrometWebCaching", false);
-            HydrometInfoUtility.AutoUpdate = m_settings.ReadBoolean("HydrometAutoUpdate", false);
-            HydrometInstantSeries.KeepFlaggedData = m_settings.ReadBoolean("HydrometIncludeFlaggedData", false);
-            HydrometInfoUtility.WebOnly = m_settings.ReadBoolean("HydrometWebOnly", false);
-            Reclamation.TimeSeries.Usgs.Utility.AutoUpdate = m_settings.ReadBoolean("UsgsAutoUpdate", false);
-            //  db.se
-            
-            Reclamation.TimeSeries.Modsim.ModsimSeries.DisplayFlowInCfs = m_settings.ReadBoolean("ModsimDisplayFlowInCfs", false);
-            SpreadsheetGearSeries.AutoUpdate = m_settings.ReadBoolean("ExcelAutoUpdate", true);
-
-            var w = e.Window;
-            w.FromToDatesT1 = m_settings.ReadDateTime("FromToDatesT1", w.FromToDatesT1);
-            w.FromToDatesT2 = m_settings.ReadDateTime("FromToDatesT2", w.FromToDatesT2);
-            w.FromDateToTodayT1 = m_settings.ReadDateTime("FromDateToTodayT1", w.FromDateToTodayT1);
-            w.NumDaysFromToday = m_settings.ReadDecimal("NumDaysFromToday", w.NumDaysFromToday);
-
-            string s = m_settings.ReadString("TimeWindowType", "FromToDates");
-            w.WindowType = (TimeWindowType)System.Enum.Parse(typeof(TimeWindowType), s);
-            db.AutoRefresh = m_settings.ReadBoolean("AutoRefresh", true);
-        }
-
-        static void db_OnSaveSettingsToDatabase(object sender, TimeSeriesDatabaseSettingsEventArgs e)
-        {
-            var m_settings = e.Settings;
-            m_settings.Set("HydrometWebCaching", HydrometInfoUtility.WebCaching);
-            m_settings.Set("HydrometAutoUpdate", HydrometInfoUtility.AutoUpdate);
-            m_settings.Set("HydrometIncludeFlaggedData", HydrometInstantSeries.KeepFlaggedData);
-            m_settings.Set("HydrometWebOnly", HydrometInfoUtility.WebOnly);
-
-            m_settings.Set("UsgsAutoUpdate", Reclamation.TimeSeries.Usgs.Utility.AutoUpdate);
-            m_settings.Set("ModsimDisplayFlowInCfs", Reclamation.TimeSeries.Modsim.ModsimSeries.DisplayFlowInCfs);
-
-            var w = e.Window;
-            m_settings.Set("FromToDatesT1", w.FromToDatesT1);
-            m_settings.Set("FromToDatesT2", w.FromToDatesT2);
-            m_settings.Set("FromDateToTodayT1", w.FromDateToTodayT1);
-            m_settings.Set("NumDaysFromToday", w.NumDaysFromToday);
-            m_settings.Set("TimeWindowType", w.WindowType.ToString());
-
-            m_settings.Set("AutoRefresh", db.AutoRefresh);
-
-            m_settings.Set("ExcelAutoUpdate", SpreadsheetGearSeries.AutoUpdate);
-            m_settings.Save();
-        }
 
         static void explorerForm1_FormClosed(object sender, FormClosedEventArgs e)
         {
-
             Pisces.Properties.Settings.Default.Save();
             
         }

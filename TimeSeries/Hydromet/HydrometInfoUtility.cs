@@ -164,7 +164,22 @@ namespace Reclamation.TimeSeries.Hydromet
 
             return HydrometHost.PN;
         }
+        /// <summary>
+        /// Based on configuration settings and IP address determines 
+        /// the default Hydromet server
+        /// </summary>
+        public static void SetDefaultHydrometServer()
+        {
+            var yak = System.Configuration.ConfigurationManager.AppSettings["YakimaNetworkPrefix"];
+            var gp = System.Configuration.ConfigurationManager.AppSettings["GPNetworkPrefix"];
 
+            if (NetworkUtility.MyIpStartsWith(yak))
+                UserPreference.SetDefault("HydrometServer", HydrometHost.Yakima.ToString(), false);
+            else if (NetworkUtility.MyIpStartsWith(gp))
+                UserPreference.SetDefault("HydrometServer", HydrometHost.GreatPlains.ToString(), false);
+            else
+                UserPreference.SetDefault("HydrometServer", HydrometHost.PN.ToString(), false);
+        }
 
         internal static void ParseConnectionString(string connectionString, out HydrometHost svr, out string cbtt, out string pcode)
         {

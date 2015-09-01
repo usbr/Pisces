@@ -161,9 +161,15 @@ namespace Reclamation.TimeSeries
             m_settings.Set("LookupOption", lookup.ToString());
             m_settings.Save();
 
+
             m_parser = new SeriesExpressionParser(this, lookup);
+            if (m_settings.ReadBoolean("HydrometVariableResolver", false))
+            {
+                var svr = Hydromet.HydrometInfoUtility.HydrometServerFromPreferences();
+                m_parser.VariableResolver = new HydrometVariableResolver(svr);
+            }
+
             factory = new TimeSeriesFactory(this);
-            
 
             SetUnixDateTime(UnixDateTime);
         }

@@ -15,6 +15,8 @@ using Reclamation.TimeSeries.Nrcs;
 using System.Collections.Generic;
 using Pisces;
 using System.Configuration;
+using Reclamation.TimeSeries.Hydromet;
+
 namespace Reclamation.TimeSeries.Forms
 {
 
@@ -340,7 +342,7 @@ namespace Reclamation.TimeSeries.Forms
                 try
                 {
                     ShowAsBusy("connecting to hydromet");
-                    Series s = Hydromet.HydrometInfoUtility.Read(dlg.Cbtt, dlg.ParameterCode, dlg.T1, dlg.T2,
+                    Series s = HydrometInfoUtility.Read(dlg.Cbtt, dlg.ParameterCode, dlg.T1, dlg.T2,
                         dlg.TimeInterval, dlg.HydrometServer);
 
                     if (s.Count == 0)

@@ -249,6 +249,12 @@
       <DependentUpon>TimeSeriesZedGraph.cs</DependentUpon>
     </Compile>
     <Compile Include="Graphing\ZedGraphDataLoader.cs" />
+    <Compile Include="Hydromet\ServerSelection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Hydromet\ServerSelection.Designer.cs">
+      <DependentUpon>ServerSelection.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImportForms\AddSeries.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -607,6 +613,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Graphing\TimeSeriesZedGraph.resx">
       <DependentUpon>TimeSeriesZedGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hydromet\ServerSelection.resx">
+      <DependentUpon>ServerSelection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportForms\AddSeries.resx">
       <DependentUpon>AddSeries.cs</DependentUpon>

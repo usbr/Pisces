@@ -10,6 +10,8 @@ using Reclamation.TimeSeries.Graphing;
 using Pisces;
 using Reclamation.TimeSeries.Parser;
 using Reclamation.TimeSeries;
+using Reclamation.TimeSeries.Hydromet;
+
 namespace Reclamation.TimeSeries.Forms
 {
     /// <summary>
@@ -806,10 +808,10 @@ namespace Reclamation.TimeSeries.Forms
             Options o = new Options();
             
            
-            o.HydrometUseWebCache = Hydromet.HydrometInfoUtility.WebCaching;
-            o.HydrometAutoUpdate = Hydromet.HydrometInfoUtility.AutoUpdate;
-            o.HydrometIncludeFlaggedData = Hydromet.HydrometInstantSeries.KeepFlaggedData;
-            o.HydrometWebOnly = Hydromet.HydrometInfoUtility.WebOnly;
+            o.HydrometUseWebCache = HydrometInfoUtility.WebCaching;
+            o.HydrometAutoUpdate = HydrometInfoUtility.AutoUpdate;
+            o.HydrometIncludeFlaggedData = HydrometInstantSeries.KeepFlaggedData;
+            o.HydrometWebOnly = HydrometInfoUtility.WebOnly;
             o.DecodesOutputDirectory = DB.Settings.ReadString("DecodesOutputDirectory","");
             o.UsgsDailyAutoUpdate = Usgs.Utility.AutoUpdate;
             o.MultipleYAxis = DB.Settings.ReadBoolean("MultipleYAxis", false);
@@ -822,10 +824,10 @@ namespace Reclamation.TimeSeries.Forms
 
             if (o.ShowDialog() == DialogResult.OK)
             {
-                Hydromet.HydrometInfoUtility.WebCaching = o.HydrometUseWebCache;
-                Hydromet.HydrometInfoUtility.AutoUpdate = o.HydrometAutoUpdate;
-                Hydromet.HydrometInstantSeries.KeepFlaggedData = o.HydrometIncludeFlaggedData;
-                Hydromet.HydrometInfoUtility.WebOnly = o.HydrometWebOnly;
+                HydrometInfoUtility.WebCaching = o.HydrometUseWebCache;
+                HydrometInfoUtility.AutoUpdate = o.HydrometAutoUpdate;
+                HydrometInstantSeries.KeepFlaggedData = o.HydrometIncludeFlaggedData;
+                HydrometInfoUtility.WebOnly = o.HydrometWebOnly;
 
                 DB.Settings.Set("DecodesOutputDirectory", o.DecodesOutputDirectory);
                 DB.Settings.Set("MultipleYAxis", o.MultipleYAxis);

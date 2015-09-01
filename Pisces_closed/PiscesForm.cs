@@ -10,6 +10,8 @@ using Reclamation.TimeSeries.Graphing;
 using Pisces;
 using Reclamation.TimeSeries.Parser;
 using Reclamation.TimeSeries;
+using Reclamation.TimeSeries.Hydromet;
+
 namespace Reclamation.TimeSeries.Forms
 {
     /// <summary>
@@ -168,6 +170,8 @@ namespace Reclamation.TimeSeries.Forms
 
         void DatabaseChanged()
         {
+            DB.OnReadSettingsFromDatabase += DB_OnReadSettingsFromDatabase;
+            DB.OnSaveSettingsToDatabase += DB_OnSaveSettingsToDatabase;
             tree1.SetModel(new TimeSeriesTreeModel ( explorer1.Database));
 
             this.Text = explorer1.Database.DataSource + " - Pisces";
@@ -179,6 +183,55 @@ namespace Reclamation.TimeSeries.Forms
             explorer1.View.SeriesList.Clear();
             explorer1.View.Clear();
             explorer1.Run();
+        }
+
+        private void DB_OnSaveSettingsToDatabase(object sender, TimeSeriesDatabaseSettingsEventArgs e)
+        {
+            var m_settings = e.Settings;
+            m_settings.Set("HydrometWebCaching", HydrometInfoUtility.WebCaching);
+            m_settings.Set("HydrometAutoUpdate", HydrometInfoUtility.AutoUpdate);
+            m_settings.Set("HydrometIncludeFlaggedData", HydrometInstantSeries.KeepFlaggedData);
+            m_settings.Set("HydrometWebOnly", HydrometInfoUtility.WebOnly);
+
+            m_settings.Set("UsgsAutoUpdate", Reclamation.TimeSeries.Usgs.Utility.AutoUpdate);
+            m_settings.Set("ModsimDisplayFlowInCfs", Reclamation.TimeSeries.Modsim.ModsimSeries.DisplayFlowInCfs);
+
+            var w = e.Window;
+            m_settings.Set("FromToDatesT1", w.FromToDatesT1);
+            m_settings.Set("FromToDatesT2", w.FromToDatesT2);
+            m_settings.Set("FromDateToTodayT1", w.FromDateToTodayT1);
+            m_settings.Set("NumDaysFromToday", w.NumDaysFromToday);
+            m_settings.Set("TimeWindowType", w.WindowType.ToString());
+
+            m_settings.Set("AutoRefresh", DB.AutoRefresh);
+
+            //  m_settings.Set("ExcelAutoUpdate", SpreadsheetGearSeries.AutoUpdate);
+            m_settings.Save();
+
+        }
+
+        private void DB_OnReadSettingsFromDatabase(object sender, TimeSeriesDatabaseSettingsEventArgs e)
+        {
+            var m_settings = e.Settings;
+            HydrometInfoUtility.WebCaching = m_settings.ReadBoolean("HydrometWebCaching", false);
+            HydrometInfoUtility.AutoUpdate = m_settings.ReadBoolean("HydrometAutoUpdate", false);
+            HydrometInstantSeries.KeepFlaggedData = m_settings.ReadBoolean("HydrometIncludeFlaggedData", false);
+            HydrometInfoUtility.WebOnly = m_settings.ReadBoolean("HydrometWebOnly", false);
+            Reclamation.TimeSeries.Usgs.Utility.AutoUpdate = m_settings.ReadBoolean("UsgsAutoUpdate", false);
+            //  db.se
+
+            Reclamation.TimeSeries.Modsim.ModsimSeries.DisplayFlowInCfs = m_settings.ReadBoolean("ModsimDisplayFlowInCfs", false);
+            //SpreadsheetGearSeries.AutoUpdate = m_settings.ReadBoolean("ExcelAutoUpdate", true);
+
+            var w = e.Window;
+            w.FromToDatesT1 = m_settings.ReadDateTime("FromToDatesT1", w.FromToDatesT1);
+            w.FromToDatesT2 = m_settings.ReadDateTime("FromToDatesT2", w.FromToDatesT2);
+            w.FromDateToTodayT1 = m_settings.ReadDateTime("FromDateToTodayT1", w.FromDateToTodayT1);
+            w.NumDaysFromToday = m_settings.ReadDecimal("NumDaysFromToday", w.NumDaysFromToday);
+
+            string s = m_settings.ReadString("TimeWindowType", "FromToDates");
+            w.WindowType = (TimeWindowType)System.Enum.Parse(typeof(TimeWindowType), s);
+            DB.AutoRefresh = m_settings.ReadBoolean("AutoRefresh", true);
         }
 
         void explorer_OnProgress(object sender, ProgressEventArgs e)
@@ -794,7 +847,8 @@ namespace Reclamation.TimeSeries.Forms
                             var cs = list[i] as CalculationSeries;
                             if (DB.Settings.ReadBoolean("HydrometVariableResolver", false))
                             { // this reads data from hydromet server, over http, instead of 'this' database
-                                cs.Parser.VariableResolver = new HydrometVariableResolver();
+                                var svr = HydrometInfoUtility.HydrometServerFromPreferences();
+                                cs.Parser.VariableResolver = new HydrometVariableResolver(svr);
 
                             }
 
@@ -821,10 +875,10 @@ namespace Reclamation.TimeSeries.Forms
             Options o = new Options();
             
            
-            o.HydrometUseWebCache = Hydromet.HydrometInfoUtility.WebCaching;
-            o.HydrometAutoUpdate = Hydromet.HydrometInfoUtility.AutoUpdate;
-            o.HydrometIncludeFlaggedData = Hydromet.HydrometInstantSeries.KeepFlaggedData;
-            o.HydrometWebOnly = Hydromet.HydrometInfoUtility.WebOnly;
+            o.HydrometUseWebCache = HydrometInfoUtility.WebCaching;
+            o.HydrometAutoUpdate = HydrometInfoUtility.AutoUpdate;
+            o.HydrometIncludeFlaggedData = HydrometInstantSeries.KeepFlaggedData;
+            o.HydrometWebOnly = HydrometInfoUtility.WebOnly;
             o.DecodesOutputDirectory = DB.Settings.ReadString("DecodesOutputDirectory","");
             o.UsgsDailyAutoUpdate = Usgs.Utility.AutoUpdate;
             o.MultipleYAxis = DB.Settings.ReadBoolean("MultipleYAxis", false);
@@ -837,10 +891,10 @@ namespace Reclamation.TimeSeries.Forms
 
             if (o.ShowDialog() == DialogResult.OK)
             {
-                Hydromet.HydrometInfoUtility.WebCaching = o.HydrometUseWebCache;
-                Hydromet.HydrometInfoUtility.AutoUpdate = o.HydrometAutoUpdate;
-                Hydromet.HydrometInstantSeries.KeepFlaggedData = o.HydrometIncludeFlaggedData;
-                Hydromet.HydrometInfoUtility.WebOnly = o.HydrometWebOnly;
+                HydrometInfoUtility.WebCaching = o.HydrometUseWebCache;
+                HydrometInfoUtility.AutoUpdate = o.HydrometAutoUpdate;
+                HydrometInstantSeries.KeepFlaggedData = o.HydrometIncludeFlaggedData;
+                HydrometInfoUtility.WebOnly = o.HydrometWebOnly;
 
                 DB.Settings.Set("DecodesOutputDirectory", o.DecodesOutputDirectory);
                 DB.Settings.Set("MultipleYAxis", o.MultipleYAxis);
