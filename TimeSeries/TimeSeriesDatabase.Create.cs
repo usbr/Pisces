@@ -109,6 +109,7 @@ namespace Reclamation.TimeSeries
                 if( m_server is PostgreSQL)
                    m_server.RunSqlCommand(sql);
 
+                // to do sqlite
             }
         }
 
