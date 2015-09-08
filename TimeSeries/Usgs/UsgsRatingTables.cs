@@ -164,6 +164,29 @@ namespace Reclamation.TimeSeries.Usgs
             return rval;
         }
 
+        /// <summary>
+        /// Compares data in two usgs rdb files, ignoring comments at the beginning
+        /// </summary>
+        /// <param name="tf1"></param>
+        /// <param name="tf2"></param>
+        /// <returns>true if there are differences in the data</returns>
+        public static bool Diff(TextFile tf1, TextFile tf2)
+        {
+
+            if (tf1.Length != tf2.Length)
+                return true; //different number of lines in file
+
+            var idx1 = tf1.IndexOfRegex(@"^INDEP\s*SHIFT\s*DEP\s*STOR");
+            var idx2 = tf2.IndexOfRegex(@"^INDEP\s*SHIFT\s*DEP\s*STOR");
+
+            for (int i = 0; i < tf1.Length; i++)
+            {
+                if (tf1[idx1 + i] != tf2[idx2 + i])
+                    return true;
+            }
+
+            return false;
+        }
 
         public void CreateFullRatingTableFromWeb()
         { CreateFullRatingTable(this.webRdbTable); }

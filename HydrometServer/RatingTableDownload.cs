@@ -144,9 +144,12 @@ namespace HydrometServer
                 // Get old RTF currently on file and copy it into temp. This is done to enable overwriting if the web file has been updated.
                 fileRdbTable = GetRDBTableFromFile(cbtt, hydrometRTFs);
                 // Compare
-                var fileDiff = TextFile.Compare(fileRdbTable, webRdbTable);
+                var diff = (TextFile.Compare(fileRdbTable, webRdbTable).Length != 0);
+                if (agency == "USGS")
+                    diff = UsgsRatingTable.Diff(fileRdbTable, webRdbTable);
+
                 // Save new RTF file to repository and generate new HJ and Q tables if the file was updated
-                if (fileDiff.Count() != 0 || generateNewTables)
+                if (diff || generateNewTables)
                 {
                     stationUpdateList.Add(@"<a href=""" + urlDownload + @""">" + cbtt + " (" + agency + " " + stationID + ")</a>  updated existing table");
                     // Copy old RDB to _Attic and save new RDB to repository
