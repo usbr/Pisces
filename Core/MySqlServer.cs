@@ -107,6 +107,11 @@ namespace Reclamation.Core
         public override void FillTable(DataTable dataTable, string sql)
         {
             base.SqlCommands.Add("Fill(" + dataTable.TableName + ")");
+            if (dataTable.TableName == "")
+            {
+                dataTable.TableName = "table1";
+            }
+
             string strAccessSelect = sql;
 
             var myAccessConn = new MySqlConnection(ConnectionString);

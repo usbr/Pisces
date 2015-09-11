@@ -158,8 +158,14 @@ namespace Reclamation.TimeSeries
         private void InitWithLookup(BasicDBServer server, LookupOption lookup)
         {
             InitDatabaseSettings(server);
-            m_settings.Set("LookupOption", lookup.ToString());
-            m_settings.Save();
+
+            var look = m_settings.Get("LookupOption", LookupOption.SeriesName.ToString());
+
+            if (look != lookup.ToString())
+             {
+                m_settings.Set("LookupOption", lookup.ToString());
+                m_settings.Save();
+             }
 
 
             m_parser = new SeriesExpressionParser(this, lookup);
