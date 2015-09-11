@@ -293,6 +293,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="images\Fish_icon_3.ico" />
+    <Content Include="images\hdb.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\owrd.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

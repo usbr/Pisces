@@ -28,7 +28,7 @@ namespace Reclamation.TimeSeries.HDB
             m_sdi = sdi;
             m_server = server;
             this.TimeInterval = TimeSeries.TimeInterval.Daily;
-            Source = ""; //  need icon for HDB
+            Source = "hdb"; //  need icon for HDB
             Provider = "HDBSeries";
             ConnectionString = "server=" + m_server
             + ";sdi=" + m_sdi 
