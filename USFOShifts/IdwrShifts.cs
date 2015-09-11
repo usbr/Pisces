@@ -20,6 +20,11 @@ namespace USFOShifts
         static void Main(string[] args)
         
         {
+            if( args.Length != 2)
+            {
+                Console.WriteLine("usage: USFOShifts shift.csv oldshift.csv");
+                return;
+            }
             List<string> recipients = new List<string>();
             //recipients.Add("amonek@usbr.gov");
             //recipients.Add("Helga.King@idwr.idaho.gov");
@@ -27,24 +32,25 @@ namespace USFOShifts
 
 
             string idwrFile = "shifts.html";
-            string cleanFile = "shifts.csv";
-            string oldFile = @"c:\temp\attic\shifts.csv";
+            string cleanFile = args[0];
+            string oldFile = args[1];
+
             string[] cbtt = {"AFCI","BFCI","BMCI","CBCI","CRCI","ELCI","ENTI","GWCI","IDCI","LABI","LPPI",
                                 "MIII","MLCI","MPCI","NMCI","OSCI","PLCI","RECI","RSDI","SMCI","SNDI","TCNI",
                                 "TRCI","WACI"};
 
-            
+
             //would store the old csv file in the attic and check it against yesterdays shifts
-            //if (File.Exists(cleanFile))
-            //{
-            //    var str = File.ReadAllText(cleanFile);
-            //    File.WriteAllText(oldFile, str);
-            //    File.Delete(cleanFile);
-            //}
+            if (File.Exists(cleanFile))
+            {
+                var str = File.ReadAllText(cleanFile);
+                File.WriteAllText(oldFile, str);
+                File.Delete(cleanFile);
+            }
 
             // This is for testing we would get a new html each time we check for a new shift
-            if( !File.Exists(idwrFile))
-                Web.GetFile("http://www.waterdistrict1.com/SHIFTS.htm", idwrFile);
+            //if ( !File.Exists(idwrFile))
+             Web.GetFile("http://www.waterdistrict1.com/SHIFTS.htm", idwrFile);
             
             string html = File.ReadAllText(idwrFile);
             Console.WriteLine("input html is " + html.Length + " chars");
@@ -59,7 +65,17 @@ namespace USFOShifts
             
             //Compare files and add shift into pisces
             var csvNew = new CsvFile(cleanFile, CsvFile.FieldTypes.AutoDetect);
-            var csvOld = new CsvFile(oldFile, CsvFile.FieldTypes.AutoDetect);
+            CsvFile csvOld;
+            if (!File.Exists(oldFile))
+            {
+                var tmp = new List<string>();
+                var x = File.ReadAllLines(cleanFile);
+                tmp.Add(x[0]);
+                File.WriteAllLines(oldFile, tmp.ToArray());
+            }
+
+            csvOld = new CsvFile(oldFile, CsvFile.FieldTypes.AutoDetect);
+
             string emailMsg = "Updates have been made to the following shifts: ";
 
             for (int i = 0; i < cbtt.Length; i++)
@@ -191,9 +207,9 @@ namespace USFOShifts
 
         private static void EnterShiftToPisces(string cbtt,string pcode,double shift)
         {
-            //var svr = PostgreSQL.GetPostgresServer();
-            //TimeSeriesName tn = new TimeSeriesName(cbtt.ToLower()+"_"+pcode.ToLower(),"instant");
-            //TimeSeriesDatabaseDataSet.seriespropertiesDataTable.Set("shift", shift.ToString(), tn, svr);
+            var svr = PostgreSQL.GetPostgresServer();
+            TimeSeriesName tn = new TimeSeriesName(cbtt.ToLower()+"_"+pcode.ToLower(),"instant");
+            TimeSeriesDatabaseDataSet.seriespropertiesDataTable.Set("shift", shift.ToString(), tn, svr);
             return;
         }
 
