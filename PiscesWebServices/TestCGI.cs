@@ -5,6 +5,7 @@ using System.Text;
 using NUnit.Framework;
 using Reclamation.Core;
 using Reclamation.TimeSeries;
+using System.IO;
 
 namespace PiscesWebServices
 {
@@ -15,11 +16,31 @@ namespace PiscesWebServices
         {
             //Logger.EnableLogger();
             TestCGI t = new TestCGI();
-            t.CsvTest();
+            t.PerfTest();
         }
 
         [Test]
-        public void CsvTest()
+        public void PerfTest()
+        {
+            Performance p = new Performance();
+            
+            string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=9&edy=1&format=2";
+            //Program.Main(new string[] { "--cgi=instant", "--payload=?"+payload });
+
+            TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[] { }));
+            CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
+            var fn = FileUtility.GetTempFileName(".txt");
+            c.Run(TimeInterval.Hourly, payload, fn);
+
+
+
+            p.Report(File.ReadAllLines(fn).Length+" lines read");
+        }
+
+
+
+        [Test]
+        public void CompareLinuxToVMSCGI()
         {
             //http://www.usbr.gov/pn-bin/webdaycsv.pl?parameter=mddo%20ch,wcao%20q&syer=2015&smnth=4&sdy=5&eyer=2015&emnth=4&edy=5&format=2
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=4&edy=13&format=2";

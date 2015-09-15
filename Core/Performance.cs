@@ -21,7 +21,7 @@ namespace Reclamation.Core
 		{
 			get
 			{
-                return stopwatch1.ElapsedMilliseconds * 1000.0;
+                return stopwatch1.ElapsedMilliseconds / 1000.0;
 			}
 		}
 
@@ -59,6 +59,7 @@ namespace Reclamation.Core
 		public Performance()
 		{
             stopwatch1 = new Stopwatch();
+            stopwatch1.Start();
 		}
 
         public void Continue()

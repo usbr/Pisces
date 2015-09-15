@@ -98,7 +98,7 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// "yyyy-MM-dd HH:mm:ss.fff";
         /// </summary>
-        internal static string dateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
+        public static string dateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
 
         TimeSeriesFactory factory;
         //int m_tablesPerFile = 5000;
@@ -958,8 +958,7 @@ namespace Reclamation.TimeSeries
             get { return true; }
         }
 
-
-        public DataTable ReadTimeSeriesTable(int sdi, DateTime t1, DateTime t2)
+    public DataTable ReadTimeSeriesTable(int sdi, DateTime t1, DateTime t2)
         {
             var sr = GetSeriesRow(sdi);
             string tableName = sr.TableName;

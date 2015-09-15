@@ -12,7 +12,7 @@ using System.Text;
 namespace PiscesWebServices
 {
     /// <summary>
-    /// dump site data from Pisces meta-data in GEOJson format
+    /// dump site data from Pisces meta-data in csv format
     /// </summary>
     class CsvTable
     {

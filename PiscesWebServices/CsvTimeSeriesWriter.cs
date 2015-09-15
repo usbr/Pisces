@@ -6,6 +6,7 @@ using Reclamation.TimeSeries;
 using System.Linq;
 using System.Web;
 using System.IO;
+using System.Data;
 
 namespace PiscesWebServices
 {
@@ -113,7 +114,9 @@ namespace PiscesWebServices
 
                 if (t3 > t2) 
                     t3 = t2;
+
                 list.Read(t, t3);
+            //    Read(list,t, t3);
                 //Console.WriteLine("block: "+t.ToString()+" " + t3.ToString());
                 SeriesListDataTable sTable = new SeriesListDataTable(list, interval);
                 //var sTable = list.ToDataTable(false);
@@ -125,6 +128,44 @@ namespace PiscesWebServices
 
             Console.WriteLine("END DATA");
 
+        }
+
+        private void Read(SeriesList list, DateTime t1, DateTime t2)
+        {
+            var sql = CreateSQL(list, t1, t2);
+
+            var tbl = db.Server.Table("tbl", sql);
+
+
+            
+        }
+
+        private string CreateSQL(SeriesList list, DateTime t1, DateTime t2)
+        {
+            var sql = "";
+            for (int i = 0; i < list.Count; i++)
+            {
+                string tableName = list[i].Table.TableName;
+                if (!db.Server.TableExists(tableName))
+                {
+                    continue;
+                }
+
+                sql += "SELECT '" + tableName + "' as tablename, datetime,value,flag FROM " + tableName;
+                if (t1 != TimeSeriesDatabase.MinDateTime || t2 != TimeSeriesDatabase.MaxDateTime)
+                {
+                    sql += " WHERE datetime >= " + db.Server.PortableDateString(t1, TimeSeriesDatabase.dateTimeFormat)
+                        + " AND "
+                        + " datetime <= " + db.Server.PortableDateString(t2, TimeSeriesDatabase.dateTimeFormat);
+                }
+                
+                if (i != list.Count - 1)
+                    sql += " UNION ALL ";
+            }
+
+            sql += " order by tablename,datetime ";
+
+            return sql;
         }
 
         private void WriteSeriesHeader(SeriesList list, TimeInterval interval)
