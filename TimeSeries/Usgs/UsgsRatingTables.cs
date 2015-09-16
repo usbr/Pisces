@@ -173,20 +173,24 @@ namespace Reclamation.TimeSeries.Usgs
         public static bool Diff(TextFile tf1, TextFile tf2)
         {
 
-            if (tf1.Length != tf2.Length)
+            var diff = System.Math.Abs(tf1.Length - tf2.Length);
+            if ( diff > 5)
+            {
+                Logger.WriteLine("difference in length of files: " + diff);
                 return true; //different number of lines in file
+            }
 
             var idx1 = tf1.IndexOfRegex(@"^INDEP\s*SHIFT\s*DEP\s*STOR");
             var idx2 = tf2.IndexOfRegex(@"^INDEP\s*SHIFT\s*DEP\s*STOR");
 
-            for (int i = 0; i < tf1.Length; i++)
-            {
-                if (tf1[idx1 + i] != tf2[idx2 + i])
-                    return true;
-            }
+            tf1.DeleteLines(0, idx1);
+            tf2.DeleteLines(0, idx2);
 
-            return false;
+            return TextFile.Compare(tf1, tf2).Length != 0;
+
         }
+
+       
 
         public void CreateFullRatingTableFromWeb()
         { CreateFullRatingTable(this.webRdbTable); }
