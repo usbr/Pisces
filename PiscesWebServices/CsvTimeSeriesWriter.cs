@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.IO;
 using System.Data;
+using Reclamation.Core;
 
 namespace PiscesWebServices
 {
@@ -105,7 +106,13 @@ namespace PiscesWebServices
             WriteSeriesHeader(list, interval);
             
 
-            int maxDaysInMemory = 1;
+            int maxDaysInMemory = 100;
+
+            // maxDaysIhn memory
+            //   maxdays      list.Read()    REad()
+            //   10
+            //   
+
             var t = t1;
            
             while(t<t2)
@@ -115,8 +122,8 @@ namespace PiscesWebServices
                 if (t3 > t2) 
                     t3 = t2;
 
-                list.Read(t, t3);
-            //    Read(list,t, t3);
+                list.Read(t, t3); //1.362 seconds elapsed. 13660 lines readls
+                //Read(list, t, t3); //2.018 seconds elapsed. 13660 lines read
                 //Console.WriteLine("block: "+t.ToString()+" " + t3.ToString());
                 SeriesListDataTable sTable = new SeriesListDataTable(list, interval);
                 //var sTable = list.ToDataTable(false);
@@ -132,10 +139,25 @@ namespace PiscesWebServices
 
         private void Read(SeriesList list, DateTime t1, DateTime t2)
         {
+           
+            var dict = new Dictionary<string, Series>();
+            foreach (var item in list)
+            {
+                dict.Add(item.Table.TableName, item);
+                item.Clear();
+                //item.Table.AcceptChanges();
+            }
             var sql = CreateSQL(list, t1, t2);
 
             var tbl = db.Server.Table("tbl", sql);
 
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                var tn = tbl.Rows[i]["tablename"].ToString();
+                var x = tbl.Rows[i].ItemArray;
+                var s = dict[tn];
+                s.Table.Rows.Add(x[1], x[2], x[3]);
+            }
 
             
         }
@@ -160,10 +182,10 @@ namespace PiscesWebServices
                 }
                 
                 if (i != list.Count - 1)
-                    sql += " UNION ALL ";
+                    sql += " UNION ALL \n";
             }
 
-            sql += " order by tablename,datetime ";
+            sql += " \norder by tablename,datetime ";
 
             return sql;
         }

@@ -22,19 +22,30 @@ namespace PiscesWebServices
         [Test]
         public void PerfTest()
         {
-            Performance p = new Performance();
-            
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=9&edy=1&format=2";
-            //Program.Main(new string[] { "--cgi=instant", "--payload=?"+payload });
+            RunTest(payload);
+        }
+        [Test]
+        public void PerfTest2()
+        {
+            string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=4&edy=13&format=2";
+            RunTest(payload);
+        }
 
+
+        private static void RunTest(string payload)
+        {
+            Performance p = new Performance();
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[] { }));
             CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
             var fn = FileUtility.GetTempFileName(".txt");
+            fn = "";
             c.Run(TimeInterval.Hourly, payload, fn);
 
-
-
-            p.Report(File.ReadAllLines(fn).Length+" lines read");
+            if (File.Exists(fn))
+                p.Report(File.ReadAllLines(fn).Length + " lines read");
+            else
+                p.Report();
         }
 
 

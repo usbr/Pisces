@@ -83,6 +83,18 @@ namespace PiscesWebServices
                 SiteInfo si = new SiteInfo(db);
                 si.Run(payload);
             }
+            if (cgi == "test-perf")
+            {
+                TestCGI c = new TestCGI();
+                c.PerfTest();
+                
+            }
+            if (cgi == "test-perf2")
+            {
+                TestCGI c = new TestCGI();
+                c.PerfTest2();
+
+            }
 
         }
 
