@@ -167,8 +167,10 @@ namespace Reclamation.TimeSeries.Owrd
                 DateTime t = Convert.ToDateTime(csv.Rows[i]["record_date"]);
 
                 string colName = "midnight_volume_acft";
-                if (dataset == OwrdDataSet.Midnight_Stage)
+
+                if (dataset == OwrdDataSet.MDF)
                     colName = "mean_daily_flow_cfs";
+
                 if (dataset == OwrdDataSet.Instantaneous_Stage)
                     colName = "instananteous_stage_ft";
 
