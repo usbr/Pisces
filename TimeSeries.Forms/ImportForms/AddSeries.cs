@@ -39,8 +39,9 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
         private void comboBoxTimeInterval_SelectedIndexChanged(object sender, EventArgs e)
         {
             //update table name.
-
-            this.textBoxTableName.Text = this.TimeInterval.ToString().ToLower() + "_" + this.textBoxName.Text.ToLower();
+            string tn = this.TimeInterval.ToString().ToLower() + "_" + this.textBoxName.Text.ToLower();
+            tn = tn.Replace("irregular", "instant");
+            this.textBoxTableName.Text = tn;
 
         }
     }
