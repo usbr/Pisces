@@ -31,6 +31,10 @@ namespace Reclamation.TimeSeries.Forms.Calculations
             this.LoadList(basicEquation1.ComboBoxUnits, DBunits);
         }
 
+        public bool Calculate
+        {
+            get { return this.basicEquation1.Calculate; }
+        }
         private void ReadSeriesProperties()
         {
             basicEquation1.SeriesExpression = m_series.Expression;

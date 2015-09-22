@@ -131,7 +131,8 @@ namespace Reclamation.TimeSeries.Forms
             {
                 DB.AddSeries(s, CurrentFolder);
                 // tree refresh.. Add node.
-                s.Calculate(); // save again
+                if( p.Calculate)
+                        s.Calculate(); // save again
                 // refresh.
                 DB.RefreshFolder(CurrentFolder);
                 

@@ -32,6 +32,10 @@ namespace Reclamation.TimeSeries.Forms.Calculations
             set { this.textBoxMath.Text = value; }
         }
 
+        public bool Calculate
+        {
+            get { return this.checkBoxCompute.Checked; }
+        }
         public string SeriesName
         {
             get { return this.textBoxSeriesName.Text; }

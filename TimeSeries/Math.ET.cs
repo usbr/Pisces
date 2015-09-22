@@ -110,6 +110,33 @@ namespace Reclamation.TimeSeries
 
             return rval;
         }
+        [FunctionAttribute("DewPointTemperature",
+           "DewPointTemperature( degF, percent)")]
+        public static Series DewPointTemperature(Series ob, Series tu)
+        {
+            Series tp = new Series();
+
+            if (tu.Count > 0 && ob.Count > 0)
+            {
+                for (int i = 0; i < ob.Count; i++)
+                {
+                    var pt = ob[i];
+                    if (tu.IndexOf(pt.DateTime) >= 0)
+                    {
+                        double tpVal = AsceEtCalculator.DewPtTemp(pt.Value, tu[pt.DateTime].Value);
+                        if (!double.IsNaN(tpVal))
+                        {
+                            tp.Add(pt.DateTime, tpVal);
+                        }
+                        else
+                        {
+                            Console.WriteLine();
+                        }
+                    }
+                }
+            }
+            return tp;
+        }
 
 
 
