@@ -14,12 +14,14 @@ namespace Reclamation.TimeSeries
 
         TimeSeriesDatabase m_db;
         TimeSeriesDatabaseDataSet.SeriesCatalogDataTable catalog;
+        TimeSeriesDatabaseDataSet.seriespropertiesDataTable m_seriesProperties;
         int sdi;
         public TimeSeriesDatabaseDelete(TimeSeriesDatabase db, PiscesObject o)
         {
             this.m_db = db;
             sdi = o.ID;
             catalog = m_db.GetSeriesCatalog();
+            m_seriesProperties = m_db.GetSeriesProperties();
             //catalog.PrimaryKey = new DataColumn[] { catalog.Columns["id"]};
         }
 
@@ -28,6 +30,7 @@ namespace Reclamation.TimeSeries
         {
             MarkForDeletion(sdi);
             m_db.Server.SaveTable(catalog);
+            m_db.Server.SaveTable(m_seriesProperties);
 
         }
         void MarkForDeletion(int id)
@@ -62,6 +65,7 @@ namespace Reclamation.TimeSeries
                 m_db.DropTable(sr.TableName);
                 sr.Delete();
             }
+            m_seriesProperties.DeleteAll(id);
         }
     }
 }

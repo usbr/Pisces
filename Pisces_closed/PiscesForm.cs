@@ -180,6 +180,8 @@ namespace Reclamation.TimeSeries.Forms
             displayOptionsDialog1 = new DisplayOptionsDialog(explorer1);
             SetupScenarioSelector();
 
+            explorer1.SelectedSeries = new Series[] { };
+
             explorer1.View.SeriesList.Clear();
             explorer1.View.Clear();
             explorer1.Run();
@@ -635,6 +637,7 @@ namespace Reclamation.TimeSeries.Forms
                     {
                         DB.Delete(f);
                     }
+                    DatabaseChanged(); 
                 }
                 finally
                 {

@@ -209,8 +209,19 @@ namespace Reclamation.TimeSeries {
                     AddseriespropertiesRow(NextID(), newID, item["name"].ToString(), item["value"].ToString());
                 }
             }
-
-            
+            /// <summary>
+            /// Delets all properties for a given id
+            /// </summary>
+            /// <param name="id"></param>
+            internal void DeleteAll(int id)
+            {
+                var rows = Select("seriesid = " + id);
+                
+                foreach (var item in rows)
+                {
+                    item.Delete();
+                }
+            }
         }
 
         public partial class sitecatalogDataTable

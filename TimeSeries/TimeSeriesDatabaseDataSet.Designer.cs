@@ -10,6 +10,8 @@
 
 #pragma warning disable 1591
 
+using System;
+
 namespace Reclamation.TimeSeries {
     
     
@@ -3336,6 +3338,8 @@ namespace Reclamation.TimeSeries {
                 xs.Add(dsSchema);
                 return type;
             }
+
+           
         }
         
         /// <summary>
