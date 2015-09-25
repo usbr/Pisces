@@ -14,6 +14,9 @@ namespace Reclamation.Core
         DateTime d1;
         DateTime d2;
 
+        /// <summary>
+        /// Creates a MonthDayRange for water year range. Oct-Sep
+        /// </summary>
         public MonthDayRange()
         {
             Init(10, 1, 9, 30);

@@ -52,6 +52,7 @@ namespace Reclamation.TimeSeries.Hydromet
             //State = HydrometInfoUtility.LookupState(cbtt);
             Parameter = pcode;
             this.pcode = pcode;
+            this.SiteID = cbtt;
             this.Table.TableName = TimeSeriesName.GetTableName(server.ToString(), TimeSeries.TimeInterval.Daily,
                 cbtt, pcode);
             Units = HydrometInfoUtility.LookupDailyUnits(pcode);
