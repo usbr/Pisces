@@ -57,7 +57,6 @@ namespace Reclamation.TimeSeries.Hydromet
                 cbtt, pcode);
             Units = HydrometInfoUtility.LookupDailyUnits(pcode);
             this.Name = HydrometInfoUtility.LookupSiteDescription(cbtt) + " " + Units;
-            this.SiteName = HydrometInfoUtility.LookupSiteDescription(cbtt);
             this.TimeInterval = TimeSeries.TimeInterval.Daily;
             ReadOnly = true;
             Source = "Hydromet";

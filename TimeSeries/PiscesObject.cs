@@ -57,6 +57,7 @@ namespace Reclamation.TimeSeries
             }
         }
 
+        [Obsolete("Use SiteID, also see sitecatalog for site name")]
         public string SiteName   // name/id for site:  example: usgs site number, or hydromet cbtt, or modsim node name
         {
             get { return SiteID; }
