@@ -39,10 +39,12 @@ namespace Reclamation.TimeSeries.Forms.Calculations
         public string SeriesName
         {
             get { return this.textBoxSeriesName.Text; }
+            set { this.textBoxSeriesName.Text = value; }
         }
         public string Units
         {
             get { return this.comboBoxUnits.Text; }
+            set { this.ComboBoxUnits.Text = value; }
         }
         public ComboBox ComboBoxUnits
         {
@@ -56,7 +58,10 @@ namespace Reclamation.TimeSeries.Forms.Calculations
             {
                 TimeInterval rval = (TimeInterval)System.Enum.Parse(typeof(TimeInterval), comboBoxInterval.SelectedItem.ToString());
                 return rval;
-
+            }
+            set
+            {
+                comboBoxInterval.SelectedValue = value.ToString();
             }
         }
 

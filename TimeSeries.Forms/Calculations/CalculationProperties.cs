@@ -27,17 +27,15 @@ namespace Reclamation.TimeSeries.Forms.Calculations
             tree1.RemoveCommandLine();
 
             m_series = s;
-            ReadSeriesProperties();
+            basicEquation1.SeriesExpression = m_series.Expression;
+            basicEquation1.Units = m_series.Units;
+            basicEquation1.SeriesName = m_series.Table.TableName;
             this.LoadList(basicEquation1.ComboBoxUnits, DBunits);
         }
 
         public bool Calculate
         {
             get { return this.basicEquation1.Calculate; }
-        }
-        private void ReadSeriesProperties()
-        {
-            basicEquation1.SeriesExpression = m_series.Expression;
         }
 
         private void LoadList(ComboBox owner, string[] list)
