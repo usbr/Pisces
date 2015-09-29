@@ -164,6 +164,11 @@ namespace Reclamation.Core
             return s;
         }
 
+        public virtual bool HasSavePrivilge(string tableName)
+        {
+            return true;
+        }
+
         /// <summary>
         /// Saves all tables to a xml data set.
         /// Low budget backup.

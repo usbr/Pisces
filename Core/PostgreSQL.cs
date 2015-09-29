@@ -748,5 +748,11 @@ Alan
          PostgreSQL.ClearAllPools(); // Hack to fix error on application exit
      }
 
-  }
+        public override bool HasSavePrivilge(string tableName)
+        {
+            string sql = "select has_table_privilege('" + tableName + "', 'update')   ";
+            var tbl = Table("a", sql);
+            return tbl.Rows[0][0].ToString().ToLower() == "t";
+        }
+    }
 }
