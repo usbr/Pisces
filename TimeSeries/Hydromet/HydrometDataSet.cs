@@ -138,11 +138,8 @@ namespace Reclamation.TimeSeries.Hydromet {
         private PostgreSQL GetServer()
         {
 
-         var server = ConfigurationManager.AppSettings["PostgresServer"];
-         var dbName = this.DataSetName;
+         return PostgreSQL.GetPostgresServer(this.DataSetName) as PostgreSQL;
 
-         string cs = PostgreSQL.CreateADConnectionString(server, dbName,"app_user","app_key.txt");
-            return new PostgreSQL(cs);
         }
     }
 }

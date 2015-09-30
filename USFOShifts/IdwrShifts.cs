@@ -26,10 +26,6 @@ namespace USFOShifts
                 return;
             }
             List<string> recipients = new List<string>();
-            //recipients.Add("amonek@usbr.gov");
-            //recipients.Add("Helga.King@idwr.idaho.gov");
-            //recipients.Add("ktarbet@usbr.gov");
-
 
             string idwrFile = "shifts.html";
             string cleanFile = args[0];
@@ -86,8 +82,15 @@ namespace USFOShifts
                 {
                     var shftNew = tblNew.Rows[tblNew.Rows.Count - 1]["shift"].ToString();
                     var dateMeasured = tblNew.Rows[tblNew.Rows.Count - 1]["date_measured"].ToString();
-                    double discharge = Convert.ToDouble(tblNew.Rows[tblNew.Rows.Count - 1]["discharge"]);
-                    double gh = Convert.ToDouble(tblNew.Rows[tblNew.Rows.Count - 1]["stage"]);
+                    double? discharge = null;
+                    var q = 0.0;
+                    if (double.TryParse(tblNew.Rows[tblNew.Rows.Count - 1]["discharge"].ToString(), out q))
+                        discharge = q;
+
+                    var gh1 = 0.0;
+                    double? gh = null;
+                    if (double.TryParse(tblNew.Rows[tblNew.Rows.Count - 1]["stage"].ToString(), out gh1))
+                        gh = gh1;
 
                     if (tblOld.Rows.Count > 0)
                     {
@@ -106,7 +109,31 @@ namespace USFOShifts
 
                 }
             }
-            SendEmail("IDWR Shift Update", emailMsg, recipients);
+            if (emailMsg.Contains("applied"))
+            {
+                // check who needs to be included on email
+                if (emailMsg.Contains("MIII") || emailMsg.Contains("MLCI") || emailMsg.Contains("TCNI"))
+                {
+                    recipients.Add("MILNER@tfcanal.com");
+                }
+
+                if (emailMsg.Contains("NMCI"))
+                {
+                    recipients.Add("jbwatermaster@gmail.com");
+                }
+
+                if (emailMsg.Contains("SMCI"))
+                {
+                    recipients.Add("bidwater4@gmail.com");
+                }
+
+                Console.WriteLine("found shifts. Sending email ");
+                SendEmail("IDWR Shift Update", emailMsg, recipients);
+            }
+            else
+            {
+                Console.WriteLine("No shift changes found");
+            }
         }
 
         private static string ConvertCSVToShiftFormat(string html, string[] cbtt)
@@ -218,21 +245,18 @@ namespace USFOShifts
         //}
 
         private static void InsertShiftToPostgres(string cbtt, string pcode, double shift, string dateMeasured, 
-            double discharge, double gh)
+            double? discharge, double? gh)
         {
             //enter shift to shift db
             var ds = new HydrometDataSet();
             ds.DataSetName = "hydromet";
-            if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
-            {
-                ds.DataSetName = "hydromet_gp";
-            }
+            
             ds.insertshift(cbtt.ToUpper().Trim(), pcode.ToUpper().Trim(),
                 Convert.ToDateTime(dateMeasured), discharge,
                 gh, shift, "Shift Entered by USFOShifts Program", DateTime.Now);
 
             //enter shift to pisces db
-            var svr = PostgreSQL.GetPostgresServer();
+            var svr = PostgreSQL.GetPostgresServer("timeseries");
             TimeSeriesName tn = new TimeSeriesName(cbtt.ToLower() + "_" + pcode.ToLower(), "instant");
             TimeSeriesDatabaseDataSet.seriespropertiesDataTable.Set("shift", shift.ToString(), tn, svr);
             return;
