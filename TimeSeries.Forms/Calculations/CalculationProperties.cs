@@ -49,28 +49,32 @@ namespace Reclamation.TimeSeries.Forms.Calculations
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
+            m_series.Expression = basicEquation1.SeriesExpression;
+            var a = this.basicEquation1.SeriesName;
+            if (a != "")
+            {
+                m_series.Name = a;
+                string tn = basicEquation1.TimeInterval.ToString().ToLower() + "_" + TimeSeriesDatabase.SafeTableName(a);
+                tn = tn.Replace("irregular", "instant");
+                m_series.Table.TableName = tn;
+            }
+            a = basicEquation1.Units.Trim();
+            if (a != "")
+                m_series.Units = a;
+
             string errorMessage = "";
             m_series.TimeInterval = basicEquation1.TimeInterval;
             if ( m_series.TimeSeriesDatabase.Parser.VariableResolver is Parser.HydrometVariableResolver 
                || m_series.IsValidExpression(basicEquation1.SeriesExpression, out errorMessage))
             {
-                m_series.Expression = basicEquation1.SeriesExpression;
-                var a = this.basicEquation1.SeriesName;
-                if (a != "")
-                {
-                    m_series.Name = a;
-                    string tn = basicEquation1.TimeInterval.ToString().ToLower() + "_" + TimeSeriesDatabase.SafeTableName(a);
-                    tn = tn.Replace("irregular", "instant");
-                    m_series.Table.TableName = tn;
-                }
-                a = basicEquation1.Units.Trim();
-                if (a != "")
-                    m_series.Units = a;
+               
             }
             else
             {
-                DialogResult = DialogResult.None;
-                MessageBox.Show(errorMessage);
+                
+               var result = MessageBox.Show("Your equation may have an error. Click OK to proceed.\n" + errorMessage,"Use this Equation?", MessageBoxButtons.OKCancel);
+                if( result == DialogResult.Cancel)
+                  DialogResult = DialogResult.None;   
             }
         }
     }
