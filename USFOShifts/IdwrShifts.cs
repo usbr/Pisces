@@ -85,18 +85,22 @@ namespace USFOShifts
                 if(tblNew.Rows.Count > 0)
                 {
                     var shftNew = tblNew.Rows[tblNew.Rows.Count - 1]["shift"].ToString();
+                    var dateMeasured = tblNew.Rows[tblNew.Rows.Count - 1]["date_measured"].ToString();
+                    double discharge = Convert.ToDouble(tblNew.Rows[tblNew.Rows.Count - 1]["discharge"]);
+                    double gh = Convert.ToDouble(tblNew.Rows[tblNew.Rows.Count - 1]["stage"]);
+
                     if (tblOld.Rows.Count > 0)
                     {
                         var shftOld = tblOld.Rows[tblOld.Rows.Count - 1]["shift"].ToString();
                         if (shftNew != shftOld && shftNew != "")
                         {
-                            EnterShiftToPisces(cbtt[i], "ch", Convert.ToDouble(shftNew));
+                            InsertShiftToPostgres(cbtt[i], "ch", Convert.ToDouble(shftNew), dateMeasured, discharge, gh);
                             emailMsg = emailMsg + cbtt[i] + " applied a shift of " + shftNew + ", ";
                         }
                     }
                     else if (shftNew != "")
                     {
-                        EnterShiftToPisces(cbtt[i], "ch", Convert.ToDouble(shftNew));
+                        InsertShiftToPostgres(cbtt[i], "ch", Convert.ToDouble(shftNew), dateMeasured, discharge, gh);
                         emailMsg = emailMsg + cbtt[i] + " applied a shift of " + shftNew + ", ";
                     }
 
@@ -205,10 +209,31 @@ namespace USFOShifts
             return html;
         }
 
-        private static void EnterShiftToPisces(string cbtt,string pcode,double shift)
+        //private static void EnterShiftToPisces(string cbtt,string pcode,double shift)
+        //{
+        //    var svr = PostgreSQL.GetPostgresServer();
+        //    TimeSeriesName tn = new TimeSeriesName(cbtt.ToLower()+"_"+pcode.ToLower(),"instant");
+        //    TimeSeriesDatabaseDataSet.seriespropertiesDataTable.Set("shift", shift.ToString(), tn, svr);
+        //    return;
+        //}
+
+        private static void InsertShiftToPostgres(string cbtt, string pcode, double shift, string dateMeasured, 
+            double discharge, double gh)
         {
+            //enter shift to shift db
+            var ds = new HydrometDataSet();
+            ds.DataSetName = "hydromet";
+            if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
+            {
+                ds.DataSetName = "hydromet_gp";
+            }
+            ds.insertshift(cbtt.ToUpper().Trim(), pcode.ToUpper().Trim(),
+                Convert.ToDateTime(dateMeasured), discharge,
+                gh, shift, "Shift Entered by USFOShifts Program", DateTime.Now);
+
+            //enter shift to pisces db
             var svr = PostgreSQL.GetPostgresServer();
-            TimeSeriesName tn = new TimeSeriesName(cbtt.ToLower()+"_"+pcode.ToLower(),"instant");
+            TimeSeriesName tn = new TimeSeriesName(cbtt.ToLower() + "_" + pcode.ToLower(), "instant");
             TimeSeriesDatabaseDataSet.seriespropertiesDataTable.Set("shift", shift.ToString(), tn, svr);
             return;
         }
@@ -237,6 +262,5 @@ namespace USFOShifts
             Logger.WriteLine("message sent ");
             Logger.WriteLine(body);
         }
-
     }
 }
