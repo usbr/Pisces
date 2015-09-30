@@ -16,17 +16,17 @@ namespace PiscesWebServices
         {
             //Logger.EnableLogger();
             TestCGI t = new TestCGI();
-            t.PerfTest();
+            t.PerfTestLarge();
         }
 
         [Test]
-        public void PerfTest()
+        public void PerfTestLarge()
         {
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=9&edy=1&format=2";
             RunTest(payload);
         }
         [Test]
-        public void PerfTest2()
+        public void PerfTestSmall()
         {
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=4&edy=13&format=2";
             RunTest(payload);

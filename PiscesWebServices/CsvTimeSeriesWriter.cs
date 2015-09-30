@@ -106,7 +106,7 @@ namespace PiscesWebServices
             WriteSeriesHeader(list, interval);
             
 
-            int maxDaysInMemory = 100;
+            int maxDaysInMemory = 10;
 
             // maxDaysIhn memory
             //   maxdays      list.Read()    REad()
@@ -122,11 +122,14 @@ namespace PiscesWebServices
                 if (t3 > t2) 
                     t3 = t2;
 
+                Performance p = new Performance();
                 list.Read(t, t3); //1.362 seconds elapsed. 13660 lines readls
+                p.Report("after list.Read()");
                 //Read(list, t, t3); //2.018 seconds elapsed. 13660 lines read
                 //Console.WriteLine("block: "+t.ToString()+" " + t3.ToString());
-                SeriesListDataTable sTable = new SeriesListDataTable(list, interval);
-                //var sTable = list.ToDataTable(false);
+                //SeriesListDataTable sTable = new SeriesListDataTable(list, interval);
+                // p.Report("after SeriesListDataTable ctor");
+                var sTable = list.ToDataTable(false);
                 //var sTable = sList.ToDataTable(!hasFlags);
                 PrintDataTable( sTable);
 

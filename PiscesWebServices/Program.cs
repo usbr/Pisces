@@ -34,7 +34,7 @@ namespace PiscesWebServices
             p.Add("propertyFilter=", "property filter like program:agrimet", x => propertyFilter = x);
             p.Add("payload=","test query data for a CGI",x => payload =x);
             p.Add("format=","format json(default) | csv ",x => format=x);
-            p.Add("verbose"," get more details", x => verbose = x =="true");
+            p.Add("verbose"," get more details", x => verbose =true);
             try
             {
                 p.Parse(args);
@@ -50,7 +50,10 @@ namespace PiscesWebServices
             }
 
             if (verbose)
+            {
                 Logger.EnableLogger();
+                Logger.WriteLine("verbose =true");
+            }
 
             var db = TimeSeriesDatabase.InitDatabase(new Arguments(args));
 
@@ -83,16 +86,16 @@ namespace PiscesWebServices
                 SiteInfo si = new SiteInfo(db);
                 si.Run(payload);
             }
-            if (cgi == "test-perf")
+            if (cgi == "test-perf-large")
             {
                 TestCGI c = new TestCGI();
-                c.PerfTest();
+                c.PerfTestLarge();
                 
             }
-            if (cgi == "test-perf2")
+            if (cgi == "test-perf-small")
             {
                 TestCGI c = new TestCGI();
-                c.PerfTest2();
+                c.PerfTestSmall();
 
             }
 
