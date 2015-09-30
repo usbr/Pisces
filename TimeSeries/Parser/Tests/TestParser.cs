@@ -158,6 +158,39 @@ namespace Reclamation.TimeSeries.Parser.Tests
 
         }
 
+        [Test]
+        public void Conditionals()
+        {
+            var tiew_qj = new Series("tiew_qj");
+            var nscw_qj = new Series("nscw_qj");
+
+            tiew_qj.TimeInterval = TimeInterval.Daily;
+            nscw_qj.TimeInterval = TimeInterval.Daily;
+
+            DateTime t1 = DateTime.Parse("1/1/2015");
+            DateTime t2 = DateTime.Parse("1/10/2015");
+
+            tiew_qj.AddRange(t1, new double[] { 10, 10, 1, 1 });
+            nscw_qj.AddRange(t1, new double[] { 11, 10, 1, 100 });
+            var expected = new double[]       { 35, 0,  0,  35};
+
+            var qu = new CalculationSeries();
+            qu.Expression = "If( tiew_qj + nscw_qj > 20.0 , 35.0, 0)";
+            qu.TimeInterval = TimeInterval.Daily;
+            qu.Parser.VariableResolver.Add("tiew_qj", tiew_qj);
+            qu.Parser.VariableResolver.Add("nscw_qj", nscw_qj);
+
+            qu.Calculate(t1,t2);
+            qu.WriteToConsole();
+
+            for (int i = 0; i < expected.Length; i++)
+            {
+                Assert.AreEqual(expected[i], qu[i].Value, 0.001);
+            }
+
+        }
+
 
     }
 }
+
