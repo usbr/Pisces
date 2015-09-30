@@ -42,7 +42,7 @@ ISBN: 0072134852
     public class SeriesExpressionParser
     {
         // Enumerate token types. 
-        enum Types { NONE, DELIMITER, VARIABLE, DOUBLE,INTEGER, FUNCTION, STRING }; 
+        enum Types { NONE, DELIMITER, VARIABLE, DOUBLE,INTEGER, FUNCTION, STRING, COMPARISON  }; 
         // Enumerate error types. 
         enum Errors { SYNTAX, UNBALPARENS, NOEXP, DIVBYZERO };
 
@@ -575,7 +575,16 @@ ISBN: 0072134852
                 else
                     tokType = Types.INTEGER;
             }
-
+            else if(ParserUtility.TryParseComparison(exp.Substring(expIdx), out subExpr))
+            {
+                token = subExpr;
+                expIdx += subExpr.Length;
+                tokType = Types.COMPARISON;
+            }
+            else
+            {
+                Logger.WriteLine("Unknown Token...");
+            }
             
             if (Debug)
             {

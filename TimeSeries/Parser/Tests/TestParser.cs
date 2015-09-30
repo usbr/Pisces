@@ -161,6 +161,7 @@ namespace Reclamation.TimeSeries.Parser.Tests
         [Test]
         public void Conditionals()
         {
+            SeriesExpressionParser.Debug = true;
             var tiew_qj = new Series("tiew_qj");
             var nscw_qj = new Series("nscw_qj");
 

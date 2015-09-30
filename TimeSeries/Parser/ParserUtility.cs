@@ -113,5 +113,12 @@ namespace Reclamation.TimeSeries.Parser
             return rval;
 
         }
+
+        internal static bool TryParseComparison(string token, out string conditional)
+        {
+            conditional = "";
+            return false;
+        }
+
     }
 }
