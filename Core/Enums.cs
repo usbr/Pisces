@@ -9,6 +9,6 @@ namespace Reclamation.Core
         Weibul,
         Proabability
     }
-    public enum DatabaseType { PostgreSql, MySQL };
+    public enum DatabaseType {  , MySQL };
 
 }

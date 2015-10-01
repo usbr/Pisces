@@ -158,8 +158,8 @@ namespace Reclamation.TimeSeries
                     if (m_db != null) // database is not required for calculations.
                     {
 
-                        bool canSave = m_db.Server.HasSavePrivilge(this.Table.TableName);
-                        if(canSave)
+                        //bool canSave = m_db.Server.HasSavePrivilge(this.Table.TableName);
+                      //  if(canSave)
                         m_db.SaveTimeSeriesTable(this.ID, this, DatabaseSaveOptions.UpdateExisting);
                         Expression = tmpExpression;
 
@@ -167,7 +167,7 @@ namespace Reclamation.TimeSeries
                             || seriesBeforeCalc.Units != this.Units)
                         {
                             Logger.WriteLine("Warning Units or interval has changed.");
-                            if(canSave)
+                            //if(canSave)
                             m_db.SaveProperties(this); // time interval, units, are dependent on calculation.
                         }
                     }
