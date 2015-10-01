@@ -241,5 +241,15 @@ namespace Reclamation.TimeSeries.Parser
                 else
                     return this.double_val.ToString();
         }
+
+        internal ParserResult GreaterThan(ParserResult partialResult)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal ParserResult LessThan(ParserResult partialResult)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

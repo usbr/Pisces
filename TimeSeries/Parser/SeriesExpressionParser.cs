@@ -201,42 +201,45 @@ ISBN: 0072134852
         }
 
 
-        // Process an assignment. 
-        void EvalExp1(out ParserResult result)
+        // Process comparison operators
+        void EvalExp1Comparison(out ParserResult result)
         {
-            //int varIdx;
-            Types ttokType;
-            string temptoken;
+            string comp;
+            ParserResult partialResult;
 
-            if (tokType == Types.VARIABLE)
+            Eval2Add(out result);
+            while ((comp = token) == ">" || comp == "<")
             {
-                // save old token 
-                temptoken = String.Copy(token);
-                ttokType = tokType;
-
-                // Compute the index of the variable. 
-                //varIdx = Char.ToUpper(token[0]) - 'A';
-
                 GetToken();
-                if (token != "=")
+                Eval2Add(out partialResult);
+
+                if (Debug && result.IsSeries && partialResult.IsSeries)
                 {
-                    PutBack(); // return current token 
-                    // restore old token -- not an assignment 
-                    token = String.Copy(temptoken);
-                    tokType = ttokType;
+                    Console.WriteLine("Part A ");
+                    partialResult.Series.WriteToConsole();
+                    Console.WriteLine("Part B");
+                    result.Series.WriteToConsole();
                 }
-                else
+                switch (comp)
                 {
-                    GetToken(); // get next part of exp 
-                    Eval2Add(out result);
-                    throw new NotImplementedException("Assignment using '=' not implemented");
-                    //VariableResolver.Add(token, result);
-                    //vars[varIdx] = result;
-                    //return;
+                    case ">":
+                        result = result.GreaterThan(partialResult);
+                        break;
+                    case "<":
+                        result = result.LessThan(partialResult);
+                        break;
+                }
+                if ((Debug && result.IsSeries && partialResult.IsSeries))
+                {
+                    Console.WriteLine("Part A " + comp + " Part B ");
+                    result.Series.WriteToConsole();
                 }
             }
 
-            Eval2Add(out result);
+
+
+
+            //Eval2Add(out result);
         }
 
         // Add or subtract two terms. 
@@ -598,7 +601,7 @@ ISBN: 0072134852
         // Return true if c is a delimiter. 
         bool IsDelim(char c)
         {
-            if ((" +-/*%^=()".IndexOf(c) != -1))
+            if ((" +-/*^()".IndexOf(c) != -1))
                 return true;
             return false;
         }

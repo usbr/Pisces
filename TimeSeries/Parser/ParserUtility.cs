@@ -111,12 +111,27 @@ namespace Reclamation.TimeSeries.Parser
             }
 
             return rval;
-
         }
 
+        static string[] comparisonOperators = { ">=", "<=", "<",">", "!=","==" };
+        /// <summary>
+        /// capture the following comparions: > < <= >=  != ==
+        /// any white space should be removed from prefix before calling
+        /// this method.
+        /// </summary>
+        /// <returns></returns>
         internal static bool TryParseComparison(string token, out string conditional)
         {
             conditional = "";
+            for (int i = 0; i < comparisonOperators.Length; i++)
+            {
+                if (token.IndexOf(comparisonOperators[i]) == 0)
+                {
+                    conditional = comparisonOperators[i];
+                    return true;
+                }
+            }
+
             return false;
         }
 

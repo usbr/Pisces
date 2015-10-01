@@ -196,6 +196,8 @@ namespace Reclamation.TimeSeries.Parser.Tests
 
             qu.Calculate(t1,t2);
             qu.WriteToConsole();
+            Assert.AreEqual(4, qu.Count, " expected 4 QU values");
+
 
             for (int i = 0; i < expected.Length; i++)
             {
