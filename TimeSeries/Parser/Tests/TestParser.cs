@@ -9,6 +9,19 @@ namespace Reclamation.TimeSeries.Parser.Tests
     [TestFixture]
     public class TestParser
     {
+        [Test]
+        public void SimpleMath()
+        {
+            var p = new SeriesExpressionParser();
+
+            Assert.AreEqual(4, p.Evaluate("10 - 3*2").Double);
+            Assert.AreEqual(4, p.Evaluate("10 - 2 *3").Double);
+            Assert.AreEqual(8, p.Evaluate("2^3").Double);
+            Assert.AreEqual(8, p.Evaluate("10 - 2 * 3^0").Double);
+            Assert.AreEqual(-2, p.Evaluate(" -(2+0*5)").Double);
+            Assert.AreEqual(16, p.Evaluate("-2^(10-2*3)").Double);
+
+        }
 
 
         [Test]
@@ -66,7 +79,7 @@ namespace Reclamation.TimeSeries.Parser.Tests
         public void SimpleDailyAverageWithInterval()
         {
             var mm = new CalculationSeries();
-            mm.SiteName = "pici"; // test feautre that replaces %site% with SiteID
+            mm.SiteID = "pici"; // test feautre that replaces %site% with SiteID
             mm.Expression = "DailyAverage(instant_%site%_ob)";
             mm.TimeInterval = TimeInterval.Daily;
             mm.Parser.VariableResolver = new HydrometVariableResolver();
@@ -82,7 +95,7 @@ namespace Reclamation.TimeSeries.Parser.Tests
         public void SimpleDailyAverageNoPrefix()
         {
             var mm = new CalculationSeries();
-            mm.SiteName = "pici";
+            mm.SiteID = "pici";
             mm.Expression = "DailyAverage(%site%_ob)";
             mm.TimeInterval = TimeInterval.Irregular;
             mm.Parser.VariableResolver = new HydrometVariableResolver();
