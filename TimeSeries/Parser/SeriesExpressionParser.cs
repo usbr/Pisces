@@ -132,7 +132,7 @@ ISBN: 0072134852
                     return new ParserResult(0.0);
                 }
 
-                EvalExp1(out result); // now, call EvalExp1() to start 
+                EvalExp1Comparison(out result); // now, call EvalExp1() to start 
 
                 if (token != "") // last token must be null 
                     SyntaxErr(Errors.SYNTAX);
