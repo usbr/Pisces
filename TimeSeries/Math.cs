@@ -1034,13 +1034,9 @@ namespace Reclamation.TimeSeries
         }
 
        /// <summary>
-       /// Compares if series1 is greater than series2
-       /// returns one(1) for points that are greater otherwise zero(1)
+       /// Compares series 1 to series2
        /// </summary>
-       /// <param name="s"></param>
-       /// <param name="d"></param>
-       /// <returns></returns>
-        internal static Series GreaterThan(Series series1, Series series2)
+        internal static Series Compare(Series series1, Series series2, Func<double,double,double> f)
         {
             Series rval = series1.Copy();
             for (int i = 0; i < rval.Count; i++)
@@ -1056,13 +1052,9 @@ namespace Reclamation.TimeSeries
                 {
                     pt = missing;
                 }
-                else if( pt.Value > series2[idx2].Value)
-                {
-                    pt.Value = 1;
-                }
                 else
                 {
-                    pt.Value = 0;
+                    pt.Value = f(pt.Value,series2[idx2].Value);
                 }
 
                 rval[i] = pt;
@@ -1070,7 +1062,7 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
-        internal static Series GreaterThan(Series series, double p)
+        internal static Series Compare(Series series, double p, Func<double,double,double> f)
         {
             Series rval = series.Copy();
             for (int i = 0; i < rval.Count; i++)
@@ -1081,16 +1073,12 @@ namespace Reclamation.TimeSeries
                 {
                     pt = missing;
                 }
-                else if (pt.Value > p)
-                {
-                    pt.Value = 1;
-                }
                 else
                 {
-                    pt.Value = 0;
+                  pt.Value = f(pt.Value,p);          
                 }
 
-                    rval[i] = pt;
+                rval[i] = pt;
             }
             return rval;
         }
