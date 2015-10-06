@@ -2,6 +2,7 @@
 using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.Excel;
 using Reclamation.TimeSeries.Parser;
+using System;
 using DateTime = System.DateTime;
 
 namespace Reclamation.TimeSeries.Parser.Tests
@@ -184,11 +185,20 @@ namespace Reclamation.TimeSeries.Parser.Tests
             DateTime t1 = DateTime.Parse("1/1/2015");
             DateTime t2 = DateTime.Parse("1/10/2015");
 
-            tiew_qj.AddRange(t1, new double[] { 10, 10, 1, 1 });
-            nscw_qj.AddRange(t1, new double[] { 11, 10, 1, 100 });
+            
             var expected = new double[]       { 35, 0,  0,  35};
 
+            tiew_qj.AfterRead += new EventHandler(delegate(object o, EventArgs a)
+            {
+                tiew_qj.AddRange(t1, new double[] { 10, 10, 1, 1 });
+            });
+            nscw_qj.AfterRead += new EventHandler(delegate(object o, EventArgs a)
+            {
+                nscw_qj.AddRange(t1, new double[] { 11, 10, 1, 100 });
+            });
+
             var qu = new CalculationSeries();
+            
             qu.Expression = "If( tiew_qj + nscw_qj > 20.0 , 35.0, 0)";
             qu.TimeInterval = TimeInterval.Daily;
             qu.Parser.VariableResolver.Add("tiew_qj", tiew_qj);

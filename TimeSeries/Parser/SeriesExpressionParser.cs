@@ -68,6 +68,8 @@ ISBN: 0072134852
 
         TimeSeriesDatabase m_db;
 
+        List<string> stack = new List<string>();
+
         public SeriesExpressionParser(TimeSeriesDatabase db,LookupOption lookup= LookupOption.SeriesName)
         {
             m_db = db;
@@ -93,6 +95,7 @@ ISBN: 0072134852
             catch (Exception ex )
             {
                 errorMessage = ex.Message;
+                stack.Add("invalide expression: '" + expression + "'");
                 return false;
             }
             errorMessage = "";
@@ -120,6 +123,7 @@ ISBN: 0072134852
             ParserResult result;
             expIdx = 0;
 
+            stack.Add(" begin evaluate : " + exp);
             if( Debug)
                 Logger.WriteLine("begin Evaluate('"+exp +"'");
             
@@ -210,6 +214,7 @@ ISBN: 0072134852
             Eval2Add(out result);
             while ((comp = token) == ">" || comp == "<")
             {
+                stack.Add(" comparison : " + comp);
                 GetToken();
                 Eval2Add(out partialResult);
 
@@ -251,6 +256,7 @@ ISBN: 0072134852
             Eval3Multiply(out result);
             while ((op = token) == "+" || op == "-")
             {
+                stack.Add(" operator : " + op);
                 GetToken();
                 Eval3Multiply(out partialResult);
 
@@ -289,8 +295,10 @@ ISBN: 0072134852
             while ((op = token) == "*" ||
                    op == "/") //|| op == "%")
             {
+                stack.Add(" operator : " + op);
                 GetToken();
                 Eval4Exponent(out partialResult);
+
                 switch (op)
                 {
                     case "*":
@@ -318,6 +326,7 @@ ISBN: 0072134852
             Eval5Sign(out result);
             if (token == "^")
             {
+                stack.Add(" exponent: ^");
                 GetToken();
                 Eval4Exponent(out partialResult);
                 result = ParserResult.Pow(result, partialResult);
@@ -333,6 +342,7 @@ ISBN: 0072134852
             if ((tokType == Types.DELIMITER) &&
                 token == "+" || token == "-")
             {
+                stack.Add(" operator : "+token);
                 op = token;
                 GetToken();
             }
@@ -345,6 +355,7 @@ ISBN: 0072134852
         {
             if ((token == "("))
             {
+                stack.Add("opening parenthesis ( ");
                 GetToken();
                 Eval2Add(out result);
                 if (token != ")")
@@ -362,7 +373,7 @@ ISBN: 0072134852
             switch (tokType)
             {
                 case Types.DOUBLE:
-
+                    stack.Add("double: " + token);
                     if (Double.TryParse(token, out m_double))
                     {
                           result = new ParserResult(m_double);
@@ -376,6 +387,7 @@ ISBN: 0072134852
                     return;
                 case Types.INTEGER:
 
+                    stack.Add("integer: " + token);
                     if (Int32.TryParse(token, out m_int))
                     {
                         result = new ParserResult(m_int);
@@ -388,6 +400,7 @@ ISBN: 0072134852
                     GetToken();
                     return;
                 case Types.STRING:
+                    stack.Add("string: " + token);
                      result = new ParserResult(token);
                     GetToken();
                     return;
@@ -395,7 +408,7 @@ ISBN: 0072134852
                 case Types.VARIABLE:
                     string alias = "";
                     int timeOffset = 0;
-                    
+                    stack.Add("variable: " + token);
                     m_VariableParser.ParseVariableToken(token, out alias, out timeOffset);
 
                     if (Regex.IsMatch(alias, "\'.+\'")) 
@@ -430,8 +443,9 @@ ISBN: 0072134852
                     return;
                 case Types.FUNCTION:
                     ParserFunction function;
-                    string tmp = "";
-                    ParserUtility.TryGetFunctionCall(token, out tmp, out function);
+                    string subExpression = "";
+                    ParserUtility.TryGetFunctionCall(token, out subExpression, out function);
+                    stack.Add("function call: " + subExpression);
                     SeriesExpressionParser parser = new SeriesExpressionParser(m_db);
                     parser.VariableResolver = this.VariableResolver;
                     List<ParserResult> args = new List<ParserResult>();
@@ -590,8 +604,10 @@ ISBN: 0072134852
             }
             
             if (Debug)
-            {
-                Logger.WriteLine("token = '" + token + "' type = " + tokType.ToString());
+            { 
+                var msg = "token = '" + token + "' type = " + tokType.ToString();
+                stack.Add(msg);
+                Logger.WriteLine(msg);
             }
         }
 

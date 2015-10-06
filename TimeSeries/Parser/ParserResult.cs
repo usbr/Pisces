@@ -244,6 +244,18 @@ namespace Reclamation.TimeSeries.Parser
 
         internal ParserResult GreaterThan(ParserResult partialResult)
         {
+            ParserResult rval;
+            if( IsSeries && partialResult.isSeries )
+            {
+                rval = new ParserResult(Math.GreaterThan( this.series, partialResult.series));
+                return rval;
+            }
+            if (IsSeries && partialResult.IsDouble )
+            {
+                rval = new ParserResult(Math.GreaterThan(this.series, partialResult.Double));
+                return rval;
+            }
+
             throw new NotImplementedException();
         }
 

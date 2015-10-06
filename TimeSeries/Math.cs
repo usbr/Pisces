@@ -1032,5 +1032,67 @@ namespace Reclamation.TimeSeries
                 sOut.Add(t, avgVal);
             }
         }
+
+       /// <summary>
+       /// Compares if series1 is greater than series2
+       /// returns one(1) for points that are greater otherwise zero(1)
+       /// </summary>
+       /// <param name="s"></param>
+       /// <param name="d"></param>
+       /// <returns></returns>
+        internal static Series GreaterThan(Series series1, Series series2)
+        {
+            Series rval = series1.Copy();
+            for (int i = 0; i < rval.Count; i++)
+            {
+                Point pt = rval[i];
+                var idx2 =  series2.IndexOf(pt.DateTime);
+                var missing = new Point(pt.DateTime, Point.MissingValueFlag, PointFlag.Missing);
+                if (pt.IsMissing || idx2 < 0)
+                {
+                    pt = missing;
+                }
+                else if (idx2 >= 0 && series2[idx2].IsMissing)
+                {
+                    pt = missing;
+                }
+                else if( pt.Value > series2[idx2].Value)
+                {
+                    pt.Value = 1;
+                }
+                else
+                {
+                    pt.Value = 0;
+                }
+
+                rval[i] = pt;
+            }
+            return rval;
+        }
+
+        internal static Series GreaterThan(Series series, double p)
+        {
+            Series rval = series.Copy();
+            for (int i = 0; i < rval.Count; i++)
+            {
+                Point pt = rval[i];
+                var missing = new Point(pt.DateTime, Point.MissingValueFlag, PointFlag.Missing);
+                if (pt.IsMissing  || p == Point.MissingValueFlag)
+                {
+                    pt = missing;
+                }
+                else if (pt.Value > p)
+                {
+                    pt.Value = 1;
+                }
+                else
+                {
+                    pt.Value = 0;
+                }
+
+                    rval[i] = pt;
+            }
+            return rval;
+        }
     }
 }
