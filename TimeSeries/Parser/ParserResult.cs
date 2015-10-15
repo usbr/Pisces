@@ -241,5 +241,56 @@ namespace Reclamation.TimeSeries.Parser
                 else
                     return this.double_val.ToString();
         }
+
+        internal ParserResult GreaterThan(ParserResult partialResult)
+        {
+            ParserResult rval;
+            if( IsSeries && partialResult.isSeries )
+            {
+                rval = new ParserResult(Math.Compare( this.series, partialResult.series,GT));
+                return rval;
+            }
+            if (IsSeries && partialResult.IsDouble )
+            {
+                rval = new ParserResult(Math.Compare(this.series, partialResult.Double,GT));
+                return rval;
+            }
+
+            throw new NotImplementedException();
+        }
+
+
+
+        static double GT(double a, double b)
+        {
+            if ( a > b)
+                return 1;
+            return 0;
+        }
+
+        static double LT(double a, double b)
+        {
+            if (a < b)
+                return 1;
+            return 0;
+        }
+
+        internal ParserResult LessThan(ParserResult partialResult)
+        {
+            ParserResult rval;
+            if (IsSeries && partialResult.isSeries)
+            {
+                rval = new ParserResult(Math.Compare(this.series, partialResult.series,LT));
+                return rval;
+            }
+            if (IsSeries && partialResult.IsDouble)
+            {
+                rval = new ParserResult(Math.Compare(this.series, partialResult.Double,LT));
+                return rval;
+            }
+
+
+            throw new NotImplementedException();
+        }
     }
 }

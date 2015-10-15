@@ -1032,5 +1032,55 @@ namespace Reclamation.TimeSeries
                 sOut.Add(t, avgVal);
             }
         }
+
+       /// <summary>
+       /// Compares series 1 to series2
+       /// </summary>
+        internal static Series Compare(Series series1, Series series2, Func<double,double,double> f)
+        {
+            Series rval = series1.Copy();
+            for (int i = 0; i < rval.Count; i++)
+            {
+                Point pt = rval[i];
+                var idx2 =  series2.IndexOf(pt.DateTime);
+                var missing = new Point(pt.DateTime, Point.MissingValueFlag, PointFlag.Missing);
+                if (pt.IsMissing || idx2 < 0)
+                {
+                    pt = missing;
+                }
+                else if (idx2 >= 0 && series2[idx2].IsMissing)
+                {
+                    pt = missing;
+                }
+                else
+                {
+                    pt.Value = f(pt.Value,series2[idx2].Value);
+                }
+
+                rval[i] = pt;
+            }
+            return rval;
+        }
+
+        internal static Series Compare(Series series, double p, Func<double,double,double> f)
+        {
+            Series rval = series.Copy();
+            for (int i = 0; i < rval.Count; i++)
+            {
+                Point pt = rval[i];
+                var missing = new Point(pt.DateTime, Point.MissingValueFlag, PointFlag.Missing);
+                if (pt.IsMissing  || p == Point.MissingValueFlag)
+                {
+                    pt = missing;
+                }
+                else
+                {
+                  pt.Value = f(pt.Value,p);          
+                }
+
+                rval[i] = pt;
+            }
+            return rval;
+        }
     }
 }

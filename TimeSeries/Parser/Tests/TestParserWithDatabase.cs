@@ -249,19 +249,6 @@ namespace Reclamation.TimeSeries.Parser.Tests
 
         }
 
-        [Test]
-        public void SimpleMath()
-        {
-            var p = new SeriesExpressionParser();
-
-            Assert.AreEqual(4, p.Evaluate("10 - 3*2").Double);
-            Assert.AreEqual(4, p.Evaluate("10 - 2 *3").Double);
-            Assert.AreEqual(8, p.Evaluate("2^3").Double);
-            Assert.AreEqual(8, p.Evaluate("10 - 2 * 3^0").Double);
-            Assert.AreEqual(-2, p.Evaluate(" -(2+0*5)").Double);
-            Assert.AreEqual(16, p.Evaluate("-2^(10-2*3)").Double);
-
-        }
-
+        
     }
 }

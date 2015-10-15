@@ -192,6 +192,8 @@ namespace Reclamation.TimeSeries.Hydromet
             int idx1 = tf.IndexOf("BEGIN DATA");
 
             int idx2 = tf.IndexOf("END DATA");
+            if (idx2 == -1)// could be error like on oct 1
+                idx2 = tf.Length - 1;
 
             if (idx1 < 0 || idx2 < 0 || idx2 == idx1 + 1)
             {

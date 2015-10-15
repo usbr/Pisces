@@ -1656,8 +1656,33 @@ namespace Reclamation.TimeSeries
                 //rval = rval + s;
             }
 
+            return rval;
+        }
 
+        [FunctionAttribute("returns a series composed of thenvalue or elseValues ",
+         "If(series, ifValue, elseValue)")]
+        public static Series If(Series series, double thenVale, double elseValue )
+        {
+            Series rval = series.Copy();
+            for (int i = 0; i < rval.Count; i++)
+            {
+                Point pt = rval[i];
+                var missing = new Point(pt.DateTime, Point.MissingValueFlag, PointFlag.Missing);
+                if (pt.IsMissing )
+                {
+                    pt = missing;
+                }
+                else if (pt.Value > 0)
+                {
+                    pt.Value = thenVale;
+                }
+                else
+                {
+                    pt.Value = elseValue;
+                }
 
+                rval[i] = pt;
+            }
             return rval;
         }
    

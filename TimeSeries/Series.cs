@@ -192,6 +192,21 @@ namespace Reclamation.TimeSeries
         }
 
         /// <summary>
+        /// Adds a range of Data.
+        /// usefull for adding test data.
+        /// </summary>
+        /// <param name="t">starting date time</param>
+        /// <param name="v">array of double values</param>
+        internal void AddRange(DateTime t,double[] v)
+        {
+            for (int i = 0; i < v.Length; i++)
+            {
+                Add(t, v[i]);
+                t = IncremetDate(t);
+            }
+        }
+
+        /// <summary>
         /// Override this method to support the Update() feature
         /// </summary>
         /// <returns></returns>

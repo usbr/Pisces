@@ -42,7 +42,7 @@ ISBN: 0072134852
     public class SeriesExpressionParser
     {
         // Enumerate token types. 
-        enum Types { NONE, DELIMITER, VARIABLE, DOUBLE,INTEGER, FUNCTION, STRING }; 
+        enum Types { NONE, DELIMITER, VARIABLE, DOUBLE,INTEGER, FUNCTION, STRING, COMPARISON  }; 
         // Enumerate error types. 
         enum Errors { SYNTAX, UNBALPARENS, NOEXP, DIVBYZERO };
 
@@ -67,6 +67,8 @@ ISBN: 0072134852
         public bool RecursiveCalculations = false;
 
         TimeSeriesDatabase m_db;
+
+        List<string> stack = new List<string>();
 
         public SeriesExpressionParser(TimeSeriesDatabase db,LookupOption lookup= LookupOption.SeriesName)
         {
@@ -93,6 +95,7 @@ ISBN: 0072134852
             catch (Exception ex )
             {
                 errorMessage = ex.Message;
+                stack.Add("invalide expression: '" + expression + "'");
                 return false;
             }
             errorMessage = "";
@@ -120,6 +123,7 @@ ISBN: 0072134852
             ParserResult result;
             expIdx = 0;
 
+            stack.Add(" begin evaluate : " + exp);
             if( Debug)
                 Logger.WriteLine("begin Evaluate('"+exp +"'");
             
@@ -132,7 +136,7 @@ ISBN: 0072134852
                     return new ParserResult(0.0);
                 }
 
-                EvalExp1(out result); // now, call EvalExp1() to start 
+                EvalExp1Comparison(out result); // now, call EvalExp1() to start 
 
                 if (token != "") // last token must be null 
                     SyntaxErr(Errors.SYNTAX);
@@ -201,42 +205,46 @@ ISBN: 0072134852
         }
 
 
-        // Process an assignment. 
-        void EvalExp1(out ParserResult result)
+        // Process comparison operators
+        void EvalExp1Comparison(out ParserResult result)
         {
-            //int varIdx;
-            Types ttokType;
-            string temptoken;
+            string comp;
+            ParserResult partialResult;
 
-            if (tokType == Types.VARIABLE)
+            Eval2Add(out result);
+            while ((comp = token) == ">" || comp == "<")
             {
-                // save old token 
-                temptoken = String.Copy(token);
-                ttokType = tokType;
-
-                // Compute the index of the variable. 
-                //varIdx = Char.ToUpper(token[0]) - 'A';
-
+                stack.Add(" comparison : " + comp);
                 GetToken();
-                if (token != "=")
+                Eval2Add(out partialResult);
+
+                if (Debug && result.IsSeries && partialResult.IsSeries)
                 {
-                    PutBack(); // return current token 
-                    // restore old token -- not an assignment 
-                    token = String.Copy(temptoken);
-                    tokType = ttokType;
+                    Console.WriteLine("Part A ");
+                    partialResult.Series.WriteToConsole();
+                    Console.WriteLine("Part B");
+                    result.Series.WriteToConsole();
                 }
-                else
+                switch (comp)
                 {
-                    GetToken(); // get next part of exp 
-                    Eval2Add(out result);
-                    throw new NotImplementedException("Assignment using '=' not implemented");
-                    //VariableResolver.Add(token, result);
-                    //vars[varIdx] = result;
-                    //return;
+                    case ">":
+                        result = result.GreaterThan(partialResult);
+                        break;
+                    case "<":
+                        result = result.LessThan(partialResult);
+                        break;
+                }
+                if ((Debug && result.IsSeries && partialResult.IsSeries))
+                {
+                    Console.WriteLine("Part A " + comp + " Part B ");
+                    result.Series.WriteToConsole();
                 }
             }
 
-            Eval2Add(out result);
+
+
+
+            //Eval2Add(out result);
         }
 
         // Add or subtract two terms. 
@@ -248,6 +256,7 @@ ISBN: 0072134852
             Eval3Multiply(out result);
             while ((op = token) == "+" || op == "-")
             {
+                stack.Add(" operator : " + op);
                 GetToken();
                 Eval3Multiply(out partialResult);
 
@@ -286,8 +295,10 @@ ISBN: 0072134852
             while ((op = token) == "*" ||
                    op == "/") //|| op == "%")
             {
+                stack.Add(" operator : " + op);
                 GetToken();
                 Eval4Exponent(out partialResult);
+
                 switch (op)
                 {
                     case "*":
@@ -315,6 +326,7 @@ ISBN: 0072134852
             Eval5Sign(out result);
             if (token == "^")
             {
+                stack.Add(" exponent: ^");
                 GetToken();
                 Eval4Exponent(out partialResult);
                 result = ParserResult.Pow(result, partialResult);
@@ -330,6 +342,7 @@ ISBN: 0072134852
             if ((tokType == Types.DELIMITER) &&
                 token == "+" || token == "-")
             {
+                stack.Add(" operator : "+token);
                 op = token;
                 GetToken();
             }
@@ -342,6 +355,7 @@ ISBN: 0072134852
         {
             if ((token == "("))
             {
+                stack.Add("opening parenthesis ( ");
                 GetToken();
                 Eval2Add(out result);
                 if (token != ")")
@@ -359,7 +373,7 @@ ISBN: 0072134852
             switch (tokType)
             {
                 case Types.DOUBLE:
-
+                    stack.Add("double: " + token);
                     if (Double.TryParse(token, out m_double))
                     {
                           result = new ParserResult(m_double);
@@ -373,6 +387,7 @@ ISBN: 0072134852
                     return;
                 case Types.INTEGER:
 
+                    stack.Add("integer: " + token);
                     if (Int32.TryParse(token, out m_int))
                     {
                         result = new ParserResult(m_int);
@@ -385,6 +400,7 @@ ISBN: 0072134852
                     GetToken();
                     return;
                 case Types.STRING:
+                    stack.Add("string: " + token);
                      result = new ParserResult(token);
                     GetToken();
                     return;
@@ -392,7 +408,7 @@ ISBN: 0072134852
                 case Types.VARIABLE:
                     string alias = "";
                     int timeOffset = 0;
-                    
+                    stack.Add("variable: " + token);
                     m_VariableParser.ParseVariableToken(token, out alias, out timeOffset);
 
                     if (Regex.IsMatch(alias, "\'.+\'")) 
@@ -427,8 +443,9 @@ ISBN: 0072134852
                     return;
                 case Types.FUNCTION:
                     ParserFunction function;
-                    string tmp = "";
-                    ParserUtility.TryGetFunctionCall(token, out tmp, out function);
+                    string subExpression = "";
+                    ParserUtility.TryGetFunctionCall(token, out subExpression, out function);
+                    stack.Add("function call: " + subExpression);
                     SeriesExpressionParser parser = new SeriesExpressionParser(m_db);
                     parser.VariableResolver = this.VariableResolver;
                     List<ParserResult> args = new List<ParserResult>();
@@ -575,11 +592,22 @@ ISBN: 0072134852
                 else
                     tokType = Types.INTEGER;
             }
-
+            else if(ParserUtility.TryParseComparison(exp.Substring(expIdx), out subExpr))
+            {
+                token = subExpr;
+                expIdx += subExpr.Length;
+                tokType = Types.COMPARISON;
+            }
+            else
+            {
+                Logger.WriteLine("Unknown Token...");
+            }
             
             if (Debug)
-            {
-                Logger.WriteLine("token = '" + token + "' type = " + tokType.ToString());
+            { 
+                var msg = "token = '" + token + "' type = " + tokType.ToString();
+                stack.Add(msg);
+                Logger.WriteLine(msg);
             }
         }
 
@@ -589,7 +617,7 @@ ISBN: 0072134852
         // Return true if c is a delimiter. 
         bool IsDelim(char c)
         {
-            if ((" +-/*%^=()".IndexOf(c) != -1))
+            if ((" +-/*^()".IndexOf(c) != -1))
                 return true;
             return false;
         }
