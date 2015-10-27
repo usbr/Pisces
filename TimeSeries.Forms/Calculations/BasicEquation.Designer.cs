@@ -50,13 +50,12 @@
             // textBoxHelp
             // 
             this.textBoxHelp.BackColor = System.Drawing.SystemColors.Control;
-            this.textBoxHelp.Location = new System.Drawing.Point(4, 4);
-            this.textBoxHelp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBoxHelp.MinimumSize = new System.Drawing.Size(485, 88);
+            this.textBoxHelp.Location = new System.Drawing.Point(3, 3);
+            this.textBoxHelp.MinimumSize = new System.Drawing.Size(365, 72);
             this.textBoxHelp.Multiline = true;
             this.textBoxHelp.Name = "textBoxHelp";
             this.textBoxHelp.ReadOnly = true;
-            this.textBoxHelp.Size = new System.Drawing.Size(489, 88);
+            this.textBoxHelp.Size = new System.Drawing.Size(368, 72);
             this.textBoxHelp.TabIndex = 6;
             this.textBoxHelp.Text = "Use this dialog to define a basic math equation for a computed series. Use standa" +
     "rd math operators to form an equation. For example:\r\n\r\nSeries1 * 1.98347\r\n(JCK_A" +
@@ -67,12 +66,11 @@
             this.textBoxMath.AllowDrop = true;
             this.textBoxMath.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxMath.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxMath.Location = new System.Drawing.Point(4, 4);
-            this.textBoxMath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxMath.Location = new System.Drawing.Point(3, 3);
             this.textBoxMath.Multiline = true;
             this.textBoxMath.Name = "textBoxMath";
             this.textBoxMath.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxMath.Size = new System.Drawing.Size(600, 364);
+            this.textBoxMath.Size = new System.Drawing.Size(448, 294);
             this.textBoxMath.TabIndex = 3;
             this.textBoxMath.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBoxMath_DragDrop_1);
             this.textBoxMath.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBoxMath_DragEnter_1);
@@ -83,10 +81,9 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(624, 18);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(468, 15);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 17);
+            this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 8;
             this.label3.Text = "functions";
             // 
@@ -96,20 +93,17 @@
             this.listBoxFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxFunctions.HorizontalScrollbar = true;
-            this.listBoxFunctions.ItemHeight = 16;
-            this.listBoxFunctions.Location = new System.Drawing.Point(628, 38);
-            this.listBoxFunctions.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBoxFunctions.Location = new System.Drawing.Point(471, 31);
             this.listBoxFunctions.Name = "listBoxFunctions";
-            this.listBoxFunctions.Size = new System.Drawing.Size(332, 532);
+            this.listBoxFunctions.Size = new System.Drawing.Size(250, 433);
             this.listBoxFunctions.TabIndex = 9;
             this.listBoxFunctions.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxFunctions_MouseDown);
             // 
             // textBoxSeriesName
             // 
-            this.textBoxSeriesName.Location = new System.Drawing.Point(333, 100);
-            this.textBoxSeriesName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxSeriesName.Location = new System.Drawing.Point(250, 81);
             this.textBoxSeriesName.Name = "textBoxSeriesName";
-            this.textBoxSeriesName.Size = new System.Drawing.Size(161, 22);
+            this.textBoxSeriesName.Size = new System.Drawing.Size(122, 20);
             this.textBoxSeriesName.TabIndex = 13;
             this.toolTip1.SetToolTip(this.textBoxSeriesName, "enter a simple name  like boise_flow");
             // 
@@ -119,21 +113,19 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPageEquation);
-            this.tabControl1.Location = new System.Drawing.Point(4, 170);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabControl1.Location = new System.Drawing.Point(3, 138);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(616, 401);
+            this.tabControl1.Size = new System.Drawing.Size(462, 326);
             this.tabControl1.TabIndex = 10;
             // 
             // tabPageEquation
             // 
             this.tabPageEquation.Controls.Add(this.textBoxMath);
-            this.tabPageEquation.Location = new System.Drawing.Point(4, 25);
-            this.tabPageEquation.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPageEquation.Location = new System.Drawing.Point(4, 22);
             this.tabPageEquation.Name = "tabPageEquation";
-            this.tabPageEquation.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPageEquation.Size = new System.Drawing.Size(608, 372);
+            this.tabPageEquation.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageEquation.Size = new System.Drawing.Size(454, 300);
             this.tabPageEquation.TabIndex = 0;
             this.tabPageEquation.Text = "expression";
             this.tabPageEquation.UseVisualStyleBackColor = true;
@@ -142,10 +134,9 @@
             // 
             this.labelToolTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelToolTip.AutoSize = true;
-            this.labelToolTip.Location = new System.Drawing.Point(0, 575);
-            this.labelToolTip.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelToolTip.Location = new System.Drawing.Point(0, 467);
             this.labelToolTip.Name = "labelToolTip";
-            this.labelToolTip.Size = new System.Drawing.Size(173, 17);
+            this.labelToolTip.Size = new System.Drawing.Size(131, 13);
             this.labelToolTip.TabIndex = 11;
             this.labelToolTip.Text = "Help text will be seen here";
             // 
@@ -160,54 +151,51 @@
             "Weekly",
             "Yearly",
             "Irregular"});
-            this.comboBoxInterval.Location = new System.Drawing.Point(4, 100);
-            this.comboBoxInterval.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxInterval.Location = new System.Drawing.Point(3, 81);
             this.comboBoxInterval.Name = "comboBoxInterval";
-            this.comboBoxInterval.Size = new System.Drawing.Size(212, 24);
+            this.comboBoxInterval.Size = new System.Drawing.Size(160, 21);
             this.comboBoxInterval.TabIndex = 12;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(241, 128);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(181, 104);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 17);
+            this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 16;
             this.label2.Text = "units";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(240, 103);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(180, 84);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 17);
+            this.label1.Size = new System.Drawing.Size(63, 13);
             this.label1.TabIndex = 14;
             this.label1.Text = "series name";
             // 
             // comboBoxUnits
             // 
             this.comboBoxUnits.FormattingEnabled = true;
-            this.comboBoxUnits.Location = new System.Drawing.Point(333, 128);
-            this.comboBoxUnits.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBoxUnits.Location = new System.Drawing.Point(250, 104);
             this.comboBoxUnits.Name = "comboBoxUnits";
-            this.comboBoxUnits.Size = new System.Drawing.Size(161, 24);
+            this.comboBoxUnits.Size = new System.Drawing.Size(122, 21);
             this.comboBoxUnits.TabIndex = 17;
             // 
             // checkBoxCompute
             // 
             this.checkBoxCompute.AutoSize = true;
-            this.checkBoxCompute.Location = new System.Drawing.Point(12, 132);
+            this.checkBoxCompute.Location = new System.Drawing.Point(9, 107);
+            this.checkBoxCompute.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxCompute.Name = "checkBoxCompute";
-            this.checkBoxCompute.Size = new System.Drawing.Size(211, 21);
+            this.checkBoxCompute.Size = new System.Drawing.Size(160, 17);
             this.checkBoxCompute.TabIndex = 18;
             this.checkBoxCompute.Text = "compute full period of record";
             this.checkBoxCompute.UseVisualStyleBackColor = true;
             // 
             // BasicEquation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.checkBoxCompute);
             this.Controls.Add(this.labelToolTip);
@@ -220,10 +208,9 @@
             this.Controls.Add(this.listBoxFunctions);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBoxHelp);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.MinimumSize = new System.Drawing.Size(596, 468);
+            this.MinimumSize = new System.Drawing.Size(447, 380);
             this.Name = "BasicEquation";
-            this.Size = new System.Drawing.Size(965, 609);
+            this.Size = new System.Drawing.Size(724, 495);
             this.tabControl1.ResumeLayout(false);
             this.tabPageEquation.ResumeLayout(false);
             this.tabPageEquation.PerformLayout();

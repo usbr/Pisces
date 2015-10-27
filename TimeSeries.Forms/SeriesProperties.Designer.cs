@@ -314,7 +314,8 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPageGeneral);
             this.tabControl1.Controls.Add(this.tabPageAdvanced);
@@ -351,7 +352,7 @@ namespace Reclamation.TimeSeries.Forms
             this.tabPageGeneral.Controls.Add(this.comboBoxTimeInterval);
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabPageGeneral.Name = "tabPageGeneral";
-            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageGeneral.Size = new System.Drawing.Size(416, 397);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
@@ -418,7 +419,10 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // buttonBuildExpression
             // 
+            this.buttonBuildExpression.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBuildExpression.Location = new System.Drawing.Point(352, 262);
+            this.buttonBuildExpression.MaximumSize = new System.Drawing.Size(28, 23);
             this.buttonBuildExpression.Name = "buttonBuildExpression";
             this.buttonBuildExpression.Size = new System.Drawing.Size(28, 23);
             this.buttonBuildExpression.TabIndex = 55;
@@ -428,9 +432,13 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxExpression
             // 
+            this.textBoxExpression.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxExpression.Location = new System.Drawing.Point(101, 262);
+            this.textBoxExpression.Multiline = true;
             this.textBoxExpression.Name = "textBoxExpression";
-            this.textBoxExpression.Size = new System.Drawing.Size(245, 20);
+            this.textBoxExpression.Size = new System.Drawing.Size(245, 100);
             this.textBoxExpression.TabIndex = 54;
             // 
             // label12
@@ -520,7 +528,7 @@ namespace Reclamation.TimeSeries.Forms
             this.tabPageAdvanced.Controls.Add(this.label8);
             this.tabPageAdvanced.Location = new System.Drawing.Point(4, 22);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
-            this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageAdvanced.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageAdvanced.Size = new System.Drawing.Size(416, 397);
             this.tabPageAdvanced.TabIndex = 1;
             this.tabPageAdvanced.Text = "Advanced";
@@ -585,7 +593,7 @@ namespace Reclamation.TimeSeries.Forms
             this.tabPageNotes.Controls.Add(this.textBoxNotes);
             this.tabPageNotes.Location = new System.Drawing.Point(4, 22);
             this.tabPageNotes.Name = "tabPageNotes";
-            this.tabPageNotes.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageNotes.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageNotes.Size = new System.Drawing.Size(416, 397);
             this.tabPageNotes.TabIndex = 3;
             this.tabPageNotes.Text = "Notes";
