@@ -10,6 +10,36 @@ namespace Reclamation.TimeSeries
     public partial class Math
     {
 
+        public static Series ResidualOctToJul(Series inflow)
+        {
+            Series rval = new Series();
+            rval.TimeInterval = TimeInterval.Daily;
+
+            if (inflow.Count < 0)
+                return rval;
+            var y1 = inflow[0].DateTime.WaterYear();
+            var y2 = inflow[inflow.Count-1].DateTime.WaterYear();
+
+            for (int wy = y1; wy <= y2; wy++)
+            {
+                
+                DateTime t1 = new DateTime(wy - 1, 10, 1);
+                DateTime t2 = new DateTime(wy, 7, 31);
+                var singleYear = Math.Subset(inflow, t1, t2);
+                var t = t1;
+                while (t  <= t2)
+                {
+                    var sub = Math.Subset(singleYear, t, t2);
+                    var val = Math.Sum(sub);
+                    rval.Add(t, val);
+                    t = t1.AddDays(1);
+                }
+            }
+
+            return rval;
+        }
+
+
         /// <summary>
         /// Sums input series day by day
         /// </summary>

@@ -16,6 +16,7 @@ namespace PiscesWebServices
         {
             //Logger.EnableLogger();
             TestCGI t = new TestCGI();
+            t.CompareLinuxToVMSCGI();
             t.PerfTestLarge();
         }
 
@@ -68,15 +69,17 @@ namespace PiscesWebServices
             var fnhyd0 = FileUtility.GetTempFileName(".txt");
             Web.GetFile("http://www.usbr.gov/pn-bin/webdaycsv.pl?" + payload, fnhyd0);
 
-          var diff = TextFile.Compare(tf, new TextFile(fnhyd0));
+          var tf2 = new TextFile(fnhyd0);
+          var diff = TextFile.Compare(tf, tf2);
+            
           if (diff.Length > 0)
           {
-              for (int i = 0; i < diff.Length; i++)
-              {
-                  Console.WriteLine(diff[i]);    
-              }
-              
+                for (int i = 0; i < tf.Length; i++)
+                {
+                    Console.WriteLine(tf[i]);
+                }
           }
+            Assert.IsTrue(diff.Length == 0);
 
         }
 

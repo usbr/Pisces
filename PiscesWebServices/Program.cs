@@ -62,7 +62,7 @@ namespace PiscesWebServices
                 Console.Write("Content-Type: text/html\n\n");
                 db.Inventory();
             }
-
+            else
             if (cgi == "sites")
             {
                 if (format == "json")
@@ -76,28 +76,41 @@ namespace PiscesWebServices
                     c.Execute(propertyFilter);
                 }
             }
+            else
             if (cgi == "instant")
             {
                 CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
                 c.Run(TimeInterval.Hourly,payload);
             }
+            else
             if (cgi == "site")
             {
                 SiteInfo si = new SiteInfo(db);
                 si.Run(payload);
             }
+            else
             if (cgi == "test-perf-large")
             {
                 TestCGI c = new TestCGI();
                 c.PerfTestLarge();
                 
             }
-            if (cgi == "test-perf-small")
-            {
-                TestCGI c = new TestCGI();
-                c.PerfTestSmall();
-
-            }
+            else
+                if (cgi == "test-perf-small")
+                {
+                    TestCGI c = new TestCGI();
+                    c.PerfTestSmall();
+                }
+                else
+                    if (cgi == "dump")
+                    {
+                        TestCGI c = new TestCGI();
+                        c.DumpTest();
+                    }
+                else
+                {
+                    Console.WriteLine("invalid cgi: "+cgi);
+                }
 
         }
 
