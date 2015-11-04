@@ -111,9 +111,10 @@ namespace Reclamation.TimeSeries.Hydromet
 
 			string[] data = Web.GetPage(cgi,payload,HydrometInfoUtility.WebCaching);
 
-            bool hasFlag =    cgi.ToLower().IndexOf("webdaycsv") >= 0 
+            bool hasFlag = cgi.ToLower().IndexOf("webdaycsv") >= 0
                            || cgi.IndexOf("webmpollcsv") >= 0
-                           || cgi.IndexOf("monthly") >=0 ;
+                           || cgi.IndexOf("monthly") >= 0
+                           || cgi.IndexOf("pn-bin/instant") >= 0;
 
 
             TextFile tf = new TextFile(data);
