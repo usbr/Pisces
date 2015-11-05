@@ -32,7 +32,7 @@ namespace Reclamation.TimeSeries
                     var sub = Math.Subset(singleYear, t, t2);
                     var val = Math.Sum(sub);
                     rval.Add(t, val);
-                    t = t1.AddDays(1);
+                    t = t.AddDays(1);
                 }
             }
 
