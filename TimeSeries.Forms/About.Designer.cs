@@ -41,7 +41,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(272, 177);
+            this.textBox1.Size = new System.Drawing.Size(316, 211);
             this.textBox1.TabIndex = 2;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
@@ -57,7 +57,7 @@ namespace Reclamation.TimeSeries.Forms
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(252, 238);
+            this.button1.Location = new System.Drawing.Point(267, 272);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
@@ -69,7 +69,7 @@ namespace Reclamation.TimeSeries.Forms
             this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(350, 273);
+            this.ClientSize = new System.Drawing.Size(356, 312);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);

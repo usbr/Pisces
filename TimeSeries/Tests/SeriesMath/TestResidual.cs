@@ -19,7 +19,7 @@ namespace Pisces.NunitTests.SeriesMath
             ExcelDataReaderSeries heii_qu = new ExcelDataReaderSeries(fn, "unregulation", "Date", "HEII_QU", "cfs");
             heii_qu.Read();
 
-            var heii_resid = Math.ResidualOctToJul(heii_qu);
+            var heii_resid = Math.WaterYearResidual(heii_qu,7);
             heii_resid.WriteToConsole();
 
             var expected = new ExcelDataReaderSeries(fn, "unregulation", "Date", "HEII_RESID", "cfs");

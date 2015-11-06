@@ -41,52 +41,52 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 
 [Files]
-Source:  ".\bin\x86\debug\Pisces.exe";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\plugins.txt";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Pisces.exe.config";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Pisces.exe";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\plugins.txt";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Pisces.exe.config";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "..\private.config";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\images\*";   DestDir: "{app}\images";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Aga.Controls.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\ICSharpCode.SharpZipLib.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Reclamation.Core.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Reclamation.TimeSeries.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Reclamation.TimeSeries.Excel.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Reclamation.TimeSeries.Modsim.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Reclamation.TimeSeries.Forms.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Reclamation.TimeSeries.OracleHdb.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Reclamation.TimeSeries.ArmyCorps.dll";   DestDir: "{app}";   Flags: ignoreversion
-;Source:  ".\bin\x86\debug\Reclamation.TimeSeries.Urgsim.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\SpreadsheetGear.dll";   DestDir: "{app}";   Flags: ignoreversion
-;Source:  ".\bin\x86\debug\System.Data.SqlServerCe.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\SQLite.Interop.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\System.Data.SQLite.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\TeeChart.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\hdb-poet.exe";   DestDir: "{app}";   Flags: ignoreversion
-;Source:  ".\bin\x86\debug\Tamir.SharpSSH.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\DSSUTL.EXE";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Reclamation.TimeSeries.Graphing.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Npgsql.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\Mono.Security.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\DgvFilterPopup.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\images\*";   DestDir: "{app}\images";   Flags: ignoreversion
+Source:  ".\bin\debug\Aga.Controls.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\ICSharpCode.SharpZipLib.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Reclamation.Core.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Reclamation.TimeSeries.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Reclamation.TimeSeries.Excel.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Reclamation.TimeSeries.Modsim.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Reclamation.TimeSeries.Forms.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Reclamation.TimeSeries.OracleHdb.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Reclamation.TimeSeries.ArmyCorps.dll";   DestDir: "{app}";   Flags: ignoreversion
+;Source:  ".\bin\debug\Reclamation.TimeSeries.Urgsim.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\SpreadsheetGear.dll";   DestDir: "{app}";   Flags: ignoreversion
+;Source:  ".\bin\debug\System.Data.SqlServerCe.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\SQLite.Interop.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\System.Data.SQLite.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\TeeChart.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\hdb-poet.exe";   DestDir: "{app}";   Flags: ignoreversion
+;Source:  ".\bin\debug\Tamir.SharpSSH.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\DSSUTL.EXE";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Reclamation.TimeSeries.Graphing.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Npgsql.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\Mono.Security.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\DgvFilterPopup.dll";   DestDir: "{app}";   Flags: ignoreversion
 
 ; ORACLE
 Source:  "..\PaidThirdParty\Devart.Data.Oracle.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "..\PaidThirdParty\Devart.Data.dll";   DestDir: "{app}";   Flags: ignoreversion
 
-Source:  "V:\PN6200\Hydromet\ConfigurationData\site.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "V:\PN6200\Hydromet\ConfigurationData\site_gp.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "V:\PN6200\Hydromet\ConfigurationData\pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "V:\PN6200\Hydromet\ConfigurationData\pcode_gp.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "V:\PN6200\Hydromet\ConfigurationData\site1.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\site.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\site_gp.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\pcode_gp.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\site1.csv";   DestDir: "{app}";   Flags: ignoreversion
 
-Source:  "V:\PN6200\Hydromet\ConfigurationData\nwcc_inventory.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "V:\PN6200\Hydromet\ConfigurationData\snotel_site_list2.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "V:\PN6200\Hydromet\ConfigurationData\boise_arc.dat";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\nwcc_inventory.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\snotel_site_list2.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\boise_arc.dat";   DestDir: "{app}";   Flags: ignoreversion
 
-Source:  ".\bin\x86\debug\alglibnet2.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\libsim.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\XYFile.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\x86\debug\A2CM.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\alglibnet2.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\libsim.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\XYFile.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\A2CM.dll";   DestDir: "{app}";   Flags: ignoreversion
 ;
 ; Sample Data
 ;
