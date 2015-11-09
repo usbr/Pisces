@@ -16,7 +16,7 @@ namespace PiscesWebServices
         {
             //Logger.EnableLogger();
             TestCGI t = new TestCGI();
-            t.CompareLinuxToVMSCGI();
+            t.InstantCompareLinuxToVMSCGI();
             t.PerfTestLarge();
         }
 
@@ -52,7 +52,7 @@ namespace PiscesWebServices
 
 
         [Test]
-        public void CompareLinuxToVMSCGI()
+        public void InstantCompareLinuxToVMSCGI()
         {
             //http://www.usbr.gov/pn-bin/webdaycsv.pl?parameter=mddo%20ch,wcao%20q&syer=2015&smnth=4&sdy=5&eyer=2015&emnth=4&edy=5&format=2
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=10&sdy=30&eyer=2015&emnth=11&edy=4&format=2";

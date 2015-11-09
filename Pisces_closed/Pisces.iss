@@ -1,8 +1,7 @@
 #define AppName "Pisces"
 #define SrcApp ".\bin\x86\debug\Pisces.exe"
 #define FileVerStr GetStringFileInfo(SrcApp, "ProductVersion")
-;#define public StripBuild(str aVerStr) Copy(aVerStr, 1, RPos(".", aVerStr)-1)
-;#define AppVerStr StripBuild(FileVerStr)
+
 [Setup]
 AppId={{9DC6B8F6-D59D-491E-8FCC-D601FE200836}
 AppName={#AppName}
@@ -16,17 +15,11 @@ OutputBaseFilename=Pisces2-setup
 
 LicenseFile=.\..\license.md
 
-;AppPublisher=Reclamation
 DefaultDirName={sd}\Pisces2
 DefaultGroupName=Pisces
-;AppPublisherURL=http://www.usbr.gov/pn/hydromet/pisces
-;AppSupportURL=http://forum.heidisql.com/
-;AppUpdatesURL=http://download.heidisql.com/
 
 Compression=lzma
 SolidCompression=yes
-;VersionInfoProductName="Pisces"
-;VersionInfoCompany="Reclamation"
 PrivilegesRequired=lowest
 
 SetupIconFile=".\images\Fish_icon_3.ico"
@@ -57,7 +50,6 @@ Source:  ".\bin\debug\Reclamation.TimeSeries.OracleHdb.dll";   DestDir: "{app}";
 Source:  ".\bin\debug\Reclamation.TimeSeries.ArmyCorps.dll";   DestDir: "{app}";   Flags: ignoreversion
 ;Source:  ".\bin\debug\Reclamation.TimeSeries.Urgsim.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\SpreadsheetGear.dll";   DestDir: "{app}";   Flags: ignoreversion
-;Source:  ".\bin\debug\System.Data.SqlServerCe.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\SQLite.Interop.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\System.Data.SQLite.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\TeeChart.dll";   DestDir: "{app}";   Flags: ignoreversion
@@ -73,16 +65,17 @@ Source:  ".\bin\debug\DgvFilterPopup.dll";   DestDir: "{app}";   Flags: ignoreve
 Source:  "..\PaidThirdParty\Devart.Data.Oracle.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "..\PaidThirdParty\Devart.Data.dll";   DestDir: "{app}";   Flags: ignoreversion
 
+Source:  "t:\PN6200\Hydromet\ConfigurationData\gp\*.*";   DestDir: "{app}\gp";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\yak\*.*";   DestDir: "{app}\yak";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\site.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "t:\PN6200\Hydromet\ConfigurationData\site_gp.csv";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "t:\PN6200\Hydromet\ConfigurationData\pcode_gp.csv";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\site1.csv";   DestDir: "{app}";   Flags: ignoreversion
 
 Source:  "t:\PN6200\Hydromet\ConfigurationData\nwcc_inventory.csv";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\snotel_site_list2.csv";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\boise_arc.dat";   DestDir: "{app}";   Flags: ignoreversion
 
+; Modsim
 Source:  ".\bin\debug\alglibnet2.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\libsim.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\XYFile.dll";   DestDir: "{app}";   Flags: ignoreversion
@@ -107,43 +100,49 @@ Name: "{commondesktop}\Pisces2"; Filename: "{app}\Pisces.exe"; Tasks: desktopico
 [Code]
 
 
-function HaveDotNet20: boolean;
-var ResultDWord:Cardinal;
+function IsDotNetDetected(version: string; service: cardinal): boolean;
+// Indicates whether the specified version and service pack of the .NET Framework is installed.
+//
+// version -- Specify one of these strings for the required .NET Framework version:
+//    'v1.1.4322'     .NET Framework 1.1
+//    'v2.0.50727'    .NET Framework 2.0
+//    'v3.0'          .NET Framework 3.0
+//    'v3.5'          .NET Framework 3.5
+//    'v4\Client'     .NET Framework 4.0 Client Profile
+//    'v4\Full'       .NET Framework 4.0 Full Installation
+//
+// service -- Specify any non-negative integer for the required service pack level:
+//    0               No service packs required
+//    1, 2, etc.      Service pack 1, 2, etc. required
+var
+    key: string;
+    install, serviceCount: cardinal;
+    success: boolean;
 begin
-result:=RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v2.0.50727','Install', ResultDWord);
-if ResultDWord = 1 then
-begin
-result:= True;
+    key := 'SOFTWARE\Microsoft\NET Framework Setup\NDP\' + version;
+    // .NET 3.0 uses value InstallSuccess in subkey Setup
+    if Pos('v3.0', version) = 1 then begin
+        success := RegQueryDWordValue(HKLM, key + '\Setup', 'InstallSuccess', install);
+    end else begin
+        success := RegQueryDWordValue(HKLM, key, 'Install', install);
+    end;
+    // .NET 4.0 uses value Servicing instead of SP
+    if Pos('v4', version) = 1 then begin
+        success := success and RegQueryDWordValue(HKLM, key, 'Servicing', serviceCount);
+    end else begin
+        success := success and RegQueryDWordValue(HKLM, key, 'SP', serviceCount);
+    end;
+    result := success and (install = 1) and (serviceCount >= service);
 end;
-end;
-
-function HaveDotNet35: boolean;
-var ResultDWord:Cardinal;
-begin
-result:=RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\NET Framework Setup\NDP\v3.5','Install', ResultDWord);
-if ResultDWord = 1 then
-begin
-result:= True;
-end;
-end;
-
 
 function InitializeSetup(): Boolean;
-
 begin
-if not HaveDotNet35 then
-  begin
- MsgBox('WARNING: You do not have the Microsoft .NET Framework 3.5 installed.  Pisces requires the .NET Framework 3.5 ', mbInformation, MB_OK);
- end ;
- result:= true;
- end;
-
-
-
-
-function HaveOdp: boolean  ;
-begin
-result:= DirExists( ExpandConstant('{app}\oracle'));
-
+    if not IsDotNetDetected('v4\Full', 0) then begin
+        MsgBox('MyApp requires Microsoft .NET Framework 4.0 '#13#13
+            'Please use Windows Update to install this version,'#13
+            'and then re-run the Pisces setup program.', mbInformation, MB_OK);
+        result := false;
+    end else
+        result := true;
 end;
 
