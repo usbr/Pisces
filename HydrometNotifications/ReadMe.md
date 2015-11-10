@@ -57,11 +57,11 @@ Conditions are brief mathematical expressions that describe what is an alarm (al
 
 Alarm_group describes groups of alarm sthat will be processed together, and the coresponding list of email addresses.
  
-![alarm group](/images/alarm_group.jpg)
+![alarm group](images/alarm_group.jpg)
 
 Alarm_sites defines a list of sites that will be processed together using the 
  
-![alarms sites](/images/alarm_sites.jpg)
+![alarms sites](images/alarm_sites.jpg)
 Alarm_history contains a log of notifications sent.
  
 The alarms are
