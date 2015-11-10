@@ -137,12 +137,14 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="baso_qd7.canal" />
     <None Include="baso_qd7.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="baso_q.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="bcto_qd7.canal" />
     <None Include="bcto_qd7.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
