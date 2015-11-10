@@ -11,6 +11,8 @@ Rogue Minimum Flows Routine
 A special routine was prepared for minimum flows in the Rogue Basin.   This was funded with National Marine Fisheries Service (NMFS) BiOp implementation funding provided by the Yakima Area office.
 The function named RogueMinimumFlow can be used in place of an alarm_condition or a clear_condition.  This can be used for daily or 15 minute data.   When RogueMinimumFlow  is in place the program logic performs the following steps.   
 •	The data source becomes a filename.  For example the data source i:bcto q  becomes  bcto_q.csv.  bcto_q.csv contains the minimum flow requirements.
+
+![minimum flow requirements wet,dry,median](images/rogue_wet_median_dry.jpg)
  
 •	new rule: (April 2014) check for a file bcto_q.canal
 o	 If file exists look inside that file for a canal.  (contents could be: talo qd)
@@ -25,12 +27,18 @@ o	If the canal is dry (< 5 cfs) then discontinue at this point because requireme
 The Notification configuration is stored in the database tables:  alarm_definition, alarm_group, alarm_sites, and alarm_history. 
 Alarm_definition describes conditions that require a notification, who to notify, and the status of the alarm.  
  
+![alarm definition table example ](images/alarm_definition_table.jpg)
 
 id is the primary key used by the database.
+
 data_source - defines which hydrologic data and the database source.    The format is  database:site parameter.  For example the ‘d’ in “d:man fb” indicates daily Hydromet database.  ‘man’ is the Hydromet cbtt name for man creek reservoir.   ‘fb’ is the parameter for forebay.     Avanced data_source: The site definition can also reference a list of sites such as %agrimet in example 3 above.   Use the table alarm_sites to define a list of sites.  When using a list of sites like example wher id=3, the alarms the active column does not get set during an alarm.
+
 hours_back - defines how many hours of data to query.  If you need two days of data enter 48. You usually want 2 hours for instant data, and 24 hours for daily data.
+
 Group_name -  defines a set of alarms that will be processed together and a single  notification is sent to all email addresses defined in that group.  For example a group Hydromet_sites could be used to check all Hydromet sites for current data.    
+
 alarm_condition - condition that will cause a notification to be sent.  The active column will set to ‘true’.  See the discussion below on conditions
+
 clear_condition - condition that will cause a notification to be sent.  The active column will be set to ‘false’.  If the clear condition is not defined, the alarm needs to be cleared manually.  See the discussion below on conditions.
 Message – this is the text for the email to be sent.   The following codes are used in the message to customize the email.
 	%value – inserts the value from the data_source, used in evaluating the alarm_condition or clear_condition.
@@ -49,9 +57,11 @@ Conditions are brief mathematical expressions that describe what is an alarm (al
 
 Alarm_group describes groups of alarm sthat will be processed together, and the coresponding list of email addresses.
  
+![alarm group](/images/alarm_group.jpg)
 
 Alarm_sites defines a list of sites that will be processed together using the 
  
+![alarms sites](/images/alarm_sites.jpg)
 Alarm_history contains a log of notifications sent.
  
 The alarms are
