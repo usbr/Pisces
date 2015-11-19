@@ -289,6 +289,8 @@ namespace HydrometServer
             Console.WriteLine("           computes daily data");
             Console.WriteLine("--calculate-monthly");
             Console.WriteLine("           computes all monthly equations");
+            Console.WriteLine("--computeDependencies");
+            Console.WriteLine("           computes dependencies at the same level");
             Console.WriteLine("--t1=1-31-2013|yesterday|lastyear");
             Console.WriteLine("           starting date: default is yesterday");
             Console.WriteLine("--t2=1-31-2013|yesterday|lastyear");
