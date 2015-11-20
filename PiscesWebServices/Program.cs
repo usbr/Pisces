@@ -28,6 +28,7 @@ namespace PiscesWebServices
             var format = "json";
             var verbose = false;
 
+            p.Add("server");
             p.Add("cgi=","required cgi to execute cgi=sites or cgi=series",x => cgi=x);
             p.Add("json_property_stubs=", "comma separated list of properties (i.e. 'region,url,') to created empty stubs if neeed ",
                               x => json_property_stubs = x);
