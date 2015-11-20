@@ -1119,7 +1119,27 @@ namespace Reclamation.TimeSeries
             return ie;
             //throw new NotImplementedException();
         }
+        /// <summary>
+        /// Factory Method to Create a CalculationSeries
+        /// </summary>
+        /// <param name="siteID"></param>
+        /// <param name="pcode"></param>
+        /// <param name="interval"></param>
+        /// <returns></returns>
+        public CalculationSeries GetCalculationSeries(string siteID, string pcode, TimeInterval interval)
+        {
+            string tn = interval.ToString().ToLower() + "_" + siteID + "_" + pcode;
+            tn = tn.ToLower();
+            string filter = " tablename = '" + tn + "' and timeinterval = '" + interval + "' and provider = 'CalculationSeries'";
 
+            var sr = GetSeriesRow(filter);
+            if (sr == null)
+                return null;
+            var cs = GetSeries(sr.id) as CalculationSeries;
+            //cs.Parser = m_db.Parser; 
+
+            return cs;
+        }
 
         //public Series GetSeries(string siteID, string parameterCode, TimeInterval timeInterval)
         //{

@@ -17,42 +17,37 @@ namespace Reclamation.TimeSeries
     public class TimeSeriesCalculator
     {
         TimeSeriesDatabase m_db;
-
-        public TimeSeriesCalculator(TimeSeriesDatabase db)
+        TimeInterval m_interval;
+        string m_filter;
+        string m_propertyFilter;
+        List<CalculationSeries> m_dependencyList;
+        public TimeSeriesCalculator(TimeSeriesDatabase db, TimeInterval interval, string filter="",
+            string propertyFilter="")
         {
             m_db = db;
-            // get all daily interval calculation series 
-           
+            m_interval = interval;
+            m_filter = filter;
+            m_propertyFilter = propertyFilter;
+            m_dependencyList = m_db.Factory.GetCalculationSeries(TimeInterval.Daily, m_filter, m_propertyFilter);
         }
 
 
-        public bool Exists(string siteID, string pcode, TimeInterval interval)
+
+        public CalculationSeries[] GetDependentCalculations(string siteID, string pcode)
         {
-            string tn = interval.ToString().ToLower() + "_" + siteID + "_" + pcode;
-            string filter = " tablename = '" + tn.ToLower() + "' and timeinterval = '" + interval + "' and provider = 'CalculationSeries'";
 
-            var sr = m_db.GetSeriesRow(filter);
-            if( sr == null)
-                return false;
+            TimeSeriesDependency td = new TimeSeriesDependency(m_dependencyList);
+            TimeSeriesName tn = new TimeSeriesName(siteID + "_" + pcode, m_interval);
+            var list = td.LookupCalculations(tn.GetTableName(), m_interval).ToArray();
 
-            return true;
+            var cList = new List<CalculationSeries>();
+            foreach (var item in list)
+            {
+                if (item is CalculationSeries)
+                    cList.Add(item as CalculationSeries);
+            }
+            return cList.ToArray();
         }
-
-        public CalculationSeries Create(string siteID, string pcode, TimeInterval interval)
-        {
-            string tn = interval.ToString().ToLower() + "_" + siteID + "_" + pcode;
-            tn = tn.ToLower();
-            string filter = " tablename = '" + tn + "' and timeinterval = '" + interval + "' and provider = 'CalculationSeries'";
-
-            var sr = m_db.GetSeriesRow(filter);
-            if (sr == null)
-                return null;
-            var cs = m_db.GetSeries(sr.id) as CalculationSeries;
-            //cs.Parser = m_db.Parser; 
-
-            return cs;
-        }
-
 
 
         /// <summary>
@@ -62,20 +57,19 @@ namespace Reclamation.TimeSeries
         /// <param name="t2"></param>
         /// <param name="propertyFilter">series property filter.  Example  program:agrimet </param>
         /// <param name="simulate">simulate calculations, don't actuually do it.</param>
-        public CalculationSeries[] ComputeDailyValues(DateTime t1, DateTime t2, string filter,
-            string propertyFilter, bool compareToHydromet=false, string errorFileName="", 
+        public CalculationSeries[] ComputeDailyValues(DateTime t1, DateTime t2,  bool compareToHydromet=false, string errorFileName="", 
             string detailFileName = "", bool simulate=false)
         {
            
 
             Performance p = new Performance();
             HydrometInstantSeries.Cache = new HydrometDataCache(); // clear out and make new cache.
-            string dailyFileName = GetDailyFileName(propertyFilter);
+            string dailyFileName = GetDailyFileName(m_propertyFilter);
 
             bool appendToFile = false; // for output file.
-            var list1 = m_db.Factory.GetCalculationSeries(TimeInterval.Daily,filter,propertyFilter);
-            Console.WriteLine("Computing daily values for  "+list1.Count+" series" );
-            TimeSeriesDependency td = new TimeSeriesDependency(list1);
+            
+            Console.WriteLine("Computing daily values for  "+m_dependencyList.Count+" series" );
+            TimeSeriesDependency td = new TimeSeriesDependency(m_dependencyList);
             
             var sorted = td.Sort();
             foreach (var s in sorted)

@@ -176,9 +176,10 @@ namespace HydrometServer
 
                 if (args.Contains("calculate-daily"))
                 {
-                    TimeSeriesCalculator calc = new TimeSeriesCalculator(db);
+                    TimeSeriesCalculator calc = new TimeSeriesCalculator(db, TimeInterval.Daily,
+                        filter,propertyFilter);
                     File.AppendAllText(errorFileName, "begin: calculate-daily " + DateTime.Now.ToString() + "\n");
-                    calc.ComputeDailyValues(t1, t2, filter, propertyFilter, hydrometCompare, errorFileName,detailFileName, simulate);
+                    calc.ComputeDailyValues(t1, t2, hydrometCompare, errorFileName,detailFileName, simulate);
                 }
 
 
