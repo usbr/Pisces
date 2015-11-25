@@ -325,6 +325,23 @@ namespace Reclamation.Core
             return -1;
         }
 
+        /// <summary>
+        /// Returns index in file to search string
+        /// </summary>
+        /// <param name="search"></param>
+        /// <param name="startIndex"></param>
+        /// <returns></returns>
+        public int IndexBeginningWith(string search, int startIndex)
+        {
+            Debug.Assert(startIndex >= 0);
+            int sz = lines.Count;
+            for (int i = startIndex; i < sz; i++)
+            {
+                if (lines[i].IndexOf(search) == 0)
+                    return i;
+            }
+            return -1;
+        }
 
         /// <summary>
         /// Returns index in file using regular expression 
