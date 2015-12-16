@@ -334,10 +334,6 @@
       <Project>{DBA88BAF-7CD3-4D67-9777-D843987CAEEC}</Project>
       <Name>Reclamation.TimeSeries.Modsim</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeSeries.OracleHdb\Reclamation.TimeSeries.OracleHdb.csproj">
-      <Project>{E8E40DB3-E59C-40B1-875D-C1A04D177986}</Project>
-      <Name>Reclamation.TimeSeries.OracleHdb</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
       <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>
       <Name>Reclamation.TimeSeries.Forms</Name>

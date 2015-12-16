@@ -94,10 +94,6 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="HdbModelSeries.cs" />
-    <Compile Include="HdbModelTreeBuilder.cs" />
-    <Compile Include="HdbSeries.cs" />
-    <Compile Include="ImportFromHdb.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Reclamation.Core.csproj">

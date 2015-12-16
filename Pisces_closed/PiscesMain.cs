@@ -28,6 +28,7 @@ namespace Pisces
 
 
             Logger.EnableLogger(true);
+            var x = HdbPoet.Hdb.Instance;
 
              try
             {
