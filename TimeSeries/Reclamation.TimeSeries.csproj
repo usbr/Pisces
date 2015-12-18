@@ -301,6 +301,7 @@
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="HDB\HDBSeries.cs" />
+    <Compile Include="RBMS\RBMSTextFile.cs" />
     <Compile Include="SQLiteSeries.cs" />
     <Compile Include="SeriesListDataTable.cs">
       <SubType>Component</SubType>
@@ -438,6 +439,7 @@
     <Compile Include="Tests\SeriesMath\TestWaterYear.cs" />
     <Compile Include="Tests\SeriesTypes\Cr10xTest.cs" />
     <Compile Include="Tests\SeriesTypes\TestSnotel.cs" />
+    <None Include="RBMS\Export - DH Manual Monitoring - Oct 2015.csv" />
     <None Include="Tests\SeriesTypes\TestBpaHydsimSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestExcelReaderSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestHydromet.cs" />

@@ -148,7 +148,7 @@ namespace Reclamation.Core
         /// </summary>
         /// <param name="inputSQL"></param>
         /// <returns></returns>
-        public string SafeSqlLikeClauseLiteral(string inputSQL)
+        public static string SafeSqlLikeClauseLiteral(string inputSQL)
         {
             // Make the following replacements:
             // '  becomes  ''

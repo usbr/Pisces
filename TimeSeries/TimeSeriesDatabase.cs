@@ -932,7 +932,7 @@ namespace Reclamation.TimeSeries
 
         public static string SafeTableName(string tableName)
         {
-            return Regex.Replace(tableName, @"[^A-Za-z0-9_\-]", "_").ToLower();
+            return Regex.Replace(tableName, @"[^A-Za-z0-9_]", "_").ToLower();
         }
 
         public BasicDBServer Server
@@ -1352,8 +1352,12 @@ namespace Reclamation.TimeSeries
                         {
                             // read file into datatable.
                             CsvFile tbl = new CsvFile(fn);
+                            if (tbl.Rows.Count == 0)
+                                continue;
+
                             //tbl.TableName = GetUniqueTableName(Path.GetFileNameWithoutExtension(fn));
                             tbl.TableName = SafeTableName(Path.GetFileNameWithoutExtension(fn));
+                            sc.Rows[i]["TableName"] = tbl.TableName;
                             if (tbl.Columns.Count == 2 || tbl.Columns.Count == 3)
                             {
                                 // create/save 
@@ -1368,6 +1372,7 @@ namespace Reclamation.TimeSeries
                         }
                     }
                 }
+                m_server.SaveTable(sc);
             }
             // TO DO 
             // import/export ScenarioTable.

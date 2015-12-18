@@ -25,6 +25,31 @@ namespace Reclamation.TimeSeries.Forms
     public partial class PiscesForm
     {
 
+
+
+
+        private void AddRBMS_csv_File_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.DefaultExt = ".csv";
+                openFileDialog.Filter = "CSV File *.csv | *.csv";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    RBMSTextFile.ImportFile(openFileDialog.FileName, DB, true);
+                    MessageBox.Show("Manual Import Complete.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
         /// <summary>
         /// SQLite convered from DSS
         /// https://github.com/usbr/convertdss
