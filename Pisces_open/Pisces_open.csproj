@@ -252,6 +252,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\x86\SQLite.Interop.dll">
+      <Link>SQLite.Interop.dll</Link>
+    </Content>
     <Content Include="..\ThirdParty\DSSUTL.EXE">
       <Link>DSSUTL.EXE</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -280,9 +283,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="plugins.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="images\folder_closed_32.ico" />
