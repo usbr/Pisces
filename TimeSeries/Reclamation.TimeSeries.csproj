@@ -302,6 +302,7 @@
     </Compile>
     <Compile Include="HDB\HDBSeries.cs" />
     <Compile Include="RBMS\RBMSTextFile.cs" />
+    <Compile Include="RBMS\RbmsUtility.cs" />
     <Compile Include="SQLiteSeries.cs" />
     <Compile Include="SeriesListDataTable.cs">
       <SubType>Component</SubType>
@@ -747,10 +748,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\ThirdParty\SQLite\SQLite.Interop.dll">
-      <Link>SQLite.Interop.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Nrcs\NWCC_Web_Report_Scripting.txt" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

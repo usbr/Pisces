@@ -36,6 +36,8 @@ namespace Reclamation.TimeSeries.Forms
             {
                 if (  this.comboBox1.Text.IndexOf("#mysql") >=0)
                     return DatabaseType.MySQL;
+                if (this.comboBox1.Text.IndexOf("#sqlserver") >= 0)
+                    return Core.DatabaseType.SqlServer;
 
                 return DatabaseType.PostgreSql;
             }

@@ -80,6 +80,10 @@ namespace Reclamation.TimeSeries
                 cs = PostgreSQL.CreateADConnectionString(server, database);
                 svr = new PostgreSQL(cs);
             }
+            if (t == DatabaseType.SqlServer)
+            {
+                svr = new SqlServer(server, database);
+            }
             if (t == DatabaseType.MySQL)
             {
               svr=  MySqlServer.GetMySqlServer(server, database);

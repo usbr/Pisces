@@ -5,225 +5,142 @@ using System.Text;
 using System.Data;
 using Reclamation.Core;
 
-namespace Reclamation.TimeSeries
+namespace Reclamation.TimeSeries.RBMS
 {
     public class RBMSTextFile
     {
 
-        //public static void ImportDirectory(string path,
-        //    SQLTimeSeriesDatabase db)
-        //{
-
-        //    string[] files = FileUtility.GetFilesRecursive(path);
-        //    for (int i = 0; i < files.Length; i++)
-        //    {
-        //        try
-        //        {
-        //            Logger.WriteLine("Parsing file " + files[i]);
-        //            ImportFile(files[i], db);
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            string msg = "Error reading " + files[i];
-        //            Logger.WriteLine(msg, e);
-        //            // System.Windows.Forms.MessageBox.Show(msg); 
-        //        }
-        //    }
-        //    Logger.WriteLine("done importing directory ");
-        //}
-
-
-
-        private static string NiceFilename(string filename)
+        public static void ImportDirectory(string path,
+            TimeSeriesDatabase db)
         {
-            if (filename.Length < 20)
+
+            string[] files = FileUtility.GetFilesRecursive(path);
+            for (int i = 0; i < files.Length; i++)
             {
-                return filename.PadLeft(20, ' ');
+                try
+                {
+                    Logger.WriteLine("Parsing file " + files[i]);
+                    ImportFile(files[i], db,true);
+                }
+                catch (Exception e)
+                {
+                    string msg = "Error reading " + files[i];
+                    Logger.WriteLine(msg+ e.Message,"ui");
+                    // System.Windows.Forms.MessageBox.Show(msg); 
+                }
             }
-            return filename.Substring(filename.Length - 20);
+            Logger.WriteLine("done importing directory ");
         }
-        private static int errorCount = 0;
+
+
 
 
         public static void ImportFile(string filename, TimeSeriesDatabase db)
         {
             ImportFile(filename, db, false);
         }
+
+        static string ManualInstType = "M - manually read static water level";
+
         public static void ImportFile(string filename, TimeSeriesDatabase db, bool manual)
         {
-            DataTable rbmsDataTable = ReadRawRBMSFile(filename);
+            if( !manual)
+                throw new NotImplementedException("this method is for importing manuall entered data");
+            DataTable rbmsDataTable = ReadRBMSFile(filename);
+
             if (rbmsDataTable.Rows.Count == 0)
             {
                 Logger.WriteLine(filename + " has no valid data.  It will be skipped");
                 return;
             }
 
-            DataTable siteList = DataTableUtility.SelectDistinct(rbmsDataTable, "DH", "Riser");
-            Logger.WriteLine(NiceFilename(filename) + " has " + siteList.Rows.Count + " tags ");
-            for (int i = 0; i < siteList.Rows.Count; i++)
+            string sql = @"     select a.id,a.tablename,a.name, b.value as InstType , c.value as DrillHole, d.value as riser 
+   from seriescatalog a   
+   left join seriesproperties b on ( b.seriesid=a.id and b.name='InstType')
+   left join seriesproperties c on ( c.seriesid=a.id and c.name='DrillHole')
+   left join seriesproperties d on ( d.seriesid=a.id and d.name='Riser')
+
+where InstType = 'M - manually read static water level' ";
+            var sc = db.Server.Table("view_seriescatalog",sql);
+            db.SuspendTreeUpdates();
+            for (int i = 0; i < rbmsDataTable.Rows.Count; i++)
             {
-                string drillHole = siteList.Rows[i]["DH"].ToString();
-                string riser = siteList.Rows[i]["Riser"].ToString();
+                string drillHole = rbmsDataTable.Rows[i]["DH"].ToString();
+                string riser = rbmsDataTable.Rows[i]["Riser"].ToString();
+                var t = Convert.ToDateTime(rbmsDataTable.Rows[i]["DateTime"].ToString());
+                var val = Convert.ToDouble(rbmsDataTable.Rows[i]["Measured"].ToString());
 
-                //db.GetSeriesCatalog("
-                string siteName = drillHole + "-" + riser;
-                
-                string sql = "DH = '" + drillHole + "' and " + "RISER = '" + riser + "'";
-                DataTable table = DataTableUtility.Select(rbmsDataTable, sql, "");
+                var filter = "DrillHole ='" + drillHole + "'" + " and  " + " riser = '" + riser + "'";
+                var rows = sc.Select(filter);
 
-                // Logger.WriteLine("Found " + table.Rows.Count + " records for " + siteName);
-                if (table.Rows.Count == 0)
+                if (rows.Length != 1)
                 {
+                    Logger.WriteLine("skipping: "+filter);
                     continue;
                 }
-                DataTable dbTable = new DataTable();
-                int sdi = -1;
-                try
-                {
-                    dbTable = CreateDateValueTableForDatabase(table);
+                int id = Convert.ToInt32(sc.Rows[0]["id"]);
+                var s = db.Factory.GetSeries(id);
 
-                    sdi = LookupID(db.Server, drillHole, riser,manual);
-                    if (sdi < 0)
-                    {
-                        //Logger.WriteLine("Creating new entry for unknown tag riser='" + riser + "'  DH ='" + drillHole + "'");
-                        //SeriesInfo si = db.SiteCatalog.NewSiteInfo();
-                        //sdi = si.SiteDataTypeID;
-                        //si.TimeInterval = TimeInterval.Hourly.ToString();
-                        //si.ParentID = 0;
-                        //si.Row["DrillHole"] = drillHole;
-                        //si.Row["Riser"] = riser;
-                        //si.Row["Area"]  ="unknown";
-                        //si.Row["InstType"] = "?";
-                        
-                        //si.IsFolder = false;
-                        //si.Name = siteName;
-                        //si.TableName = siteName;
-                        //si.Source = "RBMS Text File " + Path.GetFileName(filename);
-                        //si.ConnectionString = "Unknown Tag:" + siteName;
-
-                        //if (manual)
-                        //{
-                        //    si.Row["InstType"] = ManualInstType;
-                        //    si.TableName = "M"+siteName;
-                        //}
-
-                        //db.SiteCatalog.Add(si);
-                    }
-                    // Check Period of record 
-
-                    int newRows= dbTable.Rows.Count;
-                    var s = db.GetSeries(sdi);
-                    s.Table = dbTable;
-                    db.ImportSeriesUsingTableName(s);
-                    PeriodOfRecord por = s.GetPeriodOfRecord();
-                   Logger.WriteLine(
-                       drillHole.PadLeft(9)
-                       + riser.PadLeft(4)
-                       + dbTable.TableName.PadLeft(10)+" "
-                       + por.T1.ToShortDateString().PadLeft(10) + " "
-                   + por.T2.ToShortDateString().PadLeft(10) + " "
-                   + newRows.ToString().PadLeft(5)
-                   + por.Count.ToString().PadLeft(8));
-
-                }
-                catch (Exception ex)
-                {
-                    Logger.WriteLine("Error with siteName = '" + siteName + "'", ex);
-                    //PeriodOfRecord por = db.PeriodOfRecord(sdi);
-                   // Logger.WriteLine("Database period of record = " + por.T1.ToString()
-                   // + " " + por.T2.ToString());
-                    DateTime t1 = Convert.ToDateTime(dbTable.Rows[0][0]);
-                    DateTime t2 = Convert.ToDateTime(dbTable.Rows[dbTable.Rows.Count - 1][0]);
-
-                    Logger.WriteLine("File being imported has " + dbTable.Rows.Count +" rows");
-                    Logger.WriteLine("File being imported begins " + t1.ToString());
-                    Logger.WriteLine("File being imported ends   " + t2.ToString());
-                    
-                 //  PeriodOfRecord porInRange = db.PeriodOfRecord(sdi, t1, t2);
-                  // Logger.WriteLine("database has " + porInRange.Count + " records in this same range");
-
-                   errorCount++;
-                    //string errorFilename = @"c:\temp\Error" + errorCount + ".txt";
-                    //Logger.WriteLine("Saving to  " + errorFilename);
-                    //TextDB.WriteToCSV(table, errorFilename, true);
-                }
+                s.Add(t, val, Path.GetFileName(filename));
+                db.SaveTimeSeriesTable(id, s, DatabaseSaveOptions.UpdateExisting);
             }
+            db.ResumeTreeUpdates();
+            Logger.WriteLine("finished importing " + filename);
         }
 
-        static string ManualInstType = "M - manually read static water level";
 
-        private static int LookupID(BasicDBServer server, string drillHole, string riser,bool manual)
-        {
-            string sql = "Select * from SiteCatalog where "
-            + " DrillHole ='" + drillHole + "' and Riser = '" + riser + "'";
+        //private static int LookupID(BasicDBServer server, string drillHole, string riser,bool manual)
+        //{
+        //    string sql = "Select * from SiteCatalog where "
+        //    + " DrillHole ='" + drillHole + "' and Riser = '" + riser + "'";
 
-            if(! manual)
-              sql += " and InstType <> '"+ManualInstType +"'";// M - manually read static water level'";
-            else
-                sql += " and InstType = '"+ManualInstType +"'";// M - manually read static water level'";
+        //    if(! manual)
+        //      sql += " and InstType <> '"+ManualInstType +"'";// M - manually read static water level'";
+        //    else
+        //        sql += " and InstType = '"+ManualInstType +"'";// M - manually read static water level'";
 
 
-            DataTable tbl = server.Table("SiteCatalog", sql);
-            if (tbl.Rows.Count == 1)
-            {
-                return Convert.ToInt32(tbl.Rows[0]["SiteDataTypeID"]);
-            }
-            if (tbl.Rows.Count > 1)
-            {
-                Logger.WriteLine("Warning: there were "+tbl.Rows.Count +" rows "
-                + " found for drillhole = '"+drillHole + "' riser = '"+riser+"'");
-            }
-            return -1;
-        }
+        //    DataTable tbl = server.Table("SiteCatalog", sql);
+        //    if (tbl.Rows.Count == 1)
+        //    {
+        //        return Convert.ToInt32(tbl.Rows[0]["SiteDataTypeID"]);
+        //    }
+        //    if (tbl.Rows.Count > 1)
+        //    {
+        //        Logger.WriteLine("Warning: there were "+tbl.Rows.Count +" rows "
+        //        + " found for drillhole = '"+drillHole + "' riser = '"+riser+"'");
+        //    }
+        //    return -1;
+        //}
 
         /// <summary>
         /// Format data to be consistent with database 
         /// </summary>
         private static DataTable CreateDateValueTableForDatabase(DataTable table)
         {
-            DataTable dbTable = new DataTable();
-            dbTable.Columns.Add("DateTime", typeof(DateTime));
-            dbTable.PrimaryKey = new DataColumn[] { dbTable.Columns[0] };
-            dbTable.Columns.Add("Value", typeof(double));
+            table.Columns.Add("DateTime", typeof(DateTime));
             bool hasTimeColumn = (table.Columns.IndexOf("Time") >= 0);
-            string prevStrDate = Guid.NewGuid().ToString();
 
             for (int i = 0; i < table.Rows.Count; i++)
             {
+                var row = table.Rows[i];
                 string strDate = table.Rows[i]["Date"].ToString();
                 if (hasTimeColumn)
                 {
                     strDate += " " + table.Rows[i]["Time"].ToString();
                 }
 
-                if (strDate == prevStrDate)
-                {
-                    Logger.WriteLine("Skipping duplicate date " + strDate);
-                    continue;
-                }
-                prevStrDate = strDate;
                 DateTime d = DateTime.MinValue;
                 if (DateTime.TryParse(strDate, out d))
                 {
-                    //DateTime d = DateTime.Parse(strDate);
-                    DataRow row = dbTable.NewRow();
                     row["DateTime"] = d;
-                    row["Value"] = Convert.ToDouble(table.Rows[i]["Measured"]);
-                    if (dbTable.Rows.Find(d) != null)
-                    {
-                        Logger.WriteLine("duplicate date '" + d.ToString() + "' is being skipped ");
-                    }
-                    else
-                    {
-                        dbTable.Rows.Add(row);
-                    }
                 }
                 else
                 {
                     Logger.WriteLine("Error reading Date " + strDate);
                 }
             }
-            return dbTable;
+            return table;
         }
 
         /// <summary>
@@ -231,7 +148,7 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>
-        private static DataTable ReadRawRBMSFile(string filename)
+        private static DataTable ReadRBMSFile(string filename)
         {
             TextFile tf = new TextFile(filename);
             int fieldCount = 0;
@@ -249,6 +166,7 @@ namespace Reclamation.TimeSeries
                 throw new Exception("Error: There was not data in the input file");
             }
             tf = null;
+            CsvFile raw = null;
             if (fieldCount == 5)
             {
 
@@ -256,8 +174,7 @@ namespace Reclamation.TimeSeries
                 string[] fieldNames = new string[] { "DH", "Riser", "Date", "Time", "Measured" };
                 //DH-438-RS   ,     1,01-apr-2000,00:00:54     ,    870.290
                 string pattern = @"\s*[A-Za-z\-0-9]{3,}\s*,\s*\d+,\d{1,2}-[A-Za-z]{3}-\d{4},\d{2}:\d{2}:\d{2}\s*,\s*[0-9\.\-\+Ee]+";
-                CsvFile raw = new CsvFile(filename, dataTypes, fieldNames, pattern);
-                return raw;
+                raw = new CsvFile(filename, dataTypes, fieldNames, pattern);
             }
             else
             {
@@ -265,10 +182,10 @@ namespace Reclamation.TimeSeries
                 string[] fieldNames = new string[] { "DH", "Riser", "Date", "Measured" };
                 //DH-259-RS   ,     1,01-apr-1991 00:00:32     ,    866.960
                 string pattern = @"\s*[A-Za-z\-0-9]{3,}\s*,\s*\d+,\d{1,2}-[A-Za-z]{3}-\d{4}\s\d{2}:\d{2}(:\d{2})?\s*,\s*[0-9\.\-\+Ee]+";
-
-                CsvFile raw = new CsvFile(filename, dataTypes, fieldNames, pattern);
-                return raw;
+                raw = new CsvFile(filename, dataTypes, fieldNames, pattern);
             }
+
+            return CreateDateValueTableForDatabase(raw);
 
             // format with date time together.
             //DH-259-RS   ,     1,01-apr-1991 00:00:32     ,    866.960

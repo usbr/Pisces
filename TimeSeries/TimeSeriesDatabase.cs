@@ -847,14 +847,14 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// Imports DataTable to the Database
         /// </summary>
-        private int ImportTimeSeriesTable(DataTable table, SeriesCatalogRow si,
+        private int ImportTimeSeriesTable(DataTable table, SeriesCatalogRow sr,
              DatabaseSaveOptions option)
         {
 
             table.Columns[0].ColumnName = "datetime";
             table.Columns[1].ColumnName = "value";
             // table.Columns[2].ColumnName = "flag";
-            table.TableName = si.TableName;
+            table.TableName = sr.TableName;
 
             if (table.Columns.Count == 2)
             { 
@@ -866,7 +866,7 @@ namespace Reclamation.TimeSeries
 
             if (!m_server.TableExists(table.TableName))
             {
-                CreateSeriesTable(si.TableName, true);
+                CreateSeriesTable(sr.TableName, true);
             }
 
             int count = 0;
@@ -881,7 +881,7 @@ namespace Reclamation.TimeSeries
             else
                 if (option == DatabaseSaveOptions.DeleteAllExisting)
                 {
-                    Truncate(si.id);
+                    Truncate(sr.id);
                     count = m_server.InsertTable(table);
                 }
                 else if (option == DatabaseSaveOptions.Insert)
@@ -932,7 +932,14 @@ namespace Reclamation.TimeSeries
 
         public static string SafeTableName(string tableName)
         {
-            return Regex.Replace(tableName, @"[^A-Za-z0-9_]", "_").ToLower();
+            string rval = Regex.Replace(tableName, @"[^A-Za-z0-9_]", "_").ToLower();
+            // starts with letter
+            if (rval.Length > 0)
+            {
+                if (!Char.IsLetter(rval, 0))
+                    rval = "ts_" + rval;
+            }
+            return rval;
         }
 
         public BasicDBServer Server
@@ -1655,15 +1662,17 @@ namespace Reclamation.TimeSeries
                 if (!row.IsFolder)
                 {// add series
                     var s = db.Factory.GetSeries(row.id);
-                    // TO DO verify unique tablename
-                    // to do: get time series data??? (optional)
-                    sc.AddSeriesCatalogRow(s, sc.NextID(), folderID, s.Table.TableName);
+                    var sr = sc.AddSeriesCatalogRow(s, sc.NextID(), folderID, s.Table.TableName);
+
+                    // get time series data
+                    s.Read();
+                    ImportTimeSeriesTable(s.Table,sr, DatabaseSaveOptions.Insert);
                 }
 
             }
             Server.SaveTable(sc);
 
-            // Add Sites...
+            // Add Sites.
             var sites = GetSiteCatalog();
 
             var new_sites = db.GetSiteCatalog();
@@ -1678,6 +1687,10 @@ namespace Reclamation.TimeSeries
             }
 
             Server.SaveTable(sites);
+
+
+            // add properties. TO DO.
+
         }
        
     }

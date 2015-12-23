@@ -48,6 +48,14 @@ namespace Reclamation.Core
      ConnectionString=connString;
     }
 
+    public SqlServer(string server, string database)
+    {
+        // TODO: Complete member initialization
+        this.server = server;
+        this.database = database;
+        ConnectionString = "Data Source=" + server + ";Integrated Security=SSPI;Initial Catalog=" + database;
+    }
+
       public void CloseAllConnections()
     {//http://stackoverflow.com/questions/444750/spring-net-drop-all-adotemplate-connections
           SqlConnection.ClearAllPools();
@@ -59,6 +67,8 @@ namespace Reclamation.Core
       }
 
     SqlServerAdmin _admin;
+    private string server;
+    private string database;
     public SqlServerAdmin Admin
     {
       get{
@@ -683,7 +693,15 @@ namespace Reclamation.Core
 
     }
 
+    public override int InsertTable(DataTable table)
+    {
+        for (int i = 0; i < table.Rows.Count; i++)
+        {
+            table.Rows[i].SetAdded();
+        }
+        return SaveTable(table);
 
+    }
 
   }
 }

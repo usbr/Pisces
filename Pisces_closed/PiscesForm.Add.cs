@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using Pisces;
 using System.Configuration;
 using Reclamation.TimeSeries.Hydromet;
+using Reclamation.TimeSeries.RBMS;
 
 namespace Reclamation.TimeSeries.Forms
 {
