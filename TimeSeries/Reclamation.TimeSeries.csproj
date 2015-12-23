@@ -748,6 +748,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\x86\SQLite.Interop.dll">
+      <Link>SQLite.Interop.dll</Link>
+    </Content>
     <Content Include="Nrcs\NWCC_Web_Report_Scripting.txt" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

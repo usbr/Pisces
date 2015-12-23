@@ -249,10 +249,9 @@ USGS	13206000	2012-05-02 13:45	MDT	8000	P	10.72	P
         private void ParsePreamble()
         {
             int idx = -1;
-            string findMe = "#    USGS "+SiteName;
+            string findMe = "#    USGS "+SiteID;
             idx = m_rdb.TextFile.IndexOf(findMe);
-            Name = SiteName;
-            SiteName = SiteName;
+            Name = SiteID;
             Source = "USGS";
 
             if (idx >= 0)
