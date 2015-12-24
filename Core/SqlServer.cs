@@ -417,27 +417,36 @@ namespace Reclamation.Core
       DataSet myDataSet = new DataSet();
       myDataSet.Tables.Add(dataTable.TableName);
 
-      SqlConnection myAccessConn = new SqlConnection(ConnectionString);
-      SqlCommand myAccessCommand = new SqlCommand(sql,myAccessConn);
-      SqlDataAdapter myDataAdapter = new SqlDataAdapter(myAccessCommand);
-      SqlCommandBuilder karlCB = new SqlCommandBuilder(myDataAdapter);
 
-      this.lastSqlCommand = sql;
-      SqlCommands.Add(sql);
-
-      myAccessConn.Open();
-      int recordCount = 0;
-      try
-      {   // call Fill method only to make things work. (we ignore myDataSet)
-        myDataAdapter.Fill(myDataSet,dataTable.TableName); 
-        recordCount = myDataAdapter.Update(dataTable);
-				
-      }
-      finally
+      using (SqlConnection conn = new SqlConnection(ConnectionString))
       {
-        myAccessConn.Close();
+          using (SqlCommand cmd = new SqlCommand(sql, conn))
+          {
+              conn.Open();
+              SqlDataAdapter da = new SqlDataAdapter(cmd);
+              SqlCommandBuilder karlCB = new SqlCommandBuilder(da);
+              SqlTransaction tran = conn.BeginTransaction();
+              cmd.Transaction = tran;
+
+              this.lastSqlCommand = sql;
+              SqlCommands.Add(sql);
+
+              
+              int recordCount = 0;
+              try
+              {   // call Fill method only to make things work. (we ignore myDataSet)
+                  da.Fill(myDataSet, dataTable.TableName);
+                  recordCount = da.Update(dataTable);
+                  tran.Commit();
+              }
+              finally
+              {
+                  conn.Close();
+              }
+
+              return recordCount;
+          }
       }
-      return recordCount;
     }
 
     
@@ -697,7 +706,9 @@ namespace Reclamation.Core
     {
         for (int i = 0; i < table.Rows.Count; i++)
         {
-            table.Rows[i].SetAdded();
+           
+            if( table.Rows[i].RowState == DataRowState.Unchanged)
+                table.Rows[i].SetAdded();
         }
         return SaveTable(table);
 

@@ -66,6 +66,11 @@ namespace Reclamation.TimeSeries
 
             svr = new SQLiteServer(path);
 
+            Connect(svr);
+        }
+
+        public void Connect(BasicDBServer svr)
+        {
             m_db = new TimeSeriesDatabase(svr);
             Defaults(m_db);
             m_db.ReadSettingsFromDatabase(TimeWindow);
@@ -89,9 +94,7 @@ namespace Reclamation.TimeSeries
               svr=  MySqlServer.GetMySqlServer(server, database);
             }
 
-            m_db = new TimeSeriesDatabase(svr);
-            Defaults(m_db);
-            m_db.ReadSettingsFromDatabase(TimeWindow);
+            Connect(svr);
         }
 
 

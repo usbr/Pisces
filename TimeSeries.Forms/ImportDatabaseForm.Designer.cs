@@ -28,27 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBoxsdf = new System.Windows.Forms.TextBox();
             this.textBoxcatalog = new System.Windows.Forms.TextBox();
             this.checkBoxGetSeriesData = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Ok = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.buttonSave = new System.Windows.Forms.Button();
             this.buttonOpen = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // textBoxsdf
-            // 
-            this.textBoxsdf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxsdf.Location = new System.Drawing.Point(206, 34);
-            this.textBoxsdf.Name = "textBoxsdf";
-            this.textBoxsdf.Size = new System.Drawing.Size(200, 20);
-            this.textBoxsdf.TabIndex = 0;
             // 
             // textBoxcatalog
             // 
@@ -70,15 +59,6 @@
             this.checkBoxGetSeriesData.Text = "Include series data";
             this.checkBoxGetSeriesData.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(51, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Save new database as:";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -98,6 +78,7 @@
             this.Ok.TabIndex = 6;
             this.Ok.Text = "OK";
             this.Ok.UseVisualStyleBackColor = true;
+            this.Ok.Click += new System.EventHandler(this.Ok_Click);
             // 
             // Cancel
             // 
@@ -114,17 +95,6 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // buttonSave
-            // 
-            this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(412, 34);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(60, 20);
-            this.buttonSave.TabIndex = 8;
-            this.buttonSave.Text = "Save As";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
             // buttonOpen
             // 
             this.buttonOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -136,6 +106,16 @@
             this.buttonOpen.UseVisualStyleBackColor = true;
             this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(30, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(376, 20);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "WARNING:  This will delete all data in your database";
+            // 
             // ImportDatabaseForm
             // 
             this.AcceptButton = this.Ok;
@@ -143,15 +123,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.Cancel;
             this.ClientSize = new System.Drawing.Size(492, 173);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.buttonOpen);
-            this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Ok);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBoxGetSeriesData);
             this.Controls.Add(this.textBoxcatalog);
-            this.Controls.Add(this.textBoxsdf);
             this.Name = "ImportDatabaseForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -163,17 +141,15 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBoxsdf;
         private System.Windows.Forms.TextBox textBoxcatalog;
         private System.Windows.Forms.CheckBox checkBoxGetSeriesData;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button Ok;
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonOpen;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label label1;
     }
 }
 

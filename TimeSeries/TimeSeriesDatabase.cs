@@ -850,7 +850,7 @@ namespace Reclamation.TimeSeries
         private int ImportTimeSeriesTable(DataTable table, SeriesCatalogRow sr,
              DatabaseSaveOptions option)
         {
-
+            Performance perf = new Performance();
             table.Columns[0].ColumnName = "datetime";
             table.Columns[1].ColumnName = "value";
             // table.Columns[2].ColumnName = "flag";
@@ -892,7 +892,7 @@ namespace Reclamation.TimeSeries
                 {
                     count = m_server.SaveTable(table);
                 }
-            Logger.WriteLine("Saved " + count + " records "+ table.TableName+" "+m_server.DataSource);
+            Logger.WriteLine("Saved " + count + " records "+ table.TableName+" "+m_server.DataSource+" "+perf.ElapsedSeconds.ToString("F2"));
 
             return count;
         }
@@ -1297,21 +1297,26 @@ namespace Reclamation.TimeSeries
         /// <param name="filename"></param>
         public void ImportCsvDump(string filename, bool importSeriesData)
         {
+
+            var sc = GetSeriesCatalog("isfolder = 0");
+
+            foreach (var item in sc)
+            {
+                Server.TableExists(item.TableName);
+                DropTable(item.TableName);
+            }
+
+            m_server.RunSqlCommand("delete from seriescatalog");
+            m_server.RunSqlCommand("delete from sitecatalog");
+
             string dir = Path.GetDirectoryName(filename);
-            string sql = "select id from seriescatalog where isfolder = 0";
-            DataTable sc = m_server.Table("seriescatalog", sql);
+            
+            sc = GetSeriesCatalog();
 
-            if (sc.Rows.Count > 0)
-                throw new InvalidOperationException("Database must be empty to import new Catalog");
-
-            sql = "delete from seriescatalog";
-            m_server.RunSqlCommand(sql);
-
-            sc = m_server.Table("seriescatalog");
 
             CsvFile oldCatalog = new CsvFile(filename);
 
-            sc.Constraints.Add("pk_sdi", sc.Columns["id"], true);
+            //sc.Constraints.Add("pk_sdi", sc.Columns["id"], true);
             string[] oldColumnNames = { "sitedatatypeid", "sitename", "source" };
             string[] newColumnName = { "id", "siteid", "iconname" };
 
