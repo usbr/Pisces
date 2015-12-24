@@ -30,7 +30,7 @@ namespace Reclamation.TimeSeries.Urgsim
             Name = m_variable;
             ScenarioName = m_projection;
             Parameter = m_variable;
-            SiteName = m_variable;
+            SiteID = m_variable;
             Units = GetUrgsimUnits(variableName);
             Appearance.LegendText = ScenarioName;
             if (legendText != "")
@@ -150,7 +150,7 @@ namespace Reclamation.TimeSeries.Urgsim
                 m_baseline.Appearance.LegendText = "reference";
                 if (!sl.HasMultipleSites)
                 {
-                    m_baseline.SiteName = m_variable;
+                    m_baseline.SiteID = m_variable;
                 }
                 m_baseline.Units = this.Units;
                 m_baseline.TimeInterval = this.TimeInterval;

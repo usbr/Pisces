@@ -79,7 +79,7 @@ namespace Reclamation.TimeSeries
             {
                 foreach (var s in list)
                 {
-                    fileName = GetIncommingFileName("daily", s.SiteName, s.Parameter);
+                    fileName = GetIncommingFileName("daily", s.SiteID, s.Parameter);
                     s.WriteCsv(fileName, true);
                 }
 

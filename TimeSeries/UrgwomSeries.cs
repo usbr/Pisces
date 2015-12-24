@@ -42,7 +42,7 @@ namespace Reclamation.TimeSeries
             ReadOnly = true;
             Provider = "UrgwomSeries";
             this.xlsFilename = xlsFilename; // "20120403_SHARP_MRM_Forecast-Mar-50pct.xlsx"
-            SiteName = slotName;
+            SiteID= slotName;
             sheetName = runName;
             valueColumn = slotName;
             dateColumn  ="A"; // dateTime is in the first column

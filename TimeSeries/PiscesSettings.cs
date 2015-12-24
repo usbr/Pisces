@@ -286,8 +286,8 @@ namespace Reclamation.TimeSeries
                 {
                     // baseline only.
                     var baseline = s.CreateBaseline();
-                    if (!baseline.SiteName.Contains("reference"))
-                        baseline.SiteName += " - reference";
+                    if (!baseline.SiteID.Contains("reference"))
+                        baseline.SiteID += " - reference";
                     rval.Add(baseline);
                 }
                 else// Using Scenarios.
@@ -307,7 +307,7 @@ namespace Reclamation.TimeSeries
                             impact.Name = scenario.Name + " - " + baseline.Name;
                             impact.Appearance.LegendText = "(" + scenario.Appearance.LegendText
                                   + ") - (" + baseline.Appearance.LegendText + ")";
-                            impact.SiteName = baseline.SiteName;
+                            impact.SiteID = baseline.SiteID;
 
                             rval.Add(impact);
 

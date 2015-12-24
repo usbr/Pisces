@@ -209,7 +209,7 @@ namespace Reclamation.TimeSeries.Idwr
                 s.Units = "acre-feet";
                 s.Table = SetSeriesTable(sid[i]);
                
-                s.SiteName = "Idwr:" + sid[i].ToString();
+                s.SiteID = "Idwr:" + sid[i].ToString();
                 if (m_indexFile == "noIndex" || m_indexFile == "ValidityCheck")
                     s.Name = Convert.ToString(sid[i]);
                 else
@@ -249,7 +249,7 @@ namespace Reclamation.TimeSeries.Idwr
         {
             //SeriesInfo si = db.SeriesCatalog.NewSeriesInfo();
             //si.ParentID = 0;
-            s.Source = "Idwr:" + s.SiteName;
+            s.Source = "Idwr:" + s.SiteID;
             s.Provider = databasename;
             s.ConnectionString = "IDWR;file=" + m_dataFile + ";index=" + m_indexFile;
             //si.ID = si.id;

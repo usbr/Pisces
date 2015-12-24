@@ -55,7 +55,7 @@ namespace Reclamation.TimeSeries.RiverWare
             m_isSnapShot = isSnapShot;
             m_slotName = slotName;
             m_objectName = objectName;
-            SiteName = m_objectName;
+            SiteID = m_objectName;
             if (m_isSnapShot) // get parameter from ending of slot_name
             {
                 if (this.Name == "")

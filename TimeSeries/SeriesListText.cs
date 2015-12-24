@@ -36,9 +36,9 @@ namespace Reclamation.TimeSeries
                 List<string> list = new List<string>();
                 foreach (Series s in seriesList1)
                 {
-                    if (!list.Contains(s.SiteName))
+                    if (!list.Contains(s.SiteID))
                     {
-                        list.Add(s.SiteName);
+                        list.Add(s.SiteID);
                     }
                 }
                 return list.ToArray();
@@ -88,7 +88,7 @@ namespace Reclamation.TimeSeries
                     rval.Clear();
                     for (int i = 0; i < seriesList1.Count; i++)
                     {
-                        rval.Add(seriesList1[i].SiteName + " " + seriesList1[i].Appearance.LegendText);
+                        rval.Add(seriesList1[i].SiteID + " " + seriesList1[i].Appearance.LegendText);
                     }
 
                     if (IsListUnique(rval))

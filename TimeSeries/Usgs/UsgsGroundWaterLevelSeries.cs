@@ -16,7 +16,7 @@ namespace Reclamation.TimeSeries.Usgs
         //string m_flagColumnName;
         public UsgsGroundWaterLevelSeries(string site_no)
         {
-            this.SiteName = site_no;
+            this.SiteID = site_no;
             m_site_no = site_no;
             m_columnName = "lev_va";
             //m_flagColumnName = "";
@@ -409,10 +409,9 @@ USGS	444401116463001	2009-05-11	1329	4.90
         private void ParsePreamble()
         {
             int idx = -1;
-            string findMe = "#    USGS " + SiteName;
+            string findMe = "#    USGS " + SiteID;
             idx = m_rdb.TextFile.IndexOf(findMe);
-            Name = SiteName;
-            SiteName = SiteName;
+            Name = SiteID;
             Source = "USGS";
 
             if (idx >= 0)

@@ -22,7 +22,7 @@ namespace Reclamation.TimeSeries.Usgs
             if (site_no.Length == 7)
                 site_no = "0"+site_no;
 
-			this.SiteName = site_no;
+			this.SiteID = site_no;
             m_site_no = site_no;
             m_parameter = parameter;
             m_columnName = "";
@@ -73,7 +73,7 @@ namespace Reclamation.TimeSeries.Usgs
                 //string url = "http://waterdata.usgs.gov/nwis/dv?site_no=13154500&begin_date=&end_date=&format=rdb&date_format=YYYY-MM-DD";
 
                 string url = "http://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=13236500&startDT=1900-10-01&endDT=2013-12-30";
-                url = url.Replace("sites=13236500", "sites=" + SiteName);
+                url = url.Replace("sites=13236500", "sites=" + SiteID);
                 DateTime n = DateTime.Now;
                 url = url.Replace("endDT=2013-12-30", "endDT=" + n.Year + "-" + n.Month + "-" + n.Day);
                 Messages.Add(url);
@@ -106,7 +106,7 @@ namespace Reclamation.TimeSeries.Usgs
                 //string url = "http://nwis.waterdata.usgs.gov/nwis/dv?site_no=13154500&begin_date=&end_date=&format=rdb&date_format=YYYY-MM-DD";
                 string url = "http://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=13236500&startDT=1900-10-01&endDT=2013-12-30";
 
-                url = url.Replace("sites=13236500", "sites=" + SiteName);
+                url = url.Replace("sites=13236500", "sites=" + SiteID);
                 DateTime n = DateTime.Now;
                 url = url.Replace("endDT=2013-12-30", "endDT=" + n.Year + "-" + n.Month + "-" + n.Day);
                 Messages.Add(url);
@@ -566,10 +566,9 @@ USGS	13010065	2007-03-08	338	P
         private void ParsePreamble()
         {
             int idx = -1;
-            string findMe = "#    USGS "+SiteName;
+            string findMe = "#    USGS "+SiteID;
             idx = m_rdb.TextFile.IndexOf(findMe);
-            Name = SiteName;
-            SiteName = SiteName;
+            Name = SiteID;
             Source = "USGS";
 
             if (idx >= 0)

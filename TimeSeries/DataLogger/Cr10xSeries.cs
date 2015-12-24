@@ -38,7 +38,7 @@ namespace Reclamation.TimeSeries.DataLogger
             Source = "cr10x";
             Provider = "Cr10xSeries";
             Name = Path.GetFileNameWithoutExtension(m_filename);
-            SiteName = Path.GetFileNameWithoutExtension(m_filename);
+            SiteID = Path.GetFileNameWithoutExtension(m_filename);
             Parameter = "";
             ConnectionString = "FileName=" + m_filename + ";Interval=" + m_interval
               + ";ColumnNumber=" + columnNumber ;

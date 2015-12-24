@@ -78,7 +78,7 @@ namespace Reclamation.TimeSeries.Hydromet
             Name = HydrometInfoUtility.LookupSiteDescription(cbtt) + " " + Units;
             Source = "Hydromet";
             Provider = "HydrometInstantSeries";
-            this.SiteName = HydrometInfoUtility.LookupSiteDescription(cbtt);
+            this.SiteID = HydrometInfoUtility.LookupSiteDescription(cbtt);
             this.TimeInterval = TimeSeries.TimeInterval.Irregular;
             ReadOnly = true;
             this.Appearance.LegendText = cbtt + " " + pcode;
@@ -408,7 +408,7 @@ END DATA
                 else
                 {
                     s = new Series();
-                    s.SiteName = cbtt;
+                    s.SiteID = cbtt;
                     s.Parameter = pcode;
                     s.Name = cbtt + "_" + pcode;
                     s.Name = s.Name.ToLower();
@@ -423,7 +423,7 @@ END DATA
                 }
                 else
                 {
-                    Logger.WriteLine(s.SiteName+":"+s.Parameter+ "skipped duplicate datetime "+t.ToString() );
+                    Logger.WriteLine(s.SiteID+":"+s.Parameter+ "skipped duplicate datetime "+t.ToString() );
                 }
 
 			}

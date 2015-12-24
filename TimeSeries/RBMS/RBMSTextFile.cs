@@ -60,7 +60,7 @@ namespace Reclamation.TimeSeries.RBMS
    left join seriesproperties c on ( c.seriesid=a.id and c.name='DrillHole')
    left join seriesproperties d on ( d.seriesid=a.id and d.name='Riser')
 
-where InstType = 'M - manually read static water level' ";
+where InstType = '"+ManualInstType+"' ";
             var sc = db.Server.Table("view_seriescatalog",sql);
             db.SuspendTreeUpdates();
             for (int i = 0; i < rbmsDataTable.Rows.Count; i++)
