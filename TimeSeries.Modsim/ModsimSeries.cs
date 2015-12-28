@@ -93,7 +93,7 @@ namespace Reclamation.TimeSeries.Modsim
 
             this.modsimName = modsimName;  // node or link name
             this.timeSeriesName = t;
-            SiteName = modsimName;
+            SiteID = modsimName;
             ScenarioName = Path.GetFileNameWithoutExtension(xyFileName);
             this.Appearance.LegendText = Name;
             m_mdbFilename = Path.ChangeExtension(m_xyFilename, null) + "OUTPUT.mdb";
@@ -181,7 +181,7 @@ namespace Reclamation.TimeSeries.Modsim
             rval.Name = this.Name;
             rval.Appearance.LegendText = scenario.Name + " " + Name;
             rval.ScenarioName = scenario.Name;
-            rval.SiteName = this.SiteName;
+            rval.SiteID = this.SiteID;
             rval.TimeInterval = this.TimeInterval;
             return rval;
         }
@@ -299,7 +299,7 @@ namespace Reclamation.TimeSeries.Modsim
 
             //            Name = columnName;
             //SiteName = modsimName;
-            Appearance.LegendText = SiteName + " " + Name;
+            Appearance.LegendText = SiteID + " " + Name;
             ApplyDisplayScaling();
             SetStairStep(timeSeriesName);
         }
