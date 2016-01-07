@@ -154,7 +154,7 @@ Alan
     {
         //SearchPath=wtr..
         //searchpath=schemanamehere.. 
-        NpgsqlConnection conn = new NpgsqlConnection(cs);
+        //NpgsqlConnection conn = new NpgsqlConnection(cs);
         //"Server=127.0.0.1;Database=eeeeee;User id=npgsql_tests;password=npgsql_tests;");
         ConnectionString = cs;
 
@@ -391,7 +391,7 @@ Alan
     {
         Logger.WriteLine("Debug ");
         Logger.WriteLine(e.Command.CommandText);
-        NpgsqlCommand cmd = e.Command as NpgsqlCommand;
+        //NpgsqlCommand cmd = e.Command as NpgsqlCommand;
 
         for (int i = 0; i < e.Command.Parameters.Count; i++)
 			{

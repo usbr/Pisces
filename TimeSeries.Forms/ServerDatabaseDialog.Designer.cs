@@ -56,13 +56,15 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            ".\\rbms:rbms     #sqlserver",
+            "test.water.usbr.gov:timeseries     #mysql",
+            "ibr1gcpdb003:Pisces     #sqlserver",
             "lrgs1.pn.usbr.gov:timeseries   #postgresql",
             "lrgs1.pn.usbr.gov:timeseries_gp   #postgresql",
             "lrgs2.pn.usbr.gov:timeseries  #postgresql",
             "127.0.0.1:timeseries    #mysql",
             "127.0.0.1:timeseries   #postgresql",
-            "test:timeseries     #mysql"});
+            "test:timeseries     #mysql",
+            ".\\rbms:rbms  #sqlserver"});
             this.comboBox1.Location = new System.Drawing.Point(38, 47);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(249, 21);

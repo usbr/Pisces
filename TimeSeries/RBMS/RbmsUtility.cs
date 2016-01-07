@@ -38,12 +38,13 @@ namespace Reclamation.TimeSeries.RBMS
 
                 CsvFile csv = new CsvFile(@"C:\TEMP\rbmsdump\sitecatalog.csv");
 
-                SQLiteServer svr = new SQLiteServer(@"C:\temp\rbmsdump\rbms.pdb");
+            // SQLiteServer svr = new SQLiteServer(@"C:\temp\rbmsdump\rbms.pdb");
+            SqlServer svr = new SqlServer(".\\RBMS", "rbms");
                 var db = new TimeSeriesDatabase(svr);
 
                 //var sc = db.GetSeriesCatalog();
                 var sp = db.GetSeriesProperties();
-
+//M - manually read static water level
                 foreach (DataRow item in csv.Rows)
                 {
                     if (item["isfolder"].ToString().ToLower() == "true")

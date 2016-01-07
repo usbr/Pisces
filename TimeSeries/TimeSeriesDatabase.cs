@@ -1300,10 +1300,12 @@ namespace Reclamation.TimeSeries
 
             var sc = GetSeriesCatalog("isfolder = 0");
 
+            var tableNames = m_server.TableNames();
             foreach (var item in sc)
             {
-                Server.TableExists(item.TableName);
-                DropTable(item.TableName);
+                //Server.TableExists(item.TableName);
+               if(Array.IndexOf(tableNames, item.TableName )>=0)
+                  DropTable(item.TableName);
             }
 
             m_server.RunSqlCommand("delete from seriescatalog");

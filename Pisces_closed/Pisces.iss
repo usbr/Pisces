@@ -46,7 +46,7 @@ Source:  ".\bin\debug\Reclamation.TimeSeries.dll";   DestDir: "{app}";   Flags: 
 Source:  ".\bin\debug\Reclamation.TimeSeries.Excel.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\Reclamation.TimeSeries.Modsim.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\Reclamation.TimeSeries.Forms.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\debug\Reclamation.TimeSeries.OracleHdb.dll";   DestDir: "{app}";   Flags: ignoreversion
+;Source:  ".\bin\debug\Reclamation.TimeSeries.OracleHdb.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\Reclamation.TimeSeries.ArmyCorps.dll";   DestDir: "{app}";   Flags: ignoreversion
 ;Source:  ".\bin\debug\Reclamation.TimeSeries.Urgsim.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\SpreadsheetGear.dll";   DestDir: "{app}";   Flags: ignoreversion
@@ -57,6 +57,7 @@ Source:  ".\bin\debug\hdb-poet.exe";   DestDir: "{app}";   Flags: ignoreversion
 ;Source:  ".\bin\debug\Tamir.SharpSSH.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\DSSUTL.EXE";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\Reclamation.TimeSeries.Graphing.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\MySql.Data.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\Npgsql.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\Mono.Security.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\DgvFilterPopup.dll";   DestDir: "{app}";   Flags: ignoreversion

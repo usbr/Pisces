@@ -53,7 +53,7 @@ namespace Reclamation.Core
         // TODO: Complete member initialization
         this.server = server;
         this.database = database;
-        ConnectionString = "Data Source=" + server + ";Integrated Security=SSPI;Initial Catalog=" + database;
+        ConnectionString = "Data Source=" + server + ";Integrated Security=SSPI;Connection Timeout=600;Initial Catalog=" + database;
     }
 
       public void CloseAllConnections()
@@ -414,7 +414,8 @@ namespace Reclamation.Core
      public override int SaveTable(DataTable dataTable, string sql)
     {
       Console.WriteLine("Saving "+dataTable.TableName);
-      DataSet myDataSet = new DataSet();
+            Performance perf = new Performance();
+            DataSet myDataSet = new DataSet();
       myDataSet.Tables.Add(dataTable.TableName);
 
 
@@ -431,7 +432,7 @@ namespace Reclamation.Core
               this.lastSqlCommand = sql;
               SqlCommands.Add(sql);
 
-              
+                    da.UpdateBatchSize = 0;
               int recordCount = 0;
               try
               {   // call Fill method only to make things work. (we ignore myDataSet)
@@ -444,7 +445,8 @@ namespace Reclamation.Core
                   conn.Close();
               }
 
-              return recordCount;
+                    Logger.WriteLine("Saved " + recordCount + " records in " + perf.ElapsedSeconds + "seconds");
+                    return recordCount;
           }
       }
     }

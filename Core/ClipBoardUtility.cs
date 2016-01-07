@@ -125,7 +125,7 @@ namespace Reclamation.Core
                 int idx = str.IndexOf("\n");
                 if (idx < 0)
                     return;
-                string columnNames = str.Substring(0, idx);
+                //string columnNames = str.Substring(0, idx);
                 str = str.Substring(idx + 1).Trim();
                 string[] rows = str.Split(new char[] { '\n' });
 
