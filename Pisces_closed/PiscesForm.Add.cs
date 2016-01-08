@@ -26,7 +26,24 @@ namespace Reclamation.TimeSeries.Forms
     public partial class PiscesForm
     {
 
+        private void addRBMSDirectory(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            DialogResult result = fbd.ShowDialog();
 
+            string[] files = Directory.GetFiles(fbd.SelectedPath);
+            for (int i = 0; i < files.Length; i++)
+            {
+                try
+                {
+                    RBMSTextFile.ImportFile(files[i], DB, true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error importing "+files[i]+"\n"+ ex.Message);
+                }
+            }
+        }
 
 
         private void AddRBMS_csv_File_Click(object sender, EventArgs e)
