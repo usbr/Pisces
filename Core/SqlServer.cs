@@ -53,7 +53,7 @@ namespace Reclamation.Core
         // TODO: Complete member initialization
         this.server = server;
         this.database = database;
-        ConnectionString = "Data Source=" + server + ";Integrated Security=SSPI;Connection Timeout=600;Initial Catalog=" + database;
+        ConnectionString = "Data Source=" + server + ";Integrated Security=SSPI;Initial Catalog=" + database;
     }
 
       public void CloseAllConnections()

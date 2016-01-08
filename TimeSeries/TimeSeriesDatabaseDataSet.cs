@@ -246,6 +246,11 @@ namespace Reclamation.TimeSeries {
         {
             public SeriesCatalogRow AddSeriesCatalogRow(Series s, int id, int parentID, string tableName = "")
             {
+                if (tableName == "")
+                    tableName = s.Table.TableName;
+                if (tableName == "")
+                    tableName =   "ts_" + Guid.NewGuid();
+
                 var rval = AddSeriesCatalogRow(id, parentID, false, 0, s.Source, s.Name, s.SiteID, s.Units,
                     s.TimeInterval.ToString(), s.Parameter, tableName, s.Provider, s.ConnectionString, s.Expression, s.Notes, true);
                 return rval;

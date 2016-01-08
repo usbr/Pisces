@@ -39,7 +39,7 @@ namespace Reclamation.TimeSeries.RBMS
                 CsvFile csv = new CsvFile(@"C:\TEMP\rbmsdump\sitecatalog.csv");
 
             // SQLiteServer svr = new SQLiteServer(@"C:\temp\rbmsdump\rbms.pdb");
-            SqlServer svr = new SqlServer(".\\RBMS", "rbms");
+            SqlServer svr = new SqlServer("ibr1gcpdb003","Pisces");
                 var db = new TimeSeriesDatabase(svr);
 
                 //var sc = db.GetSeriesCatalog();

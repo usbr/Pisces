@@ -1636,7 +1636,8 @@ namespace Reclamation.TimeSeries
             Console.WriteLine("Instant Series:"+GetSeriesCatalog("timeinterval = 'Irregular'").Count());
             Console.WriteLine("Daily Series:" + GetSeriesCatalog("timeinterval = 'Daily'").Count());
             Console.WriteLine("Monthly Series:" + GetSeriesCatalog("timeinterval = 'Monthly'").Count());
-            Console.WriteLine("Series in Catalog: "+GetSeriesCatalog().Count());
+            Console.WriteLine("Series in SeriesCatalog: "+GetSeriesCatalog().Count());
+            Console.WriteLine("Sites in SiteCatalog: " + GetSiteCatalog().Count());
             Console.WriteLine("");
 
         }
