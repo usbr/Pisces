@@ -60,9 +60,12 @@ namespace Reclamation.TimeSeries.RBMS
    left join seriesproperties c on ( c.seriesid=a.id and c.name='DrillHole')
    left join seriesproperties d on ( d.seriesid=a.id and d.name='Riser')
 
-where b.value = '"+ManualInstType+"' ";
+where b.value = 'M - manually read static water level' ";
             var sc = db.Server.Table("view_seriescatalog",sql);
             db.SuspendTreeUpdates();
+            int skipcount = 0;
+            int addCount = 0;
+            var tableList = new List<string>();
             for (int i = 0; i < rbmsDataTable.Rows.Count; i++)
             {
                 string drillHole = rbmsDataTable.Rows[i]["DH"].ToString();
@@ -76,16 +79,27 @@ where b.value = '"+ManualInstType+"' ";
                 if (rows.Length != 1)
                 {
                     Logger.WriteLine("skipping: "+filter);
+                    skipcount++;
                     continue;
                 }
-                int id = Convert.ToInt32(sc.Rows[0]["id"]);
+                //int id = Convert.ToInt32(sc.Rows[0]["id"]);
+                int id = Convert.ToInt32(rows[0]["id"]);
                 var s = db.Factory.GetSeries(id);
-
+                if( !tableList.Contains(s.Table.TableName))
+                   tableList.Add(s.Table.TableName);
                 s.Add(t, val, Path.GetFileName(filename));
                 db.SaveTimeSeriesTable(id, s, DatabaseSaveOptions.UpdateExisting);
+                addCount++;
             }
             db.ResumeTreeUpdates();
             Logger.WriteLine("finished importing " + filename);
+            Logger.WriteLine("skipped " + skipcount + " records.");
+            Logger.WriteLine("added/updated " + addCount + " records.");
+            Logger.WriteLine(tableList.Count +" tables were modified");
+            for (int i = 0; i < tableList.Count; i++)
+            {
+                Console.WriteLine(tableList[i]);
+            }
         }
 
 

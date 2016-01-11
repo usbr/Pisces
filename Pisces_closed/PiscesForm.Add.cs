@@ -51,6 +51,7 @@ namespace Reclamation.TimeSeries.Forms
 
             try
             {
+                Logger.EnableLogger();
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.DefaultExt = ".csv";
                 openFileDialog.Filter = "CSV File *.csv | *.csv";
