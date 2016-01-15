@@ -774,23 +774,40 @@ namespace Reclamation.TimeSeries.Hydromet
 
 
 
-        public static TimeSeriesDatabaseDataSet.RatingTableDataTable GetRatingTable(string cbtt, string pcode)
+        public static TimeSeriesDatabaseDataSet.RatingTableDataTable GetRatingTable(string cbtt, string pcode,string ratingName)
         {
-            // yakima ?
-            //http://www.usbr.gov/pn-bin/yak/expandrtf.pl?site=kee&pcode=af&form=col
 
-            string url = "http://www.usbr.gov/pn-bin/expandrtf.pl?site=pali&pcode=q&form=col";
+            string url = "";
+            
 
             if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
             {
                 //url = "http://www.usbr.gov/gp-bin/expandrtf.pl?site=adatunco&pcode=q&form=col";
                 url = "http://www.usbr.gov/gp-bin/expandrtf.pl?site=pali&pcode=q&form=col";
+                url = url.Replace("site=pali", "site=" + cbtt.Trim());
+                url = url.Replace("pcode=q", "pcode=" + pcode.Trim());
             }
+            else
+            {
+                //url = "http://www.usbr.gov/pn-bin/expandrtf.pl?site=pali&pcode=q&form=col";
+                url = "http://lrgs1.pn.usbr.gov/rating_tables/"+ratingName+".csv";
 
+                var tmp = FileUtility.GetTempFileName(".csv");
+                Web.GetFile(url, tmp);
 
-            url = url.Replace("site=pali", "site=" + cbtt.Trim());
-            url = url.Replace("pcode=q", "pcode=" + pcode.Trim());
+                var rt = new TimeSeriesDatabaseDataSet.RatingTableDataTable();
+                rt.ReadFile(tmp);
+                return rt;
+            }
+            // yakima ?
+            //http://www.usbr.gov/pn-bin/yak/expandrtf.pl?site=kee&pcode=af&form=col
 
+            
+            return ReadFromWeb(cbtt, pcode, url);
+        }
+
+        private static TimeSeriesDatabaseDataSet.RatingTableDataTable ReadFromWeb(string cbtt, string pcode, string url)
+        {
             string[] data = Web.GetPage(url);
             TextFile tf = new TextFile(data);
 
@@ -812,24 +829,24 @@ namespace Reclamation.TimeSeries.Hydromet
             int idx = tf.IndexOfBothRegex("<th.*</th>", "<th.*</th>");
             if (idx >= 0)
             {
-                t.XUnits = Regex.Match(tf[idx],     @"<th.*<b>(?<x>\w*)</b>").Groups[1].Value;
+                t.XUnits = Regex.Match(tf[idx], @"<th.*<b>(?<x>\w*)</b>").Groups[1].Value;
                 t.YUnits = Regex.Match(tf[idx + 1], @"<th.*<b>(?<x>\w*)</b>").Groups[1].Value;
             }
             //<br>Table Edit Date: 18-SEP-2014 02:22<br>Today's Date: 23-SEP-2014 06:54
             var idxDate = tf.IndexOfRegex("Table Edit Date:.*<br>");
-            if( idxDate>=0)
+            if (idxDate >= 0)
             {
                 t.EditDate = Regex.Match(tf[idxDate], "Table Edit Date:(?<date>.*)<br>").Groups[1].Value;
             }
 
-            
+
             Regex re = new Regex(@"<tr.*?>(?<x>[\d\.\-\+]{1,12})</td><td>(?<y>[\d\.\-\+]{1,12})</td>");
-            for (int i = idx+2; i < tf.Length; i++)
+            for (int i = idx + 2; i < tf.Length; i++)
             {
                 var m = re.Match(tf[i]);
                 if (m.Success)
                 {
-                    double x,y;
+                    double x, y;
                     if (double.TryParse(m.Groups["x"].Value, out x)
                         )
                     {
@@ -849,7 +866,6 @@ namespace Reclamation.TimeSeries.Hydromet
 
             return t;
         }
-
 
         public static string[] LookupMonthlyInventory(string cbtt)
         {

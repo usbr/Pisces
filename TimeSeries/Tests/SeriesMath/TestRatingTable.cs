@@ -73,7 +73,7 @@ namespace Pisces.NunitTests.SeriesMath
 
            //var rt = new TimeSeriesDatabaseDataSet.RatingTableDataTable();
           // rt.ReadFromFile(Path.Combine(TestData.DataPath,"rating");
-           var rt = HydrometInfoUtility.GetRatingTable("gcl", "af");
+           var rt = HydrometInfoUtility.GetRatingTable("gcl", "af","");
            //TimeSeriesDatabaseDataSet.RatingTableDataTable.
            var x = rt.Lookup(1281.95);
            Assert.AreEqual(4543763, x, .01);
