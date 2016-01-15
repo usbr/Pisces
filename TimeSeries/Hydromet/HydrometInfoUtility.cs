@@ -791,6 +791,8 @@ namespace Reclamation.TimeSeries.Hydromet
             {
                 //url = "http://www.usbr.gov/pn-bin/expandrtf.pl?site=pali&pcode=q&form=col";
                 url = "http://lrgs1.pn.usbr.gov/rating_tables/"+ratingName+".csv";
+                if( !NetworkUtility.Intranet)
+                    url = "http://www.usbr.gov/pn/hydromet/configurationdata/rating_tables/" + ratingName + ".csv";
 
                 var tmp = FileUtility.GetTempFileName(".csv");
                 Web.GetFile(url, tmp);

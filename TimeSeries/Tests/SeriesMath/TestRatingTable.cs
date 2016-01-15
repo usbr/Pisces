@@ -67,7 +67,6 @@ namespace Pisces.NunitTests.SeriesMath
             //TestRatingTable 
         }
 
-       [Test]
        public void HydrometRatingTable()
        {
 
