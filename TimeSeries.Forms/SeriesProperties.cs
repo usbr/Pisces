@@ -55,7 +55,7 @@ namespace Reclamation.TimeSeries.Forms
         private void ReadSeriesProperties()
         {
             textBoxName.Text = m_series.Name;
-            textBoxSiteName.Text = m_series.SiteName;
+            textBoxSiteName.Text = m_series.SiteID;
             textBoxConnectString.Text = m_series.ConnectionString;
             textBoxProvider.Text = m_series.Provider;
             textBoxNotes.Text = m_series.Notes;

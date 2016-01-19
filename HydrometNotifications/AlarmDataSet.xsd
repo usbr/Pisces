@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="AlarmDataSet" targetNamespace="http://tempuri.org/AlarmDefinition.xsd" xmlns:mstns="http://tempuri.org/AlarmDefinition.xsd" xmlns="http://tempuri.org/AlarmDefinition.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="AlarmDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="AlarmDataSet" msprop:Generator_UserDSName="AlarmDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="alarm_definition" msprop:Generator_TableClassName="alarm_definitionDataTable" msprop:Generator_TableVarName="tablealarm_definition" msprop:Generator_RowChangedName="alarm_definitionRowChanged" msprop:Generator_TablePropName="alarm_definition" msprop:Generator_RowDeletingName="alarm_definitionRowDeleting" msprop:Generator_RowChangingName="alarm_definitionRowChanging" msprop:Generator_RowEvHandlerName="alarm_definitionRowChangeEventHandler" msprop:Generator_RowDeletedName="alarm_definitionRowDeleted" msprop:Generator_RowClassName="alarm_definitionRow" msprop:Generator_UserTableName="alarm_definition" msprop:Generator_RowEvArgName="alarm_definitionRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" minOccurs="0" />
+              <xs:element name="data_source" msprop:Generator_ColumnVarNameInTable="columndata_source" msprop:Generator_ColumnPropNameInRow="data_source" msprop:Generator_ColumnPropNameInTable="data_sourceColumn" msprop:Generator_UserColumnName="data_source" type="xs:string" />
+              <xs:element name="hours_back" msprop:Generator_ColumnVarNameInTable="columnhours_back" msprop:Generator_ColumnPropNameInRow="hours_back" msprop:Generator_ColumnPropNameInTable="hours_backColumn" msprop:Generator_UserColumnName="hours_back" type="xs:int" default="2" />
+              <xs:element name="group_name" msprop:Generator_ColumnVarNameInTable="columngroup_name" msprop:Generator_ColumnPropNameInRow="group_name" msprop:Generator_ColumnPropNameInTable="group_nameColumn" msprop:Generator_UserColumnName="group_name" type="xs:string" default="" />
+              <xs:element name="alarm_condition" msprop:Generator_ColumnVarNameInTable="columnalarm_condition" msprop:Generator_ColumnPropNameInRow="alarm_condition" msprop:Generator_ColumnPropNameInTable="alarm_conditionColumn" msprop:Generator_UserColumnName="alarm_condition" type="xs:string" default="" />
+              <xs:element name="clear_condition" msprop:Generator_ColumnVarNameInTable="columnclear_condition" msprop:Generator_ColumnPropNameInRow="clear_condition" msprop:Generator_ColumnPropNameInTable="clear_conditionColumn" msprop:Generator_UserColumnName="clear_condition" type="xs:string" default="" />
+              <xs:element name="message" msprop:Generator_ColumnVarNameInTable="columnmessage" msprop:Generator_ColumnPropNameInRow="message" msprop:Generator_ColumnPropNameInTable="messageColumn" msprop:Generator_UserColumnName="message" type="xs:string" default="" />
+              <xs:element name="enabled" msprop:Generator_ColumnVarNameInTable="columnenabled" msprop:Generator_ColumnPropNameInRow="enabled" msprop:Generator_ColumnPropNameInTable="enabledColumn" msprop:Generator_UserColumnName="enabled" type="xs:boolean" default="false" />
+              <xs:element name="active" msprop:Generator_ColumnVarNameInTable="columnactive" msprop:Generator_ColumnPropNameInRow="active" msprop:Generator_ColumnPropNameInTable="activeColumn" msprop:Generator_UserColumnName="active" type="xs:boolean" default="false" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

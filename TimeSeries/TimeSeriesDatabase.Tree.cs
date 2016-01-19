@@ -205,7 +205,7 @@ namespace Reclamation.TimeSeries
                 if (i > 0)
                     sql += " or ";
 
-                sql += "name like '%" + m_server.SafeSqlLikeClauseLiteral( filters[i].Trim()) + "%'";
+                sql += "name like '%" + BasicDBServer.SafeSqlLikeClauseLiteral( filters[i].Trim()) + "%'";
             }
             
             var rows = m_SeriesCatalog.Select(sql);

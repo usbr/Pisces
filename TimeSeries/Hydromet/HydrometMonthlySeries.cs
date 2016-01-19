@@ -454,7 +454,8 @@ namespace Reclamation.TimeSeries.Hydromet
             if (MpollTextFileCatalog == null)
                 return "";
 
-            int idx = MpollTextFileCatalog.IndexOfRegex("^"+cbtt.ToUpper()+"\\s");
+            //int idx = MpollTextFileCatalog.IndexOfRegex("^"+cbtt.ToUpper()+"\\s");
+            int idx = MpollTextFileCatalog.IndexBeginningWith(cbtt.ToUpper() + " ",0);
             if (idx < 0)
                 return "";
 

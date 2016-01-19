@@ -70,18 +70,18 @@ namespace Pisces.NunitTests.SeriesMath
         }
 
 
-        private static CalculationSeries ComputeMonthlyValue(string cbtt, string pcode,
-            TimeSeriesCalculator c,
-            int year, int month)
-        {
-            var cs = c.Create(cbtt, pcode, TimeInterval.Monthly);
-            //var cs = db.GetSeries(cbtt, pcode, TimeInterval.Monthly) as CalculationSeries;
-            DateTime t1 = new DateTime(year, month, 1);
-            DateTime t2 = t1.EndOfMonth();
-            cs.Calculate(t1, t2);
-            //cs.Read(2011, 7);
-            return cs;
-        }
+        //private static CalculationSeries ComputeMonthlyValue(string cbtt, string pcode,
+        //    TimeSeriesCalculator c,
+        //    int year, int month)
+        //{
+        //    var cs = c.Create(cbtt, pcode, TimeInterval.Monthly);
+        //    //var cs = db.GetSeries(cbtt, pcode, TimeInterval.Monthly) as CalculationSeries;
+        //    DateTime t1 = new DateTime(year, month, 1);
+        //    DateTime t2 = t1.EndOfMonth();
+        //    cs.Calculate(t1, t2);
+        //    //cs.Read(2011, 7);
+        //    return cs;
+        //}
 
 
 

@@ -38,14 +38,14 @@ namespace Reclamation.TimeSeries
                 }
 
                 var rt = new RatingTableDataTable();
-                rt.ReadTable(fn);
+                rt.ReadFile(fn);
                 rval = rt.Lookup(s);
                 rval.TimeInterval = s.TimeInterval;
                 return rval;
             }
 
 
-            void ReadTable(string fileName)
+            public void ReadFile(string fileName)
             {
                 //m_cbtt = cbtt;
                 //tring fileName = cbtt + "_" + pcode + ".txt";

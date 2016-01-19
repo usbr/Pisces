@@ -45,7 +45,7 @@ namespace Reclamation.TimeSeries.Nrcs
             
             Name = LookupName(siteNumber)+ " "+parameterName;
             this.Table.TableName = Name.Replace(" ", "_");
-            base.SiteName = Name;
+            base.SiteID = Name;
            // State = LookupState(siteNumber);
             Provider = "NrcsSnotelSeries"; 
             ConnectionString = "SiteNumber="+siteNumber+";ParameterName="+parameterName;

@@ -16,6 +16,7 @@ namespace PiscesWebServices
         {
             //Logger.EnableLogger();
             TestCGI t = new TestCGI();
+            t.InstantCompareLinuxToVMSCGI();
             t.PerfTestLarge();
         }
 
@@ -51,10 +52,10 @@ namespace PiscesWebServices
 
 
         [Test]
-        public void CompareLinuxToVMSCGI()
+        public void InstantCompareLinuxToVMSCGI()
         {
             //http://www.usbr.gov/pn-bin/webdaycsv.pl?parameter=mddo%20ch,wcao%20q&syer=2015&smnth=4&sdy=5&eyer=2015&emnth=4&edy=5&format=2
-            string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=4&edy=13&format=2";
+            string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=10&sdy=30&eyer=2015&emnth=11&edy=4&format=2";
             //Program.Main(new string[] { "--cgi=instant", "--payload=?"+payload });
 
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[]{}));
@@ -68,15 +69,17 @@ namespace PiscesWebServices
             var fnhyd0 = FileUtility.GetTempFileName(".txt");
             Web.GetFile("http://www.usbr.gov/pn-bin/webdaycsv.pl?" + payload, fnhyd0);
 
-          var diff = TextFile.Compare(tf, new TextFile(fnhyd0));
+          var tf2 = new TextFile(fnhyd0);
+          var diff = TextFile.Compare(tf, tf2);
+            
           if (diff.Length > 0)
           {
-              for (int i = 0; i < diff.Length; i++)
-              {
-                  Console.WriteLine(diff[i]);    
-              }
-              
+                for (int i = 0; i < tf.Length; i++)
+                {
+                    Console.WriteLine(tf[i]);
+                }
           }
+            Assert.IsTrue(diff.Length == 0);
 
         }
 

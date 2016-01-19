@@ -15,13 +15,13 @@ namespace Reclamation.TimeSeries.Forms
             InitializeComponent();
         }
 
-        public string DatabaseFilename
-        {
-            get
-            {
-                return textBoxsdf.Text;
-            }        
-        }
+        //public string DatabaseFilename
+        //{
+        //    get
+        //    {
+        //        return textBoxsdf.Text;
+        //    }        
+        //}
 
         public string CatalogFilename
         {
@@ -41,16 +41,16 @@ namespace Reclamation.TimeSeries.Forms
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            saveFileDialog1.DefaultExt = ".pdb";
-            saveFileDialog1.Filter = "Pisces Database Files (*.pdb)|*.pdb";
-            saveFileDialog1.AddExtension = true;
-            saveFileDialog1.RestoreDirectory = true;
-            saveFileDialog1.Title = "Create a new Database";
+            //saveFileDialog1.DefaultExt = ".pdb";
+            //saveFileDialog1.Filter = "Pisces Database Files (*.pdb)|*.pdb";
+            //saveFileDialog1.AddExtension = true;
+            //saveFileDialog1.RestoreDirectory = true;
+            //saveFileDialog1.Title = "Create a new Database";
             
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                this.textBoxsdf.Text = saveFileDialog1.FileName;                
-            }
+            //if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            //{
+            //    this.textBoxsdf.Text = saveFileDialog1.FileName;                
+            //}
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
@@ -65,6 +65,11 @@ namespace Reclamation.TimeSeries.Forms
             {
                 this.textBoxcatalog.Text = openFileDialog1.FileName;
             }
+        }
+
+        private void Ok_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

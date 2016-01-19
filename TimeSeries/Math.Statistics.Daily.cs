@@ -9,6 +9,39 @@ namespace Reclamation.TimeSeries
 {
     public partial class Math
     {
+        [FunctionAttribute("Calculates remaining runoff for every day to end of endMonth, provide inflow series and integer month",
+     "WaterYearResidual(inflow,endMonth)")]
+        public static Series WaterYearResidual(Series inflow, int endMonth)
+        {
+            Series rval = new Series();
+            rval.TimeInterval = TimeInterval.Daily;
+
+            if (inflow.Count < 0)
+                return rval;
+            var y1 = inflow[0].DateTime.WaterYear();
+            var y2 = inflow[inflow.Count-1].DateTime.WaterYear();
+
+            for (int wy = y1; wy <= y2; wy++)
+            {
+                DateTime t1 = new DateTime(wy - 1, 10, 1);
+                int cy = wy; // calendar year
+                if (endMonth > 9)
+                    cy = wy - 1;
+                DateTime t2 = new DateTime(wy, endMonth, DateTime.DaysInMonth(cy,endMonth));
+                var singleYear = Math.Subset(inflow, t1, t2);
+                var t = t1;
+                while (t  <= t2)
+                {
+                    var sub = Math.Subset(singleYear, t, t2);
+                    var val = Math.Sum(sub);
+                    rval.Add(t, val);
+                    t = t.AddDays(1);
+                }
+            }
+
+            return rval;
+        }
+
 
         /// <summary>
         /// Sums input series day by day

@@ -90,7 +90,7 @@ namespace Reclamation.TimeSeries
                 + "( id int not null primary key, "
                 + " seriesid int not null default 0, " // + m_server.PortableCharacterType(256) + " not null default 0, "
                 + " name " + m_server.PortableCharacterType(100) + " not null default '', "
-                + " value " + m_server.PortableCharacterType(10) + " not null default '' "
+                + " value " + m_server.PortableCharacterType(100) + " not null default '' "
 
 
                 + " )";
@@ -280,6 +280,7 @@ namespace Reclamation.TimeSeries
 
 
 
-        
+
+       
     }
 }

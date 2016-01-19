@@ -11,6 +11,7 @@ using Pisces;
 using Reclamation.TimeSeries.Parser;
 using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.Hydromet;
+using System.IO;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -950,16 +951,25 @@ namespace Reclamation.TimeSeries.Forms
                 try
                 {
                     ShowAsBusy("importing data");
-                    SQLiteServer.CreateNewDatabase(import.DatabaseFilename);
+                    
+                    //SQLiteServer.CreateNewDatabase(import.DatabaseFilename);
                     //SqlServerCompact.CreateNewDatabase(import.DatabaseFilename);
-                    explorer1.Open(import.DatabaseFilename);
+                    //explorer1.Open(import.DatabaseFilename);
+                    //DatabaseChanged();
 
-                    DatabaseChanged();
-                    ShowAsBusy("importing data");
+                    if (DB.GetSeriesCatalog().Count > 1)
+                    {
+                        if (MessageBox.Show(
+                            "Are you sure you want to delete your database?  There are " + DB.GetSeriesCatalog().Count + " series in it","Delete all data ?", MessageBoxButtons.OKCancel)
+                              != DialogResult.OK)
+                            return;
 
+                    }
+
+                    DB.SuspendTreeUpdates();
                     DB.ImportCsvDump(import.CatalogFilename, import.IncludeSeriesData);
-
-                    explorer1.Open(import.DatabaseFilename);
+                    DB.ResumeTreeUpdates();
+                    //explorer1.Open(import.DatabaseFilename);
                     DatabaseChanged();
 
                 }
@@ -1001,11 +1011,5 @@ namespace Reclamation.TimeSeries.Forms
         }
 
        
-
-       
-
-       
-       
-
     }
 }

@@ -23,7 +23,7 @@ namespace Reclamation.TimeSeries
             this.Name = name;
             m_items = items;
             this.Appearance.LegendText = name;
-            this.SiteName = name;
+            this.SiteID = name;
             m_operation = op;
 
             if( items.Count ==0)
@@ -190,7 +190,7 @@ namespace Reclamation.TimeSeries
             rval.Name = this.Name;
             rval.Appearance.LegendText = scenario.Name + " " + Name;
             rval.ScenarioName = scenario.Name;
-            rval.SiteName = this.SiteName;
+            rval.SiteID = this.SiteID;
             rval.TimeInterval = this.TimeInterval;
             return rval;
         }

@@ -709,7 +709,7 @@ namespace Reclamation.TimeSeries
               if (i == 0)
               {
                   rval.Name = "Merged "+this.Count +" items "+s.Name;
-                  rval.SiteName = s.SiteName;
+                  rval.SiteID = s.SiteID;
                   rval.TimeInterval = s.TimeInterval;
               }
               

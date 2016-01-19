@@ -173,10 +173,6 @@
     <Reference Include="System.Data.DataSetExtensions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data.SQLite, Version=1.0.84.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ThirdParty\SQLite\System.Data.SQLite.dll</HintPath>
-    </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
@@ -261,12 +257,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\ThirdParty\DSSUTL.EXE">
-      <Link>DSSUTL.EXE</Link>
+    <Content Include="..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\x86\SQLite.Interop.dll">
+      <Link>SQLite.Interop.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ThirdParty\SQLite\SQLite.Interop.dll">
-      <Link>SQLite.Interop.dll</Link>
+    <Content Include="..\ThirdParty\DSSUTL.EXE">
+      <Link>DSSUTL.EXE</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="images\access.bmp">
@@ -333,10 +329,6 @@
     <ProjectReference Include="..\TimeSeries.Modsim\Reclamation.TimeSeries.Modsim.csproj">
       <Project>{DBA88BAF-7CD3-4D67-9777-D843987CAEEC}</Project>
       <Name>Reclamation.TimeSeries.Modsim</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TimeSeries.OracleHdb\Reclamation.TimeSeries.OracleHdb.csproj">
-      <Project>{E8E40DB3-E59C-40B1-875D-C1A04D177986}</Project>
-      <Name>Reclamation.TimeSeries.OracleHdb</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
       <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>

@@ -144,43 +144,43 @@ namespace Reclamation.Core
             }
         }
 
-        /// <summary>
-        /// returns DataTable from stored procedure.
-        /// </summary>
-        /// <param name="storeProcedure"></param>
-        /// <returns></returns>
-        public DataTable TableFromProc(SQLiteCommand cmd)
-        {
-            DataTable table = new DataTable();
-            cmd.Connection = new SQLiteConnection(this._connectionString);
-            cmd.Connection.Open();
-            System.Data.SQLite.SQLiteDataReader reader = cmd.ExecuteReader();
+        ///// <summary>
+        ///// returns DataTable from stored procedure.
+        ///// </summary>
+        ///// <param name="storeProcedure"></param>
+        ///// <returns></returns>
+        //public DataTable TableFromProcs(SQLiteCommand cmd)
+        //{
+        //    DataTable table = new DataTable();
+        //    cmd.Connection = new SQLiteConnection(this._connectionString);
+        //    cmd.Connection.Open();
+        //    System.Data.SQLite.SQLiteDataReader reader = cmd.ExecuteReader();
 
-            if ((table.Columns.Count == 0))
-            {
-                table.TableName = cmd.CommandText;
-                for (int i = 0; (i < reader.FieldCount); i = i + 1
-                  )
-                {
-                    System.Type type = reader.GetFieldType(i);
-                    string name = reader.GetName(i);
-                    table.Columns.Add(name, type);
-                }
-            }
-            table.Clear();
-            int result = 0;
-            for (; reader.Read(); result = result + 1)
-            {
-                System.Data.DataRow row = table.NewRow();
-                object[] rowdata = new object[reader.FieldCount];
-                reader.GetValues(rowdata);
-                row.ItemArray = rowdata;
-                table.Rows.Add(row);
-            }
-            reader.Close();
+        //    if ((table.Columns.Count == 0))
+        //    {
+        //        table.TableName = cmd.CommandText;
+        //        for (int i = 0; (i < reader.FieldCount); i = i + 1
+        //          )
+        //        {
+        //            System.Type type = reader.GetFieldType(i);
+        //            string name = reader.GetName(i);
+        //            table.Columns.Add(name, type);
+        //        }
+        //    }
+        //    table.Clear();
+        //    int result = 0;
+        //    for (; reader.Read(); result = result + 1)
+        //    {
+        //        System.Data.DataRow row = table.NewRow();
+        //        object[] rowdata = new object[reader.FieldCount];
+        //        reader.GetValues(rowdata);
+        //        row.ItemArray = rowdata;
+        //        table.Rows.Add(row);
+        //    }
+        //    reader.Close();
 
-            return table;
-        }
+        //    return table;
+        //}
 
 
        
@@ -436,36 +436,40 @@ namespace Reclamation.Core
 
             string strAccessSelect = sql;
 
-            SQLiteConnection myAccessConn = new SQLiteConnection(ConnectionString);
-            //myAccessConn.ConnectionTimeout = 30;
-            SQLiteCommand myAccessCommand = new SQLiteCommand(strAccessSelect, myAccessConn);
-            myAccessCommand.CommandTimeout = myAccessConn.ConnectionTimeout;
+            using (SQLiteConnection myAccessConn = new SQLiteConnection(ConnectionString))
+            {
+                //myAccessConn.ConnectionTimeout = 30;
+                using (SQLiteCommand myAccessCommand = new SQLiteCommand(strAccessSelect, myAccessConn))
+                {
+                    myAccessCommand.CommandTimeout = myAccessConn.ConnectionTimeout;
 
-            SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myAccessCommand);
-            myDataAdapter.AcceptChangesDuringFill = AcceptChangesDuringFill;
-            //Console.WriteLine(sql);
-            this.lastSqlCommand = sql;
-            SqlCommands.Add(sql);
-            DataSet myDataSet = new DataSet();
-            try
-            {
-                myAccessConn.Open();
+                    SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myAccessCommand);
+                    myDataAdapter.AcceptChangesDuringFill = AcceptChangesDuringFill;
+                    //Console.WriteLine(sql);
+                    this.lastSqlCommand = sql;
+                    SqlCommands.Add(sql);
+                    DataSet myDataSet = new DataSet();
+                    try
+                    {
+                        myAccessConn.Open();
 
-                myDataAdapter.Fill(myDataSet, tableName);
+                        myDataAdapter.Fill(myDataSet, tableName);
+                    }
+                    catch (Exception e)
+                    {
+                        string msg = "Error reading from database " + sql + " Exception " + e.ToString();
+                        Console.WriteLine(msg);
+                        throw e;
+                    }
+                    finally
+                    {
+                        myAccessConn.Close();
+                    }
+                    DataTable tbl = myDataSet.Tables[tableName];
+                    myDataSet.Tables.Remove(tbl);
+                    return tbl;
+                }
             }
-            catch (Exception e)
-            {
-                string msg = "Error reading from database " + sql + " Exception " + e.ToString();
-                Console.WriteLine(msg);
-                throw e;
-            }
-            finally
-            {
-                myAccessConn.Close();
-            }
-            DataTable tbl = myDataSet.Tables[tableName];
-            myDataSet.Tables.Remove(tbl);
-            return tbl;
         }
 
         public override void FillTable(DataTable dataTable, string sql)
@@ -547,38 +551,42 @@ namespace Reclamation.Core
         {
             int rval = 0;
             this.lastMessage = "";
-            SQLiteConnection myConnection = new SQLiteConnection(SqlConnString);
-            myConnection.Open();
-            SQLiteCommand myCommand = new SQLiteCommand();
-            SQLiteTransaction myTrans;
+            using (SQLiteConnection myConnection = new SQLiteConnection(SqlConnString))
+            {
+                myConnection.Open();
+                using (SQLiteCommand myCommand = new SQLiteCommand())
+                {
+                    SQLiteTransaction myTrans;
 
-            // Start a local transaction
-            myTrans = myConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-            // Assign transaction object for a pending local transaction
-            myCommand.Connection = myConnection;
-            myCommand.Transaction = myTrans;
+                    // Start a local transaction
+                    myTrans = myConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+                    // Assign transaction object for a pending local transaction
+                    myCommand.Connection = myConnection;
+                    myCommand.Transaction = myTrans;
 
-            try
-            {
-                myCommand.CommandText = sql;
-                rval = myCommand.ExecuteNonQuery();
-                myTrans.Commit();
-                this.lastSqlCommand = sql;
-                SqlCommands.Add(sql);
+                    try
+                    {
+                        myCommand.CommandText = sql;
+                        rval = myCommand.ExecuteNonQuery();
+                        myTrans.Commit();
+                        this.lastSqlCommand = sql;
+                        SqlCommands.Add(sql);
+                    }
+                    catch (Exception e)
+                    {
+                        myTrans.Rollback();
+                        Console.WriteLine(e.ToString());
+                        Console.WriteLine("Error running " + sql);
+                        this.lastMessage = e.ToString();
+                        throw e;
+                    }
+                    finally
+                    {
+                        myConnection.Close();
+                    }
+                    return rval;
+                }
             }
-            catch (Exception e)
-            {
-                myTrans.Rollback();
-                Console.WriteLine(e.ToString());
-                Console.WriteLine("Error running " + sql);
-                this.lastMessage = e.ToString();
-                throw e;
-            }
-            finally
-            {
-                myConnection.Close();
-            }
-            return rval;
         }
         ///
         ///http://stackoverflow.com/questions/10797011/sql-lite-data-types-c-sharp

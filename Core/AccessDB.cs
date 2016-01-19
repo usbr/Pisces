@@ -124,7 +124,6 @@ namespace Reclamation.Core
       {
           string strAccessConn = GetConnectionString(filename);
 
-          DataSet myDataSet = new DataSet();
           OleDbConnection conn = new OleDbConnection(strAccessConn);
 
           conn.Open();

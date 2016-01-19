@@ -129,7 +129,7 @@ namespace Reclamation.TimeSeries.DataLogger
                         s.Name = key;
                         s.Parameter = pcode;
                         s.Table.TableName = key;
-                        s.SiteName = SiteName;
+                        s.SiteID = SiteName;
                         dict.Add(key, s);
                     }
 

@@ -18,12 +18,56 @@ using System.Collections.Generic;
 using Pisces;
 using System.Configuration;
 using Reclamation.TimeSeries.Hydromet;
+using Reclamation.TimeSeries.RBMS;
 
 namespace Reclamation.TimeSeries.Forms
 {
 
     public partial class PiscesForm
     {
+
+        private void addRBMSDirectory(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            DialogResult result = fbd.ShowDialog();
+
+            string[] files = Directory.GetFiles(fbd.SelectedPath);
+            for (int i = 0; i < files.Length; i++)
+            {
+                //try
+               // {
+                    RBMSTextFile.ImportFile(files[i], DB, true);
+                //}
+                //catch (Exception ex)
+                //{
+                   // MessageBox.Show("Error importing "+files[i]+"\n"+ ex.Message);
+                //}
+            }
+        }
+
+
+        private void AddRBMS_csv_File_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                Logger.EnableLogger();
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.DefaultExt = ".csv";
+                openFileDialog.Filter = "CSV File *.csv | *.csv";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    RBMSTextFile.ImportFile(openFileDialog.FileName, DB, true);
+                    MessageBox.Show("Manual Import Complete.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
 
         /// <summary>
         /// SQLite convered from DSS

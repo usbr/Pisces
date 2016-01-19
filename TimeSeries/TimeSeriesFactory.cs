@@ -118,8 +118,9 @@ namespace Reclamation.TimeSeries
 
                     foreach (Assembly item in asmList)
                     {
-                        if (item.FullName.IndexOf("Reclamation.") != 0
-                            && item.FullName.IndexOf("Pisces") !=0 )
+                        if (item.FullName.IndexOf("Reclamation.") <0
+                            && item.FullName.IndexOf("Pisces") <0
+                            && item.FullName.IndexOf("HDB") <0 )
                             continue;
 
                         var types = item.GetTypes().Where(x => x.BaseType == typeof(Series));

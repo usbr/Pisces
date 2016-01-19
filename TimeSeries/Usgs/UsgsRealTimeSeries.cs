@@ -29,7 +29,7 @@ namespace Reclamation.TimeSeries.Usgs
         public UsgsRealTimeSeries(string site_no, UsgsRealTimeParameter parameter)
 		{
             TimeInterval = TimeSeries.TimeInterval.Irregular;
-			this.SiteName = site_no;
+			this.SiteID = site_no;
             this.Parameter = parameter.ToString();
             m_site_no = site_no;
             m_parameter = parameter;
@@ -91,7 +91,7 @@ namespace Reclamation.TimeSeries.Usgs
                 // not most efficient.. we are going for all parameters, 
                 // get last 10 days by default.
                 string url = m_url;
-                url = url.Replace("sites=14354200", "sites=" + SiteName);
+                url = url.Replace("sites=14354200", "sites=" + SiteID);
                 url = url.Replace("startDT=2012-05-01&endDT=2012-05-01", "period=P10D");
                 UsgsRealTimeParameter parameter = (UsgsRealTimeParameter)Enum.Parse(typeof(UsgsRealTimeParameter), Parameter);
                 int paramCode = (int)parameter;
@@ -125,7 +125,7 @@ namespace Reclamation.TimeSeries.Usgs
             else
             {
                 string url = m_url;
-                url = url.Replace("sites=14354200", "sites=" + SiteName);
+                url = url.Replace("sites=14354200", "sites=" + SiteID);
                 url = url.Replace("startDT=2012-05-01", "startDT=" + t1.Year + "-" + t1.Month + "-" + t1.Day);
                 url = url.Replace("endDT=2012-05-01", "endDT=" + t2.Year + "-" + t2.Month + "-" + t2.Day);
                 UsgsRealTimeParameter parameter = (UsgsRealTimeParameter)Enum.Parse(typeof(UsgsRealTimeParameter), Parameter);
@@ -249,10 +249,9 @@ USGS	13206000	2012-05-02 13:45	MDT	8000	P	10.72	P
         private void ParsePreamble()
         {
             int idx = -1;
-            string findMe = "#    USGS "+SiteName;
+            string findMe = "#    USGS "+SiteID;
             idx = m_rdb.TextFile.IndexOf(findMe);
-            Name = SiteName;
-            SiteName = SiteName;
+            Name = SiteID;
             Source = "USGS";
 
             if (idx >= 0)

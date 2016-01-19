@@ -48,6 +48,14 @@ namespace Reclamation.Core
      ConnectionString=connString;
     }
 
+    public SqlServer(string server, string database)
+    {
+        // TODO: Complete member initialization
+        this.server = server;
+        this.database = database;
+        ConnectionString = "Data Source=" + server + ";Integrated Security=SSPI;Initial Catalog=" + database;
+    }
+
       public void CloseAllConnections()
     {//http://stackoverflow.com/questions/444750/spring-net-drop-all-adotemplate-connections
           SqlConnection.ClearAllPools();
@@ -59,6 +67,8 @@ namespace Reclamation.Core
       }
 
     SqlServerAdmin _admin;
+    private string server;
+    private string database;
     public SqlServerAdmin Admin
     {
       get{
@@ -404,30 +414,41 @@ namespace Reclamation.Core
      public override int SaveTable(DataTable dataTable, string sql)
     {
       Console.WriteLine("Saving "+dataTable.TableName);
-      DataSet myDataSet = new DataSet();
+            Performance perf = new Performance();
+            DataSet myDataSet = new DataSet();
       myDataSet.Tables.Add(dataTable.TableName);
 
-      SqlConnection myAccessConn = new SqlConnection(ConnectionString);
-      SqlCommand myAccessCommand = new SqlCommand(sql,myAccessConn);
-      SqlDataAdapter myDataAdapter = new SqlDataAdapter(myAccessCommand);
-      SqlCommandBuilder karlCB = new SqlCommandBuilder(myDataAdapter);
 
-      this.lastSqlCommand = sql;
-      SqlCommands.Add(sql);
-
-      myAccessConn.Open();
-      int recordCount = 0;
-      try
-      {   // call Fill method only to make things work. (we ignore myDataSet)
-        myDataAdapter.Fill(myDataSet,dataTable.TableName); 
-        recordCount = myDataAdapter.Update(dataTable);
-				
-      }
-      finally
+      using (SqlConnection conn = new SqlConnection(ConnectionString))
       {
-        myAccessConn.Close();
+          using (SqlCommand cmd = new SqlCommand(sql, conn))
+          {
+              conn.Open();
+              SqlDataAdapter da = new SqlDataAdapter(cmd);
+              SqlCommandBuilder karlCB = new SqlCommandBuilder(da);
+              SqlTransaction tran = conn.BeginTransaction();
+              cmd.Transaction = tran;
+
+              this.lastSqlCommand = sql;
+              SqlCommands.Add(sql);
+
+                    da.UpdateBatchSize = 0;
+              int recordCount = 0;
+              try
+              {   // call Fill method only to make things work. (we ignore myDataSet)
+                  da.Fill(myDataSet, dataTable.TableName);
+                  recordCount = da.Update(dataTable);
+                  tran.Commit();
+              }
+              finally
+              {
+                  conn.Close();
+              }
+
+                    Logger.WriteLine("Saved " + recordCount + " records in " + perf.ElapsedSeconds + "seconds");
+                    return recordCount;
+          }
       }
-      return recordCount;
     }
 
     
@@ -683,7 +704,17 @@ namespace Reclamation.Core
 
     }
 
+    public override int InsertTable(DataTable table)
+    {
+        for (int i = 0; i < table.Rows.Count; i++)
+        {
+           
+            if( table.Rows[i].RowState == DataRowState.Unchanged)
+                table.Rows[i].SetAdded();
+        }
+        return SaveTable(table);
 
+    }
 
   }
 }

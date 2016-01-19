@@ -189,7 +189,7 @@ namespace Reclamation.Core
 
 		public static string[] SheetNames(string filename)
 		{
-			ArrayList list =new ArrayList();
+			//ArrayList list =new ArrayList();
             OleDbConnection ExcelConnection = new OleDbConnection(ConnectionString(filename));
 			OleDbCommand ExcelCommand = new OleDbCommand();
 			ExcelCommand.Connection = ExcelConnection;

@@ -580,7 +580,7 @@ namespace Reclamation.TimeSeries.Modsim
                 row.Name = displayName;
                 row.TimeInterval = s.TimeInterval.ToString();
                 //row.TableName = "empty" + Guid.NewGuid().ToString();
-                row.siteid = s.SiteName;
+                row.siteid = s.SiteID;
                 row.Parameter = s.Parameter;
                 row.Units = s.Units;
                 //row.DisplayUnits = s.DisplayUnits;

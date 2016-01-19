@@ -847,14 +847,14 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// Imports DataTable to the Database
         /// </summary>
-        private int ImportTimeSeriesTable(DataTable table, SeriesCatalogRow si,
+        private int ImportTimeSeriesTable(DataTable table, SeriesCatalogRow sr,
              DatabaseSaveOptions option)
         {
-
+            Performance perf = new Performance();
             table.Columns[0].ColumnName = "datetime";
             table.Columns[1].ColumnName = "value";
             // table.Columns[2].ColumnName = "flag";
-            table.TableName = si.TableName;
+            table.TableName = sr.TableName;
 
             if (table.Columns.Count == 2)
             { 
@@ -866,7 +866,7 @@ namespace Reclamation.TimeSeries
 
             if (!m_server.TableExists(table.TableName))
             {
-                CreateSeriesTable(si.TableName, true);
+                CreateSeriesTable(sr.TableName, true);
             }
 
             int count = 0;
@@ -881,7 +881,7 @@ namespace Reclamation.TimeSeries
             else
                 if (option == DatabaseSaveOptions.DeleteAllExisting)
                 {
-                    Truncate(si.id);
+                    Truncate(sr.id);
                     count = m_server.InsertTable(table);
                 }
                 else if (option == DatabaseSaveOptions.Insert)
@@ -892,7 +892,7 @@ namespace Reclamation.TimeSeries
                 {
                     count = m_server.SaveTable(table);
                 }
-            Logger.WriteLine("Saved " + count + " records "+ table.TableName+" "+m_server.DataSource);
+            Logger.WriteLine("Saved " + count + " records "+ table.TableName+" "+m_server.DataSource+" "+perf.ElapsedSeconds.ToString("F2"));
 
             return count;
         }
@@ -932,7 +932,14 @@ namespace Reclamation.TimeSeries
 
         public static string SafeTableName(string tableName)
         {
-            return Regex.Replace(tableName, @"[^A-Za-z0-9_\-]", "_").ToLower();
+            string rval = Regex.Replace(tableName, @"[^A-Za-z0-9_]", "_").ToLower();
+            // starts with letter
+            if (rval.Length > 0)
+            {
+                if (!Char.IsLetter(rval, 0))
+                    rval = "ts_" + rval;
+            }
+            return rval;
         }
 
         public BasicDBServer Server
@@ -1119,7 +1126,27 @@ namespace Reclamation.TimeSeries
             return ie;
             //throw new NotImplementedException();
         }
+        /// <summary>
+        /// Factory Method to Create a CalculationSeries
+        /// </summary>
+        /// <param name="siteID"></param>
+        /// <param name="pcode"></param>
+        /// <param name="interval"></param>
+        /// <returns></returns>
+        public CalculationSeries GetCalculationSeries(string siteID, string pcode, TimeInterval interval)
+        {
+            string tn = interval.ToString().ToLower() + "_" + siteID + "_" + pcode;
+            tn = tn.ToLower();
+            string filter = " tablename = '" + tn + "' and timeinterval = '" + interval + "' and provider = 'CalculationSeries'";
 
+            var sr = GetSeriesRow(filter);
+            if (sr == null)
+                return null;
+            var cs = GetSeries(sr.id) as CalculationSeries;
+            //cs.Parser = m_db.Parser; 
+
+            return cs;
+        }
 
         //public Series GetSeries(string siteID, string parameterCode, TimeInterval timeInterval)
         //{
@@ -1270,21 +1297,28 @@ namespace Reclamation.TimeSeries
         /// <param name="filename"></param>
         public void ImportCsvDump(string filename, bool importSeriesData)
         {
+
+            var sc = GetSeriesCatalog("isfolder = 0");
+
+            var tableNames = m_server.TableNames();
+            foreach (var item in sc)
+            {
+                //Server.TableExists(item.TableName);
+               if(Array.IndexOf(tableNames, item.TableName )>=0)
+                  DropTable(item.TableName);
+            }
+
+            m_server.RunSqlCommand("delete from seriescatalog");
+            m_server.RunSqlCommand("delete from sitecatalog");
+
             string dir = Path.GetDirectoryName(filename);
-            string sql = "select id from seriescatalog where isfolder = 0";
-            DataTable sc = m_server.Table("seriescatalog", sql);
+            
+            sc = GetSeriesCatalog();
 
-            if (sc.Rows.Count > 0)
-                throw new InvalidOperationException("Database must be empty to import new Catalog");
-
-            sql = "delete from seriescatalog";
-            m_server.RunSqlCommand(sql);
-
-            sc = m_server.Table("seriescatalog");
 
             CsvFile oldCatalog = new CsvFile(filename);
 
-            sc.Constraints.Add("pk_sdi", sc.Columns["id"], true);
+            //sc.Constraints.Add("pk_sdi", sc.Columns["id"], true);
             string[] oldColumnNames = { "sitedatatypeid", "sitename", "source" };
             string[] newColumnName = { "id", "siteid", "iconname" };
 
@@ -1332,8 +1366,12 @@ namespace Reclamation.TimeSeries
                         {
                             // read file into datatable.
                             CsvFile tbl = new CsvFile(fn);
+                            if (tbl.Rows.Count == 0)
+                                continue;
+
                             //tbl.TableName = GetUniqueTableName(Path.GetFileNameWithoutExtension(fn));
                             tbl.TableName = SafeTableName(Path.GetFileNameWithoutExtension(fn));
+                            sc.Rows[i]["TableName"] = tbl.TableName;
                             if (tbl.Columns.Count == 2 || tbl.Columns.Count == 3)
                             {
                                 // create/save 
@@ -1348,6 +1386,7 @@ namespace Reclamation.TimeSeries
                         }
                     }
                 }
+                m_server.SaveTable(sc);
             }
             // TO DO 
             // import/export ScenarioTable.
@@ -1597,7 +1636,8 @@ namespace Reclamation.TimeSeries
             Console.WriteLine("Instant Series:"+GetSeriesCatalog("timeinterval = 'Irregular'").Count());
             Console.WriteLine("Daily Series:" + GetSeriesCatalog("timeinterval = 'Daily'").Count());
             Console.WriteLine("Monthly Series:" + GetSeriesCatalog("timeinterval = 'Monthly'").Count());
-            Console.WriteLine("Series in Catalog: "+GetSeriesCatalog().Count());
+            Console.WriteLine("Series in SeriesCatalog: "+GetSeriesCatalog().Count());
+            Console.WriteLine("Sites in SiteCatalog: " + GetSiteCatalog().Count());
             Console.WriteLine("");
 
         }
@@ -1630,15 +1670,17 @@ namespace Reclamation.TimeSeries
                 if (!row.IsFolder)
                 {// add series
                     var s = db.Factory.GetSeries(row.id);
-                    // TO DO verify unique tablename
-                    // to do: get time series data??? (optional)
-                    sc.AddSeriesCatalogRow(s, sc.NextID(), folderID, s.Table.TableName);
+                    var sr = sc.AddSeriesCatalogRow(s, sc.NextID(), folderID, s.Table.TableName);
+
+                    // get time series data
+                    s.Read();
+                    ImportTimeSeriesTable(s.Table,sr, DatabaseSaveOptions.Insert);
                 }
 
             }
             Server.SaveTable(sc);
 
-            // Add Sites...
+            // Add Sites.
             var sites = GetSiteCatalog();
 
             var new_sites = db.GetSiteCatalog();
@@ -1653,6 +1695,10 @@ namespace Reclamation.TimeSeries
             }
 
             Server.SaveTable(sites);
+
+
+            // add properties. TO DO.
+
         }
        
     }

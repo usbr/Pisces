@@ -135,7 +135,7 @@ namespace Reclamation.TimeSeries.Decodes
                 this.seriesDict.Add(name, s);
             }
 
-            s.SiteName = cbtt;
+            s.SiteID = cbtt;
             s.Parameter = pcode;
             s.Name = cbtt + "_" + pcode;
             s.Name = s.Name.ToLower();

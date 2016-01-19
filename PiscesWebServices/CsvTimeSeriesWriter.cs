@@ -100,13 +100,10 @@ namespace PiscesWebServices
         /// <returns></returns>
         private void WriteCsv(SeriesList list, TimeInterval interval, DateTime t1, DateTime t2)
         {
-
-            
             Console.WriteLine("BEGIN DATA");
             WriteSeriesHeader(list, interval);
-            
 
-            int maxDaysInMemory = 10;
+            int maxDaysInMemory = 30;
 
             // maxDaysIhn memory
             //   maxdays      list.Read()    REad()
@@ -114,57 +111,30 @@ namespace PiscesWebServices
             //   
 
             var t = t1;
-           
-            while(t<t2)
+            Performance p = new Performance();
+            while (t<t2)
             {
                 var t3 = t.AddDays(maxDaysInMemory).EndOfDay();  
 
                 if (t3 > t2) 
                     t3 = t2;
 
-                Performance p = new Performance();
-                list.Read(t, t3); //1.362 seconds elapsed. 13660 lines readls
-                p.Report("after list.Read()");
-                //Read(list, t, t3); //2.018 seconds elapsed. 13660 lines read
-                //Console.WriteLine("block: "+t.ToString()+" " + t3.ToString());
-                //SeriesListDataTable sTable = new SeriesListDataTable(list, interval);
-                // p.Report("after SeriesListDataTable ctor");
-                var sTable = list.ToDataTable(false);
-                //var sTable = sList.ToDataTable(!hasFlags);
-                PrintDataTable( sTable);
-
+                var tbl = Read(list, t, t3); // 0.0 seconds windows/linux
+                PrintDataTable( list,tbl);
                 t = t3.NextDay();
             } 
 
             Console.WriteLine("END DATA");
-
+           // p.Report("done");
         }
 
-        private void Read(SeriesList list, DateTime t1, DateTime t2)
+        private DataTable Read(SeriesList list, DateTime t1, DateTime t2)
         {
-           
-            var dict = new Dictionary<string, Series>();
-            foreach (var item in list)
-            {
-                dict.Add(item.Table.TableName, item);
-                item.Clear();
-                //item.Table.AcceptChanges();
-            }
+
             var sql = CreateSQL(list, t1, t2);
-
             var tbl = db.Server.Table("tbl", sql);
-
-            for (int i = 0; i < tbl.Rows.Count; i++)
-            {
-                var tn = tbl.Rows[i]["tablename"].ToString();
-                var x = tbl.Rows[i].ItemArray;
-                var s = dict[tn];
-                s.Table.Rows.Add(x[1], x[2], x[3]);
-            }
-
-            
+            return tbl;
         }
-
         private string CreateSQL(SeriesList list, DateTime t1, DateTime t2)
         {
             var sql = "";
@@ -183,12 +153,12 @@ namespace PiscesWebServices
                         + " AND "
                         + " datetime <= " + db.Server.PortableDateString(t2, TimeSeriesDatabase.dateTimeFormat);
                 }
-                
+
                 if (i != list.Count - 1)
                     sql += " UNION ALL \n";
             }
 
-            sql += " \norder by tablename,datetime ";
+            sql += " \norder by datetime,tablename ";
 
             return sql;
         }
@@ -230,40 +200,58 @@ namespace PiscesWebServices
             return sList;
         }
 
-        private static void PrintDataTable(System.Data.DataTable table)
+        /// <summary>
+        /// Print DataTable composed of tablename,datetime,value[,flag]
+        /// with columns for each tablename
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="table"></param>
+        private static void PrintDataTable(SeriesList list, DataTable table)
         {
+            var t0 = "";
+
+            if (table.Rows.Count > 0)
+                t0 = FormatDate(table.Rows[0][1]);
+
+            var vals = new string[list.Count];
+            var flags = new string[list.Count];
+            var dict = new Dictionary<string, int>();
+            for (int i = 0; i < list.Count; i++)
+            {
+                dict.Add(list[i].Table.TableName, i);
+            }
+
+            string t="";
             for (int i = 0; i < table.Rows.Count; i++)
             {
-                string s = "";
+                var row = table.Rows[i];
+                t = FormatDate(row[1]);
 
-                for (int j = 0; j < table.Columns.Count; j++)
+               if( t!= t0)
                 {
-                    var o = table.Rows[i][j];
-                    if (j == 0)
-                    {
-                        s += FormatDate(o) + ",";
-                    }
-                    else
-                    {
-                        if (table.Columns[j].DataType == typeof(string))
-                            continue;
-
-                      s += FormatNumber(o);
-
-                        bool flagColumnNext = j <table.Columns.Count-1 
-                            && table.Columns[j+1].DataType == typeof(string);
-
-                        if(flagColumnNext ) // check for flag
-                            s += FormatFlag(table.Rows[i][j+1]);
-
-                        bool lastColumn = j == table.Columns.Count - 1
-                        || flagColumnNext && j == table.Columns.Count - 2;
-                       if (!lastColumn)
-                            s += ",";
-                    }
+                    PrintRow(t0,vals,flags);
+                    vals = new string[list.Count];
+                    flags = new string[list.Count];
+                    t0 = t;
                 }
-                Console.WriteLine(s);
+
+                vals[dict[row[0].ToString()]] =  FormatNumber(row[2]);
+                flags[dict[row[0].ToString()]] = FormatFlag(row[3]);
             }
+            PrintRow(t, vals, flags);
+        }
+
+        private static void PrintRow(string t0, string[] vals, string[] flags)
+        {
+            var  s = t0+ ",";
+            for (int i = 0; i < vals.Length; i++)
+            {
+                s += vals[i] + flags[i];
+                if (i != vals.Length - 1)
+                    s += ",";
+            }
+            Console.WriteLine(s);
+
         }
 
         /// <summary>

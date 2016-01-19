@@ -91,7 +91,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <BaseAddress>285212672</BaseAddress>
     <FileAlignment>4096</FileAlignment>
@@ -301,10 +301,13 @@
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="HDB\HDBSeries.cs" />
+    <Compile Include="RBMS\RBMSTextFile.cs" />
+    <Compile Include="RBMS\RbmsUtility.cs" />
     <Compile Include="SQLiteSeries.cs" />
     <Compile Include="SeriesListDataTable.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Tests\SeriesMath\TestResidual.cs" />
     <Compile Include="Tests\SeriesMath\TestInterpolate2D.cs" />
     <Compile Include="Tests\SeriesTypes\TestHDB.cs" />
     <Compile Include="TimeSeriesDatabase.Factory.cs" />
@@ -437,6 +440,7 @@
     <Compile Include="Tests\SeriesMath\TestWaterYear.cs" />
     <Compile Include="Tests\SeriesTypes\Cr10xTest.cs" />
     <Compile Include="Tests\SeriesTypes\TestSnotel.cs" />
+    <None Include="RBMS\Export - DH Manual Monitoring - Oct 2015.csv" />
     <None Include="Tests\SeriesTypes\TestBpaHydsimSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestExcelReaderSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestHydromet.cs" />
@@ -744,7 +748,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\ThirdParty\SQLite\SQLite.Interop.dll">
+    <Content Include="..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\x86\SQLite.Interop.dll">
       <Link>SQLite.Interop.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

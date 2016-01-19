@@ -879,18 +879,19 @@ namespace Reclamation.TimeSeries.Forms
             {
                 try
                 {
-                    ShowAsBusy("importing data");
-                    SQLiteServer.CreateNewDatabase(import.DatabaseFilename);
-                    //SqlServerCompact.CreateNewDatabase(import.DatabaseFilename);
-                    explorer1.Open(import.DatabaseFilename);
+                    // TO DO.. sync with pisces_closed.
+                    //ShowAsBusy("importing data");
+                    //SQLiteServer.CreateNewDatabase(import.DatabaseFilename);
+                    ////SqlServerCompact.CreateNewDatabase(import.DatabaseFilename);
+                    //explorer1.Open(import.DatabaseFilename);
 
-                    DatabaseChanged();
-                    ShowAsBusy("importing data");
+                    //DatabaseChanged();
+                    //ShowAsBusy("importing data");
 
-                    DB.ImportCsvDump(import.CatalogFilename, import.IncludeSeriesData);
+                    //DB.ImportCsvDump(import.CatalogFilename, import.IncludeSeriesData);
 
-                    explorer1.Open(import.DatabaseFilename);
-                    DatabaseChanged();
+                    //explorer1.Open(import.DatabaseFilename);
+                    //DatabaseChanged();
 
                 }
                 finally

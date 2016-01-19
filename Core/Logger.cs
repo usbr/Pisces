@@ -75,7 +75,17 @@ namespace Reclamation.Core
         }
 
         private static TraceSwitch _traceSwitch = null;
+        static string logName;
 
+        /// <summary>
+        /// View Log by opening a text file.
+        /// </summary>
+        public static void ViewLog()
+        {
+            var tmp = FileUtility.GetTempFileName(".txt");
+            File.Copy(logName, tmp,true);
+            System.Diagnostics.Process.Start(tmp);   
+        }
         /// <summary>
         /// Begin Tracing to log file based on application name.
         /// </summary>
@@ -87,7 +97,7 @@ namespace Reclamation.Core
                 if (_traceSwitch.Level != TraceLevel.Off)
                 { // if any tracing.. save to log.
                     //string logName = Path.GetFileNameWithoutExtension(Application.ExecutablePath) + ".log";
-                    string logName = Path.Combine(FileUtility.GetLocalApplicationPath(), Path.GetFileNameWithoutExtension(Application.ExecutablePath));
+                    logName = Path.Combine(FileUtility.GetLocalApplicationPath(), Path.GetFileNameWithoutExtension(Application.ExecutablePath));
                     logName = logName + ".log";
                     FileStream fs = new FileStream(logName, FileMode.Append);
                     TextWriterTraceListener listener = new TextWriterTraceListener(fs);

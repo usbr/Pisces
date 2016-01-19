@@ -244,10 +244,16 @@ namespace Reclamation.TimeSeries {
         }
         public partial class SeriesCatalogDataTable
         {
-            public void AddSeriesCatalogRow(Series s, int id, int parentID, string tableName = "")
+            public SeriesCatalogRow AddSeriesCatalogRow(Series s, int id, int parentID, string tableName = "")
             {
-                AddSeriesCatalogRow(id, parentID, false, 0, s.Source, s.Name, s.SiteName, s.Units,
+                if (tableName == "")
+                    tableName = s.Table.TableName;
+                if (tableName == "")
+                    tableName =   "ts_" + Guid.NewGuid();
+
+                var rval = AddSeriesCatalogRow(id, parentID, false, 0, s.Source, s.Name, s.SiteID, s.Units,
                     s.TimeInterval.ToString(), s.Parameter, tableName, s.Provider, s.ConnectionString, s.Expression, s.Notes, true);
+                return rval;
             }
 
             public int AddFolder(string folderName, int id, int parentID)

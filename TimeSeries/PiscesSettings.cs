@@ -66,6 +66,11 @@ namespace Reclamation.TimeSeries
 
             svr = new SQLiteServer(path);
 
+            Connect(svr);
+        }
+
+        public void Connect(BasicDBServer svr)
+        {
             m_db = new TimeSeriesDatabase(svr);
             Defaults(m_db);
             m_db.ReadSettingsFromDatabase(TimeWindow);
@@ -80,14 +85,16 @@ namespace Reclamation.TimeSeries
                 cs = PostgreSQL.CreateADConnectionString(server, database);
                 svr = new PostgreSQL(cs);
             }
+            if (t == DatabaseType.SqlServer)
+            {
+                svr = new SqlServer(server, database);
+            }
             if (t == DatabaseType.MySQL)
             {
               svr=  MySqlServer.GetMySqlServer(server, database);
             }
 
-            m_db = new TimeSeriesDatabase(svr);
-            Defaults(m_db);
-            m_db.ReadSettingsFromDatabase(TimeWindow);
+            Connect(svr);
         }
 
 
@@ -282,8 +289,8 @@ namespace Reclamation.TimeSeries
                 {
                     // baseline only.
                     var baseline = s.CreateBaseline();
-                    if (!baseline.SiteName.Contains("reference"))
-                        baseline.SiteName += " - reference";
+                    if (!baseline.SiteID.Contains("reference"))
+                        baseline.SiteID += " - reference";
                     rval.Add(baseline);
                 }
                 else// Using Scenarios.
@@ -303,7 +310,7 @@ namespace Reclamation.TimeSeries
                             impact.Name = scenario.Name + " - " + baseline.Name;
                             impact.Appearance.LegendText = "(" + scenario.Appearance.LegendText
                                   + ") - (" + baseline.Appearance.LegendText + ")";
-                            impact.SiteName = baseline.SiteName;
+                            impact.SiteID = baseline.SiteID;
 
                             rval.Add(impact);
 
