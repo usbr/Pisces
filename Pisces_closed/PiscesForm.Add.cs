@@ -34,14 +34,14 @@ namespace Reclamation.TimeSeries.Forms
             string[] files = Directory.GetFiles(fbd.SelectedPath);
             for (int i = 0; i < files.Length; i++)
             {
-                try
-                {
+                //try
+               // {
                     RBMSTextFile.ImportFile(files[i], DB, true);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error importing "+files[i]+"\n"+ ex.Message);
-                }
+                //}
+                //catch (Exception ex)
+                //{
+                   // MessageBox.Show("Error importing "+files[i]+"\n"+ ex.Message);
+                //}
             }
         }
 

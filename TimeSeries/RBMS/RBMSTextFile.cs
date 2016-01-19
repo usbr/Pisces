@@ -25,7 +25,7 @@ namespace Reclamation.TimeSeries.RBMS
                 catch (Exception e)
                 {
                     string msg = "Error reading " + files[i];
-                    Logger.WriteLine(msg+ e.Message,"ui");
+                    Logger.WriteLine(msg + e.Message, "ui");
                     // System.Windows.Forms.MessageBox.Show(msg); 
                 }
             }
@@ -40,12 +40,12 @@ namespace Reclamation.TimeSeries.RBMS
             ImportFile(filename, db, false);
         }
 
-        static string ManualInstType = "M - manually read static water level";
+        //static string ManualInstType = "M - manually read static water level";
 
         public static void ImportFile(string filename, TimeSeriesDatabase db, bool manual)
         {
             if( !manual)
-                throw new NotImplementedException("this method is for importing manuall entered data");
+                throw new NotImplementedException("this method is for importing manually entered data");
             DataTable rbmsDataTable = ReadRBMSFile(filename);
 
             if (rbmsDataTable.Rows.Count == 0)
@@ -70,15 +70,33 @@ where b.value = 'M - manually read static water level' ";
             {
                 string drillHole = rbmsDataTable.Rows[i]["DH"].ToString();
                 string riser = rbmsDataTable.Rows[i]["Riser"].ToString();
-                var t = Convert.ToDateTime(rbmsDataTable.Rows[i]["DateTime"].ToString());
-                var val = Convert.ToDouble(rbmsDataTable.Rows[i]["Measured"].ToString());
-
+                var strDate = rbmsDataTable.Rows[i]["DateTime"].ToString();
+                var t = DateTime.Now.Date;
                 var filter = "DrillHole ='" + drillHole + "'" + " and  " + " riser = '" + riser + "'";
+
+                if (!DateTime.TryParse(strDate, out t))
+                {
+                    Logger.WriteLine("Error: could not parse " + strDate);
+                    Logger.WriteLine(filter);
+                    continue;
+                }
+
+                var strVal = rbmsDataTable.Rows[i]["Measured"].ToString();
+                
+
+                double val = -999;
+                if( !double.TryParse(strVal,out val))
+                {
+                    Logger.WriteLine("Error: could not parse " + strVal);
+                    Logger.WriteLine(filter);
+                    continue;
+                }
+
                 var rows = sc.Select(filter);
 
                 if (rows.Length != 1)
                 {
-                    Logger.WriteLine("skipping: "+filter);
+                    Logger.WriteLine("Warning:  Matched "+rows.Length +" records skipping: "+filter);
                     skipcount++;
                     continue;
                 }
@@ -87,7 +105,10 @@ where b.value = 'M - manually read static water level' ";
                 var s = db.Factory.GetSeries(id);
                 if( !tableList.Contains(s.Table.TableName))
                    tableList.Add(s.Table.TableName);
-                s.Add(t, val, Path.GetFileName(filename));
+                string fn = Path.GetFileName(filename);
+                if (fn.Length > 50)
+                    fn = fn.Substring(0, 50);
+            s.Add(t, val, fn);
                 db.SaveTimeSeriesTable(id, s, DatabaseSaveOptions.UpdateExisting);
                 addCount++;
             }
