@@ -15,15 +15,19 @@ namespace Pisces.NunitTests.SeriesMath
     /// month.  In the first two folders a series is created.
     /// </summary>
     [TestFixture]
-    class TestPiscesProgramming
+    class TestPiscesProgrammingFast
     {
 
-        public TestPiscesProgramming()
-        {
-        }
-
+        /// <summary>
+        /// This example creates series entries, but does not include series data
+        /// This method is fast because the series catalog is managed directly
+        /// and only saved once.  However, no timeseries data is stored.
+        /// you must right click update to download the data.
+        ///  see the follwing example AddSeriesDirectly for a 'eaiser'
+        ///  but slower way of managing the database with timeseries data included.
+        /// </summary>
         [Test]
-        public void ImportParameterWithUnderscore()
+        public void ManageSeriesCatalogDirectly()
         {
             Logger.EnableLogger();
 
@@ -57,8 +61,8 @@ namespace Pisces.NunitTests.SeriesMath
             s.SiteID = "gphyd_bhr";
             var feb = seriesCatalog.GetOrCreateFolder("Months", "February");
             seriesCatalog.AddSeriesCatalogRow(s, seriesCatalog.NextID(), feb, "usgs_boiseriver_flow");
-
-
+            
+           
             // Add Site information
 
             siteCatalog.AddsitecatalogRow("usgs_13206000", "BOISE RIVER AT GLENWOOD BRIDGE NR BOISE ID", "ID");
@@ -67,10 +71,11 @@ namespace Pisces.NunitTests.SeriesMath
             server.SaveTable(seriesCatalog);
 
 
-             s = db.GetSeriesFromName("gphyd_bhr_af");
+            s = db.GetSeriesFromName("gphyd_bhr_af");
             s.Read();
             Console.WriteLine(s.Count);
 
+            // Add CSV file 
 
 
             db.Inventory();

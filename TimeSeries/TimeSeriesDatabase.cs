@@ -522,6 +522,15 @@ namespace Reclamation.TimeSeries
             m_supspendTreeUpdates = true;
         }
 
+        
+
+         public PiscesFolder AddFolder(params string[] folderNames)
+        {
+            var folder = GetOrCreateFolder(null, folderNames);
+            return folder;
+        }
+
+
         public PiscesFolder AddFolder(string name)
         {
             PiscesFolder folder = RootFolder as PiscesFolder;
@@ -1575,11 +1584,13 @@ namespace Reclamation.TimeSeries
         }
 
         
-        public PiscesFolder GetOrCreateFolder( string folderName)
+
+        public PiscesFolder GetOrCreateFolder(params string[] folderNames)
         {
-           return GetOrCreateFolder(null,folderName);
+            return GetOrCreateFolder(null, folderNames);
         }
-        
+
+
         public PiscesFolder GetOrCreateFolder( PiscesFolder parent=null,params string[] folderNames)
         {
             PiscesFolder rval = parent;
