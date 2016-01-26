@@ -630,7 +630,7 @@ namespace Reclamation.TimeSeries
         }
 
         /// <summary>
-        /// Shift the series in time
+        /// Shift the series in time, keeping the month and day 
         /// </summary>
         private static Series Shift(Series s, TimeSpan ts)
         {
@@ -640,6 +640,10 @@ namespace Reclamation.TimeSeries
                 Point pt = s[i];
                 pt.Flag = PointFlag.Edited;
                 
+                if( pt.DateTime.Month == 12 && pt.DateTime.Day == 31)
+                {
+                    Console.WriteLine("hi");
+                }
                 var t2 = pt.DateTime.Add(ts);
                 if (!DateTime.IsLeapYear(t2.Year)
                      && pt.DateTime.Month == 2
@@ -649,7 +653,10 @@ namespace Reclamation.TimeSeries
                 if (pt.DateTime.Day != t2.Day
                     || pt.DateTime.Month != t2.Month)
                 {
+                    // either +/- 1 day
                     t2 = new DateTime(t2.Year, pt.DateTime.Month, pt.DateTime.Day,t2.Hour,t2.Minute,t2.Second);
+                    
+                    
                 }
 
                 pt.DateTime = t2;
@@ -722,6 +729,7 @@ namespace Reclamation.TimeSeries
                 t1 = new DateTime(year, month, day);
                 
                 TimeSpan ts = new TimeSpan(t1.Ticks - s[0].DateTime.Ticks);
+
                 if (s.TimeInterval == TimeInterval.Monthly)
                 {
                     int yearOffset = year - s[0].DateTime.Year;
