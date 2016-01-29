@@ -16,7 +16,13 @@ namespace Reclamation.TimeSeries.Forms
         public ServerDatabaseDialog()
         {
             InitializeComponent();
-            this.comboBox1.SelectedIndex = 0;
+            //this.comboBox1.SelectedIndex = 0;
+
+            var sc = Properties.Settings.Default.DatabaseList;
+            string[] items = new string[sc.Count];
+            sc.CopyTo(items,0);
+            this.comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(items);
         }
 
         //lrgs1:timeseries
@@ -54,6 +60,12 @@ namespace Reclamation.TimeSeries.Forms
 
                 return "";
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!Properties.Settings.Default.DatabaseList.Contains(this.comboBox1.Text))
+                Properties.Settings.Default.DatabaseList.Insert(0,this.comboBox1.Text);
         }
     }
 }
