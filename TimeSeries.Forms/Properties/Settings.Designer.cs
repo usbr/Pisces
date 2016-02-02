@@ -179,7 +179,7 @@ namespace Reclamation.TimeSeries.Forms.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <string>test.water.usbr.gov:timeseries     #mysql</string>
-  <string>ibr1gcpdb003:Pisces     #sqlserver</string>
+  <string>ibr1gcpdb004:Pisces     #sqlserver</string>
   <string>lrgs1.pn.usbr.gov:timeseries   #postgresql</string>
   <string>lrgs1.pn.usbr.gov:timeseries_gp   #postgresql</string>
   <string>lrgs2.pn.usbr.gov:timeseries  #postgresql</string>

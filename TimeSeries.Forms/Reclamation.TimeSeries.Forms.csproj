@@ -255,6 +255,12 @@
     <Compile Include="Hydromet\ServerSelection.Designer.cs">
       <DependentUpon>ServerSelection.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImportForms\AddRioGrandeSpreadsheet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportForms\AddRioGrandeSpreadsheet.Designer.cs">
+      <DependentUpon>AddRioGrandeSpreadsheet.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImportForms\AddSeries.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -616,6 +622,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Hydromet\ServerSelection.resx">
       <DependentUpon>ServerSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportForms\AddRioGrandeSpreadsheet.resx">
+      <DependentUpon>AddRioGrandeSpreadsheet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportForms\AddSeries.resx">
       <DependentUpon>AddSeries.cs</DependentUpon>

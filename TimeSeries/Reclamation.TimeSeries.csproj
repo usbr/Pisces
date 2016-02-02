@@ -303,10 +303,12 @@
     <Compile Include="HDB\HDBSeries.cs" />
     <Compile Include="RBMS\RBMSTextFile.cs" />
     <Compile Include="RBMS\RbmsUtility.cs" />
+    <Compile Include="Import\ImportRioGrandeExcel.cs" />
     <Compile Include="SQLiteSeries.cs" />
     <Compile Include="SeriesListDataTable.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Tests\Import\TestImportRioGrande.cs" />
     <Compile Include="Tests\SeriesFeatures\TestShiftSeriesBug.cs" />
     <Compile Include="Tests\SeriesMath\TestResidual.cs" />
     <Compile Include="Tests\SeriesMath\TestInterpolate2D.cs" />

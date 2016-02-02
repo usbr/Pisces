@@ -19,12 +19,35 @@ using Pisces;
 using System.Configuration;
 using Reclamation.TimeSeries.Hydromet;
 using Reclamation.TimeSeries.RBMS;
+using Reclamation.TimeSeries.Import;
 
 namespace Reclamation.TimeSeries.Forms
 {
 
     public partial class PiscesForm
     {
+        private void AddRioGrandeSpreadsheet_Click(object sender, EventArgs e)
+        {
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".xls";
+            openFileDialog.Filter = "Excel Files *.xls | *.xls";
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+          var dlg = new Forms.ImportForms.AddRioGrandeSpreadsheet();
+            
+            if( dlg.ShowDialog() == DialogResult.OK)
+            {
+                var s = ImportRioGrandeExcel.ImportSpreadsheet(openFileDialog.FileName);
+                s.Name = dlg.SeriesName;
+                s.Units = dlg.Units;
+
+                DB.AddSeries(s);
+            }
+
+        }
+
 
         private void addRBMSDirectory(object sender, EventArgs e)
         {
