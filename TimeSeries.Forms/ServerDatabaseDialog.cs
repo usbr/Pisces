@@ -7,25 +7,45 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Collections.Specialized;
 
 namespace Reclamation.TimeSeries.Forms
 {
     public partial class ServerDatabaseDialog : Form
     {
+        StringCollection dbList = Properties.Settings.Default.DatabaseList;
+        string clearItems = string.Empty;
+        int currentIdx = 0;
         
         public ServerDatabaseDialog()
         {
             InitializeComponent();
-            //this.comboBox1.SelectedIndex = 0;
 
-            var sc = Properties.Settings.Default.DatabaseList;
-            string[] items = new string[sc.Count];
-            sc.CopyTo(items,0);
+            //add dashes to start and end of clear items to roughly the
+            //length of combobox
+            string dashes = new string('-', 30);
+            clearItems = dashes + "  clear items  " + dashes;
+
+            LoadDatabaseList();
+        }
+
+        private void LoadDatabaseList()
+        {
+            if (dbList.Count == 0)
+            {
+                return;
+            }
+
+            if (!dbList.Contains(clearItems))
+            {
+                dbList.Add(clearItems);
+            }
+
+            string[] items = new string[dbList.Count];
+            dbList.CopyTo(items, 0);
             this.comboBox1.Items.Clear();
             comboBox1.Items.AddRange(items);
         }
-
-        //lrgs1:timeseries
 
         public string ServerName
         {
@@ -64,8 +84,48 @@ namespace Reclamation.TimeSeries.Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!Properties.Settings.Default.DatabaseList.Contains(this.comboBox1.Text))
-                Properties.Settings.Default.DatabaseList.Insert(0,this.comboBox1.Text);
+            if (!dbList.Contains(this.comboBox1.Text))
+            {
+                dbList.Insert(0, this.comboBox1.Text);
+                Properties.Settings.Default.Save();
+            }
+        }
+
+        private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var cb = sender as ComboBox;
+            if (cb == null)
+            {
+                return;
+            }
+
+            if (cb.SelectedItem.ToString() == clearItems)
+            {
+                var msg = "OK to clear database list?";
+                var result = MessageBox.Show(msg, "Clear Database List", MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
+                {
+                    dbList.Clear();
+                    cb.Items.Clear();
+                    Properties.Settings.Default.Save();
+                }
+                else
+                {
+                    cb.SelectedIndex = currentIdx;
+                }
+            }
+        }
+
+        private void comboBox1_DropDown(object sender, EventArgs e)
+        {
+            var cb = sender as ComboBox;
+            if (cb == null)
+            {
+                return;
+            }
+
+            currentIdx = cb.SelectedIndex;
+            LoadDatabaseList();
         }
     }
 }
