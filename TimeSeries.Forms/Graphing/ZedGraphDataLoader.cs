@@ -32,10 +32,10 @@ namespace Reclamation.TimeSeries.Graphing
             CreateSeries(list, title, subTitle,undoZoom,multiLeftAxis);
 
             for (int i = 0; i < list.Count; i++)
-			{
+            {
                 
               FillTimeSeries(list[i],chart1.GraphPane.CurveList[i]);
-			}
+            }
             
             FormatBottomAxisStandard();
             chart1.RestoreScale(chart1.GraphPane);
@@ -98,14 +98,12 @@ namespace Reclamation.TimeSeries.Graphing
             myPane.XAxis.Scale.Format = "dd-MMM-yy";
             myPane.XAxis.Scale.MajorUnit = DateUnit.Day;
             myPane.XAxis.Scale.MajorStep = 1;
-            //myPane.XAxis.Scale.Min = new XDate(DateTime.Now.AddDays(-NumberOfBars));
-            //myPane.XAxis.Scale.Max = new XDate(DateTime.Now);
+            myPane.XAxis.Scale.MinGrace = 0;
+            myPane.XAxis.Scale.MaxGrace = 0;
             myPane.XAxis.MajorTic.IsBetweenLabels = true;
             myPane.XAxis.MinorTic.Size = 0;
             myPane.XAxis.MajorTic.IsInside = false;
             myPane.XAxis.MajorTic.IsOutside = true;
-
-
         }
 
         internal void DrawCorrelation(Series s1, Series s2, string title, string subTitle)
