@@ -14,11 +14,15 @@ namespace Reclamation.TimeSeries.Graphing
     public class ZedGraphDataLoader
     {
         private ZedGraph.ZedGraphControl chart1;
-        private GraphPane pane; 
+        private GraphPane pane;
+        private float defaultLineWidth = 2;
+        private float defaultSymbolSize = 2;
+
         public ZedGraphDataLoader(ZedGraph.ZedGraphControl chart)
         {
             chart1 = chart;
             pane = chart1.GraphPane;
+            pane.IsFontsScaled = false;
         }
 
         private void LabelYaxis(SeriesList list)
@@ -55,9 +59,12 @@ namespace Reclamation.TimeSeries.Graphing
                 {
                     pairs.Add(pt.Percent, pt.Value);
                 }
+
+                var color = Default.GetSeriesColor(pane.CurveList.Count);
                 LineItem myCurve = pane.AddCurve(list[i].Appearance.LegendText,
-                    pairs, Color.Red);//,SymbolType.Diamond);
-                myCurve.Symbol.Fill.Type = FillType.None;
+                    pairs, color);
+                myCurve.Symbol.IsVisible = false;
+                myCurve.Line.Width = defaultLineWidth;
             }
             pane.XAxis.Title.Text = xAxisTitle;
            
@@ -116,7 +123,8 @@ namespace Reclamation.TimeSeries.Graphing
             pane.XAxis.Title.Text = s1.Units + " " + s1.Appearance.LegendText;
             pane.YAxis.Title.Text = s2.Units + " "+ s2.Appearance.LegendText;
 
-            var series1 = CreateSeries("");
+            var series1 = CreateCorrelationSeries("");
+            
 
             FillCorrelation(s1, s2, series1);
             chart1.GraphPane.CurveList.Add(series1);
@@ -171,12 +179,24 @@ namespace Reclamation.TimeSeries.Graphing
         {
             var pane = this.chart1.GraphPane;
             var series1 = new LineItem(legendText);
-            series1.Symbol.Size = 2;
+            series1.Symbol.IsVisible = false;
             series1.Color =  Default.GetSeriesColor(pane.CurveList.Count);
             series1.Line.Width = Default.GetSeriesWidth(pane.CurveList.Count);
+            series1.Line.Width = defaultLineWidth;
             return series1;
         }
 
+        LineItem CreateCorrelationSeries(string legendText)
+        {
+            var pane = this.chart1.GraphPane;
+            var series1 = new LineItem(legendText);
+            series1.Line.IsVisible = false;
+            series1.Symbol.IsVisible = true;
+            series1.Symbol.Size = defaultSymbolSize;
+            series1.Symbol.Fill.Type = FillType.Solid;
+            series1.Color = Default.GetSeriesColor(pane.CurveList.Count);
+            return series1;
+        }
         
         /// <summary>
         /// copy data from TimeSeries.Series into ZedGraph CurveItem
