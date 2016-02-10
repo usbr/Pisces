@@ -640,23 +640,33 @@ namespace Reclamation.TimeSeries
                 Point pt = s[i];
                 pt.Flag = PointFlag.Edited;
                 
-                if( pt.DateTime.Month == 12 && pt.DateTime.Day == 31)
-                {
-                    Console.WriteLine("hi");
-                }
                 var t2 = pt.DateTime.Add(ts);
-                if (!DateTime.IsLeapYear(t2.Year)
-                     && pt.DateTime.Month == 2
-                     && pt.DateTime.Day == 29)
+
+                if (!DateTime.IsLeapYear(t2.Year) 
+                    && pt.DateTime.Month == 2 
+                    && pt.DateTime.Day == 29)
+                {
+                    ts = ts.Add(TimeSpan.FromDays(-1));            
                     continue;
+                }
+
+                if (!DateTime.IsLeapYear(pt.DateTime.Year)
+                    && t2.Month == 2
+                    && t2.Day == 29)
+                {
+                    Point Feb28 = s[i - 1];                    
+                    Feb28.DateTime = t2;
+                    rval.Add(Feb28);
+                    ts = ts.Add(TimeSpan.FromDays(1));
+                    t2 = pt.DateTime.Add(ts);
+                }
+
 
                 if (pt.DateTime.Day != t2.Day
                     || pt.DateTime.Month != t2.Month)
                 {
-                    // either +/- 1 day
-                    t2 = new DateTime(t2.Year, pt.DateTime.Month, pt.DateTime.Day,t2.Hour,t2.Minute,t2.Second);
-                    
-                    
+                    throw new System.ArgumentException("Error month and day should always be the same");
+
                 }
 
                 pt.DateTime = t2;
