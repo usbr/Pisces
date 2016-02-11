@@ -13,16 +13,54 @@ namespace Reclamation.TimeSeries.Graphing
     /// </summary>
     public class ZedGraphDataLoader
     {
-        private ZedGraph.ZedGraphControl chart1;
+        private ZedGraphControl chart1;
         private GraphPane pane;
         private float defaultLineWidth = 2;
         private float defaultSymbolSize = 2;
+        private System.Drawing.Point mouseUpLoc;
+        private System.Drawing.Point mouseDownLoc;
 
-        public ZedGraphDataLoader(ZedGraph.ZedGraphControl chart)
+        public ZedGraphDataLoader(ZedGraphControl chart)
         {
             chart1 = chart;
             pane = chart1.GraphPane;
             pane.IsFontsScaled = false;
+
+            chart1.IsShowContextMenu = false;
+            //chart1.IsEnableWheelZoom = false; //disable??
+            chart1.PanModifierKeys = System.Windows.Forms.Keys.None;
+            chart1.PanButtons = System.Windows.Forms.MouseButtons.Right;
+
+            chart1.ZoomEvent += chart1_ZoomEvent;
+            chart1.MouseDownEvent += chart1_MouseDownEvent;
+            chart1.MouseUpEvent += chart1_MouseUpEvent;
+        }
+
+        private bool chart1_MouseUpEvent(ZedGraphControl sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            mouseUpLoc = e.Location;
+            return false;
+        }
+
+        private bool chart1_MouseDownEvent(ZedGraphControl sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            mouseDownLoc = e.Location;
+            return false;
+        }
+
+        private void chart1_ZoomEvent(ZedGraphControl sender, ZoomState oldState, ZoomState newState)
+        {
+            if (mouseDownLoc.IsEmpty || mouseUpLoc.IsEmpty)
+            {
+                return;
+            }
+
+            // if zoom rectangle is drawn from right to left, clear all zooming
+            if (mouseDownLoc.X > mouseUpLoc.X && mouseDownLoc.Y > mouseUpLoc.Y )
+            {
+                sender.ZoomOutAll(sender.GraphPane);
+                sender.AxisChange();
+            }
         }
 
         private void LabelYaxis(SeriesList list)
