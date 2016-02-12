@@ -71,7 +71,7 @@ namespace Reclamation.TimeSeries.Graphing
             if (mouseDownLoc.X > mouseUpLoc.X && mouseDownLoc.Y > mouseUpLoc.Y )
             {
                 sender.ZoomOutAll(sender.GraphPane);
-                sender.AxisChange();
+                RefreshChart(sender);
             }
         }
 
@@ -95,7 +95,7 @@ namespace Reclamation.TimeSeries.Graphing
             pane.YAxis.Scale.Mag = 0;
             pane.YAxis.Scale.Format = "#,#";
             LabelYaxis(list);
-            RefreshChart();
+            RefreshChart(chart1);
         }
 
         public void DrawSorted(SeriesList list, string title, string subTitle,string xAxisTitle)
@@ -126,14 +126,14 @@ namespace Reclamation.TimeSeries.Graphing
             pane.XAxis.Scale.MajorStep = 5;
 
             LabelYaxis(list);
-            RefreshChart();
+            RefreshChart(chart1);
             
         }
 
-        private void RefreshChart()
+        private void RefreshChart(ZedGraphControl chart)
         {
-            chart1.AxisChange();
-            chart1.Refresh();
+            chart.AxisChange();
+            chart.Refresh();
         }
 
        
@@ -146,7 +146,7 @@ namespace Reclamation.TimeSeries.Graphing
             }
             FormatBottomAxisStandard();
             pane.XAxis.Scale.Format = "MMM d";
-            RefreshChart();
+            RefreshChart(chart1);
         }
 
         private void FormatBottomAxisStandard()
@@ -181,7 +181,7 @@ namespace Reclamation.TimeSeries.Graphing
             FillCorrelation(s1, s2, series1);
             chart1.GraphPane.CurveList.Add(series1);
 
-            RefreshChart();
+            RefreshChart(chart1);
         }
         /// <summary>
         /// Creates basic graph with empty series
@@ -216,7 +216,7 @@ namespace Reclamation.TimeSeries.Graphing
             pane.XAxis.Title.Text = "";
             pane.Y2Axis.Title.Text = "";
             pane.CurveList.Clear();
-            RefreshChart();
+            RefreshChart(chart1);
         }
 
 
