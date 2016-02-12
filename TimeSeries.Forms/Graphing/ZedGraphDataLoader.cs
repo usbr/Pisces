@@ -25,6 +25,8 @@ namespace Reclamation.TimeSeries.Graphing
             chart1 = chart;
             pane = chart1.GraphPane;
             pane.IsFontsScaled = false;
+            pane.YAxis.Scale.MaxGrace = 0;
+            SetGrid(true);
 
             chart1.IsShowContextMenu = false;
             //chart1.IsEnableWheelZoom = false; //disable??
@@ -34,6 +36,16 @@ namespace Reclamation.TimeSeries.Graphing
             chart1.ZoomEvent += chart1_ZoomEvent;
             chart1.MouseDownEvent += chart1_MouseDownEvent;
             chart1.MouseUpEvent += chart1_MouseUpEvent;
+        }
+
+        private void SetGrid(bool visible)
+        {
+            pane.XAxis.MajorGrid.IsVisible = visible;
+            pane.YAxis.MajorGrid.IsVisible = visible;
+            pane.XAxis.MajorGrid.DashOn = 5f;
+            pane.YAxis.MajorGrid.DashOn = 5f;
+            pane.XAxis.MajorGrid.Color = Color.LightGray;
+            pane.YAxis.MajorGrid.Color = Color.LightGray;
         }
 
         private bool chart1_MouseUpEvent(ZedGraphControl sender, System.Windows.Forms.MouseEventArgs e)
@@ -80,11 +92,10 @@ namespace Reclamation.TimeSeries.Graphing
             }
             
             FormatBottomAxisStandard();
-            chart1.RestoreScale(chart1.GraphPane);
             pane.YAxis.Scale.Mag = 0;
             pane.YAxis.Scale.Format = "#,#";
             LabelYaxis(list);
-           chart1.Refresh();
+            RefreshChart();
         }
 
         public void DrawSorted(SeriesList list, string title, string subTitle,string xAxisTitle)
@@ -112,13 +123,17 @@ namespace Reclamation.TimeSeries.Graphing
             pane.YAxis.Scale.Mag = 0; 
             pane.YAxis.Scale.Format = "#,#";
             pane.XAxis.Scale.Format = "";
-            //pane.XAxis.Scale.MajorUnit = DateUnit.Day;
-            //pane.XAxis.Scale.MajorStep = 1;
+            pane.XAxis.Scale.MajorStep = 5;
 
             LabelYaxis(list);
-           chart1.AxisChange();
-            chart1.Refresh();
+            RefreshChart();
             
+        }
+
+        private void RefreshChart()
+        {
+            chart1.AxisChange();
+            chart1.Refresh();
         }
 
        
@@ -129,10 +144,9 @@ namespace Reclamation.TimeSeries.Graphing
             {
                 FillTimeSeries(list[i], chart1.GraphPane.CurveList[i]);
             }
-            pane.XAxis.Type = AxisType.Date;
+            FormatBottomAxisStandard();
             pane.XAxis.Scale.Format = "MMM d";
-            pane.AxisChange();
-            chart1.Refresh();
+            RefreshChart();
         }
 
         private void FormatBottomAxisStandard()
@@ -140,8 +154,8 @@ namespace Reclamation.TimeSeries.Graphing
             var myPane = chart1.GraphPane;
             myPane.XAxis.Title.Text = "Date";
             myPane.XAxis.Type = AxisType.Date;
-            myPane.XAxis.Scale.Format = "dd-MMM-yy";
-            myPane.XAxis.Scale.MajorUnit = DateUnit.Day;
+            myPane.XAxis.Scale.Format = "M/d/yyyy";
+            myPane.XAxis.Scale.MajorUnit = DateUnit.Month;
             myPane.XAxis.Scale.MajorStep = 1;
             myPane.XAxis.Scale.MinGrace = 0;
             myPane.XAxis.Scale.MaxGrace = 0;
@@ -167,8 +181,7 @@ namespace Reclamation.TimeSeries.Graphing
             FillCorrelation(s1, s2, series1);
             chart1.GraphPane.CurveList.Add(series1);
 
-            chart1.AxisChange();
-            chart1.Refresh();
+            RefreshChart();
         }
         /// <summary>
         /// Creates basic graph with empty series
@@ -203,8 +216,7 @@ namespace Reclamation.TimeSeries.Graphing
             pane.XAxis.Title.Text = "";
             pane.Y2Axis.Title.Text = "";
             pane.CurveList.Clear();
-            chart1.AxisChange();
-            chart1.Refresh();
+            RefreshChart();
         }
 
 
