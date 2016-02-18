@@ -25,13 +25,13 @@ namespace Reclamation.TimeSeries.Graphing
             chart1 = chart;
             pane = chart1.GraphPane;
             pane.IsFontsScaled = false;
+            pane.YAxis.Scale.MinGrace = 0;
             pane.YAxis.Scale.MaxGrace = 0;
+            pane.XAxis.Scale.MinGrace = 0;
+            pane.XAxis.Scale.MaxGrace = 0;
+            pane.XAxis.Scale.MagAuto = false;
+            pane.YAxis.Scale.MagAuto = false;
             SetGrid(true);
-
-            chart1.IsShowContextMenu = false;
-            //chart1.IsEnableWheelZoom = false; //disable??
-            chart1.PanModifierKeys = System.Windows.Forms.Keys.None;
-            chart1.PanButtons = System.Windows.Forms.MouseButtons.Right;
 
             chart1.ZoomEvent += chart1_ZoomEvent;
             chart1.MouseDownEvent += chart1_MouseDownEvent;
@@ -92,8 +92,9 @@ namespace Reclamation.TimeSeries.Graphing
             }
             
             FormatBottomAxisStandard();
-            pane.YAxis.Scale.Mag = 0;
             pane.YAxis.Scale.Format = "#,#";
+            pane.YAxis.Scale.MinAuto = true;
+            pane.YAxis.Scale.MaxAuto = true;
             LabelYaxis(list);
             RefreshChart(chart1);
         }
@@ -118,13 +119,11 @@ namespace Reclamation.TimeSeries.Graphing
             pane.XAxis.Title.Text = xAxisTitle;
            
             pane.XAxis.Type = AxisType.Linear;
-
-
-            pane.YAxis.Scale.Mag = 0; 
             pane.YAxis.Scale.Format = "#,#";
             pane.XAxis.Scale.Format = "";
             pane.XAxis.Scale.MajorStep = 5;
-
+            pane.YAxis.Scale.MinAuto = true;
+            pane.YAxis.Scale.MaxAuto = true;
             LabelYaxis(list);
             RefreshChart(chart1);
             
@@ -132,7 +131,7 @@ namespace Reclamation.TimeSeries.Graphing
 
         private void RefreshChart(ZedGraphControl chart)
         {
-            chart.AxisChange();
+            chart.GraphPane.AxisChange();
             chart.Refresh();
         }
 
@@ -146,41 +145,42 @@ namespace Reclamation.TimeSeries.Graphing
             }
             FormatBottomAxisStandard();
             pane.XAxis.Scale.Format = "MMM d";
+            pane.YAxis.Scale.MinAuto = true;
+            pane.YAxis.Scale.MaxAuto = true;
             RefreshChart(chart1);
         }
 
         private void FormatBottomAxisStandard()
         {
-            var myPane = chart1.GraphPane;
-            myPane.XAxis.Title.Text = "Date";
-            myPane.XAxis.Type = AxisType.Date;
-            myPane.XAxis.Scale.Format = "M/d/yyyy";
-            myPane.XAxis.Scale.MajorUnit = DateUnit.Month;
-            myPane.XAxis.Scale.MajorStep = 1;
-            myPane.XAxis.Scale.MinGrace = 0;
-            myPane.XAxis.Scale.MaxGrace = 0;
-            myPane.XAxis.MajorTic.IsBetweenLabels = true;
-            myPane.XAxis.MinorTic.Size = 0;
-            myPane.XAxis.MajorTic.IsInside = false;
-            myPane.XAxis.MajorTic.IsOutside = true;
+            pane.XAxis.Title.Text = "Date";
+            pane.XAxis.Type = AxisType.Date;
+            pane.XAxis.Scale.Format = "M/d/yyyy";
+            pane.XAxis.Scale.MajorUnit = DateUnit.Month;
+            pane.XAxis.Scale.MajorStep = 1;
+            pane.XAxis.Scale.MinGrace = 0;
+            pane.XAxis.Scale.MaxGrace = 0;
+            pane.XAxis.MajorTic.IsBetweenLabels = true;
+            pane.XAxis.MinorTic.Size = 0;
+            pane.XAxis.MajorTic.IsInside = false;
+            pane.XAxis.MajorTic.IsOutside = true;
         }
 
         internal void DrawCorrelation(Series s1, Series s2, string title, string subTitle)
         {
             Clear();
-            chart1.GraphPane.XAxis.Type = AxisType.Linear;
+            pane.XAxis.Type = AxisType.Linear;
 
-            var pane = chart1.GraphPane;
             pane.Title.Text = title + "\n" + subTitle;
             pane.XAxis.Title.Text = s1.Units + " " + s1.Appearance.LegendText;
             pane.YAxis.Title.Text = s2.Units + " "+ s2.Appearance.LegendText;
 
             var series1 = CreateCorrelationSeries("");
-            
 
             FillCorrelation(s1, s2, series1);
-            chart1.GraphPane.CurveList.Add(series1);
-
+            pane.CurveList.Add(series1);
+            pane.XAxis.Scale.Format = "#,#";
+            pane.XAxis.Scale.MajorStepAuto = true;
+            
             RefreshChart(chart1);
         }
         /// <summary>
@@ -190,7 +190,6 @@ namespace Reclamation.TimeSeries.Graphing
                         bool undoZoom, bool multiLeftAxis)
         {
             Clear(undoZoom);
-            var pane = chart1.GraphPane;
 
             chart1.Text = title + "\n" + subTitle;
             LineItem series = new LineItem("");
@@ -212,6 +211,9 @@ namespace Reclamation.TimeSeries.Graphing
 
         internal void Clear(bool undoZoom )
         {
+            if (undoZoom)
+                chart1.ZoomOutAll(pane);
+
             pane.Title.Text = "";
             pane.XAxis.Title.Text = "";
             pane.Y2Axis.Title.Text = "";
@@ -227,7 +229,6 @@ namespace Reclamation.TimeSeries.Graphing
 
         LineItem CreateSeries(string legendText)
         {
-            var pane = this.chart1.GraphPane;
             var series1 = new LineItem(legendText);
             series1.Symbol.IsVisible = false;
             series1.Color =  Default.GetSeriesColor(pane.CurveList.Count);
@@ -238,7 +239,6 @@ namespace Reclamation.TimeSeries.Graphing
 
         LineItem CreateCorrelationSeries(string legendText)
         {
-            var pane = this.chart1.GraphPane;
             var series1 = new LineItem(legendText);
             series1.Line.IsVisible = false;
             series1.Symbol.IsVisible = true;
@@ -260,7 +260,6 @@ namespace Reclamation.TimeSeries.Graphing
                 return;
             }
 
-            var pane = this.chart1.GraphPane;
             pane.XAxis.Type = AxisType.Date;
 
             double avg = TimeSeries.Math.AverageOfSeries(s);
@@ -292,7 +291,7 @@ namespace Reclamation.TimeSeries.Graphing
             int sz = s1.Count;
 
             
-            for (int i = 0; i < s1.Count; i++)
+            for (int i = 0; i < sz; i++)
             {
                 Point pt = s1[i];
 

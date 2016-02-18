@@ -142,5 +142,50 @@ namespace Reclamation.TimeSeries.Graphing
 
             }
         }
+
+        private void toolStripButtonSave_Click(object sender, EventArgs e)
+        {
+            chart1.SaveAs();
+        }
+
+        private void toolStripButtonPrint_Click(object sender, EventArgs e)
+        {
+            chart1.DoPrintPreview();
+        }
+
+        private void toolStripButtonUndoZoom_Click(object sender, EventArgs e)
+        {
+            chart1.ZoomOutAll(chart1.GraphPane);
+            RefreshGraph();   
+        }
+
+        private void toolStripButtonZoomOut_Click(object sender, EventArgs e)
+        {
+            var pane = chart1.GraphPane;
+            var centerPt = new PointF(chart1.Size.Width / 2, chart1.Size.Height / 2);
+            double zoomFraction = (1 + 1.0 * chart1.ZoomStepFraction);
+            chart1.ZoomPane(pane, zoomFraction, centerPt, false);
+            pane.ZoomStack.Add(new ZedGraph.ZoomState(pane, ZedGraph.ZoomState.StateType.Zoom));
+            RefreshGraph();   
+        }
+
+        private void toolStripButtonZoomIn_Click(object sender, EventArgs e)
+        {
+            var pane = chart1.GraphPane;
+            var centerPt = new PointF(chart1.Size.Width / 2, chart1.Size.Height / 2);
+            double zoomFraction = (1 + -1.0 * chart1.ZoomStepFraction);
+            chart1.ZoomPane(pane, zoomFraction, centerPt, false);
+            pane.ZoomStack.Add(new ZedGraph.ZoomState(pane, ZedGraph.ZoomState.StateType.Zoom));
+            RefreshGraph();   
+        }
+
+        private void RefreshGraph()
+        {
+            using (Graphics g = CreateGraphics())
+            {
+                chart1.GraphPane.AxisChange(g);
+            }
+            chart1.Refresh();
+        }
     }
 }
