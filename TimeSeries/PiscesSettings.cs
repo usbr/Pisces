@@ -11,7 +11,7 @@ namespace Reclamation.TimeSeries
     {
         TimeSeries, Probability,
         Exceedance, WaterYears, SummaryHydrograph,
-        Correlation, MonthlySummary, MovingAverage
+        Correlation, MonthlySummary, MovingAverage, TraceAnalysis
     };
 
     /// <summary>

@@ -281,6 +281,7 @@
     </Compile>
     <Compile Include="Analysis\AnalysisCollection.cs" />
     <Compile Include="Analysis\BaseAnalysis.cs" />
+    <Compile Include="Analysis\TraceAnalysis.cs" />
     <Compile Include="Analysis\MonthlySummaryAnalysis.cs" />
     <Compile Include="Analysis\MovingAverageAnalysis.cs" />
     <Compile Include="Analysis\CorrelationAnalysis.cs" />

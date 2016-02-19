@@ -441,6 +441,12 @@
     <Compile Include="TimeSeriesTable.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="TraceOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TraceOptions.Designer.cs">
+      <DependentUpon>TraceOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Tree\HydrometCommandLine.cs">
       <SubType>UserControl</SubType>
     </Compile>

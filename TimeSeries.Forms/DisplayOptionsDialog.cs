@@ -41,6 +41,7 @@ namespace Reclamation.TimeSeries.Forms
             analysisList[AnalysisType.Correlation].UserInterface = new CorrelationOptions();
             analysisList[AnalysisType.MonthlySummary].UserInterface = new MonthlySummaryOptions();
             analysisList[AnalysisType.MovingAverage].UserInterface = new MovingAverageOptions();
+            analysisList[AnalysisType.TraceAnalysis].UserInterface = new TraceOptions();
 
 
             listBox1.SelectedIndex = 0;

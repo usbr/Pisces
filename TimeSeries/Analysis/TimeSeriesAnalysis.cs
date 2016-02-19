@@ -36,25 +36,9 @@ namespace Reclamation.TimeSeries.Analysis
                 list.Add(s);
             }
 
-            SeriesList myList = list;
-            if (Explorer.StatisticalMethods != StatisticalMethods.None)
-            {
-                myList = list.AggregateAndSubset(Explorer.StatisticalMethods, 
-                    Explorer.MonthDayRange, Explorer.BeginningMonth);//,Explorer.HasTraces);
-            }
-
-            //if (Explorer.HasTraces && Explorer.StatisticalMethods != StatisticalMethods.None)
-            //{
-            //    // multiple sums are brought together as a single series.
-            //    myList = myList.Merge();
-            //}
-            Logger.WriteLine("Drawing Graph");
-
-            if( myList.Count == 1 && myList[0].TimeInterval == TimeInterval.Monthly)
-            {
-                myList.DateFormat = "MMM-yyyy";
-            }
-            view.SeriesList = myList;
+            // [JR] guts of the code goes here...
+                        
+            view.SeriesList = list;
             string title = list.Text.TitleText();
             if (Explorer.SubtractFromBaseline)
                 title = "Subtract Reference \n" + title;
