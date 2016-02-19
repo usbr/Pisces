@@ -80,9 +80,13 @@ namespace Reclamation.TimeSeries
                 string originalExpression = s.Expression;
                 // compute  Values
 
+                var t1a = AdjustStartingDateFromProperties(t1, t2, s);
+
+
+
                 
                 if( m_db.Parser.VariableResolver is HydrometVariableResolver)
-                    CacheAllParametersForSite(s, t1, t2); // 50% performance boost.
+                    CacheAllParametersForSite(s, t1a, t2); // 50% performance boost.
 
                 Console.Write(s.Table.TableName + " = " + s.Expression);
                 if (simulate)
@@ -91,8 +95,10 @@ namespace Reclamation.TimeSeries
                     continue;
                 }
 
+              
 
-                s.Calculate(t1, t2); // Calculate() also saves to local time series database.
+
+                s.Calculate(t1a, t2); // Calculate() also saves to local time series database.
 
                 
                 if (s.Count == 0 || s.CountMissing() > 0)
@@ -135,6 +141,33 @@ namespace Reclamation.TimeSeries
             p.Report(); // 185 seconds   
 
             return sorted;
+        }
+
+        private static DateTime AdjustStartingDateFromProperties(DateTime t1, DateTime t2, CalculationSeries s)
+        {
+            var t1a = t1;
+
+            // for example daily QU calculations default back 7 days (when running previous day)
+            if (s.Properties != null && s.Properties.Contains("DaysBack")) // && t2.Date == DateTime.Now.AddDays(-1).Date)
+            {
+                var daysBack = Convert.ToInt32(s.Properties.Get("DaysBack", "0"));
+                t1a = t1a.AddDays(-daysBack);
+            }
+
+            if (s.Properties != null && s.Properties.Contains("WholeWaterYear"))
+            {
+                var whole = s.Properties.Get("WholeWaterYear", "False");
+                if (whole != "False")
+                {
+                    // begin calculations october 1
+                    Console.WriteLine("Using WholeWaterYear");
+                    int yr = t2.Year;
+                    if (t2.Month <= 9)
+                        yr = t2.Year - 1;
+                    t1a = new DateTime(yr, 10, 1);
+                }
+            }
+            return t1a;
         }
 
         private static string GetDailyFileName(string propertyFilter)

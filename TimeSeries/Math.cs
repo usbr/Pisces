@@ -665,7 +665,8 @@ namespace Reclamation.TimeSeries
                 if (pt.DateTime.Day != t2.Day
                     || pt.DateTime.Month != t2.Month)
                 {
-                    throw new System.ArgumentException("Error month and day should always be the same");
+                    string msg = "t2 =" + t2.ToString() + " pt = " + pt.DateTime.ToString();
+                    throw new System.ArgumentException("Error month and day should always be the same\n"+msg);
 
                 }
 
