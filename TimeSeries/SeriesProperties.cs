@@ -12,14 +12,14 @@ namespace Reclamation.TimeSeries
 
         int m_seriesID;
         TimeSeriesDatabase m_db;
-        public SeriesProperties(int id)
+        public SeriesProperties(int seriesID)
         {
-            m_seriesID = id;
+            m_seriesID = seriesID;
             m_seriesProperties = new TimeSeriesDatabaseDataSet.seriespropertiesDataTable();
         }
-        public SeriesProperties(int id, TimeSeriesDatabase db)
+        public SeriesProperties(int seriesID, TimeSeriesDatabase db)
         {
-            m_seriesID = id;
+            m_seriesID = seriesID;
             m_seriesProperties = db.GetSeriesProperties(true);
             m_db = db;
         }

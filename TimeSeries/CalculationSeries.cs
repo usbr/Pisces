@@ -87,29 +87,7 @@ namespace Reclamation.TimeSeries
             //if( this.TimeInterval == TimeSeries.TimeInterval.Irregular)
                t2a = t2.AddDays(1); // we may need midnight value in the next day.
 
-            bool overrideDates = false;
-               // for example daily QU calculations default back 7 days (when running previous day)
-               if (Properties!= null &&  Properties.Contains("DaysBack") ) // && t2.Date == DateTime.Now.AddDays(-1).Date)
-               {
-                   var daysBack = Convert.ToInt32(Properties.Get("DaysBack","0"));
-                   t1a = t1a.AddDays(-daysBack);
-                overrideDates = true;
-               }
-
-            if (Properties != null && Properties.Contains("WholeWaterYear")) 
-            {
-                var whole = Properties.Get("WholeWaterYear", "False");
-                if (whole != "False")
-                {
-                    // begin calculations october 1
-                    Console.WriteLine("Using WholeWaterYear");
-                    int yr = t2.Year;
-                    if (t2.Month <= 9)
-                        yr = t2.Year - 1;
-                    t1a = new DateTime(yr, 10, 1);
-                    overrideDates = true;
-                }
-            }
+           
 
 
             Exception error = new Exception();
@@ -151,7 +129,6 @@ namespace Reclamation.TimeSeries
 
                 if (result != null &&  result.IsSeries)
                 {
-                    if( !overrideDates)
                     result.Series.Trim(t1, t2);
                     //var s = result.Series;
                     //result.Series = Math.Subset(s, t1, t2); // trim extra data used for calculations

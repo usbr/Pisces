@@ -59,7 +59,8 @@ namespace Reclamation.TimeSeries
             foreach (var sr in sc)
             {
                 var s = GetSeries(sr) as CalculationSeries;
-                list1.Add(s);
+                if( s.Enabled )
+                  list1.Add(s);
             }
             return list1;
         }
