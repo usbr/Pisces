@@ -11,7 +11,7 @@ namespace Reclamation.TimeSeries
     {
         TimeSeries, Probability,
         Exceedance, WaterYears, SummaryHydrograph,
-        Correlation, MonthlySummary, MovingAverage
+        Correlation, MonthlySummary, MovingAverage, TraceAnalysis
     };
 
     /// <summary>
@@ -163,7 +163,13 @@ namespace Reclamation.TimeSeries
         public int[] WaterYears;
         public int[] ExceedanceLevels;
         public bool AlsoPlotYear;
+        public bool AlsoPlotTrace;
+        public bool traceExceedanceAnalysis;
+        public bool traceAggregationAnalysis;
+        public bool sumCYRadio;
+        public bool sumWYRadio;
         public int PlotYear;
+        public int PlotTrace;
         public bool PlotMax;
         public bool PlotMin;
         public bool PlotAvg;
@@ -263,7 +269,13 @@ namespace Reclamation.TimeSeries
             WaterYears = new int[] { 2001, 2002, 2003, 2004, 2005, 2006 };
             ExceedanceLevels = new int[] { 10, 50, 90 };
             AlsoPlotYear = false;
+            AlsoPlotTrace = false;
             PlotYear = 2006;
+            PlotTrace = 1;
+            traceExceedanceAnalysis = true;
+            traceAggregationAnalysis = false;
+            sumCYRadio = true;
+            sumWYRadio = false;
             PlotMax = false;
             PlotMin = false;
             PlotAvg = false;

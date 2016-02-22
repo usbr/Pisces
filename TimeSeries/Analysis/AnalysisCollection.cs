@@ -10,7 +10,7 @@ namespace Reclamation.TimeSeries.Analysis
     {
         List<BaseAnalysis> m_list;
         PiscesSettings Explorer;
-        static string s_analysisTypes = "TimeSeriesAnalysis,ExceedanceAnalysis,ProbabilityAnalysis,WaterYearsAnalysis,SummaryHydrographAnalysis,CorrelationAnalysis,MonthlySummaryAnalysis,MovingAverageAnalysis";
+        static string s_analysisTypes = "TimeSeriesAnalysis,ExceedanceAnalysis,ProbabilityAnalysis,WaterYearsAnalysis,SummaryHydrographAnalysis,CorrelationAnalysis,MonthlySummaryAnalysis,MovingAverageAnalysis,TraceAnalysis";
         public AnalysisCollection(PiscesSettings explorer)
         {
          m_list = new List<BaseAnalysis>();
