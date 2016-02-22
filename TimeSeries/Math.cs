@@ -640,37 +640,51 @@ namespace Reclamation.TimeSeries
                 Point pt = s[i];
                 pt.Flag = PointFlag.Edited;
                 
-                var t2 = pt.DateTime.Add(ts);
+                var shiftedPt = pt.DateTime.Add(ts);
 
-                if (!DateTime.IsLeapYear(t2.Year) 
+                // skip feb 29th 
+                if (!DateTime.IsLeapYear(shiftedPt.Year) 
                     && pt.DateTime.Month == 2 
                     && pt.DateTime.Day == 29)
                 {
                     ts = ts.Add(TimeSpan.FromDays(-1));            
-                    continue;
+                    continue; 
                 }
-
-                if (!DateTime.IsLeapYear(pt.DateTime.Year)
-                    && t2.Month == 2
-                    && t2.Day == 29)
+                else                
+                 if (!DateTime.IsLeapYear(pt.DateTime.Year)
+                    && shiftedPt.Month == 2
+                    && shiftedPt.Day == 29)
                 {
+                    // when moving from non-leap year to leap
+                    // copy feb 28th to feb 29th.
                     Point Feb28 = s[i - 1];                    
-                    Feb28.DateTime = t2;
+                    Feb28.DateTime = shiftedPt;
                     rval.Add(Feb28);
                     ts = ts.Add(TimeSpan.FromDays(1));
-                    t2 = pt.DateTime.Add(ts);
+                    shiftedPt = pt.DateTime.Add(ts);
+                }
+
+                else
+                if (pt.DateTime.Day != shiftedPt.Day
+                    || pt.DateTime.Month != shiftedPt.Month)
+                {
+                    var tmp = new DateTime(shiftedPt.Year, pt.DateTime.Month, pt.DateTime.Day);
+                    var offset = TimeSpan.FromTicks(tmp.Ticks - shiftedPt.Ticks);
+                    ts = ts.Add(offset);
+                    shiftedPt = pt.DateTime.Add(ts);
                 }
 
 
-                if (pt.DateTime.Day != t2.Day
-                    || pt.DateTime.Month != t2.Month)
+                if (pt.DateTime.Day != shiftedPt.Day
+                    || pt.DateTime.Month != shiftedPt.Month)
                 {
-                    string msg = "t2 =" + t2.ToString() + " pt = " + pt.DateTime.ToString();
+                 
+                    string msg = "shifted point =" + shiftedPt.ToString() + " pt = " + pt.DateTime.ToString();
                     throw new System.ArgumentException("Error month and day should always be the same\n"+msg);
 
                 }
 
-                pt.DateTime = t2;
+                pt.DateTime = shiftedPt;
                 rval.Add(pt);
             }
             return rval;
