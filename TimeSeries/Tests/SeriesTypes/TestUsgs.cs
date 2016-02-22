@@ -35,7 +35,13 @@ namespace Pisces.NunitTests.SeriesTypes
         {
             UsgsGroundWaterLevelSeries s = new UsgsGroundWaterLevelSeries("444401116463001");
             s.Read();
-
+            if (s.Count == 0)
+            {
+                Console.WriteLine("Error: no data was found -- network error?");
+                s.WriteToConsole();
+                return;
+            }
+            
             Assert.AreEqual(1974, s[0].DateTime.Year);
 
             Assert.IsTrue(s.Count > 10);

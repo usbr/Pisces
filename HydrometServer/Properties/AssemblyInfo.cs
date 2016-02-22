@@ -2,4 +2,4 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("HydrometServer")]
-[assembly: AssemblyVersion("1.0.30.0")]
+[assembly: AssemblyVersion("1.0.31.0")]
