@@ -164,7 +164,7 @@ namespace HydrometServer
                 if (args.Contains("import-hydromet-daily"))
                 {
                     File.AppendAllText(errorFileName, "begin: import-hydromet-daily " + DateTime.Now.ToString() + "\n");
-                    ImportHydrometDaily(db, t1.AddDays(-100), t2, filter, propertyFilter);
+                    ImportHydrometDaily(db, t1.AddDays(-500), t2, filter, propertyFilter);
                 }
 
                 if (args.Contains("import-hydromet-monthly"))
