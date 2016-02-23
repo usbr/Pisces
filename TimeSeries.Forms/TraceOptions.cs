@@ -29,10 +29,12 @@ namespace Reclamation.TimeSeries.Forms
             settings.traceAggregationAnalysis = this.traceAggregationCheckBox.Checked;
             settings.sumCYRadio = this.sumCYRadio.Checked;
             settings.sumWYRadio = this.sumWYRadio.Checked;
+            settings.sumCustomRangeRadio = this.sumRangeRadio.Checked;
             settings.PlotMinTrace = this.checkBoxPlotMin.Checked;
             settings.PlotAvgTrace = this.checkBoxPlotAvg.Checked;
             settings.PlotMaxTrace = this.checkBoxPlotMax.Checked;
             settings.TimeWindow = timeWindowOptions1.TimeWindow;
+            settings.MonthDayRange = this.rangePicker1.MonthDayRange;
         }
 
         public void ReadFromSettings(PiscesSettings settings)
@@ -43,10 +45,13 @@ namespace Reclamation.TimeSeries.Forms
             this.traceAggregationCheckBox.Checked = settings.traceAggregationAnalysis;
             this.sumCYRadio.Checked = settings.sumCYRadio;
             this.sumWYRadio.Checked = settings.sumWYRadio;
+            this.sumRangeRadio.Checked = settings.sumCustomRangeRadio;
             this.checkBoxPlotMin.Checked = settings.PlotMinTrace;
             this.checkBoxPlotAvg.Checked = settings.PlotAvgTrace;
             this.checkBoxPlotMax.Checked = settings.PlotMaxTrace;
-            timeWindowOptions1.TimeWindow = settings.TimeWindow;
+            this.timeWindowOptions1.TimeWindow = settings.TimeWindow; 
+            rangePicker1.BeginningMonth = settings.BeginningMonth;
+            rangePicker1.MonthDayRange = settings.MonthDayRange;
         }
 
         #endregion
@@ -86,6 +91,18 @@ namespace Reclamation.TimeSeries.Forms
             {
                 this.exceedanceAnalysisGroupBox.Enabled = true;
                 this.aggregationAnalysisGroupBox.Enabled = false;
+            }
+        }
+
+        private void sumRangeRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.sumRangeRadio.Checked)
+            {
+                this.rangePicker1.Enabled = true;
+            }
+            else
+            {
+                this.rangePicker1.Enabled = false;
             }
         }
     }

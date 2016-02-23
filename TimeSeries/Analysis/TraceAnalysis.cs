@@ -68,6 +68,8 @@ namespace Reclamation.TimeSeries.Analysis
                 { sumType = "CY"; }
                 else if (Explorer.sumWYRadio)
                 { sumType = "WY"; }
+                else if (Explorer.sumCustomRangeRadio)
+                { sumType = "XX"; }
                 else
                 { }
                 traceAnalysisList = getTraceSums(list, sumType);
@@ -203,6 +205,11 @@ namespace Reclamation.TimeSeries.Analysis
                 {
                     sNew = Reclamation.TimeSeries.Math.AnnualSum(s,
                         new MonthDayRange(10, 1, 9, 30), 10);
+                }
+                else if (aggType == "XX")
+                {
+                    sNew = Reclamation.TimeSeries.Math.AnnualSum(s,
+                        Explorer.MonthDayRange, Explorer.MonthDayRange.Month1);
                 }
                 else
                 { view.Messages.Add(""); }
