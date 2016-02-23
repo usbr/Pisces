@@ -31,15 +31,24 @@ namespace Reclamation.TimeSeries.Graphing
             pane.XAxis.Scale.MaxGrace = 0;
             pane.XAxis.Scale.MagAuto = false;
             pane.YAxis.Scale.MagAuto = false;
-            SetGrid(true);
+            
+            SetPaneVisible(false);
 
             chart1.ZoomEvent += chart1_ZoomEvent;
             chart1.MouseDownEvent += chart1_MouseDownEvent;
             chart1.MouseUpEvent += chart1_MouseUpEvent;
         }
 
-        private void SetGrid(bool visible)
+        private void SetPaneVisible(bool visible)
         {
+            pane.Title.Text = "";
+
+            pane.Border.IsVisible = visible;
+            pane.Legend.IsVisible = visible;
+            pane.XAxis.IsVisible = visible;
+            pane.YAxis.IsVisible = visible;
+            pane.Y2Axis.IsVisible = !pane.Y2Axis.IsAxisSegmentVisible;
+
             pane.XAxis.MajorGrid.IsVisible = visible;
             pane.YAxis.MajorGrid.IsVisible = visible;
             pane.XAxis.MajorGrid.DashOn = 5f;
@@ -83,6 +92,13 @@ namespace Reclamation.TimeSeries.Graphing
         public void DrawTimeSeries(SeriesList list, string title, string subTitle,
             bool undoZoom,bool multiLeftAxis=false)
         {
+            Clear();
+
+            if (list.Count == 0)
+            {
+                return;
+            }
+
             CreateSeries(list, title, subTitle,undoZoom,multiLeftAxis);
 
             for (int i = 0; i < list.Count; i++)
@@ -90,7 +106,8 @@ namespace Reclamation.TimeSeries.Graphing
                 
               FillTimeSeries(list[i],chart1.GraphPane.CurveList[i]);
             }
-            
+
+            SetPaneVisible(true);
             FormatBottomAxisStandard();
             pane.YAxis.Scale.Format = "#,#";
             pane.YAxis.Scale.MinAuto = true;
@@ -102,6 +119,12 @@ namespace Reclamation.TimeSeries.Graphing
         public void DrawSorted(SeriesList list, string title, string subTitle,string xAxisTitle)
         {
             Clear();
+
+            if (list.Count == 0)
+            {
+                return;
+            }
+
             for (int i = 0; i < list.Count; i++)
             {
                 PointPairList pairs = new PointPairList();
@@ -124,6 +147,7 @@ namespace Reclamation.TimeSeries.Graphing
             pane.XAxis.Scale.MajorStep = 5;
             pane.YAxis.Scale.MinAuto = true;
             pane.YAxis.Scale.MaxAuto = true;
+            SetPaneVisible(true);
             LabelYaxis(list);
             RefreshChart(chart1);
             
@@ -138,6 +162,13 @@ namespace Reclamation.TimeSeries.Graphing
        
         public void DrawWaterYears(SeriesList list, string title, string subTitle, bool multiLeftAxis = false)
         {
+            Clear();
+
+            if (list.Count == 0)
+            {
+                return;
+            }
+
             CreateSeries(list, title, subTitle,true,multiLeftAxis);
             for (int i = 0; i < list.Count; i++)
             {
@@ -147,6 +178,7 @@ namespace Reclamation.TimeSeries.Graphing
             pane.XAxis.Scale.Format = "MMM d";
             pane.YAxis.Scale.MinAuto = true;
             pane.YAxis.Scale.MaxAuto = true;
+            SetPaneVisible(true);
             RefreshChart(chart1);
         }
 
@@ -180,7 +212,8 @@ namespace Reclamation.TimeSeries.Graphing
             pane.CurveList.Add(series1);
             pane.XAxis.Scale.Format = "#,#";
             pane.XAxis.Scale.MajorStepAuto = true;
-            
+
+            SetPaneVisible(true);
             RefreshChart(chart1);
         }
         /// <summary>
@@ -214,9 +247,7 @@ namespace Reclamation.TimeSeries.Graphing
             if (undoZoom)
                 chart1.ZoomOutAll(pane);
 
-            pane.Title.Text = "";
-            pane.XAxis.Title.Text = "";
-            pane.Y2Axis.Title.Text = "";
+            SetPaneVisible(false);
             pane.CurveList.Clear();
             RefreshChart(chart1);
         }
