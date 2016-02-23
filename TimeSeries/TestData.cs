@@ -10,7 +10,7 @@ using System.Configuration;
 namespace Reclamation.TimeSeries
 {
 	/// <summary>
-	/// Summary description for TestData.
+	/// TestData
 	/// </summary>
 	public class TestData
 	{
