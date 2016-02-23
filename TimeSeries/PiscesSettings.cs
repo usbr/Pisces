@@ -170,6 +170,9 @@ namespace Reclamation.TimeSeries
         public bool sumWYRadio;
         public int PlotYear;
         public int PlotTrace;
+        public bool PlotMinTrace;
+        public bool PlotMaxTrace;
+        public bool PlotAvgTrace;
         public bool PlotMax;
         public bool PlotMin;
         public bool PlotAvg;
@@ -272,6 +275,9 @@ namespace Reclamation.TimeSeries
             AlsoPlotTrace = false;
             PlotYear = 2006;
             PlotTrace = 1;
+            PlotMin = false;
+            PlotAvg = false;
+            PlotMax = false;
             traceExceedanceAnalysis = true;
             traceAggregationAnalysis = false;
             sumCYRadio = true;

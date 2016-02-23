@@ -29,6 +29,10 @@ namespace Reclamation.TimeSeries.Forms
             settings.traceAggregationAnalysis = this.traceAggregationCheckBox.Checked;
             settings.sumCYRadio = this.sumCYRadio.Checked;
             settings.sumWYRadio = this.sumWYRadio.Checked;
+            settings.PlotMinTrace = this.checkBoxPlotMin.Checked;
+            settings.PlotAvgTrace = this.checkBoxPlotAvg.Checked;
+            settings.PlotMaxTrace = this.checkBoxPlotMax.Checked;
+            settings.TimeWindow = timeWindowOptions1.TimeWindow;
         }
 
         public void ReadFromSettings(PiscesSettings settings)
@@ -39,6 +43,10 @@ namespace Reclamation.TimeSeries.Forms
             this.traceAggregationCheckBox.Checked = settings.traceAggregationAnalysis;
             this.sumCYRadio.Checked = settings.sumCYRadio;
             this.sumWYRadio.Checked = settings.sumWYRadio;
+            this.checkBoxPlotMin.Checked = settings.PlotMinTrace;
+            this.checkBoxPlotAvg.Checked = settings.PlotAvgTrace;
+            this.checkBoxPlotMax.Checked = settings.PlotMaxTrace;
+            timeWindowOptions1.TimeWindow = settings.TimeWindow;
         }
 
         #endregion

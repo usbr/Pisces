@@ -33,14 +33,17 @@ namespace Reclamation.TimeSeries.Forms
             this.checkBoxPlotTrace = new System.Windows.Forms.CheckBox();
             this.groupBoxExtras = new System.Windows.Forms.GroupBox();
             this.exceedanceAnalysisGroupBox = new System.Windows.Forms.GroupBox();
+            this.exceedanceLevelPicker1 = new Reclamation.TimeSeries.Forms.ExceedanceLevelPicker();
             this.aggregationAnalysisGroupBox = new System.Windows.Forms.GroupBox();
-            this.sumCYRadio = new System.Windows.Forms.RadioButton();
             this.sumWYRadio = new System.Windows.Forms.RadioButton();
+            this.sumCYRadio = new System.Windows.Forms.RadioButton();
             this.traceExceedanceCheckBox = new System.Windows.Forms.RadioButton();
             this.traceAggregationCheckBox = new System.Windows.Forms.RadioButton();
             this.traceAnalysisSelection = new System.Windows.Forms.GroupBox();
-            this.exceedanceLevelPicker1 = new Reclamation.TimeSeries.Forms.ExceedanceLevelPicker();
             this.timeWindowOptions1 = new Reclamation.TimeSeries.Forms.TimeWindowSelector();
+            this.checkBoxPlotMin = new System.Windows.Forms.CheckBox();
+            this.checkBoxPlotAvg = new System.Windows.Forms.CheckBox();
+            this.checkBoxPlotMax = new System.Windows.Forms.CheckBox();
             this.groupBoxExtras.SuspendLayout();
             this.exceedanceAnalysisGroupBox.SuspendLayout();
             this.aggregationAnalysisGroupBox.SuspendLayout();
@@ -70,6 +73,9 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // groupBoxExtras
             // 
+            this.groupBoxExtras.Controls.Add(this.checkBoxPlotMax);
+            this.groupBoxExtras.Controls.Add(this.checkBoxPlotAvg);
+            this.groupBoxExtras.Controls.Add(this.checkBoxPlotMin);
             this.groupBoxExtras.Controls.Add(this.checkBoxPlotTrace);
             this.groupBoxExtras.Controls.Add(this.maskedTextBoxPlotTrace);
             this.groupBoxExtras.Location = new System.Drawing.Point(127, 14);
@@ -90,6 +96,17 @@ namespace Reclamation.TimeSeries.Forms
             this.exceedanceAnalysisGroupBox.TabStop = false;
             this.exceedanceAnalysisGroupBox.Text = "Exceedance Analysis Options";
             // 
+            // exceedanceLevelPicker1
+            // 
+            this.exceedanceLevelPicker1.ExceedanceLevels = new int[] {
+        10,
+        50,
+        90};
+            this.exceedanceLevelPicker1.Location = new System.Drawing.Point(7, 14);
+            this.exceedanceLevelPicker1.Name = "exceedanceLevelPicker1";
+            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(114, 196);
+            this.exceedanceLevelPicker1.TabIndex = 0;
+            // 
             // aggregationAnalysisGroupBox
             // 
             this.aggregationAnalysisGroupBox.Controls.Add(this.sumWYRadio);
@@ -102,6 +119,16 @@ namespace Reclamation.TimeSeries.Forms
             this.aggregationAnalysisGroupBox.TabStop = false;
             this.aggregationAnalysisGroupBox.Text = "Aggregation Options";
             // 
+            // sumWYRadio
+            // 
+            this.sumWYRadio.AutoSize = true;
+            this.sumWYRadio.Location = new System.Drawing.Point(10, 43);
+            this.sumWYRadio.Name = "sumWYRadio";
+            this.sumWYRadio.Size = new System.Drawing.Size(81, 17);
+            this.sumWYRadio.TabIndex = 16;
+            this.sumWYRadio.Text = "Sum by WY";
+            this.sumWYRadio.UseVisualStyleBackColor = true;
+            // 
             // sumCYRadio
             // 
             this.sumCYRadio.AutoSize = true;
@@ -113,16 +140,6 @@ namespace Reclamation.TimeSeries.Forms
             this.sumCYRadio.TabStop = true;
             this.sumCYRadio.Text = "Sum by CY";
             this.sumCYRadio.UseVisualStyleBackColor = true;
-            // 
-            // sumWYRadio
-            // 
-            this.sumWYRadio.AutoSize = true;
-            this.sumWYRadio.Location = new System.Drawing.Point(10, 43);
-            this.sumWYRadio.Name = "sumWYRadio";
-            this.sumWYRadio.Size = new System.Drawing.Size(81, 17);
-            this.sumWYRadio.TabIndex = 16;
-            this.sumWYRadio.Text = "Sum by WY";
-            this.sumWYRadio.UseVisualStyleBackColor = true;
             // 
             // traceExceedanceCheckBox
             // 
@@ -159,17 +176,6 @@ namespace Reclamation.TimeSeries.Forms
             this.traceAnalysisSelection.TabStop = false;
             this.traceAnalysisSelection.Text = "Select Trace Analysis";
             // 
-            // exceedanceLevelPicker1
-            // 
-            this.exceedanceLevelPicker1.ExceedanceLevels = new int[] {
-        10,
-        50,
-        90};
-            this.exceedanceLevelPicker1.Location = new System.Drawing.Point(7, 14);
-            this.exceedanceLevelPicker1.Name = "exceedanceLevelPicker1";
-            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(114, 196);
-            this.exceedanceLevelPicker1.TabIndex = 0;
-            // 
             // timeWindowOptions1
             // 
             this.timeWindowOptions1.Location = new System.Drawing.Point(266, 3);
@@ -186,6 +192,36 @@ namespace Reclamation.TimeSeries.Forms
             0});
             timeWindow1.WindowType = Reclamation.TimeSeries.TimeWindowType.FullPeriodOfRecord;
             this.timeWindowOptions1.TimeWindow = timeWindow1;
+            // 
+            // checkBoxPlotMin
+            // 
+            this.checkBoxPlotMin.AutoSize = true;
+            this.checkBoxPlotMin.Location = new System.Drawing.Point(11, 63);
+            this.checkBoxPlotMin.Name = "checkBoxPlotMin";
+            this.checkBoxPlotMin.Size = new System.Drawing.Size(62, 17);
+            this.checkBoxPlotMin.TabIndex = 5;
+            this.checkBoxPlotMin.Text = "plot min";
+            this.checkBoxPlotMin.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPlotAvg
+            // 
+            this.checkBoxPlotAvg.AutoSize = true;
+            this.checkBoxPlotAvg.Location = new System.Drawing.Point(11, 86);
+            this.checkBoxPlotAvg.Name = "checkBoxPlotAvg";
+            this.checkBoxPlotAvg.Size = new System.Drawing.Size(64, 17);
+            this.checkBoxPlotAvg.TabIndex = 6;
+            this.checkBoxPlotAvg.Text = "plot avg";
+            this.checkBoxPlotAvg.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPlotMax
+            // 
+            this.checkBoxPlotMax.AutoSize = true;
+            this.checkBoxPlotMax.Location = new System.Drawing.Point(11, 109);
+            this.checkBoxPlotMax.Name = "checkBoxPlotMax";
+            this.checkBoxPlotMax.Size = new System.Drawing.Size(65, 17);
+            this.checkBoxPlotMax.TabIndex = 7;
+            this.checkBoxPlotMax.Text = "plot max";
+            this.checkBoxPlotMax.UseVisualStyleBackColor = true;
             // 
             // TraceOptions
             // 
@@ -222,5 +258,8 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.GroupBox traceAnalysisSelection;
         private System.Windows.Forms.RadioButton traceExceedanceCheckBox;
         private System.Windows.Forms.RadioButton traceAggregationCheckBox;
+        private System.Windows.Forms.CheckBox checkBoxPlotMax;
+        private System.Windows.Forms.CheckBox checkBoxPlotAvg;
+        private System.Windows.Forms.CheckBox checkBoxPlotMin;
     }
 }
