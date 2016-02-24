@@ -110,6 +110,7 @@ namespace Reclamation.TimeSeries.Analysis
             {
                 var sNew = new Series();
                 sNew.TimeInterval = sListIn[0].TimeInterval;
+                sNew.Units = sListIn[0].Units;
                 sNew.ScenarioName = item + "%Exceedance";
                 traceAnalysisList.Add(sNew);
                 int excIdx;
@@ -125,6 +126,7 @@ namespace Reclamation.TimeSeries.Analysis
             {
                 var sNew = new Series();
                 sNew.TimeInterval = sListIn[0].TimeInterval;
+                sNew.Units = sListIn[0].Units;
                 sNew.ScenarioName = "Min";
                 traceAnalysisList.Add(sNew); 
                 sExcIdxs.Add(0);
@@ -135,6 +137,7 @@ namespace Reclamation.TimeSeries.Analysis
             {
                 var sNew = new Series();
                 sNew.TimeInterval = sListIn[0].TimeInterval;
+                sNew.Units = sListIn[0].Units;
                 sNew.ScenarioName = "Max";
                 traceAnalysisList.Add(sNew);
                 sExcIdxs.Add(sListIn.Count - 1);
@@ -143,6 +146,7 @@ namespace Reclamation.TimeSeries.Analysis
             // Define average trace container
             var sAvg = new Series();
             sAvg.TimeInterval = sListIn[0].TimeInterval;
+            sAvg.Units = sListIn[0].Units;
             sAvg.ScenarioName = "Avg"; 
             
             // Populate the output serieslist with the exceddance curves
@@ -217,6 +221,7 @@ namespace Reclamation.TimeSeries.Analysis
                 else
                 { view.Messages.Add(""); }
                 sNew.TimeInterval = s.TimeInterval;
+                sNew.Units = s.Units;
                 traceAnalysisList.Add(sNew);
             }
             return traceAnalysisList;
