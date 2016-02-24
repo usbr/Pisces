@@ -95,6 +95,9 @@ namespace Reclamation.TimeSeries.Graphing
                 case AnalysisType.MovingAverage:
                     loader.DrawTimeSeries(seriesList, title, subTitle, undoZoom);
                     break;
+                case AnalysisType.TraceAnalysis:
+                    loader.DrawTimeSeries(seriesList, title, subTitle, undoZoom, m_multiLeftAxis);
+                    break;
                 default:
                     loader.Clear();
                     break;

@@ -12,9 +12,12 @@ namespace Reclamation.TimeSeries.Analysis
             m_analysisType = AnalysisType.TraceAnalysis;
             m_name = "Trace Analysis";
             Description =
-                "This analysis option allows users to comparatively and/or statistically analyze \n"
-                + " a dataset that contains several traces/scenarios which usually result from \n"
-                + " iterative model runs with varying model inputs, assumptions, and conditions.";
+                "This analysis option allows users to comparatively and/or statistically analyze "
+                + " a dataset that contains several traces/scenarios which usually result from "
+                + " iterative model runs with varying model inputs, assumptions, and conditions."
+                + " \n\n"
+                + "Trace analysis will not run if the selected number of traces < 10."
+                + " \n";
         }
 
         public override IExplorerView Run()

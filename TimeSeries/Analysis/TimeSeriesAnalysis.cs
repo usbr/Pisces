@@ -36,8 +36,6 @@ namespace Reclamation.TimeSeries.Analysis
                 list.Add(s);
             }
 
-            // [JR] guts of the code goes here...
-                        
             view.SeriesList = list;
             string title = list.Text.TitleText();
             if (Explorer.SubtractFromBaseline)
