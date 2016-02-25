@@ -341,9 +341,7 @@ namespace Reclamation.TimeSeries.Forms
                 }
                 
                 // Add sorting metric column
-                if (scenarioTable.Columns.Contains("SortMetric"))
-                { }
-                else
+                if (!scenarioTable.Columns.Contains("SortMetric"))
                 { scenarioTable.Columns.Add("SortMetric", typeof(int)); }
 
                 // Sort!
@@ -352,32 +350,28 @@ namespace Reclamation.TimeSeries.Forms
                     var ithScenario = s.CreateScenario(m_db.GetScenarios()[i]);
                     ithScenario.Read();
 
-                    Series sSum = new Series();
-                    if (radioButtonCY.Checked || radioButtonWY.Checked)
-                    { sSum = Reclamation.TimeSeries.Math.AnnualSum(ithScenario.Subset(tRange.DateTime1, tRange.DateTime2), mdRange, mdRange.Month1); }
-
-                    scenarioTable.Rows[i]["SortMetric"] = Convert.ToInt32(Reclamation.TimeSeries.Math.Sum(sSum));
-                    
-                    //int yr;
-                    //if (!Int32.TryParse(scenarioTable[i].Name, out yr))
-                    //{
-                    //    MessageBox.Show("Error: The scenario name must be a year (integer) ");
-                    //}
-
-                    //YearRange yRange = new YearRange(yr, 10);
-                    //Series sYear = Reclamation.TimeSeries.Math.Subset(sSum, yRange.DateTime1, yRange.DateTime2);
-
-                    //if (sYear.Count > 0)
-                    //{
-                    //    scenarioTable[i].SortOrder = Convert.ToInt32(sYear[0].Value);
-                    //    //scenarioTable[i].Path+=.Rows[i]["Note"] = sYear[0].Flag;
-                    //}
+                    // Sort by custom sum
+                    if (radioButtonSum.Checked)
+                    {
+                        Series sSum = new Series();
+                        if (radioButtonCY.Checked || radioButtonWY.Checked)
+                        { 
+                            sSum = Reclamation.TimeSeries.Math.AnnualSum(ithScenario.Subset(tRange.DateTime1, tRange.DateTime2), 
+                                mdRange, mdRange.Month1); 
+                        }
+                        scenarioTable.Rows[i]["SortMetric"] = Convert.ToInt32(Reclamation.TimeSeries.Math.Sum(sSum));
+                    }
+                    // Sort by a value
+                    else if (radioButtonEOP.Checked)
+                    { scenarioTable.Rows[i]["SortMetric"] = ithScenario[tRange.DateTime2].Value; }
+                    // Others
+                    else
+                    { }
                 }                
             }
             var sortedTable = scenarioTable.DefaultView.Sort = "SortMetric DESC";
             scenarioTable.AcceptChanges();
-            dataGridView1.Columns["SortOrder"].Visible = false;
-            
+            dataGridView1.Columns["SortOrder"].Visible = false;            
         }
         
     }

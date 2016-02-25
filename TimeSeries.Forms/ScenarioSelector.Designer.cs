@@ -55,8 +55,6 @@ namespace Reclamation.TimeSeries.Forms
             this.radioButtonEOP = new System.Windows.Forms.RadioButton();
             this.radioButtonSum = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.comboBoxMonths = new System.Windows.Forms.ComboBox();
-            this.radioButtonMonth = new System.Windows.Forms.RadioButton();
             this.radioButtonWY = new System.Windows.Forms.RadioButton();
             this.radioButtonCY = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
@@ -64,6 +62,8 @@ namespace Reclamation.TimeSeries.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxSelectedSeries = new System.Windows.Forms.ComboBox();
             this.buttonSort = new System.Windows.Forms.Button();
+            this.comboBoxMonths = new System.Windows.Forms.ComboBox();
+            this.radioButtonMonth = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBoxComparisonn.SuspendLayout();
@@ -377,26 +377,6 @@ namespace Reclamation.TimeSeries.Forms
             this.panel1.Size = new System.Drawing.Size(254, 25);
             this.panel1.TabIndex = 32;
             // 
-            // comboBoxMonths
-            // 
-            this.comboBoxMonths.Enabled = false;
-            this.comboBoxMonths.FormattingEnabled = true;
-            this.comboBoxMonths.Location = new System.Drawing.Point(146, 2);
-            this.comboBoxMonths.Name = "comboBoxMonths";
-            this.comboBoxMonths.Size = new System.Drawing.Size(59, 21);
-            this.comboBoxMonths.TabIndex = 3;
-            // 
-            // radioButtonMonth
-            // 
-            this.radioButtonMonth.AutoSize = true;
-            this.radioButtonMonth.Location = new System.Drawing.Point(89, 4);
-            this.radioButtonMonth.Name = "radioButtonMonth";
-            this.radioButtonMonth.Size = new System.Drawing.Size(54, 17);
-            this.radioButtonMonth.TabIndex = 2;
-            this.radioButtonMonth.Text = "month";
-            this.radioButtonMonth.UseVisualStyleBackColor = true;
-            this.radioButtonMonth.CheckedChanged += new System.EventHandler(this.radioButtonMonth_CheckedChanged);
-            // 
             // radioButtonWY
             // 
             this.radioButtonWY.AutoSize = true;
@@ -467,6 +447,26 @@ namespace Reclamation.TimeSeries.Forms
             this.buttonSort.UseVisualStyleBackColor = true;
             this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
             // 
+            // comboBoxMonths
+            // 
+            this.comboBoxMonths.Enabled = false;
+            this.comboBoxMonths.FormattingEnabled = true;
+            this.comboBoxMonths.Location = new System.Drawing.Point(146, 2);
+            this.comboBoxMonths.Name = "comboBoxMonths";
+            this.comboBoxMonths.Size = new System.Drawing.Size(59, 21);
+            this.comboBoxMonths.TabIndex = 3;
+            // 
+            // radioButtonMonth
+            // 
+            this.radioButtonMonth.AutoSize = true;
+            this.radioButtonMonth.Location = new System.Drawing.Point(89, 4);
+            this.radioButtonMonth.Name = "radioButtonMonth";
+            this.radioButtonMonth.Size = new System.Drawing.Size(54, 17);
+            this.radioButtonMonth.TabIndex = 2;
+            this.radioButtonMonth.Text = "month";
+            this.radioButtonMonth.UseVisualStyleBackColor = true;
+            this.radioButtonMonth.CheckedChanged += new System.EventHandler(this.radioButtonMonth_CheckedChanged);
+            // 
             // ScenarioSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -531,11 +531,11 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.RadioButton radioButtonEOP;
         private System.Windows.Forms.RadioButton radioButtonSum;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioButtonMonth;
         private System.Windows.Forms.RadioButton radioButtonWY;
         private System.Windows.Forms.RadioButton radioButtonCY;
-        private System.Windows.Forms.ComboBox comboBoxMonths;
         private System.Windows.Forms.ComboBox comboBoxOutYear;
         private System.Windows.Forms.Button buttonSort;
+        private System.Windows.Forms.ComboBox comboBoxMonths;
+        private System.Windows.Forms.RadioButton radioButtonMonth;
     }
 }
