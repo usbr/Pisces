@@ -311,7 +311,7 @@ namespace Reclamation.TimeSeries.Forms
             bs.DataSource = this.scenarioTable;
             this.dataGridView1.DataSource = bs;
 
-            var sName = "Powell_Outflow";// comboBoxSelectedSeries.SelectedItem.ToString();
+            var sName = comboBoxSelectedSeries.SelectedItem.ToString();
             buttonClearAll_Click(sender, e);
                        
             if (!(sName == "Run Index"))
@@ -369,7 +369,7 @@ namespace Reclamation.TimeSeries.Forms
                     { }
                 }                
             }
-            var sortedTable = scenarioTable.DefaultView.Sort = "SortMetric DESC";
+            scenarioTable.DefaultView.Sort = "SortMetric DESC";
             scenarioTable.AcceptChanges();
             dataGridView1.Columns["SortOrder"].Visible = false;            
         }
