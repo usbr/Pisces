@@ -190,6 +190,42 @@ namespace Reclamation.TimeSeries.Forms
 
             }
         }
+
+        private void buttonSelectTop20P_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (i < dataGridView1.Rows.Count * 0.20)
+                { dataGridView1["Checked", i].Value = true; }
+                else
+                { dataGridView1["Checked", i].Value = false; }
+            }
+            dataGridView1.Select();// ui hack
+        }
+
+        private void buttonSelectMid20P_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (i >= dataGridView1.Rows.Count * 0.40 && i <= dataGridView1.Rows.Count * 0.60)
+                { dataGridView1["Checked", i].Value = true; }
+                else
+                { dataGridView1["Checked", i].Value = false; }
+            }
+            dataGridView1.Select();// ui hack
+        }
+
+        private void buttonSelectLow20P_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            {
+                if (i >= dataGridView1.Rows.Count * 0.80)
+                { dataGridView1["Checked", i].Value = true; }
+                else
+                { dataGridView1["Checked", i].Value = false; }
+            }
+            dataGridView1.Select();// ui hack
+        }
         
     }
 }
