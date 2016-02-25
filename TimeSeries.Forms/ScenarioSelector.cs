@@ -29,8 +29,8 @@ namespace Reclamation.TimeSeries.Forms
         private void ReloadGrid()
         {
             this.scenarioTable = m_db.GetScenarios();
-            this.dataGridView1.DataSource = scenarioTable;
-            dataGridView1.Columns["SortOrder"].Visible = false;
+            this.dataGridView.DataSource = scenarioTable;
+            dataGridView.Columns["SortOrder"].Visible = false;
         }
 
         private void LoadSeriesList()
@@ -85,11 +85,11 @@ namespace Reclamation.TimeSeries.Forms
         public string BaselineScenario
         {
             get{
-                if (dataGridView1.RowCount == 0)
+                if (dataGridView.RowCount == 0)
                 {
                     return "";
                 }
-                return dataGridView1[1, 0].Value.ToString();
+                return dataGridView[1, 0].Value.ToString();
             }
         }
         
@@ -97,20 +97,20 @@ namespace Reclamation.TimeSeries.Forms
         private void buttonSelectAll_Click(object sender, EventArgs e)
         {
 
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            for (int i = 0; i < dataGridView.Rows.Count; i++)
             {
-                dataGridView1["Checked", i].Value = true;
+                dataGridView["Checked", i].Value = true;
             }
-            dataGridView1.Select();// ui hack
+            dataGridView.Select();// ui hack
         }
 
         private void buttonClearAll_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            for (int i = 0; i < dataGridView.Rows.Count; i++)
             {
-                dataGridView1["Checked", i].Value = false;
+                dataGridView["Checked", i].Value = false;
             }
-            dataGridView1.Select();// ui hack
+            dataGridView.Select();// ui hack
         }
         
         private void CustomizeClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -120,7 +120,7 @@ namespace Reclamation.TimeSeries.Forms
         private void SaveChanges()
         {
             m_db.Server.SaveTable(scenarioTable);
-            ReloadGrid();
+            //ReloadGrid();
         }
 
         public event EventHandler OnApply;
@@ -130,10 +130,8 @@ namespace Reclamation.TimeSeries.Forms
             SaveChanges();
 
             if (OnApply != null)
-                OnApply(this, EventArgs.Empty);
+            { OnApply(this, EventArgs.Empty); }
         }
-
-       
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
@@ -232,45 +230,45 @@ namespace Reclamation.TimeSeries.Forms
                         //scenarioTable[i].Path+=.Rows[i]["Note"] = sYear[0].Flag;
                     }
                 }
-                dataGridView1.Columns["SortOrder"].Visible = true;
+                dataGridView.Columns["SortOrder"].Visible = true;
 
             }
         }
 
         private void buttonSelectTop20P_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < dataGridView1.Rows.Count; i++)
+            for (int i = 0; i < dataGridView.Rows.Count; i++)
             {
-                if (i < (dataGridView1.Rows.Count - 1) * 0.20)
-                { dataGridView1["Checked", i].Value = true; }
+                if (i < (dataGridView.Rows.Count - 1) * 0.20)
+                { dataGridView["Checked", i].Value = true; }
                 else
-                { dataGridView1["Checked", i].Value = false; }
+                { dataGridView["Checked", i].Value = false; }
             }
-            dataGridView1.Select();// ui hack
+            dataGridView.Select();// ui hack
         }
 
         private void buttonSelectMid20P_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+            for (int i = 0; i < dataGridView.Rows.Count - 1; i++)
             {
-                if (i >= (dataGridView1.Rows.Count - 1) * 0.40 && i <= (dataGridView1.Rows.Count - 1) * 0.60)
-                { dataGridView1["Checked", i].Value = true; }
+                if (i >= (dataGridView.Rows.Count - 1) * 0.40 && i <= (dataGridView.Rows.Count - 1) * 0.60)
+                { dataGridView["Checked", i].Value = true; }
                 else
-                { dataGridView1["Checked", i].Value = false; }
+                { dataGridView["Checked", i].Value = false; }
             }
-            dataGridView1.Select();// ui hack
+            dataGridView.Select();// ui hack
         }
 
         private void buttonSelectLow20P_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < (dataGridView1.Rows.Count - 1); i++)
+            for (int i = 0; i < (dataGridView.Rows.Count - 1); i++)
             {
-                if (i >= (dataGridView1.Rows.Count - 1) * 0.80)
-                { dataGridView1["Checked", i].Value = true; }
+                if (i >= (dataGridView.Rows.Count - 1) * 0.80)
+                { dataGridView["Checked", i].Value = true; }
                 else
-                { dataGridView1["Checked", i].Value = false; }
+                { dataGridView["Checked", i].Value = false; }
             }
-            dataGridView1.Select();// ui hack
+            dataGridView.Select();// ui hack
         }
 
         private void radioButtonYear2_CheckedChanged(object sender, EventArgs e)
@@ -309,11 +307,11 @@ namespace Reclamation.TimeSeries.Forms
         {
             BindingSource bs = new BindingSource();
             bs.DataSource = this.scenarioTable;
-            this.dataGridView1.DataSource = bs;
+            this.dataGridView.DataSource = bs;
 
             var sName = comboBoxSelectedSeries.SelectedItem.ToString();
             buttonClearAll_Click(sender, e);
-                       
+
             if (!(sName == "Run Index"))
             {
                 // Get selected series
@@ -334,12 +332,12 @@ namespace Reclamation.TimeSeries.Forms
                             new DateTime(year2, mdRange.Month2, mdRange.Day2, 23, 59, 59));
                 }
                 else
-                { 
+                {
                     mdRange = new MonthDayRange(1, 1, 12, 31);
                     tRange = new DateRange(new DateTime(year1, mdRange.Month1, mdRange.Day1, 23, 59, 59),
                             new DateTime(year2, mdRange.Month2, mdRange.Day2, 23, 59, 59));
                 }
-                
+
                 // Add sorting metric column
                 if (!scenarioTable.Columns.Contains("SortMetric"))
                 { scenarioTable.Columns.Add("SortMetric", typeof(int)); }
@@ -355,9 +353,9 @@ namespace Reclamation.TimeSeries.Forms
                     {
                         Series sSum = new Series();
                         if (radioButtonCY.Checked || radioButtonWY.Checked)
-                        { 
-                            sSum = Reclamation.TimeSeries.Math.AnnualSum(ithScenario.Subset(tRange.DateTime1, tRange.DateTime2), 
-                                mdRange, mdRange.Month1); 
+                        {
+                            sSum = Reclamation.TimeSeries.Math.AnnualSum(ithScenario.Subset(tRange.DateTime1, tRange.DateTime2),
+                                mdRange, mdRange.Month1);
                         }
                         scenarioTable.Rows[i]["SortMetric"] = Convert.ToInt32(Reclamation.TimeSeries.Math.Sum(sSum));
                     }
@@ -367,11 +365,15 @@ namespace Reclamation.TimeSeries.Forms
                     // Others
                     else
                     { }
-                }                
+                }
+                scenarioTable.DefaultView.Sort = "SortMetric DESC";
+                dataGridView.Columns["SortOrder"].Visible = false;                
             }
-            scenarioTable.DefaultView.Sort = "SortMetric DESC";
-            scenarioTable.AcceptChanges();
-            dataGridView1.Columns["SortOrder"].Visible = false;            
+            else
+            {
+                scenarioTable.DefaultView.Sort = "SortOrder ASC";
+            }
+                     
         }
         
     }

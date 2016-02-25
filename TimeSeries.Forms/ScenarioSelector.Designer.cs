@@ -31,7 +31,7 @@ namespace Reclamation.TimeSeries.Forms
             this.components = new System.ComponentModel.Container();
             this.buttonOK = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.buttonSelectMid20P = new System.Windows.Forms.Button();
             this.buttonSelectLow20P = new System.Windows.Forms.Button();
             this.buttonSelectTop20P = new System.Windows.Forms.Button();
@@ -55,6 +55,8 @@ namespace Reclamation.TimeSeries.Forms
             this.radioButtonEOP = new System.Windows.Forms.RadioButton();
             this.radioButtonSum = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.comboBoxMonths = new System.Windows.Forms.ComboBox();
+            this.radioButtonMonth = new System.Windows.Forms.RadioButton();
             this.radioButtonWY = new System.Windows.Forms.RadioButton();
             this.radioButtonCY = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
@@ -62,10 +64,8 @@ namespace Reclamation.TimeSeries.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxSelectedSeries = new System.Windows.Forms.ComboBox();
             this.buttonSort = new System.Windows.Forms.Button();
-            this.comboBoxMonths = new System.Windows.Forms.ComboBox();
-            this.radioButtonMonth = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBoxComparisonn.SuspendLayout();
             this.groupBoxAll.SuspendLayout();
             this.groupBoxSorting.SuspendLayout();
@@ -92,7 +92,7 @@ namespace Reclamation.TimeSeries.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.dataGridView);
             this.groupBox1.Location = new System.Drawing.Point(6, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(482, 429);
@@ -100,16 +100,16 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select Traces / Scenarios";
             // 
-            // dataGridView1
+            // dataGridView
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(7, 19);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(468, 403);
-            this.dataGridView1.TabIndex = 17;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Location = new System.Drawing.Point(7, 19);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.Size = new System.Drawing.Size(468, 403);
+            this.dataGridView.TabIndex = 17;
             // 
             // buttonSelectMid20P
             // 
@@ -377,6 +377,26 @@ namespace Reclamation.TimeSeries.Forms
             this.panel1.Size = new System.Drawing.Size(254, 25);
             this.panel1.TabIndex = 32;
             // 
+            // comboBoxMonths
+            // 
+            this.comboBoxMonths.Enabled = false;
+            this.comboBoxMonths.FormattingEnabled = true;
+            this.comboBoxMonths.Location = new System.Drawing.Point(146, 2);
+            this.comboBoxMonths.Name = "comboBoxMonths";
+            this.comboBoxMonths.Size = new System.Drawing.Size(59, 21);
+            this.comboBoxMonths.TabIndex = 3;
+            // 
+            // radioButtonMonth
+            // 
+            this.radioButtonMonth.AutoSize = true;
+            this.radioButtonMonth.Location = new System.Drawing.Point(89, 4);
+            this.radioButtonMonth.Name = "radioButtonMonth";
+            this.radioButtonMonth.Size = new System.Drawing.Size(54, 17);
+            this.radioButtonMonth.TabIndex = 2;
+            this.radioButtonMonth.Text = "month";
+            this.radioButtonMonth.UseVisualStyleBackColor = true;
+            this.radioButtonMonth.CheckedChanged += new System.EventHandler(this.radioButtonMonth_CheckedChanged);
+            // 
             // radioButtonWY
             // 
             this.radioButtonWY.AutoSize = true;
@@ -447,26 +467,6 @@ namespace Reclamation.TimeSeries.Forms
             this.buttonSort.UseVisualStyleBackColor = true;
             this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
             // 
-            // comboBoxMonths
-            // 
-            this.comboBoxMonths.Enabled = false;
-            this.comboBoxMonths.FormattingEnabled = true;
-            this.comboBoxMonths.Location = new System.Drawing.Point(146, 2);
-            this.comboBoxMonths.Name = "comboBoxMonths";
-            this.comboBoxMonths.Size = new System.Drawing.Size(59, 21);
-            this.comboBoxMonths.TabIndex = 3;
-            // 
-            // radioButtonMonth
-            // 
-            this.radioButtonMonth.AutoSize = true;
-            this.radioButtonMonth.Location = new System.Drawing.Point(89, 4);
-            this.radioButtonMonth.Name = "radioButtonMonth";
-            this.radioButtonMonth.Size = new System.Drawing.Size(54, 17);
-            this.radioButtonMonth.TabIndex = 2;
-            this.radioButtonMonth.Text = "month";
-            this.radioButtonMonth.UseVisualStyleBackColor = true;
-            this.radioButtonMonth.CheckedChanged += new System.EventHandler(this.radioButtonMonth_CheckedChanged);
-            // 
             // ScenarioSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -484,7 +484,7 @@ namespace Reclamation.TimeSeries.Forms
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ScenarioSelector_FormClosing);
             this.Load += new System.EventHandler(this.ScenarioSelector_Load);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.groupBoxComparisonn.ResumeLayout(false);
             this.groupBoxComparisonn.PerformLayout();
             this.groupBoxAll.ResumeLayout(false);
@@ -506,7 +506,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button buttonSelectAll;
         private System.Windows.Forms.Button buttonClearAll;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ToolTip toolTip1;
