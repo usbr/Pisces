@@ -72,7 +72,7 @@ namespace Reclamation.TimeSeries.Forms
                 { yearCount = s.MaxDateTime.WaterYear() - s.MinDateTime.WaterYear(); }
                 else
                 { yearCount = s.MaxDateTime.Year - s.MinDateTime.Year; }
-                for (int i = 2; i <= yearCount; i++)
+                for (int i = 1; i <= yearCount; i++)
                 { this.comboBoxOutYear.Items.Add(i); }
             }
         }
@@ -307,27 +307,46 @@ namespace Reclamation.TimeSeries.Forms
 
         private void buttonSort_Click(object sender, EventArgs e)
         {
+            BindingSource bs = new BindingSource();
+            bs.DataSource = this.scenarioTable;
+            this.dataGridView1.DataSource = bs;
+
             var sName = "Powell_Outflow";// comboBoxSelectedSeries.SelectedItem.ToString();
             buttonClearAll_Click(sender, e);
                        
             if (!(sName == "Run Index"))
             {
-
+                // Get selected series
                 var s = m_db.GetSeriesFromName(sName);
                 s.Read();
 
+                // Resolve sorting time window
                 int year1 = s.MinDateTime.Year;
+                int year2 = year1;
                 if (radioButtonYear2.Checked)
-                { int year2 = s.MinDateTime.Year + Convert.ToInt16(comboBoxOutYear.SelectedItem); }
-                else
-                { int year2 = year1; }
-                
+                { year2 = s.MinDateTime.Year + Convert.ToInt16(comboBoxOutYear.SelectedItem); }
                 var mdRange = new MonthDayRange();
+                var tRange = new DateRange();
                 if (radioButtonWY.Checked)
-                { mdRange = new MonthDayRange(10, 1, 9, 30); }
+                {
+                    mdRange = new MonthDayRange(10, 1, 9, 30);
+                    tRange = new DateRange(new DateTime(year1 - 1, mdRange.Month1, mdRange.Day1, 23, 59, 59),
+                            new DateTime(year2, mdRange.Month2, mdRange.Day2, 23, 59, 59));
+                }
                 else
-                { mdRange = new MonthDayRange(1, 1, 12, 31); }                
+                { 
+                    mdRange = new MonthDayRange(1, 1, 12, 31);
+                    tRange = new DateRange(new DateTime(year1, mdRange.Month1, mdRange.Day1, 23, 59, 59),
+                            new DateTime(year2, mdRange.Month2, mdRange.Day2, 23, 59, 59));
+                }
                 
+                // Add sorting metric column
+                if (scenarioTable.Columns.Contains("SortMetric"))
+                { }
+                else
+                { scenarioTable.Columns.Add("SortMetric", typeof(int)); }
+
+                // Sort!
                 for (int i = 0; i < scenarioTable.Rows.Count; i++)
                 {
                     var ithScenario = s.CreateScenario(m_db.GetScenarios()[i]);
@@ -335,8 +354,10 @@ namespace Reclamation.TimeSeries.Forms
 
                     Series sSum = new Series();
                     if (radioButtonCY.Checked || radioButtonWY.Checked)
-                    { sSum = Reclamation.TimeSeries.Math.AnnualSum(ithScenario, mdRange, mdRange.Month1); }
+                    { sSum = Reclamation.TimeSeries.Math.AnnualSum(ithScenario.Subset(tRange.DateTime1, tRange.DateTime2), mdRange, mdRange.Month1); }
 
+                    scenarioTable.Rows[i]["SortMetric"] = Convert.ToInt32(Reclamation.TimeSeries.Math.Sum(sSum));
+                    
                     //int yr;
                     //if (!Int32.TryParse(scenarioTable[i].Name, out yr))
                     //{
@@ -351,12 +372,12 @@ namespace Reclamation.TimeSeries.Forms
                     //    scenarioTable[i].SortOrder = Convert.ToInt32(sYear[0].Value);
                     //    //scenarioTable[i].Path+=.Rows[i]["Note"] = sYear[0].Flag;
                     //}
-                }
-                dataGridView1.Columns["SortOrder"].Visible = true;
+                }                
             }
+            var sortedTable = scenarioTable.DefaultView.Sort = "SortMetric DESC";
+            scenarioTable.AcceptChanges();
+            dataGridView1.Columns["SortOrder"].Visible = false;
             
-
-
         }
         
     }
