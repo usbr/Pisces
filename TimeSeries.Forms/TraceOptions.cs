@@ -26,7 +26,10 @@ namespace Reclamation.TimeSeries.Forms
             settings.SelectedAnalysisType = AnalysisType.TraceAnalysis;
             settings.ExceedanceLevels = exceedanceLevelPicker1.ExceedanceLevels;
             settings.AlsoPlotTrace = this.checkBoxPlotTrace.Checked;
-            settings.PlotTrace = this.comboBoxSelectedTrace.SelectedItem.ToString();
+            try // stupid hack... needs some better logic here. problem is that Pisces crashes when the combobox is left blank
+            { settings.PlotTrace = this.comboBoxSelectedTrace.SelectedItem.ToString(); }
+            catch
+            { settings.PlotTrace = "Run0"; }
             settings.traceExceedanceAnalysis = this.traceExceedanceCheckBox.Checked;
             settings.traceAggregationAnalysis = this.traceAggregationCheckBox.Checked;
             settings.sumCYRadio = this.sumCYRadio.Checked;

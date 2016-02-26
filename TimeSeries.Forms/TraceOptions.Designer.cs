@@ -28,8 +28,8 @@ namespace Reclamation.TimeSeries.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            Reclamation.Core.MonthDayRange monthDayRange2 = new Reclamation.Core.MonthDayRange();
-            Reclamation.TimeSeries.TimeWindow timeWindow2 = new Reclamation.TimeSeries.TimeWindow();
+            Reclamation.Core.MonthDayRange monthDayRange1 = new Reclamation.Core.MonthDayRange();
+            Reclamation.TimeSeries.TimeWindow timeWindow1 = new Reclamation.TimeSeries.TimeWindow();
             this.checkBoxPlotTrace = new System.Windows.Forms.CheckBox();
             this.groupBoxExtras = new System.Windows.Forms.GroupBox();
             this.comboBoxSelectedTrace = new System.Windows.Forms.ComboBox();
@@ -37,15 +37,15 @@ namespace Reclamation.TimeSeries.Forms
             this.checkBoxPlotAvg = new System.Windows.Forms.CheckBox();
             this.checkBoxPlotMin = new System.Windows.Forms.CheckBox();
             this.exceedanceAnalysisGroupBox = new System.Windows.Forms.GroupBox();
-            this.exceedanceLevelPicker1 = new Reclamation.TimeSeries.Forms.ExceedanceLevelPicker();
             this.aggregationAnalysisGroupBox = new System.Windows.Forms.GroupBox();
-            this.rangePicker1 = new Reclamation.TimeSeries.Forms.RangePicker();
             this.sumRangeRadio = new System.Windows.Forms.RadioButton();
             this.sumWYRadio = new System.Windows.Forms.RadioButton();
             this.sumCYRadio = new System.Windows.Forms.RadioButton();
             this.traceExceedanceCheckBox = new System.Windows.Forms.RadioButton();
             this.traceAggregationCheckBox = new System.Windows.Forms.RadioButton();
             this.traceAnalysisSelection = new System.Windows.Forms.GroupBox();
+            this.rangePicker1 = new Reclamation.TimeSeries.Forms.RangePicker();
+            this.exceedanceLevelPicker1 = new Reclamation.TimeSeries.Forms.ExceedanceLevelPicker();
             this.timeWindowOptions1 = new Reclamation.TimeSeries.Forms.TimeWindowSelector();
             this.groupBoxExtras.SuspendLayout();
             this.exceedanceAnalysisGroupBox.SuspendLayout();
@@ -129,17 +129,6 @@ namespace Reclamation.TimeSeries.Forms
             this.exceedanceAnalysisGroupBox.TabStop = false;
             this.exceedanceAnalysisGroupBox.Text = "Exceedance Analysis Options";
             // 
-            // exceedanceLevelPicker1
-            // 
-            this.exceedanceLevelPicker1.ExceedanceLevels = new int[] {
-        10,
-        50,
-        90};
-            this.exceedanceLevelPicker1.Location = new System.Drawing.Point(7, 14);
-            this.exceedanceLevelPicker1.Name = "exceedanceLevelPicker1";
-            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(114, 196);
-            this.exceedanceLevelPicker1.TabIndex = 0;
-            // 
             // aggregationAnalysisGroupBox
             // 
             this.aggregationAnalysisGroupBox.Controls.Add(this.rangePicker1);
@@ -153,16 +142,6 @@ namespace Reclamation.TimeSeries.Forms
             this.aggregationAnalysisGroupBox.TabIndex = 16;
             this.aggregationAnalysisGroupBox.TabStop = false;
             this.aggregationAnalysisGroupBox.Text = "Aggregation Options";
-            // 
-            // rangePicker1
-            // 
-            this.rangePicker1.Enabled = false;
-            this.rangePicker1.Location = new System.Drawing.Point(6, 89);
-            this.rangePicker1.MonthDayRange = monthDayRange2;
-            this.rangePicker1.Name = "rangePicker1";
-            this.rangePicker1.Size = new System.Drawing.Size(371, 121);
-            this.rangePicker1.TabIndex = 20;
-            this.rangePicker1.Tag = "1";
             // 
             // sumRangeRadio
             // 
@@ -232,22 +211,43 @@ namespace Reclamation.TimeSeries.Forms
             this.traceAnalysisSelection.TabStop = false;
             this.traceAnalysisSelection.Text = "Select Trace Analysis";
             // 
+            // rangePicker1
+            // 
+            this.rangePicker1.Enabled = false;
+            this.rangePicker1.Location = new System.Drawing.Point(6, 89);
+            this.rangePicker1.MonthDayRange = monthDayRange1;
+            this.rangePicker1.Name = "rangePicker1";
+            this.rangePicker1.Size = new System.Drawing.Size(371, 121);
+            this.rangePicker1.TabIndex = 20;
+            this.rangePicker1.Tag = "1";
+            // 
+            // exceedanceLevelPicker1
+            // 
+            this.exceedanceLevelPicker1.ExceedanceLevels = new int[] {
+        10,
+        50,
+        90};
+            this.exceedanceLevelPicker1.Location = new System.Drawing.Point(7, 14);
+            this.exceedanceLevelPicker1.Name = "exceedanceLevelPicker1";
+            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(114, 196);
+            this.exceedanceLevelPicker1.TabIndex = 0;
+            // 
             // timeWindowOptions1
             // 
             this.timeWindowOptions1.Location = new System.Drawing.Point(266, 3);
             this.timeWindowOptions1.Name = "timeWindowOptions1";
             this.timeWindowOptions1.Size = new System.Drawing.Size(275, 113);
             this.timeWindowOptions1.TabIndex = 11;
-            timeWindow2.FromDateToTodayT1 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
-            timeWindow2.FromToDatesT1 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
-            timeWindow2.FromToDatesT2 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
-            timeWindow2.NumDaysFromToday = new decimal(new int[] {
+            timeWindow1.FromDateToTodayT1 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
+            timeWindow1.FromToDatesT1 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
+            timeWindow1.FromToDatesT2 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
+            timeWindow1.NumDaysFromToday = new decimal(new int[] {
             14,
             0,
             0,
             0});
-            timeWindow2.WindowType = Reclamation.TimeSeries.TimeWindowType.FullPeriodOfRecord;
-            this.timeWindowOptions1.TimeWindow = timeWindow2;
+            timeWindow1.WindowType = Reclamation.TimeSeries.TimeWindowType.FullPeriodOfRecord;
+            this.timeWindowOptions1.TimeWindow = timeWindow1;
             // 
             // TraceOptions
             // 
