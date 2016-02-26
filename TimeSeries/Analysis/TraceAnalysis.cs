@@ -99,7 +99,7 @@ namespace Reclamation.TimeSeries.Analysis
         /// <param name="xtraTraceCheck"></param>
         /// <param name="xtraTrace"></param>
         /// <returns></returns>
-        private SeriesList getTraceExceedances(SeriesList sListIn, int[] excLevels, bool xtraTraceCheck, int xtraTrace,
+        private SeriesList getTraceExceedances(SeriesList sListIn, int[] excLevels, bool xtraTraceCheck, string xtraTrace,
             bool plotMinTrace, bool plotAvgTrace, bool plotMaxTrace)
         {
             SeriesList traceAnalysisList = new SeriesList();
@@ -180,10 +180,15 @@ namespace Reclamation.TimeSeries.Analysis
             // Add an extra reference trace if defined
             if (xtraTraceCheck)
             {
-                if (xtraTrace < 1 || xtraTrace > sListIn.Count)
+                //xtraTrace contains the run name "Name"
+                var scenarioTable = Explorer.Database.GetSelectedScenarios();
+                var selectedScenarioRow = scenarioTable.Select("[Name] = '" + xtraTrace + "'")[0];
+                int selectedIdx = scenarioTable.Rows.IndexOf(selectedScenarioRow);
+                //scenariosTable.Rows.IndexOf(
+                if (xtraTrace == "")
                 { throw new Exception("Select an additional trace that is between 1 and the total number of traces"); }
                 else
-                { traceAnalysisList.Add(sListIn[xtraTrace]); }
+                { traceAnalysisList.Add(sListIn[selectedIdx]); }
             }
 
             return traceAnalysisList;

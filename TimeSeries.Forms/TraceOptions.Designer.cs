@@ -30,38 +30,28 @@ namespace Reclamation.TimeSeries.Forms
         {
             Reclamation.Core.MonthDayRange monthDayRange2 = new Reclamation.Core.MonthDayRange();
             Reclamation.TimeSeries.TimeWindow timeWindow2 = new Reclamation.TimeSeries.TimeWindow();
-            this.maskedTextBoxPlotTrace = new System.Windows.Forms.MaskedTextBox();
             this.checkBoxPlotTrace = new System.Windows.Forms.CheckBox();
             this.groupBoxExtras = new System.Windows.Forms.GroupBox();
+            this.comboBoxSelectedTrace = new System.Windows.Forms.ComboBox();
             this.checkBoxPlotMax = new System.Windows.Forms.CheckBox();
             this.checkBoxPlotAvg = new System.Windows.Forms.CheckBox();
             this.checkBoxPlotMin = new System.Windows.Forms.CheckBox();
             this.exceedanceAnalysisGroupBox = new System.Windows.Forms.GroupBox();
+            this.exceedanceLevelPicker1 = new Reclamation.TimeSeries.Forms.ExceedanceLevelPicker();
             this.aggregationAnalysisGroupBox = new System.Windows.Forms.GroupBox();
+            this.rangePicker1 = new Reclamation.TimeSeries.Forms.RangePicker();
+            this.sumRangeRadio = new System.Windows.Forms.RadioButton();
             this.sumWYRadio = new System.Windows.Forms.RadioButton();
             this.sumCYRadio = new System.Windows.Forms.RadioButton();
             this.traceExceedanceCheckBox = new System.Windows.Forms.RadioButton();
             this.traceAggregationCheckBox = new System.Windows.Forms.RadioButton();
             this.traceAnalysisSelection = new System.Windows.Forms.GroupBox();
-            this.rangePicker1 = new Reclamation.TimeSeries.Forms.RangePicker();
-            this.exceedanceLevelPicker1 = new Reclamation.TimeSeries.Forms.ExceedanceLevelPicker();
             this.timeWindowOptions1 = new Reclamation.TimeSeries.Forms.TimeWindowSelector();
-            this.sumRangeRadio = new System.Windows.Forms.RadioButton();
             this.groupBoxExtras.SuspendLayout();
             this.exceedanceAnalysisGroupBox.SuspendLayout();
             this.aggregationAnalysisGroupBox.SuspendLayout();
             this.traceAnalysisSelection.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // maskedTextBoxPlotTrace
-            // 
-            this.maskedTextBoxPlotTrace.Enabled = false;
-            this.maskedTextBoxPlotTrace.Location = new System.Drawing.Point(30, 37);
-            this.maskedTextBoxPlotTrace.Name = "maskedTextBoxPlotTrace";
-            this.maskedTextBoxPlotTrace.Size = new System.Drawing.Size(54, 20);
-            this.maskedTextBoxPlotTrace.TabIndex = 3;
-            this.maskedTextBoxPlotTrace.Text = "1";
-            this.maskedTextBoxPlotTrace.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // checkBoxPlotTrace
             // 
@@ -76,17 +66,27 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // groupBoxExtras
             // 
+            this.groupBoxExtras.Controls.Add(this.comboBoxSelectedTrace);
             this.groupBoxExtras.Controls.Add(this.checkBoxPlotMax);
             this.groupBoxExtras.Controls.Add(this.checkBoxPlotAvg);
             this.groupBoxExtras.Controls.Add(this.checkBoxPlotMin);
             this.groupBoxExtras.Controls.Add(this.checkBoxPlotTrace);
-            this.groupBoxExtras.Controls.Add(this.maskedTextBoxPlotTrace);
             this.groupBoxExtras.Location = new System.Drawing.Point(127, 14);
             this.groupBoxExtras.Name = "groupBoxExtras";
             this.groupBoxExtras.Size = new System.Drawing.Size(90, 196);
             this.groupBoxExtras.TabIndex = 5;
             this.groupBoxExtras.TabStop = false;
             this.groupBoxExtras.Text = "additional lines";
+            // 
+            // comboBoxSelectedTrace
+            // 
+            this.comboBoxSelectedTrace.Enabled = false;
+            this.comboBoxSelectedTrace.FormattingEnabled = true;
+            this.comboBoxSelectedTrace.Location = new System.Drawing.Point(27, 37);
+            this.comboBoxSelectedTrace.Name = "comboBoxSelectedTrace";
+            this.comboBoxSelectedTrace.Size = new System.Drawing.Size(54, 21);
+            this.comboBoxSelectedTrace.TabIndex = 20;
+            this.comboBoxSelectedTrace.DropDown += new System.EventHandler(this.comboBoxSelectedTrace_DropDown);
             // 
             // checkBoxPlotMax
             // 
@@ -129,6 +129,17 @@ namespace Reclamation.TimeSeries.Forms
             this.exceedanceAnalysisGroupBox.TabStop = false;
             this.exceedanceAnalysisGroupBox.Text = "Exceedance Analysis Options";
             // 
+            // exceedanceLevelPicker1
+            // 
+            this.exceedanceLevelPicker1.ExceedanceLevels = new int[] {
+        10,
+        50,
+        90};
+            this.exceedanceLevelPicker1.Location = new System.Drawing.Point(7, 14);
+            this.exceedanceLevelPicker1.Name = "exceedanceLevelPicker1";
+            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(114, 196);
+            this.exceedanceLevelPicker1.TabIndex = 0;
+            // 
             // aggregationAnalysisGroupBox
             // 
             this.aggregationAnalysisGroupBox.Controls.Add(this.rangePicker1);
@@ -142,6 +153,27 @@ namespace Reclamation.TimeSeries.Forms
             this.aggregationAnalysisGroupBox.TabIndex = 16;
             this.aggregationAnalysisGroupBox.TabStop = false;
             this.aggregationAnalysisGroupBox.Text = "Aggregation Options";
+            // 
+            // rangePicker1
+            // 
+            this.rangePicker1.Enabled = false;
+            this.rangePicker1.Location = new System.Drawing.Point(6, 89);
+            this.rangePicker1.MonthDayRange = monthDayRange2;
+            this.rangePicker1.Name = "rangePicker1";
+            this.rangePicker1.Size = new System.Drawing.Size(371, 121);
+            this.rangePicker1.TabIndex = 20;
+            this.rangePicker1.Tag = "1";
+            // 
+            // sumRangeRadio
+            // 
+            this.sumRangeRadio.AutoSize = true;
+            this.sumRangeRadio.Location = new System.Drawing.Point(10, 66);
+            this.sumRangeRadio.Name = "sumRangeRadio";
+            this.sumRangeRadio.Size = new System.Drawing.Size(125, 17);
+            this.sumRangeRadio.TabIndex = 17;
+            this.sumRangeRadio.Text = "sum by custom range";
+            this.sumRangeRadio.UseVisualStyleBackColor = true;
+            this.sumRangeRadio.CheckedChanged += new System.EventHandler(this.sumRangeRadio_CheckedChanged);
             // 
             // sumWYRadio
             // 
@@ -200,27 +232,6 @@ namespace Reclamation.TimeSeries.Forms
             this.traceAnalysisSelection.TabStop = false;
             this.traceAnalysisSelection.Text = "Select Trace Analysis";
             // 
-            // rangePicker1
-            // 
-            this.rangePicker1.Enabled = false;
-            this.rangePicker1.Location = new System.Drawing.Point(6, 89);
-            this.rangePicker1.MonthDayRange = monthDayRange2;
-            this.rangePicker1.Name = "rangePicker1";
-            this.rangePicker1.Size = new System.Drawing.Size(371, 121);
-            this.rangePicker1.TabIndex = 20;
-            this.rangePicker1.Tag = "1";
-            // 
-            // exceedanceLevelPicker1
-            // 
-            this.exceedanceLevelPicker1.ExceedanceLevels = new int[] {
-        10,
-        50,
-        90};
-            this.exceedanceLevelPicker1.Location = new System.Drawing.Point(7, 14);
-            this.exceedanceLevelPicker1.Name = "exceedanceLevelPicker1";
-            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(114, 196);
-            this.exceedanceLevelPicker1.TabIndex = 0;
-            // 
             // timeWindowOptions1
             // 
             this.timeWindowOptions1.Location = new System.Drawing.Point(266, 3);
@@ -237,17 +248,6 @@ namespace Reclamation.TimeSeries.Forms
             0});
             timeWindow2.WindowType = Reclamation.TimeSeries.TimeWindowType.FullPeriodOfRecord;
             this.timeWindowOptions1.TimeWindow = timeWindow2;
-            // 
-            // sumRangeRadio
-            // 
-            this.sumRangeRadio.AutoSize = true;
-            this.sumRangeRadio.Location = new System.Drawing.Point(10, 66);
-            this.sumRangeRadio.Name = "sumRangeRadio";
-            this.sumRangeRadio.Size = new System.Drawing.Size(125, 17);
-            this.sumRangeRadio.TabIndex = 17;
-            this.sumRangeRadio.Text = "sum by custom range";
-            this.sumRangeRadio.UseVisualStyleBackColor = true;
-            this.sumRangeRadio.CheckedChanged += new System.EventHandler(this.sumRangeRadio_CheckedChanged);
             // 
             // TraceOptions
             // 
@@ -273,7 +273,6 @@ namespace Reclamation.TimeSeries.Forms
         #endregion
 
         private ExceedanceLevelPicker exceedanceLevelPicker1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBoxPlotTrace;
         private System.Windows.Forms.CheckBox checkBoxPlotTrace;
         private System.Windows.Forms.GroupBox groupBoxExtras;
         private TimeWindowSelector timeWindowOptions1;
@@ -289,5 +288,6 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.CheckBox checkBoxPlotMin;
         private RangePicker rangePicker1;
         private System.Windows.Forms.RadioButton sumRangeRadio;
+        private System.Windows.Forms.ComboBox comboBoxSelectedTrace;
     }
 }
