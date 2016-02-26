@@ -310,8 +310,7 @@ namespace Reclamation.TimeSeries.Forms
             this.dataGridView.DataSource = bs;
 
             var sName = comboBoxSelectedSeries.SelectedItem.ToString();
-            buttonClearAll_Click(sender, e);
-
+            
             if (!(sName == "Run Index"))
             {
                 // Get selected series
