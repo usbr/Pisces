@@ -307,7 +307,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.comboBoxOutYear.Enabled = false;
             this.comboBoxOutYear.FormattingEnabled = true;
-            this.comboBoxOutYear.Location = new System.Drawing.Point(206, 2);
+            this.comboBoxOutYear.Location = new System.Drawing.Point(200, 2);
             this.comboBoxOutYear.Name = "comboBoxOutYear";
             this.comboBoxOutYear.Size = new System.Drawing.Size(45, 21);
             this.comboBoxOutYear.TabIndex = 4;
@@ -315,11 +315,11 @@ namespace Reclamation.TimeSeries.Forms
             // radioButtonYear2
             // 
             this.radioButtonYear2.AutoSize = true;
-            this.radioButtonYear2.Location = new System.Drawing.Point(89, 4);
+            this.radioButtonYear2.Location = new System.Drawing.Point(75, 4);
             this.radioButtonYear2.Name = "radioButtonYear2";
-            this.radioButtonYear2.Size = new System.Drawing.Size(116, 17);
+            this.radioButtonYear2.Size = new System.Drawing.Size(117, 17);
             this.radioButtonYear2.TabIndex = 1;
-            this.radioButtonYear2.Text = "current year to year";
+            this.radioButtonYear2.Text = "first year to out-year";
             this.radioButtonYear2.UseVisualStyleBackColor = true;
             this.radioButtonYear2.CheckedChanged += new System.EventHandler(this.radioButtonYear2_CheckedChanged);
             // 
@@ -329,10 +329,10 @@ namespace Reclamation.TimeSeries.Forms
             this.radioButtonYear1.Checked = true;
             this.radioButtonYear1.Location = new System.Drawing.Point(3, 4);
             this.radioButtonYear1.Name = "radioButtonYear1";
-            this.radioButtonYear1.Size = new System.Drawing.Size(81, 17);
+            this.radioButtonYear1.Size = new System.Drawing.Size(64, 17);
             this.radioButtonYear1.TabIndex = 0;
             this.radioButtonYear1.TabStop = true;
-            this.radioButtonYear1.Text = "current year";
+            this.radioButtonYear1.Text = "first year";
             this.radioButtonYear1.UseVisualStyleBackColor = true;
             // 
             // panel2
