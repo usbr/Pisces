@@ -127,6 +127,7 @@ namespace Reclamation.TimeSeries.Forms
 
         private void buttonApply_Click(object sender, EventArgs e)
         {
+            this.dataGridView.Select();
             SaveChanges();
 
             if (OnApply != null)
@@ -135,6 +136,7 @@ namespace Reclamation.TimeSeries.Forms
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
+            this.dataGridView.Select();
             SaveChanges();
             if (OnApply != null)
                 OnApply(this, EventArgs.Empty);
@@ -305,9 +307,9 @@ namespace Reclamation.TimeSeries.Forms
 
         private void buttonSort_Click(object sender, EventArgs e)
         {
-            BindingSource bs = new BindingSource();
-            bs.DataSource = this.scenarioTable;
-            this.dataGridView.DataSource = bs;
+            //BindingSource bs = new BindingSource();
+            //bs.DataSource = this.scenarioTable;
+            //this.dataGridView.DataSource = bs;
 
             var sName = comboBoxSelectedSeries.SelectedItem.ToString();
             

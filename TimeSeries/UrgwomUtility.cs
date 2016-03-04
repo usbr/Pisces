@@ -92,7 +92,7 @@ namespace Reclamation.TimeSeries
 
                        var connectionString ="Year="+year+";Month="+month+";Percent="+pct+";FileName=" + fn + ";SheetName=" + "Run"+run;
                        connectionString =  ConnectionStringUtility.MakeFileNameRelative(connectionString, m_db.DataSource);
-                       table.AddScenarioRow(month +" "+ pct + "% " + year, i < 2, connectionString);
+                       table.AddScenarioRow(month + " " + pct + "% " + year, i < 2, connectionString, 0);
                        i++;
                        year++;
                    }

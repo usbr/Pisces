@@ -200,8 +200,8 @@ namespace Reclamation.TimeSeries
                          + " sortorder int not null primary key default 0,"
                          + " name " + m_server.PortableCharacterType(200) + " not null default '',"
                          + "  path " + m_server.PortableCharacterType(1024) + " not null default '', "
-                         + "  checked smallint not null default 0"
-                         + "  )";
+                         + "  checked smallint not null default 0, "
+                         + "  sortmetric float not null default 0)";
             ExecuteCreateTable(m_server, sql);
         }
 
