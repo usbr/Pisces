@@ -225,8 +225,20 @@ namespace Reclamation.TimeSeries
         /// <returns></returns>
         public virtual Series CreateScenario(TimeSeriesDatabaseDataSet.ScenarioRow scenario)
         {
-            
-            return this;
+            // if we have scenarios in pdb, find the appropriate table.
+            if(scenario.Name != "")
+            {
+                var rval = new Series();
+                rval.ScenarioName = scenario.Name;
+                //riverwareseries22
+                //riverwareseries22_scenario1
+                //riverwareseries22_scenario2
+                return rval;
+            }
+            else{
+
+                return this;
+            }
         }
 
         public virtual Series CreateBaseline()
@@ -625,7 +637,13 @@ namespace Reclamation.TimeSeries
         {
             if (m_db != null)
             {
-                Table = m_db.ReadTimeSeriesTable(ID, t1, t2);
+                if (this.ScenarioName != "")
+                {
+
+                }
+                else {
+                    Table = m_db.ReadTimeSeriesTable(ID, t1, t2);
+                }
 
                 
             }

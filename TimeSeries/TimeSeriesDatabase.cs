@@ -974,10 +974,14 @@ namespace Reclamation.TimeSeries
             get { return true; }
         }
 
-    public DataTable ReadTimeSeriesTable(int sdi, DateTime t1, DateTime t2)
+    public DataTable ReadTimeSeriesTable(int sdi, DateTime t1, DateTime t2,string scenarioName="")
         {
             var sr = GetSeriesRow(sdi);
+
             string tableName = sr.TableName;
+            if (scenarioName != "")
+                tableName += "_" + scenarioName;
+
             string sql = "SELECT * from " + m_server.PortableTableName(tableName);
 
             if (t1 != MinDateTime || t2 != MaxDateTime)
@@ -1481,38 +1485,58 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// breaks links to external data and make a local copy
         /// </summary>
-        public void CreateStandalone()
+        public void CreateStandalone(bool scenarios)
         {
             var table = GetSeriesCatalog();
 
+            var scenarioTable = GetScenarios();
+            if (!scenarios)
+                scenarioTable.Rows.Clear();
+
             try
             {
-                for (int i = 0; i < table.Rows.Count; i++)
+                foreach (var scenario in scenarioTable)
                 {
-                    var row = table[i];
-                    if (!row.IsFolder )
+
+                    for (int i = 0; i < table.Rows.Count; i++)
                     {
-                        if (!m_server.TableExists(row.TableName)) // table name is blank for MODSIM
-                        {
-                            Series s = Factory.GetSeries(row);
-                            s.Read();
-
-                            s.SeriesCatalogRow.TableName = GetUniqueTableName(s.Provider + s.ID.ToString());
-                            s.Table.TableName = s.SeriesCatalogRow.TableName;
-                            row.Provider = "Series";
-
-                            ImportTimeSeriesTable(s.Table, row, DatabaseSaveOptions.Insert);
-                        }
-                        else // may be Hydromet data with existing data
-                        {
-                            row.Provider = "Series";
-                        }
+                        var row = table[i];
+                        SaveStandaloneSeries(row,scenario);
                     }
                 }
             }
             finally
             {
                 m_server.SaveTable(table);
+            }
+        }
+
+        private void SaveStandaloneSeries(SeriesCatalogRow row, 
+            Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.ScenarioRow sRow)
+        {
+            if (!row.IsFolder)
+            {
+                if (!m_server.TableExists(row.TableName)) // table name is blank for MODSIM
+                {
+                    Series s = Factory.GetSeries(row); // from RiverWare rdf (for example)
+                    s.ScenarioName = sRow.Name;
+                    s.Read();
+
+                    // save to pisces database
+                    var tn = s.Name;
+                    if (sRow.Name != "")
+                        tn += "_"+sRow.Name;
+
+                    s.SeriesCatalogRow.TableName = GetUniqueTableName(tn);
+                    s.Table.TableName = s.SeriesCatalogRow.TableName;
+                    row.Provider = "Series";
+
+                    ImportTimeSeriesTable(s.Table, row, DatabaseSaveOptions.Insert);
+                }
+                else // may be Hydromet data with existing data
+                {
+                    row.Provider = "Series";
+                }
             }
         }
 
@@ -1527,7 +1551,7 @@ namespace Reclamation.TimeSeries
 
         //}
 
-        
+
 
         /// <summary>
         /// Import Series s into the database.

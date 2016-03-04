@@ -919,7 +919,7 @@ namespace Reclamation.TimeSeries.Forms
                 ShowAsBusy("Creating standalone database");
                 try
                 {
-                    DB.CreateStandalone();
+                    DB.CreateStandalone(true);
                 }
                 finally
                 {
