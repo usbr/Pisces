@@ -230,9 +230,6 @@ namespace Reclamation.TimeSeries
             {
                 var rval = new Series();
                 rval.ScenarioName = scenario.Name;
-                //riverwareseries22
-                //riverwareseries22_scenario1
-                //riverwareseries22_scenario2
                 return rval;
             }
             else{
@@ -639,11 +636,11 @@ namespace Reclamation.TimeSeries
             {
                 if (this.ScenarioName != "")
                 {
-
+                    // [JR] read the scenario data here 
+                    Table = m_db.ReadTimeSeriesTable(ID, t1, t2, ScenarioName);
                 }
-                else {
-                    Table = m_db.ReadTimeSeriesTable(ID, t1, t2);
-                }
+                else
+                { Table = m_db.ReadTimeSeriesTable(ID, t1, t2); }
 
                 
             }

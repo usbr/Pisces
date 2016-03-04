@@ -915,23 +915,34 @@ namespace Reclamation.TimeSeries.Forms
             var result = MessageBox.Show("This will remove all links to external data and save the data to this database.",
                                          "Warning!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (result == DialogResult.OK)
+            { toolStripMenuItemStandaloneWithScenarios_Click(sender, e); }
+            else
+            { return; }
+        }
+
+        private void toolStripMenuItemStandaloneWithScenarios_Click(object sender, EventArgs e)
+        {
+            var result = MessageBox.Show("Does your data have scenarios or traces?",
+                                         "Warning!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
             {
                 ShowAsBusy("Creating standalone database");
                 try
-                {
-                    DB.CreateStandalone(true);
-                }
+                { DB.CreateStandalone(true); }
                 finally
-                {
-                    ShowAsReady("Done saving data to database");
-                }
-                
+                { ShowAsReady("Done saving data to database"); }
+            }
+            else if (result == DialogResult.No)
+            {
+                ShowAsBusy("Creating standalone database");
+                try
+                { DB.CreateStandalone(false); }
+                finally
+                { ShowAsReady("Done saving data to database"); }
             }
             else
-                return;
+            { return; }
         }
-
-
        
        
 

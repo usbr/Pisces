@@ -1489,19 +1489,29 @@ namespace Reclamation.TimeSeries
         {
             var table = GetSeriesCatalog();
 
-            var scenarioTable = GetScenarios();
-            if (!scenarios)
-                scenarioTable.Rows.Clear();
-
             try
             {
-                foreach (var scenario in scenarioTable)
+                if (!scenarios)
                 {
-
                     for (int i = 0; i < table.Rows.Count; i++)
                     {
                         var row = table[i];
-                        SaveStandaloneSeries(row,scenario);
+                        SaveStandaloneSeries(row);
+                    }
+                }
+                else
+                {
+                    var scenarioTable = GetScenarios();
+                    if (!scenarios)
+                    { scenarioTable.Rows.Clear(); }
+                    foreach (var scenario in scenarioTable)
+                    {
+                        var a = scenario.Name;
+                        for (int i = 0; i < table.Rows.Count; i++)
+                        {
+                            var row = table[i];
+                            SaveStandaloneSeries(row, scenario, scenarios);
+                        }
                     }
                 }
             }
@@ -1511,12 +1521,40 @@ namespace Reclamation.TimeSeries
             }
         }
 
-        private void SaveStandaloneSeries(SeriesCatalogRow row, 
-            Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.ScenarioRow sRow)
+
+        private void SaveStandaloneSeries(SeriesCatalogRow row)
         {
             if (!row.IsFolder)
             {
                 if (!m_server.TableExists(row.TableName)) // table name is blank for MODSIM
+                {
+                    Series s = Factory.GetSeries(row); // from RiverWare rdf (for example)
+                    s.Read();
+
+                    // save to pisces database
+                    var tn = s.Name;
+                    
+                    s.SeriesCatalogRow.TableName = GetUniqueTableName(tn);
+                    s.Table.TableName = s.SeriesCatalogRow.TableName;
+                    row.Provider = "Series";
+
+                    ImportTimeSeriesTable(s.Table, row, DatabaseSaveOptions.Insert);
+                }
+                else // may be Hydromet data with existing data
+                {
+                    row.Provider = "Series";
+                }
+            }
+        }
+
+
+        private void SaveStandaloneSeries(SeriesCatalogRow row, 
+            Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.ScenarioRow sRow,
+            bool scenarios)
+        {
+            if (!row.IsFolder)
+            {
+                if (!m_server.TableExists(row.TableName + sRow.Name)) // table name is blank for MODSIM
                 {
                     Series s = Factory.GetSeries(row); // from RiverWare rdf (for example)
                     s.ScenarioName = sRow.Name;
@@ -1525,7 +1563,7 @@ namespace Reclamation.TimeSeries
                     // save to pisces database
                     var tn = s.Name;
                     if (sRow.Name != "")
-                        tn += "_"+sRow.Name;
+                    { tn += "_" + sRow.Name; }
 
                     s.SeriesCatalogRow.TableName = GetUniqueTableName(tn);
                     s.Table.TableName = s.SeriesCatalogRow.TableName;
