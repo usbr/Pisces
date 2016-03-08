@@ -58,7 +58,7 @@ namespace Reclamation.TimeSeries
            }
         }
 
-
+        
         public void ChangeParent(PiscesObject piscesObject, PiscesFolder piscesFolder)
         {
             if (piscesObject.Parent.ID == piscesFolder.ID)

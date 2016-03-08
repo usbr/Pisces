@@ -87,12 +87,13 @@ namespace HydrometServer
 
             if (cli != "")
             {
-                if (cli == "instant")
-                {
+              TimeInterval interval = TimeInterval.Irregular;
+                    if (cli == "daily")
+                        interval = TimeInterval.Daily;
+
                     Console.WriteLine();
-                    HydrometServer.CommandLine.PiscesCommandLine cmd = new CommandLine.PiscesCommandLine(db);
+                    HydrometServer.CommandLine.PiscesCommandLine cmd = new CommandLine.PiscesCommandLine(db,interval);
                     cmd.PiscesPrompt();
-                }
 
                 return;
             }

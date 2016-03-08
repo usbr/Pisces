@@ -30,10 +30,16 @@ namespace HydrometServer.CommandLine
     */
 
         public DateTime T1, T2;
-        public CommandLineInput()
+        public CommandLineInput(TimeInterval interval)
         {
             T1 = DateTime.Now.Date;
             T2 = DateTime.Now.EndOfDay();
+
+            if (interval == TimeInterval.Daily)
+            {
+                T1 = DateTime.Now.Date.AddDays(-5);
+                T2 = DateTime.Now.Date.AddDays(-1);
+            }
         }
 
         string pattern = @"^(?<cmd>help|exit|ex|get|g|date|date)(?<separator1>/|\s+|\=)?(?<parm1>[\,a-z0-9]+)?"
@@ -55,6 +61,10 @@ namespace HydrometServer.CommandLine
             get
             {
                 return pcodes.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+            set
+            {
+                pcodes = String.Join(",",value);
             }
         }
 

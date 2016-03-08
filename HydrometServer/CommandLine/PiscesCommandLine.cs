@@ -12,15 +12,17 @@ namespace HydrometServer.CommandLine
     {
 
         private TimeSeriesDatabase m_db;
-        public PiscesCommandLine(TimeSeriesDatabase db)
+        TimeInterval m_interval;
+        public PiscesCommandLine(TimeSeriesDatabase db,TimeInterval interval)
         {
             m_db = db;
+            m_interval = interval;
         }
 
         public void PiscesPrompt()
         {
 
-            var input = new CommandLineInput();
+            var input = new CommandLineInput(m_interval);
             do
             {
                 Console.Write("pisces>");
@@ -28,6 +30,9 @@ namespace HydrometServer.CommandLine
                 if (s.Trim() == "")
                     continue;
                 input.Read(s);
+
+                if (input.Parameters.Length == 0 && input.SiteList.Length ==1) // get all parameters in database
+                    input.Parameters = GetAllParametersForSiteID(input.SiteList[0],m_interval);
 
 
                 if (!input.Valid)
@@ -51,7 +56,7 @@ namespace HydrometServer.CommandLine
                         Console.WriteLine("site is required");
                         continue;
                     }
-                    Print(input,TimeInterval.Irregular);
+                    Print(input,m_interval);
 
                 }
                 Console.WriteLine("cmd = " + input.Command);
@@ -61,24 +66,71 @@ namespace HydrometServer.CommandLine
             } while (true);
         }
 
+        private string[] GetAllParametersForSiteID(string siteId, TimeInterval m_interval)
+        {
+            string filter = "timeinterval = '" + m_interval.ToString() + "' and siteid = '"+siteId+"'";
+            var sc = m_db.GetSeriesCatalog(filter , "", "");
+
+            var rval = new List<string>();
+            foreach (var item in sc)
+            {
+                rval.Add(item.Parameter);
+            }
+            return rval.ToArray();
+        }
+
         private void Print(CommandLineInput input, TimeInterval interval)
         {
             var list = CreateSeriesList(input, interval);
             //SeriesListDataTable sTable = new SeriesListDataTable(list, interval);
 
             int counter = 0;
-            foreach (var s in list)
+            list.Read(input.T1, input.T2);
+
+            if (interval == TimeInterval.Daily)
             {
-                s.Read(input.T1, input.T2);
-                if (s.Count <= 0)
-                    continue;
-                var pt = s[s.Count - 1];
-                if( counter == 0)// print header
-                    Console.Write(s.SiteID +"  "+pt.DateTime.ToString("MMM dd hh:mm  "));
-                Console.Write("# " +pt.Value.ToString("F2"));
-                counter++;
+                PrintDaily(list);
+
+            }
+            else
+            {
+                foreach (var s in list)
+                {
+                    if (s.Count <= 0)
+                        continue;
+                    var pt = s[s.Count - 1];
+                    if (counter == 0)// print header
+                        Console.Write(s.SiteID + "  " + pt.DateTime.ToString("MMM dd hh:mm  "));
+                    Console.Write("# " + pt.Value.ToString("F2"));
+                    counter++;
+                }
             }
 
+        }
+
+        private static void PrintDaily(SeriesList list)
+        {
+            var tbl = list.ToDataTable(false);
+
+            var title = "  Station    Parameter ";
+            var title2 = "=======================================================";
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                DateTime t = Convert.ToDateTime(tbl.Rows[i][0]);
+                title += t.ToString("ddd MMMdd");
+            }
+            Console.WriteLine(title);
+            Console.WriteLine(title2);
+
+            foreach (var item in list)
+            {
+                string x = item.SiteID.PadRight(12) + " " + item.Parameter.PadRight(12) + " ";
+                foreach (var pt in item)
+                {
+                    x += pt.Value.ToString("F2").PadLeft(10);
+                }
+                Console.WriteLine(x);
+            }
         }
 
         private SeriesList CreateSeriesList(CommandLineInput input, TimeInterval interval)
