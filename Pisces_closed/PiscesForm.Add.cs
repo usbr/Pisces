@@ -121,7 +121,7 @@ namespace Reclamation.TimeSeries.Forms
                         foreach (var item in dlg.ScenarioFiles)
                         {
                             string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath,0);
                         }
                         //add first file in the list to the tree
                         if (dlg.AddToTreeChecked)
@@ -414,7 +414,7 @@ namespace Reclamation.TimeSeries.Forms
                         foreach (var item in dlg.ScenarioFiles)
                         {
                             string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath,0);
                         }
                         //add first file in the list to the tree
                         if (dlg.AddToTreeChecked)
@@ -659,7 +659,7 @@ namespace Reclamation.TimeSeries.Forms
                         foreach (var item in dlg.ScenarioFiles)
                         {
                             string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath,0);
                         }
                         //add first file in the list to the tree
                         if (dlg.AddToTreeChecked)
@@ -710,7 +710,7 @@ namespace Reclamation.TimeSeries.Forms
                     foreach (var item in dlg.ScenarioFiles)
                     {
                         string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                        tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath);
+                        tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath,0);
                     }
                     DB.Server.SaveTable(tblScen);
                     DatabaseChanged();
@@ -749,7 +749,7 @@ namespace Reclamation.TimeSeries.Forms
                         foreach (var item in dlg.ScenarioFiles)
                         {
                             string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath,0);
                         }
                         //add first file in the list to the tree
                         if (dlg.AddToTreeChecked)
@@ -826,7 +826,7 @@ namespace Reclamation.TimeSeries.Forms
                     string id = item["model_run_id"].ToString();
                     string path = HdbModelSeries.BuildScenairoPath(model_run_name, id, date);
                     string name = HdbModelSeries.BuildScenairoName(model_run_name, id, date);
-                    scenarioTable.AddScenarioRow(name, true, path);
+                    scenarioTable.AddScenarioRow(name, true, path,0);
                 }
 
                 DB.Server.SaveTable(scenarioTable);
