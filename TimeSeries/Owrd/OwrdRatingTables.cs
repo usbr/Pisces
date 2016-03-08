@@ -123,6 +123,16 @@ namespace Reclamation.TimeSeries.Owrd
             tbl.AddRatingTableRow(gh2, shift2);
             tbl.AddRatingTableRow(gh3, shift3);
             tbl.AddRatingTableRow(gh3*5, shift3); // extrapolate out
+
+            if( gh1 >gh2 || gh2 > gh3)
+            {
+                var msg = "Error: Stages values in the shift table are not in increasing order.";
+                msg += "\n" + this.ratingNumber;
+                msg += "\n" + this.stationNumber;
+                msg += "\n" + this.downloadURL;
+                Console.WriteLine(msg);
+                throw new ArgumentException(msg);
+            }
             return tbl;
         }
     

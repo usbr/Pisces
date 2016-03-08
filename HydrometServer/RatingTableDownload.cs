@@ -46,13 +46,16 @@ namespace HydrometServer
             var inputText = new CsvFile(configFile, CsvFile.FieldTypes.AllText);
             var stationUpdateList = new List<string>();
             var attachments = new List<string>();
+            var errorMessages = new List<string>();
             List<string> attachmentRecipientList = new List<string>(); // additional recipients for USGS attachemnts
+            var cbtt = "";
             // Loop through each row in the input text file
             for (int k = 0; k < inputText.Rows.Count; k++)
             {
                 try
                 {
                     var dRow = inputText.Rows[k];
+                    cbtt = dRow["cbtt"].ToString();
                     string attachmentRecipients = "";
                     UpdatesingleRatingTable(dRow, generateNewTables, inputText, stationUpdateList, attachments, out attachmentRecipients);
                     if (attachmentRecipients != "" && !attachmentRecipientList.Contains(attachmentRecipients) )
@@ -60,18 +63,23 @@ namespace HydrometServer
                 }
                 catch (Exception e)
                 {
-
-                    Console.WriteLine("Error: processing table  "+e.Message);
+                    string msg = "Error: processing table "+cbtt+" \n"+ e.Message;
+                    errorMessages.Add(msg);
+                    Console.WriteLine(msg);
                 }
             }
 
             // Send out e-mail notifications
             string subject = "Daily Rating Table Update Results " + DateTime.Now.ToString("MM-dd-yyyy");
-            if (stationUpdateList.Count > 0)
+            if (stationUpdateList.Count > 0 || errorMessages.Count >0)
             {
                 var emailMsg = "Daily Rating Table Update Results " + DateTime.Now.ToString("MM-dd-yyyy") + ": " + stationUpdateList.Count +
                      " rating tables were updated.<br>";
                 foreach (var item in stationUpdateList)
+                {
+                    emailMsg += item + "<br>";
+                }
+                foreach (var item in errorMessages)
                 {
                     emailMsg += item + "<br>";
                 }

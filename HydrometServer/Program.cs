@@ -23,7 +23,7 @@ namespace HydrometServer
     {
         static void Main(string[] argList)
         {
-            Console.Write("HydrometServer " + Application.ProductVersion +" " + AssemblyUtility.CreationDate());
+            Console.Write("HydrometServer " + Application.ProductVersion +" " + AssemblyUtility.CreationDate()+"\n");
 
             Arguments args = new Arguments(argList);
             var p = new OptionSet();
