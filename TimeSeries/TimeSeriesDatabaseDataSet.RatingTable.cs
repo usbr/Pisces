@@ -68,7 +68,13 @@ namespace Reclamation.TimeSeries
                         if (double.TryParse(tokens[0], out x)
                               && double.TryParse(tokens[1], out y))
                         {
-                            AddRatingTableRow(x, y);
+                            var r = this.FindByx(x);
+                            if( r == null)
+                              AddRatingTableRow(x, y);
+                            else
+                            {
+                                Console.WriteLine("Warning: Rating table has duplicate independent values. Skipping: "+x+"\n"+fileName);
+                            }
                         }
                     }
 

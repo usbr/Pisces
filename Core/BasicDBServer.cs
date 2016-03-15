@@ -372,7 +372,6 @@ namespace Reclamation.Core
 
         /// <summary>
         /// Release database resources.
-        /// only used by Postgresql layer.
         /// </summary>
         public virtual void Cleanup()
         {
