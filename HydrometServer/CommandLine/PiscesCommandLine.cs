@@ -1,4 +1,4 @@
-﻿using Reclamation.TimeSeries;
+using Reclamation.TimeSeries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,9 +59,9 @@ namespace HydrometServer.CommandLine
                     Print(input,m_interval);
 
                 }
-                Console.WriteLine("cmd = " + input.Command);
-                Console.WriteLine("sites = " + String.Join(",", input.SiteList));
-                Console.WriteLine("parameters  = " + String.Join(",", input.Parameters));
+                //Console.WriteLine("cmd = " + input.Command);
+                //Console.WriteLine("sites = " + String.Join(",", input.SiteList));
+                //Console.WriteLine("parameters  = " + String.Join(",", input.Parameters));
 
             } while (true);
         }
@@ -69,7 +69,7 @@ namespace HydrometServer.CommandLine
         private string[] GetAllParametersForSiteID(string siteId, TimeInterval m_interval)
         {
             string filter = "timeinterval = '" + m_interval.ToString() + "' and siteid = '"+siteId+"'";
-            var sc = m_db.GetSeriesCatalog(filter , "", "");
+            var sc = m_db.GetSeriesCatalog(filter , "", "order by parameter");
 
             var rval = new List<string>();
             foreach (var item in sc)
@@ -112,19 +112,20 @@ namespace HydrometServer.CommandLine
         {
             var tbl = list.ToDataTable(false);
 
-            var title = "  Station    Parameter ";
-            var title2 = "=======================================================";
+            var title = "\nStation   Parameter     ";
+            var title2 = "========= ==========    ========= ========= ========= ========= =========";
             for (int i = 0; i < tbl.Rows.Count; i++)
             {
                 DateTime t = Convert.ToDateTime(tbl.Rows[i][0]);
                 title += t.ToString("ddd MMMdd");
+                title += " ";
             }
             Console.WriteLine(title);
             Console.WriteLine(title2);
 
             foreach (var item in list)
             {
-                string x = item.SiteID.PadRight(12) + " " + item.Parameter.PadRight(12) + " ";
+                string x = item.SiteID.PadRight(10) + " " + item.Parameter.PadRight(11) + " ";
                 foreach (var pt in item)
                 {
                     x += pt.Value.ToString("F2").PadLeft(10);
