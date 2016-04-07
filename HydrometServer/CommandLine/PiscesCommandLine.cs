@@ -1,4 +1,4 @@
-using Reclamation.TimeSeries;
+﻿using Reclamation.TimeSeries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,19 +6,25 @@ using System.Text;
 
 namespace HydrometServer.CommandLine
 {
-
-    
     class PiscesCommandLine
     {
 
         private TimeSeriesDatabase m_db;
         TimeInterval m_interval;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="interval"></param>
         public PiscesCommandLine(TimeSeriesDatabase db,TimeInterval interval)
         {
             m_db = db;
             m_interval = interval;
         }
 
+        /// <summary>
+        /// The command Prompt for Pisces
+        /// </summary>
         public void PiscesPrompt()
         {
 
@@ -66,6 +72,12 @@ namespace HydrometServer.CommandLine
             } while (true);
         }
 
+        /// <summary>
+        /// Gets all parameters for a site ID
+        /// </summary>
+        /// <param name="siteId"></param>
+        /// <param name="m_interval"></param>
+        /// <returns></returns>
         private string[] GetAllParametersForSiteID(string siteId, TimeInterval m_interval)
         {
             string filter = "timeinterval = '" + m_interval.ToString() + "' and siteid = '"+siteId+"'";
@@ -79,35 +91,34 @@ namespace HydrometServer.CommandLine
             return rval.ToArray();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="input"></param> command line input
+        /// <param name="interval"></param> time interval 
         private void Print(CommandLineInput input, TimeInterval interval)
         {
             var list = CreateSeriesList(input, interval);
             //SeriesListDataTable sTable = new SeriesListDataTable(list, interval);
 
-            int counter = 0;
-            list.Read(input.T1, input.T2);
+            //int counter = 0;
+            list.Read(input.T1, input.T2);// example for read input
 
             if (interval == TimeInterval.Daily)
             {
                 PrintDaily(list);
-
             }
             else
             {
-                foreach (var s in list)
-                {
-                    if (s.Count <= 0)
-                        continue;
-                    var pt = s[s.Count - 1];
-                    if (counter == 0)// print header
-                        Console.Write(s.SiteID + "  " + pt.DateTime.ToString("MMM dd hh:mm  "));
-                    Console.Write("# " + pt.Value.ToString("F2"));
-                    counter++;
-                }
+                PrintInstant(list);
+             
             }
-
         }
 
+        /// <summary>
+        /// Print the daily data from the Series List
+        /// </summary>
+        /// <param name="list"></param> Series list
         private static void PrintDaily(SeriesList list)
         {
             var tbl = list.ToDataTable(false);
@@ -133,7 +144,24 @@ namespace HydrometServer.CommandLine
                 Console.WriteLine(x);
             }
         }
+       
+        /// <summary>
+        ///  Print the 15 minute data from the Series List
+        /// </summary>
+        /// <param name="list"></param>
+        private static void PrintInstant(SeriesList list)
+        {
+            var table = list.ToDataTable(false);
+           
+            TablePrinter.Print(table, 3);
+        }
 
+        /// <summary>
+        /// Create a Series List 
+        /// </summary>
+        /// <param name="input"></param> input from the command line
+        /// <param name="interval"></param> time interval 
+        /// <returns></returns>
         private SeriesList CreateSeriesList(CommandLineInput input, TimeInterval interval)
         {
             
@@ -170,6 +198,9 @@ namespace HydrometServer.CommandLine
             return sList;
         }
 
+        /// <summary>
+        /// The Help function for the Pisces Command Line 
+        /// </summary>
         private static void Help()
         {
             Console.WriteLine("Pisces command line access");
