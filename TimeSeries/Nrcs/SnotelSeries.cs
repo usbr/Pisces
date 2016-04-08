@@ -58,7 +58,7 @@ namespace Reclamation.TimeSeries.Nrcs
 
     /// <summary>
     /// Read Daily snotel , or SnowCourse data from NRCS web service
-    /// http://www.wcc.nrcs.usda.gov/awdbWebService/webservice/testwebservice.jsf
+    /// http:///wcc.sc.egov.usda.gov/awdbWebService/webservice/testwebservice.jsf
     /// </summary>
     public class SnotelSeries:Series
     {
@@ -97,8 +97,10 @@ namespace Reclamation.TimeSeries.Nrcs
         {
             try
             {
-                
-                var ws = new AwdbWebService();
+
+                var ws = new AwdbWebServiceClient();
+                System.Net.ServicePointManager.Expect100Continue = false;
+                //var ws = new AwdbWebService();
 
                 var dur = duration.DAILY;
 
@@ -106,17 +108,19 @@ namespace Reclamation.TimeSeries.Nrcs
                 if (NetworkFromTriplet(m_triplet) == "SNOW")
                     dur = duration.SEMIMONTHLY;
 
-                Console.WriteLine("duration = "+dur);
-                Console.WriteLine(m_triplet);
+               
 
                 var data = ws.getData(new string[] { m_triplet }, Parameter, 1, null,
                     dur, true, t1.ToString("yyyy-MM-dd"), t2.ToString("yyyy-MM-dd"),false);
 
-                Console.WriteLine(t1.ToString("yyyy-MM-dd"));
-                Console.WriteLine(t2.ToString("yyyy-MM-dd"));
+                Console.Write(Parameter+" "+"duration = " + dur + " " + m_triplet);
+                Console.Write(" " +t1.ToString("yyyy-MM-dd"));
+                Console.Write(" " +t2.ToString("yyyy-MM-dd"));
+                 
 
                 if (data.Length == 0)
                     return;
+               
                 //Logger.WriteLine("data.Length ="+data.Length);
                 if (data[0].beginDate == null)
                 {
@@ -129,7 +133,7 @@ namespace Reclamation.TimeSeries.Nrcs
                 if( data[0].values == null)
                     Console.WriteLine("Error: data[0].vals == null ");
                 var vals = data[0].values;
-
+                Console.WriteLine(" " + vals.Length + " records");
                // Logger.WriteLine("Values Length = "+vals.Length);
 
                 var flags = data[0].flags;
@@ -168,6 +172,7 @@ namespace Reclamation.TimeSeries.Nrcs
             {
 
                 Logger.WriteLine(e.Message+"\n"+e.StackTrace);
+                Console.WriteLine(e.Message+"\n" + e.StackTrace);
                 Messages.Add(e.Message);
                 Clear();
             }
