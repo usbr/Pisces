@@ -100,6 +100,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingTableDownload.cs" />
+    <Compile Include="TablePrinter.cs" />
     <Compile Include="Tests\TestPiscesProgrammingEasy.cs" />
     <Compile Include="Tests\TestPiscesProgrammingFast.cs" />
     <Compile Include="Tests\TestImportDMS3.cs" />
