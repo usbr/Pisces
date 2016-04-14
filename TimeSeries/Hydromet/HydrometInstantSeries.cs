@@ -364,7 +364,17 @@ END DATA
         public static bool IsValidDMS3(TextFile tf)
         {
             var header = "yyyyMMMdd hhmm cbtt     PC        NewValue   OldValue   Flag";
-            return tf.Length > 0 && tf[0].IndexOf(header) == 0;
+
+            if (tf.Length > 0 && tf[0].IndexOf(header) == 0)
+                return true;
+
+            DateTime t;
+            if (tf.Length > 0 && DateTime.TryParseExact(tf[0].Substring(0,14).Trim(), "yyyyMMMdd HHmm", new CultureInfo("en-US"), System.Globalization.DateTimeStyles.None, out t))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
