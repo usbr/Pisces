@@ -281,13 +281,11 @@ namespace HydrometServer
 
             Console.WriteLine(@"--database=c:\data\mydata.pdb|192.168.50.111:timeseries ");
             Console.WriteLine("--import[=searchPattern]   [--computeDependencies] [--computeDailyOnMidnight]");
-            Console.WriteLine("           imports (and processes) data in incoming directory");
+            Console.WriteLine("            imports (and processes) data in incoming directory");
             Console.WriteLine("            supports DMS3, and LoggerNet files");
+            Console.WriteLine("            example: --import=*.txt");
             Console.WriteLine("--debug");
             Console.WriteLine("           prints debugging messages to console");
-            Console.WriteLine("--import=pattern");
-            Console.WriteLine("          imports time series data from decodes/dms3format, cr1000 ");
-            Console.WriteLine("          example: --import=*.txt");
             Console.WriteLine("--inventory");
             Console.WriteLine("           prints summary inventory of database");
             Console.WriteLine("--calculate-daily");
