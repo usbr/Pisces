@@ -11,7 +11,6 @@ using Reclamation.TimeSeries.Excel;
 using Reclamation.TimeSeries.Urgsim;
 using Reclamation.Core;
 using HdbPoet;
-using Reclamation.TimeSeries.OracleHdb;
 using System.IO;
 using Reclamation.TimeSeries.Nrcs;
 using System.Collections.Generic;
@@ -20,6 +19,7 @@ using System.Configuration;
 using Reclamation.TimeSeries.Hydromet;
 using Reclamation.TimeSeries.RBMS;
 using Reclamation.TimeSeries.Import;
+using Reclamation.TimeSeries.OracleHdb;
 
 namespace Reclamation.TimeSeries.Forms
 {

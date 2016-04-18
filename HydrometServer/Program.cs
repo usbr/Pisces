@@ -285,6 +285,9 @@ namespace HydrometServer
             Console.WriteLine("            supports DMS3, and LoggerNet files");
             Console.WriteLine("--debug");
             Console.WriteLine("           prints debugging messages to console");
+            Console.WriteLine("--import=pattern");
+            Console.WriteLine("          imports time series data from decodes/dms3format, cr1000 ");
+            Console.WriteLine("          example: --import=*.txt");
             Console.WriteLine("--inventory");
             Console.WriteLine("           prints summary inventory of database");
             Console.WriteLine("--calculate-daily");
