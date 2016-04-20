@@ -307,7 +307,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\HdbPoet\HdbPoet.csproj">
-      <Project>{B60964F8-8699-4638-9460-68262E4D37A3}</Project>
+      <Project>{b60964f8-8699-4638-9460-68262e4d37a3}</Project>
       <Name>HdbPoet</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core\Reclamation.Core.csproj">

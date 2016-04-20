@@ -36,7 +36,7 @@
             // 
             // 
             // 
-            this.tChart1.Aspect.ZOffset = 0;
+            this.tChart1.Aspect.ZOffset = 0D;
             // 
             // 
             // 
@@ -82,17 +82,19 @@
             // 
             // 
             this.tChart1.Axes.Top.Title.Transparent = true;
-            this.tChart1.Location = new System.Drawing.Point(124, 120);
+            this.tChart1.Location = new System.Drawing.Point(41, 38);
+            this.tChart1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tChart1.Name = "tChart1";
-            this.tChart1.Size = new System.Drawing.Size(400, 250);
+            this.tChart1.Size = new System.Drawing.Size(533, 308);
             this.tChart1.TabIndex = 0;
             // 
             // FormTeeChartLicense
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 310);
+            this.ClientSize = new System.Drawing.Size(539, 382);
             this.Controls.Add(this.tChart1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FormTeeChartLicense";
             this.Text = "FormTeeChartLicense";
             this.ResumeLayout(false);

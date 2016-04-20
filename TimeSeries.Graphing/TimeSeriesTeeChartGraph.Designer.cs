@@ -273,14 +273,11 @@ namespace Reclamation.TimeSeries.Graphing
             this.line1.Marks.Callout.Distance = 0;
             this.line1.Marks.Callout.Draw3D = false;
             this.line1.Marks.Callout.Length = 10;
-            this.line1.Marks.Callout.Series = this.line1;
             this.line1.Marks.Callout.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
             this.line1.Marks.Callout.Visible = false;
-            this.line1.Marks.Series = this.line1;
             // 
             // 
             // 
-            this.line1.Pointer.Series = this.line1;
             this.line1.Pointer.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
             this.line1.Title = "line1";
             // 

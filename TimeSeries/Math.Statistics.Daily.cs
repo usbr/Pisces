@@ -44,7 +44,7 @@ namespace Reclamation.TimeSeries
 
 
         /// <summary>
-        /// Sums input series day by day
+        /// Sums input series daily cumulative with reset to zero on October 1.
         /// </summary>
         /// <param name="incremental"></param>
         /// <returns></returns>
@@ -52,7 +52,30 @@ namespace Reclamation.TimeSeries
       "DailyWaterYearRunningTotal(incremental,cumulative)")]
         public static Series DailyWaterYearRunningTotal(Series incremental,Series cumulative)
         {
+            int resetMonth = 10;
+            int resetDay = 1;
+            return DailyCumulative(incremental, cumulative, resetMonth, resetDay);
+        }
 
+        /// <summary>
+        /// Sums input series daily cumulative with reset to zero on Januar 1.
+        /// </summary>
+        /// <param name="incremental"></param>
+        /// <returns></returns>
+        [FunctionAttribute("Daily accumulation beginning January 1",
+      "DailyCalendarYearRunningTotal(incremental,cumulative)")]
+        public static Series DailyCalendarYearRunningTotal(Series incremental, Series cumulative)
+        {
+            int resetMonth = 1;
+            int resetDay = 1;
+            return DailyCumulative(incremental, cumulative, resetMonth, resetDay);
+        }
+
+
+
+
+        private static Series DailyCumulative(Series incremental, Series cumulative, int resetMonth, int resetDay)
+        {
             Series rval = new Series();
             rval.TimeInterval = TimeInterval.Daily;
             if (incremental.Count == 0 || cumulative.Count == 0
@@ -73,10 +96,10 @@ namespace Reclamation.TimeSeries
             for (int i = 1; i < incremental.Count; i++)
             {
                 var t = incremental[i].DateTime;
-                if (t.Month == 10 && t.Day == 1)
+                if (t.Month == resetMonth && t.Day == resetDay)
                     sum = 0.0;
 
-                if (!missing && !incremental[i].IsMissing )
+                if (!missing && !incremental[i].IsMissing)
                 {
                     sum += incremental[i].Value;
                     rval.Add(incremental[i].DateTime, sum);
@@ -84,10 +107,10 @@ namespace Reclamation.TimeSeries
                 else
                 {
                     rval.AddMissing(incremental[i].DateTime);
-                    Console.WriteLine("Missing data: incremental: "+incremental[i].ToString());
+                    Console.WriteLine("Missing data: incremental: " + incremental[i].ToString());
                     missing = true;
                 }
-                
+
             }
 
             return rval;
