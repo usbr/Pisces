@@ -20,7 +20,7 @@ namespace Pisces.NunitTests.SeriesTypes
         }
 
 
-        [Test]
+        [Test, Category("Internal")]
         public void TestNrcsWebService()
         {
 
@@ -32,7 +32,7 @@ namespace Pisces.NunitTests.SeriesTypes
             //               var x = ws.getData(tag, "PREC", 1, null, Reclamation.TimeSeries.NoaaAWDB.duration.DAILY, true, beginDate, endDate);
         }
 
-        [Test]
+        [Test, Category("Internal")]
         public void SnowCourse()
         {
             Logger.EnableLogger();
@@ -53,7 +53,7 @@ namespace Pisces.NunitTests.SeriesTypes
         /// Functions that return a Series without Series Arguments, will have Read(t1,t2) 
         /// called.
         /// </summary>
-        [Test]
+        [Test, Category("Internal")]
         public void SnowCourseToMonthy()
         {
             var s = new MonthlySnowCourseSeries("16F02:ID:SNOW");
