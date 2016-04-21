@@ -25,12 +25,12 @@ namespace PiscesWebServices
             Console.Write("Content-type: text/html\n\n");
 
             if (query == "")
-                query = WebUtility.GetQuery();
+                query = HydrometWebUtility.GetQuery();
             query = HttpUtility.HtmlDecode(query);
 
             if (!ValidQuery(query))
             {
-                WebUtility.PrintHydrometTrailer("Error: Invalid query");
+                HydrometWebUtility.PrintHydrometTrailer("Error: Invalid query");
                 return;
             }
 
@@ -48,7 +48,7 @@ namespace PiscesWebServices
 
         private void WriteCsv(string query)
         {
-            var cbtt = WebUtility.GetParameter(query,"cbtt");
+            var cbtt = HydrometWebUtility.GetParameter(query,"cbtt");
             if (cbtt == "")
                 return;
 

@@ -16,6 +16,7 @@ namespace PiscesWebServices
         {
             //Logger.EnableLogger();
             TestCGI t = new TestCGI();
+            t.StationFormat();
             t.InstantCompareLinuxToVMSCGI();
             t.PerfTestLarge();
         }
@@ -33,15 +34,22 @@ namespace PiscesWebServices
             RunTest(payload);
         }
 
+        [Test]
+        public void StationFormat()
+        {
+        //http://www.usbr.gov/pn-bin/webdaycsv.pl?station=cedc&pcode=ob&pcode=obx&back=10&format=2
+            string payload = "station=cedc&pcode=ob&pcode=obx&back=10&format=2";
+            RunTest(payload, TimeInterval.Irregular);
+        }
 
-        private static void RunTest(string payload)
+        private static void RunTest(string payload, TimeInterval interval=TimeInterval.Irregular)
         {
             Performance p = new Performance();
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[] { }));
             CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
             var fn = FileUtility.GetTempFileName(".txt");
             fn = "";
-            c.Run(TimeInterval.Hourly, payload, fn);
+            c.Run(interval, payload, fn);
 
             if (File.Exists(fn))
                 p.Report(File.ReadAllLines(fn).Length + " lines read");

@@ -6,13 +6,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using Reclamation.TimeSeries;
+using System.Globalization;
 
 namespace PiscesWebServices
 {
     /// <summary>
     /// http://www.codeproject.com/Articles/9433/Understanding-CGI-with-C
     /// </summary>
-    class WebUtility
+    class HydrometWebUtility
     {
 
         readonly static int MAX_CONTENTLENGTH = 9000;
@@ -82,7 +83,7 @@ namespace PiscesWebServices
                 var back = GetIntParam(c, "back", -1);
                 if (back != -1)
                 {
-                    if (interval == TimeInterval.Hourly)
+                    if (interval == TimeInterval.Hourly || interval == TimeInterval.Irregular)
                         t1 = t2.AddHours(-back);
 
                     if (interval == TimeInterval.Daily)
@@ -91,7 +92,20 @@ namespace PiscesWebServices
                     return true;
                 }
 
+                bool startOrEnd = false;
+                if( c.AllKeys.Contains("start"))
+                {
+                    t1 = ParseDate(c);
+                    startOrEnd = true;
+                }
+                if (c.AllKeys.Contains("end"))
+                {
+                    t2 = ParseDate(c);
+                    startOrEnd = true;
+                }
 
+                if (startOrEnd)
+                    return true;
 
                 var syer = GetIntParam(c, "syer", t1.Year);
                 var smnth = GetIntParam(c, "smnth", t1.Month);
@@ -110,6 +124,23 @@ namespace PiscesWebServices
                 return false;   
             }
             return true;
+        }
+
+        private static DateTime ParseDate(NameValueCollection c)
+        {
+            DateTime rval = DateTime.Now.Date;
+            Regex re = new Regex(@"\d{4}\-\d{1,2}\-\d{1,2}");
+            string input = GetParameter(c, "start", "");
+            var m = re.Match(input);
+            if (m.Success)
+            {
+                rval = DateTime.ParseExact(input, "yyyy-m-d", CultureInfo.InvariantCulture,
+                DateTimeStyles.None);
+            }
+            else
+                throw new InvalidCastException("bad start date");
+
+            return rval;
         }
 
         public static int GetIntParam(NameValueCollection c, string parameterName, int defaultIfMissing)

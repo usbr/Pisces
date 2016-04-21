@@ -8,73 +8,102 @@ using System.Web;
 using System.IO;
 using System.Data;
 using Reclamation.Core;
+using System.Net;
 
 namespace PiscesWebServices
 {
     public class CsvTimeSeriesWriter
     {
         TimeSeriesDatabase db;
+        
         public CsvTimeSeriesWriter(TimeSeriesDatabase db)
         {
             this.db = db;
+            m_debug = false;
+        }
+
+
+        bool m_debug;
+
+        public bool Debug
+        {
+            get { return m_debug; }
+            set { m_debug = value; }
         }
 
         //http://pnhyd0.pn.usbr.gov/~dataaccess/webarccsv.com?parameter=BOII%20PC,ODSW%20wr,&syer=2012&smnth=1&sdy=1&eyer=2012&emnth=1&edy=10&format=3
         //string srchStr = "http://pnhyd0.pn.usbr.gov/~dataaccess/webarccsv.com?parameter=BOII PC,ODSW wr,&syer=2012&smnth=1&sdy=1&eyer=2012&emnth=12&edy=30&format=3";
+        
+       
+        // daily?list=luc fb,sco fb&start=2016-04-01&end=2016-04-20
+        // instant?list=luc fb,sco fb&back=2
 
         public void Run(TimeInterval interval, string query = "", string outputFile="")
         {
+           
             StreamWriter sw = null;
             if (outputFile != "")
             {
                 sw = new StreamWriter(outputFile);
                 Console.SetOut(sw);
             }
-             Console.Write("Content-type: text/html\n\n"
-                
-                );
-
-             WebUtility.PrintHydrometHeader();
+             Console.Write("Content-type: text/html\n\n");
+             HydrometWebUtility.PrintHydrometHeader();
              
           // try 
-	        {
-               
-                if (query == "")
-                    query = WebUtility.GetQuery();
-                else
-                {
-                  //  query = WebUtility.SanitizeQuery(query);
-                   // query = System.Web.HttpUtility.UrlEncode(query);
-                }
-                query = HttpUtility.HtmlDecode(query);
+             {
 
-                if (!ValidQuery(query))
-                {
-                    WebUtility.PrintHydrometTrailer("Error: Invalid query");
-                    return;
-                }
+                 if (query == "")
+                 {  //get query from web request.
+                     query = HydrometWebUtility.GetQuery();
+                 }
+                 Logger.WriteLine("Raw query: = '" + query + "'");
 
-            var queryCollection =  HttpUtility.ParseQueryString(query);
-            DateTime t1;
-            DateTime t2;
-            if (!WebUtility.GetDateRange(queryCollection, interval,out t1, out t2))
-            {
-                Console.WriteLine("Error: Invalid dates");
-                return;
-            }
+                 //query = HttpUtility.UrlDecode(query);
+                 //Logger.WriteLine("decodeed: = '"+query+"'");
+
+                 if (query == "")
+                 {
+                     HydrometWebUtility.PrintHydrometTrailer("Error: Invalid query");
+                     return;
+                 }
+
+                 query = LegacyTranslation(query);
+
+                 if (!ValidQuery(query))
+                 {
+                     HydrometWebUtility.PrintHydrometTrailer("Error: Invalid query");
+                     return;
+                 }
+
+                 var queryCollection = HttpUtility.ParseQueryString(query);
+                 DateTime t1;
+                 DateTime t2;
+                 if (!HydrometWebUtility.GetDateRange(queryCollection, interval, out t1, out t2))
+                 {
+                     Console.WriteLine("Error: Invalid dates");
+                     return;
+                 }
 
 
-            SeriesList list = CreateSeriesList(queryCollection, TimeInterval.Irregular);
+                 SeriesList list = CreateSeriesList(queryCollection, TimeInterval.Irregular);
 
-            WriteCsv(list, TimeInterval.Irregular,t1,t2);
+                 if (list.Count == 0)
+                 {
+                     Logger.WriteLine("Error: list of series is empty");
+                     HydrometWebUtility.PrintHydrometTrailer("Error: list of series is empty");
+                     return;
+                 }
 
-           }
+                 WriteCsv(list, TimeInterval.Irregular, t1, t2);
+
+             }
         //catch (Exception e)
         //{
         //    Logger.WriteLine(e.Message);
         //  Console.WriteLine("Error: Data");	
         //}
-            WebUtility.PrintHydrometTrailer();
+            HydrometWebUtility.PrintHydrometTrailer();
 
             if (sw != null)
                 sw.Close();
@@ -82,6 +111,34 @@ namespace PiscesWebServices
             StreamWriter standardOutput = new StreamWriter(Console.OpenStandardOutput());
             standardOutput.AutoFlush = true;
             Console.SetOut(standardOutput);
+        }
+
+        private static string LegacyTranslation(string query)
+        {
+            query = query.Replace("parameter", "list");
+
+            //http://www.usbr.gov/pn-bin/webarccsv.pl?station=cedc&pcode=mx&pcode=mn&back=10&format=2
+
+            if (query.IndexOf("station=") >= 0 && query.IndexOf("pcode")>=0)
+            {
+                var c = HttpUtility.ParseQueryString(query);
+
+                var pcodes = c["pcode"].Split(',');
+                var cbtt = c["station"];
+                query = query.Replace("station=" + cbtt + "", "list=");
+                for (int i = 0; i < pcodes.Length; i++)
+                {
+                    var pc = pcodes[i];
+
+                    if ( i == pcodes.Length -1)
+                    query = query.Replace("&pcode=" + pc+"&", cbtt + " " + pc+"&");
+                     else
+                        query = query.Replace("&pcode=" + pc + "&", cbtt + " " + pc + ",&");
+                }
+            }
+            Logger.WriteLine(query);
+            return query;
+
         }
 
         private static bool ValidQuery(string query)
@@ -137,6 +194,8 @@ namespace PiscesWebServices
         }
         private string CreateSQL(SeriesList list, DateTime t1, DateTime t2)
         {
+            Logger.WriteLine("CreateSQL");
+            Logger.WriteLine("list of " + list.Count + " series");
             var sql = "";
             for (int i = 0; i < list.Count; i++)
             {
@@ -290,8 +349,11 @@ namespace PiscesWebServices
         {
             List<TimeSeriesName> rval = new List<TimeSeriesName>();
 
-            var sites = WebUtility.GetParameter(query,"parameter");
+            var sites = HydrometWebUtility.GetParameter(query,"list");
 
+            Logger.WriteLine("GetTimeSeriesName()");
+            Logger.WriteLine(query.ToString());
+            
             var siteCodePairs = sites.Split(',');
 
             foreach (var item in siteCodePairs)

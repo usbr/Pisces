@@ -32,8 +32,8 @@ namespace PiscesWebServices
             p.Add("cgi=","required cgi to execute cgi=sites or cgi=series",x => cgi=x);
             p.Add("json_property_stubs=", "comma separated list of properties (i.e. 'region,url,') to created empty stubs if neeed ",
                               x => json_property_stubs = x);
-            p.Add("propertyFilter=", "property filter like program:agrimet", x => propertyFilter = x);
-            p.Add("payload=","test query data for a CGI",x => payload =x);
+            //p.Add("propertyFilter=", "property filter like program:agrimet", x => propertyFilter = x);
+            p.Add("payload=", "test query data for a CGI", x => payload = x);
             p.Add("format=","format json(default) | csv ",x => format=x);
             p.Add("verbose"," get more details", x => verbose =true);
             try
@@ -52,8 +52,10 @@ namespace PiscesWebServices
 
             if (verbose)
             {
+                Console.Write("Content-type: text/html\n\n");
                 Logger.EnableLogger();
-                Logger.WriteLine("verbose =true");
+                Logger.WriteLine("verbose=true");
+                Logger.WriteLine("payload = " + payload);
             }
 
             var db = TimeSeriesDatabase.InitDatabase(new Arguments(args));
@@ -114,6 +116,8 @@ namespace PiscesWebServices
                 }
 
         }
+
+        
 
         static void ShowHelp(OptionSet p)
         {
