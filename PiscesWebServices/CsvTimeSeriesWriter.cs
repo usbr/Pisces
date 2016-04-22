@@ -95,7 +95,7 @@ namespace PiscesWebServices
                      return;
                  }
 
-                 WriteCsv(list, TimeInterval.Irregular, t1, t2);
+                 WriteCsv(list, TimeInterval.Irregular, t1, t2.EndOfDay());
 
              }
         //catch (Exception e)
@@ -115,30 +115,57 @@ namespace PiscesWebServices
 
         private static string LegacyTranslation(string query)
         {
-            query = query.Replace("parameter", "list");
-
+            //var rval = query.Replace("parameter", "list");
+            var rval = "";
             //http://www.usbr.gov/pn-bin/webarccsv.pl?station=cedc&pcode=mx&pcode=mn&back=10&format=2
+            //station=boii&year=2016&month=4&day=21&year=2016&month=4&day=21&pcode=OB&pcode=OBX&pcode=OBN&pcode=TU
 
-            if (query.IndexOf("station=") >= 0 && query.IndexOf("pcode")>=0)
+            if (query.IndexOf("station=") >= 0 && query.IndexOf("pcode") >= 0)
             {
-                var c = HttpUtility.ParseQueryString(query);
-
-                var pcodes = c["pcode"].Split(',');
-                var cbtt = c["station"];
-                query = query.Replace("station=" + cbtt + "", "list=");
-                for (int i = 0; i < pcodes.Length; i++)
-                {
-                    var pc = pcodes[i];
-
-                    if ( i == pcodes.Length -1)
-                    query = query.Replace("&pcode=" + pc+"&", cbtt + " " + pc+"&");
-                     else
-                        query = query.Replace("&pcode=" + pc + "&", cbtt + " " + pc + ",&");
-                }
+                rval = LegacyStationQuery(query, rval);
             }
-            Logger.WriteLine(query);
-            return query;
 
+
+            Logger.WriteLine(rval);
+            return rval;
+
+        }
+
+        private static string LegacyStationQuery(string query, string rval)
+        {
+            var c = HttpUtility.ParseQueryString(query);
+
+            var pcodes = c["pcode"].Split(',');
+            var cbtt = c["station"];
+            var back = "";
+            var start = "";
+            var end = "";
+            var keys = c.AllKeys;
+            if (keys.Contains("back"))
+            {
+                back = c["back"];
+            }
+            else if (keys.Contains("year") && keys.Contains("month") && keys.Contains("day"))
+            {
+
+                var years = c["year"].Split(',');
+                var months = c["month"].Split(',');
+                var days = c["day"].Split(',');
+
+                start = years[0] + "-" + months[0] + "-" + days[0];
+                end = years[1] + "-" + months[1] + "-" + days[1];
+            }
+            rval = "list=";
+            //rval = rval.Replace("station=" + cbtt + "", "list=");
+            for (int i = 0; i < pcodes.Length; i++)
+            {
+                var pc = pcodes[i];
+                rval += cbtt + " " + pc;
+                if (i != pcodes.Length - 1)
+                    rval += ",";
+            }
+            rval += "&start=" + start + "&end=" + end;
+            return rval.ToLower();
         }
 
         private static bool ValidQuery(string query)

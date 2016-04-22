@@ -95,12 +95,12 @@ namespace PiscesWebServices
                 bool startOrEnd = false;
                 if( c.AllKeys.Contains("start"))
                 {
-                    t1 = ParseDate(c);
+                    t1 = ParseDate(c,"start");
                     startOrEnd = true;
                 }
                 if (c.AllKeys.Contains("end"))
                 {
-                    t2 = ParseDate(c);
+                    t2 = ParseDate(c,"end");
                     startOrEnd = true;
                 }
 
@@ -126,15 +126,15 @@ namespace PiscesWebServices
             return true;
         }
 
-        private static DateTime ParseDate(NameValueCollection c)
+        private static DateTime ParseDate(NameValueCollection c,string name)
         {
             DateTime rval = DateTime.Now.Date;
             Regex re = new Regex(@"\d{4}\-\d{1,2}\-\d{1,2}");
-            string input = GetParameter(c, "start", "");
+            string input = GetParameter(c, name, "");
             var m = re.Match(input);
             if (m.Success)
             {
-                rval = DateTime.ParseExact(input, "yyyy-m-d", CultureInfo.InvariantCulture,
+                rval = DateTime.ParseExact(input, "yyyy-M-d", CultureInfo.InvariantCulture,
                 DateTimeStyles.None);
             }
             else
