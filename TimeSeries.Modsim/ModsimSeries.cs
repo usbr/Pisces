@@ -158,7 +158,7 @@ namespace Reclamation.TimeSeries.Modsim
 
 
         /// <summary>
-        /// Crates Scenario based on scenaroName as xyfile name without extension (.xy)
+        /// Creates Scenario based on scenaroName/xyfile 
         /// </summary>
         public override Series CreateScenario(TimeSeriesDatabaseDataSet.ScenarioRow scenario)
         {
@@ -168,13 +168,13 @@ namespace Reclamation.TimeSeries.Modsim
                 return this;
             }
 
+
             Logger.WriteLine("Reading series from: '" + fn + "'");
-            if (!File.Exists(fn))
+            if (!File.Exists(fn) || Path.GetExtension(fn).ToLower() != ".xy")
             {
-                Logger.WriteLine("File not found: '" + fn + "'");
-                throw new FileNotFoundException();
-                //Logger.WriteLine("Error: Can't create scenario");
-                //return new Series();
+                Logger.WriteLine("File not found (or not xy file) '" + fn + "'");
+                Logger.WriteLine("Error: Can't create scenario");
+                return new Series();
             }
 
             var rval = new ModsimSeries(fn, modsimName, timeSeriesName);
