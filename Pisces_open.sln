@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{38271F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverwareDMI", "RiverWareDMI\RiverwareDMI.csproj", "{AAB62A5F-54CA-4115-92FE-91D54B9E932A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiscesWebServices", "PiscesWebServices\PiscesWebServices.csproj", "{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -188,6 +190,24 @@ Global
 		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.WatchDog|Any CPU.ActiveCfg = poet|Any CPU
 		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.WatchDog|Any CPU.Build.0 = poet|Any CPU
 		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.WatchDog|x86.ActiveCfg = poet|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.Forecasting|Any CPU.ActiveCfg = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.Forecasting|Any CPU.Build.0 = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.Forecasting|x86.ActiveCfg = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.pisces|Any CPU.ActiveCfg = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.pisces|Any CPU.Build.0 = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.pisces|x86.ActiveCfg = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.poet|Any CPU.ActiveCfg = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.poet|Any CPU.Build.0 = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.poet|x86.ActiveCfg = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.Release|x86.ActiveCfg = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.WatchDog|Any CPU.ActiveCfg = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.WatchDog|Any CPU.Build.0 = Release|Any CPU
+		{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}.WatchDog|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

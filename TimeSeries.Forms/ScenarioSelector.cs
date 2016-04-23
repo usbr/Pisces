@@ -41,8 +41,9 @@ namespace Reclamation.TimeSeries.Forms
             foreach (var s in seriesList)
             {
                 if (s.IsFolder == false)
-                { 
-                    this.comboBoxSelectedSeries.Items.Add(s.Name);
+                {
+                    var parentName = seriesList.GetParent(s);
+                    this.comboBoxSelectedSeries.Items.Add(parentName["Name"] + "." + s.Name + "." + s.id);
                     var nameLength = TextRenderer.MeasureText(s.Name, this.comboBoxSelectedSeries.Font).Width;
                     if (nameLength > dropdownWidth)
                     { dropdownWidth = nameLength; }
@@ -307,16 +308,15 @@ namespace Reclamation.TimeSeries.Forms
 
         private void buttonSort_Click(object sender, EventArgs e)
         {
-            //BindingSource bs = new BindingSource();
-            //bs.DataSource = this.scenarioTable;
-            //this.dataGridView.DataSource = bs;
-
             var sName = comboBoxSelectedSeries.SelectedItem.ToString();
             
             if (!(sName == "Run Index"))
             {
                 // Get selected series
-                var s = m_db.GetSeriesFromName(sName);
+                var sParentId = Convert.ToInt32(sName.Split('.')[2]);
+
+                //var s = m_db.GetSeriesFromName(sName);
+                var s = m_db.GetSeries(sParentId);
                 s.Read();
 
                 // Resolve sorting time window
@@ -338,10 +338,6 @@ namespace Reclamation.TimeSeries.Forms
                     tRange = new DateRange(new DateTime(year1, mdRange.Month1, mdRange.Day1, 23, 59, 59),
                             new DateTime(year2, mdRange.Month2, mdRange.Day2, 23, 59, 59));
                 }
-
-                // Add sorting metric column
-                if (!scenarioTable.Columns.Contains("SortMetric"))
-                { scenarioTable.Columns.Add("SortMetric", typeof(int)); }
 
                 // Sort!
                 for (int i = 0; i < scenarioTable.Rows.Count; i++)

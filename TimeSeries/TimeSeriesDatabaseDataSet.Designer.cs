@@ -1369,6 +1369,8 @@ namespace Reclamation.TimeSeries {
             
             private global::System.Data.DataColumn columnSortMetric;
             
+            private global::System.Data.DataColumn columnIsBaseline;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ScenarioDataTable() {
@@ -1444,6 +1446,14 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn IsBaselineColumn {
+                get {
+                    return this.columnIsBaseline;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1479,14 +1489,15 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ScenarioRow AddScenarioRow(string Name, bool Checked, string Path, double SortMetric) {
+            public ScenarioRow AddScenarioRow(string Name, bool Checked, string Path, double SortMetric, bool IsBaseline) {
                 ScenarioRow rowScenarioRow = ((ScenarioRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Name,
                         Checked,
                         Path,
-                        SortMetric};
+                        SortMetric,
+                        IsBaseline};
                 rowScenarioRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowScenarioRow);
                 return rowScenarioRow;
@@ -1521,6 +1532,7 @@ namespace Reclamation.TimeSeries {
                 this.columnChecked = base.Columns["Checked"];
                 this.columnPath = base.Columns["Path"];
                 this.columnSortMetric = base.Columns["SortMetric"];
+                this.columnIsBaseline = base.Columns["IsBaseline"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1536,6 +1548,8 @@ namespace Reclamation.TimeSeries {
                 base.Columns.Add(this.columnPath);
                 this.columnSortMetric = new global::System.Data.DataColumn("SortMetric", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSortMetric);
+                this.columnIsBaseline = new global::System.Data.DataColumn("IsBaseline", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsBaseline);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnSortOrder}, true));
                 this.columnSortOrder.AutoIncrement = true;
@@ -1551,6 +1565,7 @@ namespace Reclamation.TimeSeries {
                 this.columnPath.DefaultValue = ((string)(""));
                 this.columnPath.MaxLength = 1024;
                 this.columnSortMetric.DefaultValue = ((double)(0D));
+                this.columnIsBaseline.DefaultValue = ((bool)(false));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3961,6 +3976,22 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBaseline {
+                get {
+                    try {
+                        return ((bool)(this[this.tableScenario.IsBaselineColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IsBaseline\' in table \'Scenario\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableScenario.IsBaselineColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsSortMetricNull() {
                 return this.IsNull(this.tableScenario.SortMetricColumn);
             }
@@ -3969,6 +4000,18 @@ namespace Reclamation.TimeSeries {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetSortMetricNull() {
                 this[this.tableScenario.SortMetricColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsIsBaselineNull() {
+                return this.IsNull(this.tableScenario.IsBaselineColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetIsBaselineNull() {
+                this[this.tableScenario.IsBaselineColumn] = global::System.Convert.DBNull;
             }
         }
         

@@ -247,7 +247,7 @@ namespace Reclamation.TimeSeries.Forms
                         foreach (var item in dlg.ScenarioFiles)
                         {
                             string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0, false);
                         }
                         //add first file in the list to the tree
                         if (dlg.AddToTreeChecked)
@@ -492,7 +492,7 @@ namespace Reclamation.TimeSeries.Forms
                         foreach (var item in dlg.ScenarioFiles)
                         {
                             string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0, false);
                         }
                         //add first file in the list to the tree
                         if (dlg.AddToTreeChecked)
@@ -543,7 +543,7 @@ namespace Reclamation.TimeSeries.Forms
                     foreach (var item in dlg.ScenarioFiles)
                     {
                         string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                        tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0);
+                        tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0, false);
                     }
                     DB.Server.SaveTable(tblScen);
                     DatabaseChanged();
@@ -582,7 +582,7 @@ namespace Reclamation.TimeSeries.Forms
                         foreach (var item in dlg.ScenarioFiles)
                         {
                             string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0, false);
                         }
                         //add first file in the list to the tree
                         if (dlg.AddToTreeChecked)
