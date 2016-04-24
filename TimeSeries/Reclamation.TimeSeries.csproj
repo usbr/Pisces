@@ -310,6 +310,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="SHEF\ShefSeries.cs" />
     <Compile Include="SQLiteSeries.cs" />
     <Compile Include="SeriesListDataTable.cs">
       <SubType>Component</SubType>

@@ -291,7 +291,7 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBoxSorting.Size = new System.Drawing.Size(327, 146);
             this.groupBoxSorting.TabIndex = 26;
             this.groupBoxSorting.TabStop = false;
-            this.groupBoxSorting.Text = "sort";
+            this.groupBoxSorting.Text = "sort metric definition";
             // 
             // panel3
             // 
@@ -448,11 +448,14 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // comboBoxSelectedSeries
             // 
+            this.comboBoxSelectedSeries.DropDownHeight = 200;
             this.comboBoxSelectedSeries.FormattingEnabled = true;
+            this.comboBoxSelectedSeries.IntegralHeight = false;
             this.comboBoxSelectedSeries.Location = new System.Drawing.Point(53, 12);
             this.comboBoxSelectedSeries.Name = "comboBoxSelectedSeries";
             this.comboBoxSelectedSeries.Size = new System.Drawing.Size(256, 21);
             this.comboBoxSelectedSeries.TabIndex = 0;
+            this.comboBoxSelectedSeries.DropDown += new System.EventHandler(this.AdjustWidthComboBox_DropDown);
             this.comboBoxSelectedSeries.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelectedSeries_SelectedIndexChanged);
             // 
             // buttonSort
