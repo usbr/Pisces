@@ -17,7 +17,6 @@ namespace PiscesWebServices
             //Logger.EnableLogger();
             TestCGI t = new TestCGI();
             t.StationFormat();
-            t.InstantCompareLinuxToVMSCGI();
             t.PerfTestLarge();
         }
 
@@ -57,13 +56,33 @@ namespace PiscesWebServices
                 p.Report();
         }
 
+        /// <summary>
+        /// This query is a simplified/new recommended method to query.
+        /// </summary>
+        [Test]
+        public void RecommendedQuery()
+        {
 
+        }
 
         [Test]
-        public void InstantCompareLinuxToVMSCGI()
+        public void Upgrade_boii()
         {
-            //http://www.usbr.gov/pn-bin/webdaycsv.pl?parameter=mddo%20ch,wcao%20q&syer=2015&smnth=4&sdy=5&eyer=2015&emnth=4&edy=5&format=2
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=10&sdy=30&eyer=2015&emnth=11&edy=4&format=2";
+            InstantCompareLinuxToVMSCGI(payload);
+        }
+
+        [Test]
+        public void Upgrade_mddo()
+        {
+            string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=10&sdy=30&eyer=2015&emnth=11&edy=4&format=2";
+            InstantCompareLinuxToVMSCGI(payload);
+        }
+
+        
+        public static void InstantCompareLinuxToVMSCGI(string payload)
+        {
+            
             //Program.Main(new string[] { "--cgi=instant", "--payload=?"+payload });
 
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[]{}));

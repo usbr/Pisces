@@ -50,7 +50,7 @@ namespace PiscesWebServices
              Console.Write("Content-type: text/html\n\n");
              HydrometWebUtility.PrintHydrometHeader();
              
-          // try 
+           try 
              {
 
                  if (query == "")
@@ -86,7 +86,7 @@ namespace PiscesWebServices
                  }
 
 
-                 SeriesList list = CreateSeriesList(queryCollection, TimeInterval.Irregular);
+                 SeriesList list = CreateSeriesList(queryCollection, interval);
 
                  if (list.Count == 0)
                  {
@@ -95,18 +95,22 @@ namespace PiscesWebServices
                      return;
                  }
 
-                 WriteCsv(list, TimeInterval.Irregular, t1, t2.EndOfDay());
+                 WriteCsv(list, interval, t1, t2.EndOfDay());
 
              }
+            finally
+           {
+               HydrometWebUtility.PrintHydrometTrailer();
+
+               if (sw != null)
+                   sw.Close();
+
+           }
         //catch (Exception e)
         //{
         //    Logger.WriteLine(e.Message);
         //  Console.WriteLine("Error: Data");	
         //}
-            HydrometWebUtility.PrintHydrometTrailer();
-
-            if (sw != null)
-                sw.Close();
 
             StreamWriter standardOutput = new StreamWriter(Console.OpenStandardOutput());
             standardOutput.AutoFlush = true;
@@ -115,24 +119,29 @@ namespace PiscesWebServices
 
         private static string LegacyTranslation(string query)
         {
-            //var rval = query.Replace("parameter", "list");
-            var rval = "";
+
+            var rval = query;
+
             //http://www.usbr.gov/pn-bin/webarccsv.pl?station=cedc&pcode=mx&pcode=mn&back=10&format=2
             //station=boii&year=2016&month=4&day=21&year=2016&month=4&day=21&pcode=OB&pcode=OBX&pcode=OBN&pcode=TU
 
             if (query.IndexOf("station=") >= 0 && query.IndexOf("pcode") >= 0)
             {
-                rval = LegacyStationQuery(query, rval);
+                rval = LegacyStationQuery(query);
             }
-
+            else if( query.IndexOf("parameter") >=0 )
+            {
+                rval = rval.Replace("parameter", "list");
+            }
 
             Logger.WriteLine(rval);
             return rval;
 
         }
 
-        private static string LegacyStationQuery(string query, string rval)
+        private static string LegacyStationQuery(string query)
         {
+            string rval = "";
             var c = HttpUtility.ParseQueryString(query);
 
             var pcodes = c["pcode"].Split(',');
