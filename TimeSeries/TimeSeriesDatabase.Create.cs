@@ -118,7 +118,7 @@ namespace Reclamation.TimeSeries
             if (!m_server.TableExists("ref_parameter"))
             {
                 string sql = "Create Table ref_parameter "
-                + "( id  " + m_server.PortableCharacterType(100) + " not null primary key, "
+                + "( parameter  " + m_server.PortableCharacterType(100) + " not null primary key, "
                 + " description " + m_server.PortableCharacterType(1024) + " not null default '' "
                 + " )";
                 ExecuteCreateTable(m_server, sql);
