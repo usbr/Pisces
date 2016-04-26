@@ -67,7 +67,9 @@ namespace Reclamation.TimeSeries.Forms
             var sName = comboBoxSelectedSeries.SelectedItem.ToString();
             if (!(sName == "Run Index"))
             {
-                var s = m_db.GetSeriesFromName(sName);
+                // Get selected series
+                var sParentId = Convert.ToInt32(sName.Split('.')[2]);
+                var s = m_db.GetSeries(sParentId);
                 s.Read();
                 if (this.radioButtonWY.Checked)
                 { yearCount = s.MaxDateTime.WaterYear() - s.MinDateTime.WaterYear(); }
