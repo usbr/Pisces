@@ -36,7 +36,7 @@ namespace Reclamation.TimeSeries.SHEF
 
         public string GetShefFileName()
         {
-            return this.shefFileSelected.ToString();
+            return this.shefFileSelected.Text.ToString();
         }
 
         private void shefSelectButton_Click(object sender, EventArgs e)
