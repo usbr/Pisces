@@ -518,8 +518,8 @@ namespace Reclamation.TimeSeries.Forms
                         DB.SaveProperties(s);
                         if (s is CalculationSeries && tmpExp != s.Expression && s.Expression.Trim() != "")
                         {
-                            ShowAsBusy("calculating " + s.Expression);
-                            (s as CalculationSeries).Calculate();
+                         //  ShowAsBusy("calculating " + s.Expression);
+                           // (s as CalculationSeries).Calculate();
                         }
                         //tree1_SelectionChanged(this, EventArgs.Empty);
                         DrawBasedOnTreeSelection();
