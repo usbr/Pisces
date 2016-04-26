@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,26 @@ namespace Reclamation.TimeSeries.SHEF
             InitializeComponent();
         }
 
+        public DataTable GetShefTable()
+        {
+            return shefDataTable;
+        }
+
+        public string GetShefLocation()
+        {
+            return this.stationsComboBox.SelectedItem.ToString();
+        }
+
+        public string GetShefCode()
+        {
+            return this.pecodesComboBox.SelectedItem.ToString();
+        }
+
+        public string GetShefFileName()
+        {
+            return this.shefFileSelected.ToString();
+        }
+
         private void shefSelectButton_Click(object sender, EventArgs e)
         {
             OpenFileDialog choofdlog = new OpenFileDialog();
@@ -28,33 +49,42 @@ namespace Reclamation.TimeSeries.SHEF
             {
                 this.shefFileSelected.Text = choofdlog.FileName;
                 var shef = new ShefSeries();
-                shef.ReadShefFile(choofdlog.FileName);
+                ReadShefFile(choofdlog.FileName);
                 GetShefLocations();
             }
         }
 
-        public void GetShefLocations()
+        private void ReadShefFile(string fileName)
+        {
+            var s = new SHEF.ShefSeries();
+            shefDataTable = s.ReadShefFile(fileName);
+        }
+
+        private void GetShefLocations()
         {
             DataView view = new DataView(shefDataTable);
             DataTable distinctLocations = view.ToTable(true, "location");
             foreach (DataRow item in distinctLocations.Rows)
             {
-                this.stationsListBox.Items.Add(item["location"].ToString());
+                this.stationsComboBox.Items.Add(item["location"].ToString());
             }
+            this.stationsComboBox.SelectedItem = this.stationsComboBox.Items[0];
         }
 
-        public void GetShefCodeForLocation(object sender, EventArgs e)
+        private void GetShefCodeForLocation(object sender, EventArgs e)
         {
-            string location = this.stationsListBox.SelectedItem.ToString();
+            string location = this.stationsComboBox.SelectedItem.ToString();
             DataView view = new DataView(shefDataTable);
             DataTable distinctPairs = view.ToTable(true, "location", "shefcode");
             var distinctCodes = new DataView(distinctPairs);
             distinctCodes.RowFilter = "location = '" + location + "'";
             var codeTable = distinctCodes.ToTable();
+            this.pecodesComboBox.Items.Clear();
             foreach (DataRow item in codeTable.Rows)
             {
-                this.peCodesListBox.Items.Add(item["shefcode"].ToString());
+                this.pecodesComboBox.Items.Add(item["shefcode"].ToString());
             }
+            this.pecodesComboBox.SelectedItem = this.pecodesComboBox.Items[0];
         }
 
 

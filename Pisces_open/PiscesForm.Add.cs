@@ -9,6 +9,7 @@ using Reclamation.TimeSeries.Forms.ImportForms;
 using Reclamation.TimeSeries.Forms.Calculations;
 using Reclamation.TimeSeries.Excel;
 using Reclamation.TimeSeries.Urgsim;
+using Reclamation.TimeSeries.SHEF;
 using Reclamation.Core;
 using System.IO;
 using Reclamation.TimeSeries.Nrcs;
@@ -363,7 +364,6 @@ namespace Reclamation.TimeSeries.Forms
                 }
             }
         }
-
 
         /// <summary>
         /// Add USGS data.
@@ -725,6 +725,31 @@ namespace Reclamation.TimeSeries.Forms
 
         }
 
-       
+
+        /// <summary>
+        /// Add SHEF data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addShef_Click(object sender, EventArgs e)
+        {
+            ImportShef dlg = new ImportShef();
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var dTab = dlg.GetShefTable();
+                var shefLocation = dlg.GetShefLocation();
+                var shefCode = dlg.GetShefCode();
+                var shefFile = dlg.GetShefFileName();
+
+                var s = new ShefSeries(shefLocation, shefCode, shefFile);
+                var valTable = dTab.Select(string.Format("location = '{0}' AND shefcode = '{1}'", shefLocation, shefCode));
+                foreach (DataRow item in valTable)
+                {
+                    s.Add(DateTime.Parse(item["datetime"].ToString()), Convert.ToDouble(item["value"]));
+                }
+                DB.AddSeries(s, CurrentFolder);
+            }
+        }
+        
     }
 }

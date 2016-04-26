@@ -465,6 +465,7 @@ namespace Reclamation.TimeSeries.Forms
          toolStripMenuItemAddModsim.Enabled = canAddStuff;
          toolStripMenuItemAddCr10x.Enabled = canAddStuff;
          toolStripMenuItemAddCalculation.Enabled = canAddStuff;
+         toolStripMenuItemAddSHEF.Enabled = canAddStuff;
 
             AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
             newSeries.Enabled = canAddStuff;// folderSelected;

@@ -30,12 +30,14 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.stationsListBox = new System.Windows.Forms.ListBox();
-            this.peCodesListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.shefSelectButton = new System.Windows.Forms.Button();
             this.shefFileSelected = new System.Windows.Forms.TextBox();
+            this.stationsComboBox = new System.Windows.Forms.ComboBox();
+            this.pecodesComboBox = new System.Windows.Forms.ComboBox();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,23 +61,6 @@
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "SHEF-A";
             this.radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // stationsListBox
-            // 
-            this.stationsListBox.FormattingEnabled = true;
-            this.stationsListBox.Location = new System.Drawing.Point(7, 96);
-            this.stationsListBox.Name = "stationsListBox";
-            this.stationsListBox.Size = new System.Drawing.Size(173, 17);
-            this.stationsListBox.TabIndex = 1;
-            this.stationsListBox.SelectedIndexChanged += new System.EventHandler(this.GetShefCodeForLocation);
-            // 
-            // peCodesListBox
-            // 
-            this.peCodesListBox.FormattingEnabled = true;
-            this.peCodesListBox.Location = new System.Drawing.Point(194, 96);
-            this.peCodesListBox.Name = "peCodesListBox";
-            this.peCodesListBox.Size = new System.Drawing.Size(173, 17);
-            this.peCodesListBox.TabIndex = 2;
             // 
             // label1
             // 
@@ -112,17 +97,58 @@
             this.shefFileSelected.Size = new System.Drawing.Size(277, 20);
             this.shefFileSelected.TabIndex = 6;
             // 
+            // stationsComboBox
+            // 
+            this.stationsComboBox.FormattingEnabled = true;
+            this.stationsComboBox.Location = new System.Drawing.Point(7, 95);
+            this.stationsComboBox.Name = "stationsComboBox";
+            this.stationsComboBox.Size = new System.Drawing.Size(173, 21);
+            this.stationsComboBox.TabIndex = 7;
+            this.stationsComboBox.SelectedIndexChanged += new System.EventHandler(this.GetShefCodeForLocation);
+            // 
+            // pecodesComboBox
+            // 
+            this.pecodesComboBox.FormattingEnabled = true;
+            this.pecodesComboBox.Location = new System.Drawing.Point(194, 95);
+            this.pecodesComboBox.Name = "pecodesComboBox";
+            this.pecodesComboBox.Size = new System.Drawing.Size(173, 21);
+            this.pecodesComboBox.TabIndex = 8;
+            // 
+            // cancelButton
+            // 
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.cancelButton.Location = new System.Drawing.Point(285, 122);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(82, 23);
+            this.cancelButton.TabIndex = 9;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // okButton
+            // 
+            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.okButton.Location = new System.Drawing.Point(194, 122);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(82, 23);
+            this.okButton.TabIndex = 10;
+            this.okButton.Text = "OK";
+            this.okButton.UseVisualStyleBackColor = true;
+            // 
             // ImportShef
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(370, 122);
+            this.ClientSize = new System.Drawing.Size(370, 153);
+            this.Controls.Add(this.okButton);
+            this.Controls.Add(this.cancelButton);
+            this.Controls.Add(this.pecodesComboBox);
+            this.Controls.Add(this.stationsComboBox);
             this.Controls.Add(this.shefFileSelected);
             this.Controls.Add(this.shefSelectButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.peCodesListBox);
-            this.Controls.Add(this.stationsListBox);
             this.Controls.Add(this.groupBox1);
             this.Name = "ImportShef";
             this.Text = "ImportShef";
@@ -137,11 +163,13 @@
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.ListBox stationsListBox;
-        private System.Windows.Forms.ListBox peCodesListBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button shefSelectButton;
         private System.Windows.Forms.TextBox shefFileSelected;
+        private System.Windows.Forms.ComboBox stationsComboBox;
+        private System.Windows.Forms.ComboBox pecodesComboBox;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button okButton;
     }
 }

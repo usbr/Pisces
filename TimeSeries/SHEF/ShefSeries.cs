@@ -17,11 +17,46 @@ namespace Reclamation.TimeSeries.SHEF
 
         public ShefSeries()
         {
-            ExternalDataSource = true;
-            
+            new ShefSeries("", "", "");
         }
 
-        public void ReadShefFile(string fileName)
+        public ShefSeries(string location, string pecode, string filename)
+        {
+            ExternalDataSource = true;
+            this.Name = location + "_" + pecode;
+            this.SiteID = location;
+            this.Parameter = pecode;
+            this.Source = "SHEF";
+            this.Provider = "ShefSeries";
+            getShefTimeInterval(pecode);
+            this.ConnectionString = "File=" + filename + ";ShefLocation=" + location + ";ShefCode=" + pecode + ";";
+            this.Table.TableName = this.Name;
+        }
+
+        public ShefSeries(TimeSeriesDatabase db, TimeSeriesDatabaseDataSet.SeriesCatalogRow sr):base(db, sr)
+        {
+
+        }
+
+        private void getShefTimeInterval(string pecode)
+        {
+            try
+            {
+                var tChar = pecode.ToCharArray()[pecode.Length - 1];
+                if (tChar == 'H')
+                { this.TimeInterval = TimeSeries.TimeInterval.Hourly; }
+                else if (tChar == 'D')
+                { this.TimeInterval = TimeSeries.TimeInterval.Daily; }
+                else if (tChar == 'M')
+                { this.TimeInterval = TimeSeries.TimeInterval.Monthly; }
+                else
+                { this.TimeInterval = TimeSeries.TimeInterval.Irregular; }
+            }
+            catch
+            { this.TimeInterval = TimeSeries.TimeInterval.Irregular; }
+        }
+
+        public DataTable ReadShefFile(string fileName)
         {
             shefDataTable = new DataTable();
             shefDataTable.Columns.Add(new DataColumn("location", typeof(string)));
@@ -49,6 +84,7 @@ namespace Reclamation.TimeSeries.SHEF
                     }
                 }
             }
+            return shefDataTable;
         }
 
         
