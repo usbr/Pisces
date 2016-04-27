@@ -38,6 +38,7 @@
             this.pecodesComboBox = new System.Windows.Forms.ComboBox();
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
+            this.importAllCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -128,19 +129,31 @@
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            //this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.okButton.Location = new System.Drawing.Point(194, 122);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(82, 23);
             this.okButton.TabIndex = 10;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.shefOkButton_Click);
+            // 
+            // importAllCheckBox
+            // 
+            this.importAllCheckBox.AutoSize = true;
+            this.importAllCheckBox.Location = new System.Drawing.Point(8, 123);
+            this.importAllCheckBox.Name = "importAllCheckBox";
+            this.importAllCheckBox.Size = new System.Drawing.Size(69, 17);
+            this.importAllCheckBox.TabIndex = 11;
+            this.importAllCheckBox.Text = "Import All";
+            this.importAllCheckBox.UseVisualStyleBackColor = true;
             // 
             // ImportShef
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(370, 153);
+            this.Controls.Add(this.importAllCheckBox);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.pecodesComboBox);
@@ -171,5 +184,6 @@
         private System.Windows.Forms.ComboBox pecodesComboBox;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
+        private System.Windows.Forms.CheckBox importAllCheckBox;
     }
 }

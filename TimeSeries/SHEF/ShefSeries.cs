@@ -11,9 +11,18 @@ using Reclamation.TimeSeries.Hydromet;
 
 namespace Reclamation.TimeSeries.SHEF
 {
+
+    /*
+     * TO DO: 
+     * 1. Build a ReadCore() method using the connection string to read from the source text file
+     * 2. Move some of the functions that gets Stations and P-Codes from ImportShef.cs in Forms/ImportForms
+     * 
+     */
+
     public class ShefSeries : Series
     {
         DataTable shefDataTable = new DataTable();
+        string location, pecode, filename;
 
         public ShefSeries()
         {
@@ -22,7 +31,7 @@ namespace Reclamation.TimeSeries.SHEF
 
         public ShefSeries(string location, string pecode, string filename)
         {
-            ExternalDataSource = true;
+            ExternalDataSource = false;
             this.Name = location + "_" + pecode;
             this.SiteID = location;
             this.Parameter = pecode;
@@ -35,7 +44,10 @@ namespace Reclamation.TimeSeries.SHEF
 
         public ShefSeries(TimeSeriesDatabase db, TimeSeriesDatabaseDataSet.SeriesCatalogRow sr):base(db, sr)
         {
-
+            location = ConnectionStringUtility.GetToken(ConnectionString, "ShefLocation", "");
+            pecode = ConnectionStringUtility.GetToken(ConnectionString, "ShefCode", "");
+            filename = ConnectionStringUtility.GetToken(ConnectionString, "File", "");
+            InitTimeSeries(null, "", this.TimeInterval, true);
         }
 
         private void getShefTimeInterval(string pecode)

@@ -734,32 +734,54 @@ namespace Reclamation.TimeSeries.Forms
         private void addShef_Click(object sender, EventArgs e)
         {
             ImportShef dlg = new ImportShef();
+            
+
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                bool isImportAll = dlg.IsImportAll();
+
                 DataTable dTab;
                 string shefLocation, shefCode, shefFile;
-                try
-                {
-                    dTab = dlg.GetShefTable();
-                    shefLocation = dlg.GetShefLocation();
-                    shefCode = dlg.GetShefCode();
-                    shefFile = dlg.GetShefFileName();
-                }
-                catch
-                {
-                    dTab = null;
-                    shefLocation = null;
-                    shefCode = null;
-                    shefFile = null;
-                }
+                dTab = dlg.GetShefTable();
+                shefLocation = dlg.GetShefLocation();
+                shefCode = dlg.GetShefCode();
+                shefFile = dlg.GetShefFileName();
 
-                if (shefFile == null || shefLocation == null || shefCode == null)
+                if (isImportAll)
                 {
-                    MessageBox.Show("Select a valid SHEF file...");
-                    addShef_Click(sender, e);
+                    AddAllShef(dTab, shefFile);
                 }
                 else
                 {
+                    var s = new ShefSeries(shefLocation, shefCode, shefFile);
+                    var valTable = dTab.Select(string.Format("location = '{0}' AND shefcode = '{1}'", shefLocation, shefCode));
+                    foreach (DataRow item in valTable)
+                    {
+                        s.Add(DateTime.Parse(item["datetime"].ToString()), Convert.ToDouble(item["value"]));
+                    }
+                    DB.AddSeries(s, CurrentFolder);
+                }
+            }
+        }
+
+        private void AddAllShef(DataTable dTab, string shefFile)
+        {
+            // Get Locations
+            DataView view = new DataView(dTab);
+            DataTable distinctLocations = view.ToTable(true, "location");
+            foreach (DataRow locationItem in distinctLocations.Rows)
+            {
+                string shefLocation = locationItem["location"].ToString();
+                // Get location-pcode pairs
+                DataTable distinctPairs = view.ToTable(true, "location", "shefcode");
+                var distinctCodes = new DataView(distinctPairs);
+                distinctCodes.RowFilter = "location = '" + shefLocation + "'";
+                // Get Pcodes
+                var codeTable = distinctCodes.ToTable();
+                foreach (DataRow codeItem in codeTable.Rows)
+                {
+                    string shefCode = codeItem["shefcode"].ToString();
+                    // Add Series
                     var s = new ShefSeries(shefLocation, shefCode, shefFile);
                     var valTable = dTab.Select(string.Format("location = '{0}' AND shefcode = '{1}'", shefLocation, shefCode));
                     foreach (DataRow item in valTable)
