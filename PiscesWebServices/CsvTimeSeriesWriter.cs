@@ -12,31 +12,32 @@ using System.Net;
 
 namespace PiscesWebServices
 {
+    /// <summary>
+    ///  returns results from web query to timeseries data in pisces.
+    /// "http://www.usbr.gov/pn-bin/instant.pl?list=boii ob,boii obx&start=2016-04-15&end=2016-04-20"
+    /// 
+    /// options :  
+    ///      back=12  (12 hours for instant, 12 days for daily)
+    ///      print_hourly=true (print hourly data)
+    /// 
+    /// Legacy Test Samples
+    /// http://www.usbr.gov/pn-bin/instant.pl?station=ABEI&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBM&pcode=TU&print_hourly=1
+    /// http://www.usbr.gov/pn-bin/instant.pl?station=BOII&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBN&pcode=TU
+
+    /// </summary>
     public class CsvTimeSeriesWriter
     {
         TimeSeriesDatabase db;
-        
+        DateTime start = DateTime.Now.AddDays(-1).Date;
+        DateTime end  = DateTime.Now.Date;
+        string format = "csv"; // csv, tab, html 
+        bool print_hourly = false;
+        TimeInterval interval = TimeInterval.Irregular;
+
         public CsvTimeSeriesWriter(TimeSeriesDatabase db)
         {
             this.db = db;
-            m_debug = false;
         }
-
-
-        bool m_debug;
-
-        public bool Debug
-        {
-            get { return m_debug; }
-            set { m_debug = value; }
-        }
-
-        //http://pnhyd0.pn.usbr.gov/~dataaccess/webarccsv.com?parameter=BOII%20PC,ODSW%20wr,&syer=2012&smnth=1&sdy=1&eyer=2012&emnth=1&edy=10&format=3
-        //string srchStr = "http://pnhyd0.pn.usbr.gov/~dataaccess/webarccsv.com?parameter=BOII PC,ODSW wr,&syer=2012&smnth=1&sdy=1&eyer=2012&emnth=12&edy=30&format=3";
-        
-       
-        // daily?list=luc fb,sco fb&start=2016-04-01&end=2016-04-20
-        // instant?list=luc fb,sco fb&back=2
 
         public void Run(TimeInterval interval, string query = "", string outputFile="")
         {
@@ -77,16 +78,17 @@ namespace PiscesWebServices
                  }
 
                  var queryCollection = HttpUtility.ParseQueryString(query);
-                 DateTime t1;
-                 DateTime t2;
-                 if (!HydrometWebUtility.GetDateRange(queryCollection, interval, out t1, out t2))
+                 if (!HydrometWebUtility.GetDateRange(queryCollection, interval, out start,out end))
                  {
                      Console.WriteLine("Error: Invalid dates");
                      return;
                  }
 
 
-                 SeriesList list = CreateSeriesList(queryCollection, interval);
+                 if (queryCollection.AllKeys.Contains("print_hourly"))
+                     print_hourly = queryCollection["print_hourly"] == "true";
+
+                 SeriesList list = CreateSeriesList(queryCollection);
 
                  if (list.Count == 0)
                  {
@@ -95,7 +97,7 @@ namespace PiscesWebServices
                      return;
                  }
 
-                 WriteCsv(list, interval, t1, t2.EndOfDay());
+                 WriteCsv(list);
 
              }
             finally
@@ -174,6 +176,9 @@ namespace PiscesWebServices
                     rval += ",";
             }
             rval += "&start=" + start + "&end=" + end;
+            if( c.AllKeys.Contains("print_hourly") )
+                rval += "&print_hourly=true";
+
             return rval.ToLower();
         }
 
@@ -191,10 +196,10 @@ namespace PiscesWebServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        private void WriteCsv(SeriesList list, TimeInterval interval, DateTime t1, DateTime t2)
+        private void WriteCsv(SeriesList list)
         {
             Console.WriteLine("BEGIN DATA");
-            WriteSeriesHeader(list, interval);
+            WriteSeriesHeader(list);
 
             int maxDaysInMemory = 30;
 
@@ -202,8 +207,8 @@ namespace PiscesWebServices
             //   maxdays      list.Read()    REad()
             //   10
             //   
-
-            var t = t1;
+            var t2 = end.EndOfDay();
+            var t = start;
             Performance p = new Performance();
             while (t<t2)
             {
@@ -213,7 +218,7 @@ namespace PiscesWebServices
                     t3 = t2;
 
                 var tbl = Read(list, t, t3); // 0.0 seconds windows/linux
-                PrintDataTable( list,tbl);
+                PrintDataTable( list,tbl,print_hourly);
                 t = t3.NextDay();
             } 
 
@@ -228,6 +233,16 @@ namespace PiscesWebServices
             var tbl = db.Server.Table("tbl", sql);
             return tbl;
         }
+
+
+        /// <summary>
+        /// Create a SQL command that performs UNION of multiple series
+        /// so that can be queried in one round-trip to the server.
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <returns></returns>
         private string CreateSQL(SeriesList list, DateTime t1, DateTime t2)
         {
             Logger.WriteLine("CreateSQL");
@@ -258,7 +273,7 @@ namespace PiscesWebServices
             return sql;
         }
 
-        private void WriteSeriesHeader(SeriesList list, TimeInterval interval)
+        private void WriteSeriesHeader(SeriesList list)
         {
             //string headLine = "DATE, ";
             var headLine = "DATE       TIME ";
@@ -271,7 +286,7 @@ namespace PiscesWebServices
             Console.WriteLine(headLine);
         }
 
-        private SeriesList CreateSeriesList(NameValueCollection query, TimeInterval interval)
+        private SeriesList CreateSeriesList(NameValueCollection query)
         {
             TimeSeriesName[] names = GetTimeSeriesName(query);
 
@@ -301,7 +316,7 @@ namespace PiscesWebServices
         /// </summary>
         /// <param name="list"></param>
         /// <param name="table"></param>
-        private static void PrintDataTable(SeriesList list, DataTable table)
+        private static void PrintDataTable(SeriesList list, DataTable table, bool printHourly)
         {
             var t0 = "";
 
@@ -317,13 +332,16 @@ namespace PiscesWebServices
             }
 
             string t="";
+            bool printThisRow = false;
             for (int i = 0; i < table.Rows.Count; i++)
             {
                 var row = table.Rows[i];
+               
                 t = FormatDate(row[1]);
 
                if( t!= t0)
                 {
+                   if (printThisRow)
                     PrintRow(t0,vals,flags);
                     vals = new string[list.Count];
                     flags = new string[list.Count];
@@ -332,7 +350,13 @@ namespace PiscesWebServices
 
                 vals[dict[row[0].ToString()]] =  FormatNumber(row[2]);
                 flags[dict[row[0].ToString()]] = FormatFlag(row[3]);
+
+                DateTime date = Convert.ToDateTime(row[1]);
+                bool topOfHour = date.Minute == 0;
+                printThisRow = printHourly == false || (printHourly && topOfHour);
+
             }
+            if (printThisRow)
             PrintRow(t, vals, flags);
         }
 
