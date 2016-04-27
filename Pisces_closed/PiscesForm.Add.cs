@@ -20,6 +20,7 @@ using Reclamation.TimeSeries.Hydromet;
 using Reclamation.TimeSeries.RBMS;
 using Reclamation.TimeSeries.Import;
 using Reclamation.TimeSeries.OracleHdb;
+using Reclamation.TimeSeries.DataLogger;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -243,28 +244,48 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
-        private void Addcr10x_Click(object sender, EventArgs e)
+        private void AddCampbellDataLogger(object sender, EventArgs e)
         {
             if (openFileDialogCr10x.ShowDialog() == DialogResult.OK)
             {
-                ImportCr10x i = new ImportCr10x();
-                if (i.ShowDialog() == DialogResult.OK)
+                TextFile tf = new TextFile(openFileDialogCr10x.FileName);
+                if (LoggerNetFile.IsValidFile(tf))
                 {
-                    DataLogger.Cr10xSeries s = new Reclamation.TimeSeries.DataLogger.Cr10xSeries(openFileDialogCr10x.FileName,
-                        i.SelectedInterval, i.SelectedColumn);
-                    s.Read();
-                    if (s.Count == 0)
-                    {
-                        MessageBox.Show("No data found in file:" + openTextFileDialog.FileName);
-                        return;
-                    }
+                    // import all columns in LoggerNet file.
+                    LoggerNetFile ln = new LoggerNetFile(tf);
 
+                    foreach (var item in ln.ToSeries())
+                    {
+                        DB.AddSeries(item);
+                    }                    
+                    //ln.ToSeries()
+                }
+                else
+                {
+                    ImportCr10x();
+                }
+            }
+        }
+
+        private void ImportCr10x()
+        {
+            ImportCr10x i = new ImportCr10x();
+            if (i.ShowDialog() == DialogResult.OK)
+            {
+                DataLogger.Cr10xSeries s = new Reclamation.TimeSeries.DataLogger.Cr10xSeries(openFileDialogCr10x.FileName,
+                    i.SelectedInterval, i.SelectedColumn);
+                s.Read();
+                if (s.Count == 0)
+                {
+                    MessageBox.Show("No data found in file:" + openTextFileDialog.FileName);
+
+                }
+                else
                     if (s.Count > 0)
                     {
                         DB.AddSeries(s, CurrentFolder);
                     }
 
-                }
             }
         }
 

@@ -406,8 +406,8 @@ namespace Reclamation.TimeSeries.Forms
             this.Addcr10x.Name = "Addcr10x";
             this.Addcr10x.ShortcutKeyDisplayString = "";
             this.Addcr10x.Size = new System.Drawing.Size(421, 26);
-            this.Addcr10x.Text = "Cr10x - Campbell Scentific";
-            this.Addcr10x.Click += new System.EventHandler(this.Addcr10x_Click);
+            this.Addcr10x.Text = "Campbell Scientific ";
+            this.Addcr10x.Click += new System.EventHandler(this.AddCampbellDataLogger);
             // 
             // addPiscesDatabase
             // 
@@ -506,7 +506,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 28);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Size = new System.Drawing.Size(924, 534);
             this.splitContainer1.SplitterDistance = 336;
@@ -819,8 +819,8 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemAddCr10x.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddCr10x.Image")));
             this.toolStripMenuItemAddCr10x.Name = "toolStripMenuItemAddCr10x";
             this.toolStripMenuItemAddCr10x.Size = new System.Drawing.Size(421, 26);
-            this.toolStripMenuItemAddCr10x.Text = "Add Cr10x - Campbell Scientific";
-            this.toolStripMenuItemAddCr10x.Click += new System.EventHandler(this.Addcr10x_Click);
+            this.toolStripMenuItemAddCr10x.Text = "Add Campbell Scientific Logger File";
+            this.toolStripMenuItemAddCr10x.Click += new System.EventHandler(this.AddCampbellDataLogger);
             // 
             // AddRioGrandeSpreadsheet
             // 
@@ -991,7 +991,7 @@ namespace Reclamation.TimeSeries.Forms
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PiscesForm";
             this.Text = "Title";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ExplorerForm_FormClosing);

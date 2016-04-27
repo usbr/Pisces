@@ -268,6 +268,7 @@
     <Content Include="images\access.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\campbell.ico" />
     <Content Include="images\cr10x.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

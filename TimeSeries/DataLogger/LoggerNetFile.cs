@@ -109,6 +109,17 @@ namespace Reclamation.TimeSeries.DataLogger
             }
         }
 
+        public SeriesList ToSeries()
+        {
+            var columns = new List<string>();
+            columns.AddRange(dataHeader);
+            if (columns.IndexOf("TMSTAMP") >= 0)
+                columns.Remove("TMSTAMP");
+            if (columns.IndexOf("RECNBR") >= 0)
+                columns.Remove("RECNBR");
+
+            return ToSeries(columns.ToArray());
+        }
 
         public SeriesList ToSeries(string[] valid_pcodes)
         {
