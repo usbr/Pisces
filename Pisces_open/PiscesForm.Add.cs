@@ -736,18 +736,38 @@ namespace Reclamation.TimeSeries.Forms
             ImportShef dlg = new ImportShef();
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                var dTab = dlg.GetShefTable();
-                var shefLocation = dlg.GetShefLocation();
-                var shefCode = dlg.GetShefCode();
-                var shefFile = dlg.GetShefFileName();
-
-                var s = new ShefSeries(shefLocation, shefCode, shefFile);
-                var valTable = dTab.Select(string.Format("location = '{0}' AND shefcode = '{1}'", shefLocation, shefCode));
-                foreach (DataRow item in valTable)
+                DataTable dTab;
+                string shefLocation, shefCode, shefFile;
+                try
                 {
-                    s.Add(DateTime.Parse(item["datetime"].ToString()), Convert.ToDouble(item["value"]));
+                    dTab = dlg.GetShefTable();
+                    shefLocation = dlg.GetShefLocation();
+                    shefCode = dlg.GetShefCode();
+                    shefFile = dlg.GetShefFileName();
                 }
-                DB.AddSeries(s, CurrentFolder);
+                catch
+                {
+                    dTab = null;
+                    shefLocation = null;
+                    shefCode = null;
+                    shefFile = null;
+                }
+
+                if (shefFile == null || shefLocation == null || shefCode == null)
+                {
+                    MessageBox.Show("Select a valid SHEF file...");
+                    addShef_Click(sender, e);
+                }
+                else
+                {
+                    var s = new ShefSeries(shefLocation, shefCode, shefFile);
+                    var valTable = dTab.Select(string.Format("location = '{0}' AND shefcode = '{1}'", shefLocation, shefCode));
+                    foreach (DataRow item in valTable)
+                    {
+                        s.Add(DateTime.Parse(item["datetime"].ToString()), Convert.ToDouble(item["value"]));
+                    }
+                    DB.AddSeries(s, CurrentFolder);
+                }
             }
         }
         

@@ -7,8 +7,11 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Reclamation.Core;
+using System.Diagnostics;
+using Reclamation.TimeSeries.SHEF;
 
-namespace Reclamation.TimeSeries.SHEF
+namespace Reclamation.TimeSeries.Forms.ImportForms
 {
     public partial class ImportShef : Form
     {

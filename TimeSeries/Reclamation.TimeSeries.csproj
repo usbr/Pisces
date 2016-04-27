@@ -310,12 +310,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="SHEF\ImportShef.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SHEF\ImportShef.Designer.cs">
-      <DependentUpon>ImportShef.cs</DependentUpon>
-    </Compile>
     <Compile Include="SHEF\ShefSeries.cs" />
     <Compile Include="SQLiteSeries.cs" />
     <Compile Include="SeriesListDataTable.cs">
@@ -456,9 +450,6 @@
     <Compile Include="Tests\SeriesMath\TestWaterYear.cs" />
     <Compile Include="Tests\SeriesTypes\Cr10xTest.cs" />
     <Compile Include="Tests\SeriesTypes\TestSnotel.cs" />
-    <EmbeddedResource Include="SHEF\ImportShef.resx">
-      <DependentUpon>ImportShef.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="RBMS\Export - DH Manual Monitoring - Oct 2015.csv" />
     <None Include="Service References\Nrcs\AwdbWebService.wsdl" />
     <None Include="Service References\Nrcs\Reclamation.TimeSeries.Nrcs.averagesData.datasource">

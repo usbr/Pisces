@@ -1,4 +1,4 @@
-﻿namespace Reclamation.TimeSeries.SHEF
+﻿namespace Reclamation.TimeSeries.Forms.ImportForms
 {
     partial class ImportShef
     {

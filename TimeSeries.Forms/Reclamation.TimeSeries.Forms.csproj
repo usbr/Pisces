@@ -279,6 +279,12 @@
     <Compile Include="ImportForms\ImportOWRD.Designer.cs">
       <DependentUpon>ImportOWRD.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImportForms\ImportShef.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportForms\ImportShef.Designer.cs">
+      <DependentUpon>ImportShef.cs</DependentUpon>
+    </Compile>
     <Compile Include="MetaData\DataRowEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -641,6 +647,9 @@
     <EmbeddedResource Include="ImportForms\ImportOWRD.resx">
       <DependentUpon>ImportOWRD.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportForms\ImportShef.resx">
+      <DependentUpon>ImportShef.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MetaData\DataRowEditor.resx">
       <DependentUpon>DataRowEditor.cs</DependentUpon>
