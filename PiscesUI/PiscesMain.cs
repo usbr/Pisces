@@ -28,7 +28,9 @@ namespace Pisces
 
 
             Logger.EnableLogger(true);
-
+#if !PISCES_OPEN
+            var x = HdbPoet.Hdb.Instance; // force this assembly to load.
+#endif
              try
             {
                 string fileName = "";
@@ -58,8 +60,8 @@ namespace Pisces
                     SQLiteServer.CreateNewDatabase(fileName);
                 }
 
+                HydrometInfoUtility.SetDefaultHydrometServer();
 
-                UserPreference.SetDefault("HydrometServer", HydrometHost.PN.ToString(), false);
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
@@ -77,6 +79,8 @@ namespace Pisces
 
                 piscesForm1 = new PiscesForm(explorer);
 
+
+                
 
                 piscesForm1.FormClosed += new FormClosedEventHandler(explorerForm1_FormClosed);
                 //Pisces2 p2 = new Pisces2(explorer);
@@ -100,7 +104,6 @@ namespace Pisces
 
         static void explorerForm1_FormClosed(object sender, FormClosedEventArgs e)
         {
-
             Pisces.Properties.Settings.Default.Save();
             
         }

@@ -362,10 +362,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Pisces_open\App.config">
+    <None Include="..\PiscesUI\App.config">
       <Link>App.config</Link>
     </None>
-    <None Include="..\Pisces_open\Private.config">
+    <None Include="..\Private.config">
       <Link>Private.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

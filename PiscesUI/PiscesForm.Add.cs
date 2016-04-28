@@ -9,7 +9,6 @@ using Reclamation.TimeSeries.Forms.ImportForms;
 using Reclamation.TimeSeries.Forms.Calculations;
 using Reclamation.TimeSeries.Excel;
 using Reclamation.TimeSeries.Urgsim;
-using Reclamation.TimeSeries.SHEF;
 using Reclamation.Core;
 using System.IO;
 using Reclamation.TimeSeries.Nrcs;
@@ -17,14 +16,177 @@ using System.Collections.Generic;
 using Pisces;
 using System.Configuration;
 using Reclamation.TimeSeries.Hydromet;
+using Reclamation.TimeSeries.RBMS;
+using Reclamation.TimeSeries.Import;
+
+#if !PISCES_OPEN
+using HdbPoet;
+using Reclamation.TimeSeries.OracleHdb;
+#endif 
+using Reclamation.TimeSeries.DataLogger;
+using Reclamation.TimeSeries.SHEF;
 
 namespace Reclamation.TimeSeries.Forms
 {
 
     public partial class PiscesForm
     {
+        private void AddRioGrandeSpreadsheet_Click(object sender, EventArgs e)
+        {
 
-       
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.DefaultExt = ".xls";
+            openFileDialog.Filter = "Excel Files *.xls | *.xls";
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+          var dlg = new Forms.ImportForms.AddRioGrandeSpreadsheet();
+            
+            if( dlg.ShowDialog() == DialogResult.OK)
+            {
+                var s = ImportRioGrandeExcel.ImportSpreadsheet(openFileDialog.FileName);
+                s.Name = dlg.SeriesName;
+                s.Units = dlg.Units;
+
+                DB.AddSeries(s);
+            }
+
+        }
+
+
+        private void addRBMSDirectory(object sender, EventArgs e)
+        {
+            FolderBrowserDialog fbd = new FolderBrowserDialog();
+            DialogResult result = fbd.ShowDialog();
+
+            string[] files = Directory.GetFiles(fbd.SelectedPath);
+            for (int i = 0; i < files.Length; i++)
+            {
+                //try
+               // {
+                    RBMSTextFile.ImportFile(files[i], DB, true);
+                //}
+                //catch (Exception ex)
+                //{
+                   // MessageBox.Show("Error importing "+files[i]+"\n"+ ex.Message);
+                //}
+            }
+        }
+
+
+        private void AddRBMS_csv_File_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                Logger.EnableLogger();
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.DefaultExt = ".csv";
+                openFileDialog.Filter = "CSV File *.csv | *.csv";
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    RBMSTextFile.ImportFile(openFileDialog.FileName, DB, true);
+                    MessageBox.Show("Manual Import Complete.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
+        /// <summary>
+        /// SQLite convered from DSS
+        /// https://github.com/usbr/convertdss
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addSqLiteModel_Click(object sender, EventArgs e)
+        {
+            var dlg = new Reclamation.TimeSeries.ScenarioPicker.ScenarioPicker();
+
+            dlg.Text = "Select SqLite files";
+            dlg.Dialog.DefaultExt = ".db";
+            dlg.Dialog.Filter = "SQLite *.db|*.db|All Files|*.*";
+            dlg.Dialog.Title = "Open SQLite File (from DSS)";
+            try
+            {
+                DB.SuspendTreeUpdates();
+                var result = dlg.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    if (dlg.ScenariosChecked && dlg.ScenarioFiles.Count > 0)
+                    {
+                        //create scenarios
+                        ShowAsBusy("Reading data");
+                        var tblScen = DB.GetScenarios();
+                        foreach (var item in dlg.ScenarioFiles)
+                        {
+                            string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath,0,false);
+                        }
+                        //add first file in the list to the tree
+                        if (dlg.AddToTreeChecked)
+                        {
+                            SQLiteSeries.CreatePiscesTree(dlg.ScenarioFiles[0], CurrentFolder, DB);
+                        }
+                        DB.Server.SaveTable(tblScen);
+                        DatabaseChanged();
+                    }
+                    else
+                        if (dlg.AddToTreeChecked)
+                        {
+                            //add to tree, but not to scenairo list
+                            ShowAsBusy("Reading  data");
+                            for (int i = 0; i < dlg.ScenarioFiles.Count; i++)
+                            {
+                                string fn = dlg.ScenarioFiles[i].ToString();
+                              SQLiteSeries.CreatePiscesTree(fn, CurrentFolder, DB);
+                            }
+                            DatabaseChanged();
+                        }
+                }
+            }
+            finally
+            {
+                ShowAsReady("Done with Modsim import");
+                DB.ResumeTreeUpdates();
+            }
+        }
+
+        private void addPiscesDatabase_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+                Performance p = new Performance();
+                OpenFileDialog fd = new OpenFileDialog();
+                fd.DefaultExt = "*.pdb";
+                fd.Filter = "Pisces database (*.pdb)|*.pdb";
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    SQLiteServer svr = new SQLiteServer(fd.FileName);
+                    TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
+                    DB.InsertDatabase(CurrentFolder, db);
+                    DatabaseChanged();
+                }
+                UserPreference.Save("fileName", fd.FileName);
+                p.Report("done reading " + fd.FileName);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+            
+        }
+
 
         /// <summary>
         /// Adds new Calculation Series
@@ -41,7 +203,8 @@ namespace Reclamation.TimeSeries.Forms
             {
                 DB.AddSeries(s, CurrentFolder);
                 // tree refresh.. Add node.
-                s.Calculate(); // save again
+                if( p.Calculate)
+                        s.Calculate(); // save again
                 // refresh.
                 DB.RefreshFolder(CurrentFolder);
                 
@@ -51,9 +214,17 @@ namespace Reclamation.TimeSeries.Forms
 
         void AddSeriesClick(object sender, System.EventArgs e)
         {
-            Series s = new Series();
-            s.Name = "new Series";
-            DB.AddSeries(s, CurrentFolder);
+            var a = new AddSeries();
+            if (a.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Series s = new Series();
+                s.Name = a.SeriesName;
+                s.Table.TableName = a.TableName;
+                s.Units = a.Units;
+                s.TimeInterval = a.TimeInterval;
+                DB.AddSeries(s, CurrentFolder);    
+            }
+            
         }
 
         /// <summary>
@@ -77,28 +248,48 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
-        private void Addcr10x_Click(object sender, EventArgs e)
+        private void AddCampbellDataLogger(object sender, EventArgs e)
         {
             if (openFileDialogCr10x.ShowDialog() == DialogResult.OK)
             {
-                ImportCr10x i = new ImportCr10x();
-                if (i.ShowDialog() == DialogResult.OK)
+                TextFile tf = new TextFile(openFileDialogCr10x.FileName);
+                if (LoggerNetFile.IsValidFile(tf))
                 {
-                    DataLogger.Cr10xSeries s = new Reclamation.TimeSeries.DataLogger.Cr10xSeries(openFileDialogCr10x.FileName,
-                        i.SelectedInterval, i.SelectedColumn);
-                    s.Read();
-                    if (s.Count == 0)
-                    {
-                        MessageBox.Show("No data found in file:" + openTextFileDialog.FileName);
-                        return;
-                    }
+                    // import all columns in LoggerNet file.
+                    LoggerNetFile ln = new LoggerNetFile(tf);
 
+                    foreach (var item in ln.ToSeries())
+                    {
+                        DB.AddSeries(item);
+                    }                    
+                    //ln.ToSeries()
+                }
+                else
+                {
+                    ImportCr10x();
+                }
+            }
+        }
+
+        private void ImportCr10x()
+        {
+            ImportCr10x i = new ImportCr10x();
+            if (i.ShowDialog() == DialogResult.OK)
+            {
+                DataLogger.Cr10xSeries s = new Reclamation.TimeSeries.DataLogger.Cr10xSeries(openFileDialogCr10x.FileName,
+                    i.SelectedInterval, i.SelectedColumn);
+                s.Read();
+                if (s.Count == 0)
+                {
+                    MessageBox.Show("No data found in file:" + openTextFileDialog.FileName);
+
+                }
+                else
                     if (s.Count > 0)
                     {
                         DB.AddSeries(s, CurrentFolder);
                     }
 
-                }
             }
         }
 
@@ -126,101 +317,108 @@ namespace Reclamation.TimeSeries.Forms
 
         private void ImportExcelDatabaseStyle(string filename)
         {
-            //var dlg = new ImportExcelDatabase(filename, DB.GetUniqueUnits());
+#if !PISCES_OPEN
+            var dlg = new ImportExcelDatabase(filename, DB.GetUniqueUnits());
 
-            //if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    var messageList = new List<string>();
-            //    for (int i = 0; i < dlg.SelectedSites.Length; i++)
-            //    {
-            //        Series s = SpreadsheetGearSeries.ReadFromWorkbook(dlg.WorkBook,
-            //            dlg.SheetName, dlg.DateColumn, dlg.ValueColumn, dlg.SiteColumn, dlg.SelectedSites[i],dlg.ComboBoxUnits.Text);
-            //        if (s.Count > 0)
-            //        {
-            //            DB.AddSeries(s, CurrentFolder);
-            //        }
-            //        else
-            //        {
-            //            //messageList.Add("No data in the selection.  File " + openExcelDialog.FileName);
-            //            messageList.Add("No data in the selection.  Site: " + dlg.SelectedSites[i]);
-            //        }
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                var messageList = new List<string>();
+                for (int i = 0; i < dlg.SelectedSites.Length; i++)
+                {
+                    Series s = SpreadsheetGearSeries.ReadFromWorkbook(dlg.WorkBook,
+                        dlg.SheetName, dlg.DateColumn, dlg.ValueColumn, dlg.SiteColumn, dlg.SelectedSites[i],dlg.ComboBoxUnits.Text);
+                    if (s.Count > 0)
+                    {
+                        DB.AddSeries(s, CurrentFolder);
+                    }
+                    else
+                    {
+                        //messageList.Add("No data in the selection.  File " + openExcelDialog.FileName);
+                        messageList.Add("No data in the selection.  Site: " + dlg.SelectedSites[i]);
+                    }
 
-            //        if (s.Messages.Count > 0)
-            //        {
-            //            messageList.Add(s.Messages.ToString());
-            //        }
+                    if (s.Messages.Count > 0)
+                    {
+                        messageList.Add(s.Messages.ToString());
+                    }
 
-            //    }
-            //    if (messageList.Count > 0)
-            //    {
-            //        MessageBox.Show(String.Join("\n",messageList.ToArray()),"Import Warnings",MessageBoxButtons.OK);
-            //    }
+                }
+                if (messageList.Count > 0)
+                {
+                    MessageBox.Show(String.Join("\n",messageList.ToArray()),"Import Warnings",MessageBoxButtons.OK);
+                }
                 
-            //}
+            }
+#endif
         }
 
         private void ImportExcelWaterYear(string filename)
         {
-            //var dlg = new ImportExcelWaterYear(filename, DB.GetUniqueUnits());
+#if!PISCES_OPEN
+            var dlg = new ImportExcelWaterYear(filename, DB.GetUniqueUnits());
 
-            //if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    for (int i = 0; i < dlg.SheetNames.Length; i++)
-            //    {
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                for (int i = 0; i < dlg.SheetNames.Length; i++)
+                {
 
-            //        SpreadsheetGearSeries s = SpreadsheetGearSeries.ReadFromWorkbook(dlg.WorkBook, dlg.SheetNames[i], dlg.DateColumn, dlg.ValueColumn, true, dlg.ComboBoxUnits.Text);
-            //        s.Name = "Monthly"+s.SheetName;
+                    SpreadsheetGearSeries s = SpreadsheetGearSeries.ReadFromWorkbook(dlg.WorkBook, dlg.SheetNames[i], dlg.DateColumn, dlg.ValueColumn, true, dlg.ComboBoxUnits.Text);
+                    s.Name = "Monthly"+s.SheetName;
 
-            //        if (s.Count > 0)
-            //        {
-            //            DB.AddSeries(s, CurrentFolder);
-            //        }
-            //        else
-            //        {
-            //            //MessageBox.Show("No data in the selection.  File " + openExcelDialog.FileName);
-            //            MessageBox.Show("No data in selection.  Worksheet: " + s.SheetName);
-            //        }
+                    if (s.Count > 0)
+                    {
+                        DB.AddSeries(s, CurrentFolder);
+                    }
+                    else
+                    {
+                        //MessageBox.Show("No data in the selection.  File " + openExcelDialog.FileName);
+                        MessageBox.Show("No data in selection.  Worksheet: " + s.SheetName);
+                    }
 
-            //        if (s.Messages.Count > 0)
-            //        {
-            //            MessageBox.Show(s.Messages.ToString(), "Import Warnings ", MessageBoxButtons.OK);
-            //        }
-            //    }
+                    if (s.Messages.Count > 0)
+                    {
+                        MessageBox.Show(s.Messages.ToString(), "Import Warnings ", MessageBoxButtons.OK);
+                    }
+                }
 
-            //}
+            }
+#endif
         }
+
 
         private void ImportExcelStandard(string filename)
         {
-            //ImportExcelStandard dlg = new ImportExcelStandard(filename, DB.GetUniqueUnits());
+#if !PISCES_OPEN
+            ImportExcelStandard dlg = new ImportExcelStandard(filename, DB.GetUniqueUnits());
 
-            //if (dlg.ShowDialog() == DialogResult.OK)
-            //{
-            //    var messageList = new List<string>();
-            //    for (int i = 0; i < dlg.ValueColumns.Length; i++)
-            //    {
-            //        Series s = SpreadsheetGearSeries.ReadFromWorkbook(dlg.WorkBook, dlg.SheetName, dlg.DateColumn, dlg.ValueColumns[i],false,dlg.ComboBoxUnits.Text);
-            //        if (s.Count > 0)
-            //        {
-            //            DB.AddSeries(s, CurrentFolder);
-            //        }
-            //        else
-            //        {
-            //            //messageList.Add("No data in the selection.  File " + openExcelDialog.FileName);
-            //            messageList.Add("No data in the selection.  Worksheet: " + dlg.SheetName);
-            //        }
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                var messageList = new List<string>();
+                for (int i = 0; i < dlg.ValueColumns.Length; i++)
+                {
+                    Series s = SpreadsheetGearSeries.ReadFromWorkbook(dlg.WorkBook, dlg.SheetName, dlg.DateColumn, dlg.ValueColumns[i],false,dlg.ComboBoxUnits.Text);
+                    if (s.Count > 0)
+                    {
+                        DB.AddSeries(s, CurrentFolder);
+                    }
+                    else
+                    {
+                        //messageList.Add("No data in the selection.  File " + openExcelDialog.FileName);
+                        messageList.Add("No data in the selection.  Worksheet: " + dlg.SheetName);
+                    }
 
-            //        if (s.Messages.Count > 0)
-            //        {
-            //            messageList.Add(s.Messages.ToString());
-            //        }
+                    if (s.Messages.Count > 0)
+                    {
+                        messageList.Add(s.Messages.ToString());
+                    }
 
-            //    }
-            //    if (messageList.Count > 0)
-            //    {
-            //        MessageBox.Show(String.Join("\n",messageList.ToArray()),"Import Warnings",MessageBoxButtons.OK);
-            //    }
-            //}
+                }
+                if (messageList.Count > 0)
+                {
+                    MessageBox.Show(String.Join("\n",messageList.ToArray()),"Import Warnings",MessageBoxButtons.OK);
+                }
+            }
+#endif
         }
 
         private void AddBpaHydsimClick(object sender, EventArgs e)
@@ -248,7 +446,7 @@ namespace Reclamation.TimeSeries.Forms
                         foreach (var item in dlg.ScenarioFiles)
                         {
                             string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0, false);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath,0,false);
                         }
                         //add first file in the list to the tree
                         if (dlg.AddToTreeChecked)
@@ -364,6 +562,7 @@ namespace Reclamation.TimeSeries.Forms
                 }
             }
         }
+
 
         /// <summary>
         /// Add USGS data.
@@ -492,7 +691,7 @@ namespace Reclamation.TimeSeries.Forms
                         foreach (var item in dlg.ScenarioFiles)
                         {
                             string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0, false);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath,0,false);
                         }
                         //add first file in the list to the tree
                         if (dlg.AddToTreeChecked)
@@ -543,7 +742,7 @@ namespace Reclamation.TimeSeries.Forms
                     foreach (var item in dlg.ScenarioFiles)
                     {
                         string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                        tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0, false);
+                        tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath,0,false);
                     }
                     DB.Server.SaveTable(tblScen);
                     DatabaseChanged();
@@ -582,7 +781,7 @@ namespace Reclamation.TimeSeries.Forms
                         foreach (var item in dlg.ScenarioFiles)
                         {
                             string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.DataSource);
-                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath, 0, false);
+                            tblScen.AddScenarioRow(Path.GetFileNameWithoutExtension(item), true, scenarioPath,0,false);
                         }
                         //add first file in the list to the tree
                         if (dlg.AddToTreeChecked)
@@ -627,63 +826,78 @@ namespace Reclamation.TimeSeries.Forms
       
         private void AddHDBModel_Click(object sender, EventArgs e)
         {
+#if  !PISCES_OPEN
+             var server = OracleServer.ConnectToOracle();
 
-            // var server = OracleServer.ConnectToOracle();
+             if (server == null)
+                 return;
+             Hdb.Instance = new Hdb(server);
 
-            // if (server == null)
-            //     return;
-            // Hdb.Instance = new Hdb(server);
+            SelectHdbModel dlg = new SelectHdbModel();
 
-            //SelectHdbModel dlg = new SelectHdbModel();
+            if (dlg.ShowDialog() == DialogResult.OK && dlg.ModelID > 0)
+            {
+                // create tree for this model. 
+                var folder = DB.AddFolder(CurrentFolder, dlg.ModelName + " " + dlg.ModelTable);
+                var tbl = HdbModelTreeBuilder.PiscesSeriesCatalog(dlg.ModelID, dlg.ModelTable, dlg.OldestModelRunDate, DB.NextSDI(), folder.ID);
 
-            //if (dlg.ShowDialog() == DialogResult.OK && dlg.ModelID > 0)
-            //{
-            //    // create tree for this model. 
-            //    var folder = DB.AddFolder(CurrentFolder, dlg.ModelName + " " + dlg.ModelTable);
-            //    var tbl = HdbModelTreeBuilder.PiscesSeriesCatalog(dlg.ModelID, dlg.ModelTable, dlg.OldestModelRunDate, DB.NextSDI(), folder.ID);
+                if (tbl.Rows.Count == 0)
+                {
+                    MessageBox.Show("No model runs found for model_id " + dlg.ModelID + " after " + dlg.OldestModelRunDate.ToString());
+                    return;
+                }
+                DB.Server.SaveTable(tbl);
 
-            //    if (tbl.Rows.Count == 0)
-            //    {
-            //        MessageBox.Show("No model runs found for model_id " + dlg.ModelID + " after " + dlg.OldestModelRunDate.ToString());
-            //        return;
-            //    }
-            //    DB.Server.SaveTable(tbl);
+                // create scenario list.
+                var scenarioTable = DB.GetScenarios();
+                var ref_model_run = Hdb.Instance.ref_model_run(dlg.ModelID, dlg.OldestModelRunDate);
+                foreach (DataRow item in ref_model_run.Rows)
+                {
+                    string date = Convert.ToDateTime(item["run_date"]).ToShortDateString();
+                    string model_run_name = item["model_run_name"].ToString();
+                    string id = item["model_run_id"].ToString();
+                    string path = HdbModelSeries.BuildScenairoPath(model_run_name, id, date);
+                    string name = HdbModelSeries.BuildScenairoName(model_run_name, id, date);
+                    scenarioTable.AddScenarioRow(name, true, path,0,false);
+                }
 
-            //    // create scenario list.
-            //    var scenarioTable = DB.GetScenarios();
-            //    var ref_model_run = Hdb.Instance.ref_model_run(dlg.ModelID, dlg.OldestModelRunDate);
-            //    foreach (DataRow item in ref_model_run.Rows)
-            //    {
-            //        string date = Convert.ToDateTime(item["run_date"]).ToShortDateString();
-            //        string model_run_name = item["model_run_name"].ToString();
-            //        string id = item["model_run_id"].ToString();
-            //        string path = HdbModelSeries.BuildScenairoPath(model_run_name, id, date);
-            //        string name = HdbModelSeries.BuildScenairoName(model_run_name, id, date);
-            //        scenarioTable.AddScenarioRow(name, true, path);
-            //    }
-
-            //    DB.Server.SaveTable(scenarioTable);
-            //    DatabaseChanged();
-            //}
+                DB.Server.SaveTable(scenarioTable);
+                DatabaseChanged();
+            }
+#endif
         }
 
 
         private void addHDB_Click(object sender, EventArgs e)
         {
-            //var server = OracleServer.ConnectToOracle();
+#if !PISCES_OPEN
+            var server = OracleServer.ConnectToOracle();
 
-            //if (server != null )
-            //{
-            //    Hdb.Instance = new Hdb(server);
-            //    var dlg = new HdbPoet.FormAddSeries();
-            //    if (dlg.ShowDialog() == DialogResult.OK)
-            //    {
-            //        HdbPoet.Properties.Settings.Default.Save();
-            //        ImportFromHdb.Import(dlg.DataSet, DB, CurrentFolder);
-            //        DatabaseChanged();
-            //    }
-            //}
+            if (server != null )
+            {
+                Hdb.Instance = new Hdb(server);
+                var dlg = new HdbPoet.FormAddSeries();
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    HdbPoet.Properties.Settings.Default.Save();
+                    ImportFromHdb.Import(dlg.DataSet, DB, CurrentFolder);
+                    DatabaseChanged();
+                }
+            }
+#endif
+        }
+        private void addHDBConfigFile_Click(object sender, EventArgs e)
+        {
+#if !PISCES_OPEN
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "HDB Files |*.hdb|AllFiles|*.*";
 
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ImportFromHdb.Import(dlg.FileName, DB, CurrentFolder);
+                DatabaseChanged();
+            }
+#endif
         }
 
         /// <summary>
@@ -734,7 +948,7 @@ namespace Reclamation.TimeSeries.Forms
         private void addShef_Click(object sender, EventArgs e)
         {
             ImportShef dlg = new ImportShef();
-            
+
 
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -792,6 +1006,6 @@ namespace Reclamation.TimeSeries.Forms
                 }
             }
         }
-        
+
     }
 }
