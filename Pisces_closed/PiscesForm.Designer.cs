@@ -137,6 +137,9 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -199,7 +202,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripSeparator4,
             this.menuProperties});
             this.contextMenuStripTree.Name = "contextMenuStripTree";
-            this.contextMenuStripTree.Size = new System.Drawing.Size(176, 242);
+            this.contextMenuStripTree.Size = new System.Drawing.Size(165, 214);
             // 
             // toolStripMenuItem2
             // 
@@ -207,7 +210,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.ShortcutKeyDisplayString = "";
             this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(175, 24);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(164, 24);
             this.toolStripMenuItem2.Text = "&Copy";
             this.toolStripMenuItem2.Visible = false;
             // 
@@ -216,14 +219,14 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem3.Enabled = false;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(175, 24);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(164, 24);
             this.toolStripMenuItem3.Text = "&Paste";
             this.toolStripMenuItem3.Visible = false;
             // 
             // menuUpdate
             // 
             this.menuUpdate.Name = "menuUpdate";
-            this.menuUpdate.Size = new System.Drawing.Size(175, 24);
+            this.menuUpdate.Size = new System.Drawing.Size(164, 24);
             this.menuUpdate.Text = "&Update";
             this.menuUpdate.Click += new System.EventHandler(this.toolStripMenuUpdate_Click);
             // 
@@ -256,7 +259,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem6,
             this.AddCalc});
             this.AddMenu.Name = "AddMenu";
-            this.AddMenu.Size = new System.Drawing.Size(175, 24);
+            this.AddMenu.Size = new System.Drawing.Size(164, 24);
             this.AddMenu.Text = "&Add";
             // 
             // toolStripMenuItem1
@@ -448,12 +451,12 @@ namespace Reclamation.TimeSeries.Forms
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(172, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(161, 6);
             // 
             // menuClear
             // 
             this.menuClear.Name = "menuClear";
-            this.menuClear.Size = new System.Drawing.Size(175, 24);
+            this.menuClear.Size = new System.Drawing.Size(164, 24);
             this.menuClear.Text = "Clear";
             this.menuClear.ToolTipText = "Clears all data from this series";
             this.menuClear.Click += new System.EventHandler(this.ClearClick);
@@ -462,7 +465,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.menuDelete.AccessibleDescription = "delete this series and remove from the tree";
             this.menuDelete.Name = "menuDelete";
-            this.menuDelete.Size = new System.Drawing.Size(175, 24);
+            this.menuDelete.Size = new System.Drawing.Size(164, 24);
             this.menuDelete.Text = "Delete";
             this.menuDelete.ToolTipText = "delete selected series or folder";
             this.menuDelete.Click += new System.EventHandler(this.DeleteClick);
@@ -470,24 +473,24 @@ namespace Reclamation.TimeSeries.Forms
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(172, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(161, 6);
             // 
             // menuCalculate
             // 
             this.menuCalculate.Name = "menuCalculate";
-            this.menuCalculate.Size = new System.Drawing.Size(175, 24);
+            this.menuCalculate.Size = new System.Drawing.Size(164, 24);
             this.menuCalculate.Text = "Calculate...";
             this.menuCalculate.Click += new System.EventHandler(this.CalculateClick);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(172, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(161, 6);
             // 
             // menuProperties
             // 
             this.menuProperties.Name = "menuProperties";
-            this.menuProperties.Size = new System.Drawing.Size(175, 24);
+            this.menuProperties.Size = new System.Drawing.Size(164, 24);
             this.menuProperties.Text = "&Properties";
             this.menuProperties.Click += new System.EventHandler(this.Properties);
             // 
@@ -871,6 +874,9 @@ namespace Reclamation.TimeSeries.Forms
             this.logToolStripMenuItemViewLog,
             this.databaseTablesToolStripMenuItem,
             this.sToolStripMenuItem,
+            this.toolStripSeparator8,
+            this.toolStripMenuItem12,
+            this.toolStripMenuItem11,
             this.toolStripSeparator7,
             this.optionsToolStripMenuItem});
             this.menuView.Name = "menuView";
@@ -880,33 +886,33 @@ namespace Reclamation.TimeSeries.Forms
             // logToolStripMenuItemViewLog
             // 
             this.logToolStripMenuItemViewLog.Name = "logToolStripMenuItemViewLog";
-            this.logToolStripMenuItemViewLog.Size = new System.Drawing.Size(237, 24);
+            this.logToolStripMenuItemViewLog.Size = new System.Drawing.Size(387, 24);
             this.logToolStripMenuItemViewLog.Text = "View &Log...";
             this.logToolStripMenuItemViewLog.Click += new System.EventHandler(this.logToolStripMenuItemViewLog_Click);
             // 
             // databaseTablesToolStripMenuItem
             // 
             this.databaseTablesToolStripMenuItem.Name = "databaseTablesToolStripMenuItem";
-            this.databaseTablesToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
+            this.databaseTablesToolStripMenuItem.Size = new System.Drawing.Size(387, 24);
             this.databaseTablesToolStripMenuItem.Text = "Show &Database Tables...";
             this.databaseTablesToolStripMenuItem.Click += new System.EventHandler(this.tableEditor_Click);
             // 
             // sToolStripMenuItem
             // 
             this.sToolStripMenuItem.Name = "sToolStripMenuItem";
-            this.sToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
+            this.sToolStripMenuItem.Size = new System.Drawing.Size(387, 24);
             this.sToolStripMenuItem.Text = "&SQL Commands";
             this.sToolStripMenuItem.Click += new System.EventHandler(this.sqlCommands_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(234, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(384, 6);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(237, 24);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(387, 24);
             this.optionsToolStripMenuItem.Text = "&Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -980,6 +986,23 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Enabled = true;
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // toolStripMenuItem11
+            // 
+            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(387, 24);
+            this.toolStripMenuItem11.Text = "Hydrologic Model Import...";
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(384, 6);
+            // 
+            // toolStripMenuItem12
+            // 
+            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(387, 24);
+            this.toolStripMenuItem12.Text = "Computations for River and Reservoir Models...";
             // 
             // PiscesForm
             // 
@@ -1114,6 +1137,9 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemRBMScsv;
         private System.Windows.Forms.ToolStripMenuItem aToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem AddRioGrandeSpreadsheet;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
         //private System.Windows.Forms.ToolStripMenuItem menuUpdate;
 
     }

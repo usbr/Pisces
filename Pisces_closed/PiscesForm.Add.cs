@@ -21,6 +21,7 @@ using Reclamation.TimeSeries.RBMS;
 using Reclamation.TimeSeries.Import;
 using Reclamation.TimeSeries.OracleHdb;
 using Reclamation.TimeSeries.DataLogger;
+using Reclamation.TimeSeries.SHEF;
 
 namespace Reclamation.TimeSeries.Forms
 {
