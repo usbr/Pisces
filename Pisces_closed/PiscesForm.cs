@@ -62,10 +62,11 @@ namespace Reclamation.TimeSeries.Forms
             Logger.OnLogEvent += new StatusEventHandler(Logger_OnLogEvent);
 
             UserControl uc=null;
-            if( ConfigurationManager.AppSettings["GraphComponent"] == "TeeChart")
-              uc = new TimeSeriesTeeChartGraph();
-           else 
-              uc = new TimeSeriesZedGraph();
+#if PISCES_OPEN
+            uc = new TimeSeriesZedGraph();
+#else
+            uc = new TimeSeriesTeeChartGraph();
+#endif
 
             graphView1 = new GraphExplorerView(uc as ITimeSeriesGraph);
 

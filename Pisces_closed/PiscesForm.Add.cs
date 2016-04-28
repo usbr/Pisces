@@ -314,6 +314,7 @@ namespace Reclamation.TimeSeries.Forms
 
         private void ImportExcelDatabaseStyle(string filename)
         {
+#if !PISCES_OPEN
             var dlg = new ImportExcelDatabase(filename, DB.GetUniqueUnits());
 
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -345,10 +346,12 @@ namespace Reclamation.TimeSeries.Forms
                 }
                 
             }
+#endif
         }
 
         private void ImportExcelWaterYear(string filename)
         {
+#if!PISCES_OPEN
             var dlg = new ImportExcelWaterYear(filename, DB.GetUniqueUnits());
 
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -376,10 +379,13 @@ namespace Reclamation.TimeSeries.Forms
                 }
 
             }
+#endif
         }
+
 
         private void ImportExcelStandard(string filename)
         {
+#if !PISCES_OPEN
             ImportExcelStandard dlg = new ImportExcelStandard(filename, DB.GetUniqueUnits());
 
             if (dlg.ShowDialog() == DialogResult.OK)
@@ -409,6 +415,7 @@ namespace Reclamation.TimeSeries.Forms
                     MessageBox.Show(String.Join("\n",messageList.ToArray()),"Import Warnings",MessageBoxButtons.OK);
                 }
             }
+#endif
         }
 
         private void AddBpaHydsimClick(object sender, EventArgs e)
