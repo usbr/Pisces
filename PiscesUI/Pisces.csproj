@@ -220,7 +220,7 @@
       <DependentUpon>PiscesForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\licenses.licx"  Condition="!$(DefineConstants.Contains('PISCES_OPEN'))" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -368,13 +368,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if exist "$(DevEnvDir)..\tools\vsvars32.bat" goto :largeaddressaware
-
-:largeaddressaware
-if $(PlatformName)==x86 (
-    call "$(DevEnvDir)..\tools\vsvars32.bat"
-    editbin /largeaddressaware "$(TargetPath)"
-)</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
