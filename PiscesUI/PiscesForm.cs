@@ -889,7 +889,9 @@ namespace Reclamation.TimeSeries.Forms
             o.MultipleYAxis = DB.Settings.ReadBoolean("MultipleYAxis", false);
            // o.ScenarioNames = DB.Scenario;
             o.ModsimDisplayFlowInCfs = Modsim.ModsimSeries.DisplayFlowInCfs;
+#if !PISCES_OPEN
             o.ExcelAutoUpdate = SpreadsheetGearSeries.AutoUpdate;
+#endif
             o.AutoRefresh = DB.AutoRefresh;
             o.HydrometVariableResolver = DB.Settings.ReadBoolean("HydrometVariableResolver", false);
             
@@ -906,7 +908,9 @@ namespace Reclamation.TimeSeries.Forms
                 DB.Settings.Set("HydrometVariableResolver", o.HydrometVariableResolver);
                 Usgs.Utility.AutoUpdate = o.UsgsDailyAutoUpdate;
                 Modsim.ModsimSeries.DisplayFlowInCfs = o.ModsimDisplayFlowInCfs;
+                #if !PISCES_OPEN
                 SpreadsheetGearSeries.AutoUpdate = o.ExcelAutoUpdate;
+#endif
                 DB.AutoRefresh = o.AutoRefresh;
                 DB.SaveSettingsToDatabase(explorer1.TimeWindow);
                // DB.Scenario = o.ScenarioNames;

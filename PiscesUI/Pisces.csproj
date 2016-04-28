@@ -318,10 +318,6 @@
       <Project>{859fb4f4-b299-4b36-9955-e16c05e36158}</Project>
       <Name>Reclamation.TimeSeries.ArmyCorps</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj">
-      <Project>{37B543F5-03A5-479E-B20C-7B4ACC53D16A}</Project>
-      <Name>Reclamation.TimeSeries.Excel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj">
       <Project>{862135B0-793A-4F06-B731-26C61B3AD068}</Project>
       <Name>Reclamation.TimeSeries.Graphing</Name>
