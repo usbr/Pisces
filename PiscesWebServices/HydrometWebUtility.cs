@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using Reclamation.TimeSeries;
 using System.Globalization;
+using Reclamation.Core;
 
 namespace PiscesWebServices
 {
@@ -119,8 +120,9 @@ namespace PiscesWebServices
                 t2 = new DateTime(eyer, emnth, edy).EndOfDay();
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Logger.WriteLine(e.Message);
                 return false;   
             }
             return true;

@@ -23,7 +23,7 @@ namespace PiscesWebServices
     /// Legacy Test Samples
     /// http://www.usbr.gov/pn-bin/instant.pl?station=ABEI&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBM&pcode=TU&print_hourly=1
     /// http://www.usbr.gov/pn-bin/instant.pl?station=BOII&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBN&pcode=TU
-
+    /// http://www.usbr.gov/pn-bin/instant.pl?station=ABEI&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBM&pcode=OBN&pcode=TUX&print_hourly=true
     /// </summary>
     public class CsvTimeSeriesWriter
     {
@@ -69,7 +69,7 @@ namespace PiscesWebServices
                      return;
                  }
 
-                 query = LegacyTranslation(query);
+                 query = LegacyTranslation(query,interval);
 
                  if (!ValidQuery(query))
                  {
@@ -119,7 +119,7 @@ namespace PiscesWebServices
             Console.SetOut(standardOutput);
         }
 
-        private static string LegacyTranslation(string query)
+        private static string LegacyTranslation(string query, TimeInterval interval)
         {
 
             var rval = query;
@@ -129,7 +129,7 @@ namespace PiscesWebServices
 
             if (query.IndexOf("station=") >= 0 && query.IndexOf("pcode") >= 0)
             {
-                rval = LegacyStationQuery(query);
+                rval = LegacyStationQuery(query, interval);
             }
             else if( query.IndexOf("parameter") >=0 )
             {
@@ -141,7 +141,7 @@ namespace PiscesWebServices
 
         }
 
-        private static string LegacyStationQuery(string query)
+        private static string LegacyStationQuery(string query, TimeInterval interval)
         {
             string rval = "";
             var c = HttpUtility.ParseQueryString(query);
@@ -155,6 +155,11 @@ namespace PiscesWebServices
             if (keys.Contains("back"))
             {
                 back = c["back"];
+                DateTime t1, t2;
+                HydrometWebUtility.GetDateRange(c,interval,out t1, out t2);
+
+                start = t1.ToString("yyyy-M-d");
+                end = t2.ToString("yyyy-M-d");
             }
             else if (keys.Contains("year") && keys.Contains("month") && keys.Contains("day"))
             {
@@ -253,17 +258,19 @@ namespace PiscesWebServices
                 string tableName = list[i].Table.TableName;
                 if (!db.Server.TableExists(tableName))
                 {
-                    continue;
+                    //continue;
+                    sql += "SELECT '" + tableName + "' as tablename , current_timestamp as datetime, null as value, '' as flag where 0=1 ";
                 }
-
-                sql += "SELECT '" + tableName + "' as tablename, datetime,value,flag FROM " + tableName;
-                if (t1 != TimeSeriesDatabase.MinDateTime || t2 != TimeSeriesDatabase.MaxDateTime)
+                else
                 {
-                    sql += " WHERE datetime >= " + db.Server.PortableDateString(t1, TimeSeriesDatabase.dateTimeFormat)
-                        + " AND "
-                        + " datetime <= " + db.Server.PortableDateString(t2, TimeSeriesDatabase.dateTimeFormat);
+                    sql += "SELECT '" + tableName + "' as tablename, datetime,value,flag FROM " + tableName;
+                    if (t1 != TimeSeriesDatabase.MinDateTime || t2 != TimeSeriesDatabase.MaxDateTime)
+                    {
+                        sql += " WHERE datetime >= " + db.Server.PortableDateString(t1, TimeSeriesDatabase.dateTimeFormat)
+                            + " AND "
+                            + " datetime <= " + db.Server.PortableDateString(t2, TimeSeriesDatabase.dateTimeFormat);
+                    }
                 }
-
                 if (i != list.Count - 1)
                     sql += " UNION ALL \n";
             }
