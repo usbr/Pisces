@@ -80,10 +80,14 @@ namespace PiscesWebServices
                 }
             }
             else
-            if (cgi == "instant")
+            if (cgi == "instant" || cgi == "daily")
             {
                 CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
+                if( cgi == "instant")
                 c.Run(TimeInterval.Hourly,payload);
+                else if( cgi == "daily")
+                c.Run(TimeInterval.Daily,payload);
+
             }
             else
             if (cgi == "site")

@@ -15,6 +15,7 @@ namespace PiscesWebServices
     /// <summary>
     ///  returns results from web query to timeseries data in pisces.
     /// "http://www.usbr.gov/pn-bin/instant.pl?list=boii ob,boii obx&start=2016-04-15&end=2016-04-20"
+    /// "http://lrgs1/pn-bin/daily?list=jck fb, amf fb&start=2016-04-15&end=2016-04-20"
     /// 
     /// options :  
     ///      back=12  (12 hours for instant, 12 days for daily)
