@@ -29,6 +29,7 @@ namespace PiscesWebServices
             var format = "json";
             var verbose = false;
             bool selfHost = false;
+            var sqLiteDatabaseFileName="";
 
             p.Add("server", x => selfHost = true);
             p.Add("cgi=","required cgi to execute cgi=sites or cgi=series",x => cgi=x);
@@ -38,6 +39,8 @@ namespace PiscesWebServices
             p.Add("payload=", "test query data for a CGI", x => payload = x);
             p.Add("format=","format json(default) | csv ",x => format=x);
             p.Add("verbose"," get more details", x => verbose =true);
+            p.Add("database", "filename for SQLite database", x => sqLiteDatabaseFileName = x);
+
             try
             {
                 p.Parse(args);
@@ -47,7 +50,8 @@ namespace PiscesWebServices
                 Console.WriteLine(e.Message);
                 return;
             }
-
+            Database.InitDB(args);
+            var db = Database.DB();
             
             if( selfHost)
             {
@@ -88,7 +92,7 @@ namespace PiscesWebServices
                 Logger.WriteLine("payload = " + payload);
             }
 
-            var db = DB(args);
+            
 
             if (cgi == "inventory")
             {
@@ -151,11 +155,7 @@ namespace PiscesWebServices
 
         }
 
-        private static TimeSeriesDatabase DB(string[] args)
-        {
-            var db = TimeSeriesDatabase.InitDatabase(new Arguments(args));
-            return db;
-        }
+       
 
         
 
