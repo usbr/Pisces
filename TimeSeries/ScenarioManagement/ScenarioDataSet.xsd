@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ScenarioDataSet" targetNamespace="http://tempuri.org/ScenarioDataSet.xsd" xmlns:mstns="http://tempuri.org/ScenarioDataSet.xsd" xmlns="http://tempuri.org/ScenarioDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ScenarioDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="ScenarioDataSet" msprop:Generator_UserDSName="ScenarioDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ScenarioMapping" msprop:Generator_TableClassName="ScenarioMappingDataTable" msprop:Generator_TableVarName="tableScenarioMapping" msprop:Generator_TablePropName="ScenarioMapping" msprop:Generator_RowDeletingName="ScenarioMappingRowDeleting" msprop:Generator_RowChangingName="ScenarioMappingRowChanging" msprop:Generator_RowEvHandlerName="ScenarioMappingRowChangeEventHandler" msprop:Generator_RowDeletedName="ScenarioMappingRowDeleted" msprop:Generator_UserTableName="ScenarioMapping" msprop:Generator_RowChangedName="ScenarioMappingRowChanged" msprop:Generator_RowEvArgName="ScenarioMappingRowChangeEvent" msprop:Generator_RowClassName="ScenarioMappingRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="SiteMapping" msprop:Generator_TableClassName="SiteMappingDataTable" msprop:Generator_TableVarName="tableSiteMapping" msprop:Generator_TablePropName="SiteMapping" msprop:Generator_RowDeletingName="SiteMappingRowDeleting" msprop:Generator_RowChangingName="SiteMappingRowChanging" msprop:Generator_RowEvHandlerName="SiteMappingRowChangeEventHandler" msprop:Generator_RowDeletedName="SiteMappingRowDeleted" msprop:Generator_UserTableName="SiteMapping" msprop:Generator_RowChangedName="SiteMappingRowChanged" msprop:Generator_RowEvArgName="SiteMappingRowChangeEvent" msprop:Generator_RowClassName="SiteMappingRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ExternalSiteID" msprop:Generator_ColumnVarNameInTable="columnExternalSiteID" msprop:Generator_ColumnPropNameInRow="ExternalSiteID" msprop:Generator_ColumnPropNameInTable="ExternalSiteIDColumn" msprop:Generator_UserColumnName="ExternalSiteID" type="xs:string" minOccurs="0" />
+              <xs:element name="InternalSiteID" msprop:Generator_ColumnVarNameInTable="columnInternalSiteID" msprop:Generator_ColumnPropNameInRow="InternalSiteID" msprop:Generator_ColumnPropNameInTable="InternalSiteIDColumn" msprop:Generator_UserColumnName="InternalSiteID" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

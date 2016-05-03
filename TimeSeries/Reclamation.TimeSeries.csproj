@@ -305,6 +305,14 @@
     <Compile Include="RBMS\RBMSTextFile.cs" />
     <Compile Include="RBMS\RbmsUtility.cs" />
     <Compile Include="Import\ImportRioGrandeExcel.cs" />
+    <Compile Include="ScenarioManagement\ForecastGenerator.cs" />
+    <None Include="ScenarioManagement\example_VicUnregToModsimScenarios.cs" />
+    <Compile Include="ScenarioManagement\ScenarioDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ScenarioManagement\ScenarioList.cs" />
     <Compile Include="Service References\Nrcs\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -451,6 +459,17 @@
     <Compile Include="Tests\SeriesTypes\Cr10xTest.cs" />
     <Compile Include="Tests\SeriesTypes\TestSnotel.cs" />
     <None Include="RBMS\Export - DH Manual Monitoring - Oct 2015.csv" />
+    <None Include="ScenarioManagement\ScenarioDataSet.xsc">
+      <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ScenarioManagement\ScenarioDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ScenarioDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ScenarioManagement\ScenarioDataSet.xss">
+      <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Service References\Nrcs\AwdbWebService.wsdl" />
     <None Include="Service References\Nrcs\Reclamation.TimeSeries.Nrcs.averagesData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
