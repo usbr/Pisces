@@ -6,6 +6,7 @@ using Mono.Options;
 using Reclamation.TimeSeries;
 using Reclamation.Core;
 using System.IO;
+using Nancy.Hosting.Self;
 
 namespace PiscesWebServices
 {
@@ -27,8 +28,9 @@ namespace PiscesWebServices
             var p = new OptionSet();
             var format = "json";
             var verbose = false;
+            bool selfHost = false;
 
-            p.Add("server");
+            p.Add("server", x => selfHost = true);
             p.Add("cgi=","required cgi to execute cgi=sites or cgi=series",x => cgi=x);
             p.Add("json_property_stubs=", "comma separated list of properties (i.e. 'region,url,') to created empty stubs if neeed ",
                               x => json_property_stubs = x);
@@ -43,7 +45,35 @@ namespace PiscesWebServices
             catch (OptionException e)
             {
                 Console.WriteLine(e.Message);
+                return;
             }
+
+            
+            if( selfHost)
+            {
+                try
+                {
+                    var serverUri = "http://localhost:8080";
+                    var cfg = new HostConfiguration();
+                    //cfg.RewriteLocalhost = false;
+                    //c..fg.UrlReservations.CreateAutomatically=true;
+                    var host = new Nancy.Hosting.Self.NancyHost(cfg, new Uri(serverUri));
+                    //var host = new Nancy.Hosting.Self.NancyHost();
+                    using (host)
+                    {
+                        host.Start();
+                        Console.WriteLine("Running on " + serverUri);
+                        Console.ReadLine();
+                    }
+                }
+                catch (Exception nancyEx)
+                {
+
+                    Console.WriteLine(nancyEx.Message);
+                }
+                return;
+            }
+
             if (cgi == "")
             {
                 ShowHelp(p);
@@ -58,7 +88,7 @@ namespace PiscesWebServices
                 Logger.WriteLine("payload = " + payload);
             }
 
-            var db = TimeSeriesDatabase.InitDatabase(new Arguments(args));
+            var db = DB(args);
 
             if (cgi == "inventory")
             {
@@ -119,6 +149,12 @@ namespace PiscesWebServices
                     Console.WriteLine("invalid cgi: "+cgi);
                 }
 
+        }
+
+        private static TimeSeriesDatabase DB(string[] args)
+        {
+            var db = TimeSeriesDatabase.InitDatabase(new Arguments(args));
+            return db;
         }
 
         
