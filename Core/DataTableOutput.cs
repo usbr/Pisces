@@ -109,6 +109,58 @@ namespace Reclamation.Core
             sr.Close();
         }
 
+        /// <summary>
+        /// Creates HTML from a DataTable
+        /// http://stackoverflow.com/questions/19682996/datatable-to-html-table
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static string ToHTML(DataTable dt, Func<string, string> f )
+        {
+            
+            StringBuilder html = new StringBuilder();
+            html.Append("<table>");
+            //add header row
+            html.Append( "<tr>");
+            for (int i = 0; i < dt.Columns.Count; i++)
+                html.Append("<td>" + dt.Columns[i].ColumnName + "</td>");
+             html.Append("</tr>");
+            //add rows
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                html.Append("<tr>");
+                for (int j = 0; j < dt.Columns.Count; j++)
+                    html.Append("<td>" + dt.Rows[i][j].ToString() + "</td>");
+               html.Append( "</tr>");
+            }
+            html.Append("</table>");
+            return html.ToString();
+        }
 
+
+        /// <summary>
+        /// Convert to JSON
+        /// http://stackoverflow.com/questions/36062991/how-to-use-odata-in-nancyfx
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static string ToJson(DataTable dt)
+        {
+        System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                serializer.MaxJsonLength = Int32.MaxValue;
+                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+                Dictionary<string, object> row;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    row = new Dictionary<string, object>();
+                    foreach (DataColumn col in dt.Columns)
+                    {
+                        row.Add(col.ColumnName, dr[col]);
+                    }
+                    rows.Add(row);
+                }
+                var resultString = serializer.Serialize(rows);
+            return resultString;
+        }
     }
 }
