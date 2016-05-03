@@ -106,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CsvTable.cs" />
+    <Compile Include="Database.cs" />
     <Compile Include="PiscesWebRoutes.cs" />
     <Compile Include="SiteInfo.cs" />
     <Compile Include="CsvTimeSeriesWriter.cs" />
