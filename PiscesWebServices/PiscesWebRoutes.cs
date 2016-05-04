@@ -41,13 +41,12 @@ C:\WINDOWS\system32>
             };
 
 
-            Get["/sites/{id}"] = x =>
-                {
+            Get["/sites/(?<siteid>^[A-Za-z0-9]{1,40}$)"] = x =>
+                { // list paramters for a site, and other stuff?
                     var fmt = this.Request.Query["format"].ToString();
-                    var id = x.id.ToString();
-                    if (!Regex.IsMatch(id, "[A-Za-z0-9]{1,20}"))
-                        return "bad site id";
-                    var tbl = Database.DB().GetSiteCatalog("siteid = '" + id + "'");
+                    var siteid = x.siteid.ToString();
+
+                    var tbl = Database.GetParameters(siteid);
                     return FormatDataTable(fmt, tbl);
                 };
 
@@ -78,6 +77,8 @@ C:\WINDOWS\system32>
             else
             return "<td>" + txt + "</td>";
         }
+
+
         private static dynamic FormatDataTable(string fmt, DataTable sites)
         {
             if (fmt == "json")

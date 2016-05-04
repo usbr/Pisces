@@ -33,5 +33,14 @@ namespace PiscesWebServices
             }
         }
 
+        internal static DataTable GetParameters(string siteid)
+        {
+            // list of instant, daily, etc..
+            //select  s.siteid, s.parameter, description, units, timeinterval from seriescatalog s join ref_parameter p on s.parameter=p.parameter where siteid = 'Billy_Chinook'
+            string sql = "select  s.siteid, s.parameter, name,description, units, timeinterval from seriescatalog s left join ref_parameter p on s.parameter=p.parameter where siteid = '" + siteid + "' order by timeinterval";
+            return s_db.Server.Table("a", sql);
+
+ 
+        }
     }
 }
