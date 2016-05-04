@@ -109,17 +109,17 @@ namespace Reclamation.Core
             sr.Close();
         }
 
-        /// <summary>
-        /// Creates HTML from a DataTable
-        /// http://stackoverflow.com/questions/19682996/datatable-to-html-table
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
-        public static string ToHTML(DataTable dt, Func<string, string> f )
+     
+        public static string ToHTML(DataTable dt, Func<DataColumn ,string, string> f, bool border = true)
         {
             
             StringBuilder html = new StringBuilder();
-            html.Append("<table>");
+            
+            if( border)
+                html.Append("<table border=\"1\">");
+            else
+                html.Append("<table>");
+
             //add header row
             html.Append( "<tr>");
             for (int i = 0; i < dt.Columns.Count; i++)
@@ -130,14 +130,35 @@ namespace Reclamation.Core
             {
                 html.Append("<tr>");
                 for (int j = 0; j < dt.Columns.Count; j++)
-                    html.Append("<td>" + dt.Rows[i][j].ToString() + "</td>");
+                    html.Append(f(dt.Columns[j], dt.Rows[i][j].ToString()));
                html.Append( "</tr>");
             }
             html.Append("</table>");
             return html.ToString();
         }
 
+        /// <summary>
+        /// Add a link to the specified column
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="txt"></param>
+        /// <returns></returns>
+        private static string FormatCell(DataColumn c,string txt)
+        {
+            return "<td>" + txt + "</td>";
+        }
 
+        /// <summary>
+        /// Creates HTML from a DataTable
+        /// http://stackoverflow.com/questions/19682996/datatable-to-html-table
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static string ToHTML(DataTable dt)
+        {
+            return ToHTML(dt, FormatCell);
+
+        }
         /// <summary>
         /// Convert to JSON
         /// http://stackoverflow.com/questions/36062991/how-to-use-odata-in-nancyfx

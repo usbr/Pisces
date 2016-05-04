@@ -45,7 +45,7 @@ C:\WINDOWS\system32>
                 {
                     var fmt = this.Request.Query["format"].ToString();
                     var id = x.id.ToString();
-                    if (Regex.IsMatch(id, "[A-Za-z0-9]{1,20}"))
+                    if (!Regex.IsMatch(id, "[A-Za-z0-9]{1,20}"))
                         return "bad site id";
                     var tbl = Database.DB().GetSiteCatalog("siteid = '" + id + "'");
                     return FormatDataTable(fmt, tbl);
@@ -54,9 +54,7 @@ C:\WINDOWS\system32>
             Get["/sites"] = x =>
                 {
                     var fmt = this.Request.Query["format"].ToString();
-
-                    var sites = Database.DB().GetSiteCatalog();
-
+                    var sites = Database.Sites;
                     return FormatDataTable(fmt, sites);
 
                 };
@@ -66,15 +64,37 @@ C:\WINDOWS\system32>
 
         }
 
+
+        /// <summary>
+        /// Add a link to the specified column
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="txt"></param>
+        /// <returns></returns>
+        private static string FormatSiteCell(DataColumn c, string txt)
+        {
+            if( c.ColumnName =="siteid")
+                return "<td> <a href=/sites/" + txt + ">"+txt  +"</a></td>";
+            else
+            return "<td>" + txt + "</td>";
+        }
         private static dynamic FormatDataTable(string fmt, DataTable sites)
         {
             if (fmt == "json")
                 return DataTableOutput.ToJson(sites) + " " + fmt;
-            else
+            else if(fmt == "xml")
             {
                 var fn = FileUtility.GetTempFileName(".xml");
                 sites.WriteXml(fn, System.Data.XmlWriteMode.WriteSchema);
                 return File.ReadAllText(fn) + " " + fmt;
+            }
+            else if ( fmt == "csv")
+            {
+                return "todo csv";
+            }
+            else // html
+            {
+                return DataTableOutput.ToHTML(sites,FormatSiteCell);
             }
         }
     }

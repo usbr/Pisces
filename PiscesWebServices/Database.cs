@@ -2,6 +2,7 @@
 using Reclamation.TimeSeries;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -21,6 +22,15 @@ namespace PiscesWebServices
         public static TimeSeriesDatabase DB()
         {
             return s_db;
+        }
+
+        public static DataTable Sites
+        {
+            get
+            {
+                return s_db.Server.Table("sitecatalog", 
+                    "select siteid, description,state,latitude,longitude, type from sitecatalog");
+            }
         }
 
     }
