@@ -307,12 +307,15 @@
     <Compile Include="Import\ImportRioGrandeExcel.cs" />
     <Compile Include="ScenarioManagement\ForecastGenerator.cs" />
     <None Include="ScenarioManagement\example_VicUnregToModsimScenarios.cs" />
+    <Compile Include="ScenarioManagement\ScenarioDataSet.cs">
+      <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ScenarioManagement\ScenarioDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ScenarioManagement\ScenarioList.cs" />
     <Compile Include="Service References\Nrcs\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -324,6 +327,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tests\Import\TestImportRioGrande.cs" />
+    <Compile Include="Tests\Scenarios\TestScenarios.cs" />
     <Compile Include="Tests\SeriesFeatures\TestShiftSeriesBug.cs" />
     <Compile Include="Tests\SeriesMath\TestResidual.cs" />
     <Compile Include="Tests\SeriesMath\TestInterpolate2D.cs" />

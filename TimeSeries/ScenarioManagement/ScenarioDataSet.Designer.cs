@@ -314,6 +314,10 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class ScenarioMappingDataTable : global::System.Data.TypedTableBase<ScenarioMappingRow> {
             
+            private global::System.Data.DataColumn columnScenarioName;
+            
+            private global::System.Data.DataColumn columnScenarioNumber;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ScenarioMappingDataTable() {
@@ -345,6 +349,22 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
             protected ScenarioMappingDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                     base(info, context) {
                 this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ScenarioNameColumn {
+                get {
+                    return this.columnScenarioName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ScenarioNumberColumn {
+                get {
+                    return this.columnScenarioNumber;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -384,9 +404,11 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ScenarioMappingRow AddScenarioMappingRow() {
+            public ScenarioMappingRow AddScenarioMappingRow(string ScenarioName, string ScenarioNumber) {
                 ScenarioMappingRow rowScenarioMappingRow = ((ScenarioMappingRow)(this.NewRow()));
-                object[] columnValuesArray = new object[0];
+                object[] columnValuesArray = new object[] {
+                        ScenarioName,
+                        ScenarioNumber};
                 rowScenarioMappingRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowScenarioMappingRow);
                 return rowScenarioMappingRow;
@@ -409,11 +431,17 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
+                this.columnScenarioName = base.Columns["ScenarioName"];
+                this.columnScenarioNumber = base.Columns["ScenarioNumber"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             private void InitClass() {
+                this.columnScenarioName = new global::System.Data.DataColumn("ScenarioName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnScenarioName);
+                this.columnScenarioNumber = new global::System.Data.DataColumn("ScenarioNumber", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnScenarioNumber);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -551,6 +579,10 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
             
             private global::System.Data.DataColumn columnInternalSiteID;
             
+            private global::System.Data.DataColumn columnSiteName;
+            
+            private global::System.Data.DataColumn columnBasin;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public SiteMappingDataTable() {
@@ -602,6 +634,22 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SiteNameColumn {
+                get {
+                    return this.columnSiteName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn BasinColumn {
+                get {
+                    return this.columnBasin;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -637,11 +685,13 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public SiteMappingRow AddSiteMappingRow(string ExternalSiteID, string InternalSiteID) {
+            public SiteMappingRow AddSiteMappingRow(string ExternalSiteID, string InternalSiteID, string SiteName, string Basin) {
                 SiteMappingRow rowSiteMappingRow = ((SiteMappingRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         ExternalSiteID,
-                        InternalSiteID};
+                        InternalSiteID,
+                        SiteName,
+                        Basin};
                 rowSiteMappingRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSiteMappingRow);
                 return rowSiteMappingRow;
@@ -666,6 +716,8 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
             internal void InitVars() {
                 this.columnExternalSiteID = base.Columns["ExternalSiteID"];
                 this.columnInternalSiteID = base.Columns["InternalSiteID"];
+                this.columnSiteName = base.Columns["SiteName"];
+                this.columnBasin = base.Columns["Basin"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -675,6 +727,10 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
                 base.Columns.Add(this.columnExternalSiteID);
                 this.columnInternalSiteID = new global::System.Data.DataColumn("InternalSiteID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnInternalSiteID);
+                this.columnSiteName = new global::System.Data.DataColumn("SiteName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSiteName);
+                this.columnBasin = new global::System.Data.DataColumn("Basin", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBasin);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -814,6 +870,62 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
                     base(rb) {
                 this.tableScenarioMapping = ((ScenarioMappingDataTable)(this.Table));
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ScenarioName {
+                get {
+                    try {
+                        return ((string)(this[this.tableScenarioMapping.ScenarioNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ScenarioName\' in table \'ScenarioMapping\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableScenarioMapping.ScenarioNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ScenarioNumber {
+                get {
+                    try {
+                        return ((string)(this[this.tableScenarioMapping.ScenarioNumberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ScenarioNumber\' in table \'ScenarioMapping\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableScenarioMapping.ScenarioNumberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsScenarioNameNull() {
+                return this.IsNull(this.tableScenarioMapping.ScenarioNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetScenarioNameNull() {
+                this[this.tableScenarioMapping.ScenarioNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsScenarioNumberNull() {
+                return this.IsNull(this.tableScenarioMapping.ScenarioNumberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetScenarioNumberNull() {
+                this[this.tableScenarioMapping.ScenarioNumberColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -864,6 +976,38 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string SiteName {
+                get {
+                    try {
+                        return ((string)(this[this.tableSiteMapping.SiteNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SiteName\' in table \'SiteMapping\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSiteMapping.SiteNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string Basin {
+                get {
+                    try {
+                        return ((string)(this[this.tableSiteMapping.BasinColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Basin\' in table \'SiteMapping\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSiteMapping.BasinColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsExternalSiteIDNull() {
                 return this.IsNull(this.tableSiteMapping.ExternalSiteIDColumn);
             }
@@ -884,6 +1028,30 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetInternalSiteIDNull() {
                 this[this.tableSiteMapping.InternalSiteIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSiteNameNull() {
+                return this.IsNull(this.tableSiteMapping.SiteNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSiteNameNull() {
+                this[this.tableSiteMapping.SiteNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBasinNull() {
+                return this.IsNull(this.tableSiteMapping.BasinColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetBasinNull() {
+                this[this.tableSiteMapping.BasinColumn] = global::System.Convert.DBNull;
             }
         }
         
