@@ -14,16 +14,9 @@ namespace PiscesWebServices
     {
 
         /*\
-         Microsoft Windows [Version 6.1.7601]
-Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
-
-C:\WINDOWS\system32>netsh http addnancy/ user=Everyone
 
 C:\WINDOWS\system32>netsh http add urlacl url="http://+:8080/" user="Everyone"
-
 URL reservation successfully added
-
-
 C:\WINDOWS\system32>
 
 

@@ -124,6 +124,9 @@ namespace Reclamation.TimeSeries.Forms
             this.logToolStripMenuItemViewLog = new System.Windows.Forms.ToolStripMenuItem();
             this.databaseTablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ImportHydrologicModels = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOptions = new System.Windows.Forms.ToolStripMenuItem();
@@ -137,9 +140,6 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -501,8 +501,8 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.DefaultExt = "*.pisces";
-            this.saveFileDialog1.Filter = "Pisces Database files (*.pisces) |*.pisces |All files (*.*)|*.*";
+            this.saveFileDialog1.DefaultExt = "*.pdb";
+            this.saveFileDialog1.Filter = "Pisces Database files (*.pdb) |*.pdb |All files (*.*)|*.*";
             this.saveFileDialog1.Title = "Create New Database";
             // 
             // splitContainer1
@@ -876,7 +876,7 @@ namespace Reclamation.TimeSeries.Forms
             this.sToolStripMenuItem,
             this.toolStripSeparator8,
             this.toolStripMenuItem12,
-            this.toolStripMenuItem11,
+            this.ImportHydrologicModels,
             this.toolStripSeparator7,
             this.optionsToolStripMenuItem});
             this.menuView.Name = "menuView";
@@ -903,6 +903,24 @@ namespace Reclamation.TimeSeries.Forms
             this.sToolStripMenuItem.Size = new System.Drawing.Size(387, 24);
             this.sToolStripMenuItem.Text = "&SQL Commands";
             this.sToolStripMenuItem.Click += new System.EventHandler(this.sqlCommands_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(384, 6);
+            // 
+            // toolStripMenuItem12
+            // 
+            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(387, 24);
+            this.toolStripMenuItem12.Text = "Computations for River and Reservoir Models...";
+            // 
+            // ImportHydrologicModels
+            // 
+            this.ImportHydrologicModels.Name = "ImportHydrologicModels";
+            this.ImportHydrologicModels.Size = new System.Drawing.Size(387, 24);
+            this.ImportHydrologicModels.Text = "Hydrologic Model Import...";
+            this.ImportHydrologicModels.Click += new System.EventHandler(this.ImportHydrologicModels_Click);
             // 
             // toolStripSeparator7
             // 
@@ -986,23 +1004,6 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Enabled = true;
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // toolStripMenuItem11
-            // 
-            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(387, 24);
-            this.toolStripMenuItem11.Text = "Hydrologic Model Import...";
-            // 
-            // toolStripSeparator8
-            // 
-            this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(384, 6);
-            // 
-            // toolStripMenuItem12
-            // 
-            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(387, 24);
-            this.toolStripMenuItem12.Text = "Computations for River and Reservoir Models...";
             // 
             // PiscesForm
             // 
@@ -1139,7 +1140,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem AddRioGrandeSpreadsheet;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
+        private System.Windows.Forms.ToolStripMenuItem ImportHydrologicModels;
         //private System.Windows.Forms.ToolStripMenuItem menuUpdate;
 
     }

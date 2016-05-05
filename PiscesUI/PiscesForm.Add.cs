@@ -31,6 +31,22 @@ namespace Reclamation.TimeSeries.Forms
 
     public partial class PiscesForm
     {
+        private void ImportHydrologicModels_Click(object sender, EventArgs e)
+        {
+            DB.SuspendTreeUpdates();
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Excel (*.xls;*.xlsx) |*.xls;*.xlsx|All files (*.*)|*.*";
+            var ds = new ScenarioManagement.ScenarioDataSet();
+
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ds.Import(dlg.FileName,DB);
+            }
+            DB.ResumeTreeUpdates();
+            DatabaseChanged();
+        }
+
+
         private void AddRioGrandeSpreadsheet_Click(object sender, EventArgs e)
         {
 
