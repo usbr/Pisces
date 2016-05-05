@@ -324,7 +324,7 @@ namespace Reclamation.Core
      {
          Logger.WriteLine("Linux="+LinuxUtility.IsLinux());
 
-         if (LinuxUtility.IsLinux())
+         if (LinuxUtility.IsLinux() || server == "localhost")
          {//Linux login is from config file.  Assuming localhost access
              if (user == "")
                  user = WindowsUtility.GetShortUserName();

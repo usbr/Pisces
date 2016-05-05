@@ -127,6 +127,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="AppPostgres.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="AppMySql.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

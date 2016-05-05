@@ -110,7 +110,7 @@ namespace Reclamation.Core
         }
 
      
-        public static string ToHTML(DataTable dt, Func<DataColumn ,string, string> f, bool border = true)
+        public static string ToHTML(DataTable dt, Func<DataColumn ,DataRow, string, string> f, bool border = true)
         {
             
             StringBuilder html = new StringBuilder();
@@ -130,7 +130,7 @@ namespace Reclamation.Core
             {
                 html.Append("<tr>");
                 for (int j = 0; j < dt.Columns.Count; j++)
-                    html.Append(f(dt.Columns[j], dt.Rows[i][j].ToString()));
+                    html.Append(f(dt.Columns[j],dt.Rows[i], dt.Rows[i][j].ToString()));
                html.Append( "</tr>");
             }
             html.Append("</table>");
@@ -143,7 +143,7 @@ namespace Reclamation.Core
         /// <param name="c"></param>
         /// <param name="txt"></param>
         /// <returns></returns>
-        private static string FormatCell(DataColumn c,string txt)
+        private static string FormatCell(DataColumn c,DataRow r,string txt)
         {
             return "<td>" + txt + "</td>";
         }
