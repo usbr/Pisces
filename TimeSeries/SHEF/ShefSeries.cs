@@ -99,7 +99,21 @@ namespace Reclamation.TimeSeries.SHEF
             return shefDataTable;
         }
 
-        
+        //protected override void ReadCore()
+        //{
+        //    Add(GetShefSeries());
+        //}
+
+        //private Series GetShefSeries()
+        //{
+        //    var dTab = ReadShefFile(filename);
+        //    var valTable = dTab.Select(string.Format("location = '{0}' AND shefcode = '{1}'", location, pecode));
+        //    foreach (DataRow item in valTable)
+        //    {
+        //        this.Add(DateTime.Parse(item["datetime"].ToString()), Convert.ToDouble(item["value"]));
+        //    }
+        //    return this;
+        //}
 
         //////////////////////////////////////////////////////////////////////////////////////
         // HYDROMET PROGRAM FROM K.TARBET

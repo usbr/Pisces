@@ -95,6 +95,7 @@ C:\WINDOWS\system32>
                 string href = x.Replace("{fmt}", "csv").Replace("{name}", "csv");
                 href += " "+x.Replace("{fmt}", "xml").Replace("{name}", "xml");
                 href += " " + x.Replace("{fmt}", "html").Replace("{name}", "html");
+                href += " " + x.Replace("{fmt}", "chart").Replace("{name}", "chart");
                 return "<td>"+txt+ " " + href + "</td>";
             }
             return "<td>" + txt + "</td>";
@@ -117,9 +118,17 @@ C:\WINDOWS\system32>
                 CsvFile.WriteToCSV(sites, fn, false);
                 return File.ReadAllText(fn);
             }
+            else if (fmt == "chart")
+            {
+                var fn = FileUtility.GetTempFileName(".html");
+                var chartData = sites;
+                chartData.Columns.Remove("flag");
+                DyGraphWriter.writeHTML_dyGraphs(chartData, fn);
+                return File.ReadAllText(fn);
+            }
             else // html
             {
-                return DataTableOutput.ToHTML(sites,FormatSiteCell);
+                return DataTableOutput.ToHTML(sites, FormatSiteCell);
             }
         }
     }

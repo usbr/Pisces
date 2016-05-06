@@ -105,6 +105,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DyGraphWriter.cs" />
     <Compile Include="CsvTable.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="PiscesWebRoutes.cs" />
