@@ -108,6 +108,7 @@
     <Compile Include="DyGraphWriter.cs" />
     <Compile Include="CsvTable.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="HomePage.cs" />
     <Compile Include="PiscesWebRoutes.cs" />
     <Compile Include="SiteInfo.cs" />
     <Compile Include="CsvTimeSeriesWriter.cs" />

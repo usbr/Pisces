@@ -29,9 +29,7 @@ C:\WINDOWS\system32>
         {
             Get["/"] = x =>
             {
-
-                return "<html><a href=/sites>List of Sites</a>"
-                   + "\n<br><a href=/series>List of Series</a> ";
+                return WebPageBuilder.BuildHomePage();
             };
 
             Get["/series/(?<tablename>^[A-Za-z0-9_]{1,40}$)"] = x =>
@@ -71,9 +69,29 @@ C:\WINDOWS\system32>
                     var sites = Database.Sites;
                     return FormatDataTable(fmt, sites);
                 };
+            
+            Get["/types"] = x =>
+                {
+                    var fmt = this.Request.Query["format"].ToString();
+                    var types = Database.Types;
+                    return FormatDataTable(fmt, types);
+                };
 
-             
-    
+            Get["/query"] = x =>
+                {
+                    var fmt = this.Request.Query["format"].ToString();
+                    var siteList = Database.Sites;
+                    return WebPageBuilder.BuildQueryPage(siteList);
+                };
+
+            Get["/query/(?<siteid>^[A-Za-z0-9]{1,40}$)"] = x =>
+            { // list paramters for a site, and other stuff?
+                var fmt = this.Request.Query["format"].ToString();
+                var siteid = x.siteid.ToString();
+
+                var paramList = Database.GetParameters(siteid);
+                return WebPageBuilder.UpdateQueryPage(paramList);
+            };
 
         }
 

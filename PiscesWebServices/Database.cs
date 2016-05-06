@@ -33,6 +33,15 @@ namespace PiscesWebServices
             }
         }
 
+        public static DataTable Types
+        {
+            get
+            {
+                return s_db.Server.Table("sitecatalog",
+                   "select type, siteid, description,state,latitude,longitude from sitecatalog");
+            }
+        }
+
         internal static DataTable GetParameters(string siteid)
         {
             // list of instant, daily, etc..
