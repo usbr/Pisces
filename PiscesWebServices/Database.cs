@@ -33,13 +33,19 @@ namespace PiscesWebServices
             }
         }
 
-        public static DataTable Types
+        internal static DataTable GetSiteByType(string typeName)
         {
-            get
-            {
-                return s_db.Server.Table("sitecatalog",
-                   "select type, siteid, description,state,latitude,longitude from sitecatalog");
-            }
+            string sql = "select type, siteid, description,state,latitude,longitude from sitecatalog " +
+                "where type = '" + typeName + "'";
+            return s_db.Server.Table("a", sql);
+        }
+
+        internal static DataTable GetTableProperties(string tableName)
+        {
+            string sql = "select sitecatalog.description, seriescatalog.name, seriescatalog.units " +
+                "from seriescatalog inner join sitecatalog on seriescatalog.siteid = sitecatalog.siteid" +
+                "where seriescatalog.tablename = '" + tableName + "'";
+            return s_db.Server.Table("a", sql);
         }
 
         internal static DataTable GetParameters(string siteid)
@@ -48,8 +54,6 @@ namespace PiscesWebServices
             //select  s.siteid, s.parameter, description, units, timeinterval from seriescatalog s join ref_parameter p on s.parameter=p.parameter where siteid = 'Billy_Chinook'
             string sql = "select  tablename, s.parameter, name,description, units, timeinterval,server, t1 as start, t2 as end, count from view_seriescatalog s left join ref_parameter p on s.parameter=p.parameter where siteid = '" + siteid + "' order by timeinterval";
             return s_db.Server.Table("a", sql);
-
- 
         }
 
         internal static DataTable GetSiteProperties(dynamic siteid)

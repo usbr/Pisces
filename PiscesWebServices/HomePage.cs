@@ -9,9 +9,7 @@ namespace PiscesWebServices
 {
     class WebPageBuilder
     {
-        public static string BuildHomePage()
-        {
-            string webPage = @"" +
+        private static string webPage1stPart = "" +
 #region
 @"<!DOCTYPE html>" +
 @"<!-- template-v2015  -->" +
@@ -196,12 +194,10 @@ namespace PiscesWebServices
 @"" +
 @"          <div class=""Main-well"">" +
 @"          " +
-@"<h2 class=""h1""><font color=""red"">D R A F T</font> -- Reclamation Water Data Web Service -- <font color=""red"">D R A F T</font></h2>" +
+@"<h2 class=""h1""><font color=""red"">D R A F T</font> -- Reclamation Water Data Web Service -- <font color=""red"">D R A F T</font></h2>";
 #endregion
-                "<br><a href=/sites>List of Sites</a>"+
-                "<br><a href=/series>List of Series</a> "+
-                "<br><a href=/types>List of Types</a> " +
-                "<br><a href=/query>Query Interface</a> " +
+
+        private static string webPage2ndPart = "" +
 #region
 @"" +
 @"<br>" +
@@ -295,6 +291,30 @@ namespace PiscesWebServices
 @"</body>" +
 @"</html>";
 #endregion
+        
+        public static string BuildHomePage()
+        {
+            string webPage = @"" +
+                webPage1stPart +
+                "<br><a href=/sites>List of Sites</a>" +
+                "<br><a href=/series>List of Series</a> " +
+                "<br><a href=/types>List of Types</a> " +
+                "<br><a href=/query>Query Interface</a> " +
+                webPage2ndPart;
+            return webPage;
+        }
+
+        public static string BuildTypesPage()
+        {
+            string webPage = @"" +
+                webPage1stPart +
+                "<br><a href=/types/agrimet>Agrimet Stations</a>" +
+                "<br><a href=/types/canal>Canals</a> " +
+                "<br><a href=/types/reservoir>Reservoirs and Dams</a> " +
+                "<br><a href=/types/snotel>Snotel Sites</a> " +
+                "<br><a href=/types/stream>Stream Gages</a> " +
+                "<br><a href=/types/weather>Weather Stations</a>" +
+                webPage2ndPart;
             return webPage;
         }
 

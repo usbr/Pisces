@@ -72,10 +72,19 @@ C:\WINDOWS\system32>
             
             Get["/types"] = x =>
                 {
-                    var fmt = this.Request.Query["format"].ToString();
-                    var types = Database.Types;
-                    return FormatDataTable(fmt, types);
+                    //var fmt = this.Request.Query["format"].ToString();
+                    //var types = Database.Types;
+                    return WebPageBuilder.BuildTypesPage();// FormatDataTable(fmt, types);
                 };
+
+            Get["/types/(?<typename>^[A-Za-z0-9]{1,40}$)"] = x =>
+            { // list paramters for a site, and other stuff?
+                var fmt = this.Request.Query["format"].ToString();
+                var typeName = x.typename.ToString();
+
+                var sites = Database.GetSiteByType(typeName);
+                return FormatDataTable(fmt, sites);
+            };
 
             Get["/query"] = x =>
                 {
