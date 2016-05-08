@@ -93,15 +93,6 @@ C:\WINDOWS\system32>
                     return WebPageBuilder.BuildQueryPage(siteList);
                 };
 
-            Get["/query/(?<siteid>^[A-Za-z0-9]{1,40}$)"] = x =>
-            { // list paramters for a site, and other stuff?
-                var fmt = this.Request.Query["format"].ToString();
-                var siteid = x.siteid.ToString();
-
-                var paramList = Database.GetParameters(siteid);
-                return WebPageBuilder.UpdateQueryPage(paramList);
-            };
-
         }
 
 

@@ -40,11 +40,10 @@ namespace PiscesWebServices
             return s_db.Server.Table("a", sql);
         }
 
-        internal static DataTable GetTableProperties(string tableName)
+        internal static DataTable GetTableProperties()
         {
-            string sql = "select sitecatalog.description, seriescatalog.name, seriescatalog.units " +
-                "from seriescatalog inner join sitecatalog on seriescatalog.siteid = sitecatalog.siteid" +
-                "where seriescatalog.tablename = '" + tableName + "'";
+            string sql = "select seriescatalog.tablename, sitecatalog.description, seriescatalog.name, seriescatalog.units " +
+                "from seriescatalog inner join sitecatalog on seriescatalog.siteid = sitecatalog.siteid order by sitecatalog.description";
             return s_db.Server.Table("a", sql);
         }
 
