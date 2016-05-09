@@ -21,7 +21,7 @@ namespace PiscesWebServices
 @"<meta charset=""utf-8"">" +
 @"" +
 @"<!--[if gt IE 8 ]--><meta http-equiv=""X-UA-Compatible"" content=""IE=Edge"" /><!--<![endif]-->" +
-@"<title>Lower Colorado River Operations | Lower Colorado Region | Bureau of Reclamation</title>" +
+@"<title> Bureau of Reclamation| Web services</title>" +
 @"<meta name=""Description"" content=""Bureau of Reclamation, Lower Colorado Region."" />" +
 @"<meta name=""Keywords"" content=""Department of the Interior, Bureau of Reclamation, Lower Colorado Region, Lower Colorado River, Colorado River, Hoover Dam, Phoenix, Yuma, Temecula, Area Offices"" />" +
 @"<meta name=""author"" content=""Bureau of Reclamation, Lower Colorado Region Web Team"" />" +
