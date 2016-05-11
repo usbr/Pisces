@@ -37,13 +37,18 @@ namespace Reclamation.TimeSeries.Forms
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Excel (*.xls;*.xlsx) |*.xls;*.xlsx|All files (*.*)|*.*";
             var ds = new ScenarioManagement.ScenarioDataSet();
-
+            ds.OnProgress += ds_OnProgress;
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 ds.Import(dlg.FileName,DB);
             }
             DB.ResumeTreeUpdates();
             DatabaseChanged();
+        }
+
+        void ds_OnProgress(object sender, ProgressEventArgs e)
+        {
+          //  ShowAsBusy()
         }
 
 

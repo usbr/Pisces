@@ -13,7 +13,7 @@ namespace Reclamation.TimeSeries.Tests.Scenarios
     public class TestScenarios
     {
 
-        [Test]
+        [Test, Category("Internal")]
         public void ReadExcelScenario()
         {
             string fn = Path.Combine(TestData.DataPath, "Scenarios", "InputScenarioConfig.xlsx");

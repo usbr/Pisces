@@ -24,25 +24,21 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
             ImportToPisces();
         }
 
+        public event ProgressEventHandler OnProgress;
+
         private void ImportToPisces()
         {
             var scenarios = m_db.GetScenarios();
             //var sc = m_db.GetSeriesCatalog();
-            string scenarioPrefix = "";
             foreach (var scenario in tableScenarioMapping)
             {
                 scenarios.AddScenarioRow(scenario.ScenarioName, false, scenario.ScenarioNumber, 0, false);
-                
-                AddSeries(m_db, scenarioPrefix, scenario.ScenarioNumber );
-
-                if (scenarioPrefix == "")
-                    scenarioPrefix = scenario.ScenarioName+"_";
-
+                AddSeries(m_db, scenario.ScenarioName, scenario.ScenarioNumber );
             }
             m_db.Server.SaveTable(scenarios);
         }
 
-        private void AddSeries(TimeSeriesDatabase db, string scenarioPrefix, string scenarioNumber)
+        private void AddSeries(TimeSeriesDatabase db, string scenarioName, string scenarioNumber)
         {
             DataTable scenarioSheet = xls.ReadDataTable(scenarioNumber);
             foreach (DataRow row in scenarioSheet.Rows)
@@ -51,23 +47,48 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
                 var internalSiteID = LookupInternalSiteID(externalSiteID);
                 string basin = LookupBasin(externalSiteID);
                 var parent = db.GetOrCreateFolder(basin);
-                //var s = new Series(scenaroSite);
-                Series s = ReadExternalSeriesData(scenarioPrefix, row, externalSiteID);
+                Series s = ReadExternalSeriesData(scenarioName, row, externalSiteID);
                 s.Name = internalSiteID;
-                db.AddSeries(s, parent);
-            }
-        }
+                s.ConnectionString = "ScenarioName=" + scenarioName;
+                var id =-1;
+                if (db.GetSeriesFromName(internalSiteID) == null)
+                {
+                    id = db.AddSeries(s, parent);
+                    var sc = db.GetSeriesCatalog("id =" + id);
+                  // alter entry in database to remove scenario postfix from table name
+                    sc.Rows[0]["tablename"] = internalSiteID.ToLower();
+                    if (OnProgress != null)
+                        OnProgress(this, new ProgressEventArgs("saving " + internalSiteID + " " + scenarioName,10));
+                    db.Server.SaveTable(sc);
+                }
+                else
+                { // if this series allready exists (for another scenario)
+                  // only save the TableData
+                    s.Table.Columns[0].ColumnName = "datetime";
+                    s.Table.Columns[1].ColumnName = "value";
+                    db.CreateSeriesTable(s.Table.TableName, false);
+                    db.Server.InsertTable(s.Table);
 
-        private static TextSeries ReadExternalSeriesData(string scenarioPrefix, DataRow row, string externalSiteID)
+                }
+            }
+        }       
+
+        private static Series ReadExternalSeriesData(string scenarioName, DataRow row, string externalSiteID)
         {
             string filename = row["FilePath"].ToString();
-            // hack (off network temporarly) -- 
+            // hack (off network temporarly) --
+            double scale = 1.0;
+            int x = char.ConvertToUtf32(externalSiteID, 0);
+            scale = scale * x;
+            if (filename == "Scenario2")
+                scale = 3.14 * x;
             filename = @"C:\temp\test.csv";
 
-            TextSeries s = new TextSeries(filename);
+            Series s = new TextSeries(filename);
             s.Read();
+            s = s * scale;
             s.Provider = "Series";
-            s.Table.TableName = scenarioPrefix + externalSiteID;
+            s.Table.TableName = (externalSiteID +"_"+ scenarioName).ToLower();
             return s;
         }
 

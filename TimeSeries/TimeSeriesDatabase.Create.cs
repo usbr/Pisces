@@ -150,7 +150,7 @@ namespace Reclamation.TimeSeries
 
 
 
-        void CreateSeriesTable(string tableName, bool hasFlags)
+        internal void CreateSeriesTable(string tableName, bool hasFlags)
         {
             string dataType = "float";// "real"; //"float"; // double percision
 

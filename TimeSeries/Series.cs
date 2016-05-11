@@ -228,8 +228,10 @@ namespace Reclamation.TimeSeries
             // if we have scenarios in pdb, find the appropriate table.
             if(scenario.Name != "")
             {
-                var rval = new Series();
+                var rval = this.Clone();
+                rval.Table.TableName = (this.Name + "_" + scenario.Name).ToLower();
                 rval.ScenarioName = scenario.Name;
+                rval.TimeSeriesDatabase = this.TimeSeriesDatabase;    
                 return rval;
             }
             else{
@@ -375,7 +377,7 @@ namespace Reclamation.TimeSeries
         protected void InitTimeSeries(DataTable table, string units, TimeInterval tsType,
             bool readOnly, bool hasFlags, bool hasConstraints)
         {
-           
+            this.ScenarioName = ConnectionStringUtility.GetToken(ConnectionString, "ScenarioName", "");
            // State = "";
 //            Expression = "";
             _readOnly = readOnly;
@@ -636,11 +638,15 @@ namespace Reclamation.TimeSeries
             {
                 if (this.ScenarioName != "")
                 {
+                    this.ReadOnly = true;
+                    string tableName = Name + "_"+ScenarioName;
                     // [JR] read the scenario data here 
-                    Table = m_db.ReadTimeSeriesTable(ID, t1, t2, ScenarioName);
+                    Table = m_db.ReadTimeSeriesTable(tableName.ToLower(), t1, t2);
                 }
                 else
-                { Table = m_db.ReadTimeSeriesTable(ID, t1, t2); }
+                { 
+                    Table = m_db.ReadTimeSeriesTable(ID, t1, t2); 
+                }
 
                 
             }

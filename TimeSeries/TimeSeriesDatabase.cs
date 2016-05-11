@@ -870,8 +870,6 @@ namespace Reclamation.TimeSeries
                 table.Columns.Add("flag");
                 table.Columns["flag"].DefaultValue = "";
             }
-            else
-            { }
 
             if (!m_server.TableExists(table.TableName))
             {
@@ -974,33 +972,35 @@ namespace Reclamation.TimeSeries
             get { return true; }
         }
 
-    public DataTable ReadTimeSeriesTable(int sdi, DateTime t1, DateTime t2,string scenarioName="")
+    public DataTable ReadTimeSeriesTable(int sdi, DateTime t1, DateTime t2)
         {
             var sr = GetSeriesRow(sdi);
-
             string tableName = sr.TableName;
-            if (scenarioName != "")
-                tableName += "_" + scenarioName;
-
-            string sql = "SELECT * from " + m_server.PortableTableName(tableName);
-
-            if (t1 != MinDateTime || t2 != MaxDateTime)
-            {
-                sql += " WHERE datetime >= " + m_server.PortableDateString(t1, dateTimeFormat)
-                + " AND "
-                + " datetime <= " + m_server.PortableDateString(t2, dateTimeFormat);
-            }
-            sql += " order by datetime ";
-
-
-            if (!m_server.TableExists(tableName))
-            {
-                Logger.WriteLine("Table " + tableName + " does not exist");
-                CreateSeriesTable(tableName, true);
-            }
-            DataTable tbl = m_server.Table(tableName, sql);
-            return tbl;
+            return ReadTimeSeriesTable(tableName, t1, t2);
         }
+
+    internal DataTable ReadTimeSeriesTable(string tableName, DateTime t1, DateTime t2)
+    {
+
+        string sql = "SELECT * from " + m_server.PortableTableName(tableName);
+
+        if (t1 != MinDateTime || t2 != MaxDateTime)
+        {
+            sql += " WHERE datetime >= " + m_server.PortableDateString(t1, dateTimeFormat)
+            + " AND "
+            + " datetime <= " + m_server.PortableDateString(t2, dateTimeFormat);
+        }
+        sql += " order by datetime ";
+
+
+        if (!m_server.TableExists(tableName))
+        {
+            Logger.WriteLine("Table " + tableName + " does not exist");
+            CreateSeriesTable(tableName, true);
+        }
+        DataTable tbl = m_server.Table(tableName, sql);
+        return tbl;
+    }
 
         /// <summary>
         /// Clears all data from local database for this series
