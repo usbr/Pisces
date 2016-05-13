@@ -11,6 +11,18 @@ using System.Windows.Forms;
 using Reclamation.TimeSeries.Parser;
 using System.Reflection;
 using Mono.Options;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Gmail.v1;
+using Google.Apis.Gmail.v1.Data;
+using Google.Apis.Services;
+using Google.Apis.Util.Store;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace HydrometServer
 {   
@@ -23,6 +35,7 @@ namespace HydrometServer
     {
         static void Main(string[] argList)
         {
+            ImportUsingGmailApi(null);
             Console.Write("HydrometServer " + Application.ProductVersion +" " + AssemblyUtility.CreationDate()+"\n");
 
             Arguments args = new Arguments(argList);
@@ -202,6 +215,10 @@ namespace HydrometServer
 
                     ImportVaxFile(db, fn);
                 }
+                if( args.Contains("import-from-gmail"))
+                {
+                    ImportUsingGmailApi(db);
+                }
 
 
                 if (args.Contains("update-daily"))
@@ -271,6 +288,77 @@ namespace HydrometServer
             perf.Report("HydrometServer: finished ");
         }
 
+        private static void ImportUsingGmailApi(TimeSeriesDatabase db)
+        {
+
+            //C:\Users\KTarbet\Documents\.credentials/gmail-dotnet-quickstart.json
+        // If modifying these scopes, delete your previously saved credentials
+        // at ~/.credentials/gmail-dotnet-quickstart.json
+          string[] Scopes = { GmailService.Scope.GmailReadonly };
+          string ApplicationName = "Gmail API .NET Quickstart";
+
+            UserCredential credential;
+
+            using (var stream =
+                new FileStream(@"c:\utils\gmail_client_id.json", FileMode.Open, FileAccess.Read))
+            {
+                string credPath = System.Environment.GetFolderPath(
+                    System.Environment.SpecialFolder.Personal);
+                credPath = Path.Combine(credPath, ".credentials/gmail-dotnet-quickstart.json");
+
+                credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    GoogleClientSecrets.Load(stream).Secrets,
+                    Scopes,
+                    "user",
+                    CancellationToken.None,
+                    new FileDataStore(credPath, true)).Result;
+                Console.WriteLine("Credential file saved to: " + credPath);
+            }
+
+            // Create Gmail API service.
+            var service = new GmailService(new BaseClientService.Initializer()
+                {
+                    HttpClientInitializer = credential,
+                    ApplicationName = ApplicationName,
+                });
+
+            // Define parameters of request.
+            UsersResource.LabelsResource.ListRequest request = service.Users.Labels.List("me");
+
+
+            // List labels.
+            var labels= request.Execute().Labels;
+            
+            Console.WriteLine("Labels:");
+            if (labels != null && labels.Count > 0)
+            {
+                foreach (var labelItem in labels)
+                {
+                    
+                    Console.WriteLine("{0}", labelItem.Name);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No labels found.");
+            }
+            Console.Read();
+
+            UsersResource.MessagesResource.ListRequest req1 = service.Users.Messages.List("me");
+            req1.Q = "label:a-b-irrigation";
+
+            var msgList = req1.Execute();
+            if(msgList != null)
+            {
+                foreach (var item in msgList.Messages)
+                {
+                    System.Console.WriteLine(item.ToString());
+                }
+            }
+
+        }
+  
+
         static void ShowHelp(OptionSet p)
         {
             Console.WriteLine("HydrometServer");
@@ -314,6 +402,9 @@ namespace HydrometServer
             Console.WriteLine("           imports hydromet daily data default ( t1-100 days)");
             Console.WriteLine("--import-hydromet-monthly");
             Console.WriteLine("           imports hydromet monthly data ( last 5 years)");
+            Console.WriteLine("--import-from-gmail");
+            Console.WriteLine("           import from gmail using Gmail-API");
+
             Console.WriteLine("--simulate");
             Console.WriteLine("           simulate daily calcs (echo equation but don't compute)");
             Console.WriteLine("--create-database=timeseries");

@@ -34,21 +34,34 @@ namespace Reclamation.TimeSeries.Forms
         private void ImportHydrologicModels_Click(object sender, EventArgs e)
         {
             DB.SuspendTreeUpdates();
+            toolStripProgressBar1.Visible = true;
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "Excel (*.xls;*.xlsx) |*.xls;*.xlsx|All files (*.*)|*.*";
             var ds = new ScenarioManagement.ScenarioDataSet();
             ds.OnProgress += ds_OnProgress;
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            try
             {
-                ds.Import(dlg.FileName,DB);
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    ds.Import(dlg.FileName, DB);
+                }
             }
-            DB.ResumeTreeUpdates();
-            DatabaseChanged();
+            catch (Exception eex)
+            {
+                MessageBox.Show(eex.Message, "Error");
+
+            }
+            finally
+            {
+                DB.ResumeTreeUpdates();
+                DatabaseChanged();
+                toolStripProgressBar1.Visible = false;
+            }
         }
 
         void ds_OnProgress(object sender, ProgressEventArgs e)
         {
-          //  ShowAsBusy()
+            explorer_OnProgress(sender, e);
         }
 
 

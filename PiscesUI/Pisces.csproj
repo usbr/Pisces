@@ -220,7 +220,7 @@
       <DependentUpon>PiscesForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx"  Condition="!$(DefineConstants.Contains('PISCES_OPEN'))" />
+    <EmbeddedResource Include="Properties\licenses.licx" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -317,6 +317,10 @@
     <ProjectReference Include="..\TimeSeries.ArmyCorps\Reclamation.TimeSeries.ArmyCorps.csproj">
       <Project>{859fb4f4-b299-4b36-9955-e16c05e36158}</Project>
       <Name>Reclamation.TimeSeries.ArmyCorps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
+      <Project>{37b543f5-03a5-479e-b20c-7b4acc53d16a}</Project>
+      <Name>Reclamation.TimeSeries.Excel</Name>
     </ProjectReference>
     <ProjectReference Include="..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
       <Project>{862135B0-793A-4F06-B731-26C61B3AD068}</Project>

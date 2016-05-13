@@ -1,4 +1,5 @@
 ﻿using Reclamation.Core;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 namespace Reclamation.TimeSeries.ScenarioManagement {
@@ -41,13 +42,22 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
         private void AddSeries(TimeSeriesDatabase db, string scenarioName, string scenarioNumber)
         {
             DataTable scenarioSheet = xls.ReadDataTable(scenarioNumber);
+            var errors = new List<string>();
+            int count = 0;
             foreach (DataRow row in scenarioSheet.Rows)
             {
                 var externalSiteID = row["ExternalSiteID"].ToString();
                 var internalSiteID = LookupInternalSiteID(externalSiteID);
                 string basin = LookupBasin(externalSiteID);
                 var parent = db.GetOrCreateFolder(basin);
-                Series s = ReadExternalSeriesData(scenarioName, row, externalSiteID);
+                string filename = row["FilePath"].ToString();
+                if( !File.Exists(filename))
+                {
+                    errors.Add("Missing File: " + filename);
+                    continue;
+                }
+
+                Series s = ReadExternalSeriesData(scenarioName, filename, externalSiteID);
                 s.Name = internalSiteID;
                 s.ConnectionString = "ScenarioName=" + scenarioName;
                 var id =-1;
@@ -58,7 +68,9 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
                   // alter entry in database to remove scenario postfix from table name
                     sc.Rows[0]["tablename"] = internalSiteID.ToLower();
                     if (OnProgress != null)
-                        OnProgress(this, new ProgressEventArgs("saving " + internalSiteID + " " + scenarioName,10));
+                        OnProgress(this, 
+                            new ProgressEventArgs(
+                             "saving " + internalSiteID + " " + scenarioName, count / scenarioSheet.Rows.Count *100));
                     db.Server.SaveTable(sc);
                 }
                 else
@@ -70,23 +82,16 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
                     db.Server.InsertTable(s.Table);
 
                 }
+                count++;
             }
+            if( errors.Count >0)
+                throw new FileNotFoundException(string.Join("\n", errors.ToArray()));
         }       
 
-        private static Series ReadExternalSeriesData(string scenarioName, DataRow row, string externalSiteID)
+        private static Series ReadExternalSeriesData(string scenarioName, string filename, string externalSiteID)
         {
-            string filename = row["FilePath"].ToString();
-            // hack (off network temporarly) --
-            double scale = 1.0;
-            int x = char.ConvertToUtf32(externalSiteID, 0);
-            scale = scale * x;
-            if (filename == "Scenario2")
-                scale = 3.14 * x;
-            filename = @"C:\temp\test.csv";
-
             Series s = new TextSeries(filename);
             s.Read();
-            s = s * scale;
             s.Provider = "Series";
             s.Table.TableName = (externalSiteID +"_"+ scenarioName).ToLower();
             return s;
