@@ -12,10 +12,10 @@ namespace PiscesWebServices
         /// <summary>
         /// Writes a HTML tagged C# List for dyGraphs output
         /// </summary>
-        /// <param name="outFile"></param>
-        /// <param name="format"></param>
+        /// <param name="data"></param>
+        /// <param name="filename"></param>
         /// <returns></returns>
-        public static void writeHTML_dyGraphs(DataTable sites, string filename)
+        public static void writeHTML_dyGraphs(DataTable data, string filename)
         {
             // The data in the outFile has to be preceded by a line that says "BEGIN DATA"
             //      and followed by a line that says "END DATA"
@@ -52,23 +52,23 @@ namespace PiscesWebServices
             // Populate html data
             #region
             string headerString = @"""Date,";
-            for (int i = 1; i < sites.Columns.Count; i++)
+            for (int i = 1; i < data.Columns.Count; i++)
             {
                 headerString = headerString + "Value" + i + ",";
             }
             sr.Write(headerString.Remove(headerString.Length - 1) + @"\n "" +");
             // POPULATE DATA
-            for (int i = 0; i < sites.Rows.Count; i++)
+            for (int i = 0; i < data.Rows.Count; i++)
             {
-                var t = DateTime.Parse(sites.Rows[i][0].ToString()).ToString("yyyy-MM-dd HH:mm");
+                var t = DateTime.Parse(data.Rows[i][0].ToString()).ToString("yyyy-MM-dd HH:mm");
                 string dataRow = "$" + t + ", ";
-                for (int j = 1; j < sites.Columns.Count; j++)
+                for (int j = 1; j < data.Columns.Count; j++)
                 {
                     double jthVal;// = sites.Rows[i][j].ToString().Trim();
                     string jthString;
                     try
                     {
-                        jthVal = Convert.ToDouble(sites.Rows[i][j].ToString().Trim());
+                        jthVal = Convert.ToDouble(data.Rows[i][j].ToString().Trim());
                         jthString = jthVal.ToString();
                     }
                     catch
@@ -78,7 +78,7 @@ namespace PiscesWebServices
                     }
                     dataRow = dataRow + jthString + ", ";
                 }
-                if (i + 1 == sites.Rows.Count)
+                if (i + 1 == data.Rows.Count)
                 { sr.Write((dataRow.Remove(dataRow.Length - 2) + @"\n$").Replace('$', '"')); }
                 else
                 { sr.Write((dataRow.Remove(dataRow.Length - 2) + @"\n$ +").Replace('$', '"')); }

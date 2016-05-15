@@ -124,13 +124,13 @@ C:\WINDOWS\system32>
         {
             if (fmt == "json")
                 return DataTableOutput.ToJson(sites) + " " + fmt;
-            else if(fmt == "xml")
+            else if (fmt == "xml")
             {
                 var fn = FileUtility.GetTempFileName(".xml");
                 sites.WriteXml(fn, System.Data.XmlWriteMode.WriteSchema);
                 return File.ReadAllText(fn);
             }
-            else if ( fmt == "csv")
+            else if (fmt == "csv")
             {
                 var fn = FileUtility.GetTempFileName(".csv");
                 CsvFile.WriteToCSV(sites, fn, false);
@@ -142,6 +142,14 @@ C:\WINDOWS\system32>
                 var chartData = sites;
                 chartData.Columns.Remove("flag");
                 DyGraphWriter.writeHTML_dyGraphs(chartData, fn);
+                return File.ReadAllText(fn);
+            }
+            else if (fmt == "waterml2")
+            {
+                var fn = FileUtility.GetTempFileName(".wml");
+                var data = sites;
+                data.Columns.Remove("flag");
+                WaterMLWriter.writeWaterML2Data(data, fn, "", "");
                 return File.ReadAllText(fn);
             }
             else // html
