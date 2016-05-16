@@ -17,18 +17,19 @@ namespace PiscesWebServices
     {
         /// <summary>
         /// Writes output in WaterML2.0 Format
+        /// Format adapted from sample at http://www.waterml2.org/KiWIS-WML2-Example.wml
+        /// and documentation at http://def.seegrid.csiro.au/sissvoc/ogc-def/resource?uri=http://www.opengis.net/def/waterml/2.0/
         /// Search for [JR] within this code file to see areas that need refinement...
         /// </summary>
         /// <param name="data"></param>
         /// <param name="filename"></param>
-        /// <param name="siteName"></param>
-        /// <param name="parameterName"></param>
-        public static void writeWaterML2Data(DataTable data, string filename, string siteName, string parameterName)
+        public static void writeWaterML2Data(DataTable data, string filename)
         {
             StreamWriter sr = new StreamWriter(filename, false);
 
-            // Format adapted from sample at http://www.waterml2.org/KiWIS-WML2-Example.wml
-            // and documentation at http://def.seegrid.csiro.au/sissvoc/ogc-def/resource?uri=http://www.opengis.net/def/waterml/2.0/
+            // [JR] need methods to get site info and metadata from query
+            string siteName = "";
+            string parameterName = "";
 
             // Add WaterMl2 Header
             #region

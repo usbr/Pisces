@@ -113,6 +113,8 @@ C:\WINDOWS\system32>
                 string href = x.Replace("{fmt}", "csv").Replace("{name}", "csv");
                 href += " "+x.Replace("{fmt}", "xml").Replace("{name}", "xml");
                 href += " " + x.Replace("{fmt}", "html").Replace("{name}", "html");
+                href += " " + x.Replace("{fmt}", "waterml2").Replace("{name}", "waterml2");
+                href += " " + x.Replace("{fmt}", "hydrojson").Replace("{name}", "hydrojson");
                 href += " " + x.Replace("{fmt}", "chart").Replace("{name}", "chart");
                 return "<td>"+txt+ " " + href + "</td>";
             }
@@ -149,7 +151,15 @@ C:\WINDOWS\system32>
                 var fn = FileUtility.GetTempFileName(".wml");
                 var data = sites;
                 data.Columns.Remove("flag");
-                WaterMLWriter.writeWaterML2Data(data, fn, "", "");
+                WaterMLWriter.writeWaterML2Data(data, fn);
+                return File.ReadAllText(fn);
+            }
+            else if (fmt == "hydrojson")
+            {
+                var fn = FileUtility.GetTempFileName(".json");
+                var data = sites;
+                data.Columns.Remove("flag");
+                HydroJsonWriter.writeHydroJsonData(data, fn);
                 return File.ReadAllText(fn);
             }
             else // html
