@@ -127,6 +127,7 @@ namespace PiscesWebServices
             sr.WriteLine(@"}");
             #endregion
 
+            sr.Close();
         }
     }
 }

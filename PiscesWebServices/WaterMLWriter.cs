@@ -49,11 +49,11 @@ namespace PiscesWebServices
 
             // Add WaterML2 Metadata
             #region
-            sr.WriteLine(@"<gml:description>PiscesSTERS PiscesWIS WaterML2.0</gml:description>");
+            sr.WriteLine(@"<gml:description>Pisces WaterML2.0</gml:description>");
             sr.WriteLine(@"<wml2:metadata>");
             sr.WriteLine(@"	<wml2:DocumentMetadata gml:id=""Pisces.DocMD.1"">");
             sr.WriteLine(@"		<wml2:generationDate>" + DateTime.Now.ToString("s") + "</wml2:generationDate>");
-            sr.WriteLine(@"		<wml2:generationSystem>PiscesSTERS PiscesWIS</wml2:generationSystem>");
+            sr.WriteLine(@"		<wml2:generationSystem>Pisces</wml2:generationSystem>");
             sr.WriteLine(@"	</wml2:DocumentMetadata>");
             sr.WriteLine(@"</wml2:metadata>");
             sr.WriteLine(@"<wml2:temporalExtent>");
@@ -135,6 +135,8 @@ namespace PiscesWebServices
             sr.WriteLine("	</wml2:observationMember>");
             sr.WriteLine("</wml2:Collection>");
             #endregion
+
+            sr.Close();
         }
     }
 }
