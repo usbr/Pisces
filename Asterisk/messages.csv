@@ -1,0 +1,61 @@
+Text,FileName
+M I L Milner Dam and Reservoir Idaho parameter F B Forebay in feet,MIL_FB.wav
+L O W E W S Lake Lowell at Lower Embankment – SOD Sensors parameter C H Canal Gauge Height ,LOWENS_CH.wav
+L O W E W S Lake Lowell at Lower Embankment – SOD Sensors parameter G H L 2,LOWENS_GH-L2.wav
+L O W E W S Lake Lowell at Lower Embankment – SOD Sensors parameter G H L 3,LOWENS_GH-L3.wav
+L O W E W S Lake Lowell at Lower Embankment – SOD Sensors parameter V W 0-5-1-3,LOWENS_VW05-13.wav
+L O W E W S Lake Lowell at Lower Embankment – SOD Sensors parameter V W 0-5-1-4,LOWENS_VW05-14.wav
+L O W E W S Lake Lowell at Lower Embankment – SOD Sensors parameter V W 0-5-4,LOWENS_VW05-4.wav
+L O W E W S Lake Lowell at Lower Embankment – SOD Sensors parameter V W 0-5-7,LOWENS_VW05-7.wav
+M D W O McDonald Ditch at Waagner Gap parameter Q C Canal Discharge in c f s,MDWO_QC.wav
+D L L O Tua-latin River near Dilley Oregon parameter G H Gauge Height in feet,DLLO_GH.wav
+G A S O Tua-latin River near Gaston Oregon parameter Q Discharge in c f s,GASO_Q.wav
+G S T O Tua-latin River at Gaston Oregon parameter G H Gauge Height in feet,GSTO_GH.wav
+G S T O Tua-latin River at Gaston Oregon parameter Q Discharge in c f s,GSTO_Q.wav
+L E F O Tua-latin River below Lee Falls near Cherry Grove Oregon parameter Q Discharge in c f s,LEFO_Q.wav
+S C L O Scoggins Creek above Henry Hagg Lake Oregon parameter Q Discharge in c f s,SCLO_Q.wav
+S C O Scoggins Dam and Henry Hagg Lake near Forest Grove Oregon parameter F B Forebay in feet,SCO_FB.wav
+A N D Anderson Ranch Dam and Reservoir parameter F B Forebay in feet,AND_FB.wav
+A R K Arrow-rock Dam and Reservoir parameter F B Forebay in feet,ARK_FB.wav
+B D D I Boise River below Diversion Dam near Boise parameter F B Forebay in feet,BDDI_FB.wav
+B E U Beulah Dam and Reservoirparameter F B Forebay in feet,BEU_FB.wav
+B U L Bully Creek Dam and Reservoir near Vale Oregon parameter F B Forebay in feet,BUL_FB.wav
+C S C Cascade Dam at Cascade Idaho parameter F B Forebay in feet,CSC_FB.wav
+C S C I North Fork Pay-yette River at Cascade Idaho parameter F B Forebay in feet,CSCI_FB.wav
+D E D Deadwood Dam Idaho parameter F B Forebay in feet,DED_FB.wav
+D E D I Deadwood River below Deadwood Dam parameter G H Gauge Height in feet,DEDI_GH.wav
+D E D I Deadwood River below Deadwood Dam parameter G H-2 Gauge Height in feet,DEDI_GH-2.wav
+L O W Lake Lowell at Lower Embankment near Caldwell Idaho parameter F B Forebay in feet,LOW_FB.wav
+L U C Lucky Peak Lake near Boise Idaho parameter F B Forebay in feet,LUC_FB.wav
+M A N Mann Creek Dam and Reservoir near Weiser Idaho parameter F B Forebay in feet,MAN_FB.wav
+M C G I Mann Creek at Mann Creek Guard Station Idaho parameter G H Gauge Height in feet,MCGI_GH.wav
+M C I I Mann Creek below Adams Creek above Reservoir parameter G H Gauge Height in feet,MCII_GH.wav
+O W Y Lake Oh-wa-hee and Oh-wa-hee River near Nyssa Oregon parameter F B Forebay in feet,OWY_FB.wav
+P H L Mason Dam and Phillips Lake near Sumpter Oregon parameter F B Forebay in feet,PHL_FB.wav
+P H L Mason Dam and Phillips Lake near Sumpter Oregon parameter Q Discharge in c f s,PHL_Q.wav
+R I R Rye-rie Dam and Lake near Rye-rie Idaho parameter Z S 2,RIR_ZS2.wav
+R S A Reservoir A near Lewiston Orchards Idaho parameter F B Forebay in feet,RSA_FB.wav
+T H F Thief Valley Dam and Reservoir near North Powder Oregon parameter F B Forebay in feet,THF_FB.wav
+T H F Thief Valley Dam and Reservoir near North Powder Oregon parameter Q Discharge in c f s,THF_Q.wav
+V A L O Mal-hure River below Nevada Dam near Vale Oregon parameter Q Discharge in c f s,VALO_Q.wav
+W A R Warm Springs Dam and Reservoir near Riverside Oregon parameter F B Forebay in feet,WAR_FB.wav
+W A R O Mal-hure River below Warm Springs Reservoir near Riverside Oregon parameter Q Discharge in c f s,WARO_Q.wav
+W A S Clear Lake near Government Camp Wasco Dam Oregon parameter F B Forebay in feet,WAS_FB.wav
+W L D Wildhorse Dam and Reservoir Nevada parameter F B Forebay in feet,WLD_FB.wav
+W O D Little Wood Dam and Reservoir near Carey Idaho parameter F B Forebay in feet,WOD_FB.wav
+U N Y Unity Reservoir and Burnt River near Unity Oregon parameter F B Forebay in feet,UNY_FB.wav
+E M I Emigrant Dam and Lake near Ashland Oregon parameter G H Gauge Height in feet,EMI_GH.wav
+W I  C E W S Wickiup Dam S O D Instrument parameter G H Gauge Height in feet,WICEWS_GH.wav
+I S L Island Park Dam and Reservoir Idaho parameter Z S,ISL_ZS.wav
+C R O O Crooked River below Opal Springs near Culver Oregon parameter Q D,CROO_QD.wav
+C R O O Crooked River below Opal Springs near Culver Oregon parameter Q D 7,CROO_QD-7.wav
+M F D O Bear Creek at Medford Oregon parameter Q Discharge in c f s,MFDO_Q.wav
+S O L Soldiers Meadow Reservoir parameter F B Forebay in feet,SOL_FB.wav
+S O L Soldiers Meadow Reservoir parameter Q Discharge in c f s,SOL_Q.wav
+S W B I Sweetwater Creek below Diversion near Waha Idaho parameter Q H,SWBI_QH.wav
+W C B I Webb Creek below Diversion parameter Q H,WCBI_QH.wav
+B C S O Beaver Creek and Beaver Siphon at Howard Prairie Canal parameter H K,BCSO_HK.wav
+This is Boise Hydromet. There is an alarm condition at site,HydrometIntro.wav
+The value is ,Value.wav
+Please press one to acknowledge,Press1.wav
+By acknowledging you are accepting the responsibility to act upon this alarm. Please validate the alarm by reviewing data as necessary and notify the proper authorities. Please press one to acknowledge.,Acknowledging.wav
