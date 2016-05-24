@@ -17,25 +17,25 @@ namespace PiscesWebServices.Tests
         {
             //Logger.EnableLogger();
             HydrometGCITests t = new HydrometGCITests();
-            t.StationFormat();
-            t.PerfTestLarge();
+            t.CGI_StationFormat();
+            t.CGI_PerfTestLarge();
         }
 
         [Test]
-        public void PerfTestLarge()
+        public void CGI_PerfTestLarge()
         {
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=9&edy=1&format=2";
             RunTest(payload, TimeInterval.Irregular);
         }
         [Test]
-        public void PerfTestSmall()
+        public void CGI_PerfTestSmall()
         {
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=4&edy=13&format=2";
             RunTest(payload, TimeInterval.Irregular);
         }
 
         [Test]
-        public void StationFormat()
+        public void CGI_StationFormat()
         {
         //http://www.usbr.gov/pn-bin/webdaycsv.pl?station=cedc&pcode=ob&pcode=obx&back=10&format=2
             string payload = "station=cedc&pcode=ob&pcode=obx&back=10&format=2";
@@ -67,27 +67,27 @@ namespace PiscesWebServices.Tests
         }
 
         [Test]
-        public void Daily_LuckyPeak()
+        public void CGI_Daily_LuckyPeak()
         {
             string payload = "parameter=luc   fb,luc   af&syer=2016&smnth=5&sdy=19&eyer=2016&emnth=5&edy=23&format=2";
             CompareLinuxToVMSCGI(payload, TimeInterval.Daily);
         }
 
         [Test]
-        public void Daily_NMPI()
+        public void CGI_Daily_NMPI()
         {
             string payload = "parameter=nmpi et,nmpi   sr,nmpi ym&syer=2016&smnth=5&sdy=19&eyer=2016&emnth=5&edy=23&format=2";
             CompareLinuxToVMSCGI(payload, TimeInterval.Daily);
         }
         [Test]
-        public void Instant_boii()
+        public void CGI_Instant_boii()
         {
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=10&sdy=30&eyer=2015&emnth=11&edy=4&format=2";
             CompareLinuxToVMSCGI(payload);
         }
 
         [Test]
-        public void Instant_mddo()
+        public void CGI_Instant_mddo()
         {
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=10&sdy=30&eyer=2015&emnth=11&edy=4&format=2";
             CompareLinuxToVMSCGI(payload);

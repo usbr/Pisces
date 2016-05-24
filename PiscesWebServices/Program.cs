@@ -119,7 +119,7 @@ namespace PiscesWebServices
             {
                 CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
                 if( cgi == "instant")
-                c.Run(TimeInterval.Hourly,payload);
+                c.Run(TimeInterval.Irregular,payload);
                 else if( cgi == "daily")
                 c.Run(TimeInterval.Daily,payload);
 
@@ -134,14 +134,14 @@ namespace PiscesWebServices
             if (cgi == "test-perf-large")
             {
                 var c = new HydrometGCITests();
-                c.PerfTestLarge();
+                c.CGI_PerfTestLarge();
                 
             }
             else
                 if (cgi == "test-perf-small")
                 {
                     var c = new HydrometGCITests();
-                    c.PerfTestSmall();
+                    c.CGI_PerfTestSmall();
                 }
                 else
                     if (cgi == "dump")
