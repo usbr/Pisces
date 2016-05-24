@@ -42,27 +42,45 @@ namespace PiscesWebServices.Tests
             RunTest(payload, TimeInterval.Irregular);
         }
 
-        private static void RunTest(string payload, TimeInterval interval)
+        private static string RunTest(string payload, TimeInterval interval)
         {
             Performance p = new Performance();
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[] { }));
             CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
             var fn = FileUtility.GetTempFileName(".txt");
-            fn = "";
+            //fn = "";
             c.Run(interval, payload, fn);
 
             if (File.Exists(fn))
                 p.Report(File.ReadAllLines(fn).Length + " lines read");
             else
                 p.Report();
+            return fn;
         }
 
         /// <summary>
         /// This query is a simplified/new recommended method to query.
         /// </summary>
         [Test]
-        public void RecommendedQuery()
+        public void CGI_Daily_CleanerDesign()
         {
+            string payload = "parameter=luc   fb,luc af&start=2016-5-19&end=2016-5-24&format=csv";
+            var fn = RunTest(payload, TimeInterval.Daily);
+/*            DATE      ,  LUC     FB      ,  LUC     AF      
+5/24/2016 4:10:00 PM: CreateSQL
+5/24/2016 4:10:00 PM: list of 2 series
+05/19/2016,,  253349.11
+05/20/2016,,  253698.69
+05/21/2016,,  254910.41
+05/22/2016,,  255826.27
+05/23/2016,,  255933.44
+ */
+            TextFile tf = new TextFile(fn);
+            int idx = tf.IndexBeginningWith("05/19/2016", 0);
+            var s = tf[idx].Split(',')[2];
+            double d = Convert.ToDouble(s);
+            Assert.AreEqual(253349.11, d, 1.0);
+            
 
         }
 
