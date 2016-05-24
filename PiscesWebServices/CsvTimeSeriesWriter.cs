@@ -33,7 +33,7 @@ namespace PiscesWebServices
         DateTime end  = DateTime.Now.Date;
         string format = "csv"; // csv, tab, html 
         bool print_hourly = false;
-        TimeInterval interval = TimeInterval.Irregular;
+        TimeInterval m_interval = TimeInterval.Irregular;
 
         public CsvTimeSeriesWriter(TimeSeriesDatabase db)
         {
@@ -42,7 +42,7 @@ namespace PiscesWebServices
 
         public void Run(TimeInterval interval, string query = "", string outputFile="")
         {
-           
+            m_interval = interval;
             StreamWriter sw = null;
             if (outputFile != "")
             {
@@ -70,7 +70,7 @@ namespace PiscesWebServices
                      return;
                  }
 
-                 query = LegacyTranslation(query,interval);
+                 query = LegacyTranslation(query,m_interval);
 
                  if (!ValidQuery(query))
                  {
@@ -79,7 +79,7 @@ namespace PiscesWebServices
                  }
 
                  var queryCollection = HttpUtility.ParseQueryString(query);
-                 if (!HydrometWebUtility.GetDateRange(queryCollection, interval, out start,out end))
+                 if (!HydrometWebUtility.GetDateRange(queryCollection, m_interval, out start,out end))
                  {
                      Console.WriteLine("Error: Invalid dates");
                      return;
@@ -209,6 +209,9 @@ namespace PiscesWebServices
 
             int maxDaysInMemory = 30;
 
+            if (m_interval == TimeInterval.Daily)
+                maxDaysInMemory = 3650; // 10 years
+
             // maxDaysIhn memory
             //   maxdays      list.Read()    REad()
             //   10
@@ -224,7 +227,8 @@ namespace PiscesWebServices
                     t3 = t2;
 
                 var tbl = Read(list, t, t3); // 0.0 seconds windows/linux
-                PrintDataTable( list,tbl,print_hourly);
+                bool printFlags = m_interval == TimeInterval.Hourly || m_interval == TimeInterval.Irregular;
+                PrintDataTable( list,tbl,print_hourly,printFlags,m_interval);
                 t = t3.NextDay();
             } 
 
@@ -283,8 +287,10 @@ namespace PiscesWebServices
 
         private void WriteSeriesHeader(SeriesList list)
         {
-            //string headLine = "DATE, ";
-            var headLine = "DATE       TIME ";
+            string headLine = "DATE      ";
+            if( m_interval ==  TimeInterval.Irregular || m_interval == TimeInterval.Hourly)
+              headLine = "DATE       TIME ";
+
             foreach (var item in list)
             {
                 TimeSeriesName tn = new TimeSeriesName(item.Table.TableName);
@@ -296,7 +302,7 @@ namespace PiscesWebServices
 
         private SeriesList CreateSeriesList(NameValueCollection query)
         {
-            TimeSeriesName[] names = GetTimeSeriesName(query);
+            TimeSeriesName[] names = GetTimeSeriesName(query, this.m_interval);
 
             var tableNames = (from n in names select n.GetTableName()).ToArray();
 
@@ -307,7 +313,7 @@ namespace PiscesWebServices
             {
                 Series s = new Series();
 
-                s.TimeInterval = interval;
+                s.TimeInterval = m_interval;
                 if (sc.Select("tablename = '" + tn.GetTableName() + "'").Length == 1)
                 {
                     s = db.GetSeriesFromTableName(tn.GetTableName());
@@ -324,12 +330,13 @@ namespace PiscesWebServices
         /// </summary>
         /// <param name="list"></param>
         /// <param name="table"></param>
-        private static void PrintDataTable(SeriesList list, DataTable table, bool printHourly)
+        private static void PrintDataTable(SeriesList list, DataTable table, 
+            bool printHourly, bool printFlags, TimeInterval interval)
         {
             var t0 = "";
 
             if (table.Rows.Count > 0)
-                t0 = FormatDate(table.Rows[0][1]);
+                t0 = FormatDate(table.Rows[0][1],interval);
 
             var vals = new string[list.Count];
             var flags = new string[list.Count];
@@ -345,12 +352,12 @@ namespace PiscesWebServices
             {
                 var row = table.Rows[i];
                
-                t = FormatDate(row[1]);
+                t = FormatDate(row[1],interval);
 
                if( t!= t0)
                 {
                    if (printThisRow)
-                    PrintRow(t0,vals,flags);
+                    PrintRow(t0,vals,flags,printFlags);
                     vals = new string[list.Count];
                     flags = new string[list.Count];
                     t0 = t;
@@ -365,15 +372,19 @@ namespace PiscesWebServices
 
             }
             if (printThisRow)
-            PrintRow(t, vals, flags);
+            PrintRow(t, vals, flags,printFlags);
         }
 
-        private static void PrintRow(string t0, string[] vals, string[] flags)
+        private static void PrintRow(string t0, string[] vals, string[] flags, bool printFlags)
         {
             var  s = t0+ ",";
             for (int i = 0; i < vals.Length; i++)
             {
-                s += vals[i] + flags[i];
+                s += vals[i];
+                if (printFlags)
+                    s += flags[i];
+                ///s += vals[i] + flags[i];
+                ///
                 if (i != vals.Length - 1)
                     s += ",";
             }
@@ -386,11 +397,14 @@ namespace PiscesWebServices
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>
-        private static string FormatDate( object o)
+        private static string FormatDate( object o, TimeInterval interval)
         {
             var rval = "";
             var t = Convert.ToDateTime(o);
-            rval = t.ToString("MM/dd/yyyy HH:mm");
+            if (interval == TimeInterval.Irregular || interval == TimeInterval.Hourly)
+                rval = t.ToString("MM/dd/yyyy HH:mm");
+            else
+                rval = t.ToString("MM/dd/yyyy");
             return rval;
         }
 
@@ -413,7 +427,7 @@ namespace PiscesWebServices
             return rval;
         }
 
-        private static TimeSeriesName[] GetTimeSeriesName(NameValueCollection query)
+        private static TimeSeriesName[] GetTimeSeriesName(NameValueCollection query, TimeInterval interval)
         {
             List<TimeSeriesName> rval = new List<TimeSeriesName>();
 
@@ -426,10 +440,10 @@ namespace PiscesWebServices
 
             foreach (var item in siteCodePairs)
             {
-                var tokens = item.Split(' ');
+                var tokens = item.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
                 if (tokens.Length == 2)
                 {
-                    TimeSeriesName tn = new TimeSeriesName(tokens[0] + "_" + tokens[1], TimeInterval.Irregular);
+                    TimeSeriesName tn = new TimeSeriesName(tokens[0] + "_" + tokens[1] , interval);
                     rval.Add(tn);
                 }
             }
