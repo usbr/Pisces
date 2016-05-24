@@ -7,15 +7,15 @@ using Reclamation.Core;
 using Reclamation.TimeSeries;
 using System.IO;
 
-namespace PiscesWebServices
+namespace PiscesWebServices.Tests
 {
     [TestFixture]    
-    class TestCGI
+    class HydrometGCITests
     {
         public static void Main()
         {
             //Logger.EnableLogger();
-            TestCGI t = new TestCGI();
+            HydrometGCITests t = new HydrometGCITests();
             t.StationFormat();
             t.PerfTestLarge();
         }
@@ -24,13 +24,13 @@ namespace PiscesWebServices
         public void PerfTestLarge()
         {
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=9&edy=1&format=2";
-            RunTest(payload);
+            RunTest(payload, TimeInterval.Irregular);
         }
         [Test]
         public void PerfTestSmall()
         {
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=4&sdy=13&eyer=2015&emnth=4&edy=13&format=2";
-            RunTest(payload);
+            RunTest(payload, TimeInterval.Irregular);
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace PiscesWebServices
             RunTest(payload, TimeInterval.Irregular);
         }
 
-        private static void RunTest(string payload, TimeInterval interval=TimeInterval.Irregular)
+        private static void RunTest(string payload, TimeInterval interval)
         {
             Performance p = new Performance();
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[] { }));
@@ -66,21 +66,28 @@ namespace PiscesWebServices
         }
 
         [Test]
-        public void Upgrade_boii()
+        public void Daily_boii()
         {
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=10&sdy=30&eyer=2015&emnth=11&edy=4&format=2";
             InstantCompareLinuxToVMSCGI(payload);
         }
 
         [Test]
-        public void Upgrade_mddo()
+        public void Instant_boii()
+        {
+            string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=10&sdy=30&eyer=2015&emnth=11&edy=4&format=2";
+            InstantCompareLinuxToVMSCGI(payload);
+        }
+
+        [Test]
+        public void Instant_mddo()
         {
             string payload = "parameter=mddo ch,wcao q,boii Z,boii ob,&syer=2015&smnth=10&sdy=30&eyer=2015&emnth=11&edy=4&format=2";
             InstantCompareLinuxToVMSCGI(payload);
         }
 
         
-        public static void InstantCompareLinuxToVMSCGI(string payload)
+        public static void InstantCompareLinuxToVMSCGI(string payload,TimeInterval interval= TimeInterval.Irregular)
         {
             
             //Program.Main(new string[] { "--cgi=instant", "--payload=?"+payload });
@@ -88,13 +95,17 @@ namespace PiscesWebServices
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[]{}));
             CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
             var fn = FileUtility.GetTempFileName(".txt");
-            c.Run( TimeInterval.Hourly, payload,fn);
+            c.Run( interval, payload,fn);
 
             TextFile tf = new TextFile(fn);
             tf.DeleteLines(0, 1);
 
             var fnhyd0 = FileUtility.GetTempFileName(".txt");
-            Web.GetFile("http://www.usbr.gov/pn-bin/webdaycsv.pl?" + payload, fnhyd0);
+            string url = "http://www.usbr.gov/pn-bin/webarccsv.pl?";
+
+            if( interval == TimeInterval.Irregular || interval == TimeInterval.Hourly)
+                url = "http://www.usbr.gov/pn-bin/webdaycsv.pl?";
+            Web.GetFile(url + payload, fnhyd0);
 
           var tf2 = new TextFile(fnhyd0);
           var diff = TextFile.Compare(tf, tf2);

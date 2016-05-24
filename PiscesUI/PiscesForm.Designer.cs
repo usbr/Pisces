@@ -875,8 +875,8 @@ namespace Reclamation.TimeSeries.Forms
             this.databaseTablesToolStripMenuItem,
             this.sToolStripMenuItem,
             this.toolStripSeparator8,
-            this.toolStripMenuItem12,
             this.ImportHydrologicModels,
+            this.toolStripMenuItem12,
             this.toolStripSeparator7,
             this.optionsToolStripMenuItem});
             this.menuView.Name = "menuView";
@@ -886,51 +886,51 @@ namespace Reclamation.TimeSeries.Forms
             // logToolStripMenuItemViewLog
             // 
             this.logToolStripMenuItemViewLog.Name = "logToolStripMenuItemViewLog";
-            this.logToolStripMenuItemViewLog.Size = new System.Drawing.Size(387, 24);
+            this.logToolStripMenuItemViewLog.Size = new System.Drawing.Size(299, 24);
             this.logToolStripMenuItemViewLog.Text = "View &Log...";
             this.logToolStripMenuItemViewLog.Click += new System.EventHandler(this.logToolStripMenuItemViewLog_Click);
             // 
             // databaseTablesToolStripMenuItem
             // 
             this.databaseTablesToolStripMenuItem.Name = "databaseTablesToolStripMenuItem";
-            this.databaseTablesToolStripMenuItem.Size = new System.Drawing.Size(387, 24);
+            this.databaseTablesToolStripMenuItem.Size = new System.Drawing.Size(299, 24);
             this.databaseTablesToolStripMenuItem.Text = "Show &Database Tables...";
             this.databaseTablesToolStripMenuItem.Click += new System.EventHandler(this.tableEditor_Click);
             // 
             // sToolStripMenuItem
             // 
             this.sToolStripMenuItem.Name = "sToolStripMenuItem";
-            this.sToolStripMenuItem.Size = new System.Drawing.Size(387, 24);
+            this.sToolStripMenuItem.Size = new System.Drawing.Size(299, 24);
             this.sToolStripMenuItem.Text = "&SQL Commands";
             this.sToolStripMenuItem.Click += new System.EventHandler(this.sqlCommands_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(384, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(296, 6);
             // 
             // toolStripMenuItem12
             // 
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(387, 24);
-            this.toolStripMenuItem12.Text = "Computations for River and Reservoir Models...";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(299, 24);
+            this.toolStripMenuItem12.Text = "River and Reservoir Model Export";
             // 
             // ImportHydrologicModels
             // 
             this.ImportHydrologicModels.Name = "ImportHydrologicModels";
-            this.ImportHydrologicModels.Size = new System.Drawing.Size(387, 24);
+            this.ImportHydrologicModels.Size = new System.Drawing.Size(299, 24);
             this.ImportHydrologicModels.Text = "Hydrologic Model Import...";
             this.ImportHydrologicModels.Click += new System.EventHandler(this.ImportHydrologicModels_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(384, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(296, 6);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(387, 24);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(299, 24);
             this.optionsToolStripMenuItem.Text = "&Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 

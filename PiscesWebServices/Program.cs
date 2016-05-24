@@ -7,6 +7,7 @@ using Reclamation.TimeSeries;
 using Reclamation.Core;
 using System.IO;
 using Nancy.Hosting.Self;
+using PiscesWebServices.Tests;
 
 namespace PiscesWebServices
 {
@@ -132,20 +133,20 @@ namespace PiscesWebServices
             else
             if (cgi == "test-perf-large")
             {
-                TestCGI c = new TestCGI();
+                var c = new HydrometGCITests();
                 c.PerfTestLarge();
                 
             }
             else
                 if (cgi == "test-perf-small")
                 {
-                    TestCGI c = new TestCGI();
+                    var c = new HydrometGCITests();
                     c.PerfTestSmall();
                 }
                 else
                     if (cgi == "dump")
                     {
-                        TestCGI c = new TestCGI();
+                        var c = new HydrometGCITests();
                         c.DumpTest();
                     }
                 else

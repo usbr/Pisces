@@ -164,3 +164,4 @@ Pisces
 /packages
 /.nuget/NuGet.exe
 /TimeSeries.Excel/bin/Debug/SpreadsheetGear.dll
+/Asterisk/output
