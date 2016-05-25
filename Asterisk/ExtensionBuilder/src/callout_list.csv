@@ -1,12 +1,12 @@
 group,order,phone,name
-BOIA_EMM,1,5272,C-3PO
-BOIA_EMM,2,6213,R2-D2
-BOIA_EMM,3,5272,Obi-wan kenobi
-BOIA_EMM,4,6213,Darth Vader
-BOIA_EMM,5,5272,Yoda
-BURL_MIL,1,5272,Karl
-BURL_MIL,2,6213,Padme
-BURL_MIL,3,5272,Jar Jar Binks
-BURL_MIL,4,6213,Count Dooku
-BURNT,1,5272,Luke
-BURNT,2,6213,Leia Organa
+boia_emm,1,5272,C-3PO
+boia_emm,2,6213,R2-D2
+boia_emm,3,5272,Obi-wan kenobi
+boia_emm,4,6213,Darth Vader
+boia_emm,5,5272,Yoda
+burl_mil,1,5272,Karl
+burl_mil,2,6213,Padme
+burl_mil,3,5272,Jar Jar Binks
+burl_mil,4,6213,Count Dooku
+burnt,1,5272,Luke
+burnt,2,6213,Leia Organa
