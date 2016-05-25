@@ -4,6 +4,21 @@ public class ExtensionsConfig {
 
 	public static void main(String[] args) {
 
+		
+		CallOutLists c = new CallOutLists();
+		
+		System.out.println("there are "+c.getGroupNames().length+ " groups");
+		
+		String group1 = c.getGroupNames()[0];
+		System.out.println("numbers for group "+group1);
+		
+		
+		String[] numbers = c.GetPhoneNumbers(group1);
+			for (int i = 0; i < numbers.length; i++) {
+				System.out.println(numbers[i]);
+			}
+		
+		
 		try{
 			PrintWriter writer = new PrintWriter("extensions.conf", "UTF-8");
 
