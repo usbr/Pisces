@@ -40,31 +40,39 @@ namespace PiscesWebServices
          int id = 0;
           foreach (var s in sites)
           {
-              var pos = new GeographicPosition(s.latitude,s.longitude);
-              var pt = new GeoJSON.Net.Geometry.Point(pos);
-
-              var props = siteProp.GetDictionary(s.siteid);
-
-              for (int i = 0; i < requiredProperties.Length; i++)
+              try
               {
-                  if (requiredProperties[i].Trim() == "")
-                      continue;
-                  if (!props.ContainsKey(requiredProperties[i]))
-                      props.Add(requiredProperties[i], "");
+                  var pos = new GeographicPosition(s.latitude, s.longitude);
+                  var pt = new GeoJSON.Net.Geometry.Point(pos);
+
+                  var props = siteProp.GetDictionary(s.siteid);
+
+                  for (int i = 0; i < requiredProperties.Length; i++)
+                  {
+                      if (requiredProperties[i].Trim() == "")
+                          continue;
+                      if (!props.ContainsKey(requiredProperties[i]))
+                          props.Add(requiredProperties[i], "");
+                  }
+
+
+                  props.Add("siteid", s.siteid);
+                  props.Add("title", s.description);
+                  props.Add("state", s.state);
+                  props.Add("type", s.type);
+                  if (!props.ContainsKey("region"))
+                      props.Add("region", s.agency_region);
+                  props.Add("install", s.install);
+                  id++;
+                  var feature = new Feature(pt, props, id.ToString());
+
+                  fc.Features.Add(feature);
               }
-
-
-              props.Add("siteid", s.siteid);
-              props.Add("title", s.description);
-              props.Add("state", s.state);
-              props.Add("type", s.type);
-              if( !props.ContainsKey("region"))
-              props.Add("region", s.agency_region);
-              props.Add("install", s.install);
-              id++;
-              var feature = new Feature(pt,props,id.ToString());
-
-              fc.Features.Add(feature);
+              catch (Exception error)
+              {
+                  Console.WriteLine("Error at site:"+s);
+                  Console.WriteLine(error.Message);
+              }
           }
 
             var settings = new JsonSerializerSettings();

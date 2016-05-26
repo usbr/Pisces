@@ -105,14 +105,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CGI\CsvFormatter.cs" />
+    <Compile Include="CGI\LegacyCsvFormatter.cs" />
+    <Compile Include="CGI\Formatter.cs" />
     <Compile Include="DyGraphWriter.cs" />
-    <Compile Include="CsvTable.cs" />
+    <Compile Include="SiteCsvTable.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="HomePage.cs" />
     <Compile Include="HydroJsonWriter.cs" />
     <Compile Include="PiscesWebRoutes.cs" />
     <Compile Include="SiteInfo.cs" />
-    <Compile Include="CsvTimeSeriesWriter.cs" />
+    <Compile Include="CGI\WebTimeSeriesWriter.cs" />
     <Compile Include="JSONSites.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

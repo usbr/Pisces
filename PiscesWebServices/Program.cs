@@ -8,6 +8,7 @@ using Reclamation.Core;
 using System.IO;
 using Nancy.Hosting.Self;
 using PiscesWebServices.Tests;
+using PiscesWebServices.CGI;
 
 namespace PiscesWebServices
 {
@@ -110,19 +111,28 @@ namespace PiscesWebServices
                 }
                 else if (format == "csv")
                 {
-                    CsvTable c = new CsvTable(db);
+                    SiteCsvTable c = new SiteCsvTable(db);
                     c.Execute(propertyFilter);
                 }
             }
             else
             if (cgi == "instant" || cgi == "daily")
             {
-                CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
-                if( cgi == "instant")
-                c.Run(TimeInterval.Irregular,payload);
-                else if( cgi == "daily")
-                c.Run(TimeInterval.Daily,payload);
+                try
+                {
+                    WebTimeSeriesWriter c = null;
+                    if (cgi == "instant")
+                        c = new WebTimeSeriesWriter(db, TimeInterval.Irregular, payload);
 
+                    else if (cgi == "daily")
+                        c = new WebTimeSeriesWriter(db, TimeInterval.Daily, payload);
+
+                    c.Run();
+                }
+                catch (Exception e)
+                {
+                    Logger.WriteLine("Error: " + e.Message);
+                }
             }
             else
             if (cgi == "site")

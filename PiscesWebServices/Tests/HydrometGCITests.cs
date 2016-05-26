@@ -7,6 +7,7 @@ using Reclamation.Core;
 using Reclamation.TimeSeries;
 using System.IO;
 using System.Text.RegularExpressions;
+using PiscesWebServices.CGI;
 
 namespace PiscesWebServices.Tests
 {
@@ -46,10 +47,9 @@ namespace PiscesWebServices.Tests
         {
             Performance p = new Performance();
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[] { }));
-            CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
+            WebTimeSeriesWriter c = new WebTimeSeriesWriter(db,interval,payload);
             var fn = FileUtility.GetTempFileName(".txt");
-            //fn = "";
-            c.Run(interval, payload, fn);
+            c.Run(fn);
 
             if (File.Exists(fn))
                 p.Report(File.ReadAllLines(fn).Length + " lines read");
@@ -64,6 +64,7 @@ namespace PiscesWebServices.Tests
         [Test]
         public void CGI_Daily_CleanerDesign()
         {
+
             string payload = "parameter=luc   fb,luc af&start=2016-5-19&end=2016-5-24&format=csv";
             var fn = RunTest(payload, TimeInterval.Daily);
 /*            DATE      ,  LUC     FB      ,  LUC     AF      
@@ -118,10 +119,10 @@ namespace PiscesWebServices.Tests
             //Program.Main(new string[] { "--cgi=instant", "--payload=?"+payload });
 
             TimeSeriesDatabase db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[]{}));
-            CsvTimeSeriesWriter c = new CsvTimeSeriesWriter(db);
+            WebTimeSeriesWriter c = new WebTimeSeriesWriter(db,interval,payload);
             var fn = FileUtility.GetTempFileName(".txt");
             Console.WriteLine("linux temp file:"+fn);
-            c.Run( interval, payload,fn);
+            c.Run(fn);
 
             TextFile tf = new TextFile(fn);
             tf.DeleteLines(0, 1);

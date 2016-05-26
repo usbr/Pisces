@@ -14,10 +14,10 @@ namespace PiscesWebServices
     /// <summary>
     /// dump site data from Pisces meta-data in csv format
     /// </summary>
-    class CsvTable
+    class SiteCsvTable
     {
         TimeSeriesDatabase db;
-        public CsvTable(TimeSeriesDatabase db)
+        public SiteCsvTable(TimeSeriesDatabase db)
         {
             this.db = db;
         }

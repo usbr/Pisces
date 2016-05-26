@@ -10,7 +10,7 @@ using System.Data;
 using Reclamation.Core;
 using System.Net;
 
-namespace PiscesWebServices
+namespace PiscesWebServices.CGI
 {
     /// <summary>
     ///  returns results from web query to timeseries data in pisces.
@@ -26,23 +26,91 @@ namespace PiscesWebServices
     /// http://www.usbr.gov/pn-bin/instant.pl?station=BOII&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBN&pcode=TU
     /// http://www.usbr.gov/pn-bin/instant.pl?station=ABEI&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBM&pcode=OBN&pcode=TUX&print_hourly=true
     /// </summary>
-    public class CsvTimeSeriesWriter
+    public class WebTimeSeriesWriter
     {
         TimeSeriesDatabase db;
         DateTime start = DateTime.Now.AddDays(-1).Date;
         DateTime end  = DateTime.Now.Date;
-        string format = "csv"; // csv, tab, html 
-        bool print_hourly = false;
-        TimeInterval m_interval = TimeInterval.Irregular;
+        Formatter m_formatter ;
+        string m_query = "";
+        NameValueCollection m_collection;
 
-        public CsvTimeSeriesWriter(TimeSeriesDatabase db)
+        string[] supportedFormats =new string[] {"csv", // csv with headers
+                                                "html", // basic html
+
+                                                "2" // legacy csv
+                                                }; 
+       
+
+       
+
+        public WebTimeSeriesWriter(TimeSeriesDatabase db, TimeInterval interval, string query="")
         {
             this.db = db;
+            m_query = query;
+            InitFormatter(interval);
+
+            
         }
 
-        public void Run(TimeInterval interval, string query = "", string outputFile="")
+        private void InitFormatter(TimeInterval interval)
         {
-            m_interval = interval;
+            if (m_query == "")
+            {  
+                m_query = HydrometWebUtility.GetQuery();
+            }
+            Logger.WriteLine("Raw query: = '" + m_query + "'");
+
+            if (m_query == "")
+            {
+               StopWithError ("Error: Invalid query");
+            }
+
+            m_query = LegacyTranslation(m_query, interval);
+
+            if (!ValidQuery(m_query))
+            {
+               StopWithError("Error: Invalid query");
+            }
+
+            m_collection = HttpUtility.ParseQueryString(m_query);
+            if (!HydrometWebUtility.GetDateRange(m_collection, interval, out start, out end))
+            {
+                StopWithError("Error: Invalid dates");
+            }
+
+
+                
+
+            string format = "2";
+            if (m_collection.AllKeys.Contains("format"))
+                format = m_collection["format"];
+
+            if (Array.IndexOf(supportedFormats, format) < 0)
+                StopWithError("Error: invalid format " + format);
+
+            if (format == "csv")
+                m_formatter = new CsvFormatter(interval, true);
+            else if( format == "2")
+                m_formatter = new LegacyCsvFormatter(interval, true);
+
+            else
+                m_formatter = new LegacyCsvFormatter(interval, true);
+
+            if (m_collection.AllKeys.Contains("print_hourly"))
+                m_formatter.HourlyOnly = m_collection["print_hourly"] == "true";
+
+
+        }
+        private void StopWithError(string msg)
+        {
+            Logger.WriteLine(msg);
+            HydrometWebUtility.PrintHydrometTrailer(msg);
+            throw new Exception(msg);
+        }
+
+        public void Run( string outputFile="")
+        {
             StreamWriter sw = null;
             if (outputFile != "")
             {
@@ -51,55 +119,16 @@ namespace PiscesWebServices
             }
              Console.Write("Content-type: text/html\n\n");
              HydrometWebUtility.PrintHydrometHeader();
-             
            try 
              {
-
-                 if (query == "")
-                 {  //get query from web request.
-                     query = HydrometWebUtility.GetQuery();
-                 }
-                 Logger.WriteLine("Raw query: = '" + query + "'");
-
-                 //query = HttpUtility.UrlDecode(query);
-                 //Logger.WriteLine("decodeed: = '"+query+"'");
-
-                 if (query == "")
-                 {
-                     HydrometWebUtility.PrintHydrometTrailer("Error: Invalid query");
-                     return;
-                 }
-
-                 query = LegacyTranslation(query,m_interval);
-
-                 if (!ValidQuery(query))
-                 {
-                     HydrometWebUtility.PrintHydrometTrailer("Error: Invalid query");
-                     return;
-                 }
-
-                 var queryCollection = HttpUtility.ParseQueryString(query);
-                 if (!HydrometWebUtility.GetDateRange(queryCollection, m_interval, out start,out end))
-                 {
-                     Console.WriteLine("Error: Invalid dates");
-                     return;
-                 }
-
-
-                 if (queryCollection.AllKeys.Contains("print_hourly"))
-                     print_hourly = queryCollection["print_hourly"] == "true";
-
-                 SeriesList list = CreateSeriesList(queryCollection);
+                 SeriesList list = CreateSeriesList();
 
                  if (list.Count == 0)
                  {
-                     Logger.WriteLine("Error: list of series is empty");
-                     HydrometWebUtility.PrintHydrometTrailer("Error: list of series is empty");
-                     return;
+                     StopWithError("Error: list of series is empty");
                  }
 
-                 WriteCsv(list);
-
+                 WriteSeries(list);
              }
             finally
            {
@@ -202,14 +231,13 @@ namespace PiscesWebServices
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        private void WriteCsv(SeriesList list)
+        private void WriteSeries(SeriesList list)
         {
-            Console.WriteLine("BEGIN DATA");
-            WriteSeriesHeader(list);
+            m_formatter.WriteSeriesHeader(list);
 
             int maxDaysInMemory = 30;
 
-            if (m_interval == TimeInterval.Daily)
+            if (m_formatter.Interval == TimeInterval.Daily)
                 maxDaysInMemory = 3650; // 10 years
 
             // maxDaysIhn memory
@@ -227,18 +255,19 @@ namespace PiscesWebServices
                     t3 = t2;
 
                 var tbl = Read(list, t, t3); // 0.0 seconds windows/linux
-                bool printFlags = m_interval == TimeInterval.Hourly || m_interval == TimeInterval.Irregular;
-                PrintDataTable( list,tbl,print_hourly,printFlags,m_interval);
+                var interval = m_formatter.Interval;
+                bool printFlags = interval == TimeInterval.Hourly || interval == TimeInterval.Irregular;
+                PrintDataTable( list,tbl,m_formatter.HourlyOnly,printFlags,interval);
                 t = t3.NextDay();
-            } 
+            }
 
-            Console.WriteLine("END DATA");
+            m_formatter.WriteSeriesTrailer();
+            
            // p.Report("done");
         }
 
         private DataTable Read(SeriesList list, DateTime t1, DateTime t2)
         {
-
             var sql = CreateSQL(list, t1, t2);
             var tbl = db.Server.Table("tbl", sql);
             return tbl;
@@ -285,24 +314,12 @@ namespace PiscesWebServices
             return sql;
         }
 
-        private void WriteSeriesHeader(SeriesList list)
-        {
-            string headLine = "DATE      ";
-            if( m_interval ==  TimeInterval.Irregular || m_interval == TimeInterval.Hourly)
-              headLine = "DATE       TIME ";
+        
 
-            foreach (var item in list)
-            {
-                TimeSeriesName tn = new TimeSeriesName(item.Table.TableName);
-                headLine += ",  "+tn.siteid.PadRight(8) + "" + tn.pcode.PadRight(8) ;
-            }
-            headLine = headLine.ToUpper();
-            Console.WriteLine(headLine);
-        }
-
-        private SeriesList CreateSeriesList(NameValueCollection query)
+        private SeriesList CreateSeriesList()
         {
-            TimeSeriesName[] names = GetTimeSeriesName(query, this.m_interval);
+            var interval = m_formatter.Interval;
+            TimeSeriesName[] names = GetTimeSeriesName(m_collection, interval);
 
             var tableNames = (from n in names select n.GetTableName()).ToArray();
 
@@ -313,7 +330,7 @@ namespace PiscesWebServices
             {
                 Series s = new Series();
 
-                s.TimeInterval = m_interval;
+                s.TimeInterval = interval;
                 if (sc.Select("tablename = '" + tn.GetTableName() + "'").Length == 1)
                 {
                     s = db.GetSeriesFromTableName(tn.GetTableName());

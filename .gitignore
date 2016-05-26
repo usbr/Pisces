@@ -165,3 +165,9 @@ Pisces
 /.nuget/NuGet.exe
 /TimeSeries.Excel/bin/Debug/SpreadsheetGear.dll
 /Asterisk/output
+/Asterisk/.metadata
+/Asterisk/.recommenders/index/http___download_eclipse_org_recommenders_models_mars_
+/Asterisk/ExtensionBuilder/.classpath
+/Asterisk/ExtensionBuilder/.project
+/Asterisk/ExtensionBuilder/.settings/org.eclipse.jdt.core.prefs
+/Asterisk/.recommenders/caches
