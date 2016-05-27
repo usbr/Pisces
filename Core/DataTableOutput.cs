@@ -123,7 +123,7 @@ namespace Reclamation.Core
             if (title != "")
             {
                 var colspan = dt.Columns.Count.ToString();
-                html.Append("<tr><td colspan=\""+ colspan+"\"><b>Station: " + title + "<br /> "
+                html.Append("<tr><td colspan=\""+ colspan+"\"><b>" + title + "<br /> "
                 + "<br /></td></tr>");
             }
             //add header row

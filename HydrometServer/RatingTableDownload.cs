@@ -58,7 +58,7 @@ namespace HydrometServer
                     var dRow = inputText.Rows[k];
                     cbtt = dRow["cbtt"].ToString();
                     string attachmentRecipients = "";
-                    UpdatesingleRatingTable(dRow, generateNewTables, inputText, stationUpdateList, attachments, out attachmentRecipients);
+                    UpdatesingleRatingTable(dRow, generateNewTables,stationUpdateList, attachments, out attachmentRecipients);
                     if (attachmentRecipients != "" && !attachmentRecipientList.Contains(attachmentRecipients) )
                         attachmentRecipientList.Add(attachmentRecipients);
                 }
@@ -88,13 +88,19 @@ namespace HydrometServer
             }
         }
 
-        private static void UpdatesingleRatingTable(DataRow dRow,bool generateNewTables, CsvFile inputText,
+        private static void UpdatesingleRatingTable(DataRow dRow,
+            bool generateNewTables, 
             List<string> stationUpdateList, List<string> attachments, out string attachmentRecipients)
         {
             string urlDownload = "";
             // Define parameters to be used for this checking iteration
             
             string cbtt = dRow["cbtt"].ToString().ToLower();
+
+            string htmlTitle = "Station: " + cbtt + "<br>\n"
+                + dRow["title"].ToString() + "<br>\n"
+             +DateTime.Now.ToShortDateString();
+
             attachmentRecipients = "";
             string stationID = dRow["site_id"].ToString();
             var email = dRow["email"].ToString();
@@ -174,11 +180,9 @@ namespace HydrometServer
                     WriteCsvFiles(fullRatingTable, cbtt);
                     var htmlFile = Path.Combine(hydrometRTFs, cbtt + ".html");
 
-                    string title = cbtt + "\n" + DateTime.Now.ToShortDateString();
-
                     if (fullRatingTable.Columns.Contains("Shift"))
                         fullRatingTable.Columns.Remove("Shift");
-                    RatingTableUtility.WriteHtmlFile(fullRatingTable,title, htmlFile);
+                    RatingTableUtility.WriteHtmlFile(fullRatingTable,htmlTitle, htmlFile);
 
                     // Define which attachments to add to the mail message if the 'email' field in the input file is not blank
                     if (email != ""  )
