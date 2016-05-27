@@ -27,20 +27,22 @@ public class ExtensionsConfig {
 
 			for (int i = 0; i < list.getGroupNames().length; i++) {
 				writer.println("exten => " + list.getGroupNames()[i] + ",1,NoOp()");
-				if (i == 0) {
-					writer.println("same  => n,Set(${var}=wicews_gh_confirmed)\n" +
-							"same  => n,Set(DB(hydromet/${var})=0)");
-				}
+
 				for (int j = 0; j < list.GetPhoneNumbers(list.getGroupNames()[i]).length; j++) {
 					writer.println("same  => n,Originate(SIP/pn/" + list.GetPhoneNumbers(list.getGroupNames()[i])[j] +
 							",exten,hydromet_alarm,alarmmsg,1,10)\n" +
-							"same  => n,GotoIf($[${DB(hydromet/${var})} = 1]?end)\n"+
+							"same  => n,GotoIf($[${DB(hydromet/${alarm_comfirmed})}=1]?end)\n"+
 							"same  => n(end),Hangup()");
 				}
 			}
 			writer.println();
 			writer.println("[hydromet_alarm]\n"+
 					"exten => alarmmsg,1,NoOp()\n"+
+					"same  => n,Set(alarm_definition=${DB(hydromet/alarm_definition)})" +
+					"same  => n,Verbose(${DB_DELETE(hydromet/alarm_definition)})" +
+					"same  => n,Set(alarm_confirmed=${DB(hydromet/alarm_confirmed)})" +
+					"same  => n,Set(DB(hydromet/alarm_comfirmed)=0)" +
+					"same  => n,Set(alarm_value=${DB(hydromet/alarm_value)})" +
 					"same  => n,Wait(2)\n"+
 					"same  => n,Playback(hydromet/hydrometintro)\n"+
 					"same  => n,Playback(hydromet/wicews_gh)\n"+
