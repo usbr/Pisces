@@ -302,6 +302,7 @@
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="HDB\HDBSeries.cs" />
+    <Compile Include="RatingTables\RatingTableUtility.cs" />
     <Compile Include="RBMS\RBMSTextFile.cs" />
     <Compile Include="RBMS\RbmsUtility.cs" />
     <Compile Include="Import\ImportRioGrandeExcel.cs" />

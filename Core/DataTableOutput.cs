@@ -110,7 +110,7 @@ namespace Reclamation.Core
         }
 
      
-        public static string ToHTML(DataTable dt, Func<DataColumn ,DataRow, string, string> f, bool border = true)
+        public static string ToHTML(DataTable dt, Func<DataColumn ,DataRow, string, string> f, bool border = true,string title="")
         {
             
             StringBuilder html = new StringBuilder();
@@ -120,6 +120,12 @@ namespace Reclamation.Core
             else
                 html.Append("<table>");
 
+            if (title != "")
+            {
+                var colspan = dt.Columns.Count.ToString();
+                html.Append("<tr><td colspan=\""+ colspan+"\"><b>Station: " + title + "<br /> "
+                + "<br /></td></tr>");
+            }
             //add header row
             html.Append( "<tr>");
             for (int i = 0; i < dt.Columns.Count; i++)

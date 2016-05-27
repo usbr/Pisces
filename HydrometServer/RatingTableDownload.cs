@@ -1,4 +1,5 @@
 ﻿using Reclamation.Core;
+using Reclamation.TimeSeries.RatingTables;
 using Reclamation.TimeSeries.Usgs;
 using System;
 using System.Collections.Generic;
@@ -171,12 +172,25 @@ namespace HydrometServer
                         WriteHjAndQTables(shiftFileName, qFileName, usgsRatingTable);
                     }
                     WriteCsvFiles(fullRatingTable, cbtt);
+                    var htmlFile = Path.Combine(hydrometRTFs, cbtt + ".html");
+
+                    string title = cbtt + "\n" + DateTime.Now.ToShortDateString();
+
+                    if (fullRatingTable.Columns.Contains("Shift"))
+                        fullRatingTable.Columns.Remove("Shift");
+                    RatingTableUtility.WriteHtmlFile(fullRatingTable,title, htmlFile);
+
                     // Define which attachments to add to the mail message if the 'email' field in the input file is not blank
-                    if (email != "" && agency == "USGS")
+                    if (email != ""  )
                     {
                         attachmentRecipients = email;
+                        if(agency == "USGS")
+                        {
                         attachments.Add(shiftFileName);
                         attachments.Add(qFileName);
+                        }
+
+                        attachments.Add(htmlFile);
                     }
                     Console.WriteLine("             UPDATED");
                 }
