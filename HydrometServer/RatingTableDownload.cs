@@ -167,7 +167,9 @@ namespace HydrometServer
                         webRdbTable.SaveAs(rdbFileName);
                     }
                     if (agency == "USGS")
-                    { WriteHjAndQTables(shiftFileName, qFileName, usgsRatingTable); }
+                    {
+                        WriteHjAndQTables(shiftFileName, qFileName, usgsRatingTable);
+                    }
                     WriteCsvFiles(fullRatingTable, cbtt);
                     // Define which attachments to add to the mail message if the 'email' field in the input file is not blank
                     if (email != "")
