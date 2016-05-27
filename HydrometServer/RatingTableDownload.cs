@@ -172,7 +172,7 @@ namespace HydrometServer
                     }
                     WriteCsvFiles(fullRatingTable, cbtt);
                     // Define which attachments to add to the mail message if the 'email' field in the input file is not blank
-                    if (email != "")
+                    if (email != "" && agency == "USGS")
                     {
                         attachmentRecipients = email;
                         attachments.Add(shiftFileName);
