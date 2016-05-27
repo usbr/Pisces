@@ -1,5 +1,5 @@
 #!/bin/bash
-#  initiate an hydromet alarm in asterisk
+# initiate an hydromet alarm in asterisk
 
 EXT=boia_emm
 ALARM_DEF=ark_fb
