@@ -45,9 +45,9 @@ public class ExtensionsConfig {
 					"same  => n,Set(alarm_value=${DB(hydromet/alarm_value)})" +
 					"same  => n,Wait(2)\n"+
 					"same  => n,Playback(hydromet/hydrometintro)\n"+
-					"same  => n,Playback(hydromet/wicews_gh)\n"+
+					"same  => n,Playback(hydromet/${alarm_definition}))\n"+
 					"same  => n,Playback(hydromet/value)\n"+
-					"same  => n,SayAlpha(${DB(hydromet/wicews_gh)})\n"+
+					"same  => n,SayAlpha(${alarm_value})\n"+
 					"same  => n,Read(ackDigit,hydromet/press1,1,,2,5)\n"+
 					"same  => n,Gotoif($[\"${ackDigit}\" = \"1\"]?ackalert)\n"+
 					"same  => n,Wait(5)\n"+
@@ -57,7 +57,7 @@ public class ExtensionsConfig {
 					"same  => n,Goto(unconfirmed)\n"+
 					"same  => n(confirmed),NoOp()\n"+
 					"same  => n,Playback(vm-goodbye)\n"+
-					"same  => n,Set(DB(hydromet/${var})=1)\n"+
+					"same  => n,Set(DB(hydromet/${alarm_comfirmed})=1)\n"+
 					"same  => n,Hangup()\n"+
 					"same  => n(unconfirmed),NoOp()\n"+
 					"same  => n,Playback(vm-goodbye)");
