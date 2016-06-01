@@ -88,11 +88,9 @@ namespace Reclamation.Core
             // 
             // dataGrid1
             // 
-            this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGrid1.DataMember = "";
-            this.dataGrid1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGrid1.Location = new System.Drawing.Point(8, 44);
             this.dataGrid1.Name = "dataGrid1";
             this.dataGrid1.Size = new System.Drawing.Size(552, 412);
@@ -116,15 +114,16 @@ namespace Reclamation.Core
             this.buttonExcel.TabIndex = 9;
             this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
             // 
-            // FormTableEditor
+            // SqlTableEditor
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(568, 462);
             this.Controls.Add(this.buttonExcel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.dataGrid1);
             this.Controls.Add(this.comboBoxTableNames);
-            this.Name = "FormTableEditor";
+            this.Name = "SqlTableEditor";
             this.Text = "FormTableEditor";
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
             this.ResumeLayout(false);

@@ -37,15 +37,15 @@ namespace Reclamation.TimeSeries.Forms
             this.checkBoxPlotAvg = new System.Windows.Forms.CheckBox();
             this.checkBoxPlotMin = new System.Windows.Forms.CheckBox();
             this.exceedanceAnalysisGroupBox = new System.Windows.Forms.GroupBox();
+            this.exceedanceLevelPicker1 = new Reclamation.TimeSeries.Forms.ExceedanceLevelPicker();
             this.aggregationAnalysisGroupBox = new System.Windows.Forms.GroupBox();
+            this.rangePicker1 = new Reclamation.TimeSeries.Forms.RangePicker();
             this.sumRangeRadio = new System.Windows.Forms.RadioButton();
             this.sumWYRadio = new System.Windows.Forms.RadioButton();
             this.sumCYRadio = new System.Windows.Forms.RadioButton();
             this.traceExceedanceCheckBox = new System.Windows.Forms.RadioButton();
             this.traceAggregationCheckBox = new System.Windows.Forms.RadioButton();
             this.traceAnalysisSelection = new System.Windows.Forms.GroupBox();
-            this.rangePicker1 = new Reclamation.TimeSeries.Forms.RangePicker();
-            this.exceedanceLevelPicker1 = new Reclamation.TimeSeries.Forms.ExceedanceLevelPicker();
             this.timeWindowOptions1 = new Reclamation.TimeSeries.Forms.TimeWindowSelector();
             this.groupBoxExtras.SuspendLayout();
             this.exceedanceAnalysisGroupBox.SuspendLayout();
@@ -129,6 +129,17 @@ namespace Reclamation.TimeSeries.Forms
             this.exceedanceAnalysisGroupBox.TabStop = false;
             this.exceedanceAnalysisGroupBox.Text = "Exceedance Analysis Options";
             // 
+            // exceedanceLevelPicker1
+            // 
+            this.exceedanceLevelPicker1.ExceedanceLevels = new int[] {
+        10,
+        50,
+        90};
+            this.exceedanceLevelPicker1.Location = new System.Drawing.Point(7, 14);
+            this.exceedanceLevelPicker1.Name = "exceedanceLevelPicker1";
+            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(114, 196);
+            this.exceedanceLevelPicker1.TabIndex = 0;
+            // 
             // aggregationAnalysisGroupBox
             // 
             this.aggregationAnalysisGroupBox.Controls.Add(this.rangePicker1);
@@ -142,6 +153,16 @@ namespace Reclamation.TimeSeries.Forms
             this.aggregationAnalysisGroupBox.TabIndex = 16;
             this.aggregationAnalysisGroupBox.TabStop = false;
             this.aggregationAnalysisGroupBox.Text = "Aggregation Options";
+            // 
+            // rangePicker1
+            // 
+            this.rangePicker1.Enabled = false;
+            this.rangePicker1.Location = new System.Drawing.Point(6, 89);
+            this.rangePicker1.MonthDayRange = monthDayRange1;
+            this.rangePicker1.Name = "rangePicker1";
+            this.rangePicker1.Size = new System.Drawing.Size(371, 121);
+            this.rangePicker1.TabIndex = 20;
+            this.rangePicker1.Tag = "1";
             // 
             // sumRangeRadio
             // 
@@ -210,27 +231,6 @@ namespace Reclamation.TimeSeries.Forms
             this.traceAnalysisSelection.TabIndex = 19;
             this.traceAnalysisSelection.TabStop = false;
             this.traceAnalysisSelection.Text = "Select Trace Analysis";
-            // 
-            // rangePicker1
-            // 
-            this.rangePicker1.Enabled = false;
-            this.rangePicker1.Location = new System.Drawing.Point(6, 89);
-            this.rangePicker1.MonthDayRange = monthDayRange1;
-            this.rangePicker1.Name = "rangePicker1";
-            this.rangePicker1.Size = new System.Drawing.Size(371, 121);
-            this.rangePicker1.TabIndex = 20;
-            this.rangePicker1.Tag = "1";
-            // 
-            // exceedanceLevelPicker1
-            // 
-            this.exceedanceLevelPicker1.ExceedanceLevels = new int[] {
-        10,
-        50,
-        90};
-            this.exceedanceLevelPicker1.Location = new System.Drawing.Point(7, 14);
-            this.exceedanceLevelPicker1.Name = "exceedanceLevelPicker1";
-            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(114, 196);
-            this.exceedanceLevelPicker1.TabIndex = 0;
             // 
             // timeWindowOptions1
             // 

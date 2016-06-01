@@ -42,9 +42,8 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(0, 0);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(544, 24);
+            this.comboBox1.Size = new System.Drawing.Size(409, 21);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -53,25 +52,23 @@
             this.panel1.Controls.Add(this.comboBox1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(884, 28);
+            this.panel1.Size = new System.Drawing.Size(663, 23);
             this.panel1.TabIndex = 1;
             // 
             // dataRowEditor1
             // 
-            this.dataRowEditor1.Location = new System.Drawing.Point(4, 71);
-            this.dataRowEditor1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.dataRowEditor1.Location = new System.Drawing.Point(3, 58);
+            this.dataRowEditor1.Margin = new System.Windows.Forms.Padding(4);
             this.dataRowEditor1.Name = "dataRowEditor1";
-            this.dataRowEditor1.Size = new System.Drawing.Size(469, 495);
+            this.dataRowEditor1.Size = new System.Drawing.Size(352, 402);
             this.dataRowEditor1.TabIndex = 2;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(15, 34);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonSave.Location = new System.Drawing.Point(11, 28);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(100, 28);
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 3;
             this.buttonSave.Text = "save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -80,10 +77,9 @@
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(11, 583);
-            this.labelStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelStatus.Location = new System.Drawing.Point(8, 474);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(23, 17);
+            this.labelStatus.Size = new System.Drawing.Size(19, 13);
             this.labelStatus.TabIndex = 4;
             this.labelStatus.Text = "ok";
             // 
@@ -93,24 +89,24 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewSiteProperties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewSiteProperties.Location = new System.Drawing.Point(490, 96);
+            this.dataGridViewSiteProperties.Location = new System.Drawing.Point(368, 78);
+            this.dataGridViewSiteProperties.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridViewSiteProperties.Name = "dataGridViewSiteProperties";
             this.dataGridViewSiteProperties.RowTemplate.Height = 24;
-            this.dataGridViewSiteProperties.Size = new System.Drawing.Size(391, 477);
+            this.dataGridViewSiteProperties.Size = new System.Drawing.Size(293, 388);
             this.dataGridViewSiteProperties.TabIndex = 5;
             // 
             // SiteMetaData
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dataGridViewSiteProperties);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.dataRowEditor1);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "SiteMetaData";
-            this.Size = new System.Drawing.Size(884, 627);
+            this.Size = new System.Drawing.Size(663, 509);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSiteProperties)).EndInit();
             this.ResumeLayout(false);

@@ -34,13 +34,13 @@ namespace Reclamation.TimeSeries.Forms
             this.radioButtonFromToDates = new System.Windows.Forms.RadioButton();
             this.radioButtonFullPeriodOfRecord = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.radioButtonNumDaysFromToday = new System.Windows.Forms.RadioButton();
             this.radioButtonFromDateToToday = new System.Windows.Forms.RadioButton();
-            this.buttonClose = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
@@ -96,6 +96,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.buttonClose);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.numericUpDown1);
@@ -115,6 +116,16 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "time window options";
+            // 
+            // buttonClose
+            // 
+            this.buttonClose.Location = new System.Drawing.Point(197, 81);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(62, 23);
+            this.buttonClose.TabIndex = 23;
+            this.buttonClose.Text = "Close";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // label3
             // 
@@ -178,28 +189,19 @@ namespace Reclamation.TimeSeries.Forms
             this.radioButtonFromDateToToday.UseVisualStyleBackColor = true;
             this.radioButtonFromDateToToday.CheckedChanged += new System.EventHandler(this.EnableDates);
             // 
-            // buttonClose
-            // 
-            this.buttonClose.Location = new System.Drawing.Point(197, 81);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(62, 23);
-            this.buttonClose.TabIndex = 23;
-            this.buttonClose.Text = "Close";
-            this.buttonClose.UseVisualStyleBackColor = true;
-            this.buttonClose.Click += new System.EventHandler(this.buttonClose_Click);
-            // 
-            // TimeWindowOptions
+            // TimeWindowSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
-            this.Name = "TimeWindowOptions";
+            this.Name = "TimeWindowSelector";
             this.Size = new System.Drawing.Size(275, 110);
             this.Load += new System.EventHandler(this.TimeWindowOptions_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

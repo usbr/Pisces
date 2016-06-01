@@ -37,14 +37,16 @@
             this.textBoxSeriesName = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageEquation = new System.Windows.Forms.TabPage();
-            this.labelToolTip = new System.Windows.Forms.Label();
             this.comboBoxInterval = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxUnits = new System.Windows.Forms.ComboBox();
             this.checkBoxCompute = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.textBoxHelp1 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPageEquation.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxHelp
@@ -70,7 +72,7 @@
             this.textBoxMath.Multiline = true;
             this.textBoxMath.Name = "textBoxMath";
             this.textBoxMath.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxMath.Size = new System.Drawing.Size(448, 294);
+            this.textBoxMath.Size = new System.Drawing.Size(354, 217);
             this.textBoxMath.TabIndex = 3;
             this.textBoxMath.DragDrop += new System.Windows.Forms.DragEventHandler(this.textBoxMath_DragDrop_1);
             this.textBoxMath.DragEnter += new System.Windows.Forms.DragEventHandler(this.textBoxMath_DragEnter_1);
@@ -81,7 +83,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(468, 15);
+            this.label3.Location = new System.Drawing.Point(374, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 8;
@@ -93,15 +95,15 @@
             this.listBoxFunctions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxFunctions.HorizontalScrollbar = true;
-            this.listBoxFunctions.Location = new System.Drawing.Point(471, 31);
+            this.listBoxFunctions.Location = new System.Drawing.Point(377, 35);
             this.listBoxFunctions.Name = "listBoxFunctions";
-            this.listBoxFunctions.Size = new System.Drawing.Size(250, 433);
+            this.listBoxFunctions.Size = new System.Drawing.Size(295, 355);
             this.listBoxFunctions.TabIndex = 9;
             this.listBoxFunctions.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxFunctions_MouseDown);
             // 
             // textBoxSeriesName
             // 
-            this.textBoxSeriesName.Location = new System.Drawing.Point(250, 81);
+            this.textBoxSeriesName.Location = new System.Drawing.Point(249, 82);
             this.textBoxSeriesName.Name = "textBoxSeriesName";
             this.textBoxSeriesName.Size = new System.Drawing.Size(122, 20);
             this.textBoxSeriesName.TabIndex = 13;
@@ -113,10 +115,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPageEquation);
-            this.tabControl1.Location = new System.Drawing.Point(3, 138);
+            this.tabControl1.Location = new System.Drawing.Point(3, 143);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(462, 326);
+            this.tabControl1.Size = new System.Drawing.Size(368, 249);
             this.tabControl1.TabIndex = 10;
             // 
             // tabPageEquation
@@ -124,21 +126,11 @@
             this.tabPageEquation.Controls.Add(this.textBoxMath);
             this.tabPageEquation.Location = new System.Drawing.Point(4, 22);
             this.tabPageEquation.Name = "tabPageEquation";
-            this.tabPageEquation.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPageEquation.Size = new System.Drawing.Size(454, 300);
+            this.tabPageEquation.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageEquation.Size = new System.Drawing.Size(360, 223);
             this.tabPageEquation.TabIndex = 0;
             this.tabPageEquation.Text = "expression";
             this.tabPageEquation.UseVisualStyleBackColor = true;
-            // 
-            // labelToolTip
-            // 
-            this.labelToolTip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelToolTip.AutoSize = true;
-            this.labelToolTip.Location = new System.Drawing.Point(0, 467);
-            this.labelToolTip.Name = "labelToolTip";
-            this.labelToolTip.Size = new System.Drawing.Size(131, 13);
-            this.labelToolTip.TabIndex = 11;
-            this.labelToolTip.Text = "Help text will be seen here";
             // 
             // comboBoxInterval
             // 
@@ -159,7 +151,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(181, 104);
+            this.label2.Location = new System.Drawing.Point(180, 105);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 13);
             this.label2.TabIndex = 16;
@@ -177,7 +169,7 @@
             // comboBoxUnits
             // 
             this.comboBoxUnits.FormattingEnabled = true;
-            this.comboBoxUnits.Location = new System.Drawing.Point(250, 104);
+            this.comboBoxUnits.Location = new System.Drawing.Point(249, 105);
             this.comboBoxUnits.Name = "comboBoxUnits";
             this.comboBoxUnits.Size = new System.Drawing.Size(122, 21);
             this.comboBoxUnits.TabIndex = 17;
@@ -185,37 +177,58 @@
             // checkBoxCompute
             // 
             this.checkBoxCompute.AutoSize = true;
-            this.checkBoxCompute.Location = new System.Drawing.Point(9, 107);
-            this.checkBoxCompute.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxCompute.Location = new System.Drawing.Point(7, 107);
+            this.checkBoxCompute.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxCompute.Name = "checkBoxCompute";
             this.checkBoxCompute.Size = new System.Drawing.Size(160, 17);
             this.checkBoxCompute.TabIndex = 18;
             this.checkBoxCompute.Text = "compute full period of record";
             this.checkBoxCompute.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.textBoxHelp1);
+            this.panel1.Controls.Add(this.textBoxHelp);
+            this.panel1.Controls.Add(this.checkBoxCompute);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.listBoxFunctions);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.comboBoxUnits);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.comboBoxInterval);
+            this.panel1.Controls.Add(this.tabControl1);
+            this.panel1.Controls.Add(this.textBoxSeriesName);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(675, 446);
+            this.panel1.TabIndex = 19;
+            // 
+            // textBoxHelp1
+            // 
+            this.textBoxHelp1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBoxHelp1.BackColor = System.Drawing.SystemColors.Control;
+            this.textBoxHelp1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxHelp1.Location = new System.Drawing.Point(7, 398);
+            this.textBoxHelp1.Multiline = true;
+            this.textBoxHelp1.Name = "textBoxHelp1";
+            this.textBoxHelp1.Size = new System.Drawing.Size(660, 45);
+            this.textBoxHelp1.TabIndex = 19;
+            this.textBoxHelp1.Text = "Help text will be seen here";
+            // 
             // BasicEquation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.checkBoxCompute);
-            this.Controls.Add(this.labelToolTip);
-            this.Controls.Add(this.comboBoxUnits);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBoxSeriesName);
-            this.Controls.Add(this.comboBoxInterval);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.listBoxFunctions);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBoxHelp);
-            this.MinimumSize = new System.Drawing.Size(447, 380);
+            this.Controls.Add(this.panel1);
             this.Name = "BasicEquation";
-            this.Size = new System.Drawing.Size(724, 495);
+            this.Size = new System.Drawing.Size(675, 446);
             this.tabControl1.ResumeLayout(false);
             this.tabPageEquation.ResumeLayout(false);
             this.tabPageEquation.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -228,12 +241,13 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageEquation;
-        private System.Windows.Forms.Label labelToolTip;
         private System.Windows.Forms.ComboBox comboBoxInterval;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxSeriesName;
         private System.Windows.Forms.ComboBox comboBoxUnits;
         private System.Windows.Forms.CheckBox checkBoxCompute;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox textBoxHelp1;
     }
 }

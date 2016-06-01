@@ -28,7 +28,7 @@ namespace Reclamation.TimeSeries.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            Reclamation.TimeSeries.TimeWindow timeWindow2 = new Reclamation.TimeSeries.TimeWindow();
+            Reclamation.TimeSeries.TimeWindow timeWindow1 = new Reclamation.TimeSeries.TimeWindow();
             this.maskedTextBoxPlotYear = new System.Windows.Forms.MaskedTextBox();
             this.checkBoxPlotYear = new System.Windows.Forms.CheckBox();
             this.groupBoxExtras = new System.Windows.Forms.GroupBox();
@@ -120,16 +120,16 @@ namespace Reclamation.TimeSeries.Forms
             this.timeWindowOptions1.Name = "timeWindowOptions1";
             this.timeWindowOptions1.Size = new System.Drawing.Size(275, 113);
             this.timeWindowOptions1.TabIndex = 11;
-            timeWindow2.FromDateToTodayT1 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
-            timeWindow2.FromToDatesT1 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
-            timeWindow2.FromToDatesT2 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
-            timeWindow2.NumDaysFromToday = new decimal(new int[] {
+            timeWindow1.FromDateToTodayT1 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
+            timeWindow1.FromToDatesT1 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
+            timeWindow1.FromToDatesT2 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
+            timeWindow1.NumDaysFromToday = new decimal(new int[] {
             14,
             0,
             0,
             0});
-            timeWindow2.WindowType = Reclamation.TimeSeries.TimeWindowType.FullPeriodOfRecord;
-            this.timeWindowOptions1.TimeWindow = timeWindow2;
+            timeWindow1.WindowType = Reclamation.TimeSeries.TimeWindowType.FullPeriodOfRecord;
+            this.timeWindowOptions1.TimeWindow = timeWindow1;
             // 
             // exceedanceLevelPicker1
             // 

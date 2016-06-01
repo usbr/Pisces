@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonResElevation = new System.Windows.Forms.RadioButton();
             this.radioButtonGwLevels = new System.Windows.Forms.RadioButton();
             this.label5 = new System.Windows.Forms.Label();
             this.radioButtonRtGageHt = new System.Windows.Forms.RadioButton();
@@ -46,7 +47,6 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.timeSelectorBeginEnd1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
             this.linkLabelUSGSInfo = new System.Windows.Forms.LinkLabel();
-            this.radioButtonResElevation = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,6 +96,16 @@
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select data type to import";
+            // 
+            // radioButtonResElevation
+            // 
+            this.radioButtonResElevation.AutoSize = true;
+            this.radioButtonResElevation.Location = new System.Drawing.Point(27, 187);
+            this.radioButtonResElevation.Name = "radioButtonResElevation";
+            this.radioButtonResElevation.Size = new System.Drawing.Size(138, 17);
+            this.radioButtonResElevation.TabIndex = 10;
+            this.radioButtonResElevation.Text = "reservoir elevation (feet)";
+            this.radioButtonResElevation.UseVisualStyleBackColor = true;
             // 
             // radioButtonGwLevels
             // 
@@ -241,16 +251,6 @@
             this.linkLabelUSGSInfo.TabStop = true;
             this.linkLabelUSGSInfo.Text = "info for sites";
             this.linkLabelUSGSInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelUSGSInfo_LinkClicked);
-            // 
-            // radioButtonResElevation
-            // 
-            this.radioButtonResElevation.AutoSize = true;
-            this.radioButtonResElevation.Location = new System.Drawing.Point(27, 187);
-            this.radioButtonResElevation.Name = "radioButtonResElevation";
-            this.radioButtonResElevation.Size = new System.Drawing.Size(138, 17);
-            this.radioButtonResElevation.TabIndex = 10;
-            this.radioButtonResElevation.Text = "reservoir elevation (feet)";
-            this.radioButtonResElevation.UseVisualStyleBackColor = true;
             // 
             // ImportUsgsData
             // 

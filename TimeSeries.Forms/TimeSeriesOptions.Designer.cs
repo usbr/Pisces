@@ -29,6 +29,7 @@ namespace Reclamation.TimeSeries.Forms
         private void InitializeComponent()
         {
             Reclamation.Core.MonthDayRange monthDayRange1 = new Reclamation.Core.MonthDayRange();
+            Reclamation.TimeSeries.TimeWindow timeWindow1 = new Reclamation.TimeSeries.TimeWindow();
             this.groupBoxAdvanced = new System.Windows.Forms.GroupBox();
             this.rangePicker1 = new Reclamation.TimeSeries.Forms.RangePicker();
             this.yearTypeSelector1 = new Reclamation.TimeSeries.Forms.YearTypeSelector();
@@ -74,12 +75,22 @@ namespace Reclamation.TimeSeries.Forms
             this.aggregateOptions1.StatisticalMethods = Reclamation.TimeSeries.StatisticalMethods.None;
             this.aggregateOptions1.TabIndex = 9;
             // 
-            // periodOfRecordOptions1
+            // timeWindowOptions1
             // 
             this.timeWindowOptions1.Location = new System.Drawing.Point(12, 13);
             this.timeWindowOptions1.Name = "timeWindowOptions1";
             this.timeWindowOptions1.Size = new System.Drawing.Size(275, 111);
             this.timeWindowOptions1.TabIndex = 10;
+            timeWindow1.FromDateToTodayT1 = new System.DateTime(2016, 6, 1, 11, 21, 23, 923);
+            timeWindow1.FromToDatesT1 = new System.DateTime(2016, 6, 1, 11, 21, 23, 926);
+            timeWindow1.FromToDatesT2 = new System.DateTime(2016, 6, 1, 11, 21, 23, 928);
+            timeWindow1.NumDaysFromToday = new decimal(new int[] {
+            14,
+            0,
+            0,
+            0});
+            timeWindow1.WindowType = Reclamation.TimeSeries.TimeWindowType.FullPeriodOfRecord;
+            this.timeWindowOptions1.TimeWindow = timeWindow1;
             // 
             // TimeSeriesOptions
             // 

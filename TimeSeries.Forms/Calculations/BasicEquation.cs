@@ -18,7 +18,7 @@ namespace Reclamation.TimeSeries.Forms.Calculations
         {
             InitializeComponent();
             this.listBoxFunctions.Items.Clear();
-            this.labelToolTip.Text = "";
+            this.textBoxHelp1.Text = "";
             var fa = ParserFunction.GetPiscesFunctionAttributes();
 
             listBoxFunctions.Items.AddRange((from a in fa select a.Example).ToArray<string>());
@@ -154,7 +154,7 @@ namespace Reclamation.TimeSeries.Forms.Calculations
                 DragDropEffects dde1 = DoDragDrop(s,
                     DragDropEffects.All);
 
-                labelToolTip.Text = functionHelp[index];
+                textBoxHelp1.Text = functionHelp[index];
             }
 
         }

@@ -69,6 +69,7 @@ namespace Reclamation.Core
 		{
             this.dataGrid1 = new System.Windows.Forms.DataGrid();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonExcel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButtonCmd = new System.Windows.Forms.RadioButton();
             this.radioButtonTable = new System.Windows.Forms.RadioButton();
@@ -77,7 +78,6 @@ namespace Reclamation.Core
             this.textBoxSql = new System.Windows.Forms.TextBox();
             this.listBoxSql = new System.Windows.Forms.ListBox();
             this.buttonSql = new System.Windows.Forms.Button();
-            this.buttonExcel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -107,6 +107,15 @@ namespace Reclamation.Core
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(752, 312);
             this.panel1.TabIndex = 0;
+            // 
+            // buttonExcel
+            // 
+            this.buttonExcel.Location = new System.Drawing.Point(139, 283);
+            this.buttonExcel.Name = "buttonExcel";
+            this.buttonExcel.Size = new System.Drawing.Size(64, 23);
+            this.buttonExcel.TabIndex = 16;
+            this.buttonExcel.Text = "excel";
+            this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
             // 
             // groupBox1
             // 
@@ -156,8 +165,8 @@ namespace Reclamation.Core
             // 
             // textBoxSql
             // 
-            this.textBoxSql.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSql.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSql.Location = new System.Drawing.Point(8, 184);
             this.textBoxSql.Multiline = true;
             this.textBoxSql.Name = "textBoxSql";
@@ -182,19 +191,11 @@ namespace Reclamation.Core
             this.buttonSql.Text = "Execute SQL";
             this.buttonSql.Click += new System.EventHandler(this.buttonSql_Click);
             // 
-            // buttonExcel
-            // 
-            this.buttonExcel.Location = new System.Drawing.Point(139, 283);
-            this.buttonExcel.Name = "buttonExcel";
-            this.buttonExcel.Size = new System.Drawing.Size(64, 23);
-            this.buttonExcel.TabIndex = 16;
-            this.buttonExcel.Text = "excel";
-            this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
-            // 
             // SqlView
             // 
             this.AcceptButton = this.buttonSql;
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(752, 446);
             this.Controls.Add(this.dataGrid1);
             this.Controls.Add(this.panel1);

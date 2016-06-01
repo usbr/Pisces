@@ -28,7 +28,15 @@ namespace Reclamation.TimeSeries.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // CorrelationOptions
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "CorrelationOptions";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

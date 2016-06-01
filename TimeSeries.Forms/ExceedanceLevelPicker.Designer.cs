@@ -56,6 +56,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // groupBox1
             // 
+            this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.checkedListBox1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -74,6 +75,7 @@ namespace Reclamation.TimeSeries.Forms
             this.Size = new System.Drawing.Size(151, 221);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

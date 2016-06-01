@@ -55,8 +55,8 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxSiteName
             // 
-            this.textBoxSiteName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSiteName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSiteName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::Reclamation.TimeSeries.Forms.Properties.Settings.Default, "SumVolumeSiteName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxSiteName.Location = new System.Drawing.Point(16, 150);
             this.textBoxSiteName.Name = "textBoxSiteName";
@@ -103,8 +103,8 @@ namespace Reclamation.TimeSeries.Forms
             this.textBox2.Size = new System.Drawing.Size(324, 47);
             this.textBox2.TabIndex = 7;
             this.textBox2.Text = "Select a range of dates and a series to sum during a period of the year. This can" +
-                " be used to rank and compare scenarios to a volume forecast. Summing is done on " +
-                "a water year (october-september)";
+    " be used to rank and compare scenarios to a volume forecast. Summing is done on " +
+    "a water year (october-september)";
             // 
             // monthDayRangePicker1
             // 
