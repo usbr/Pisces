@@ -1,13 +1,18 @@
 
-lrgs5*CLI> database put app_user rob_fb 123
-lrgs5*CLI> database del app_user rob_fb
+Here are some examples of asterisk CLI commands used:
 
+asterisk -x database put family key value
 
 asterisk -x "database put app_user rob_fb 124"
 
- asterisk -x "dialplan reload"
+asterisk -x database del family key
 
-asterisk -x "channel originate local/msg2@vartest extension"
-same  => n,SayNumber(${DB(app_user/rob_fb)})
+asterisk -x "database show"
 
-same =>n,Set(DB(hydromet/karl_fb)=1)   ; set database value within extension.
+asterisk -x "dialplan reload"
+
+asterisk -x "channel originate /boia_emm@hydromet_groups extension"
+
+   same  => n,SayAlpha(${alarm_value})
+   
+   same =>n,Set(DB(hydromet/${alarm_confirmed})=1)   ; set database value within extension.
