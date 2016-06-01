@@ -1,3 +1,11 @@
+inputs: (volatile temporary variable) -- set by bash script
+DB(hydromet/alarm_definition) (boii_ob)   i.e. wave file
+DB(hydromet/alarm_value)      ( 44.5)  degF
+
+internal asterisk variables
+${alarm_definition}    =  boii_ob 
+${alarm_confirmed}  =  boii_ob_confirmed   (set to zero to start, set to one when confirmed)
+${alarm_value} = 44.5  
 
 Here are some examples of asterisk CLI commands used:
 
