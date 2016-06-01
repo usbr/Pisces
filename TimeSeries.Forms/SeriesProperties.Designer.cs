@@ -78,12 +78,29 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxProvider = new System.Windows.Forms.TextBox();
             this.labelSortOrder = new System.Windows.Forms.Label();
             this.textBoxSortOrder = new System.Windows.Forms.TextBox();
+            this.tabPageAlarm = new System.Windows.Forms.TabPage();
             this.tabPageNotes = new System.Windows.Forms.TabPage();
             this.textBoxNotes = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.checkBoxEnable = new System.Windows.Forms.CheckBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPageAdvanced.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProperties)).BeginInit();
+            this.tabPageAlarm.SuspendLayout();
             this.tabPageNotes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -113,7 +130,7 @@ namespace Reclamation.TimeSeries.Forms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 37);
+            this.label1.Location = new System.Drawing.Point(17, 37);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(33, 13);
             this.label1.TabIndex = 1;
@@ -133,6 +150,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxParameter.ReadOnly = true;
             this.textBoxParameter.Size = new System.Drawing.Size(245, 20);
             this.textBoxParameter.TabIndex = 14;
+            this.textBoxParameter.TextChanged += new System.EventHandler(this.textBoxParameter_TextChanged);
             // 
             // label2
             // 
@@ -142,6 +160,7 @@ namespace Reclamation.TimeSeries.Forms
             this.label2.Size = new System.Drawing.Size(54, 13);
             this.label2.TabIndex = 15;
             this.label2.Text = "parameter";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // textBoxSiteName
             // 
@@ -171,7 +190,7 @@ namespace Reclamation.TimeSeries.Forms
             // labelunits
             // 
             this.labelunits.AutoSize = true;
-            this.labelunits.Location = new System.Drawing.Point(21, 65);
+            this.labelunits.Location = new System.Drawing.Point(17, 64);
             this.labelunits.Name = "labelunits";
             this.labelunits.Size = new System.Drawing.Size(29, 13);
             this.labelunits.TabIndex = 19;
@@ -196,7 +215,7 @@ namespace Reclamation.TimeSeries.Forms
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 93);
+            this.label5.Location = new System.Drawing.Point(17, 92);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 13);
             this.label5.TabIndex = 21;
@@ -319,6 +338,7 @@ namespace Reclamation.TimeSeries.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPageGeneral);
             this.tabControl1.Controls.Add(this.tabPageAdvanced);
+            this.tabControl1.Controls.Add(this.tabPageAlarm);
             this.tabControl1.Controls.Add(this.tabPageNotes);
             this.tabControl1.Location = new System.Drawing.Point(4, 0);
             this.tabControl1.Name = "tabControl1";
@@ -369,7 +389,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxLow
             // 
-            this.textBoxLow.Location = new System.Drawing.Point(90, 141);
+            this.textBoxLow.Location = new System.Drawing.Point(85, 140);
             this.textBoxLow.Name = "textBoxLow";
             this.textBoxLow.Size = new System.Drawing.Size(51, 20);
             this.textBoxLow.TabIndex = 61;
@@ -385,7 +405,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxHigh
             // 
-            this.textBoxHigh.Location = new System.Drawing.Point(154, 141);
+            this.textBoxHigh.Location = new System.Drawing.Point(142, 140);
             this.textBoxHigh.Name = "textBoxHigh";
             this.textBoxHigh.Size = new System.Drawing.Size(51, 20);
             this.textBoxHigh.TabIndex = 59;
@@ -393,7 +413,7 @@ namespace Reclamation.TimeSeries.Forms
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(21, 131);
+            this.label19.Location = new System.Drawing.Point(17, 124);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(37, 13);
             this.label19.TabIndex = 58;
@@ -411,7 +431,7 @@ namespace Reclamation.TimeSeries.Forms
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(19, 14);
+            this.label17.Location = new System.Drawing.Point(18, 14);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(36, 13);
             this.label17.TabIndex = 56;
@@ -435,7 +455,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxExpression.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxExpression.Location = new System.Drawing.Point(101, 262);
+            this.textBoxExpression.Location = new System.Drawing.Point(85, 264);
             this.textBoxExpression.Multiline = true;
             this.textBoxExpression.Name = "textBoxExpression";
             this.textBoxExpression.Size = new System.Drawing.Size(245, 100);
@@ -444,7 +464,7 @@ namespace Reclamation.TimeSeries.Forms
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(21, 262);
+            this.label12.Location = new System.Drawing.Point(11, 262);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(57, 13);
             this.label12.TabIndex = 53;
@@ -453,7 +473,7 @@ namespace Reclamation.TimeSeries.Forms
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(21, 201);
+            this.label15.Location = new System.Drawing.Point(16, 201);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(30, 13);
             this.label15.TabIndex = 51;
@@ -461,7 +481,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxPOR2
             // 
-            this.textBoxPOR2.Location = new System.Drawing.Point(85, 198);
+            this.textBoxPOR2.Location = new System.Drawing.Point(85, 194);
             this.textBoxPOR2.Name = "textBoxPOR2";
             this.textBoxPOR2.ReadOnly = true;
             this.textBoxPOR2.Size = new System.Drawing.Size(140, 20);
@@ -469,7 +489,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxRecordCount
             // 
-            this.textBoxRecordCount.Location = new System.Drawing.Point(87, 226);
+            this.textBoxRecordCount.Location = new System.Drawing.Point(85, 220);
             this.textBoxRecordCount.Name = "textBoxRecordCount";
             this.textBoxRecordCount.ReadOnly = true;
             this.textBoxRecordCount.Size = new System.Drawing.Size(100, 20);
@@ -478,7 +498,7 @@ namespace Reclamation.TimeSeries.Forms
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(19, 175);
+            this.label9.Location = new System.Drawing.Point(16, 172);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(38, 13);
             this.label9.TabIndex = 47;
@@ -486,7 +506,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxPOR1
             // 
-            this.textBoxPOR1.Location = new System.Drawing.Point(87, 172);
+            this.textBoxPOR1.Location = new System.Drawing.Point(85, 172);
             this.textBoxPOR1.Name = "textBoxPOR1";
             this.textBoxPOR1.ReadOnly = true;
             this.textBoxPOR1.Size = new System.Drawing.Size(138, 20);
@@ -495,7 +515,7 @@ namespace Reclamation.TimeSeries.Forms
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(21, 229);
+            this.label10.Location = new System.Drawing.Point(11, 227);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 13);
             this.label10.TabIndex = 48;
@@ -588,6 +608,32 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxSortOrder.Size = new System.Drawing.Size(100, 20);
             this.textBoxSortOrder.TabIndex = 43;
             // 
+            // tabPageAlarm
+            // 
+            this.tabPageAlarm.Controls.Add(this.label29);
+            this.tabPageAlarm.Controls.Add(this.label28);
+            this.tabPageAlarm.Controls.Add(this.checkBoxEnable);
+            this.tabPageAlarm.Controls.Add(this.label27);
+            this.tabPageAlarm.Controls.Add(this.label26);
+            this.tabPageAlarm.Controls.Add(this.label25);
+            this.tabPageAlarm.Controls.Add(this.label24);
+            this.tabPageAlarm.Controls.Add(this.label23);
+            this.tabPageAlarm.Controls.Add(this.label22);
+            this.tabPageAlarm.Controls.Add(this.textBox4);
+            this.tabPageAlarm.Controls.Add(this.textBox5);
+            this.tabPageAlarm.Controls.Add(this.textBox6);
+            this.tabPageAlarm.Controls.Add(this.textBox3);
+            this.tabPageAlarm.Controls.Add(this.textBox2);
+            this.tabPageAlarm.Controls.Add(this.textBox1);
+            this.tabPageAlarm.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAlarm.Name = "tabPageAlarm";
+            this.tabPageAlarm.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAlarm.Size = new System.Drawing.Size(416, 397);
+            this.tabPageAlarm.TabIndex = 4;
+            this.tabPageAlarm.Text = "Alarm";
+            this.tabPageAlarm.UseVisualStyleBackColor = true;
+            this.tabPageAlarm.Click += new System.EventHandler(this.tabPageAlarm_Click);
+            // 
             // tabPageNotes
             // 
             this.tabPageNotes.Controls.Add(this.textBoxNotes);
@@ -610,6 +656,134 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxNotes.Size = new System.Drawing.Size(366, 347);
             this.textBoxNotes.TabIndex = 0;
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(92, 50);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(308, 20);
+            this.textBox1.TabIndex = 0;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(92, 76);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(308, 20);
+            this.textBox2.TabIndex = 1;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(92, 102);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(308, 20);
+            this.textBox3.TabIndex = 2;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(92, 183);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(308, 118);
+            this.textBox4.TabIndex = 5;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(92, 154);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(308, 20);
+            this.textBox5.TabIndex = 4;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(92, 128);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(308, 20);
+            this.textBox6.TabIndex = 3;
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 53);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(51, 13);
+            this.label22.TabIndex = 6;
+            this.label22.Text = "Definition";
+            this.label22.Click += new System.EventHandler(this.label22_Click);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(6, 79);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(54, 13);
+            this.label23.TabIndex = 7;
+            this.label23.Text = "Min Value";
+            this.label23.Click += new System.EventHandler(this.label23_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(6, 105);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(57, 13);
+            this.label24.TabIndex = 8;
+            this.label24.Text = "Max Value";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(6, 131);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(61, 13);
+            this.label25.TabIndex = 9;
+            this.label25.Text = "Clear Value";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(6, 157);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(0, 13);
+            this.label26.TabIndex = 10;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(6, 186);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(60, 13);
+            this.label27.TabIndex = 11;
+            this.label27.Text = "Description";
+            this.label27.Click += new System.EventHandler(this.label27_Click);
+            // 
+            // checkBoxEnable
+            // 
+            this.checkBoxEnable.AutoSize = true;
+            this.checkBoxEnable.Location = new System.Drawing.Point(92, 27);
+            this.checkBoxEnable.Name = "checkBoxEnable";
+            this.checkBoxEnable.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxEnable.TabIndex = 12;
+            this.checkBoxEnable.UseVisualStyleBackColor = true;
+            this.checkBoxEnable.CheckedChanged += new System.EventHandler(this.checkBoxEnable_CheckedChanged);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(6, 28);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(40, 13);
+            this.label28.TabIndex = 13;
+            this.label28.Text = "Enable";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 157);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(31, 13);
+            this.label29.TabIndex = 14;
+            this.label29.Text = "Extra";
+            // 
             // SeriesProperties
             // 
             this.AcceptButton = this.buttonOK;
@@ -630,6 +804,8 @@ namespace Reclamation.TimeSeries.Forms
             this.tabPageAdvanced.ResumeLayout(false);
             this.tabPageAdvanced.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProperties)).EndInit();
+            this.tabPageAlarm.ResumeLayout(false);
+            this.tabPageAlarm.PerformLayout();
             this.tabPageNotes.ResumeLayout(false);
             this.tabPageNotes.PerformLayout();
             this.ResumeLayout(false);
@@ -690,5 +866,21 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox textBoxHigh;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TabPage tabPageAlarm;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.CheckBox checkBoxEnable;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label29;
     }
 }
