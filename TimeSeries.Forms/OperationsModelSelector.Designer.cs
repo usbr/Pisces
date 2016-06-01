@@ -41,12 +41,12 @@
             this.dataGridView1.Size = new System.Drawing.Size(509, 249);
             this.dataGridView1.TabIndex = 0;
             // 
-            // ScenarioSelectorOperationModels
+            // OperationsModelSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dataGridView1);
-            this.Name = "ScenarioSelectorOperationModels";
+            this.Name = "OperationsModelSelector";
             this.Size = new System.Drawing.Size(509, 249);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

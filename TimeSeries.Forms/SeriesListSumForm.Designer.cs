@@ -88,12 +88,12 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // sumTimeSelector
             // 
-            this.sumTimeSelector.T1 = new System.DateTime(2003, 7, 10, 12, 34, 9, 921);
-            this.sumTimeSelector.T2 = new System.DateTime(2003, 7, 10, 12, 34, 9, 921);
             this.sumTimeSelector.Location = new System.Drawing.Point(32, 150);
             this.sumTimeSelector.Name = "sumTimeSelector";
             this.sumTimeSelector.ShowTime = false;
             this.sumTimeSelector.Size = new System.Drawing.Size(192, 48);
+            this.sumTimeSelector.T1 = new System.DateTime(2003, 7, 10, 12, 34, 9, 921);
+            this.sumTimeSelector.T2 = new System.DateTime(2003, 7, 10, 12, 34, 9, 921);
             this.sumTimeSelector.TabIndex = 24;
             // 
             // ListOfSeries

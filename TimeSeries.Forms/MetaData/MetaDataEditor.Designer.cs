@@ -60,7 +60,7 @@
             this.tabPageSeries.Location = new System.Drawing.Point(4, 22);
             this.tabPageSeries.Name = "tabPageSeries";
             this.tabPageSeries.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSeries.Size = new System.Drawing.Size(496, 392);
+            this.tabPageSeries.Size = new System.Drawing.Size(578, 422);
             this.tabPageSeries.TabIndex = 1;
             this.tabPageSeries.Text = "series";
             this.tabPageSeries.UseVisualStyleBackColor = true;

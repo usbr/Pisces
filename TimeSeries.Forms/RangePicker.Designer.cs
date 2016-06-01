@@ -33,17 +33,18 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButtonMonthDay = new System.Windows.Forms.RadioButton();
             this.radioButtonMonths = new System.Windows.Forms.RadioButton();
-            this.monthRangePicker1 = new Reclamation.TimeSeries.Forms.MonthRangePicker();
             this.monthDayRangePicker1 = new Reclamation.TimeSeries.Forms.MonthDayRangePicker();
+            this.monthRangePicker1 = new Reclamation.TimeSeries.Forms.MonthRangePicker();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.monthRangePicker1);
+            this.groupBox1.AutoSize = true;
             this.groupBox1.Controls.Add(this.radioButtonMonthDay);
             this.groupBox1.Controls.Add(this.radioButtonMonths);
             this.groupBox1.Controls.Add(this.monthDayRangePicker1);
+            this.groupBox1.Controls.Add(this.monthRangePicker1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
@@ -51,7 +52,6 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "range";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // radioButtonMonthDay
             // 
@@ -75,22 +75,25 @@ namespace Reclamation.TimeSeries.Forms
             this.radioButtonMonths.UseVisualStyleBackColor = true;
             this.radioButtonMonths.CheckedChanged += new System.EventHandler(this.Enabling);
             // 
-            // monthRangePicker1
-            // 
-            this.monthRangePicker1.BeginningMonth = 10;
-            this.monthRangePicker1.Location = new System.Drawing.Point(43, 24);
-            this.monthRangePicker1.MonthDayRange = monthDayRange1;
-            this.monthRangePicker1.Name = "monthRangePicker1";
-            this.monthRangePicker1.Size = new System.Drawing.Size(318, 26);
-            this.monthRangePicker1.TabIndex = 15;
-            // 
             // monthDayRangePicker1
             // 
+            this.monthDayRangePicker1.BeginningMonth = 10;
+            this.monthDayRangePicker1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.monthDayRangePicker1.Location = new System.Drawing.Point(48, 58);
-            this.monthDayRangePicker1.MonthDayRange = monthDayRange2;
+            this.monthDayRangePicker1.MonthDayRange = monthDayRange1;
             this.monthDayRangePicker1.Name = "monthDayRangePicker1";
             this.monthDayRangePicker1.Size = new System.Drawing.Size(159, 50);
             this.monthDayRangePicker1.TabIndex = 12;
+            // 
+            // monthRangePicker1
+            // 
+            this.monthRangePicker1.AutoSize = true;
+            this.monthRangePicker1.BeginningMonth = 10;
+            this.monthRangePicker1.Location = new System.Drawing.Point(43, 24);
+            this.monthRangePicker1.MonthDayRange = monthDayRange2;
+            this.monthRangePicker1.Name = "monthRangePicker1";
+            this.monthRangePicker1.Size = new System.Drawing.Size(318, 26);
+            this.monthRangePicker1.TabIndex = 15;
             // 
             // RangePicker
             // 
@@ -102,6 +105,7 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

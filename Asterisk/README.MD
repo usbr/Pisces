@@ -1,13 +1,31 @@
+inputs: (volatile temporary variable) -- set by bash script
 
-lrgs5*CLI> database put app_user rob_fb 123
-lrgs5*CLI> database del app_user rob_fb
+DB(hydromet/alarm_definition) (boii_ob)   i.e. wave file
 
+DB(hydromet/alarm_value)      ( 44.5)  degF
+
+
+internal asterisk variables
+${alarm_definition}    =  boii_ob 
+
+${alarm_confirmed}  =  boii_ob_confirmed   (set to zero to start, set to one when confirmed)
+
+${alarm_value} = 44.5  
+
+Here are some examples of asterisk CLI commands used:
+
+asterisk -x database put family key value
 
 asterisk -x "database put app_user rob_fb 124"
 
- asterisk -x "dialplan reload"
+asterisk -x database del family key
 
-asterisk -x "channel originate local/msg2@vartest extension"
-same  => n,SayNumber(${DB(app_user/rob_fb)})
+asterisk -x "database show"
 
-same =>n,Set(DB(hydromet/karl_fb)=1)   ; set database value within extension.
+asterisk -x "dialplan reload"
+
+asterisk -x "channel originate /boia_emm@hydromet_groups extension"
+
+   same  => n,SayAlpha(${alarm_value})
+   
+   same =>n,Set(DB(hydromet/${alarm_confirmed})=1)   ; set database value within extension.

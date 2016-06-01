@@ -31,9 +31,9 @@ namespace Reclamation.TimeSeries.Forms
             this.treeView1 = new Aga.Controls.Tree.TreeViewAdv();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTree = new System.Windows.Forms.TabPage();
+            this.textBoxTreeFilter = new System.Windows.Forms.TextBox();
             this.tabPageCommand = new System.Windows.Forms.TabPage();
             this.hydrometCommandLine1 = new HydrometPisces.HydrometCommandLine();
-            this.textBoxTreeFilter = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPageTree.SuspendLayout();
             this.tabPageCommand.SuspendLayout();
@@ -91,6 +91,15 @@ namespace Reclamation.TimeSeries.Forms
             this.tabPageTree.Text = "Tree";
             this.tabPageTree.UseVisualStyleBackColor = true;
             // 
+            // textBoxTreeFilter
+            // 
+            this.textBoxTreeFilter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textBoxTreeFilter.Location = new System.Drawing.Point(3, 3);
+            this.textBoxTreeFilter.Name = "textBoxTreeFilter";
+            this.textBoxTreeFilter.Size = new System.Drawing.Size(335, 20);
+            this.textBoxTreeFilter.TabIndex = 1;
+            this.textBoxTreeFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTreeFilter_KeyPress);
+            // 
             // tabPageCommand
             // 
             this.tabPageCommand.Controls.Add(this.hydrometCommandLine1);
@@ -111,15 +120,6 @@ namespace Reclamation.TimeSeries.Forms
             this.hydrometCommandLine1.Name = "hydrometCommandLine1";
             this.hydrometCommandLine1.Size = new System.Drawing.Size(335, 437);
             this.hydrometCommandLine1.TabIndex = 0;
-            // 
-            // textBoxTreeFilter
-            // 
-            this.textBoxTreeFilter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBoxTreeFilter.Location = new System.Drawing.Point(3, 3);
-            this.textBoxTreeFilter.Name = "textBoxTreeFilter";
-            this.textBoxTreeFilter.Size = new System.Drawing.Size(335, 20);
-            this.textBoxTreeFilter.TabIndex = 1;
-            this.textBoxTreeFilter.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxTreeFilter_KeyPress);
             // 
             // PiscesTree
             // 

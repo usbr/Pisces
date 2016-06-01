@@ -89,9 +89,9 @@
             // 
             // listBoxScenarios
             // 
-            this.listBoxScenarios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxScenarios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxScenarios.FormattingEnabled = true;
             this.listBoxScenarios.Location = new System.Drawing.Point(43, 36);
             this.listBoxScenarios.Name = "listBoxScenarios";
@@ -143,7 +143,7 @@
             this.textBox1.Size = new System.Drawing.Size(155, 45);
             this.textBox1.TabIndex = 9;
             this.textBox1.Text = "Note: The first file in the list will be used as the Baseline if scenarios are us" +
-                "ed.";
+    "ed.";
             // 
             // checkBoxAddToTree
             // 

@@ -31,9 +31,9 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -70,6 +70,22 @@
             this.panel1.Size = new System.Drawing.Size(556, 116);
             this.panel1.TabIndex = 2;
             // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Items.AddRange(new object[] {
+            "WTEQ.I-1 (in)",
+            "PREC.I-1 (in)",
+            "TOBS.I-1 (degC)",
+            "TMAX.D-1 (degC)",
+            "TMIN.D-1 (degC)",
+            "TAVG.D-1 (degC)",
+            "SNWD.I-1 (in)"});
+            this.checkedListBox1.Location = new System.Drawing.Point(51, 4);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(120, 109);
+            this.checkedListBox1.TabIndex = 0;
+            // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -90,22 +106,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(556, 72);
             this.panel2.TabIndex = 4;
-            // 
-            // checkedListBox1
-            // 
-            this.checkedListBox1.FormattingEnabled = true;
-            this.checkedListBox1.Items.AddRange(new object[] {
-            "WTEQ.I-1 (in)",
-            "PREC.I-1 (in)",
-            "TOBS.I-1 (degC)",
-            "TMAX.D-1 (degC)",
-            "TMIN.D-1 (degC)",
-            "TAVG.D-1 (degC)",
-            "SNWD.I-1 (in)"});
-            this.checkedListBox1.Location = new System.Drawing.Point(51, 4);
-            this.checkedListBox1.Name = "checkedListBox1";
-            this.checkedListBox1.Size = new System.Drawing.Size(120, 109);
-            this.checkedListBox1.TabIndex = 0;
             // 
             // ImportNrcsSnotel
             // 

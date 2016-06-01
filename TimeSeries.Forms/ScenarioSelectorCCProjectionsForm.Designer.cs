@@ -76,9 +76,9 @@
             // 
             // tabControlCCScenarios
             // 
-            this.tabControlCCScenarios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlCCScenarios.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlCCScenarios.Controls.Add(this.tabPageProjections);
             this.tabControlCCScenarios.Controls.Add(this.tabPageReference);
             this.tabControlCCScenarios.Location = new System.Drawing.Point(12, 12);
@@ -106,7 +106,7 @@
             this.tabPageReference.Location = new System.Drawing.Point(4, 22);
             this.tabPageReference.Name = "tabPageReference";
             this.tabPageReference.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageReference.Size = new System.Drawing.Size(754, 520);
+            this.tabPageReference.Size = new System.Drawing.Size(774, 567);
             this.tabPageReference.TabIndex = 1;
             this.tabPageReference.Text = "reference builder";
             // 
@@ -119,7 +119,7 @@
             this.labelReference.Size = new System.Drawing.Size(435, 13);
             this.labelReference.TabIndex = 5;
             this.labelReference.Text = "Note: the median of the projections selected will be the reference available for " +
-                "comparisons";
+    "comparisons";
             // 
             // scenarioReferenceControl1
             // 

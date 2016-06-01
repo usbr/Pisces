@@ -166,5 +166,45 @@ namespace Reclamation.TimeSeries.Forms
 
             
         }
+
+        private void textBoxParameter_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label22_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label23_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label27_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxEnable_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPageAlarm_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

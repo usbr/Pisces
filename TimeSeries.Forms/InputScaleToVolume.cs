@@ -96,7 +96,8 @@ namespace Reclamation.TimeSeries.Forms
             // InputScaleToVolume
             // 
             this.AcceptButton = this.buttonOK;
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(330, 100);
             this.Controls.Add(this.buttonOK);

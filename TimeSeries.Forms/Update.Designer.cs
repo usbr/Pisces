@@ -66,7 +66,7 @@
             this.textBoxInfo.Size = new System.Drawing.Size(240, 50);
             this.textBoxInfo.TabIndex = 18;
             this.textBoxInfo.Text = "Click OK to update the selected series.  Pisces will reload data from the origina" +
-                "l source.  Existing data will be overwritten.";
+    "l source.  Existing data will be overwritten.";
             // 
             // checkBoxFullPeriod
             // 

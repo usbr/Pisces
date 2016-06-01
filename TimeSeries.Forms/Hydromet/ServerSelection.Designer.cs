@@ -42,56 +42,63 @@
             this.groupBox1.Controls.Add(this.radioButtonGP);
             this.groupBox1.Controls.Add(this.radioButtonYakHydromet);
             this.groupBox1.Controls.Add(this.radioButtonPnHydromet);
-            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Location = new System.Drawing.Point(2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(209, 168);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(157, 136);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "time series data source";
             // 
             // radioButtonBoiseLinux
             // 
-            this.radioButtonBoiseLinux.Location = new System.Drawing.Point(16, 128);
+            this.radioButtonBoiseLinux.Location = new System.Drawing.Point(12, 104);
+            this.radioButtonBoiseLinux.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonBoiseLinux.Name = "radioButtonBoiseLinux";
-            this.radioButtonBoiseLinux.Size = new System.Drawing.Size(181, 24);
+            this.radioButtonBoiseLinux.Size = new System.Drawing.Size(136, 20);
             this.radioButtonBoiseLinux.TabIndex = 5;
             this.radioButtonBoiseLinux.Text = "Boise Hydromet/Linux";
             this.radioButtonBoiseLinux.CheckedChanged += new System.EventHandler(this.serverChanged);
             // 
             // radioButtonGP
             // 
-            this.radioButtonGP.Location = new System.Drawing.Point(16, 98);
+            this.radioButtonGP.Location = new System.Drawing.Point(12, 80);
+            this.radioButtonGP.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonGP.Name = "radioButtonGP";
-            this.radioButtonGP.Size = new System.Drawing.Size(149, 24);
+            this.radioButtonGP.Size = new System.Drawing.Size(112, 20);
             this.radioButtonGP.TabIndex = 4;
             this.radioButtonGP.Text = "Billings Hydromet";
             this.radioButtonGP.CheckedChanged += new System.EventHandler(this.serverChanged);
             // 
             // radioButtonYakHydromet
             // 
-            this.radioButtonYakHydromet.Location = new System.Drawing.Point(16, 70);
+            this.radioButtonYakHydromet.Location = new System.Drawing.Point(12, 57);
+            this.radioButtonYakHydromet.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonYakHydromet.Name = "radioButtonYakHydromet";
-            this.radioButtonYakHydromet.Size = new System.Drawing.Size(149, 24);
+            this.radioButtonYakHydromet.Size = new System.Drawing.Size(112, 20);
             this.radioButtonYakHydromet.TabIndex = 3;
             this.radioButtonYakHydromet.Text = "Yakima Hydromet";
             this.radioButtonYakHydromet.CheckedChanged += new System.EventHandler(this.serverChanged);
             // 
             // radioButtonPnHydromet
             // 
-            this.radioButtonPnHydromet.Location = new System.Drawing.Point(16, 40);
+            this.radioButtonPnHydromet.Location = new System.Drawing.Point(12, 32);
+            this.radioButtonPnHydromet.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonPnHydromet.Name = "radioButtonPnHydromet";
-            this.radioButtonPnHydromet.Size = new System.Drawing.Size(136, 24);
+            this.radioButtonPnHydromet.Size = new System.Drawing.Size(102, 20);
             this.radioButtonPnHydromet.TabIndex = 0;
             this.radioButtonPnHydromet.Text = "Boise Hydromet";
             this.radioButtonPnHydromet.CheckedChanged += new System.EventHandler(this.serverChanged);
             // 
             // ServerSelection
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ServerSelection";
-            this.Size = new System.Drawing.Size(222, 176);
+            this.Size = new System.Drawing.Size(166, 143);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 

@@ -129,7 +129,6 @@
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            //this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.okButton.Location = new System.Drawing.Point(194, 122);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(82, 23);
@@ -163,6 +162,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
+            this.MinimumSize = new System.Drawing.Size(386, 191);
             this.Name = "ImportShef";
             this.Text = "ImportShef";
             this.groupBox1.ResumeLayout(false);

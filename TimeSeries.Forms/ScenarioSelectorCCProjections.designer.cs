@@ -511,7 +511,7 @@
             this.textBox2.Text = "Emissions Path: A1b";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.toolTip1.SetToolTip(this.textBox2, "Rapid economic growth, pop peaks in 2050, balance of fossil & non-fossil energy s" +
-                    "ources");
+        "ources");
             // 
             // button7
             // 
