@@ -104,6 +104,11 @@ namespace Reclamation.Core
             return "DateTime"; // sql server
         }
 
+
+        public virtual string PortableFloatType()
+        {
+            return "float"; 
+        }
         /// <summary>
         /// Returns character column type given size
         /// </summary>

@@ -24,10 +24,29 @@ namespace Reclamation.TimeSeries
             CreateSitePropertiesTable();
             CreateRefParameterTable();
             CreateSeriesPropertiesTable();
+            CreateMeasurementTable();
 
             UpgradeDatabase();
 
             //CreateCalculationTable();
+        }
+
+        private void CreateMeasurementTable()
+        {
+            if (!m_server.TableExists("measurement"))
+            {
+                string sql = "Create Table measurement "
+                + "( id  int not null primary key, "
+                + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " date_measured " + m_server.PortableDateTimeType() + " not null , "
+                + " stage "+m_server.PortableFloatType() +" not null, "
+                + " discharge " + m_server.PortableFloatType() + " not null, "
+                + " party " + m_server.PortableCharacterType(30) + " not null default '', "
+                + " notes " + m_server.PortableCharacterType(300) + " not null default '' "
+                + " )";
+                ExecuteCreateTable(m_server, sql);
+
+            }
         }
 
         private void CreateSiteTable()
@@ -42,8 +61,7 @@ namespace Reclamation.TimeSeries
                 */
 
                 string sql = "Create Table sitecatalog "
-                + "( siteid  " + m_server.PortableCharacterType(255) + " not null primary key, "
-                + " description " + m_server.PortableCharacterType(1024) + " not null default '', "
+                + "( id int not null primary key, "
                 + " state " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " latitude " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " longitude " + m_server.PortableCharacterType(30) + " not null default '', "
@@ -152,7 +170,7 @@ namespace Reclamation.TimeSeries
 
         internal void CreateSeriesTable(string tableName, bool hasFlags)
         {
-            string dataType = "float";// "real"; //"float"; // double percision
+            string dataType = m_server.PortableFloatType();
 
             string sql = "Create Table " + m_server.PortableTableName(tableName);
             if (!hasFlags)
