@@ -9,6 +9,7 @@ using System.IO;
 using System.Data;
 using Reclamation.Core;
 using System.Net;
+using System.Text;
 
 namespace PiscesWebServices.CGI
 {
@@ -118,7 +119,7 @@ namespace PiscesWebServices.CGI
                 Console.SetOut(sw);
             }
              Console.Write("Content-type: text/html\n\n");
-             HydrometWebUtility.PrintHydrometHeader();
+          
            try 
              {
                  SeriesList list = CreateSeriesList();
@@ -210,9 +211,16 @@ namespace PiscesWebServices.CGI
                 if (i != pcodes.Length - 1)
                     rval += ",";
             }
-            rval += "&start=" + start + "&end=" + end;
+            if( back == "")
+               rval += "&start=" + start + "&end=" + end;
+
             if( c.AllKeys.Contains("print_hourly") )
                 rval += "&print_hourly=true";
+            if (back != "")
+                rval += "&back=" + back;
+
+            if (c.AllKeys.Contains("format"))
+                rval += "&format=" + c["format"];
 
             return rval.ToLower();
         }
@@ -233,6 +241,8 @@ namespace PiscesWebServices.CGI
         /// <returns></returns>
         private void WriteSeries(SeriesList list)
         {
+            
+
             m_formatter.WriteSeriesHeader(list);
 
             int maxDaysInMemory = 30;
@@ -256,8 +266,8 @@ namespace PiscesWebServices.CGI
 
                 var tbl = Read(list, t, t3); // 0.0 seconds windows/linux
                 var interval = m_formatter.Interval;
-                bool printFlags = interval == TimeInterval.Hourly || interval == TimeInterval.Irregular;
-                PrintDataTable( list,tbl,m_formatter.HourlyOnly,printFlags,interval);
+                m_formatter.PrintFlags = interval == TimeInterval.Hourly || interval == TimeInterval.Irregular;
+                PrintDataTable( list,tbl,m_formatter,interval);
                 t = t3.NextDay();
             }
 
@@ -348,12 +358,12 @@ namespace PiscesWebServices.CGI
         /// <param name="list"></param>
         /// <param name="table"></param>
         private static void PrintDataTable(SeriesList list, DataTable table, 
-            bool printHourly, bool printFlags, TimeInterval interval)
+            Formatter fmt, TimeInterval interval)
         {
             var t0 = "";
 
             if (table.Rows.Count > 0)
-                t0 = FormatDate(table.Rows[0][1],interval);
+                t0 = fmt.FormatDate(table.Rows[0][1]);
 
             var vals = new string[list.Count];
             var flags = new string[list.Count];
@@ -369,80 +379,33 @@ namespace PiscesWebServices.CGI
             {
                 var row = table.Rows[i];
                
-                t = FormatDate(row[1],interval);
+                t = fmt.FormatDate(row[1]);
 
                if( t!= t0)
                 {
                    if (printThisRow)
-                    PrintRow(t0,vals,flags,printFlags);
+                    fmt.PrintRow(t0,vals,flags);
                     vals = new string[list.Count];
                     flags = new string[list.Count];
                     t0 = t;
                 }
 
-                vals[dict[row[0].ToString()]] =  FormatNumber(row[2]);
-                flags[dict[row[0].ToString()]] = FormatFlag(row[3]);
+                vals[dict[row[0].ToString()]] =  fmt.FormatNumber(row[2]);
+                flags[dict[row[0].ToString()]] = fmt.FormatFlag(row[3]);
 
                 DateTime date = Convert.ToDateTime(row[1]);
                 bool topOfHour = date.Minute == 0;
-                printThisRow = printHourly == false || (printHourly && topOfHour);
+                printThisRow = fmt.HourlyOnly == false || (fmt.HourlyOnly && topOfHour);
 
             }
             if (printThisRow)
-            PrintRow(t, vals, flags,printFlags);
+                fmt.PrintRow(t, vals, flags);
         }
 
-        private static void PrintRow(string t0, string[] vals, string[] flags, bool printFlags)
-        {
-            var  s = t0+ ",";
-            for (int i = 0; i < vals.Length; i++)
-            {
-                s += vals[i];
-                if (printFlags)
-                    s += flags[i];
-                ///s += vals[i] + flags[i];
-                ///
-                if (i != vals.Length - 1)
-                    s += ",";
-            }
-            Console.WriteLine(s);
+       
 
-        }
 
-        /// <summary>
-        /// format like this: 04/01/2015 18:00
-        /// </summary>
-        /// <param name="o"></param>
-        /// <returns></returns>
-        private static string FormatDate( object o, TimeInterval interval)
-        {
-            var rval = "";
-            var t = Convert.ToDateTime(o);
-            if (interval == TimeInterval.Irregular || interval == TimeInterval.Hourly)
-                rval = t.ToString("MM/dd/yyyy HH:mm");
-            else
-                rval = t.ToString("MM/dd/yyyy");
-            return rval;
-        }
-
-        private static string FormatFlag( object o)
-        {
-            if (o == DBNull.Value)
-                return "";
-            else
-                return o.ToString();
-
-        }
-
-        private static string FormatNumber(object o)
-        {
-            var rval = "";
-            if (o == DBNull.Value || o.ToString() == "")
-                rval = "";//.PadLeft(11);
-            else
-                rval = Convert.ToDouble(o).ToString("F02").PadLeft(11) ;
-            return rval;
-        }
+        
 
         private static TimeSeriesName[] GetTimeSeriesName(NameValueCollection query, TimeInterval interval)
         {

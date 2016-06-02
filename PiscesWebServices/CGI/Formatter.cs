@@ -11,6 +11,15 @@ namespace PiscesWebServices.CGI
     /// </summary>
      public abstract class Formatter
     {
+
+        string delimeter = ",";
+
+        public string Delimeter
+        {
+            get { return delimeter; }
+            set { delimeter = value; }
+        }
+
         bool m_hourlyOnly = false;
 
         public bool HourlyOnly
@@ -40,15 +49,13 @@ namespace PiscesWebServices.CGI
              m_interval = interval;
              m_printFlags = printFlags;
          }
-         
+         public abstract string FormatFlag(object o);
+         public abstract string FormatNumber(object o);
          public abstract string FormatDate(object o);
          public abstract void WriteSeriesHeader(SeriesList list);
          public abstract void WriteSeriesTrailer();
-        
-         public void foo()
-        {
 
-        }
+         public abstract void PrintRow(string t0, string[] vals, string[] flags);
 
     }
 }

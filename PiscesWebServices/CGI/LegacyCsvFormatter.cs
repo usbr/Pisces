@@ -13,7 +13,41 @@ namespace PiscesWebServices.CGI
     {
          public LegacyCsvFormatter(TimeInterval interval, bool printFlags):base(interval,printFlags)
          {
+            
+         }
 
+         public override void PrintRow(string t0, string[] vals, string[] flags)
+         {
+             StringBuilder sb = new StringBuilder(vals.Length * 8);
+             sb.Append(t0 + ",");
+             for (int i = 0; i < vals.Length; i++)
+             {
+                 sb.Append(vals[i]);
+                 if (PrintFlags)
+                     sb.Append(flags[i]);
+                 if (i != vals.Length - 1)
+                     sb.Append(" ,");
+             }
+             Console.WriteLine(sb.ToString());
+
+         }
+         public override string FormatFlag(object o)
+         {
+             if (o == DBNull.Value)
+                 return "";
+             else
+                 return o.ToString();
+
+         }
+
+         public override string FormatNumber(object o)
+         {
+             var rval = "";
+             if (o == DBNull.Value || o.ToString() == "")
+                 rval = "";//.PadLeft(11);
+             else
+                 rval = Convert.ToDouble(o).ToString("F02").PadLeft(11);
+             return rval;
          }
 
           public override string FormatDate(object o)
@@ -30,6 +64,7 @@ namespace PiscesWebServices.CGI
 
          public override void WriteSeriesHeader(SeriesList list)
          {
+             HydrometWebUtility.PrintHydrometHeader();
              Console.WriteLine("BEGIN DATA");
 
              string headLine = "DATE      ";
