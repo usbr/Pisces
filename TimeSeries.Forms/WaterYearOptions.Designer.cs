@@ -57,6 +57,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // yearTypeSelector1
             // 
+            this.yearTypeSelector1.AutoSize = true;
             this.yearTypeSelector1.BeginningMonth = 10;
             this.yearTypeSelector1.Location = new System.Drawing.Point(16, 79);
             this.yearTypeSelector1.Name = "yearTypeSelector1";
@@ -67,6 +68,10 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.yearSelector1.Location = new System.Drawing.Point(16, 53);
             this.yearSelector1.Name = "yearSelector1";
+            this.yearSelector1.SelectedYears = new int[] {
+        1977,
+        2001,
+        2005};
             this.yearSelector1.Size = new System.Drawing.Size(379, 20);
             this.yearSelector1.TabIndex = 5;
             // 
@@ -79,7 +84,7 @@ namespace Reclamation.TimeSeries.Forms
             this.checkBox30Year.TabIndex = 6;
             this.checkBox30Year.Text = "30 year average";
             this.toolTip1.SetToolTip(this.checkBox30Year, "computes 30 year aveage based on available data for the last 30 years from todays" +
-                    " date");
+        " date");
             this.checkBox30Year.UseVisualStyleBackColor = true;
             // 
             // WaterYearOptions

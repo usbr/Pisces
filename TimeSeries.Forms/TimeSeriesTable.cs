@@ -27,6 +27,7 @@ namespace Reclamation.TimeSeries.Forms
     //private System.Windows.Forms.ToolBarButton toolBarButtonSaveToDatabase;
         private DataGridView dataGridView1;
         private ToolBarButton toolBarButtonSave;
+        private ToolBarButton toolBarButtonCustom1;
     private System.ComponentModel.IContainer components;
 
 
@@ -101,7 +102,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolBar1 = new System.Windows.Forms.ToolBar();
             this.toolBarButtonCopy = new System.Windows.Forms.ToolBarButton();
             this.toolBarButtonExcel = new System.Windows.Forms.ToolBarButton();
-            this.toolBarButtonSave = new System.Windows.Forms.ToolBarButton();
+            this.toolBarButtonCustom1 = new System.Windows.Forms.ToolBarButton();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.statusBar1 = new System.Windows.Forms.StatusBar();
@@ -114,7 +115,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolBar1.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
             this.toolBarButtonCopy,
             this.toolBarButtonExcel,
-            this.toolBarButtonSave});
+            this.toolBarButtonCustom1});
             this.toolBar1.DropDownArrows = true;
             this.toolBar1.ImageList = this.imageList1;
             this.toolBar1.Location = new System.Drawing.Point(0, 0);
@@ -137,11 +138,11 @@ namespace Reclamation.TimeSeries.Forms
             this.toolBarButtonExcel.Name = "toolBarButtonExcel";
             this.toolBarButtonExcel.ToolTipText = "export to text file and open with excel";
             // 
-            // toolBarButtonSave
+            // toolBarButtonCustom1
             // 
-            this.toolBarButtonSave.ImageIndex = 0;
-            this.toolBarButtonSave.Name = "toolBarButtonCustom1";
-            this.toolBarButtonSave.ToolTipText = "saves changes to the database";
+            this.toolBarButtonCustom1.ImageIndex = 0;
+            this.toolBarButtonCustom1.Name = "toolBarButtonCustom1";
+            this.toolBarButtonCustom1.ToolTipText = "saves changes to the database";
             // 
             // imageList1
             // 
@@ -175,7 +176,8 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // TimeSeriesTable
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(426, 475);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.statusBar1);

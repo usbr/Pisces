@@ -157,6 +157,7 @@ namespace  Reclamation.TimeSeries.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.Controls.Add(this.dataGridView1);
             this.Name = "MonthRangePicker";
             this.Size = new System.Drawing.Size(301, 58);

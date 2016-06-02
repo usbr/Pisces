@@ -32,15 +32,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonInstantFlow = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.radioButtonInstantStage = new System.Windows.Forms.RadioButton();
             this.checkBoxIncludeProvisional = new System.Windows.Forms.CheckBox();
             this.radioButtonMeanFlow = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.linkLabelUSGSInfo = new System.Windows.Forms.LinkLabel();
-            this.radioButtonInstantStage = new System.Windows.Forms.RadioButton();
-            this.label4 = new System.Windows.Forms.Label();
-            this.radioButtonInstantFlow = new System.Windows.Forms.RadioButton();
             this.timeSelectorBeginEnd1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +87,36 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select data type to import";
             // 
+            // radioButtonInstantFlow
+            // 
+            this.radioButtonInstantFlow.AutoSize = true;
+            this.radioButtonInstantFlow.Location = new System.Drawing.Point(27, 127);
+            this.radioButtonInstantFlow.Name = "radioButtonInstantFlow";
+            this.radioButtonInstantFlow.Size = new System.Drawing.Size(67, 17);
+            this.radioButtonInstantFlow.TabIndex = 6;
+            this.radioButtonInstantFlow.Text = "flow (cfs)";
+            this.radioButtonInstantFlow.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(24, 88);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(127, 13);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "instant - every 15 minutes";
+            // 
+            // radioButtonInstantStage
+            // 
+            this.radioButtonInstantStage.AutoSize = true;
+            this.radioButtonInstantStage.Location = new System.Drawing.Point(27, 104);
+            this.radioButtonInstantStage.Name = "radioButtonInstantStage";
+            this.radioButtonInstantStage.Size = new System.Drawing.Size(78, 17);
+            this.radioButtonInstantStage.TabIndex = 4;
+            this.radioButtonInstantStage.Text = "stage (feet)";
+            this.radioButtonInstantStage.UseVisualStyleBackColor = true;
+            // 
             // checkBoxIncludeProvisional
             // 
             this.checkBoxIncludeProvisional.AutoSize = true;
@@ -107,6 +137,7 @@
             this.radioButtonMeanFlow.Name = "radioButtonMeanFlow";
             this.radioButtonMeanFlow.Size = new System.Drawing.Size(67, 17);
             this.radioButtonMeanFlow.TabIndex = 2;
+            this.radioButtonMeanFlow.TabStop = true;
             this.radioButtonMeanFlow.Text = "flow (cfs)";
             this.radioButtonMeanFlow.UseVisualStyleBackColor = true;
             // 
@@ -152,36 +183,6 @@
             this.linkLabelUSGSInfo.TabStop = true;
             this.linkLabelUSGSInfo.Text = "OWRD web site ...";
             this.linkLabelUSGSInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelUSGSInfo_LinkClicked);
-            // 
-            // radioButtonInstantStage
-            // 
-            this.radioButtonInstantStage.AutoSize = true;
-            this.radioButtonInstantStage.Location = new System.Drawing.Point(27, 104);
-            this.radioButtonInstantStage.Name = "radioButtonInstantStage";
-            this.radioButtonInstantStage.Size = new System.Drawing.Size(78, 17);
-            this.radioButtonInstantStage.TabIndex = 4;
-            this.radioButtonInstantStage.Text = "stage (feet)";
-            this.radioButtonInstantStage.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(24, 88);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(127, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "instant - every 15 minutes";
-            // 
-            // radioButtonInstantFlow
-            // 
-            this.radioButtonInstantFlow.AutoSize = true;
-            this.radioButtonInstantFlow.Location = new System.Drawing.Point(27, 127);
-            this.radioButtonInstantFlow.Name = "radioButtonInstantFlow";
-            this.radioButtonInstantFlow.Size = new System.Drawing.Size(67, 17);
-            this.radioButtonInstantFlow.TabIndex = 6;
-            this.radioButtonInstantFlow.Text = "flow (cfs)";
-            this.radioButtonInstantFlow.UseVisualStyleBackColor = true;
             // 
             // timeSelectorBeginEnd1
             // 

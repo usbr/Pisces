@@ -28,6 +28,7 @@ namespace Reclamation.TimeSeries.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            Reclamation.TimeSeries.TimeWindow timeWindow1 = new Reclamation.TimeSeries.TimeWindow();
             this.timeWindowOptions1 = new Reclamation.TimeSeries.Forms.TimeWindowSelector();
             this.checkBox24hr = new System.Windows.Forms.CheckBox();
             this.checkBox120hr = new System.Windows.Forms.CheckBox();
@@ -42,6 +43,16 @@ namespace Reclamation.TimeSeries.Forms
             this.timeWindowOptions1.Name = "timeWindowOptions1";
             this.timeWindowOptions1.Size = new System.Drawing.Size(275, 115);
             this.timeWindowOptions1.TabIndex = 0;
+            timeWindow1.FromDateToTodayT1 = new System.DateTime(2016, 6, 1, 11, 19, 4, 35);
+            timeWindow1.FromToDatesT1 = new System.DateTime(2016, 6, 1, 11, 19, 4, 38);
+            timeWindow1.FromToDatesT2 = new System.DateTime(2016, 6, 1, 11, 19, 4, 40);
+            timeWindow1.NumDaysFromToday = new decimal(new int[] {
+            14,
+            0,
+            0,
+            0});
+            timeWindow1.WindowType = Reclamation.TimeSeries.TimeWindowType.FullPeriodOfRecord;
+            this.timeWindowOptions1.TimeWindow = timeWindow1;
             // 
             // checkBox24hr
             // 
