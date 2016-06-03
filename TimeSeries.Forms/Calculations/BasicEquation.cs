@@ -159,7 +159,13 @@ namespace Reclamation.TimeSeries.Forms.Calculations
 
         }
 
+        private void listBoxFunctions_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (listBoxFunctions.Items.Count == 0)
+                return;
 
-       
+            textBoxHelp1.Text = functionHelp[listBoxFunctions.SelectedIndex];
+        }
+
     }
 }

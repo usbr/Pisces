@@ -99,6 +99,7 @@
             this.listBoxFunctions.Name = "listBoxFunctions";
             this.listBoxFunctions.Size = new System.Drawing.Size(295, 355);
             this.listBoxFunctions.TabIndex = 9;
+            this.listBoxFunctions.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listBoxFunctions_KeyUp);
             this.listBoxFunctions.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxFunctions_MouseDown);
             // 
             // textBoxSeriesName
