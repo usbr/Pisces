@@ -61,7 +61,8 @@ namespace Reclamation.TimeSeries
                 */
 
                 string sql = "Create Table sitecatalog "
-                + "( id int not null primary key, "
+                + "( siteid  " + m_server.PortableCharacterType(255) + " not null primary key, "  
+                + " description " + m_server.PortableCharacterType(1024) + " not null default '', "  
                 + " state " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " latitude " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " longitude " + m_server.PortableCharacterType(30) + " not null default '', "
