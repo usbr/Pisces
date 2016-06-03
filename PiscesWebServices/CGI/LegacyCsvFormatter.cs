@@ -24,9 +24,14 @@ namespace PiscesWebServices.CGI
              {
                  sb.Append(vals[i]);
                  if (PrintFlags)
-                     sb.Append(flags[i]);
+                 {   // 
+                     if( flags[i]=="")
+                         sb.Append(" ");//VMS default flag is ' '
+                     else
+                         sb.Append(flags[i]);
+                 }
                  if (i != vals.Length - 1)
-                     sb.Append(" ,");
+                     sb.Append(",");
              }
              Console.WriteLine(sb.ToString());
 
