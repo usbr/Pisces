@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MeasurementsDataSet" targetNamespace="http://tempuri.org/MeasurementsDataSet.xsd" xmlns:mstns="http://tempuri.org/MeasurementsDataSet.xsd" xmlns="http://tempuri.org/MeasurementsDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="MeasurementsDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="MeasurementsDataSet" msprop:Generator_UserDSName="MeasurementsDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="measurement" msprop:Generator_TableClassName="measurementDataTable" msprop:Generator_TableVarName="tablemeasurement" msprop:Generator_TablePropName="measurement" msprop:Generator_RowDeletingName="measurementRowDeleting" msprop:Generator_RowChangingName="measurementRowChanging" msprop:Generator_RowEvHandlerName="measurementRowChangeEventHandler" msprop:Generator_RowDeletedName="measurementRowDeleted" msprop:Generator_UserTableName="measurement" msprop:Generator_RowChangedName="measurementRowChanged" msprop:Generator_RowEvArgName="measurementRowChangeEvent" msprop:Generator_RowClassName="measurementRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
+              <xs:element name="date_measured" msprop:Generator_ColumnVarNameInTable="columndate_measured" msprop:Generator_ColumnPropNameInRow="date_measured" msprop:Generator_ColumnPropNameInTable="date_measuredColumn" msprop:Generator_UserColumnName="date_measured" type="xs:dateTime" />
+              <xs:element name="stage" msprop:Generator_ColumnVarNameInTable="columnstage" msprop:Generator_ColumnPropNameInRow="stage" msprop:Generator_ColumnPropNameInTable="stageColumn" msprop:Generator_UserColumnName="stage" type="xs:double" />
+              <xs:element name="discharge" msprop:Generator_ColumnVarNameInTable="columndischarge" msprop:Generator_ColumnPropNameInRow="discharge" msprop:Generator_ColumnPropNameInTable="dischargeColumn" msprop:Generator_UserColumnName="discharge" type="xs:double" />
+              <xs:element name="party" msprop:Generator_ColumnVarNameInTable="columnparty" msprop:Generator_ColumnPropNameInRow="party" msprop:Generator_ColumnPropNameInTable="partyColumn" msprop:Generator_UserColumnName="party" type="xs:string" minOccurs="0" />
+              <xs:element name="notes" msprop:Generator_ColumnVarNameInTable="columnnotes" msprop:Generator_ColumnPropNameInRow="notes" msprop:Generator_ColumnPropNameInTable="notesColumn" msprop:Generator_UserColumnName="notes" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="manual_measurement" msprop:Generator_TableClassName="manual_measurementDataTable" msprop:Generator_TableVarName="tablemanual_measurement" msprop:Generator_TablePropName="manual_measurement" msprop:Generator_RowDeletingName="manual_measurementRowDeleting" msprop:Generator_RowChangingName="manual_measurementRowChanging" msprop:Generator_RowEvHandlerName="manual_measurementRowChangeEventHandler" msprop:Generator_RowDeletedName="manual_measurementRowDeleted" msprop:Generator_UserTableName="manual_measurement" msprop:Generator_RowChangedName="manual_measurementRowChanged" msprop:Generator_RowEvArgName="manual_measurementRowChangeEvent" msprop:Generator_RowClassName="manual_measurementRow">
+          <xs:complexType>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:measurement" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

@@ -242,6 +242,12 @@
     </Compile>
     <Compile Include="Graphing\IGraphDataLoader.cs" />
     <Compile Include="Graphing\ITimeSeriesGraph.cs" />
+    <Compile Include="Graphing\RatingTableZedGraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\RatingTableZedGraph.Designer.cs">
+      <DependentUpon>RatingTableZedGraph.cs</DependentUpon>
+    </Compile>
     <Compile Include="Graphing\TimeSeriesZedGraph.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -631,6 +637,9 @@
     <EmbeddedResource Include="Graphing\GraphExplorerView.resx">
       <DependentUpon>GraphExplorerView.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\RatingTableZedGraph.resx">
+      <DependentUpon>RatingTableZedGraph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Graphing\TimeSeriesZedGraph.resx">
       <DependentUpon>TimeSeriesZedGraph.cs</DependentUpon>

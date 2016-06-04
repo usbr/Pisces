@@ -120,7 +120,7 @@ units:feet
     {
         Series input = new Series();
 
-        DateTime t = DateTime.Now.AddMinutes(-15);
+        DateTime t = DateTime.Now.Date.AddMinutes(15);
         for (int i = 0; i < 12; i++)
         {
             input.Add(t, i * 10);
