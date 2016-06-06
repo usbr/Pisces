@@ -9,7 +9,7 @@ namespace PiscesWebServices.CGI
     /// <summary>
     /// base class for different output formats.
     /// </summary>
-     public abstract class Formatter
+    public abstract class Formatter
     {
 
         string delimeter = ",";
@@ -44,18 +44,19 @@ namespace PiscesWebServices.CGI
             set { m_interval = value; }
         }
 
-         public Formatter(TimeInterval interval, bool printFlags)
-         {
-             m_interval = interval;
-             m_printFlags = printFlags;
-         }
-         public abstract string FormatFlag(object o);
-         public abstract string FormatNumber(object o);
-         public abstract string FormatDate(object o);
-         public abstract void WriteSeriesHeader(SeriesList list);
-         public abstract void WriteSeriesTrailer();
+        public Formatter(TimeInterval interval, bool printFlags)
+        {
+            m_interval = interval;
+            m_printFlags = printFlags;
+        }
+        public abstract string FormatFlag(object o);
+        public abstract string FormatNumber(object o);
+        public abstract string FormatDate(object o);
+        public abstract void WriteSeriesHeader(SeriesList list);
+        public abstract void WriteSeriesTrailer();
 
-         public abstract void PrintRow(string t0, string[] vals, string[] flags);
+        public abstract void PrintRow(string t0, string[] vals, string[] flags);
 
+        public abstract void WriteLine(string s);
     }
 }

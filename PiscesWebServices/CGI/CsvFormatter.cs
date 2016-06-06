@@ -18,6 +18,11 @@ namespace PiscesWebServices.CGI
 
          }
 
+         public override void WriteLine(string s)
+         {
+             Console.WriteLine(s);
+         }
+
          public override void PrintRow(string t0, string[] vals, string[] flags)
          {
              StringBuilder sb = new StringBuilder(vals.Length * 8);
@@ -66,7 +71,7 @@ namespace PiscesWebServices.CGI
          }
         public override void WriteSeriesHeader(SeriesList list)
         {
-            Console.WriteLine("<PRE>");
+            WriteLine("<PRE>");
 
             string headLine = "DateTime";
 
@@ -76,7 +81,7 @@ namespace PiscesWebServices.CGI
                 headLine += "," + tn.siteid + "_" + tn.pcode;
             }
             
-            Console.WriteLine(headLine);
+            WriteLine(headLine);
         }
 
         public override void WriteSeriesTrailer()

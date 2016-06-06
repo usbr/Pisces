@@ -599,6 +599,7 @@ Alan
 
     public override int CreateTable(string sql)
     {
+        Logger.WriteLine(sql);
         int rval = base.CreateTable(sql);
 
         string owner = ConfigurationManager.AppSettings["PostgresTableOwner"];

@@ -33,9 +33,15 @@ namespace PiscesWebServices.CGI
                  if (i != vals.Length - 1)
                      sb.Append(",");
              }
-             Console.WriteLine(sb.ToString());
+             //Console.WriteLine(sb.ToString());
+             WriteLine(sb.ToString());
 
          }
+         public override void WriteLine(string s)
+         {
+             Console.Write(s + "\r\n");
+         }
+
          public override string FormatFlag(object o)
          {
              if (o == DBNull.Value)
@@ -70,7 +76,7 @@ namespace PiscesWebServices.CGI
          public override void WriteSeriesHeader(SeriesList list)
          {
              HydrometWebUtility.PrintHydrometHeader();
-             Console.WriteLine("BEGIN DATA");
+             WriteLine("BEGIN DATA");
 
              string headLine = "DATE      ";
              if (m_interval == TimeInterval.Irregular || m_interval == TimeInterval.Hourly)
@@ -82,12 +88,12 @@ namespace PiscesWebServices.CGI
                  headLine += ",  " + tn.siteid.PadRight(8) + "" + tn.pcode.PadRight(8);
              }
              headLine = headLine.ToUpper();
-             Console.WriteLine(headLine);
+             WriteLine(headLine);
          }
 
          public override void WriteSeriesTrailer()
          {
-             Console.WriteLine("END DATA");
+             WriteLine("END DATA");
          }
 
     }
