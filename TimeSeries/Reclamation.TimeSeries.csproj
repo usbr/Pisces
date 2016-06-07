@@ -346,10 +346,12 @@
     </Compile>
     <Compile Include="Tests\Import\TestImportRioGrande.cs" />
     <Compile Include="Tests\Scenarios\TestScenarios.cs" />
+    <Compile Include="Tests\SeriesFeatures\TestTimeRange.cs" />
     <Compile Include="Tests\SeriesFeatures\TestShiftSeriesBug.cs" />
     <Compile Include="Tests\SeriesMath\TestResidual.cs" />
     <Compile Include="Tests\SeriesMath\TestInterpolate2D.cs" />
     <Compile Include="Tests\SeriesTypes\TestHDB.cs" />
+    <Compile Include="TimeRange.cs" />
     <Compile Include="TimeSeriesDatabase.Factory.cs" />
     <Compile Include="DataTableSeries.cs" />
     <Compile Include="Decodes\DecodesRawFile.cs" />

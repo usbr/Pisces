@@ -577,6 +577,7 @@ namespace HydrometServer
             // TO DO.. the outer loop of Date ranges  (t,t3) could
             // be generated as a separate task.
             Console.WriteLine("ImportHydrometInstant");
+           
             int maxDaysInMemory = 60;
             var t2 = end.EndOfDay();
             var t = start;
