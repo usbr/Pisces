@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries", "TimeSeries\Reclamation.TimeSeries.csproj", "{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.Core", "Core\Reclamation.Core.csproj", "{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}"
@@ -23,6 +25,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiscesWebServices", "PiscesWebServices\PiscesWebServices.csproj", "{AE98A3D7-E0CD-4675-B268-C8D4CEF429CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pisces", "PiscesUI\Pisces.csproj", "{60537C98-6E33-42F7-9B7D-9B326ABC019E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessHydrometEmail", "ReadGmailUsingIMap\ProcessHydrometEmail.csproj", "{C51C9443-95C6-49B2-A194-D794A25DC4F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -310,6 +314,36 @@ Global
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.WatchDog|Mixed Platforms.Build.0 = WatchDog|x86
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.WatchDog|x86.ActiveCfg = WatchDog|x86
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.WatchDog|x86.Build.0 = WatchDog|x86
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Forecasting|Any CPU.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Forecasting|Any CPU.Build.0 = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Forecasting|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Forecasting|Mixed Platforms.Build.0 = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Forecasting|x86.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.pisces|Any CPU.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.pisces|Any CPU.Build.0 = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.pisces|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.pisces|Mixed Platforms.Build.0 = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.pisces|x86.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.poet|Any CPU.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.poet|Any CPU.Build.0 = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.poet|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.poet|Mixed Platforms.Build.0 = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.poet|x86.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Release|x86.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.WatchDog|Any CPU.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.WatchDog|Any CPU.Build.0 = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.WatchDog|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.WatchDog|Mixed Platforms.Build.0 = Release|Any CPU
+		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.WatchDog|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
