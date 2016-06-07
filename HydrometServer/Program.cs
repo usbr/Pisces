@@ -310,9 +310,9 @@ namespace HydrometServer
             Console.WriteLine("--hydromet-compare");
             Console.WriteLine("           compare computed values to hydromet values");
             Console.WriteLine("--import-hydromet-instant");
-            Console.WriteLine("           imports hydromet instant data default (t1-3 days)");
+            Console.WriteLine("           imports hydromet (vms) instant data default (t1-3 days)");
             Console.WriteLine("--import-hydromet-daily");
-            Console.WriteLine("           imports hydromet daily data default ( t1-100 days)");
+            Console.WriteLine("           imports hydromet (vms) daily data default ( t1-100 days)");
             Console.WriteLine("--import-hydromet-monthly");
             Console.WriteLine("           imports hydromet monthly data ( last 5 years)");
             Console.WriteLine("--import-from-gmail");
