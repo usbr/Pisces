@@ -303,6 +303,7 @@
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="HDB\HDBSeries.cs" />
+    <Compile Include="PiscesMeasurement.cs" />
     <Compile Include="RatingTables\MeasurementsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -626,7 +627,7 @@
     <Compile Include="PluginManager.cs" />
     <Compile Include="Quality.cs" />
     <Compile Include="Reports.cs" />
-    <Compile Include="TimeSeriesDatabase.Create.cs" />
+    <Compile Include="TimeSeriesDatabase.CreateSQL.cs" />
     <Compile Include="TimeSeriesDatabaseDataSet.RatingTable.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -663,7 +664,7 @@
     <Compile Include="Scenario.cs" />
     <Compile Include="SimpleMathSeries.cs" />
     <Compile Include="NOAA\SpokaneCoopSeries.cs" />
-    <Compile Include="TimeSeriesFactory.cs" />
+    <Compile Include="PiscesFactory.cs" />
     <Compile Include="RiverWare\RiverwareSeries.cs" />
     <Compile Include="RiverWare\RiverwareTree.cs" />
     <Compile Include="SubtractSeries.cs" />

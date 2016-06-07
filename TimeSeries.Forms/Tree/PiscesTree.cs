@@ -239,9 +239,19 @@ namespace Reclamation.TimeSeries.Forms
             }                
         }
 
+        public bool IsMeasurementSelected
+        {
+            get
+            {
+                if (treeView1.SelectedNode == null)
+                    return false;
+                return treeView1.SelectedNode.Tag is PiscesMeasurement;
+            }
+        }
+
+
         internal void SelectParent()
         {
-
             treeView1.SelectedNode = treeView1.SelectedNode.Parent;
         }
 
@@ -480,5 +490,7 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
+
+     
     }
 }

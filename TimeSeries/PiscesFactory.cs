@@ -11,12 +11,12 @@ using Reclamation.TimeSeries.Parser;
 namespace Reclamation.TimeSeries
 {
     /// <summary>
-    /// TimeSeriesFactory creates Series objects stored in the TimeSeriesDatabase
+    /// TimeSeriesFactory creates objects stored in the TimeSeriesDatabase
     /// </summary>
-    public class TimeSeriesFactory
+    public class PiscesFactory
     {
         TimeSeriesDatabase db;
-        public TimeSeriesFactory(TimeSeriesDatabase db)
+        public PiscesFactory(TimeSeriesDatabase db)
         {
             this.db = db;
         }

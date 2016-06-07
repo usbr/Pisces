@@ -100,7 +100,7 @@ namespace Reclamation.TimeSeries
         /// </summary>
         public static string dateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
 
-        TimeSeriesFactory factory;
+        PiscesFactory factory;
         //int m_tablesPerFile = 5000;
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// The factory creates Series and folder objects
         /// </summary>
-        internal TimeSeriesFactory Factory
+        internal PiscesFactory Factory
         {
             get { return factory; }
             //set { factory = value; }
@@ -175,7 +175,7 @@ namespace Reclamation.TimeSeries
                 m_parser.VariableResolver = new HydrometVariableResolver(svr);
             }
 
-            factory = new TimeSeriesFactory(this);
+            factory = new PiscesFactory(this);
 
             SetUnixDateTime(UnixDateTime);
         }

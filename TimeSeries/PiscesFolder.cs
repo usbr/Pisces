@@ -7,11 +7,11 @@ namespace Reclamation.TimeSeries
     public class PiscesFolder:PiscesObject
     {
         private TimeSeriesDatabase m_db;
-        public PiscesFolder(TimeSeriesDatabase db)
-        {
-            m_db = db;
-            base.IsFolder = true;
-        }
+        //public PiscesFolder(TimeSeriesDatabase db)
+        //{
+        //    m_db = db;
+        //    base.IsFolder = true;
+        //}
 
         public PiscesFolder(TimeSeriesDatabase db, 
             TimeSeriesDatabaseDataSet.SeriesCatalogRow sr):base(sr)

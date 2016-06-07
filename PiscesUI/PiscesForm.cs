@@ -12,6 +12,7 @@ using Reclamation.TimeSeries.Parser;
 using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.Hydromet;
 using System.IO;
+using Reclamation.TimeSeries.Forms.RatingTables;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -389,6 +390,14 @@ namespace Reclamation.TimeSeries.Forms
             }
             toolStripProgressBar1.Visible = true;
             //Cursor = Cursors.WaitCursor;
+
+            if( tree1.IsMeasurementSelected)
+            {
+                IExplorerView v = new PiscesMeasurementView();
+                SetView(v as UserControl);
+                explorer1.View = v;
+            }
+
 
             explorer1.SelectedSeries = tree1.GetSelectedSeries();
 

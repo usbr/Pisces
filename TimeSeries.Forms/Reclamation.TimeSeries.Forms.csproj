@@ -291,6 +291,12 @@
     <Compile Include="ImportForms\ImportShef.Designer.cs">
       <DependentUpon>ImportShef.cs</DependentUpon>
     </Compile>
+    <Compile Include="RatingTables\PiscesMeasurementView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RatingTables\PiscesMeasurementView.Designer.cs">
+      <DependentUpon>PiscesMeasurementView.cs</DependentUpon>
+    </Compile>
     <Compile Include="MetaData\DataRowEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -662,6 +668,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ImportForms\ImportShef.resx">
       <DependentUpon>ImportShef.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RatingTables\PiscesMeasurementView.resx">
+      <DependentUpon>PiscesMeasurementView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MetaData\DataRowEditor.resx">
       <DependentUpon>DataRowEditor.cs</DependentUpon>
