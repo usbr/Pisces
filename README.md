@@ -13,7 +13,7 @@ Download Pisces and user manual here: http://www.usbr.gov/pn/hydromet/pisces
 See a bulletin here https://www.usbr.gov/research/docs/updates/pre-2012/27-pisces.pdf
  
 The Pisces time series database is designed to be fast and simple.  The default database engine is Sqlite http://www.sqlite.com/
-However, Pisces also supports postgresql, MySql, SqlServer, and SqlCompact.
+However, Pisces also supports postgresql, MySql, SqlServer, and ~~SqlCompact~~.
 
 The key libraries  (Reclamation.Core.dll and Reclamation.TimeSeries.dll) work under Windows or Linux/mono.  
  
