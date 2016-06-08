@@ -133,17 +133,17 @@ namespace Reclamation.Core
         }
 
 
-        public static DataSet ReadDataSet(string fileName, bool columnNamesInFirstRow = true, bool oaDateTime=false)
-        {
-            throw new NotImplementedException();
+        //public static DataSet ReadDataSet(string fileName, bool columnNamesInFirstRow = true, bool oaDateTime=false)
+        //{
+        //    throw new NotImplementedException();
 
-            FileStream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
+        //    FileStream stream = File.Open(fileName, FileMode.Open, FileAccess.Read);
 
-            string ext = Path.GetExtension(fileName);
+        //    string ext = Path.GetExtension(fileName);
 
-            return new DataSet("data");
+        //    return new DataSet("data");
 
-        }
+        //}
 
 
 
@@ -314,7 +314,14 @@ namespace Reclamation.Core
                     if (c < rval.Columns.Count)
                     {
                         t = rval.Columns[c].DataType;
-                        newRow[c] = GetCellValue(cell, t);
+                        if (cell == null)
+                        {
+                            newRow[c] = DBNull.Value;
+                        }
+                        else
+                        {
+                            newRow[c] = GetCellValue(cell, t);
+                        }
                     }
                 }
                 rval.Rows.Add(newRow);
@@ -368,13 +375,12 @@ namespace Reclamation.Core
         
         private object GetCellValue(ICell cell, Type t)
         {
-           
             if (t == typeof(bool))
                 return cell.BooleanCellValue;
             if (t == typeof(double))
                 return cell.NumericCellValue;
             if (t == typeof(string))
-                return cell.StringCellValue;
+                return cell.ToString();
             if (t == typeof(DateTime))
                 return cell.DateCellValue;
 
