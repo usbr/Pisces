@@ -429,6 +429,8 @@ namespace Reclamation.TimeSeries.RatingTables {
             
             private global::System.Data.DataColumn columndischarge;
             
+            private global::System.Data.DataColumn columnquality;
+            
             private global::System.Data.DataColumn columnparty;
             
             private global::System.Data.DataColumn columnnotes;
@@ -508,6 +510,14 @@ namespace Reclamation.TimeSeries.RatingTables {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn qualityColumn {
+                get {
+                    return this.columnquality;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn partyColumn {
                 get {
                     return this.columnparty;
@@ -559,7 +569,7 @@ namespace Reclamation.TimeSeries.RatingTables {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public measurementRow AddmeasurementRow(int id, string siteid, System.DateTime date_measured, double stage, double discharge, string party, string notes) {
+            public measurementRow AddmeasurementRow(int id, string siteid, System.DateTime date_measured, double stage, double discharge, string quality, string party, string notes) {
                 measurementRow rowmeasurementRow = ((measurementRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -567,6 +577,7 @@ namespace Reclamation.TimeSeries.RatingTables {
                         date_measured,
                         stage,
                         discharge,
+                        quality,
                         party,
                         notes};
                 rowmeasurementRow.ItemArray = columnValuesArray;
@@ -603,6 +614,7 @@ namespace Reclamation.TimeSeries.RatingTables {
                 this.columndate_measured = base.Columns["date_measured"];
                 this.columnstage = base.Columns["stage"];
                 this.columndischarge = base.Columns["discharge"];
+                this.columnquality = base.Columns["quality"];
                 this.columnparty = base.Columns["party"];
                 this.columnnotes = base.Columns["notes"];
             }
@@ -620,6 +632,8 @@ namespace Reclamation.TimeSeries.RatingTables {
                 base.Columns.Add(this.columnstage);
                 this.columndischarge = new global::System.Data.DataColumn("discharge", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndischarge);
+                this.columnquality = new global::System.Data.DataColumn("quality", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnquality);
                 this.columnparty = new global::System.Data.DataColumn("party", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnparty);
                 this.columnnotes = new global::System.Data.DataColumn("notes", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1779,6 +1793,22 @@ namespace Reclamation.TimeSeries.RatingTables {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string quality {
+                get {
+                    try {
+                        return ((string)(this[this.tablemeasurement.qualityColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'quality\' in table \'measurement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablemeasurement.qualityColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string party {
                 get {
                     try {
@@ -1819,6 +1849,18 @@ namespace Reclamation.TimeSeries.RatingTables {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetsiteidNull() {
                 this[this.tablemeasurement.siteidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsqualityNull() {
+                return this.IsNull(this.tablemeasurement.qualityColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetqualityNull() {
+                this[this.tablemeasurement.qualityColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

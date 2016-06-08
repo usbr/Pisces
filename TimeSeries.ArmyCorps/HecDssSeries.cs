@@ -266,19 +266,16 @@ Units: FEET        Type: INST-VAL
         {
             String sp = Application.StartupPath;
 
-            if (sp.IndexOf("Visual Studio") >= 0  || sp.IndexOf("NUnit")>=0 )
-            {// debugging...
-
-                string exeDir = @"C:\Users\KTarbet\Documents\project\Pisces\Pisces\bin\Debug";
-                if (Directory.Exists(exeDir))
-                    sp = exeDir;
-
-                exeDir = @"C:\blounsbury\Programming\C#\Karl\Pisces\Pisces\bin\Debug";
-                if (Directory.Exists(exeDir))
-                    sp = exeDir;
-            }
+            Console.WriteLine(sp);
 
             string dssutl = Path.Combine(sp, "dssutl.exe");
+
+            if( !File.Exists(dssutl))
+            {// debugging...
+                dssutl = @"C:\Users\KTarbet\Documents\project\Pisces\ThirdParty\dssutl.exe";
+
+            }
+
             return dssutl;
         }
 

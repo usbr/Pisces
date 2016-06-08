@@ -24,7 +24,9 @@ namespace Reclamation.TimeSeries
             CreateSitePropertiesTable();
             CreateRefParameterTable();
             CreateSeriesPropertiesTable();
-            CreateMeasurementTable();
+
+            if (m_settings.GetDBVersion() ==3 )
+                 CreateMeasurementTable();
 
             UpgradeDatabase();
 
@@ -41,6 +43,7 @@ namespace Reclamation.TimeSeries
                 + " date_measured " + m_server.PortableDateTimeType() + " not null , "
                 + " stage "+m_server.PortableFloatType() +" not null, "
                 + " discharge " + m_server.PortableFloatType() + " not null, "
+                + " quality " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " party " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " notes " + m_server.PortableCharacterType(300) + " not null default '' "
                 + " )";
@@ -155,16 +158,16 @@ namespace Reclamation.TimeSeries
                 ExecuteCreateTable(m_server, sql);
 
                 
-                sql = "insert INTO piscesinfo values ('FileVersion', '2')";
+                sql = "insert INTO piscesinfo values ('FileVersion', '3')";
                 m_server.RunSqlCommand(sql);
             }
 
             InitSettings();
-            if (m_settings.GetDBVersion() != 2)
-            {
-                m_settings.Set("FileVersion", 2);
-                m_settings.Save();
-            }
+            //if (m_settings.GetDBVersion() != 2)
+            //{
+            //    m_settings.Set("FileVersion", 2);
+            //    m_settings.Save();
+            //}
         }
 
 
