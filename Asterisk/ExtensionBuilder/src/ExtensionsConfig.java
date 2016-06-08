@@ -36,6 +36,7 @@ public class ExtensionsConfig {
 						writer.println("exten => " + list.getGroupNames()[i] + ",1,NoOp()");
 
 						for (int j = 0; j < list.GetPhoneNumbers(list.getGroupNames()[i]).length; j++) {
+							writer.println("; "+list.GetNames(list.getGroupNames()[i])[j]);
 							writer.println("same  => n,Originate(SIP/pn/" + list.GetPhoneNumbers(list.getGroupNames()[i])[j] +
 									",exten,hydromet_alarm,alarmmsg,1,10)\n" +
 									"same  => n,GotoIf($[${DB(hydromet/${alarm_comfirmed})}=1]?end)");
