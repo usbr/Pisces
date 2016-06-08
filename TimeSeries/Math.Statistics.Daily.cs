@@ -78,28 +78,32 @@ namespace Reclamation.TimeSeries
         {
             Series rval = new Series();
             rval.TimeInterval = TimeInterval.Daily;
-            if (incremental.Count == 0 || cumulative.Count == 0
-                || cumulative[0].IsMissing)
+            if (incremental.Count == 0) 
             {
-                Console.WriteLine("Mising data: ");
-                Console.WriteLine("incremental");
-                incremental.WriteToConsole();
-                Console.WriteLine("cumulative");
-                cumulative.WriteToConsole();
+                Console.WriteLine("thre is no incremental data ");
                 return rval;
             }
 
 
-            double sum = cumulative[0].Value;
+            double sum = 0.0; // cumulative[0].Value;
             bool missing = false;
-            rval.Add(cumulative[0]);
+            bool primed = false;
+            if (cumulative.Count > 0 && !cumulative[0].IsMissing)
+            {
+                rval.Add(cumulative[0]);
+                primed = true;
+            }
             for (int i = 1; i < incremental.Count; i++)
             {
                 var t = incremental[i].DateTime;
                 if (t.Month == resetMonth && t.Day == resetDay)
+                {
                     sum = 0.0;
+                    primed = true;
+                    missing = false;
+                }
 
-                if (!missing && !incremental[i].IsMissing)
+                if (primed  && !missing && !incremental[i].IsMissing)
                 {
                     sum += incremental[i].Value;
                     rval.Add(incremental[i].DateTime, sum);

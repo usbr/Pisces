@@ -310,6 +310,7 @@
       <DependentUpon>MeasurementsDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="RatingTables\RatingTableUtility.cs" />
+    <Compile Include="RatingTables\YakimaExcelMeasurements.cs" />
     <Compile Include="RBMS\RBMSTextFile.cs" />
     <Compile Include="RBMS\RbmsUtility.cs" />
     <Compile Include="Import\ImportRioGrandeExcel.cs" />
@@ -349,6 +350,7 @@
     <Compile Include="Tests\Scenarios\TestScenarios.cs" />
     <Compile Include="Tests\SeriesFeatures\TestTimeRange.cs" />
     <Compile Include="Tests\SeriesFeatures\TestShiftSeriesBug.cs" />
+    <Compile Include="Tests\SeriesMath\TestDailyCumulative.cs" />
     <Compile Include="Tests\SeriesMath\TestResidual.cs" />
     <Compile Include="Tests\SeriesMath\TestInterpolate2D.cs" />
     <Compile Include="Tests\SeriesTypes\TestHDB.cs" />
