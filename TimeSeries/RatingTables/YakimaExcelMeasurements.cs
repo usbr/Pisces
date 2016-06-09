@@ -19,8 +19,16 @@ namespace Reclamation.TimeSeries.RatingTables
         public static void FillTable(string filename, MeasurementsDataSet.measurementDataTable table)
         {
             var xls = new NpoiExcel(filename);
-            var tbl = xls.ReadDataTable("summary");
-            Console.WriteLine(tbl.Rows.Count);
+            var sheetNames = xls.SheetNames();
+
+            if( !xls.SheetExists("summary"))
+            {
+                Console.WriteLine(filename + " Did not find sheet named 'summary'");
+                return;
+            }
+
+            var tbl = xls.ReadDataTable("summary",true);
+            Console.WriteLine(filename+" contains "+  tbl.Rows.Count+" rows ");
 
             tbl = CleanupTable(tbl);
         }
@@ -33,7 +41,7 @@ namespace Reclamation.TimeSeries.RatingTables
 
             // Set column Names to match dataset
             FixColumnNames(tbl);
-
+            // clean out junk?
 
             return tbl;
 
@@ -46,13 +54,21 @@ namespace Reclamation.TimeSeries.RatingTables
             SetColumnName(tbl, "discharge", "Dischrg", "Dischrg. (Q)");
             SetColumnName(tbl, "quality", "Meas. Rated","Msmnt. Rated");
             SetColumnName(tbl, "party", "Made by");
+            SetColumnName(tbl, "notes", "Remarks");
             
         }
 
         private static void SetColumnName(DataTable tbl, string newColumnName, params string[] columnNames)
         {
-            var dateIndex = FindColumnIndex(tbl, columnNames);
-            tbl.Columns[dateIndex].ColumnName = newColumnName;
+            var idx = FindColumnIndex(tbl, columnNames);
+            if (idx < 0)
+            {
+                Console.WriteLine("Did not find link to column '"+newColumnName+"'");
+            }
+            else
+            {
+                tbl.Columns[idx].ColumnName = newColumnName;
+            }
         }
 
 
@@ -60,7 +76,7 @@ namespace Reclamation.TimeSeries.RatingTables
         {
             var rval = -1;
 
-            int rowIndex = 3; // expect column names here.
+            int rowIndex = 2; // expect column names here.
 
             for (int i = 0; i < tbl.Columns.Count; i++)
             {
@@ -68,12 +84,14 @@ namespace Reclamation.TimeSeries.RatingTables
                 if (o != DBNull.Value)
                 {
                     var str = o.ToString();
-
-                    
+                    for (int j = 0; j < columnNames.Length; j++)
+                    {
+                        if (str.IndexOf(columnNames[j]) >= 0)
+                            return i;
+                    }
                 }
             }
             return rval;
-
         }
 
         /// <summary>

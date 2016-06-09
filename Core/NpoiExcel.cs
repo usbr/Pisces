@@ -147,7 +147,7 @@ namespace Reclamation.Core
 
 
 
-        public string[] SheetNames(string fileName)
+        public string[] SheetNames()
         {
             var rval = new List<string>();
 
@@ -156,6 +156,11 @@ namespace Reclamation.Core
                 rval.Add(npoi_workbook.GetSheetName(i));
             }
             return rval.ToArray();
+        }
+
+        public bool SheetExists(string sheetName)
+        {
+            return  npoi_workbook.GetSheet(sheetName) != null;
         }
 
         public void SaveDataTable(DataTable table, string sheetName)
@@ -270,23 +275,23 @@ namespace Reclamation.Core
             npoi_workbook.Write(file);
             file.Close();
         }
-        public DataTable ReadDataTable(int sheetIndex)
+        public DataTable ReadDataTable(int sheetIndex, bool allText=false)
         {
 
             var sheet = npoi_workbook.GetSheetAt(sheetIndex); 
 
-            return ReadTable(sheet);
+            return ReadTable(sheet,allText);
         }
 
-        public DataTable ReadDataTable(string sheetName)
+        public DataTable ReadDataTable(string sheetName, bool allText=false)
         {
             
             var sheet = npoi_workbook.GetSheet(sheetName);
 
-            return ReadTable(sheet);
+            return ReadTable(sheet,allText);
         }
 
-        private DataTable ReadTable( ISheet sheet)
+        private DataTable ReadTable( ISheet sheet,bool allText)
         {
             DataTable rval = new DataTable(sheet.SheetName);
             // get column names, in first row, estimate datatype by second row.
@@ -300,14 +305,24 @@ namespace Reclamation.Core
             for (int c = 0; c < row.LastCellNum; c++)
             {
                 var cell = row.GetCell(c);
-                rval.Columns.Add(cell.StringCellValue, EstimateType(row2.GetCell(c)));
+                if (cell == null)
+                {
+                    rval.Columns.Add("column" + (c + 1));
+                }
+                else
+                {
+                    if (cell == null || allText)
+                        rval.Columns.Add(GetCellValue(cell, typeof(string)).ToString());
+                    else
+                   rval.Columns.Add(GetCellValue(cell, typeof(string)).ToString(), EstimateType(row2.GetCell(c)));
+                }
             }
 
             for (int i = 1; i <= sheet.LastRowNum; i++)
             {
                 var newRow = rval.NewRow();
                 row = sheet.GetRow(i);
-                for (int c = 0; c < row.LastCellNum; c++)
+                for (int c = 0; row!= null && c < row.LastCellNum ; c++)
                 {
                     var cell = row.GetCell(c);
                     Type t = typeof( string);
@@ -389,6 +404,8 @@ namespace Reclamation.Core
 
         private Type EstimateType(ICell cell)
         {
+            if (cell == null)
+                return typeof(string);
             if (cell.CellType ==   CellType.Boolean)
                 return typeof(bool);
             if (cell.CellType ==  CellType.Numeric)
