@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Reclamation.Core;
+using Reclamation.TimeSeries.Alarms;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -8,43 +11,64 @@ using System.Threading.Tasks;
 namespace AlarmQueueManager
 {
   
-    class Asterisk
+      ///  <summary>
+      ///  Wrapper around command line asterisk program
+      ///  makes calls and Reads and writes from Asterisk database.
+      ///  asterisk -x "channel originate local/boia_emm@hydromet_groups extension"
+      ///  asterisk -x "database put hydromet alarm_status busy"
+      ///  asterisk -x "database show"
+      ///  asterisk -x "database show hydromet alarm_status"
+      ///  asterisk -x "database del hydromet alarm_status"
+      ///  asterisk -x "dialplan reload"
+      ///  </summary>
+   static class Asterisk
     {
-        string alarm_def; 
-        double value;
-        string alarm_group;
-        DateTime eventTime;
-        /// <summary>
-        /// Creates an asterisk object that has an alarm defined with the value and 
-        /// event time
-        /// </summary>
-        /// <param name="alarm_def"></param>
-        /// <param name="value"></param>
-        /// <param name="eventTime"></param>
-        public Asterisk(string alarm_group, string alarm_def, double value, DateTime eventTime)
-        {
-            this.alarm_group = alarm_group; 
-            this.alarm_def = alarm_def;
-            this.value = value;
-            this.eventTime = eventTime;
 
-        }
         /// <summary>
         /// originates calls on asterisk with a variable extension on the context 
         /// hydromet_groups
         /// </summary>
-        public void Call()
+        internal static void Call(AlarmDataSet.alarm_queueRow alarm)
         {
-            Set("hydromet", "alarm_definition", alarm_def);
-            Set("hydromet", "alarm_value", value.ToString());
+            Logger.WriteLine("Making Asterisk call");
+            Set("hydromet", "alarm_definition", alarm.siteid+"_"+alarm.parameter);
+            Set("hydromet", "alarm_value", alarm.value.ToString());
            // Set("hydromet", "alarm_status", "busy");
 
+            //asterisk -x "channel originate local/boia_emm@hydromet_groups extension"
+            string context = "hydromet_groups";
+            string cmd = "channel originate local/" + alarm.alarm_group + "@" + context + " extension";
+            RunAsteriskCommand(cmd);
+
         }
 
-        private void Set(string p1, string p2, string alarm_def)
+        static void Set(string family, string key, string value)
         {
-            throw new NotImplementedException();
+            var args = "database put " + family + " " + key + " " + value +"";
+            var output  =RunAsteriskCommand(args);
         }
+
+        private static string Get(string family="", string key="")
+        {
+            var output = RunAsteriskCommand("database show " + family + " " + key + "");
+            for (int i = 0; i < output.Length; i++)
+            {
+                if( output[i].IndexOf("/"+family+"/"+key) >=0)
+                {
+                    return output[i].Split(':')[1].Trim();
+                }
+            }
+            return "";
+        }
+
+
+        static string[] RunAsteriskCommand(string args)
+        {
+            var exe = ConfigurationManager.AppSettings["asterisk_executable"];
+            return RunExecutable(exe, "-x \""+args+"\"");
+            Logger.WriteLine("running asterisk '"+args+"'");
+        }
+
 
         /// <summary>
         /// checks asterisk DB for variables to determine the status 
@@ -57,15 +81,11 @@ namespace AlarmQueueManager
             }
         }
 
-        private static string Get(string p1, string p2)
-        {
-            return "";
-        }
-
+       
        //todo run command line function
         private static string[] RunExecutable(string exe, string args)
         {
-            //SoiUtility.LogMessage("calling static RunExecutagle(" +exe+","+args+ " )");
+            Logger.WriteLine("running :" + exe + " " + args);
             Process myProcess = new Process();
             myProcess.StartInfo.FileName = exe;
             myProcess.StartInfo.Arguments = args;
@@ -81,38 +101,24 @@ namespace AlarmQueueManager
             string[] rval = s.Split(new char[] { '\n' });
 
             myProcess.WaitForExit();
-            //SoiUtility.LogMessage("the command    RunExecutagle(" +exe+","+args+ " ) has returned");
+
+            Logger.WriteLine("there are " + rval.Length + " lines of output ");
             return rval;
         }
 
-
-        public static string GetVersion()
-        {
-            var exe = @"c:\utils\wget.exe";
-            var output = RunExecutable(exe, "--version");
-            foreach (var item in output)
-            {
-                if (item.IndexOf("GNU Wget") == 0)
-                {
-                    var ver = item.Substring(8);
-                    return ver.Trim();
-                }
-            }
-            return "";
-        }
-
-
-
         internal static bool IsBusy()
         {
-            throw new NotImplementedException();
+            return Get("hydromet", "alarm_status") == "busy";
         }
 
-        internal static string GetAllVariable()
+        internal static string GetAllVariables()
         {
-            return "";
+            Logger.WriteLine("GetAllVariable()");
+            string[] output = RunAsteriskCommand("database show " );
+            return String.Join("\n", output);
         }
 
-       
+
+        
     }
 }

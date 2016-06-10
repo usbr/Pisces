@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 namespace Reclamation.TimeSeries.Alarms
 {
 }
@@ -6,16 +7,20 @@ namespace Reclamation.TimeSeries.Alarms {
     
     
     public partial class AlarmDataSet {
+        private Core.BasicDBServer m_server;
 
-
-        private static void MakeTestData(AlarmDataSet.alarm_queueDataTable q)
+        public Core.BasicDBServer Server
         {
-
-            //q.Addalarm_queueRow(1, "boii", "ob", 505.23, "confirmed", "Obi-wan", true, DateTime.Now.AddDays(-200));
-            //q.Addalarm_queueRow(2, "boii", "ob", 405.23, "confirmed", "", false, DateTime.Now.AddDays(-100));
-            q.Addalarm_queueRow(3, "boii", "ob", 305.23, "unconfirmed", "", false, DateTime.Now.AddDays(-10));
-            q.Addalarm_queueRow(4, "boii", "ob", 105.23, "new", "", false, DateTime.Now);
+            get { return m_server; }
+            set { m_server = value; }
         }
+
+
+        public void SaveTable(DataTable table)
+        {
+            m_server.SaveTable(table);
+        }
+        
         /// <summary>
         /// Gets a list of alarms in priority order for processing
         /// only alarms with status (new, or unconfirmed)
@@ -23,17 +28,15 @@ namespace Reclamation.TimeSeries.Alarms {
         /// <returns></returns>
         public alarm_queueDataTable GetNewAlarms()
         {
-            var rval = new alarm_queueDataTable();
-            MakeTestData(rval);
-            return rval;
+            string sql = "select * from alarm_queue where status='new' or status ='unconfirmed' ";
+            m_server.FillTable(alarm_queue, sql);
+            return alarm_queue;
 
         }
 
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
+    
 }
 
 

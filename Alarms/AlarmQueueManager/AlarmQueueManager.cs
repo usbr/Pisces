@@ -5,27 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Reclamation.TimeSeries.Alarms;
+using Reclamation.TimeSeries;
+using Reclamation.Core;
 namespace AlarmQueueManager
 {
-    //public enum AlarmStatus
-    //{
-    //    /// <summary>
-    //    /// new alarm that has not been processed
-    //    /// </summary>
-    //    New, 
-    //    /// <summary>
-    //    /// alarm is in asterisk and is being processed
-    //    /// </summary>
-    //    Busy, 
-    //    /// <summary>
-    //    /// alarm is confirmed
-    //    /// </summary>
-    //    Confirmed, 
-    //    /// <summary>
-    //    /// nobody confirmed alarm and asterisk is done
-    //    /// </summary>
-    //    Unconfirmed
-    //}
     /// <summary>
     /// Manage a queue of alarms and when to originate a call
     /// runs every minute from a cron job
@@ -37,52 +20,77 @@ namespace AlarmQueueManager
 
         static void Main(string[] args)
         {
+            Logger.EnableLogger();
+            Logger.WriteLine("Starting AlarmQueueManager");
             var aq = new AlarmQueueManager();
-            if( Asterisk.IsBusy())
+            if (Asterisk.IsBusy())
             {
-                Console.WriteLine("Asterisk system is busy "+ Asterisk.GetAllVariable());
+                Console.WriteLine("Asterisk system is busy " + Asterisk.GetAllVariables());
                 return;
             }
-            aq.ProcessAlarms();
+            else
+            {
+                Logger.WriteLine("Processing Alarms");
+                aq.ProcessAlarms();
+            }
 
+        }
+
+
+
+        public AlarmQueueManager()
+        {
         }
 
 
         public void ProcessAlarms()
         {
 
-            var alarmTable = DB().GetNewAlarms();
+            var alarmQueue = DB.GetNewAlarms();
 
-            for (int i = 0; i < alarmTable.Count; i++)
+            Logger.WriteLine("found "+alarmQueue.Rows.Count+" alarms in the queue");
+            for (int i = 0; i < alarmQueue.Count; i++)
             {
-                var alarm = alarmTable[i];
+                var alarm = alarmQueue[i];
+                Logger.WriteLine("alarm #" + i);
+                for (int c = 0; c < alarmQueue.Columns.Count; c++)
+                {
+                    Logger.WriteLine(alarmQueue.Columns[c].ColumnName + ": " + alarmQueue[i][c].ToString());
+                }
 
                 if( alarm.status == "new")
                 {
-                  var asterisk = new Asterisk("boia_emm", alarm.siteid + "_" + alarm.parameter, alarm.value, alarm.event_time);
-                    asterisk.Call();
+                    Asterisk.Call(alarm);
                     alarm.status = "busy";
-                    DB().Save();
+                    DB.SaveTable(alarmQueue);
                     return;
                 }
 
                 if (alarm.status != Asterisk.Status) 
                 {
                     alarm.status = Asterisk.Status;
-                    DB().Save();
+                    DB.SaveTable(alarmQueue);
                 }
             }
         }
-        public AlarmDataSet DB()
+
+        
+        public AlarmDataSet DB
         {
-            m_alarmDS = new AlarmDataSet();
-            return m_alarmDS;
+            get
+            {
+                if (m_alarmDS == null)
+                {
+                    var db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[] { }));
+                    m_alarmDS = new AlarmDataSet();
+                    m_alarmDS.Server = db.Server;
+                }
+
+                return m_alarmDS;
+            }
         }
 
-        public AlarmQueueManager()
-        {
-            var q = m_alarmDS.alarm_queue;
-        }
+        
         
     }
 }

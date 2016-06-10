@@ -30,6 +30,8 @@ namespace Reclamation.TimeSeries.Alarms {
         
         private alarm_definitionDataTable tablealarm_definition;
         
+        private alarm_group_namesDataTable tablealarm_group_names;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -66,6 +68,9 @@ namespace Reclamation.TimeSeries.Alarms {
                 }
                 if ((ds.Tables["alarm_definition"] != null)) {
                     base.Tables.Add(new alarm_definitionDataTable(ds.Tables["alarm_definition"]));
+                }
+                if ((ds.Tables["alarm_group_names"] != null)) {
+                    base.Tables.Add(new alarm_group_namesDataTable(ds.Tables["alarm_group_names"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -112,6 +117,16 @@ namespace Reclamation.TimeSeries.Alarms {
         public alarm_definitionDataTable alarm_definition {
             get {
                 return this.tablealarm_definition;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public alarm_group_namesDataTable alarm_group_names {
+            get {
+                return this.tablealarm_group_names;
             }
         }
         
@@ -191,6 +206,9 @@ namespace Reclamation.TimeSeries.Alarms {
                 if ((ds.Tables["alarm_definition"] != null)) {
                     base.Tables.Add(new alarm_definitionDataTable(ds.Tables["alarm_definition"]));
                 }
+                if ((ds.Tables["alarm_group_names"] != null)) {
+                    base.Tables.Add(new alarm_group_namesDataTable(ds.Tables["alarm_group_names"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -242,6 +260,12 @@ namespace Reclamation.TimeSeries.Alarms {
                     this.tablealarm_definition.InitVars();
                 }
             }
+            this.tablealarm_group_names = ((alarm_group_namesDataTable)(base.Tables["alarm_group_names"]));
+            if ((initTable == true)) {
+                if ((this.tablealarm_group_names != null)) {
+                    this.tablealarm_group_names.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -258,6 +282,8 @@ namespace Reclamation.TimeSeries.Alarms {
             base.Tables.Add(this.tablealarm_queue);
             this.tablealarm_definition = new alarm_definitionDataTable();
             base.Tables.Add(this.tablealarm_definition);
+            this.tablealarm_group_names = new alarm_group_namesDataTable();
+            base.Tables.Add(this.tablealarm_group_names);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -275,6 +301,12 @@ namespace Reclamation.TimeSeries.Alarms {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializealarm_definition() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializealarm_group_names() {
             return false;
         }
         
@@ -341,6 +373,9 @@ namespace Reclamation.TimeSeries.Alarms {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void alarm_definitionRowChangeEventHandler(object sender, alarm_definitionRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void alarm_group_namesRowChangeEventHandler(object sender, alarm_group_namesRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -686,6 +721,8 @@ namespace Reclamation.TimeSeries.Alarms {
             
             private global::System.Data.DataColumn columnid;
             
+            private global::System.Data.DataColumn columnalarm_group;
+            
             private global::System.Data.DataColumn columnsiteid;
             
             private global::System.Data.DataColumn columnparameter;
@@ -738,6 +775,14 @@ namespace Reclamation.TimeSeries.Alarms {
             public global::System.Data.DataColumn idColumn {
                 get {
                     return this.columnid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn alarm_groupColumn {
+                get {
+                    return this.columnalarm_group;
                 }
             }
             
@@ -834,10 +879,11 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public alarm_queueRow Addalarm_queueRow(int id, string siteid, string parameter, double value, string status, string confirmed_by, bool deleted, System.DateTime event_time) {
+            public alarm_queueRow Addalarm_queueRow(int id, string alarm_group, string siteid, string parameter, double value, string status, string confirmed_by, bool deleted, System.DateTime event_time) {
                 alarm_queueRow rowalarm_queueRow = ((alarm_queueRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
+                        alarm_group,
                         siteid,
                         parameter,
                         value,
@@ -875,6 +921,7 @@ namespace Reclamation.TimeSeries.Alarms {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnid = base.Columns["id"];
+                this.columnalarm_group = base.Columns["alarm_group"];
                 this.columnsiteid = base.Columns["siteid"];
                 this.columnparameter = base.Columns["parameter"];
                 this.columnvalue = base.Columns["value"];
@@ -889,6 +936,8 @@ namespace Reclamation.TimeSeries.Alarms {
             private void InitClass() {
                 this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnid);
+                this.columnalarm_group = new global::System.Data.DataColumn("alarm_group", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnalarm_group);
                 this.columnsiteid = new global::System.Data.DataColumn("siteid", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsiteid);
                 this.columnparameter = new global::System.Data.DataColumn("parameter", typeof(string), null, global::System.Data.MappingType.Element);
@@ -907,13 +956,16 @@ namespace Reclamation.TimeSeries.Alarms {
                                 this.columnid}, true));
                 this.columnid.AllowDBNull = false;
                 this.columnid.Unique = true;
+                this.columnalarm_group.AllowDBNull = false;
                 this.columnsiteid.AllowDBNull = false;
+                this.columnparameter.AllowDBNull = false;
                 this.columnvalue.AllowDBNull = false;
                 this.columnstatus.AllowDBNull = false;
                 this.columnconfirmed_by.AllowDBNull = false;
                 this.columnconfirmed_by.DefaultValue = ((string)(""));
                 this.columndeleted.AllowDBNull = false;
                 this.columndeleted.DefaultValue = ((bool)(false));
+                this.columnevent_time.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1383,6 +1435,278 @@ namespace Reclamation.TimeSeries.Alarms {
         }
         
         /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class alarm_group_namesDataTable : global::System.Data.TypedTableBase<alarm_group_namesRow> {
+            
+            private global::System.Data.DataColumn columnalarm_group;
+            
+            private global::System.Data.DataColumn columndescription;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public alarm_group_namesDataTable() {
+                this.TableName = "alarm_group_names";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal alarm_group_namesDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected alarm_group_namesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn alarm_groupColumn {
+                get {
+                    return this.columnalarm_group;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn descriptionColumn {
+                get {
+                    return this.columndescription;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public alarm_group_namesRow this[int index] {
+                get {
+                    return ((alarm_group_namesRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event alarm_group_namesRowChangeEventHandler alarm_group_namesRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event alarm_group_namesRowChangeEventHandler alarm_group_namesRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event alarm_group_namesRowChangeEventHandler alarm_group_namesRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event alarm_group_namesRowChangeEventHandler alarm_group_namesRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Addalarm_group_namesRow(alarm_group_namesRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public alarm_group_namesRow Addalarm_group_namesRow(string alarm_group, string description) {
+                alarm_group_namesRow rowalarm_group_namesRow = ((alarm_group_namesRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        alarm_group,
+                        description};
+                rowalarm_group_namesRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowalarm_group_namesRow);
+                return rowalarm_group_namesRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public alarm_group_namesRow FindByalarm_group(string alarm_group) {
+                return ((alarm_group_namesRow)(this.Rows.Find(new object[] {
+                            alarm_group})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                alarm_group_namesDataTable cln = ((alarm_group_namesDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new alarm_group_namesDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnalarm_group = base.Columns["alarm_group"];
+                this.columndescription = base.Columns["description"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnalarm_group = new global::System.Data.DataColumn("alarm_group", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnalarm_group);
+                this.columndescription = new global::System.Data.DataColumn("description", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columndescription);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnalarm_group}, true));
+                this.columnalarm_group.AllowDBNull = false;
+                this.columnalarm_group.Unique = true;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public alarm_group_namesRow Newalarm_group_namesRow() {
+                return ((alarm_group_namesRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new alarm_group_namesRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(alarm_group_namesRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.alarm_group_namesRowChanged != null)) {
+                    this.alarm_group_namesRowChanged(this, new alarm_group_namesRowChangeEvent(((alarm_group_namesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.alarm_group_namesRowChanging != null)) {
+                    this.alarm_group_namesRowChanging(this, new alarm_group_namesRowChangeEvent(((alarm_group_namesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.alarm_group_namesRowDeleted != null)) {
+                    this.alarm_group_namesRowDeleted(this, new alarm_group_namesRowChangeEvent(((alarm_group_namesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.alarm_group_namesRowDeleting != null)) {
+                    this.alarm_group_namesRowDeleting(this, new alarm_group_namesRowChangeEvent(((alarm_group_namesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Removealarm_group_namesRow(alarm_group_namesRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                AlarmDataSet ds = new AlarmDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "alarm_group_namesDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class alarm_recipientRow : global::System.Data.DataRow {
@@ -1490,6 +1814,17 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string alarm_group {
+                get {
+                    return ((string)(this[this.tablealarm_queue.alarm_groupColumn]));
+                }
+                set {
+                    this[this.tablealarm_queue.alarm_groupColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string siteid {
                 get {
                     return ((string)(this[this.tablealarm_queue.siteidColumn]));
@@ -1503,12 +1838,7 @@ namespace Reclamation.TimeSeries.Alarms {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string parameter {
                 get {
-                    try {
-                        return ((string)(this[this.tablealarm_queue.parameterColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'parameter\' in table \'alarm_queue\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tablealarm_queue.parameterColumn]));
                 }
                 set {
                     this[this.tablealarm_queue.parameterColumn] = value;
@@ -1563,40 +1893,11 @@ namespace Reclamation.TimeSeries.Alarms {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public System.DateTime event_time {
                 get {
-                    try {
-                        return ((global::System.DateTime)(this[this.tablealarm_queue.event_timeColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'event_time\' in table \'alarm_queue\' is DBNull.", e);
-                    }
+                    return ((global::System.DateTime)(this[this.tablealarm_queue.event_timeColumn]));
                 }
                 set {
                     this[this.tablealarm_queue.event_timeColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsparameterNull() {
-                return this.IsNull(this.tablealarm_queue.parameterColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetparameterNull() {
-                this[this.tablealarm_queue.parameterColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Isevent_timeNull() {
-                return this.IsNull(this.tablealarm_queue.event_timeColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Setevent_timeNull() {
-                this[this.tablealarm_queue.event_timeColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1795,6 +2096,60 @@ namespace Reclamation.TimeSeries.Alarms {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class alarm_group_namesRow : global::System.Data.DataRow {
+            
+            private alarm_group_namesDataTable tablealarm_group_names;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal alarm_group_namesRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tablealarm_group_names = ((alarm_group_namesDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string alarm_group {
+                get {
+                    return ((string)(this[this.tablealarm_group_names.alarm_groupColumn]));
+                }
+                set {
+                    this[this.tablealarm_group_names.alarm_groupColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string description {
+                get {
+                    try {
+                        return ((string)(this[this.tablealarm_group_names.descriptionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'description\' in table \'alarm_group_names\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablealarm_group_names.descriptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsdescriptionNull() {
+                return this.IsNull(this.tablealarm_group_names.descriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetdescriptionNull() {
+                this[this.tablealarm_group_names.descriptionColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -1882,6 +2237,40 @@ namespace Reclamation.TimeSeries.Alarms {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public alarm_definitionRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class alarm_group_namesRowChangeEvent : global::System.EventArgs {
+            
+            private alarm_group_namesRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public alarm_group_namesRowChangeEvent(alarm_group_namesRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public alarm_group_namesRow Row {
                 get {
                     return this.eventRow;
                 }

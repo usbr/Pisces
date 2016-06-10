@@ -25,12 +25,87 @@ namespace Reclamation.TimeSeries
             CreateRefParameterTable();
             CreateSeriesPropertiesTable();
 
-            if (m_settings.GetDBVersion() ==3 )
-                 CreateMeasurementTable();
+            if (m_settings.GetDBVersion() == 3)
+            {
+                CreateAlarmGroups();
+                CreateMeasurementTable();
+                CreateAlarmRecipient();
+                CreateAlarmDef();
+                CreateAlarmQueue();
+            }
 
             UpgradeDatabase();
 
             //CreateCalculationTable();
+        }
+
+
+
+        private void CreateAlarmGroups()
+        {
+
+            if (!m_server.TableExists("alarm_group_names"))
+            {
+                string sql = "Create Table alarm_group_names "
+                + " ( alarm_group " + m_server.PortableCharacterType(256) + " not null  primary key, "
+                + " description " + m_server.PortableCharacterType(256) + " not null default '' "
+                + " )";
+                ExecuteCreateTable(m_server, sql);
+            }
+        }
+        private void CreateAlarmRecipient()
+        {
+            if (!m_server.TableExists("alarm_recipient"))
+            {
+                string sql = "create table alarm_recipient ("
+                        + " id int not null primary key, "
+                        + " alarm_group    " + m_server.PortableCharacterType(20) + " not null default '', "
+                        + " call_order int not null default 0,"
+                        + " phone    " + m_server.PortableCharacterType(20) + " not null default '', "
+                        + " name    " + m_server.PortableCharacterType(20) + " not null default '', "
+                        + " email    " + m_server.PortableCharacterType(20) + " not null default '' ) ";
+                m_server.RunSqlCommand(sql);
+            }
+        }
+
+        private void CreateAlarmQueue()
+        {
+
+            if (!m_server.TableExists("alarm_queue"))
+            {
+                string sql = "Create Table alarm_queue "
+                + "( id  int not null primary key, "
+                + " alarm_group " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " value " + m_server.PortableFloatType() + " not null, "
+                + " status " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " confirmed_by " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " deleted  smallint not null default 0, "
+                + " event_time " + m_server.PortableDateTimeType() + " not null  "
+                + " )";
+                ExecuteCreateTable(m_server, sql);
+            }
+
+        }
+
+
+        private void CreateAlarmDef()
+        {
+
+            if (!m_server.TableExists("alarm_definition"))
+            {
+                string sql = "Create Table alarm_definition "
+                + "( id  int not null primary key, "
+                + " alarm_group " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " minimum " + m_server.PortableFloatType() + " not null, "
+                + " maximum " + m_server.PortableFloatType() + " not null, "
+                + " rate_of_change " + m_server.PortableFloatType() + " not null "
+                + " )";
+                ExecuteCreateTable(m_server, sql);
+            }
         }
 
         private void CreateMeasurementTable()
