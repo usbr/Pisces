@@ -48,9 +48,13 @@ namespace Rwis.Sync
             DateTime t1, t2;
             SetupDates(args, out t1, out t2);
 
-            if (args.Contains("inventory"))
+            if (args.Contains("dbinventory"))
             {
                 db.Inventory();
+            }
+            if (args.Contains("siteinventory"))
+            {
+                SiteInventory(args, db);
             }
             if (args.Contains("update"))
             {
@@ -61,11 +65,12 @@ namespace Rwis.Sync
                 {
                     try
                     {
-                        Console.Write(item.Name + "... ");
+                        Console.Write(item.Name.Substring(0, System.Math.Min(30, item.Name.Length)) + "... ");
                         var s = db.GetSeries(item.id);
                         s.Update(t1, t2);
                         s.Read(t1, t2);
-                        Console.WriteLine("Updated "+s.Count + " values");
+                        Console.WriteLine("Updated " + s.Count + " values");
+                        SaveProperties(s);                                  
                     }
                     catch (Exception e)
                     { Console.WriteLine(e.Message); }
@@ -75,12 +80,45 @@ namespace Rwis.Sync
 
             db.Server.Cleanup();
 
-            File.AppendAllText(errorFileName, "HydrometServer.exe:  Completed " + DateTime.Now.ToString() + "\n");
+            File.AppendAllText(errorFileName, "RWIS Sync.exe:  Completed " + DateTime.Now.ToString() + "\n");
 
             var mem = GC.GetTotalMemory(true);
             double mb = mem / 1024.0 / 1024.0;
             Console.WriteLine("Mem Usage: " + mb.ToString("F3") + " Mb");
-            perf.Report("HydrometServer: finished ");
+            perf.Report("RWIS Sync: finished ");
+        }
+
+        static void SiteInventory(Arguments args, TimeSeriesDatabase db)
+        {
+            var site = args["siteinventory"].ToString().ToLower();
+            var siteCatalog = db.GetSiteCatalog("lower(description) LIKE '%" + site + "%'");
+            if (siteCatalog.Rows.Count < 1)
+            {
+                Console.WriteLine("Site " + site + " not found... ");
+                return;
+            }
+            else
+            {
+                foreach (var siteRow in siteCatalog)
+                {
+                    var seriesCatalog = db.GetSeriesCatalog("isfolder = 0 AND siteid = '" + siteRow["siteid"] + "'");
+                    Console.WriteLine("---------------------------------------------------------------------");
+                    Console.WriteLine(siteRow["siteid"] + " | " + siteRow["description"] + " | " + siteRow["state"] +
+                        " | " + siteRow["agency_region"]);
+                    foreach (var row in seriesCatalog)
+                    { Console.WriteLine(" -- " + row["id"] + " | " + row["name"]); }
+                }
+                Console.WriteLine("---------------------------------------------------------------------");
+            }
+        }
+
+        static void SaveProperties(Series s)
+        {
+            s.Read();
+            s.Properties.Set("t1", s.MinDateTime.ToShortDateString());
+            s.Properties.Set("t2", s.MaxDateTime.ToShortDateString());
+            s.Properties.Set("count", s.Count.ToString());
+            s.Properties.Save();
         }
 
         static void ShowHelp(OptionSet p)
@@ -92,8 +130,10 @@ namespace Rwis.Sync
             Console.WriteLine(@"--database=c:\data\mydata.pdb|192.168.50.111:timeseries ");
             Console.WriteLine("--debug");
             Console.WriteLine("      prints debugging messages to console");
-            Console.WriteLine("--inventory");
+            Console.WriteLine("--dbinventory");
             Console.WriteLine("      prints summary inventory of database");
+            Console.WriteLine("--siteinventory=[X]");
+            Console.WriteLine("      prints inventory of series for site [X] in database");
             Console.WriteLine("--error-log=errors.txt");
             Console.WriteLine("      file to log error messages");
             Console.WriteLine("--detail-log=detail.txt");
@@ -107,10 +147,10 @@ namespace Rwis.Sync
             Console.WriteLine("      with [X] = yesterday, lastweek, lastmonth, lastyear, ");
             Console.WriteLine("                 or a valid date in YYYY-MM-DD format");
             Console.WriteLine("--update t1=[X] t2=[Y]");
-            Console.WriteLine("      Updates data given a period range");
+            Console.WriteLine("      Updates data and series properties given a period range");
             Console.WriteLine("      with [X] as a valid date in YYYY-MM-DD format and [X] < [Y]");
             Console.WriteLine("      with [Y] as a valid date in YYYY-MM-DD format and [X] < [Y]");
-            Console.WriteLine("      updates series properties with t1 and t2 for the data");         
+
         }
 
         private static void SetupDates(Arguments args, out DateTime t1, out DateTime t2)
