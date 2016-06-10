@@ -21,7 +21,7 @@ namespace Pisces.NunitTests.SeriesFeatures
             foreach (TimeRange item in testTime.List())
             {
                 
-                Console.WriteLine(item.T1+", " +item.T2);
+                Console.WriteLine(item.StartDate+", " +item.EndDate);
             }
         }
 

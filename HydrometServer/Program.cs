@@ -577,28 +577,21 @@ namespace HydrometServer
             // TO DO.. the outer loop of Date ranges  (t,t3) could
             // be generated as a separate task.
             Console.WriteLine("ImportHydrometInstant");
-           
-            int maxDaysInMemory = 60;
-            var t2 = end.EndOfDay();
-            var t = start;
-            while (t < t2)
+            TimeRange timeRange = new TimeRange(start, end, 30);
+            foreach (TimeRange item in timeRange.List())
             {
-                var t3 = t.AddDays(maxDaysInMemory).EndOfDay();
-
-                if (t3 > t2)
-                    t3 = t2;
                 int block = 1;
                 foreach (string query in GetBlockOfQueries(db, TimeInterval.Irregular, filter, propertyFilter))
                 {
-                    Console.WriteLine("Reading "+t+" to " +t2);
-                    var table = HydrometDataUtility.DayFilesTable(HydrometHost.PN, query, t, t3, 0);
+                    Console.WriteLine("Reading " + item.StartDate + " to " + item.EndDate);
+                    var table = HydrometDataUtility.DayFilesTable(HydrometHost.PN, query, item.StartDate, item.EndDate, 0);
                     Console.WriteLine("Block " + block + " has " + table.Rows.Count + " rows ");
                     Console.WriteLine(query);
                     SaveTableToSeries(db, table, TimeInterval.Irregular);
                     block++;
                 }
-              t = t3.NextDay();
             }
+            
             Console.WriteLine("Finished importing 15-minute data");
         }
 

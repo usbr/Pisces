@@ -254,23 +254,17 @@ namespace PiscesWebServices.CGI
             //   maxdays      list.Read()    REad()
             //   10
             //   
-            var t2 = end.EndOfDay();
-            var t = start;
             Performance p = new Performance();
-            while (t<t2)
+
+            TimeRange timeRange = new TimeRange(start, end, maxDaysInMemory);
+
+            foreach (TimeRange item in timeRange.List())
             {
-                var t3 = t.AddDays(maxDaysInMemory).EndOfDay();  
-
-                if (t3 > t2) 
-                    t3 = t2;
-
-                var tbl = Read(list, t, t3); // 0.0 seconds windows/linux
+                var tbl = Read(list, timeRange.StartDate, timeRange.EndDate); // 0.0 seconds windows/linux
                 var interval = m_formatter.Interval;
                 m_formatter.PrintFlags = interval == TimeInterval.Hourly || interval == TimeInterval.Irregular;
-                PrintDataTable( list,tbl,m_formatter,interval);
-                t = t3.NextDay();
+                PrintDataTable(list, tbl, m_formatter, interval);
             }
-
             m_formatter.WriteSeriesTrailer();
             
            // p.Report("done");

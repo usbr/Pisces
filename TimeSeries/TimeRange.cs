@@ -5,14 +5,12 @@ using System.Text;
 
 namespace Reclamation.TimeSeries
 {
-    class TimeRange
+    public class TimeRange
     {
-
         private List<TimeRange> rval = new List<TimeRange>();
         private DateTime start;
         private DateTime end;
         private DateTime temp;
-        
         private int maxDaysInMemory;
 
         public TimeRange(DateTime start, DateTime end, int maxDaysInMemory = 60)
@@ -38,25 +36,25 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
-        public DateTime T1 {
+        public DateTime StartDate {
             get
             {
                 return start;
             }
             set
             {
-                T1 = value;
+                StartDate = value;
             }
         }
 
-        public DateTime T2 {
+        public DateTime EndDate {
             get
             {
                 return end;
             }
             set
             {
-                T2 = value;
+                EndDate = value;
             } 
         }
     }
