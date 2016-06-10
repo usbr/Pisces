@@ -280,6 +280,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Alarms\AlarmDataSet.cs">
+      <DependentUpon>AlarmDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Alarms\AlarmDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AlarmDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Analysis\AnalysisCollection.cs" />
     <Compile Include="Analysis\BaseAnalysis.cs" />
     <Compile Include="Analysis\TraceAnalysis.cs" />
@@ -315,6 +324,17 @@
     <Compile Include="RBMS\RbmsUtility.cs" />
     <Compile Include="Import\ImportRioGrandeExcel.cs" />
     <Compile Include="ScenarioManagement\ForecastGenerator.cs" />
+    <None Include="Alarms\AlarmDataSet.xsc">
+      <DependentUpon>AlarmDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Alarms\AlarmDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AlarmDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Alarms\AlarmDataSet.xss">
+      <DependentUpon>AlarmDataSet.xsd</DependentUpon>
+    </None>
     <None Include="RatingTables\MeasurementsDataSet.xsc">
       <DependentUpon>MeasurementsDataSet.xsd</DependentUpon>
     </None>

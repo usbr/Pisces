@@ -97,6 +97,19 @@ namespace Reclamation.TimeSeries.Forms
             dgvProperties.Columns["id"].Visible = false;
             dgvProperties.Columns["seriesid"].Visible = false;
 
+            
+            if (m_db.Settings.GetDBVersion() >=3 )
+            {// alarms
+                var ac = new SeriesPropertiesAlarm();
+                ac.Parent = tabPageAlarm;
+                ac.Dock = DockStyle.Fill;
+
+            }
+            else
+            {
+                this.tabControl1.TabPages.Remove(this.tabPageAlarm);
+            }
+
         }
 
         TimeSeriesDatabaseDataSet.seriespropertiesDataTable tblSeriesProperties;

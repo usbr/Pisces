@@ -442,6 +442,12 @@
     <Compile Include="SeriesListSumForm.Designer.cs">
       <DependentUpon>SeriesListSumForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeriesPropertiesAlarm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SeriesPropertiesAlarm.designer.cs">
+      <DependentUpon>SeriesPropertiesAlarm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ServerDatabaseDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -756,6 +762,9 @@
     <EmbeddedResource Include="SeriesListSumForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>SeriesListSumForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeriesPropertiesAlarm.resx">
+      <DependentUpon>SeriesPropertiesAlarm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ServerDatabaseDialog.resx">
       <DependentUpon>ServerDatabaseDialog.cs</DependentUpon>

@@ -242,7 +242,6 @@ namespace PiscesWebServices.CGI
         private void WriteSeries(SeriesList list)
         {
             
-
             m_formatter.WriteSeriesHeader(list);
 
             int maxDaysInMemory = 30;
@@ -250,24 +249,20 @@ namespace PiscesWebServices.CGI
             if (m_formatter.Interval == TimeInterval.Daily)
                 maxDaysInMemory = 3650; // 10 years
 
-            // maxDaysIhn memory
-            //   maxdays      list.Read()    REad()
-            //   10
-            //   
-            Performance p = new Performance();
+            if (m_formatter.Interval == TimeInterval.Monthly)
+                maxDaysInMemory = 36500;
 
             TimeRange timeRange = new TimeRange(start, end, maxDaysInMemory);
 
             foreach (TimeRange item in timeRange.List())
             {
-                var tbl = Read(list, timeRange.StartDate, timeRange.EndDate); // 0.0 seconds windows/linux
+                var tbl = Read(list, item.StartDate, item.EndDate); // 0.0 seconds windows/linux
                 var interval = m_formatter.Interval;
                 m_formatter.PrintFlags = interval == TimeInterval.Hourly || interval == TimeInterval.Irregular;
                 PrintDataTable(list, tbl, m_formatter, interval);
             }
             m_formatter.WriteSeriesTrailer();
             
-           // p.Report("done");
         }
 
         private DataTable Read(SeriesList list, DateTime t1, DateTime t2)

@@ -19,7 +19,7 @@ namespace Reclamation.TimeSeries
             piscesInfo.PrimaryKey = new DataColumn[] { piscesInfo.Columns[0] };
         }
 
-        internal int GetDBVersion()
+        public int GetDBVersion()
         {
             DataTable tbl = m_server.Table("version", "Select value from piscesinfo where name = 'FileVersion'");
             return Convert.ToInt32(tbl.Rows[0][0]);
