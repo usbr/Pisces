@@ -43,12 +43,12 @@ namespace Reclamation.Core
         /// <param name="filename"></param>
         public NpoiExcel(string filename)
         {
-            m_filename = filename;
-            FileInfo fi = new FileInfo(filename);
-            m_lastWriteTime = fi.LastWriteTime;
+                m_filename = filename;
+                FileInfo fi = new FileInfo(filename);
+                m_lastWriteTime = fi.LastWriteTime;
 
-            FileStream file = new FileStream(filename, FileMode.Open,FileAccess.Read);
-            npoi_workbook =WorkbookFactory.Create(file);
+                FileStream file = new FileStream(filename, FileMode.Open, FileAccess.Read);
+                npoi_workbook = WorkbookFactory.Create(file);
             //var fs = new POIFSFileSystem(file);
 
             //npoi_workbook = new HSSFWorkbook(fs);
@@ -275,53 +275,34 @@ namespace Reclamation.Core
             npoi_workbook.Write(file);
             file.Close();
         }
-        public DataTable ReadDataTable(int sheetIndex, bool allText=false)
+        public DataTable ReadDataTable(int sheetIndex, bool hasColumnNames=false, bool allText=false)
         {
 
             var sheet = npoi_workbook.GetSheetAt(sheetIndex); 
 
-            return ReadTable(sheet,allText);
+            return ReadTable(sheet,hasColumnNames,  allText);
         }
 
-        public DataTable ReadDataTable(string sheetName, bool allText=false)
+        public DataTable ReadDataTable(string sheetName, bool hasColumnNames = false, bool allText = false)
         {
             
             var sheet = npoi_workbook.GetSheet(sheetName);
 
-            return ReadTable(sheet,allText);
+            return ReadTable(sheet,hasColumnNames,allText);
         }
 
-        private DataTable ReadTable( ISheet sheet,bool allText)
+        private DataTable ReadTable(ISheet sheet, bool hasColumnNames = false, bool allText=false)
         {
             DataTable rval = new DataTable(sheet.SheetName);
             // get column names, in first row, estimate datatype by second row.
-            var row = sheet.GetRow(0);
+            
 
-            if (row == null) // no column names
-            {
-                // TO DO.
-            }
-            var row2 = sheet.GetRow(1);
-            for (int c = 0; c < row.LastCellNum; c++)
-            {
-                var cell = row.GetCell(c);
-                if (cell == null)
-                {
-                    rval.Columns.Add("column" + (c + 1));
-                }
-                else
-                {
-                    if (cell == null || allText)
-                        rval.Columns.Add(GetCellValue(cell, typeof(string)).ToString());
-                    else
-                   rval.Columns.Add(GetCellValue(cell, typeof(string)).ToString(), EstimateType(row2.GetCell(c)));
-                }
-            }
+            SetupColumnNames(sheet,hasColumnNames, allText, rval);
 
             for (int i = 1; i <= sheet.LastRowNum; i++)
             {
                 var newRow = rval.NewRow();
-                row = sheet.GetRow(i);
+                var row = sheet.GetRow(i);
                 for (int c = 0; row!= null && c < row.LastCellNum ; c++)
                 {
                     var cell = row.GetCell(c);
@@ -342,6 +323,34 @@ namespace Reclamation.Core
                 rval.Rows.Add(newRow);
             }
             return rval;
+        }
+
+        private void SetupColumnNames(ISheet sheet,bool hasColumnNames, bool allText, DataTable rval)
+        {
+            
+            int firstRowNum = sheet.FirstRowNum;
+            var row = sheet.GetRow(firstRowNum);
+            var row2 = sheet.GetRow(firstRowNum + 1);
+
+            for (int c = 0; c < row.LastCellNum; c++)
+            {
+                var cell = row.GetCell(c);
+                if (cell == null || !hasColumnNames)
+                {
+                    rval.Columns.Add("column" + (c + 1));
+                }
+                else
+                {// Use column names from the first row.
+                    if (cell == null || allText)
+                    {
+                        rval.Columns.Add(GetCellValue(cell, typeof(string)).ToString());
+                    }
+                    else
+                    { // try to guess data type of columns from the second row of data
+                        rval.Columns.Add(GetCellValue(cell, typeof(string)).ToString(), EstimateType(row2.GetCell(c)));
+                    }
+                }
+            }
         }
 
         /// <summary>

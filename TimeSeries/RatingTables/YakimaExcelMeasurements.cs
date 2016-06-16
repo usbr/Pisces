@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Reclamation.TimeSeries.RatingTables
 {
@@ -19,18 +21,63 @@ namespace Reclamation.TimeSeries.RatingTables
         public static void FillTable(string filename, MeasurementsDataSet.measurementDataTable table)
         {
             var xls = new NpoiExcel(filename);
-            var sheetNames = xls.SheetNames();
 
-            if( !xls.SheetExists("summary"))
+            var cbtt = GetCbtt(filename);
+            
+            if(cbtt.ToLower() =="bum" )
             {
-                Console.WriteLine(filename + " Did not find sheet named 'summary'");
-                return;
+                Console.WriteLine("skipping reservoir");
             }
 
-            var tbl = xls.ReadDataTable("summary",true);
+            var sheetName = GetSheetName( xls);
+
+            if (sheetName == "")
+            {
+                Console.WriteLine("Did not find a sheet to read from");
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Reading from sheet "+sheetName);
+            }
+
+            var tbl = xls.ReadDataTable(sheetName,false,true);
             Console.WriteLine(filename+" contains "+  tbl.Rows.Count+" rows ");
 
             tbl = CleanupTable(tbl);
+        }
+
+        private static string GetSheetName( NpoiExcel xls)
+        {
+            string sheetName = "summary";
+            if (!xls.SheetExists(sheetName))
+            {
+                foreach (var item in xls.SheetNames())
+                {
+                    if (item.ToLower().IndexOf("summary") == 0) //SUMMARY SHEET-EASW-WY98
+                      return item;
+                }
+
+                if (xls.SheetExists("sheet1"))
+                {
+                
+                    sheetName = "sheet1";
+                }
+                else
+                {
+                    sheetName = "";
+                }
+            }
+
+            return sheetName;
+        }
+
+        private static string GetCbtt(string filename)
+        {
+            var estimateCBTT = Path.GetFileNameWithoutExtension(filename);
+            // trim out numbers
+            estimateCBTT = Regex.Replace(estimateCBTT,"[0-9]{2}","");
+            return estimateCBTT;
         }
 
         private static DataTable CleanupTable(System.Data.DataTable tbl)
@@ -50,10 +97,10 @@ namespace Reclamation.TimeSeries.RatingTables
         private static void FixColumnNames(DataTable tbl)
         {
             SetColumnName(tbl, "date_measured", "DATE");
-            SetColumnName(tbl, "stage", "Gage Height");
+            SetColumnName(tbl, "stage", "Gage Height","Gage");
             SetColumnName(tbl, "discharge", "Dischrg", "Dischrg. (Q)");
             SetColumnName(tbl, "quality", "Meas. Rated","Msmnt. Rated");
-            SetColumnName(tbl, "party", "Made by");
+            SetColumnName(tbl, "party", "Made by","Made");
             SetColumnName(tbl, "notes", "Remarks");
             
         }
@@ -64,6 +111,8 @@ namespace Reclamation.TimeSeries.RatingTables
             if (idx < 0)
             {
                 Console.WriteLine("Did not find link to column '"+newColumnName+"'");
+                if( newColumnName == "stage")
+                    Console.WriteLine();
             }
             else
             {
@@ -74,10 +123,22 @@ namespace Reclamation.TimeSeries.RatingTables
 
         private static int FindColumnIndex(DataTable tbl, params string[] columnNames)
         {
-            var rval = -1;
+            int rval = -1;
+            for (int rowToSearch = 0; rowToSearch < 7; rowToSearch++)
+            {
+                var x = SearchForColumnIndex(tbl, columnNames, rowToSearch);
+                if( x >=0 )
+                {
+                    rval = x;
+                    break;
+                }
+            }
+            return rval;
+        }
 
-            int rowIndex = 2; // expect column names here.
-
+        private static int SearchForColumnIndex(DataTable tbl, string[] columnNames, int rowIndex)
+        {
+            int rval = -1;
             for (int i = 0; i < tbl.Columns.Count; i++)
             {
                 var o = tbl.Rows[rowIndex][i];
