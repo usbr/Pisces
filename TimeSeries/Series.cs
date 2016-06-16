@@ -595,7 +595,7 @@ namespace Reclamation.TimeSeries
                     var fn = @"c:\temp\mpollfeb2013.db";
 
                     SQLiteServer svr = new SQLiteServer("Data Source=" + fn + ";");
-                    var db = new TimeSeriesDatabase(svr);
+                    var db = new TimeSeriesDatabase(svr,false);
                     string tn = s.Cbtt + "_" + s.Pcode;
                     
                  

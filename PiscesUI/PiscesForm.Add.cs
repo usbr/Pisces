@@ -203,7 +203,7 @@ namespace Reclamation.TimeSeries.Forms
                 if (fd.ShowDialog() == DialogResult.OK)
                 {
                     SQLiteServer svr = new SQLiteServer(fd.FileName);
-                    TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
+                    TimeSeriesDatabase db = new TimeSeriesDatabase(svr,false);
                     DB.InsertDatabase(CurrentFolder, db);
                     DatabaseChanged();
                 }

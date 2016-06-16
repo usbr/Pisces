@@ -64,7 +64,7 @@ namespace Reclamation.TimeSeries.Hydromet
         {
             var rval = new List<string>();
             var svr = PostgreSQL.GetPostgresServer();
-            TimeSeriesDatabase p = new TimeSeriesDatabase(svr);
+            TimeSeriesDatabase p = new TimeSeriesDatabase(svr,false);
             var sql = " lower(siteid) = '"+ svr.SafeSqlLiteral(cbtt.ToLower())+"' and TimeInterval = '"+interval.ToString()+"'";
             var sc = p.GetSeriesCatalog(sql);
             foreach (var item in sc)

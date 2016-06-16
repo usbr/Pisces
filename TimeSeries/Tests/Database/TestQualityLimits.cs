@@ -17,7 +17,7 @@ namespace Pisces.NunitTests.Database
             var fn = FileUtility.GetTempFileName(".pdb"); 
 
             SQLiteServer svr = new SQLiteServer(fn);
-            var db = new TimeSeriesDatabase(svr);
+            var db = new TimeSeriesDatabase(svr,false);
 
             var sql = "insert into quality_limit values ('*_OB',120,-50,null); ";
 

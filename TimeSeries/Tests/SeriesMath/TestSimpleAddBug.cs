@@ -21,7 +21,7 @@ namespace Pisces.NunitTests.SeriesMath
             var t2 = t1.AddDays(365);
             var fn = FileUtility.GetTempFileNameInDirectory(@"c:\temp\",".pdb");
             SQLiteServer svr = new SQLiteServer(fn);
-            TimeSeriesDatabase db = new Reclamation.TimeSeries.TimeSeriesDatabase(svr);
+            TimeSeriesDatabase db = new Reclamation.TimeSeries.TimeSeriesDatabase(svr,false);
             var s = new HydrometDailySeries("pal","af");
             s.Name = "pal_af";
             s.Read(t1,t2);

@@ -16,7 +16,7 @@ namespace Reclamation.TimeSeries.Hydromet
         {
 
             string fn = @"C:\temp\IDWR_UpperSnake_DB.pdb";
-            var db = new TimeSeriesDatabase(new SQLiteServer(fn));
+            var db = new TimeSeriesDatabase(new SQLiteServer(fn),false);
             string station = "13080000";
             var s = db.GetSeriesFromName("IDWR"+station);
             s.Read(DateTime.Parse("1/1/2009"), DateTime.Parse("12/31/2009"));

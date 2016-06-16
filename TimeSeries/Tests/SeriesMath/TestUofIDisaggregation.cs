@@ -36,7 +36,7 @@ namespace Pisces.NunitTests.SeriesMath
         public void UofIDisaggregation()
         {
             SQLiteServer pDB = new SQLiteServer(path);
-            TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB);
+            TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB,false);
 
             // Reads input data required by the calculation
             Series daily = DB.GetSeriesFromName("SS_Day_Mean");
@@ -58,7 +58,7 @@ namespace Pisces.NunitTests.SeriesMath
         public void UofIInterpolation()
         {
             SQLiteServer pDB = new SQLiteServer(path);
-            TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB);
+            TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB,false);
 
             // Reads input data required by the calculation
             Series daily = DB.GetSeriesFromName("SS_Day_Mean");
@@ -83,7 +83,7 @@ namespace Pisces.NunitTests.SeriesMath
         public void TestRMSEMassBalance()
         {
             SQLiteServer pDB = new SQLiteServer(path);
-            TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB);
+            TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB,false);
 
             // Reads input data required by the calculation
             Series daily = DB.GetSeriesFromName("CHEI_QD");
@@ -107,7 +107,7 @@ namespace Pisces.NunitTests.SeriesMath
         public void TestMergeMassBalance()
         {
             SQLiteServer pDB = new SQLiteServer(path);
-            TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB);
+            TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB,false);
 
             // Reads input data required by the calculation
             Series daily = DB.GetSeriesFromName("CHEI_QD");

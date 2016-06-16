@@ -41,7 +41,7 @@ namespace Reclamation.TimeSeries.RBMS
             // SQLiteServer svr = new SQLiteServer(@"C:\temp\rbmsdump\rbms.pdb");
             //SqlServer svr = new SqlServer("ibr1gcpdb003","Pisces");
             SqlServer svr = new SqlServer(@".\rbms", "rbms");
-            var db = new TimeSeriesDatabase(svr);
+            var db = new TimeSeriesDatabase(svr,false);
 
                 //var sc = db.GetSeriesCatalog();
                 var sp = db.GetSeriesProperties();

@@ -13,7 +13,7 @@ namespace Reclamation.TimeSeries
     public partial class TimeSeriesDatabase
     {
 
-        public static TimeSeriesDatabase InitDatabase(Arguments args)
+        public static TimeSeriesDatabase InitDatabase(Arguments args, bool readOnly=false)
         {
 
             if (args.Contains("database"))
@@ -21,7 +21,7 @@ namespace Reclamation.TimeSeries
                 if (File.Exists(args["database"]))
                 {
                     SQLiteServer svr = new SQLiteServer(args["database"]);
-                    var db = new TimeSeriesDatabase(svr, LookupOption.TableName);
+                    var db = new TimeSeriesDatabase(svr, LookupOption.TableName,readOnly);
                     return db;
                 }
 
@@ -37,7 +37,7 @@ namespace Reclamation.TimeSeries
                 Logger.WriteLine("using postgresql");
                 var dbname = ConfigurationManager.AppSettings["PostgresDatabase"];
                 var svr = PostgreSQL.GetPostgresServer(dbname);
-                var db = new TimeSeriesDatabase(svr, LookupOption.TableName);
+                var db = new TimeSeriesDatabase(svr, LookupOption.TableName,readOnly);
                 db.Parser.RecursiveCalculations = false;
                 Logger.WriteLine("database initilized..");
                 return db;
@@ -49,7 +49,7 @@ namespace Reclamation.TimeSeries
                 var server = ConfigurationManager.AppSettings["MySqlServer"];
                 var user = ConfigurationManager.AppSettings["MySqlUser"];
                 var svr = MySqlServer.GetMySqlServer(server, dbname, user);
-                var db = new TimeSeriesDatabase(svr, LookupOption.TableName);
+                var db = new TimeSeriesDatabase(svr, LookupOption.TableName,readOnly);
                 db.Parser.RecursiveCalculations = false;
                 Logger.WriteLine("database initilized..");
                 return db;

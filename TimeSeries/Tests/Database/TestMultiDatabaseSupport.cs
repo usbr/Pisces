@@ -23,7 +23,7 @@ namespace Pisces.NunitTests.Database
         {
             var svr = MySqlServer.GetMySqlServer("localhost", "timeseries");
 
-            var db = new TimeSeriesDatabase(svr);
+            var db = new TimeSeriesDatabase(svr,false);
 
             BasicDatabaseTest(db);
         }
@@ -37,7 +37,7 @@ namespace Pisces.NunitTests.Database
 
             SQLiteServer svr = new SQLiteServer(fn);
 
-            var db = new TimeSeriesDatabase(svr);
+            var db = new TimeSeriesDatabase(svr,false);
 
             BasicDatabaseTest(db);
         }
@@ -64,7 +64,7 @@ namespace Pisces.NunitTests.Database
                 svr.RunSqlCommand("drop table \"" + tn + "\"");
                 Console.WriteLine(tn);
             }
-            TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
+            TimeSeriesDatabase db = new TimeSeriesDatabase(svr,false);
             BasicDatabaseTest(db);
         }
 
@@ -92,7 +92,7 @@ namespace Pisces.NunitTests.Database
             svr.CreateDataBase("test_pisces");
             svr = new SqlServer(cStr.Replace("master","test_pisces"));
             
-            TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
+            TimeSeriesDatabase db = new TimeSeriesDatabase(svr,false);
             BasicDatabaseTest(db);
         }
 
