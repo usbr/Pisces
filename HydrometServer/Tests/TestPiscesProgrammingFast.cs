@@ -37,7 +37,7 @@ namespace Pisces.NunitTests.SeriesMath
 
             Console.WriteLine(filename);
             var server = new SQLiteServer(filename);
-            var db = new TimeSeriesDatabase(server);
+            var db = new TimeSeriesDatabase(server,false);
 
             var seriesCatalog = db.GetSeriesCatalog();
             var siteCatalog = db.GetSiteCatalog();

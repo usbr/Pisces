@@ -248,6 +248,12 @@
     <Compile Include="Graphing\RatingTableZedGraph.Designer.cs">
       <DependentUpon>RatingTableZedGraph.cs</DependentUpon>
     </Compile>
+    <Compile Include="Graphing\TemperatureProfileZedGraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\TemperatureProfileZedGraph.Designer.cs">
+      <DependentUpon>TemperatureProfileZedGraph.cs</DependentUpon>
+    </Compile>
     <Compile Include="Graphing\TimeSeriesZedGraph.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -652,6 +658,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Graphing\RatingTableZedGraph.resx">
       <DependentUpon>RatingTableZedGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\TemperatureProfileZedGraph.resx">
+      <DependentUpon>TemperatureProfileZedGraph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Graphing\TimeSeriesZedGraph.resx">
       <DependentUpon>TimeSeriesZedGraph.cs</DependentUpon>

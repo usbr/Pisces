@@ -156,7 +156,7 @@ namespace Reclamation.TimeSeries
         /// Constructor of TimeSeriesDatabase
         /// </summary>
         /// <param name="server"></param>
-        public TimeSeriesDatabase(BasicDBServer server, LookupOption lookup = LookupOption.SeriesName, bool readOnly=false)
+        public TimeSeriesDatabase(BasicDBServer server, LookupOption lookup , bool readOnly)
         {
             ReadOnly = readOnly;
             InitDatabaseSettings(server);

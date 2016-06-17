@@ -108,6 +108,7 @@
     <Compile Include="CGI\CsvFormatter.cs" />
     <Compile Include="CGI\LegacyCsvFormatter.cs" />
     <Compile Include="CGI\Formatter.cs" />
+    <Compile Include="CGI\WebTimeSeriesWriter.Legacy.cs" />
     <Compile Include="DyGraphWriter.cs" />
     <Compile Include="SiteCsvTable.cs" />
     <Compile Include="Database.cs" />

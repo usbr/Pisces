@@ -35,7 +35,7 @@ namespace Pisces.NunitTests.SeriesMath
 
             Console.WriteLine(filename);
             var server = new SQLiteServer(filename);
-            var db = new TimeSeriesDatabase(server);
+            var db = new TimeSeriesDatabase(server,false);
 
             // create a folder for each month
             for (int i = 1; i <= 12; i++)

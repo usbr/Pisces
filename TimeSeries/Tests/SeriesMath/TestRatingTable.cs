@@ -22,7 +22,7 @@ namespace Pisces.NunitTests.SeriesMath
             System.IO.File.Delete(fn);
 
             SQLiteServer svr = new SQLiteServer(fn);
-            var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
+            var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName,false);
 
             var c = new CalculationSeries("instant_karl_af");
             var path = Path.Combine(Globals.TestDataPath, "rating_tables");
