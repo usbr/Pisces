@@ -107,10 +107,10 @@ namespace Reclamation.TimeSeries
                         t1 = t1.Date;
                         t2 = t1.Date;
                     }
-                    else if( t1.Date == t2.Date) // midnight but not a whole day of data
+                    else if( t1.Date == t2.Date) //  not a whole day of data
                     {
                         t1 = t1.AddDays(-1);
-                        t2 = t1.AddDays(-1);
+                        t2 = t1;
                     }
 
 
