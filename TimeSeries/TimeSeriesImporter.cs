@@ -101,11 +101,19 @@ namespace Reclamation.TimeSeries
                     var t1 = inputSeriesList.MinDateTime.Date;
                     var t2 = inputSeriesList.MaxDateTime;
 
-                    if (t1.Date == t2.AddDays(-1).Date) // spans midnight, compute yesterday.
+                    // compute daily value for yesterday
+                    if (t1.Date == t2.AddDays(-1).Date)    // spans midnight, compute yesterday.
                     {
                         t1 = t1.Date;
                         t2 = t1.Date;
                     }
+                    else if( t1.Date == t2.Date) // midnight but not a whole day of data
+                    {
+                        t1 = t1.AddDays(-1);
+                        t2 = t1.AddDays(-1);
+                    }
+
+
 
                     cs.Calculate(t1, t2);
                     if (cs.Count > 0)
