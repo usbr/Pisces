@@ -25,7 +25,7 @@ namespace Pisces.NunitTests.SeriesMath
             string fn = FileUtility.GetTempFileName(".pdb");
             Console.WriteLine(fn);
             var svr = new SQLiteServer(fn);
-            db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
+            db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName,false);
         }
 
 

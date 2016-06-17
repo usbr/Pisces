@@ -42,7 +42,7 @@ namespace Pisces.NunitTests.SeriesMath
             var fn1 = FileUtility.GetTempFileName(".pdb");
             Console.WriteLine(fn1);
             var svr = new SQLiteServer(fn1);
-            var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
+            var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName,false);
          
             var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_lapo.txt");
             
@@ -128,7 +128,7 @@ namespace Pisces.NunitTests.SeriesMath
             var fn1 = FileUtility.GetTempFileName(".pdb");
             Console.WriteLine(fn1);
             var svr = new SQLiteServer(fn1);
-            var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
+            var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName,false);
             Logger.EnableLogger();
             
             var tmpDir = CopyTestDecodesFileToTempDirectory("decodes_mabo_missing_gh.txt");

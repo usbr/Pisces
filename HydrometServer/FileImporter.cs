@@ -56,7 +56,6 @@ namespace HydrometServer
         private void ProcessFile(RouteOptions routing, FileSystemInfo fi)
         {
             var fn = fi.FullName;
-            string dir = System.IO.Path.GetDirectoryName(fn);
 
             if (fi.CreationTime.AddSeconds(2) > DateTime.Now)
             {
