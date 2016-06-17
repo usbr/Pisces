@@ -22,7 +22,14 @@ namespace PiscesWebServices.CGI
              sb.Append(t0 + ",");
              for (int i = 0; i < vals.Length; i++)
              {
-                 sb.Append(vals[i]);
+                 if (m_interval == TimeInterval.Daily && vals[i] == null)
+                 {
+                     sb.Append(s_NO_RECORD);
+                 }
+                 else
+                 {
+                     sb.Append(vals[i]);
+                 }
                  if (PrintFlags)
                  {   // 
                      if( flags[i]=="")
@@ -51,13 +58,25 @@ namespace PiscesWebServices.CGI
 
          }
 
+         static string s_NO_RECORD = "NO RECORD   ";
+
          public override string FormatNumber(object o)
          {
              var rval = "";
              if (o == DBNull.Value || o.ToString() == "")
-                 rval = "";//.PadLeft(11);
+             {
+                 if (m_interval == TimeInterval.Daily)
+                     rval = s_NO_RECORD;
+                 else
+                     rval = "";//.PadLeft(11);
+             }
              else
-                 rval = Convert.ToDouble(o).ToString("F02").PadLeft(11);
+             {
+                 if( m_interval == TimeInterval.Daily)
+                    rval = Convert.ToDouble(o).ToString("F02").PadLeft(12);//%12.2f
+                 else
+                    rval = Convert.ToDouble(o).ToString("F02").PadLeft(11);
+             }
              return rval;
          }
 
@@ -85,7 +104,15 @@ namespace PiscesWebServices.CGI
              foreach (var item in list)
              {
                  TimeSeriesName tn = new TimeSeriesName(item.Table.TableName);
-                 headLine += ",  " + tn.siteid.PadRight(8) + "" + tn.pcode.PadRight(8);
+                 if (m_interval == TimeInterval.Daily)
+                 {
+                     //fprintf(stdout,",   %4.8s %-4.8s",params[i].station,params[i].pcode);
+                     headLine += ",   " + tn.siteid.PadRight(4) + " " + tn.pcode.PadRight(4);
+                 }
+                 else
+                 {
+                     headLine += ",  " + tn.siteid.PadRight(8) + "" + tn.pcode.PadRight(8);
+                 }
              }
              headLine = headLine.ToUpper();
              WriteLine(headLine);

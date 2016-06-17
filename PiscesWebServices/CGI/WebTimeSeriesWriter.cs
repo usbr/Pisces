@@ -35,7 +35,7 @@ namespace PiscesWebServices.CGI
         Formatter m_formatter ;
         string m_query = "";
         NameValueCollection m_collection;
-        bool m_printFlags = true;
+       // bool m_printFlags = true;
 
         string[] supportedFormats =new string[] {"csv", // csv with headers
                                                 "html", // basic html
@@ -96,8 +96,8 @@ namespace PiscesWebServices.CGI
             else if (format == "2")
             {
                 m_formatter = new LegacyCsvFormatter(interval, true);
-                if (interval == TimeInterval.Daily)
-                    m_printFlags = false;
+               // if (interval == TimeInterval.Daily)
+                  //  m_printFlags = false;
             }
 
             else
@@ -222,17 +222,17 @@ namespace PiscesWebServices.CGI
                 string tableName = list[i].Table.TableName;
                 if (!db.Server.TableExists(tableName))
                 {
-                    if( m_printFlags)
+                   // if( m_printFlags)
                       sql += "SELECT '" + tableName + "' as tablename , current_timestamp as datetime, -998877.0 as value, '' as flag where 0=1 ";
-                    else
-                      sql += "SELECT '" + tableName + "' as tablename , current_timestamp as datetime, -998877.0 as value where 0=1 ";
+                    //else
+                      //sql += "SELECT '" + tableName + "' as tablename , current_timestamp as datetime, -998877.0 as value where 0=1 ";
                 }
                 else
                 {
-                    if(m_printFlags)
+                    //if(m_printFlags)
                        sql += "SELECT '" + tableName + "' as tablename, datetime,value,flag FROM " + tableName;
-                    else
-                        sql += "SELECT '" + tableName + "' as tablename, datetime,value FROM " + tableName;
+                    //else
+                      //  sql += "SELECT '" + tableName + "' as tablename, datetime,value FROM " + tableName;
 
                     if (t1 != TimeSeriesDatabase.MinDateTime || t2 != TimeSeriesDatabase.MaxDateTime)
                     {
