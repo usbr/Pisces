@@ -40,7 +40,7 @@ namespace Reclamation.TimeSeries.Forms.Graphing
             points.Add(28.68, 1036);
             points.Add(28.20, 767);
 
-            chart1.GraphPane.AddCurve("YRWW", points, Color.Green);
+            chart1.GraphPane.AddCurve("temp profile", points, Color.Green);
 
             RefreshGraph();
         }
@@ -52,6 +52,12 @@ namespace Reclamation.TimeSeries.Forms.Graphing
                 chart1.GraphPane.AxisChange(g);
             }
             chart1.Refresh();
+        }
+
+
+        public void DrawProfile(DataTable tbl)
+        {
+
         }
     }
 }

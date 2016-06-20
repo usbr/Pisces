@@ -21,7 +21,7 @@ namespace HydrometServer
     {
         static void Main(string[] argList)
         {
-            Console.Write("HydrometServer " + Application.ProductVersion +" " + AssemblyUtility.CreationDate()+"\n");
+            Console.Write("HydrometServer " + Application.ProductVersion +"\n compiled: " + AssemblyUtility.CreationDate()+"\n");
 
             Arguments args = new Arguments(argList);
             var p = new OptionSet();
@@ -266,7 +266,7 @@ namespace HydrometServer
 
             var mem = GC.GetTotalMemory(true);
             double mb = mem / 1024.0 / 1024.0;
-            Console.WriteLine("Mem Usage: " + mb.ToString("F3") + " Mb");
+            Console.WriteLine("Memory Usage: " + mb.ToString("F3") + " Mb");
             perf.Report("HydrometServer: finished ");
         }
 
