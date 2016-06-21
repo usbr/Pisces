@@ -298,8 +298,12 @@ namespace Reclamation.Core
             
 
             SetupColumnNames(sheet,hasColumnNames, allText, rval);
+            int startIndex = 0;
 
-            for (int i = 1; i <= sheet.LastRowNum; i++)
+            if (hasColumnNames)
+                startIndex = 1;
+
+            for (int i = startIndex; i <= sheet.LastRowNum; i++)
             {
                 var newRow = rval.NewRow();
                 var row = sheet.GetRow(i);
@@ -325,14 +329,34 @@ namespace Reclamation.Core
             return rval;
         }
 
+        /// <summary>
+        /// find the number of columns used 
+        /// </summary>
+        private int GetColumnCount(ISheet sheet)
+        {
+            // iterate through all rows
+
+            int rval = 0;
+            for (int i = 0; i <= sheet.LastRowNum; i++)
+            {
+                var row = sheet.GetRow(i);
+                if( row != null)
+                {
+                    rval = Math.Max(rval, row.LastCellNum);
+                }
+            }
+            return rval;
+        }
+
         private void SetupColumnNames(ISheet sheet,bool hasColumnNames, bool allText, DataTable rval)
         {
             
             int firstRowNum = sheet.FirstRowNum;
             var row = sheet.GetRow(firstRowNum);
             var row2 = sheet.GetRow(firstRowNum + 1);
+            int colCount = GetColumnCount(sheet);
 
-            for (int c = 0; c < row.LastCellNum; c++)
+            for (int c = 0; c < colCount; c++)
             {
                 var cell = row.GetCell(c);
                 if (cell == null || !hasColumnNames)
