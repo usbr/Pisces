@@ -67,8 +67,8 @@ namespace Reclamation.Core.Tests
             File.Delete(fn);
             xls.Save(fn);
 
-            DataTable tbl2 = xls.ReadDataTable("newsheet");
-            Assert.AreEqual(12, tbl2.Rows.Count);
+            DataTable tbl2 = xls.ReadDataTable("newsheet",true);
+            Assert.AreEqual(12, tbl2.Rows.Count); 
             xls.SaveDataTable(tbl2, "sheet1");
             xls.Save(fn);
             
