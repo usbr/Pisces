@@ -172,6 +172,10 @@
     <Optimize>False</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BumpKit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bumpkit.1.0.2\lib\BumpKit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DgvFilterPopup">
       <HintPath>..\ThirdParty\DgvFilterPopup.dll</HintPath>
     </Reference>

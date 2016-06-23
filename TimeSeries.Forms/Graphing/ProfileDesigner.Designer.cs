@@ -47,17 +47,19 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonForward = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonBack = new System.Windows.Forms.Button();
-            this.buttonApply = new System.Windows.Forms.Button();
             this.textBoxWaterSurface = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.textBoxOutputFile = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.buttonStep = new System.Windows.Forms.Button();
             this.buttonStop = new System.Windows.Forms.Button();
+            this.textBoxspeed = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.chart1 = new Reclamation.TimeSeries.Forms.Graphing.ProfileZedGraph();
-            this.timeSelectorBeginEnd1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
+            this.timeSelector1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -186,7 +188,7 @@
             this.textBoxXmax.Name = "textBoxXmax";
             this.textBoxXmax.Size = new System.Drawing.Size(51, 20);
             this.textBoxXmax.TabIndex = 15;
-            this.textBoxXmax.Text = "20";
+            this.textBoxXmax.Text = "30";
             // 
             // textBoxXmin
             // 
@@ -223,20 +225,9 @@
             this.label1.TabIndex = 11;
             this.label1.Text = "title";
             // 
-            // buttonForward
-            // 
-            this.buttonForward.Location = new System.Drawing.Point(262, 486);
-            this.buttonForward.Name = "buttonForward";
-            this.buttonForward.Size = new System.Drawing.Size(59, 23);
-            this.buttonForward.TabIndex = 13;
-            this.buttonForward.Text = "forward>";
-            this.toolTip1.SetToolTip(this.buttonForward, "plots the next day of data");
-            this.buttonForward.UseVisualStyleBackColor = true;
-            this.buttonForward.Click += new System.EventHandler(this.buttonNext_Click);
-            // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(196, 515);
+            this.buttonSave.Location = new System.Drawing.Point(188, 515);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(68, 23);
             this.buttonSave.TabIndex = 14;
@@ -244,27 +235,6 @@
             this.toolTip1.SetToolTip(this.buttonSave, "saves animation to a file");
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
-            // 
-            // buttonBack
-            // 
-            this.buttonBack.Location = new System.Drawing.Point(197, 486);
-            this.buttonBack.Name = "buttonBack";
-            this.buttonBack.Size = new System.Drawing.Size(59, 23);
-            this.buttonBack.TabIndex = 15;
-            this.buttonBack.Text = "<back";
-            this.toolTip1.SetToolTip(this.buttonBack, "plots the next day of data");
-            this.buttonBack.UseVisualStyleBackColor = true;
-            this.buttonBack.Click += new System.EventHandler(this.buttonBack_Click);
-            // 
-            // buttonApply
-            // 
-            this.buttonApply.Location = new System.Drawing.Point(234, 442);
-            this.buttonApply.Name = "buttonApply";
-            this.buttonApply.Size = new System.Drawing.Size(75, 23);
-            this.buttonApply.TabIndex = 16;
-            this.buttonApply.Text = "apply";
-            this.buttonApply.UseVisualStyleBackColor = true;
-            this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
             // textBoxWaterSurface
             // 
@@ -285,19 +255,64 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 1000;
+            this.timer1.Interval = 500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // textBoxOutputFile
+            // 
+            this.textBoxOutputFile.Location = new System.Drawing.Point(12, 582);
+            this.textBoxOutputFile.Name = "textBoxOutputFile";
+            this.textBoxOutputFile.Size = new System.Drawing.Size(311, 20);
+            this.textBoxOutputFile.TabIndex = 20;
+            this.textBoxOutputFile.Text = "c:\\temp\\gcl.gif";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(-345, 802);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(104, 13);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "speed (milli seconds)";
+            // 
+            // buttonStep
+            // 
+            this.buttonStep.Location = new System.Drawing.Point(188, 486);
+            this.buttonStep.Name = "buttonStep";
+            this.buttonStep.Size = new System.Drawing.Size(68, 23);
+            this.buttonStep.TabIndex = 22;
+            this.buttonStep.Text = "step";
+            this.toolTip1.SetToolTip(this.buttonStep, "saves animation to a file");
+            this.buttonStep.UseVisualStyleBackColor = true;
+            this.buttonStep.Click += new System.EventHandler(this.buttonStep_Click);
             // 
             // buttonStop
             // 
-            this.buttonStop.Location = new System.Drawing.Point(262, 515);
+            this.buttonStop.Location = new System.Drawing.Point(263, 515);
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(68, 23);
-            this.buttonStop.TabIndex = 19;
+            this.buttonStop.TabIndex = 23;
             this.buttonStop.Text = "stop";
             this.toolTip1.SetToolTip(this.buttonStop, "saves animation to a file");
             this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click_1);
+            // 
+            // textBoxspeed
+            // 
+            this.textBoxspeed.Location = new System.Drawing.Point(163, 547);
+            this.textBoxspeed.Name = "textBoxspeed";
+            this.textBoxspeed.Size = new System.Drawing.Size(37, 20);
+            this.textBoxspeed.TabIndex = 24;
+            this.textBoxspeed.Text = "3";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(32, 550);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(116, 13);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "speed (frames/second)";
             // 
             // chart1
             // 
@@ -307,31 +322,33 @@
             this.chart1.Size = new System.Drawing.Size(550, 573);
             this.chart1.TabIndex = 12;
             // 
-            // timeSelectorBeginEnd1
+            // timeSelector1
             // 
-            this.timeSelectorBeginEnd1.Location = new System.Drawing.Point(0, 486);
-            this.timeSelectorBeginEnd1.Name = "timeSelectorBeginEnd1";
-            this.timeSelectorBeginEnd1.ShowTime = false;
-            this.timeSelectorBeginEnd1.Size = new System.Drawing.Size(213, 46);
-            this.timeSelectorBeginEnd1.T1 = new System.DateTime(2005, 1, 1, 10, 3, 0, 0);
-            this.timeSelectorBeginEnd1.T2 = new System.DateTime(2016, 1, 22, 10, 3, 0, 0);
-            this.timeSelectorBeginEnd1.TabIndex = 4;
+            this.timeSelector1.Location = new System.Drawing.Point(0, 486);
+            this.timeSelector1.Name = "timeSelector1";
+            this.timeSelector1.ShowTime = false;
+            this.timeSelector1.Size = new System.Drawing.Size(213, 46);
+            this.timeSelector1.T1 = new System.DateTime(2005, 1, 1, 10, 3, 0, 0);
+            this.timeSelector1.T2 = new System.DateTime(2016, 1, 22, 10, 3, 0, 0);
+            this.timeSelector1.TabIndex = 4;
             // 
             // ProfileDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(887, 635);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.textBoxspeed);
             this.Controls.Add(this.buttonStop);
+            this.Controls.Add(this.buttonStep);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.textBoxOutputFile);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBoxWaterSurface);
-            this.Controls.Add(this.buttonApply);
-            this.Controls.Add(this.buttonBack);
             this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.buttonForward);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.timeSelectorBeginEnd1);
+            this.Controls.Add(this.timeSelector1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxSeries);
             this.Controls.Add(this.textBox1);
@@ -350,7 +367,7 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBoxSeries;
         private System.Windows.Forms.Label label2;
-        private TimeSelectorBeginEnd timeSelectorBeginEnd1;
+        private TimeSelectorBeginEnd timeSelector1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxXlabel;
         private System.Windows.Forms.TextBox textboxYlabel;
@@ -366,14 +383,16 @@
         private System.Windows.Forms.TextBox textBoxXmax;
         private System.Windows.Forms.TextBox textBoxXmin;
         private ProfileZedGraph chart1;
-        private System.Windows.Forms.Button buttonForward;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Button buttonBack;
-        private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.TextBox textBoxWaterSurface;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TextBox textBoxOutputFile;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonStep;
         private System.Windows.Forms.Button buttonStop;
+        private System.Windows.Forms.TextBox textBoxspeed;
+        private System.Windows.Forms.Label label10;
     }
 }

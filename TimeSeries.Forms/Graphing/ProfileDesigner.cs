@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Reclamation.TimeSeries.Profile;
+using System.IO;
 
 namespace Reclamation.TimeSeries.Forms.Graphing
 {
@@ -74,9 +75,15 @@ namespace Reclamation.TimeSeries.Forms.Graphing
             UpdateChart();
         }
 
+        bool loaded = false;
         private void UpdateChart()
         {
 
+            if (!loaded)
+            {
+                LoadSeriesData();
+                loaded = true;
+            }
             this.chart1.XAxisText = this.textBoxXlabel.Text;
             chart1.YAxisText = this.textboxYlabel.Text;
             chart1.Title = this.textBoxTitle.Text;
@@ -87,39 +94,69 @@ namespace Reclamation.TimeSeries.Forms.Graphing
             chart1.YAxisMinScale = Convert.ToDouble(this.textBoxYmin.Text);
             chart1.YAxisMaxScale = Convert.ToDouble(this.textBoxYmax.Text);
 
-            var tbl = wDB.GetPlotData(timeSelectorBeginEnd1.T1.Date);
-            var ws = wDB.GetWaterSurface(timeSelectorBeginEnd1.T1.Date);
+            var tbl = wDB.GetPlotData(timeSelector1.T1.Date);
+            var ws = wDB.GetWaterSurface(timeSelector1.T1.Date);
 
-            chart1.DrawProfile(tbl, timeSelectorBeginEnd1.T1.Date.ToShortDateString(),ws,"water surface");
+            chart1.DrawProfile(tbl, timeSelector1.T1.Date.ToShortDateString(),ws,"water surface");
         }
 
-        private void buttonNext_Click(object sender, EventArgs e)
-        {
-            timeSelectorBeginEnd1.T1 = timeSelectorBeginEnd1.T1.AddDays(1).Date;
-            UpdateChart();
-        }
 
-        private void buttonBack_Click(object sender, EventArgs e)
-        {
-            timeSelectorBeginEnd1.T1 = timeSelectorBeginEnd1.T1.AddDays(-1).Date;
-            UpdateChart();
-        }
+
+
+        FileStream gif;
+        BumpKit.GifEncoder encoder;
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            timer1.Interval = 1000 / Convert.ToInt32(this.textBoxspeed.Text);
+          
             timer1.Enabled = true;
+            var fn = textBoxOutputFile.Text.Trim();
+            if ( fn == "")
+                return;
+
+            if (File.Exists(fn))
+                File.Delete(fn);
+
+            gif = File.OpenWrite(fn);
+            encoder = new BumpKit.GifEncoder(gif);
+            encoder.FrameDelay = new TimeSpan(0, 0, 0, 0, timer1.Interval);
+
         }
 
         private void buttonStop_Click(object sender, EventArgs e)
         {
             timer1.Enabled = false;
+            gif.Close();
+            encoder = null;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timeSelectorBeginEnd1.T1 = timeSelectorBeginEnd1.T1.AddDays(1).Date;
+            encoder.AddFrame(chart1.GetImage());
+            timeSelector1.T1 = timeSelector1.T1.AddDays(1).Date;
+            UpdateChart();
+
+            if (this.timeSelector1.T1 > timeSelector1.T2)
+            {
+                timer1.Enabled = false;
+                gif.Close();
+                encoder = null;
+            }
+        }
+       
+        private void buttonStep_Click(object sender, EventArgs e)
+        {
+            timeSelector1.T1 = timeSelector1.T1.AddDays(1).Date;
             UpdateChart();
         }
+
+        private void buttonStop_Click_1(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+        }
+        
+        
 
 
      

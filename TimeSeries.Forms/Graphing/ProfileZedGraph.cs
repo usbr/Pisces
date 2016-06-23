@@ -50,6 +50,11 @@ namespace Reclamation.TimeSeries.Forms.Graphing
             RefreshGraph();
         }
 
+        public Image GetImage()
+        {
+            return chart1.GetImage();
+        }
+
         private void RefreshGraph()
         {
             using (Graphics g = CreateGraphics())
