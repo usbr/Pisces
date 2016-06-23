@@ -313,6 +313,11 @@
     </Compile>
     <Compile Include="HDB\HDBSeries.cs" />
     <Compile Include="PiscesMeasurement.cs" />
+    <Compile Include="Profile\WaterProfileDatabase.cs" />
+    <Compile Include="RatingTables\MeasurementsDataSet.cs">
+      <DependentUpon>MeasurementsDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RatingTables\MeasurementsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

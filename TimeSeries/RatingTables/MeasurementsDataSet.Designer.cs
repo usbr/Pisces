@@ -644,7 +644,6 @@ namespace Reclamation.TimeSeries.RatingTables {
                 this.columnid.Unique = true;
                 this.columndate_measured.AllowDBNull = false;
                 this.columnstage.AllowDBNull = false;
-                this.columndischarge.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -769,6 +768,8 @@ namespace Reclamation.TimeSeries.RatingTables {
                 xs.Add(dsSchema);
                 return type;
             }
+
+           
         }
         
         /// <summary>
@@ -1784,7 +1785,12 @@ namespace Reclamation.TimeSeries.RatingTables {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public double discharge {
                 get {
-                    return ((double)(this[this.tablemeasurement.dischargeColumn]));
+                    try {
+                        return ((double)(this[this.tablemeasurement.dischargeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'discharge\' in table \'measurement\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablemeasurement.dischargeColumn] = value;
@@ -1849,6 +1855,18 @@ namespace Reclamation.TimeSeries.RatingTables {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetsiteidNull() {
                 this[this.tablemeasurement.siteidColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsdischargeNull() {
+                return this.IsNull(this.tablemeasurement.dischargeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetdischargeNull() {
+                this[this.tablemeasurement.dischargeColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

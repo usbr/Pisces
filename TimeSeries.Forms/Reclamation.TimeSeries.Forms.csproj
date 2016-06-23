@@ -242,17 +242,23 @@
     </Compile>
     <Compile Include="Graphing\IGraphDataLoader.cs" />
     <Compile Include="Graphing\ITimeSeriesGraph.cs" />
+    <Compile Include="Graphing\ProfileDesigner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Graphing\ProfileDesigner.Designer.cs">
+      <DependentUpon>ProfileDesigner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Graphing\RatingTableZedGraph.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Graphing\RatingTableZedGraph.Designer.cs">
       <DependentUpon>RatingTableZedGraph.cs</DependentUpon>
     </Compile>
-    <Compile Include="Graphing\TemperatureProfileZedGraph.cs">
+    <Compile Include="Graphing\ProfileZedGraph.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Graphing\TemperatureProfileZedGraph.Designer.cs">
-      <DependentUpon>TemperatureProfileZedGraph.cs</DependentUpon>
+    <Compile Include="Graphing\ProfileZedGraph.Designer.cs">
+      <DependentUpon>ProfileZedGraph.cs</DependentUpon>
     </Compile>
     <Compile Include="Graphing\TimeSeriesZedGraph.cs">
       <SubType>UserControl</SubType>
@@ -656,11 +662,14 @@
       <DependentUpon>GraphExplorerView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\ProfileDesigner.resx">
+      <DependentUpon>ProfileDesigner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Graphing\RatingTableZedGraph.resx">
       <DependentUpon>RatingTableZedGraph.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Graphing\TemperatureProfileZedGraph.resx">
-      <DependentUpon>TemperatureProfileZedGraph.cs</DependentUpon>
+    <EmbeddedResource Include="Graphing\ProfileZedGraph.resx">
+      <DependentUpon>ProfileZedGraph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Graphing\TimeSeriesZedGraph.resx">
       <DependentUpon>TimeSeriesZedGraph.cs</DependentUpon>

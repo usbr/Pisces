@@ -1,6 +1,6 @@
 ﻿namespace Reclamation.TimeSeries.Forms.Graphing
 {
-    partial class TemperatureProfileZedGraph
+    partial class ProfileZedGraph
     {
         /// <summary> 
         /// Required designer variable.

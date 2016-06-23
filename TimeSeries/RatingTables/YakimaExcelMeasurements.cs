@@ -24,27 +24,96 @@ namespace Reclamation.TimeSeries.RatingTables
 
             var cbtt = GetCbtt(filename);
             
-            if(cbtt.ToLower() =="bum" )
-            {
-                Console.WriteLine("skipping reservoir");
-            }
-
+            
             var sheetName = GetSheetName( xls);
 
             if (sheetName == "")
             {
-                Console.WriteLine("Did not find a sheet to read from");
+                Console.WriteLine( "Did not find a sheet to read from "+Path.GetFileNameWithoutExtension(filename));
                 return;
             }
             else
             {
-                Console.WriteLine("Reading from sheet "+sheetName);
+               Logger.WriteLine("Reading from sheet "+sheetName);
             }
 
             var tbl = xls.ReadDataTable(sheetName,false,true);
-            Console.WriteLine(filename+" contains "+  tbl.Rows.Count+" rows ");
+            Logger.WriteLine(filename+" contains "+  tbl.Rows.Count+" rows ");
 
-            tbl = CleanupTable(tbl);
+            
+            
+            tbl.TableName = Path.GetFileNameWithoutExtension(filename);
+
+            if (tbl.TableName == "")
+                tbl.TableName = cbtt;
+
+            FixColumnNames(tbl);
+
+            // load data into measurement table
+            if (tbl.Columns.Contains("stage") && tbl.Columns.Contains("discharge"))
+            {
+                for (int i = 0; i < tbl.Rows.Count; i++)
+                {
+                    var newRow = table.NewmeasurementRow();
+
+                    string siteid = cbtt;
+                    DateTime? date_measured = TryGetDateTime(tbl.Rows[i], "date_measured");
+                    double? stage = TryGetDouble(tbl.Rows[i], "stage");
+                    double? discharge = TryGetDouble(tbl.Rows[i], "discharge");
+                    string quality = TryGetString(tbl.Rows[i], "quality");
+                    string party = TryGetString(tbl.Rows[i], "party");
+                    string notes = TryGetString(tbl.Rows[i], "notes");
+
+                    if (stage.HasValue)
+                        table.AddmeasurementRow(table.NextID(), siteid, date_measured.GetValueOrDefault(), stage.Value,
+                            discharge.GetValueOrDefault(), quality, party, notes);
+                }
+
+            }
+
+        }
+        private static string TryGetString(DataRow dataRow, string colName)
+        {
+            string rval = "";
+
+            if (!dataRow.Table.Columns.Contains(colName))
+                return rval;
+
+            return dataRow[colName].ToString();
+            
+        }
+
+        private static DateTime? TryGetDateTime(DataRow dataRow, string colName)
+        {
+            DateTime? rval = null;
+
+            if (!dataRow.Table.Columns.Contains(colName))
+                return rval;
+
+            var o = dataRow[colName];
+            DateTime d;
+
+            if (DateTime.TryParse(o.ToString(), out d))
+            {
+                rval = d;
+            }
+            return rval;
+        }
+
+        private static double? TryGetDouble(DataRow dataRow, string colName)
+        {
+            double? rval = null;
+            if (!dataRow.Table.Columns.Contains(colName))
+                return rval;
+            var o = dataRow[colName];
+            double d = 0;
+
+            if( double.TryParse(o.ToString(),out d))
+            {
+                rval = d;
+            }
+
+            return rval;
         }
 
         private static string GetSheetName( NpoiExcel xls)
@@ -80,26 +149,13 @@ namespace Reclamation.TimeSeries.RatingTables
             return estimateCBTT;
         }
 
-        private static DataTable CleanupTable(System.Data.DataTable tbl)
-        {
-            // use column headings from row 4 (Meas. #,DATE, ... )
-            
-            tbl.TableName  = GetCbtt(tbl);
-
-            // Set column Names to match dataset
-            FixColumnNames(tbl);
-            // clean out junk?
-
-            return tbl;
-
-        }
 
         private static void FixColumnNames(DataTable tbl)
         {
-            SetColumnName(tbl, "date_measured", "DATE");
+            SetColumnName(tbl, "date_measured", "DATE","Date");
             SetColumnName(tbl, "stage", "Gage Height","Gage");
-            SetColumnName(tbl, "discharge", "Dischrg", "Dischrg. (Q)");
-            SetColumnName(tbl, "quality", "Meas. Rated","Msmnt. Rated");
+            SetColumnName(tbl, "discharge", "Dischrg", "Dischrg. (Q)","Discharg. (Q)");
+            SetColumnName(tbl,"quality", "Meas. Rated","Msmnt. Rated","Rated");
             SetColumnName(tbl, "party", "Made by","Made");
             SetColumnName(tbl, "notes", "Remarks");
             
@@ -110,9 +166,9 @@ namespace Reclamation.TimeSeries.RatingTables
             var idx = FindColumnIndex(tbl, columnNames);
             if (idx < 0)
             {
-                Console.WriteLine("Did not find link to column '"+newColumnName+"'");
-                if( newColumnName == "stage")
-                    Console.WriteLine();
+                Console.WriteLine(tbl.TableName +": Did not find link to column '"+newColumnName+"'");
+                if (newColumnName == "stage")
+                    Console.Write("");
             }
             else
             {
@@ -155,27 +211,6 @@ namespace Reclamation.TimeSeries.RatingTables
             return rval;
         }
 
-        /// <summary>
-        /// search first row for cbtt i.e. 'CBTT:  YRWW'
-        /// </summary>
-        /// <param name="tbl"></param>
-        /// <returns></returns>
-        private static string GetCbtt(DataTable tbl)
-        {
-            var cbtt = "";
-            for (int i = 0; i < tbl.Columns.Count; i++)
-            {
-                object o = tbl.Rows[0][i];
-                if (o != DBNull.Value)
-                {
-                    var str = o.ToString().ToLower();
-                    if (str.IndexOf("cbtt:") >= 0) // TO Do: check for 'station' older files
-                    {
-                        cbtt = str.Substring(5).Trim();
-                    }
-                }
-            }
-            return cbtt;
-        }
+         
     }
 }
