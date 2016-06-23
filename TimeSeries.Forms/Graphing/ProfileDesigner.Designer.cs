@@ -52,10 +52,12 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.buttonBack = new System.Windows.Forms.Button();
             this.buttonApply = new System.Windows.Forms.Button();
-            this.chart1 = new Reclamation.TimeSeries.Forms.Graphing.ProfileZedGraph();
-            this.timeSelectorBeginEnd1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
             this.textBoxWaterSurface = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.buttonStop = new System.Windows.Forms.Button();
+            this.chart1 = new Reclamation.TimeSeries.Forms.Graphing.ProfileZedGraph();
+            this.timeSelectorBeginEnd1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -234,13 +236,14 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(197, 515);
+            this.buttonSave.Location = new System.Drawing.Point(196, 515);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.Size = new System.Drawing.Size(68, 23);
             this.buttonSave.TabIndex = 14;
             this.buttonSave.Text = "animate";
             this.toolTip1.SetToolTip(this.buttonSave, "saves animation to a file");
             this.buttonSave.UseVisualStyleBackColor = true;
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // buttonBack
             // 
@@ -263,6 +266,39 @@
             this.buttonApply.UseVisualStyleBackColor = true;
             this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
             // 
+            // textBoxWaterSurface
+            // 
+            this.textBoxWaterSurface.Location = new System.Drawing.Point(124, 279);
+            this.textBoxWaterSurface.Name = "textBoxWaterSurface";
+            this.textBoxWaterSurface.Size = new System.Drawing.Size(100, 20);
+            this.textBoxWaterSurface.TabIndex = 17;
+            this.textBoxWaterSurface.Text = "gcl_fb_daily";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(14, 282);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(104, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "water surface series:";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // buttonStop
+            // 
+            this.buttonStop.Location = new System.Drawing.Point(262, 515);
+            this.buttonStop.Name = "buttonStop";
+            this.buttonStop.Size = new System.Drawing.Size(68, 23);
+            this.buttonStop.TabIndex = 19;
+            this.buttonStop.Text = "stop";
+            this.toolTip1.SetToolTip(this.buttonStop, "saves animation to a file");
+            this.buttonStop.UseVisualStyleBackColor = true;
+            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click);
+            // 
             // chart1
             // 
             this.chart1.Dock = System.Windows.Forms.DockStyle.Right;
@@ -281,28 +317,12 @@
             this.timeSelectorBeginEnd1.T2 = new System.DateTime(2016, 1, 22, 10, 3, 0, 0);
             this.timeSelectorBeginEnd1.TabIndex = 4;
             // 
-            // textBoxWaterSurface
-            // 
-            this.textBoxWaterSurface.Location = new System.Drawing.Point(124, 279);
-            this.textBoxWaterSurface.Name = "textBoxWaterSurface";
-            this.textBoxWaterSurface.Size = new System.Drawing.Size(100, 20);
-            this.textBoxWaterSurface.TabIndex = 17;
-            this.textBoxWaterSurface.Text = "gcl_fb_daily";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 282);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(104, 13);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "water surface series:";
-            // 
             // ProfileDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(887, 635);
+            this.Controls.Add(this.buttonStop);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBoxWaterSurface);
             this.Controls.Add(this.buttonApply);
@@ -353,5 +373,7 @@
         private System.Windows.Forms.Button buttonApply;
         private System.Windows.Forms.TextBox textBoxWaterSurface;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button buttonStop;
     }
 }

@@ -105,6 +105,22 @@ namespace Reclamation.TimeSeries.Forms.Graphing
             UpdateChart();
         }
 
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = true;
+        }
+
+        private void buttonStop_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timeSelectorBeginEnd1.T1 = timeSelectorBeginEnd1.T1.AddDays(1).Date;
+            UpdateChart();
+        }
+
 
      
     }
