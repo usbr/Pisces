@@ -83,6 +83,15 @@ namespace Reclamation.TimeSeries.Forms.Graphing
             {
                 LoadSeriesData();
                 loaded = true;
+                loaded = true;
+                if (this.textBoxStatic1Value.Text != "")
+                    chart1.AddStaticLine(Convert.ToDouble(textBoxStatic1Value.Text),
+                        textBoxStatic1Label.Text, Color.Brown,ZedGraph.SymbolType.Triangle);
+
+                if (this.textBoxStatic2Value.Text != "")
+                    chart1.AddStaticLine(Convert.ToDouble(textBoxStatic2Value.Text),
+                        textBoxStatic2Label.Text, Color.CadetBlue,ZedGraph.SymbolType.Circle);
+
             }
             this.chart1.XAxisText = this.textBoxXlabel.Text;
             chart1.YAxisText = this.textboxYlabel.Text;
@@ -154,6 +163,7 @@ namespace Reclamation.TimeSeries.Forms.Graphing
         private void buttonStop_Click_1(object sender, EventArgs e)
         {
             timer1.Enabled = false;
+            loaded = false;
         }
         
         

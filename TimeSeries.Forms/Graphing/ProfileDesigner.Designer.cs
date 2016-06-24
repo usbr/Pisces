@@ -49,15 +49,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.buttonSave = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonStep = new System.Windows.Forms.Button();
+            this.buttonStop = new System.Windows.Forms.Button();
             this.textBoxWaterSurface = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.textBoxOutputFile = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.buttonStep = new System.Windows.Forms.Button();
-            this.buttonStop = new System.Windows.Forms.Button();
             this.textBoxspeed = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxStatic1Label = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBoxStatic2Label = new System.Windows.Forms.TextBox();
+            this.textBoxStatic1Value = new System.Windows.Forms.TextBox();
+            this.textBoxStatic2Value = new System.Windows.Forms.TextBox();
             this.chart1 = new Reclamation.TimeSeries.Forms.Graphing.ProfileZedGraph();
             this.timeSelector1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
             this.groupBox1.SuspendLayout();
@@ -108,7 +114,7 @@
             this.textBoxXlabel.Name = "textBoxXlabel";
             this.textBoxXlabel.Size = new System.Drawing.Size(113, 20);
             this.textBoxXlabel.TabIndex = 6;
-            this.textBoxXlabel.Text = "water temperature";
+            this.textBoxXlabel.Text = "water temperature (celsius)";
             // 
             // textboxYlabel
             // 
@@ -159,7 +165,7 @@
             this.groupBox1.Controls.Add(this.textBoxXlabel);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.textboxYlabel);
-            this.groupBox1.Location = new System.Drawing.Point(11, 314);
+            this.groupBox1.Location = new System.Drawing.Point(11, 349);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(282, 117);
             this.groupBox1.TabIndex = 11;
@@ -236,9 +242,31 @@
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
+            // buttonStep
+            // 
+            this.buttonStep.Location = new System.Drawing.Point(188, 486);
+            this.buttonStep.Name = "buttonStep";
+            this.buttonStep.Size = new System.Drawing.Size(68, 23);
+            this.buttonStep.TabIndex = 22;
+            this.buttonStep.Text = "step";
+            this.toolTip1.SetToolTip(this.buttonStep, "saves animation to a file");
+            this.buttonStep.UseVisualStyleBackColor = true;
+            this.buttonStep.Click += new System.EventHandler(this.buttonStep_Click);
+            // 
+            // buttonStop
+            // 
+            this.buttonStop.Location = new System.Drawing.Point(263, 515);
+            this.buttonStop.Name = "buttonStop";
+            this.buttonStop.Size = new System.Drawing.Size(68, 23);
+            this.buttonStop.TabIndex = 23;
+            this.buttonStop.Text = "stop";
+            this.toolTip1.SetToolTip(this.buttonStop, "saves animation to a file");
+            this.buttonStop.UseVisualStyleBackColor = true;
+            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click_1);
+            // 
             // textBoxWaterSurface
             // 
-            this.textBoxWaterSurface.Location = new System.Drawing.Point(124, 279);
+            this.textBoxWaterSurface.Location = new System.Drawing.Point(127, 279);
             this.textBoxWaterSurface.Name = "textBoxWaterSurface";
             this.textBoxWaterSurface.Size = new System.Drawing.Size(100, 20);
             this.textBoxWaterSurface.TabIndex = 17;
@@ -275,28 +303,6 @@
             this.label9.TabIndex = 21;
             this.label9.Text = "speed (milli seconds)";
             // 
-            // buttonStep
-            // 
-            this.buttonStep.Location = new System.Drawing.Point(188, 486);
-            this.buttonStep.Name = "buttonStep";
-            this.buttonStep.Size = new System.Drawing.Size(68, 23);
-            this.buttonStep.TabIndex = 22;
-            this.buttonStep.Text = "step";
-            this.toolTip1.SetToolTip(this.buttonStep, "saves animation to a file");
-            this.buttonStep.UseVisualStyleBackColor = true;
-            this.buttonStep.Click += new System.EventHandler(this.buttonStep_Click);
-            // 
-            // buttonStop
-            // 
-            this.buttonStop.Location = new System.Drawing.Point(263, 515);
-            this.buttonStop.Name = "buttonStop";
-            this.buttonStop.Size = new System.Drawing.Size(68, 23);
-            this.buttonStop.TabIndex = 23;
-            this.buttonStop.Text = "stop";
-            this.toolTip1.SetToolTip(this.buttonStop, "saves animation to a file");
-            this.buttonStop.UseVisualStyleBackColor = true;
-            this.buttonStop.Click += new System.EventHandler(this.buttonStop_Click_1);
-            // 
             // textBoxspeed
             // 
             this.textBoxspeed.Location = new System.Drawing.Point(163, 547);
@@ -313,6 +319,56 @@
             this.label10.Size = new System.Drawing.Size(116, 13);
             this.label10.TabIndex = 25;
             this.label10.Text = "speed (frames/second)";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(14, 302);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(57, 13);
+            this.label11.TabIndex = 27;
+            this.label11.Text = "static line1";
+            // 
+            // textBoxStatic1Label
+            // 
+            this.textBoxStatic1Label.Location = new System.Drawing.Point(188, 299);
+            this.textBoxStatic1Label.Name = "textBoxStatic1Label";
+            this.textBoxStatic1Label.Size = new System.Drawing.Size(129, 20);
+            this.textBoxStatic1Label.TabIndex = 26;
+            this.textBoxStatic1Label.Text = "third  power plant intake";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(14, 320);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(57, 13);
+            this.label12.TabIndex = 29;
+            this.label12.Text = "static line2";
+            // 
+            // textBoxStatic2Label
+            // 
+            this.textBoxStatic2Label.Location = new System.Drawing.Point(188, 323);
+            this.textBoxStatic2Label.Name = "textBoxStatic2Label";
+            this.textBoxStatic2Label.Size = new System.Drawing.Size(129, 20);
+            this.textBoxStatic2Label.TabIndex = 28;
+            this.textBoxStatic2Label.Text = "left and right intake";
+            // 
+            // textBoxStatic1Value
+            // 
+            this.textBoxStatic1Value.Location = new System.Drawing.Point(114, 301);
+            this.textBoxStatic1Value.Name = "textBoxStatic1Value";
+            this.textBoxStatic1Value.Size = new System.Drawing.Size(71, 20);
+            this.textBoxStatic1Value.TabIndex = 30;
+            this.textBoxStatic1Value.Text = "1140";
+            // 
+            // textBoxStatic2Value
+            // 
+            this.textBoxStatic2Value.Location = new System.Drawing.Point(114, 323);
+            this.textBoxStatic2Value.Name = "textBoxStatic2Value";
+            this.textBoxStatic2Value.Size = new System.Drawing.Size(71, 20);
+            this.textBoxStatic2Value.TabIndex = 31;
+            this.textBoxStatic2Value.Text = "1041";
             // 
             // chart1
             // 
@@ -337,6 +393,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(887, 635);
+            this.Controls.Add(this.textBoxStatic2Value);
+            this.Controls.Add(this.textBoxStatic1Value);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.textBoxStatic2Label);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.textBoxStatic1Label);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textBoxspeed);
             this.Controls.Add(this.buttonStop);
@@ -394,5 +456,11 @@
         private System.Windows.Forms.Button buttonStop;
         private System.Windows.Forms.TextBox textBoxspeed;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxStatic1Label;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBoxStatic2Label;
+        private System.Windows.Forms.TextBox textBoxStatic1Value;
+        private System.Windows.Forms.TextBox textBoxStatic2Value;
     }
 }

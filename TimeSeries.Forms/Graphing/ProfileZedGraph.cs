@@ -112,6 +112,20 @@ namespace Reclamation.TimeSeries.Forms.Graphing
                  set { chart1.GraphPane.Title.Text = value; }
              }
 
+
+        List<string> staticLabels = new List<string>();
+        List<double> staticValues = new List<double>();
+        List<Color> staticColors = new List<Color>();
+        List<SymbolType> staticSymbols = new List<SymbolType>();
+        public void AddStaticLine(double value, string legend, Color c,SymbolType sym )
+        {
+            staticLabels.Add(legend);
+            staticValues.Add(value);
+            staticColors.Add(c);
+            staticSymbols.Add(sym);
+        }
+
+
         /// <summary>
         /// Plots profile data in the table
         /// firs column is sensor values, second column is sensor depth
@@ -121,7 +135,7 @@ namespace Reclamation.TimeSeries.Forms.Graphing
             double waterSurface=-1, string waterSurfaceLegend="" )
         {
             chart1.GraphPane.CurveList.Clear();
-           
+           var xs = chart1.GraphPane.XAxis.Scale;
            
             PointPairList points = new PointPairList();
             for (int i = 0; i < profileTable.Rows.Count; i++)
@@ -132,13 +146,21 @@ namespace Reclamation.TimeSeries.Forms.Graphing
             if( waterSurface >0)
             {
                 PointPairList ws = new PointPairList();
-                ws.Add(chart1.GraphPane.XAxis.Scale.Min, waterSurface);
-                ws.Add(chart1.GraphPane.XAxis.Scale.Max, waterSurface);
-                chart1.GraphPane.AddCurve(waterSurfaceLegend, ws, Color.Blue);
+                ws.Add(xs.Min, waterSurface);
+                ws.Add(xs.Max, waterSurface);
+                chart1.GraphPane.AddCurve(waterSurfaceLegend, ws, Color.Blue,SymbolType.None);
             }
 
+            chart1.GraphPane.AddCurve(profileLegend, points, Color.Green,SymbolType.Square);
 
-            chart1.GraphPane.AddCurve(profileLegend, points, Color.Green);
+            for (int i = 0; i < staticColors.Count; i++)
+            {
+                PointPairList p = new PointPairList();
+                p.Add(xs.Min, staticValues[i]);
+                p.Add(xs.Min/2+xs.Max/2, staticValues[i]);
+                p.Add(xs.Max, staticValues[i]);
+                chart1.GraphPane.AddCurve(staticLabels[i], p, staticColors[i],staticSymbols[i]);
+            }
 
             RefreshGraph();
 
