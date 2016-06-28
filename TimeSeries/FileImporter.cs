@@ -10,12 +10,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HydrometServer
+namespace Reclamation.TimeSeries
 {
     /// <summary>
     /// Imports 15 minute data, and performs calculations that depend on the imported data.
     /// </summary>
-    class FileImporter
+    public class FileImporter
     {
         private TimeSeriesDatabase m_db;
         private bool m_computeDailyOnMidnight=false;
@@ -33,7 +33,7 @@ namespace HydrometServer
             validSites = ConfigurationManager.AppSettings["ValidLoggerNetSites"].Replace(" ", "").Replace("\r\n", "").Split(',');
         }
         
-        internal void Import( string path, RouteOptions routing=RouteOptions.None,
+        public void Import( string path, RouteOptions routing=RouteOptions.None,
             bool computeDependencies = false, bool computeDailyOnMidnight = false, string searchPattern = "*.*")
         {
             this.m_computeDailyOnMidnight = computeDailyOnMidnight;

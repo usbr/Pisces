@@ -9,6 +9,7 @@ using System.Configuration;
 using System.IO;
 using System.Windows.Forms;
 using Mono.Options;
+using Reclamation.TimeSeries.AgriMet;
 
 namespace HydrometServer
 {   
@@ -73,6 +74,20 @@ namespace HydrometServer
                 }
                 return;
             }
+
+                if( args.Contains("run-crop-charts"))
+                {
+                    var str_yr = args["run-crop-charts"];
+                    int year = DateTime.Now.Year;
+                    if (str_yr != "")
+                        year = Convert.ToInt32(str_yr);
+
+                    string dir = CropDatesDataSet.GetCropOutputDirectory(year);
+                    Logger.WriteLine("output dir = " + dir);
+                    CropChartGenerator.CreateCropReports(year, dir);
+                    return;
+                }
+
 
 
             // setup connection to Database
@@ -333,6 +348,8 @@ namespace HydrometServer
             Console.WriteLine("--update-daily=HydrometDailySeries");
             Console.WriteLine("--update-period-of-record");
             Console.WriteLine("          updates series properties with t1 and t2 for the data");
+            Console.WriteLine("--run-crop-charts=2016   --run-crop-charts (defaults to current calendar year)");
+            Console.WriteLine("        runs crop charts");
 
             // --update-daily=HydrometDailySeries --t1=lastyear
             // --update-daily=HDBDailySeries  --t2=yesterday

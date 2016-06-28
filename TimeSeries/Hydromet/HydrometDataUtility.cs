@@ -296,37 +296,6 @@ namespace Reclamation.TimeSeries.Hydromet
             }
         }
 
-        //static int Find(string[] array, string findMe)
-        //{
-        //int sz = array.Length;
-        //    int rval =-1;
-        //    for(int i=0; i<sz; i++)
-        //    {
-        //        if(array[i].IndexOf(findMe)>=0)
-        //        {
-        //            rval = i;
-        //            break;
-        //        }
-        //    }
-
-        //return rval;
-        //}
-
-
-		static string[] MakeDates()
-		{
-			// make generic set of dates. using 2000.
-		string[] rval = new string[365];
-
-			DateTime date = new DateTime(2000,10,1);
-			for(int i=0; i<365; i++)
-			{
-				rval[i] = date.ToString("MM/dd/yyyy");
-				date = date.AddDays(1);
-			}
-			
-			return rval;
-		}
 
 
         public static int WriteArchiveUpdateFile(DataTable tblNew, DataTable tblOld, string outputFilename, out string[] modifiedCbtt, out string[] modifiedPcodes,out DateRange range)

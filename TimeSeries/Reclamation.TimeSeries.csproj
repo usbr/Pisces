@@ -311,6 +311,7 @@
     <Compile Include="BpaHydsim\HydSimScenarioPicker.Designer.cs">
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileImporter.cs" />
     <Compile Include="HDB\HDBSeries.cs" />
     <Compile Include="PiscesMeasurement.cs" />
     <Compile Include="Profile\WaterProfileDatabase.cs" />
@@ -728,9 +729,6 @@
     <EmbeddedResource Include="ScenarioPicker\ScenarioPicker.resx">
       <DependentUpon>ScenarioPicker.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="..\Pisces_open\Private.config">
-      <Link>Private.config</Link>
-    </None>
     <None Include="AgriMet\CropDatesDataSet.xsc">
       <DependentUpon>CropDatesDataSet.xsd</DependentUpon>
     </None>
