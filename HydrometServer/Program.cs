@@ -84,7 +84,7 @@ namespace HydrometServer
 
                     string dir = CropDatesDataSet.GetCropOutputDirectory(year);
                     Logger.WriteLine("output dir = " + dir);
-                    CropChartGenerator.CreateCropReports(year, dir);
+                    CropChartGenerator.CreateCropReports(year, dir, HydrometHost.PNLinux);
                     return;
                 }
 
