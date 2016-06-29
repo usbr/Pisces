@@ -14,7 +14,7 @@ namespace Reclamation.TimeSeries.AgriMet
     /// </summary>
     public class CropChartGenerator
     {
-        private static HydrometHost s_host = HydrometHost.PNLinux;
+        private static HydrometHost s_host;
         /// <summary>
         /// Creates Daily and Summary Crop Reports 
         /// </summary>
@@ -201,7 +201,7 @@ namespace Reclamation.TimeSeries.AgriMet
             tbl.Columns.Add("7 Day Sum");
             tbl.Columns.Add("14 Day Sum");
 
-            var et = new HydrometDailySeries(cbtt, "ETRS", host);
+            var et = new HydrometDailySeries(cbtt, "ETRS", s_host);
 
          
             // Below is the calculation to determine how many days to read back. Set to calculate based on ETr Start Date.
@@ -276,7 +276,7 @@ namespace Reclamation.TimeSeries.AgriMet
                             + t.AddDays(-1).Day.ToString().PadLeft(5)
                         + "  *      *     *     *      *    *     *");
 
-            var et = new HydrometDailySeries(cbtt, "ETRS", host);
+            var et = new HydrometDailySeries(cbtt, "ETRS", s_host);
             //var et = new KimberlyPenmanEtSeries(cbtt);
 
             // Below is the calculation to determine how many days to read back. Set to calculate based on ETr Start Date.
@@ -327,7 +327,7 @@ namespace Reclamation.TimeSeries.AgriMet
 
             //var cropRow = CropDatesDataSet.GetCropFiles(t.Year, cbtt); 
 
-            var et = new HydrometDailySeries(cbtt, "ETRS", host);
+            var et = new HydrometDailySeries(cbtt, "ETRS", s_host);
             //var et = new KimberlyPenmanEtSeries(cbtt);
 
             // Below is the calculation to determine how many days to read back. Set to calculate based on ETr Start Date.
