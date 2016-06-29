@@ -14,7 +14,7 @@ namespace Reclamation.TimeSeries.AgriMet
     /// </summary>
     public class CropChartGenerator
     {
-        private static HydrometHost host = HydrometHost.PNLinux;
+        private static HydrometHost s_host = HydrometHost.PNLinux;
         /// <summary>
         /// Creates Daily and Summary Crop Reports 
         /// </summary>
@@ -23,7 +23,7 @@ namespace Reclamation.TimeSeries.AgriMet
         /// <param name="date">terminate date (or if null use etr terminate date)</param>
         public static void CreateCropReports(int year, string outputDirectory, HydrometHost host=HydrometHost.PN)
         {
-            
+            s_host = host;
             CropDatesDataSet.CropDatesDataTable  cropTable= new CropDatesDataSet.CropDatesDataTable();
 
             cropTable = CropDatesDataSet.GetCropDataTable(year,false); 
