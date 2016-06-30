@@ -30,7 +30,8 @@ namespace Pisces.NunitTests.SeriesMath
 
 
         /// <summary>
-        /// This test imports data over 3 days, but only includes a single full day
+        /// This test imports data over 3 days, 
+        /// but only includes a single full day
         /// of data.
         ///  10/6/2014 --- partial day, begins 12:15 
         ///  10/7/2014 -- full day 
@@ -86,11 +87,11 @@ namespace Pisces.NunitTests.SeriesMath
             c.Add("10-3-2014", 0);
             c.Add("10-4-2014", 0);
             c.Add("10-5-2014", 0);
-            c.Add("10-6-2014", 0);
+            c.Add("10-6-2014", 5);
             db.AddSeries(c);
             c = db.GetSeriesFromTableName("daily_wrdo_pu");
 
-            c.Properties.Set("DaysBack", "7");
+            c.Properties.Set("DaysBack", "4");
             c.Properties.Save();
             c = new CalculationSeries("daily_wrdo_mx");
             c.Expression = "DailyMax(instant_wrdo_obx)";
@@ -129,12 +130,12 @@ namespace Pisces.NunitTests.SeriesMath
 
             s = db.GetSeriesFromTableName("daily_wrdo_et");
             s.Read();
-            Assert.AreEqual(s["10-7-2014"].Value,0.16,0.01,"Error with ET");
+            Assert.AreEqual(0.16,s["10-7-2014"].Value,0.01,"Error with ET");
 
 
             s = db.GetSeriesFromTableName("daily_wrdo_pu");
             s.Read();
-            Assert.AreEqual(s["10-7-2014"].Value, 0, 0.02, "Error with pu");
+            Assert.AreEqual(0,s["10-7-2014"].Value, 0.02, "Error with pu");
 
 
         }

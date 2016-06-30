@@ -89,6 +89,13 @@ namespace PiscesWebServices.CGI
             if (c.AllKeys.Contains("format"))
                 rval += "&format=" + c["format"];
 
+            if (c.AllKeys.Contains("header"))
+                rval += "&header=" + c["header"];
+
+            if (c.AllKeys.Contains("flags"))
+                rval += "&flags=" + c["flags"];
+
+
             return rval.ToLower();
         }
 
