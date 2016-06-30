@@ -83,6 +83,8 @@ namespace Reclamation.TimeSeries
 
         public Series GetSeries(TimeSeriesDatabaseDataSet.SeriesCatalogRow sr)
         {
+            if (db.Settings.ReadBoolean("VerboseLogging", false))
+                Logger.EnableLogger();
 
             Series s = null;// = new Series(sr, db);
             int sdi = sr.id;

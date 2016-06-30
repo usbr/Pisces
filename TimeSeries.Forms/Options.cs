@@ -119,5 +119,12 @@ namespace Reclamation.TimeSeries.Forms
             get { return checkBoxHydrometVariableResolver.Checked; }
             set { this.checkBoxHydrometVariableResolver.Checked = value; }
         }
+
+        public bool VerboseLogging 
+        {
+            get { return checkBoxVerboseLogging.Checked; }
+            set { this.checkBoxVerboseLogging.Checked = value; }
+        }
+
     }
 }

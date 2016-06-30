@@ -55,6 +55,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBoxHydrometVariableResolver = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBoxVerboseLogging = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -167,6 +168,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkBoxVerboseLogging);
             this.tabPage2.Controls.Add(this.checkBoxMultiYAxis);
             this.tabPage2.Controls.Add(this.checkBoxAutoRefresh);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -346,6 +348,16 @@
         "nts)");
             this.checkBoxHydrometVariableResolver.UseVisualStyleBackColor = true;
             // 
+            // checkBoxVerboseLogging
+            // 
+            this.checkBoxVerboseLogging.AutoSize = true;
+            this.checkBoxVerboseLogging.Location = new System.Drawing.Point(31, 132);
+            this.checkBoxVerboseLogging.Name = "checkBoxVerboseLogging";
+            this.checkBoxVerboseLogging.Size = new System.Drawing.Size(101, 17);
+            this.checkBoxVerboseLogging.TabIndex = 2;
+            this.checkBoxVerboseLogging.Text = "verbose logging";
+            this.checkBoxVerboseLogging.UseVisualStyleBackColor = true;
+            // 
             // Options
             // 
             this.AcceptButton = this.buttonOK;
@@ -408,5 +420,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox checkBoxHydrometVariableResolver;
         private Hydromet.ServerSelection serverSelection1;
+        private System.Windows.Forms.CheckBox checkBoxVerboseLogging;
     }
 }

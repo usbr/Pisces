@@ -904,6 +904,7 @@ namespace Reclamation.TimeSeries.Forms
 #endif
             o.AutoRefresh = DB.AutoRefresh;
             o.HydrometVariableResolver = DB.Settings.ReadBoolean("HydrometVariableResolver", false);
+            o.VerboseLogging = DB.Settings.ReadBoolean("VerboseLogging", false);
             
 
             if (o.ShowDialog() == DialogResult.OK)
@@ -916,6 +917,7 @@ namespace Reclamation.TimeSeries.Forms
                 DB.Settings.Set("DecodesOutputDirectory", o.DecodesOutputDirectory);
                 DB.Settings.Set("MultipleYAxis", o.MultipleYAxis);
                 DB.Settings.Set("HydrometVariableResolver", o.HydrometVariableResolver);
+                DB.Settings.Set("VerboseLogging", o.VerboseLogging);
                 Usgs.Utility.AutoUpdate = o.UsgsDailyAutoUpdate;
                 Modsim.ModsimSeries.DisplayFlowInCfs = o.ModsimDisplayFlowInCfs;
                 #if !PISCES_OPEN
