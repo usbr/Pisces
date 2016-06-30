@@ -452,8 +452,6 @@
     <Compile Include="Hydromet\MpollRecord.cs" />
     <Compile Include="Hydromet\Operations\ResidualForecast.cs" />
     <Compile Include="Hydromet\Operations\RuleCurveFactory.cs" />
-    <Compile Include="Hydromet\SutronRatingTable.cs" />
-    <Compile Include="Hydromet\SutronRatingTableRecord.cs" />
     <Compile Include="Hydromet\Tests\TestForecasting.cs" />
     <Compile Include="IdahoPower\IdahoPowerRatingTables.cs" />
     <Compile Include="Math.Estimation.cs" />
