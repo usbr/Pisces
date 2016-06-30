@@ -25,7 +25,7 @@ namespace Pisces.NunitTests.SeriesMath
             string fn = FileUtility.GetTempFileName(".pdb");
             Console.WriteLine(fn);
             var svr = new SQLiteServer(fn);
-            db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName);
+            db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName,false);
         }
 
 
@@ -114,7 +114,7 @@ namespace Pisces.NunitTests.SeriesMath
 
 
             c = new CalculationSeries("daily_wrdo_et");
-            c.SiteID = "wrdo"; // needed fore expression pre-processor with  %site% 
+            c.SiteID = "wrdo"; // needed for expression pre-processor with  %site% 
             c.Expression = "DailyEtKimberlyPenman(daily_%site%_mm,daily_%site%_mn,daily_%site%_mx,daily_%site%_ym,daily_%site%_wr,daily_%site%_sr,42.0125,1243.58)";
             c.TimeInterval = TimeInterval.Daily;
             db.AddSeries(c);

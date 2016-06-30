@@ -64,6 +64,13 @@ namespace Reclamation.TimeSeries
         TimeSeriesDatabaseSettings m_settings;
         SeriesExpressionParser m_parser;
         Quality m_quality;
+        bool m_readOnly;
+
+        public bool ReadOnly
+        {
+            get { return m_readOnly; }
+            set { m_readOnly = value; }
+        }
 
         public Quality Quality
         {
@@ -128,8 +135,9 @@ namespace Reclamation.TimeSeries
         /// Constructor of TimeSeriesDatabase
         /// </summary>
         /// <param name="server"></param>
-        public TimeSeriesDatabase(BasicDBServer server)
+        public TimeSeriesDatabase(BasicDBServer server, bool readOnly=false)
         {
+            ReadOnly = readOnly;
             InitDatabaseSettings(server);
 
             LookupOption lookup = LookupOption.SeriesName;
@@ -148,8 +156,9 @@ namespace Reclamation.TimeSeries
         /// Constructor of TimeSeriesDatabase
         /// </summary>
         /// <param name="server"></param>
-        public TimeSeriesDatabase(BasicDBServer server, LookupOption lookup = LookupOption.SeriesName)
+        public TimeSeriesDatabase(BasicDBServer server, LookupOption lookup , bool readOnly)
         {
+            ReadOnly = readOnly;
             InitDatabaseSettings(server);
             InitWithLookup(server, lookup);
         }
@@ -191,7 +200,10 @@ namespace Reclamation.TimeSeries
                 UpgradeV1ToV2();
             }
 
-            CreateTablesWithSQL();
+            if (!ReadOnly)
+            {
+                CreateTablesWithSQL();
+            }
             InitSettings();
 
             CreateRootFolder();
@@ -829,6 +841,11 @@ namespace Reclamation.TimeSeries
         /// <returns>nubmer of series points updated</returns>
         public int SaveTimeSeriesTable(int sdi, Series s, DatabaseSaveOptions option)
         {
+            if(ReadOnly )
+            {
+                Logger.WriteLine("Error: SaveTimeSeriesTable ignored because of ReadOnly setting");
+                return 0;
+            }
             SeriesCatalogRow si = GetSeriesRow(sdi);
             // I think we should set overwrite to true for all cases?
             // However, there would be performance penalty in cases

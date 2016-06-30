@@ -71,7 +71,7 @@ namespace Reclamation.TimeSeries
 
         public void Connect(BasicDBServer svr)
         {
-            m_db = new TimeSeriesDatabase(svr);
+            m_db = new TimeSeriesDatabase(svr,false);
             Defaults(m_db);
             m_db.ReadSettingsFromDatabase(TimeWindow);
         }

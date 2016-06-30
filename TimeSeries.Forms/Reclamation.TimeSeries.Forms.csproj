@@ -172,6 +172,10 @@
     <Optimize>False</Optimize>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BumpKit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bumpkit.1.0.2\lib\BumpKit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DgvFilterPopup">
       <HintPath>..\ThirdParty\DgvFilterPopup.dll</HintPath>
     </Reference>
@@ -242,11 +246,23 @@
     </Compile>
     <Compile Include="Graphing\IGraphDataLoader.cs" />
     <Compile Include="Graphing\ITimeSeriesGraph.cs" />
+    <Compile Include="Graphing\ProfileDesigner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Graphing\ProfileDesigner.Designer.cs">
+      <DependentUpon>ProfileDesigner.cs</DependentUpon>
+    </Compile>
     <Compile Include="Graphing\RatingTableZedGraph.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Graphing\RatingTableZedGraph.Designer.cs">
       <DependentUpon>RatingTableZedGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphing\ProfileZedGraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\ProfileZedGraph.Designer.cs">
+      <DependentUpon>ProfileZedGraph.cs</DependentUpon>
     </Compile>
     <Compile Include="Graphing\TimeSeriesZedGraph.cs">
       <SubType>UserControl</SubType>
@@ -650,8 +666,14 @@
       <DependentUpon>GraphExplorerView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\ProfileDesigner.resx">
+      <DependentUpon>ProfileDesigner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Graphing\RatingTableZedGraph.resx">
       <DependentUpon>RatingTableZedGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\ProfileZedGraph.resx">
+      <DependentUpon>ProfileZedGraph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Graphing\TimeSeriesZedGraph.resx">
       <DependentUpon>TimeSeriesZedGraph.cs</DependentUpon>

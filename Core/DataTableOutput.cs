@@ -109,7 +109,11 @@ namespace Reclamation.Core
             sr.Close();
         }
 
-     
+        public static string ToHTML(DataTable dt, bool border = true, string title = "")
+        {
+            return ToHTML(dt, FormatCell, border, title);
+        }
+
         public static string ToHTML(DataTable dt, Func<DataColumn ,DataRow, string, string> f, bool border = true,string title="")
         {
             

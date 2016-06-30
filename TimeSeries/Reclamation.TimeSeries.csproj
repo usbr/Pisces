@@ -311,8 +311,14 @@
     <Compile Include="BpaHydsim\HydSimScenarioPicker.Designer.cs">
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileImporter.cs" />
     <Compile Include="HDB\HDBSeries.cs" />
     <Compile Include="PiscesMeasurement.cs" />
+    <Compile Include="Profile\WaterProfileDatabase.cs" />
+    <Compile Include="RatingTables\MeasurementsDataSet.cs">
+      <DependentUpon>MeasurementsDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RatingTables\MeasurementsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -446,8 +452,6 @@
     <Compile Include="Hydromet\MpollRecord.cs" />
     <Compile Include="Hydromet\Operations\ResidualForecast.cs" />
     <Compile Include="Hydromet\Operations\RuleCurveFactory.cs" />
-    <Compile Include="Hydromet\SutronRatingTable.cs" />
-    <Compile Include="Hydromet\SutronRatingTableRecord.cs" />
     <Compile Include="Hydromet\Tests\TestForecasting.cs" />
     <Compile Include="IdahoPower\IdahoPowerRatingTables.cs" />
     <Compile Include="Math.Estimation.cs" />
@@ -723,9 +727,6 @@
     <EmbeddedResource Include="ScenarioPicker\ScenarioPicker.resx">
       <DependentUpon>ScenarioPicker.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="..\Pisces_open\Private.config">
-      <Link>Private.config</Link>
-    </None>
     <None Include="AgriMet\CropDatesDataSet.xsc">
       <DependentUpon>CropDatesDataSet.xsd</DependentUpon>
     </None>

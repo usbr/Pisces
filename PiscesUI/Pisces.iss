@@ -13,7 +13,7 @@ VersionInfoTextVersion={#FileVerStr}
 OutputBaseFilename=Pisces2-setup
 
 
-LicenseFile=.\..\license.md
+LicenseFile=..\license.md
 
 DefaultDirName={sd}\Pisces2
 DefaultGroupName=Pisces
@@ -63,8 +63,8 @@ Source:  ".\bin\debug\Mono.Security.dll";   DestDir: "{app}";   Flags: ignorever
 Source:  ".\bin\debug\DgvFilterPopup.dll";   DestDir: "{app}";   Flags: ignoreversion
 
 ; ORACLE
-Source:  "..\PaidThirdParty\Devart.Data.Oracle.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\PaidThirdParty\Devart.Data.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "C:\Program Files (x86)\Common Files\Devart\dotConnect\5.00\Net2\Common\Devart.Data.Oracle.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "C:\Program Files (x86)\Common Files\Devart\dotConnect\5.00\Net2\Common\Devart.Data.dll";   DestDir: "{app}";   Flags: ignoreversion
 
 Source:  "t:\PN6200\Hydromet\ConfigurationData\gp\*.*";   DestDir: "{app}\gp";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\yak\*.*";   DestDir: "{app}\yak";   Flags: ignoreversion

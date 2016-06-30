@@ -20,7 +20,7 @@ namespace Reclamation.TimeSeries.Parser.Tests
            SQLiteServer.CreateNewDatabase(fn);
            var svr = new SQLiteServer(fn);
 
-           db = new TimeSeriesDatabase(svr);
+           db = new TimeSeriesDatabase(svr,false);
         }
 
 

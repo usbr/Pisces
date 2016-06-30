@@ -21,13 +21,13 @@ namespace Pisces.NunitTests.Database
             File.Delete(fnString);
             int size = 5;
             var server1 = new SQLiteServer(fnUnix);
-            var db1 = new TimeSeriesDatabase(server1);
+            var db1 = new TimeSeriesDatabase(server1,false);
             db1.UnixDateTime = true;
             db1.AddSeries(CreateSeries(size));
             ReadSeries(db1,size);
 
             var server = new SQLiteServer(fnString);
-            var db = new TimeSeriesDatabase(server);
+            var db = new TimeSeriesDatabase(server,false);
             db.AddSeries(CreateSeries(size));
             ReadSeries(db,size);
 

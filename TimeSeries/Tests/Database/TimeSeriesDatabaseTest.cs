@@ -38,7 +38,7 @@ namespace Pisces.NunitTests.Database
 
             SQLiteServer.CreateNewDatabase(fn);
             SQLiteServer svr = new SQLiteServer(fn);
-            db = new TimeSeriesDatabase(svr);
+            db = new TimeSeriesDatabase(svr,false);
 
             //string dataPath = ReclamationTesting.Properties.Settings.Default.DataPath;
             string dataPath = TestData.DataPath;

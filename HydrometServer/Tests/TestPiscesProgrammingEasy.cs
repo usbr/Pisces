@@ -35,7 +35,7 @@ namespace Pisces.NunitTests.SeriesMath
 
             Console.WriteLine(filename);
             var server = new SQLiteServer(filename);
-            var db = new TimeSeriesDatabase(server);
+            var db = new TimeSeriesDatabase(server,false);
 
             // create a folder for each month
             for (int i = 1; i <= 12; i++)
@@ -57,9 +57,15 @@ namespace Pisces.NunitTests.SeriesMath
             var feb = db.GetOrCreateFolder("Months", "February");
             db.AddSeries(s, feb);
 
+            var csvFileName = FileUtility.GetTempFileName(".csv");
 
+            File.WriteAllLines(csvFileName, new string[]
+                {
+                    "Date,value",
+                    "1-1-2001, 12.34"
+                });
             // Add Csv file data to March Folder.
-            s = new TextSeries(@"c:\temp\test_river.csv");
+            s = new TextSeries(csvFileName);
             s.Read();// read data.  Use Read(t1,t2) to limit by dates
             s.SiteID = "test";
             s.Units = "cfs";

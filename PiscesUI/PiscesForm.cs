@@ -13,6 +13,7 @@ using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.Hydromet;
 using System.IO;
 using Reclamation.TimeSeries.Forms.RatingTables;
+using Reclamation.TimeSeries.Forms.Graphing;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -1022,6 +1023,12 @@ namespace Reclamation.TimeSeries.Forms
             }
             else
                 return;
+        }
+
+        private void toolStripProfileTool_Click(object sender, EventArgs e)
+        {
+            ProfileDesigner d = new ProfileDesigner(DB);
+            d.Show();
         }
 
         

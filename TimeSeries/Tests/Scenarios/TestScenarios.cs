@@ -22,7 +22,7 @@ namespace Reclamation.TimeSeries.Tests.Scenarios
             var fn1 = FileUtility.GetTempFileName(".pdb");
 
             SQLiteServer svr = new SQLiteServer(fn1);
-            var db = new TimeSeriesDatabase(svr);
+            var db = new TimeSeriesDatabase(svr,false);
             ds.Import(fn, db);
 
             Assert.IsTrue(ds.ScenarioMapping.Count == 1);

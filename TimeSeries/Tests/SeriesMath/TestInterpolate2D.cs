@@ -49,7 +49,7 @@ namespace Pisces.NunitTests.SeriesMath
             File.Delete(fn);
 
             SQLiteServer svr = new SQLiteServer(fn);
-            var db = new TimeSeriesDatabase(svr );
+            var db = new TimeSeriesDatabase(svr,false );
 
             var c = new CalculationSeries("rir_q");
             var path = Path.Combine(Globals.TestDataPath, "rating_tables");

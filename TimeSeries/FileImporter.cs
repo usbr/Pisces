@@ -10,12 +10,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace HydrometServer
+namespace Reclamation.TimeSeries
 {
     /// <summary>
     /// Imports 15 minute data, and performs calculations that depend on the imported data.
     /// </summary>
-    class FileImporter
+    public class FileImporter
     {
         private TimeSeriesDatabase m_db;
         private bool m_computeDailyOnMidnight=false;
@@ -32,8 +32,17 @@ namespace HydrometServer
             if (ConfigurationManager.AppSettings["ValidLoggerNetSites"] != null)
             validSites = ConfigurationManager.AppSettings["ValidLoggerNetSites"].Replace(" ", "").Replace("\r\n", "").Split(',');
         }
-        
-        internal void Import( string path, RouteOptions routing=RouteOptions.None,
+
+
+        public void ImportFile(string fileName, RouteOptions routing = RouteOptions.None,
+           bool computeDependencies = false, bool computeDailyOnMidnight = false, string searchPattern = "*.*")
+        {
+            this.m_computeDailyOnMidnight = computeDailyOnMidnight;
+            this.m_computeDependencies = computeDependencies;
+            Console.WriteLine(fileName);
+            ProcessFile(routing, fileName);
+        }
+        public void Import( string path, RouteOptions routing=RouteOptions.None,
             bool computeDependencies = false, bool computeDailyOnMidnight = false, string searchPattern = "*.*")
         {
             this.m_computeDailyOnMidnight = computeDailyOnMidnight;
@@ -47,26 +56,26 @@ namespace HydrometServer
             Console.WriteLine("Found "+ordered.Count()+" files to import");
             foreach (var fi in ordered) 
             {
-                ProcessFile(routing, fi);
+                var fn = fi.FullName;
+
+                if (fi.CreationTime.AddSeconds(2) > DateTime.Now)
+                {
+                    Console.WriteLine(" skipping file newer than 2 seconds ago " + fn + " " + fi.CreationTime);
+                    continue;
+                }
+                ProcessFile(routing, fi.FullName);
             }
           // needs .net 4.0 System.Threading.Tasks.Parallel.ForEach(ordered,(fi) => ProcessFile(routing,fi));
 
         }
 
-        private void ProcessFile(RouteOptions routing, FileSystemInfo fi)
+        private void ProcessFile(RouteOptions routing, string fileName)
         {
-            var fn = fi.FullName;
-            string dir = System.IO.Path.GetDirectoryName(fn);
-
-            if (fi.CreationTime.AddSeconds(2) > DateTime.Now)
-            {
-                Console.WriteLine(" skipping file newer than 2 seconds ago " + fn+ " "+fi.CreationTime);
-                return;
-            }
+            
             string importTag = "import"; // used to make friendly export filename
             try
             {
-                TextFile tf = new TextFile(fi.FullName);
+                TextFile tf = new TextFile(fileName);
                 SeriesList sl = new SeriesList();
 
                 if (HydrometInstantSeries.IsValidDMS3(tf)) 
@@ -92,12 +101,12 @@ namespace HydrometServer
                 }
                 else
                 {
-                    Console.WriteLine("skipped Unknown File Format: " + fn);
+                    Console.WriteLine("skipped Unknown File Format: " + fileName);
                     return;
                 }
 
                 m_importer = new TimeSeriesImporter(m_db, routing);
-                Console.WriteLine("Found " + sl.Count + " series in " + fn);
+                Console.WriteLine("Found " + sl.Count + " series in " + fileName);
                 foreach (var item in sl)
                 {
                     Logger.WriteLine(item.Table.TableName);
@@ -106,15 +115,15 @@ namespace HydrometServer
                 if (sl.Count > 0)
                 {
                     m_importer.Import(sl, m_computeDependencies, m_computeDailyOnMidnight,importTag);
-                    FileUtility.MoveToSubDirectory(Path.GetDirectoryName(fn), "attic", fn);
+                    FileUtility.MoveToSubDirectory(Path.GetDirectoryName(fileName), "attic", fileName);
                 }
 
             }
             catch (Exception ex)
             {
                 Logger.WriteLine("Error:" + ex.Message);
-                Console.WriteLine("Error:  skipping file, will move to error subdirectory " + fn);
-                FileUtility.MoveToSubDirectory(Path.GetDirectoryName(fn), "error", fn);
+                Console.WriteLine("Error:  skipping file, will move to error subdirectory " + fileName);
+                FileUtility.MoveToSubDirectory(Path.GetDirectoryName(fileName), "error", fileName);
 
             }
         }

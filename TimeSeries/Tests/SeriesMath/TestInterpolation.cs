@@ -136,7 +136,7 @@ namespace Pisces.NunitTests.SeriesMath
             ZipFile.UnzipFile(zipFile, path);
 
             Reclamation.Core.SQLiteServer pDB = new Reclamation.Core.SQLiteServer(path);
-            TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB);
+            TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB,false);
             Series sReal = DB.GetSeriesFromName("SS_Day_Mean"); sReal.Read();
             Series sEst = DB.GetSeriesFromName("TS_Mon_Mean"); sEst.Read();
 

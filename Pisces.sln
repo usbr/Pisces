@@ -26,10 +26,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PiscesWebServices", "Pisces
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pisces", "PiscesUI\Pisces.csproj", "{60537C98-6E33-42F7-9B7D-9B326ABC019E}"
 EndProject
+<<<<<<< HEAD
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProcessHydrometEmail", "ReadGmailUsingIMap\ProcessHydrometEmail.csproj", "{C51C9443-95C6-49B2-A194-D794A25DC4F8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rwis.Sync", "Rwis.Sync\Rwis.Sync.csproj", "{D2B37530-5D24-4772-8480-325920744643}"
 EndProject
+=======
+>>>>>>> 32779610edab02eafbf96fa9987f0893ac31765c
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -316,6 +319,7 @@ Global
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.WatchDog|Mixed Platforms.Build.0 = WatchDog|x86
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.WatchDog|x86.ActiveCfg = WatchDog|x86
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.WatchDog|x86.Build.0 = WatchDog|x86
+<<<<<<< HEAD
 		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C51C9443-95C6-49B2-A194-D794A25DC4F8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -382,6 +386,8 @@ Global
 		{D2B37530-5D24-4772-8480-325920744643}.WatchDog|Mixed Platforms.Build.0 = Release|Any CPU
 		{D2B37530-5D24-4772-8480-325920744643}.WatchDog|x86.ActiveCfg = Release|Any CPU
 		{D2B37530-5D24-4772-8480-325920744643}.WatchDog|x86.Build.0 = Release|Any CPU
+=======
+>>>>>>> 32779610edab02eafbf96fa9987f0893ac31765c
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

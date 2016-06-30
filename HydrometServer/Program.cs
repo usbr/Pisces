@@ -9,6 +9,7 @@ using System.Configuration;
 using System.IO;
 using System.Windows.Forms;
 using Mono.Options;
+using Reclamation.TimeSeries.AgriMet;
 
 namespace HydrometServer
 {   
@@ -21,7 +22,7 @@ namespace HydrometServer
     {
         static void Main(string[] argList)
         {
-            Console.Write("HydrometServer " + Application.ProductVersion +" " + AssemblyUtility.CreationDate()+"\n");
+            Console.Write("HydrometServer " + Application.ProductVersion +"\n compiled: " + AssemblyUtility.CreationDate()+"\n");
 
             Arguments args = new Arguments(argList);
             var p = new OptionSet();
@@ -73,6 +74,20 @@ namespace HydrometServer
                 }
                 return;
             }
+
+                if( args.Contains("run-crop-charts"))
+                {
+                    var str_yr = args["run-crop-charts"];
+                    int year = DateTime.Now.Year;
+                    if (str_yr != "")
+                        year = Convert.ToInt32(str_yr);
+
+                    string dir = CropDatesDataSet.GetCropOutputDirectory(year);
+                    Logger.WriteLine("output dir = " + dir);
+                    CropChartGenerator.CreateCropReports(year, dir, HydrometHost.PNLinux);
+                    return;
+                }
+
 
 
             // setup connection to Database
@@ -266,7 +281,7 @@ namespace HydrometServer
 
             var mem = GC.GetTotalMemory(true);
             double mb = mem / 1024.0 / 1024.0;
-            Console.WriteLine("Mem Usage: " + mb.ToString("F3") + " Mb");
+            Console.WriteLine("Memory Usage: " + mb.ToString("F3") + " Mb");
             perf.Report("HydrometServer: finished ");
         }
 
@@ -333,6 +348,8 @@ namespace HydrometServer
             Console.WriteLine("--update-daily=HydrometDailySeries");
             Console.WriteLine("--update-period-of-record");
             Console.WriteLine("          updates series properties with t1 and t2 for the data");
+            Console.WriteLine("--run-crop-charts=2016   --run-crop-charts (defaults to current calendar year)");
+            Console.WriteLine("        runs crop charts");
 
             // --update-daily=HydrometDailySeries --t1=lastyear
             // --update-daily=HDBDailySeries  --t2=yesterday

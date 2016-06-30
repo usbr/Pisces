@@ -14,15 +14,16 @@ namespace Reclamation.TimeSeries.AgriMet
     /// </summary>
     public class CropChartGenerator
     {
-
+        private static HydrometHost s_host;
         /// <summary>
         /// Creates Daily and Summary Crop Reports 
         /// </summary>
         /// <param name="cbttList">list of cbtt to create charts for</param>
         /// <param name="year">year used to filter database of crop dates</param>
         /// <param name="date">terminate date (or if null use etr terminate date)</param>
-        public static void CreateCropReports(int year, string outputDirectory)
+        public static void CreateCropReports(int year, string outputDirectory, HydrometHost host=HydrometHost.PN)
         {
+            s_host = host;
             CropDatesDataSet.CropDatesDataTable  cropTable= new CropDatesDataSet.CropDatesDataTable();
 
             cropTable = CropDatesDataSet.GetCropDataTable(year,false); 
@@ -41,7 +42,7 @@ namespace Reclamation.TimeSeries.AgriMet
                 if (t2 > DateTime.Now.Date)
                     t2 = DateTime.Now.Date;
 
-                cache.Add(cbttPcode, t1, t2, HydrometHost.PN, TimeSeries.TimeInterval.Daily);
+                cache.Add(cbttPcode, t1, t2, host, TimeSeries.TimeInterval.Daily);
                 HydrometDailySeries.Cache = cache; ;
             }
 
@@ -68,7 +69,8 @@ namespace Reclamation.TimeSeries.AgriMet
                         t = DateTime.Now.Date;
                 
                 // Generates Daily and Summary Crop Charts
-                var dailyChart = CreateDailyReport(cbttList[i], t, cropDates);
+                var dailyTxtChart = CreateDailyUglyTextReport(cbttList[i], t, cropDates);
+                var dailyHtmlChart = CreateDailyHTMLReport(cbttList[i], t, cropDates);
                 var sumChart = CreateSummaryReport(cbttList[i], t, cropDates);
 
 
@@ -76,9 +78,12 @@ namespace Reclamation.TimeSeries.AgriMet
 
                 
                 var fnDaily = Path.Combine(outputDirectory, cbttList[i].ToLower() + "ch.txt");
+                var fnDailyHtml = Path.Combine(outputDirectory, cbttList[i].ToLower() + "_crop_summary.html");
                 var fnSum = Path.Combine(outputDirectory, cbttList[i].ToLower() + t.Year.ToString().Substring(2) + "et.txt");
 
-                WriteCropFile(dailyChart, fnDaily);
+                File.WriteAllLines(fnDailyHtml, dailyHtmlChart.ToArray());
+
+                WriteCropFile(dailyTxtChart, fnDaily);
                 WriteCropFile(sumChart,fnSum);
 
                 
@@ -166,7 +171,82 @@ namespace Reclamation.TimeSeries.AgriMet
         /// <param name="cbtt"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        private static List<string> CreateDailyReport(string cbtt, DateTime t,
+        private static List<string> CreateDailyHTMLReport(string cbtt, DateTime t,
+            CropDatesDataSet.CropDatesRow[] cropRow)
+        {
+            var rval = new List<string>();
+
+            //var cropRow = CropDatesDataSet.GetCropFiles(t.Year, cbtt);
+            DataTable heading_tbl = new DataTable();
+
+            // Produces Crop Chart heading
+            heading_tbl.Columns.Add("\t" + "ESTIMATED CROP WATER USE " + t.ToString("MMM dd, yyyy") + "   " + cbtt + "			");
+
+            DataTable tbl = new DataTable();
+            tbl.Columns.Add("Crop");
+            tbl.Columns.Add("Start Date");
+            tbl.Columns.Add("ET -(IN) " + t.AddDays(-4).Day.ToString());
+            tbl.Columns.Add(t.AddDays(-3).Day.ToString());
+            tbl.Columns.Add(t.AddDays(-2).Day.ToString());
+            tbl.Columns.Add(t.AddDays(-1).Day.ToString());
+            tbl.Columns.Add("Daily Forecast");
+            tbl.Columns.Add("Cover Date");
+            tbl.Columns.Add("Termination Date");
+            tbl.Columns.Add("Sum ET");
+            tbl.Columns.Add("7 Day Use");
+            tbl.Columns.Add("14 Day Use");
+
+            var et = new HydrometDailySeries(cbtt, "ETRS", s_host);
+
+         
+            // Below is the calculation to determine how many days to read back. Set to calculate based on ETr Start Date.
+            var etStartDate = cropRow[0].startdate.DayOfYear;
+            var etTodayDate = t.DayOfYear;
+            int numDaysRead = etTodayDate - etStartDate - 1;
+            et.Read(t.AddDays(-numDaysRead), t.AddDays(-1));
+
+            // For-Loop to populate chart
+            for (int i = 0; i < cropRow.Length; i++)
+            {
+                var row = tbl.NewRow();
+                var cRow = cropRow[i];
+                row[0] = cRow.cropname;
+                row[1] = cRow.startdate.ToString("MM/dd");
+                row[2] = CropCurves.ETCropDaily(numDaysRead, 4, et, cRow);
+                row[3] = CropCurves.ETCropDaily(numDaysRead, 3, et, cRow);
+                row[4] = CropCurves.ETCropDaily(numDaysRead, 2, et, cRow);
+                row[5] = CropCurves.ETCropDaily(numDaysRead, 1, et, cRow);
+               
+                // Today's forecast is the average of previous 3 days
+                row[6] = (CropCurves.EtSummation(3, et, cRow, numDaysRead) / 3).ToString("F2");
+                row[7] = cRow.fullcoverdate.ToString("MM/dd");
+                row[8] = cRow.terminatedate.ToString("MM/dd");
+
+                // Cumulative summation from Crop Start Date to today
+                row[9] = CropCurves.EtSummation(numDaysRead, et, cRow, numDaysRead).ToString("F1");
+             
+                // 7 and 14 day use 
+                row[10] = CropCurves.EtSummation(7, et, cRow, numDaysRead).ToString("F1");
+                row[11] = CropCurves.EtSummation(14, et, cRow, numDaysRead).ToString("F1");
+                tbl.Rows.Add(row);
+            }
+            rval.Add("");
+            rval.Add("<html>");
+            rval.Add(DataTableOutput.ToHTML(heading_tbl));
+            rval.Add(DataTableOutput.ToHTML(tbl));
+            rval.Add("</html>");
+            
+            return rval;
+
+        }
+
+        /// <summary>
+        /// Creates Daily Crop Water Use Charts
+        /// </summary>
+        /// <param name="cbtt"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        private static List<string> CreateDailyUglyTextReport(string cbtt, DateTime t,
             CropDatesDataSet.CropDatesRow[] cropRow)
         {
             var rval = new List<string>();
@@ -192,7 +272,7 @@ namespace Reclamation.TimeSeries.AgriMet
                             + t.AddDays(-1).Day.ToString().PadLeft(5)
                         + "  *      *     *     *      *    *     *");
 
-            var et = new HydrometDailySeries(cbtt, "ETRS");
+            var et = new HydrometDailySeries(cbtt, "ETRS", s_host);
             //var et = new KimberlyPenmanEtSeries(cbtt);
 
             // Below is the calculation to determine how many days to read back. Set to calculate based on ETr Start Date.
@@ -243,7 +323,7 @@ namespace Reclamation.TimeSeries.AgriMet
 
             //var cropRow = CropDatesDataSet.GetCropFiles(t.Year, cbtt); 
 
-            var et = new HydrometDailySeries(cbtt, "ETRS");
+            var et = new HydrometDailySeries(cbtt, "ETRS", s_host);
             //var et = new KimberlyPenmanEtSeries(cbtt);
 
             // Below is the calculation to determine how many days to read back. Set to calculate based on ETr Start Date.

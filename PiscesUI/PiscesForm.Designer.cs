@@ -142,6 +142,7 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolStripProfileTool = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -891,6 +892,7 @@ namespace Reclamation.TimeSeries.Forms
             this.databaseTablesToolStripMenuItem,
             this.sToolStripMenuItem,
             this.toolStripSeparator8,
+            this.toolStripProfileTool,
             this.ImportHydrologicModels,
             this.toolStripMenuItem12,
             this.toolStripSeparator7,
@@ -1019,6 +1021,13 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Enabled = true;
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // toolStripProfileTool
+            // 
+            this.toolStripProfileTool.Name = "toolStripProfileTool";
+            this.toolStripProfileTool.Size = new System.Drawing.Size(247, 22);
+            this.toolStripProfileTool.Text = "&Profile Animation Tool";
+            this.toolStripProfileTool.Click += new System.EventHandler(this.toolStripProfileTool_Click);
             // 
             // PiscesForm
             // 
@@ -1157,6 +1166,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem ImportHydrologicModels;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddSHEF;
         private System.Windows.Forms.ToolStripMenuItem newSHEF;
+        private System.Windows.Forms.ToolStripMenuItem toolStripProfileTool;
         //private System.Windows.Forms.ToolStripMenuItem menuUpdate;
 
     }

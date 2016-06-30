@@ -80,22 +80,29 @@ namespace Reclamation.TimeSeries
             rval.TimeInterval = TimeInterval.Daily;
             if (incremental.Count == 0) 
             {
-                Console.WriteLine("thre is no incremental data ");
+                Console.WriteLine("there is no incremental data ");
                 return rval;
             }
 
 
-            double sum = 0.0; // cumulative[0].Value;
+            double sum = 0.0;  
             bool missing = false;
             bool primed = false;
-            if (cumulative.Count > 0 && !cumulative[0].IsMissing)
+
+
+            int index = 0;
+            if (cumulative.Count > 0 
+                && cumulative[0].DateTime == incremental[0].DateTime
+                && !cumulative[0].IsMissing)
             {
+                sum = cumulative[0].Value;
                 rval.Add(cumulative[0]);
                 primed = true;
+                index++;
             }
-            for (int i = 1; i < incremental.Count; i++)
+            for ( ; index < incremental.Count; index++)
             {
-                var t = incremental[i].DateTime;
+                var t = incremental[index].DateTime;
                 if (t.Month == resetMonth && t.Day == resetDay)
                 {
                     sum = 0.0;
@@ -103,15 +110,15 @@ namespace Reclamation.TimeSeries
                     missing = false;
                 }
 
-                if (primed  && !missing && !incremental[i].IsMissing)
+                if (primed && !missing && !incremental[index].IsMissing)
                 {
-                    sum += incremental[i].Value;
-                    rval.Add(incremental[i].DateTime, sum);
+                    sum += incremental[index].Value;
+                    rval.Add(incremental[index].DateTime, sum);
                 }
                 else
                 {
-                    rval.AddMissing(incremental[i].DateTime);
-                    Console.WriteLine("Missing data: incremental: " + incremental[i].ToString());
+                    rval.AddMissing(incremental[index].DateTime);
+                    Console.WriteLine("Missing data: incremental: " + incremental[index].ToString());
                     missing = true;
                 }
 

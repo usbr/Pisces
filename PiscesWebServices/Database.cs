@@ -16,7 +16,7 @@ namespace PiscesWebServices
         private static TimeSeriesDatabase s_db;
          public static void InitDB(string[] args)
         {
-            s_db = TimeSeriesDatabase.InitDatabase(new Arguments(args));
+            s_db = TimeSeriesDatabase.InitDatabase(new Arguments(args),true);
         }
 
         public static TimeSeriesDatabase DB()

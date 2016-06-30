@@ -79,6 +79,9 @@ namespace PiscesWebServices
              t1 = DateTime.Now.AddDays(-7);
              t2 = DateTime.Now;
 
+             if (interval == TimeInterval.Daily)
+                 t2 = DateTime.Now.AddDays(-1).Date;
+
             try
             {
                 var back = GetIntParam(c, "back", -1);
