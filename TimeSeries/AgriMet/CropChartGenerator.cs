@@ -177,29 +177,24 @@ namespace Reclamation.TimeSeries.AgriMet
             var rval = new List<string>();
 
             //var cropRow = CropDatesDataSet.GetCropFiles(t.Year, cbtt);
+            DataTable heading_tbl = new DataTable();
 
             // Produces Crop Chart heading
-          
-            //rval.Add(" ");
-            //rval.Add(" *" + "  " + "ESTIMATED CROP WATER USE - " + t.ToString("MMM dd, yyyy") + "   " + cbtt + "\t\t\t" + "*");
-            //rval.Add(" *                                                                      *");
-            //rval.Add(" ************************************************************************");
-            //rval.Add(" *           *        DAILY        *      *     *     *      *    *     *");
-            //rval.Add(" *           * CROP WATER USE-(IN) * DAILY*     *     *      *  7 *  14 *");
+            heading_tbl.Columns.Add("\t" + "ESTIMATED CROP WATER USE " + t.ToString("MMM dd, yyyy") + "   " + cbtt + "			");
 
             DataTable tbl = new DataTable();
             tbl.Columns.Add("Crop");
             tbl.Columns.Add("Start Date");
-            tbl.Columns.Add(t.AddDays(-4).Day.ToString());
+            tbl.Columns.Add("ET -(IN) " + t.AddDays(-4).Day.ToString());
             tbl.Columns.Add(t.AddDays(-3).Day.ToString());
             tbl.Columns.Add(t.AddDays(-2).Day.ToString());
             tbl.Columns.Add(t.AddDays(-1).Day.ToString());
-            tbl.Columns.Add("Forecast");
-            tbl.Columns.Add("Cover");
-            tbl.Columns.Add("Termination");
-            tbl.Columns.Add("Sum");
-            tbl.Columns.Add("7 Day Sum");
-            tbl.Columns.Add("14 Day Sum");
+            tbl.Columns.Add("Daily Forecast");
+            tbl.Columns.Add("Cover Date");
+            tbl.Columns.Add("Termination Date");
+            tbl.Columns.Add("Sum ET");
+            tbl.Columns.Add("7 Day Use");
+            tbl.Columns.Add("14 Day Use");
 
             var et = new HydrometDailySeries(cbtt, "ETRS", s_host);
 
@@ -237,6 +232,7 @@ namespace Reclamation.TimeSeries.AgriMet
             }
             rval.Add("");
             rval.Add("<html>");
+            rval.Add(DataTableOutput.ToHTML(heading_tbl));
             rval.Add(DataTableOutput.ToHTML(tbl));
             rval.Add("</html>");
             
