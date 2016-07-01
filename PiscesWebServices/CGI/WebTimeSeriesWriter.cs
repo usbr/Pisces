@@ -35,7 +35,7 @@ namespace PiscesWebServices.CGI
         Formatter m_formatter ;
         string m_query = "";
         NameValueCollection m_collection;
-       // bool m_printFlags = true;
+       
 
         string[] supportedFormats =new string[] {"csv", // csv with headers
                                                 "html", // basic html
@@ -82,26 +82,42 @@ namespace PiscesWebServices.CGI
             }
 
 
-                
-
             string format = "2";
             if (m_collection.AllKeys.Contains("format"))
                 format = m_collection["format"];
+
+            // because of history daily defaults flags= false;
+            // no flags (the old daily database did not have flags )
+            bool m_printFlags = interval == TimeInterval.Hourly || interval == TimeInterval.Irregular;
+
+            if (m_collection.AllKeys.Contains("flags"))
+            {
+                m_printFlags = m_collection["flags"] == "true";
+            }
+
+            bool printHeader = true;
+            if (m_collection.AllKeys.Contains("header"))
+            {
+                printHeader = m_collection["header"] == "true";
+            }
+
 
             if (Array.IndexOf(supportedFormats, format) < 0)
                 StopWithError("Error: invalid format " + format);
 
             if (format == "csv")
-                m_formatter = new CsvFormatter(interval, true);
+                m_formatter = new CsvFormatter(interval, m_printFlags);
             else if (format == "2")
             {
-                m_formatter = new LegacyCsvFormatter(interval, true);
-               // if (interval == TimeInterval.Daily)
-                  //  m_printFlags = false;
+                m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
+            }
+            else if( format == "html")
+            {
+                m_formatter = new HtmlFormatter(interval, m_printFlags, printHeader);
             }
 
             else
-                m_formatter = new LegacyCsvFormatter(interval, true);
+                m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
 
             if (m_collection.AllKeys.Contains("print_hourly"))
                 m_formatter.HourlyOnly = m_collection["print_hourly"] == "true";
@@ -189,7 +205,7 @@ namespace PiscesWebServices.CGI
             {
                 var tbl = Read(list, item.StartDate, item.EndDate); // 0.0 seconds windows/linux
                 var interval = m_formatter.Interval;
-                m_formatter.PrintFlags = interval == TimeInterval.Hourly || interval == TimeInterval.Irregular;
+            
                 PrintDataTable(list, tbl, m_formatter, interval);
             }
             m_formatter.WriteSeriesTrailer();

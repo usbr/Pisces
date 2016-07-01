@@ -2076,5 +2076,33 @@ namespace Reclamation.TimeSeries
 
             get { return Count == 0; }
              }
+
+
+        internal DateTime AdjustStartingDateFromProperties(DateTime t1, DateTime t2)
+        {
+            var t1a = t1;
+            var s = this;
+            // for example daily QU calculations default back 7 days (when running previous day)
+            if (s.Properties != null && s.Properties.Contains("DaysBack")) // && t2.Date == DateTime.Now.AddDays(-1).Date)
+            {
+                var daysBack = Convert.ToInt32(s.Properties.Get("DaysBack", "0"));
+                t1a = t1a.AddDays(-daysBack);
+            }
+
+            if (s.Properties != null && s.Properties.Contains("WholeWaterYear"))
+            {
+                var whole = s.Properties.Get("WholeWaterYear", "False");
+                if (whole != "False")
+                {
+                    // begin calculations october 1
+                    Console.WriteLine("Using WholeWaterYear");
+                    int yr = t2.Year;
+                    if (t2.Month <= 9)
+                        yr = t2.Year - 1;
+                    t1a = new DateTime(yr, 10, 1);
+                }
+            }
+            return t1a;
+        }
     }
 }

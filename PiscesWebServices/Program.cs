@@ -134,35 +134,48 @@ namespace PiscesWebServices
                     Logger.WriteLine("Error: " + e.Message);
                 }
             }
-            else
-            if (cgi == "site")
+            else if (cgi == "wateryear"  )
             {
-                SiteInfo si = new SiteInfo(db);
-                si.Run(payload);
-            }
-            else
-            if (cgi == "test-perf-large")
-            {
-                var c = new HydrometGCITests();
-                c.CGI_PerfTestLarge();
-                
-            }
-            else
-                if (cgi == "test-perf-small")
+                try
                 {
-                    var c = new HydrometGCITests();
-                    c.CGI_PerfTestSmall();
+                    WaterYearReport wy = new WaterYearReport(db, payload);
+                    wy.Run();
+                }
+                catch (Exception e )
+                {
+                    
+                   Logger.WriteLine("Error: " + e.Message);
+                }
+            }
+            else
+                if (cgi == "site")
+                {
+                    SiteInfo si = new SiteInfo(db);
+                    si.Run(payload);
                 }
                 else
-                    if (cgi == "dump")
+                    if (cgi == "test-perf-large")
                     {
                         var c = new HydrometGCITests();
-                        c.DumpTest();
+                        c.CGI_PerfTestLarge();
+
                     }
-                else
-                {
-                    Console.WriteLine("invalid cgi: "+cgi);
-                }
+                    else
+                        if (cgi == "test-perf-small")
+                        {
+                            var c = new HydrometGCITests();
+                            c.CGI_PerfTestSmall();
+                        }
+                        else
+                            if (cgi == "dump")
+                            {
+                                var c = new HydrometGCITests();
+                                c.DumpTest();
+                            }
+                            else
+                            {
+                                Console.WriteLine("invalid cgi: " + cgi);
+                            }
 
         }
 
