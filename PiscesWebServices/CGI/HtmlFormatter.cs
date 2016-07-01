@@ -23,16 +23,17 @@ namespace PiscesWebServices.CGI
          public override void PrintRow(string t0, string[] vals, string[] flags)
          {
              StringBuilder sb = new StringBuilder(vals.Length * 8);
-             WriteLine("<tr>");
-             WriteLine("<td>" + t0 + "</td>");
+             sb.Append("<tr>");
+             sb.Append("<td>" + t0 + "</td>");
              for (int i = 0; i < vals.Length; i++)
              {
-                 WriteLine("<td>" + vals[i] + "</td>");
+                 sb.Append("<td>" + vals[i] + "</td>");
                  if( PrintFlags)
-                     WriteLine("<td>" + flags[i] + "</td>");
+                     sb.Append("<td>" + flags[i] + "</td>");
 
              }
-             WriteLine("</tr>");
+             sb.Append("</tr>");
+             WriteLine(sb.ToString());
          }
 
          public override string FormatNumber(object o)

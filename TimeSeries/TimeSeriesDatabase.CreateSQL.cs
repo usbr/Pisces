@@ -22,7 +22,7 @@ namespace Reclamation.TimeSeries
             CreateLimitTable();
             CreateSiteTable();
             CreateSitePropertiesTable();
-            CreateRefParameterTable();
+            CreateParameterCatalogTable();
             CreateSeriesPropertiesTable();
 
             if (m_settings.GetDBVersion() == 3)
@@ -210,13 +210,16 @@ namespace Reclamation.TimeSeries
             }
         }
 
-        private void CreateRefParameterTable()
+        private void CreateParameterCatalogTable()
         {
-            if (!m_server.TableExists("ref_parameter"))
+            if (!m_server.TableExists("parametercatalog"))
             {
-                string sql = "Create Table ref_parameter "
-                + "( parameter  " + m_server.PortableCharacterType(100) + " not null primary key, "
-                + " description " + m_server.PortableCharacterType(1024) + " not null default '' "
+                string sql = "Create Table parametercatalog "
+                + "( id  " + m_server.PortableCharacterType(100) + " not null primary key, "
+                + " timeinterval " + m_server.PortableCharacterType(1024) + " not null default '', "
+                + " units " + m_server.PortableCharacterType(1024) + " not null default '', "
+                + " statistic " + m_server.PortableCharacterType(1024) + " not null default '' ,"
+                + " name " + m_server.PortableCharacterType(1024) + " not null default '' "
                 + " )";
                 ExecuteCreateTable(m_server, sql);
             }
