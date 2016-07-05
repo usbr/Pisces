@@ -161,8 +161,13 @@ namespace Reclamation.TimeSeries
             catch(Exception excep)
             {
                 if (excep.InnerException != null)
+                {
+                    Logger.WriteLine(excep.InnerException.Message);
                     throw excep.InnerException;
-                throw new Exception(excep.Message + "\n" + sr.Provider);
+                }
+                var msg = excep.Message + "\n" + sr.Provider;
+                Logger.WriteLine(msg);
+                throw new Exception(msg);
             }
 
             if (s == null)
