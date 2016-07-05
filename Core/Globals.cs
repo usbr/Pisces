@@ -53,7 +53,10 @@ namespace Reclamation.Core
 
                 var s = ConfigurationManager.AppSettings["LocalConfigurationDataPath"];
                 if (s == null || s == "")
-                    throw new Exception("Error: LocalConfigurationDataPath is not defined in the config file");
+                {
+                    return "";
+                   Logger.WriteLine("Error: LocalConfigurationDataPath is not defined in the config file");
+                }
 
                 if (!Directory.Exists(s))
                 {

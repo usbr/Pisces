@@ -48,10 +48,10 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="inputSeriesList"></param>
         /// <param name="computeDependencies"></param>
-        /// <param name="computeDailyEachMidnight"></param>
+        /// <param name="ComputeDailyDependencies"></param>
         public void Import(SeriesList inputSeriesList,
             bool computeDependencies = false,
-            bool computeDailyEachMidnight = false,
+            bool ComputeDailyDependencies = false,
             string importTag="data")
         {
             var calculationQueue = new SeriesList();
@@ -73,9 +73,9 @@ namespace Reclamation.TimeSeries
                     var z = ComputeDependenciesSameInterval(s);
                     routingList.AddRange(z);
                 }
-                if (computeDailyEachMidnight)
+                if (ComputeDailyDependencies)
                 {
-                    var x = GetDailyCalculationsIfMidnight(s);
+                    var x = GetDailyDependentCalculations(s);
                     foreach (var item in x)
                     {
                         if (!calculationQueue.ContainsTableName(item))
@@ -113,9 +113,11 @@ namespace Reclamation.TimeSeries
                         t2 = t1;
                     }
 
+                    // TO DO....
+                    var t1a = t1;
+                    //var t1a = cs.AdjustStartingDateFromProperties(t1, t2);
 
-
-                    cs.Calculate(t1, t2);
+                    cs.Calculate(t1a, t2);
                     if (cs.Count > 0)
                     {
                         routingList.Add(cs);
@@ -164,7 +166,17 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
-        private SeriesList GetDailyCalculationsIfMidnight(Series s)
+        /// <summary>
+        /// As 15 minute(instant) data is imported determine if we should 
+        /// any compute a daily values with this criteria.
+        /// 
+        /// 1) a midnight value arrives
+        /// 2) manual data edits (data would appear late compared to other data)
+        /// 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        private SeriesList GetDailyDependentCalculations(Series s)
         {
             var calcList = new SeriesList();
             // check for midnight values, and initiate daily calculations.
