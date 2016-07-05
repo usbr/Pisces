@@ -70,15 +70,14 @@ namespace PiscesWebServices.CGI
 
             int y1=0, y2=0;
 
-            if(    !int.TryParse(start,out y1) 
-                || !int.TryParse(end,out y2) )
+            if( !int.TryParse(start,out y1)  || !int.TryParse(end,out y2) )
             {
                 StopWithError("Error with year range");
             }
-            
+            //creates a water year time range between the selected dates y1, y2
             var rval = new TimeRange(
-                     WaterYear.BeginningOfWaterYear( new  DateTime(y1,1,1)),
-                     WaterYear.BeginningOfWaterYear( new DateTime(y2,12,31)));
+                     WaterYear.BeginningOfWaterYear( new DateTime(y1,1,1)),
+                     WaterYear.EndOfWaterYear( new DateTime(y2,1,1)));
             return rval;
         }
 
