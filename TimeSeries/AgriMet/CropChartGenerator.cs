@@ -185,14 +185,14 @@ namespace Reclamation.TimeSeries.AgriMet
             DataTable tbl = new DataTable();
             tbl.Columns.Add("Crop");
             tbl.Columns.Add("Start Date");
-            tbl.Columns.Add("ET -(IN) " + t.AddDays(-4).Day.ToString());
-            tbl.Columns.Add(t.AddDays(-3).Day.ToString());
-            tbl.Columns.Add(t.AddDays(-2).Day.ToString());
-            tbl.Columns.Add(t.AddDays(-1).Day.ToString());
+            tbl.Columns.Add("ET(IN) " + t.Month.ToString() + "/" + t.AddDays(-4).Day.ToString());
+            tbl.Columns.Add("ET(IN) " + t.Month.ToString() + "/" + t.AddDays(-3).Day.ToString());
+            tbl.Columns.Add("ET(IN) " + t.Month.ToString() + "/" + t.AddDays(-2).Day.ToString());
+            tbl.Columns.Add("ET(IN) " + t.Month.ToString() + "/" + t.AddDays(-1).Day.ToString());
             tbl.Columns.Add("Daily Forecast");
             tbl.Columns.Add("Cover Date");
             tbl.Columns.Add("Termination Date");
-            tbl.Columns.Add("Sum ET");
+            tbl.Columns.Add("Sum of ET");
             tbl.Columns.Add("7 Day Use");
             tbl.Columns.Add("14 Day Use");
 
