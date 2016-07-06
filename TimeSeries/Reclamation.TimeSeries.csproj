@@ -330,6 +330,9 @@
     <Compile Include="RBMS\RbmsUtility.cs" />
     <Compile Include="Import\ImportRioGrandeExcel.cs" />
     <Compile Include="ScenarioManagement\ForecastGenerator.cs" />
+    <None Include="..\Private.config">
+      <Link>Private.config</Link>
+    </None>
     <None Include="Alarms\AlarmDataSet.xsc">
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
     </None>

@@ -107,10 +107,6 @@ namespace Reclamation.TimeSeries.Usgs
                 string url = "http://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=13236500&startDT=1900-10-01&endDT=2013-12-30";
 
                 url = url.Replace("sites=13236500", "sites=" + SiteID);
-                DateTime n = DateTime.Now;
-                url = url.Replace("endDT=2013-12-30", "endDT=" + n.Year + "-" + n.Month + "-" + n.Day);
-                Messages.Add(url);
-
                 url = url.Replace("startDT=1900-10-01", "startDT=" + t1.ToString("yyyy-MM-dd") );
                 url = url.Replace("endDT=2013-12-30", "endDT=" + t2.ToString("yyyy-MM-dd"));
                 
@@ -573,7 +569,7 @@ USGS	13010065	2007-03-08	338	P
 
             if (idx >= 0)
             {
-                Name = m_rdb.TextFile[idx].Substring(findMe.Length);
+                Name = m_rdb.TextFile[idx].Substring(findMe.Length + 1);
             }
             else
             {

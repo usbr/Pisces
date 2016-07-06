@@ -38,6 +38,11 @@ namespace Reclamation.TimeSeries.Parser
             MemberInfo info = t;
 
             var methods = t.GetMethods();
+            // crete some markdown
+            Console.WriteLine("# List of Pisces Functions");
+            Console.WriteLine("Name |Description|Example usage");
+            Console.WriteLine("----| ----|-----");
+
             for (int i = 0; i < methods.Length; i++)
             {
                 var attributes = methods[i].GetCustomAttributes(typeof(FunctionAttribute), false);
@@ -53,6 +58,7 @@ namespace Reclamation.TimeSeries.Parser
                             {
                                 key = key + j;
                             }
+                            Console.WriteLine(key+"|"+a.Description+"|Example: " +a.Example);
                             rval.Add(key,new FunctionAttribute(a.Description,a.Example,methods[i].Name));
                             break;
                         }

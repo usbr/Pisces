@@ -372,6 +372,11 @@ namespace Reclamation.TimeSeries
         public void Run()
         {
             View.MultipleYAxis = m_db.Settings.ReadBoolean("MultipleYAxis", false);
+
+
+            if (m_db.Settings.ReadBoolean("VerboseLogging", false))
+                Logger.EnableLogger(true);
+
             View.Messages.Clear();
             View.AnalysisType = SelectedAnalysisType;
 

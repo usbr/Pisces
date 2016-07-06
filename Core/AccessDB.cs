@@ -315,9 +315,8 @@ namespace Reclamation.Core
     public static DataTable Table(string filename,string tableName, string sql,
         bool acceptChangesDuringFill)
     {
-      if( debugOutput)
-        Console.Write("Reading "+tableName+" from "+filename);
-
+        Logger.WriteLine("Reading "+tableName+" from "+filename);
+        Logger.WriteLine("sql: " + sql);
       CheckIfFileExists(filename);
 
 
@@ -340,7 +339,7 @@ namespace Reclamation.Core
         myAccessConn.Close();
       }
       if( debugOutput)
-        Console.WriteLine(" done.");
+        Logger.WriteLine("completed reading MODSIM data");
       return myDataSet.Tables[tableName];
     }
     /// <summary>

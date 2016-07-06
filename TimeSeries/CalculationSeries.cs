@@ -87,7 +87,7 @@ namespace Reclamation.TimeSeries
             //if( this.TimeInterval == TimeSeries.TimeInterval.Irregular)
                t2a = t2.AddDays(1); // we may need midnight value in the next day.
 
-           
+          //  t1a = this.AdjustStartingDateFromProperties(t1, t2a);
 
 
             Exception error = new Exception();

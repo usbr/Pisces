@@ -29,6 +29,7 @@ namespace Pisces.NunitTests.SeriesMath
         }
 
 
+
         /// <summary>
         /// This test imports data over 3 days, 
         /// but only includes a single full day
@@ -87,7 +88,7 @@ namespace Pisces.NunitTests.SeriesMath
             c.Add("10-3-2014", 0);
             c.Add("10-4-2014", 0);
             c.Add("10-5-2014", 0);
-            c.Add("10-6-2014", 5);
+            c.Add("10-6-2014", 0);
             db.AddSeries(c);
             c = db.GetSeriesFromTableName("daily_wrdo_pu");
 

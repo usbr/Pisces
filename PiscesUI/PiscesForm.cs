@@ -918,6 +918,8 @@ namespace Reclamation.TimeSeries.Forms
                 DB.Settings.Set("MultipleYAxis", o.MultipleYAxis);
                 DB.Settings.Set("HydrometVariableResolver", o.HydrometVariableResolver);
                 DB.Settings.Set("VerboseLogging", o.VerboseLogging);
+                if( o.VerboseLogging )
+                    Logger.EnableLogger(true);
                 Usgs.Utility.AutoUpdate = o.UsgsDailyAutoUpdate;
                 Modsim.ModsimSeries.DisplayFlowInCfs = o.ModsimDisplayFlowInCfs;
                 #if !PISCES_OPEN

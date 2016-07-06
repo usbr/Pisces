@@ -115,6 +115,7 @@ namespace Reclamation.TimeSeries.Modsim
             ConnectionString = "FileName=" + m_xyFilename + ";ModsimName=" + modsimName
                 + ";TimeSeriesName=" + timeSeriesName;// +";DisplayUnits=" + displayUnits;
             this.Provider = "ModsimSeries";
+            Logger.WriteLine(ConnectionString);
             ReadOnly = true;
         }
 
