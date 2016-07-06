@@ -89,6 +89,11 @@ namespace Reclamation.TimeSeries
             bool missing = false;
             bool primed = false;
 
+            if(cumulative.Count >0 &&
+                cumulative.MinDateTime != incremental.MinDateTime)
+            {
+                // startDate
+            }
 
             int index = 0;
             if (cumulative.Count > 0 

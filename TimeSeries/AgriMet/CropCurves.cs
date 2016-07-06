@@ -104,7 +104,6 @@ namespace Reclamation.TimeSeries.AgriMet
 
             int j = (int)(percent / 10);
             double remain = percent / 10 - j;
-            //rval = (kc_value[j+2]-kc_value[j+1])*remain+kc_value[j+1];
             rval = (kc_value[j + 1] - kc_value[j]) * remain + kc_value[j];
             return rval;
         }
@@ -115,6 +114,11 @@ namespace Reclamation.TimeSeries.AgriMet
 
             
             var kc_value = ReadCoefficients(row.cropcurvenumber);
+
+            if( kc_value.Length ==0 )
+            {
+                throw new Exception("Error: crop number "+row.cropcurvenumber+" not found "+row.cropname);
+            }
 
             var jd = t.DayOfYear;
             var jpd = row.startdate.DayOfYear;

@@ -29,6 +29,7 @@ namespace Pisces.NunitTests.SeriesMath
         }
 
 
+
         /// <summary>
         /// This test imports data over 3 days, 
         /// but only includes a single full day
