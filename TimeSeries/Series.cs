@@ -2077,7 +2077,14 @@ namespace Reclamation.TimeSeries
             get { return Count == 0; }
              }
 
-
+        /// <summary>
+        /// Checks for 'DaysBack' and 'WholeWaterYear'
+        /// properties in a Series and adjusts the starting date 
+        /// for a range (t1,t2)
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <returns></returns>
         internal DateTime AdjustStartingDateFromProperties(DateTime t1, DateTime t2)
         {
             var t1a = t1;

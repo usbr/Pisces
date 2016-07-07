@@ -17,9 +17,9 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
         {
              xls = new NpoiExcel(filename);
              m_db = db;
-            var siteMapping = xls.ReadDataTable("siteMapping");
+            var siteMapping = xls.ReadDataTable("siteMapping",true,true);
             Merge(siteMapping,false, MissingSchemaAction.Ignore);
-            var scenarioMapping = xls.ReadDataTable("scenarioMapping");
+            var scenarioMapping = xls.ReadDataTable("scenarioMapping",true,true);
             Merge(scenarioMapping, false, MissingSchemaAction.Ignore);
 
             ImportToPisces();
@@ -41,7 +41,7 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
 
         private void AddSeries(TimeSeriesDatabase db, string scenarioName, string scenarioNumber)
         {
-            DataTable scenarioSheet = xls.ReadDataTable(scenarioNumber);
+            DataTable scenarioSheet = xls.ReadDataTable(scenarioNumber,true,true);
             var errors = new List<string>();
             int count = 0;
             foreach (DataRow row in scenarioSheet.Rows)

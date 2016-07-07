@@ -428,7 +428,11 @@ namespace Reclamation.Core
             if (t == typeof(double))
                 return cell.NumericCellValue;
             if (t == typeof(string))
-                return cell.ToString();
+            {
+                if (cell.CellType == CellType.Numeric)
+                    return cell.ToString();
+                return cell.StringCellValue;
+            }
             if (t == typeof(DateTime))
                 return cell.DateCellValue;
 
