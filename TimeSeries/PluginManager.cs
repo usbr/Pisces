@@ -42,7 +42,7 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// Register menu items for each Iplugin found in these assemblies.
         /// </summary>
-        public void RegisterPlugins(ToolStripMenuItem dataMenu)
+        public void RegisterPlugins(ToolStripItem dataAddMenu)
         {
 
             foreach (var asm in asmList)
@@ -51,19 +51,25 @@ namespace Reclamation.TimeSeries
                                 where t.GetInterfaces().Contains(typeof(IPlugin))
                                          && t.GetConstructor(Type.EmptyTypes) != null
                                 select Activator.CreateInstance(t) as IPlugin;
-
-                foreach (var instance in instances)
+                
+                var dataAddItems = dataAddMenu as ToolStripDropDownItem;
+                if (dataAddItems != null)
                 {
-                    string txt = instance.GetAddMenuText();
-                    var idx = dataMenu.DropDownItems.IndexOfKey("toolStripMenuItemBottom");
-                    var menuItem = new ToolStripMenuItem(txt);
-                     dataMenu.DropDownItems.Insert(idx,menuItem);
-                    var img = instance.GetImage();
-                    if (img != null)
-                        menuItem.Image = img;
-                    menuItem.Tag = instance;
-                    menuItem.Click += menuItem_Click;
-
+                    foreach (var instance in instances)
+                    {
+                        string txt = instance.GetAddMenuText();
+                        var idx = dataAddItems.DropDownItems.IndexOfKey("toolStripMenuItemBottom");
+                        if (idx >= 0)
+                        {
+                            var menuItem = new ToolStripMenuItem(txt);
+                            dataAddItems.DropDownItems.Insert(idx, menuItem);
+                            var img = instance.GetImage();
+                            if (img != null)
+                                menuItem.Image = img;
+                            menuItem.Tag = instance;
+                            menuItem.Click += menuItem_Click;
+                        }
+                    }
                 }
             }
 

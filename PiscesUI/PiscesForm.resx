@@ -142,7 +142,7 @@
   <metadata name="contextMenuStripTree.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>516, 17</value>
   </metadata>
-  <data name="toolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="addFolder.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAlFJREFUWEftls9L
@@ -159,7 +159,7 @@
         QmCC
 </value>
   </data>
-  <data name="toolStripMenuItemNewFolder.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="addSite.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAlFJREFUWEftls9L
@@ -176,7 +176,7 @@
         QmCC
 </value>
   </data>
-  <data name="newExcel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="addExcel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         Qk36DgAAAAAAADYAAAAoAAAAIwAAACMAAAABABgAAAAAAAAAAADEDgAAxA4AAAAAAAAAAAAA////////
         ////////////////////////////////////////////////////////////////////////////////
@@ -244,7 +244,7 @@
         ////////////////////////////////////////////////////////////////////AAAA
 </value>
   </data>
-  <data name="newHydromet.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="addHydromet.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAcdJREFUWEfFlVGy
@@ -258,7 +258,7 @@
         SOLgQj7oz+3i8fxJkji40NcMVM1vsd//AErFmOeKm5iEAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="newTextFile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="addTextFile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAASRJREFUOE+tkr9K
@@ -292,7 +292,7 @@
         gg==
 </value>
   </data>
-  <data name="newUsgs.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="addUsgsInternet.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAGxJREFUOE+lj1EK
@@ -300,7 +300,15 @@
         XWmwHjM/YCwl5Ebstr+QiegBNopGvMPRrXqIFV8iT1+g0vDY0jp56DSRs2JJpAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="newAccess.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="addUsgsRDBfile.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAGxJREFUOE+lj1EK
+        wCAMQ3s1T+T9vxSLLbHETueDh5CEsonU0p6k4Y00PHTw6wAi81XYOGp4hmUmgpkeYNgIe5rNdylxMEjz
+        XWmwHjM/YCwl5Ebstr+QiegBNopGvMPRrXqIFV8iT1+g0vDY0jp56DSRs2JJpAAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="addAccess.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         Qk2WDAAAAAAAADYAAAAoAAAAHwAAACEAAAABABgAAAAAAAAAAADEDgAAxA4AAAAAAAAAAAAA////////
         ////////////////////////////////////////////////////////////////////////////////
@@ -358,7 +366,7 @@
         ////////////////////////////////////////////////////AAAA
 </value>
   </data>
-  <data name="toolStripMenuItem5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="addHDBconfig.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABkAAAASCAYAAACuLnWgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAu9JREFUSEut1ElM
@@ -377,7 +385,7 @@
         pLCwkMjPz6fD4ZhgrINlqqbT6eRv2zvg4qK3CXAAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="toolStripMenuItem7.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="addHDBmodeldata.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABkAAAASCAYAAACuLnWgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAu9JREFUSEut1ElM
@@ -396,7 +404,26 @@
         pLCwkMjPz6fD4ZhgrINlqqbT6eRv2zvg4qK3CXAAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="Addcr10x.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="addHDBseries.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABkAAAASCAYAAACuLnWgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAu9JREFUSEut1ElM
+        U1EUBuDfAUGNRo2GosaFMZoSCrYiKihRLCgIDoA44YDRaIpFBaIVLQaoGgwOVRkqyiiOMdFIDCsXRBM2
+        7NAFO1awYdiwgM3v/6DEBKsbuvjybk/PO/ec2+ZidHSUg4OD7O/v58DAQNAY9YaGhjg+Pk6MjIzQ5XLR
+        bDYzKiqKFotlxow6Rj2fz8exsTHC2DE7O5sAgs7tdnN4eJjo7e1lTk5OwKR/WSCmabFASkpK2NfXR3R3
+        dzMzMzNgUiAr5al8kWR/bMoSiZWF/s+Xi4r4s6eH6OzsZHpGxkQwRHbIv7rcLK/kuMTIW0mVMNkitdIg
+        XsmVa04nf3R1EV87OpiUmspoBT3yYSH4fhl4XmuHlMolOSBtsl2i48GsM+DGWWCTPr8QY/N0mSc2cUv9
+        xQv88u0b8erjR9bsSmKVgo5V4JNq8NdbsGo1eFKxI2Fgnp4v5aDE2sHX+r65BbxRDlqWT061QqZPfu50
+        Htvb24mmllbm2XbSbtO4b1T4LHj0NFhTCxbdBO88BK8UgFtjtclhHdF7darcuSriuqpuW8F1lsmiYfPV
+        hPISEkDrJvCiI5dtbe8Ir/c5b5UmsEET7E30dxEKJt0AU76D5k/gqUbQp84bHoPr1/pzVATrwOw0TdYE
+        7tsDVmqy5jrwgZ4P7oB3PTmsrmkkHt73sqwujhvy9ZKmQJk88z+TxdjYpX+MCi3O03q26FjxWTQ5ssC4
+        rWDHV/B6pXKs4JxoMHS9frfcQ6ytriWqyu8z5toW4rZeKJJjslFCxOjYYBSOEx0dvKIjwgkx+2OPwHCf
+        CtdPrvFEasCM0v303vUSHo+HsXGb/xT8H2OzdNFkWOCPzZVtEiNrZKksEhOYlpnGynuVhLvUTVuM7e+C
+        QZCyO4UVFRVqSpej1WoNmDRTdrt94v5CcXExIyMjAybNVGJi4sQNj4KCAsbHxzM8PJwRERFBYzKZmKqb
+        pLCwkMjPz6fD4ZhgrINlqqbT6eRv2zvg4qK3CXAAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="addcr10x.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
         YQUAAAAJcEhZcwAAEnEAABJxAfPceo4AAADrSURBVDhPnZPBDcIwDEU9AiMwAhJ3xIU7A3DggrgisQAb
@@ -406,7 +433,7 @@
         E8SYL+Y9acQ5rwS/K5OB8ULwLcjsAxDYmEcP5XgXAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="AddCalc.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="addCalcSeries.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         /9j/4AAQSkZJRgABAQEAYABgAAD/4QBmRXhpZgAATU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAAB
         AAAARgEoAAMAAAABAAIAAAExAAIAAAAQAAAATgAAAAAAAABgAAAAAQAAAGAAAAABUGFpbnQuTkVUIHYz
@@ -792,7 +819,7 @@
     <value>True</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>109</value>
+    <value>147</value>
   </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

@@ -37,7 +37,7 @@ namespace Reclamation.TimeSeries.Forms
 
             this.explorer1 = explorer;
             InitializePisces();
-            m_pluginManager.RegisterPlugins(this.DataMenu);
+            m_pluginManager.RegisterPlugins(this.contextMenuStripTree.Items["AddMenu"]);
             m_pluginManager.PluginClick += m_pluginManager_PluginClick;
             Enabling();
             
@@ -547,7 +547,7 @@ namespace Reclamation.TimeSeries.Forms
          toolStripMenuItemAddCalculation.Enabled = canAddStuff;
 
             AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
-            newSeries.Enabled = canAddStuff;// folderSelected;
+            addBlankSeries.Enabled = canAddStuff;// folderSelected;
             // Replacing Math menu with functions
             //menuMath.Enabled = singleSeriesSelected || multiSeriesSelected;
             //menuMath.Visible = false;

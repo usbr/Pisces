@@ -42,32 +42,37 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.AddMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemNewFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.addFolder = new System.Windows.Forms.ToolStripMenuItem();
+            this.addSite = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.newSeries = new System.Windows.Forms.ToolStripMenuItem();
-            this.newExcel = new System.Windows.Forms.ToolStripMenuItem();
-            this.newHydromet = new System.Windows.Forms.ToolStripMenuItem();
-            this.newTextFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.addBlankSeries = new System.Windows.Forms.ToolStripMenuItem();
+            this.addExcel = new System.Windows.Forms.ToolStripMenuItem();
+            this.addHydromet = new System.Windows.Forms.ToolStripMenuItem();
+            this.addTextFile = new System.Windows.Forms.ToolStripMenuItem();
             this.addSqLiteModel = new System.Windows.Forms.ToolStripMenuItem();
             this.addOwrd = new System.Windows.Forms.ToolStripMenuItem();
-            this.newUsgs = new System.Windows.Forms.ToolStripMenuItem();
-            this.newSHEF = new System.Windows.Forms.ToolStripMenuItem();
-            this.newAccess = new System.Windows.Forms.ToolStripMenuItem();
-            this.newModsim = new System.Windows.Forms.ToolStripMenuItem();
-            this.riverWareDataFileSinglerdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.riverWareMultipleRunDataFilerdfToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemHydross = new System.Windows.Forms.ToolStripMenuItem();
-            this.AddBpaHydsimmenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.Addcr10x = new System.Windows.Forms.ToolStripMenuItem();
+            this.addUsgsInternet = new System.Windows.Forms.ToolStripMenuItem();
+            this.addUsgsRDBfile = new System.Windows.Forms.ToolStripMenuItem();
+            this.addSHEF = new System.Windows.Forms.ToolStripMenuItem();
+            this.addAccess = new System.Windows.Forms.ToolStripMenuItem();
+            this.addRBMS = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addModsim = new System.Windows.Forms.ToolStripMenuItem();
+            this.addRWsingle = new System.Windows.Forms.ToolStripMenuItem();
+            this.addRWmultiple = new System.Windows.Forms.ToolStripMenuItem();
+            this.addHDBconfig = new System.Windows.Forms.ToolStripMenuItem();
+            this.addHDBmodeldata = new System.Windows.Forms.ToolStripMenuItem();
+            this.addHDBseries = new System.Windows.Forms.ToolStripMenuItem();
+            this.addNrcsSnotelSeries = new System.Windows.Forms.ToolStripMenuItem();
+            this.addHydross = new System.Windows.Forms.ToolStripMenuItem();
+            this.addBpaHydsimModel = new System.Windows.Forms.ToolStripMenuItem();
+            this.addcr10x = new System.Windows.Forms.ToolStripMenuItem();
             this.addPiscesDatabase = new System.Windows.Forms.ToolStripMenuItem();
             this.AddUrgwom = new System.Windows.Forms.ToolStripMenuItem();
-            this.newURGSIM = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
-            this.AddCalc = new System.Windows.Forms.ToolStripMenuItem();
+            this.addURGSIMModel = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemBottom = new System.Windows.Forms.ToolStripSeparator();
+            this.addCalcSeries = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuClear = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDelete = new System.Windows.Forms.ToolStripMenuItem();
@@ -119,7 +124,6 @@ namespace Reclamation.TimeSeries.Forms
             this.AddRioGrandeSpreadsheet = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripAddUrgwom = new System.Windows.Forms.ToolStripMenuItem();
             this.AddURGSIM = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemBottom = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemAddCalculation = new System.Windows.Forms.ToolStripMenuItem();
             this.ratingTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuView = new System.Windows.Forms.ToolStripMenuItem();
@@ -127,6 +131,7 @@ namespace Reclamation.TimeSeries.Forms
             this.databaseTablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripProfileTool = new System.Windows.Forms.ToolStripMenuItem();
             this.ImportHydrologicModels = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -142,7 +147,8 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.toolStripProfileTool = new System.Windows.Forms.ToolStripMenuItem();
+            this.addRioGrande = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -212,7 +218,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.ShortcutKeyDisplayString = "";
             this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem2.Text = "&Copy";
             this.toolStripMenuItem2.Visible = false;
             // 
@@ -221,106 +227,110 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem3.Enabled = false;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem3.Text = "&Paste";
             this.toolStripMenuItem3.Visible = false;
             // 
             // menuUpdate
             // 
             this.menuUpdate.Name = "menuUpdate";
-            this.menuUpdate.Size = new System.Drawing.Size(144, 22);
+            this.menuUpdate.Size = new System.Drawing.Size(152, 22);
             this.menuUpdate.Text = "&Update";
             this.menuUpdate.Click += new System.EventHandler(this.toolStripMenuUpdate_Click);
             // 
             // AddMenu
             // 
             this.AddMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
-            this.toolStripMenuItemNewFolder,
+            this.addFolder,
+            this.addSite,
             this.toolStripSeparator6,
-            this.newSeries,
-            this.newExcel,
-            this.newHydromet,
-            this.newTextFile,
+            this.addBlankSeries,
+            this.addExcel,
+            this.addHydromet,
+            this.addTextFile,
             this.addSqLiteModel,
             this.addOwrd,
-            this.newUsgs,
-            this.newSHEF,
-            this.newAccess,
-            this.newModsim,
-            this.riverWareDataFileSinglerdfToolStripMenuItem,
-            this.riverWareMultipleRunDataFilerdfToolStripMenuItem,
-            this.toolStripMenuItem5,
-            this.toolStripMenuItem7,
-            this.toolStripMenuItem8,
-            this.toolStripMenuItemHydross,
-            this.AddBpaHydsimmenu,
-            this.Addcr10x,
+            this.addUsgsInternet,
+            this.addUsgsRDBfile,
+            this.addSHEF,
+            this.addAccess,
+            this.addRBMS,
+            this.addModsim,
+            this.addRWsingle,
+            this.addRWmultiple,
+            this.addHDBconfig,
+            this.addHDBmodeldata,
+            this.addHDBseries,
+            this.addNrcsSnotelSeries,
+            this.addHydross,
+            this.addBpaHydsimModel,
+            this.addcr10x,
+            this.addRioGrande,
             this.addPiscesDatabase,
             this.AddUrgwom,
-            this.newURGSIM,
-            this.toolStripMenuItem6,
-            this.AddCalc});
+            this.addURGSIMModel,
+            this.toolStripMenuItemBottom,
+            this.addCalcSeries});
             this.AddMenu.Name = "AddMenu";
             this.AddMenu.Size = new System.Drawing.Size(144, 22);
             this.AddMenu.Text = "&Add";
             // 
-            // toolStripMenuItem1
+            // addFolder
             // 
-            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(341, 22);
-            this.toolStripMenuItem1.Text = "Folder";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItemAddFolder_Click);
+            this.addFolder.Image = ((System.Drawing.Image)(resources.GetObject("addFolder.Image")));
+            this.addFolder.Name = "addFolder";
+            this.addFolder.Size = new System.Drawing.Size(320, 26);
+            this.addFolder.Text = "Folder";
+            this.addFolder.Click += new System.EventHandler(this.toolStripMenuItemAddFolder_Click);
             // 
-            // toolStripMenuItemNewFolder
+            // addSite
             // 
-            this.toolStripMenuItemNewFolder.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemNewFolder.Image")));
-            this.toolStripMenuItemNewFolder.Name = "toolStripMenuItemNewFolder";
-            this.toolStripMenuItemNewFolder.Size = new System.Drawing.Size(341, 22);
-            this.toolStripMenuItemNewFolder.Text = "Site...";
-            this.toolStripMenuItemNewFolder.Click += new System.EventHandler(this.newSite);
+            this.addSite.Image = ((System.Drawing.Image)(resources.GetObject("addSite.Image")));
+            this.addSite.Name = "addSite";
+            this.addSite.Size = new System.Drawing.Size(320, 26);
+            this.addSite.Text = "Site";
+            this.addSite.Click += new System.EventHandler(this.newSite);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(338, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(317, 6);
             // 
-            // newSeries
+            // addBlankSeries
             // 
-            this.newSeries.Name = "newSeries";
-            this.newSeries.Size = new System.Drawing.Size(341, 22);
-            this.newSeries.Text = "Series";
-            this.newSeries.Click += new System.EventHandler(this.AddSeriesClick);
+            this.addBlankSeries.Name = "addBlankSeries";
+            this.addBlankSeries.Size = new System.Drawing.Size(320, 26);
+            this.addBlankSeries.Text = "Blank Series";
+            this.addBlankSeries.Click += new System.EventHandler(this.AddSeriesClick);
             // 
-            // newExcel
+            // addExcel
             // 
-            this.newExcel.Image = ((System.Drawing.Image)(resources.GetObject("newExcel.Image")));
-            this.newExcel.Name = "newExcel";
-            this.newExcel.Size = new System.Drawing.Size(341, 22);
-            this.newExcel.Text = "&Excel Series( *.xls, *.csv, *.xlsx) ...";
-            this.newExcel.Click += new System.EventHandler(this.AddExcelClick);
+            this.addExcel.Image = ((System.Drawing.Image)(resources.GetObject("addExcel.Image")));
+            this.addExcel.Name = "addExcel";
+            this.addExcel.Size = new System.Drawing.Size(320, 26);
+            this.addExcel.Text = "&Excel Series ( *.xls, *.csv, *.xlsx)";
+            this.addExcel.Click += new System.EventHandler(this.AddExcelClick);
             // 
-            // newHydromet
+            // addHydromet
             // 
-            this.newHydromet.Image = ((System.Drawing.Image)(resources.GetObject("newHydromet.Image")));
-            this.newHydromet.Name = "newHydromet";
-            this.newHydromet.Size = new System.Drawing.Size(341, 22);
-            this.newHydromet.Text = "&Hydromet/AgriMet Series...";
-            this.newHydromet.Click += new System.EventHandler(this.AddHydrometClick);
+            this.addHydromet.Image = ((System.Drawing.Image)(resources.GetObject("addHydromet.Image")));
+            this.addHydromet.Name = "addHydromet";
+            this.addHydromet.Size = new System.Drawing.Size(320, 26);
+            this.addHydromet.Text = "&Hydromet/AgriMet Series";
+            this.addHydromet.Click += new System.EventHandler(this.AddHydrometClick);
             // 
-            // newTextFile
+            // addTextFile
             // 
-            this.newTextFile.Image = ((System.Drawing.Image)(resources.GetObject("newTextFile.Image")));
-            this.newTextFile.Name = "newTextFile";
-            this.newTextFile.Size = new System.Drawing.Size(341, 22);
-            this.newTextFile.Text = "&Text file Series(*.txt, *.csv) ...";
-            this.newTextFile.Click += new System.EventHandler(this.AddTextFileClick);
+            this.addTextFile.Image = ((System.Drawing.Image)(resources.GetObject("addTextFile.Image")));
+            this.addTextFile.Name = "addTextFile";
+            this.addTextFile.Size = new System.Drawing.Size(320, 26);
+            this.addTextFile.Text = "&Text file Series (*.txt, *.csv)";
+            this.addTextFile.Click += new System.EventHandler(this.AddTextFileClick);
             // 
             // addSqLiteModel
             // 
             this.addSqLiteModel.Name = "addSqLiteModel";
-            this.addSqLiteModel.Size = new System.Drawing.Size(341, 22);
+            this.addSqLiteModel.Size = new System.Drawing.Size(320, 26);
             this.addSqLiteModel.Text = "SQLite DB (Converted from DSS)";
             this.addSqLiteModel.Click += new System.EventHandler(this.addSqLiteModel_Click);
             // 
@@ -328,145 +338,185 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.addOwrd.Image = ((System.Drawing.Image)(resources.GetObject("addOwrd.Image")));
             this.addOwrd.Name = "addOwrd";
-            this.addOwrd.Size = new System.Drawing.Size(341, 22);
-            this.addOwrd.Text = "Add Oregon Water Resources Department (OWRD)";
+            this.addOwrd.Size = new System.Drawing.Size(320, 26);
+            this.addOwrd.Text = "Oregon Water Resources Department (OWRD)";
             this.addOwrd.Click += new System.EventHandler(this.addOwrd_Click);
             // 
-            // newUsgs
+            // addUsgsInternet
             // 
-            this.newUsgs.Image = ((System.Drawing.Image)(resources.GetObject("newUsgs.Image")));
-            this.newUsgs.Name = "newUsgs";
-            this.newUsgs.Size = new System.Drawing.Size(341, 22);
-            this.newUsgs.Text = "&USGS Series...";
-            this.newUsgs.Click += new System.EventHandler(this.AddUsgsClick);
+            this.addUsgsInternet.Image = ((System.Drawing.Image)(resources.GetObject("addUsgsInternet.Image")));
+            this.addUsgsInternet.Name = "addUsgsInternet";
+            this.addUsgsInternet.Size = new System.Drawing.Size(320, 26);
+            this.addUsgsInternet.Text = "&USGS Series from internet";
+            this.addUsgsInternet.Click += new System.EventHandler(this.AddUsgsClick);
             // 
-            // newSHEF
+            // addUsgsRDBfile
             // 
-            this.newSHEF.Name = "newSHEF";
-            this.newSHEF.Size = new System.Drawing.Size(341, 22);
-            this.newSHEF.Text = "Add SHEF Data";
-            this.newSHEF.Click += new System.EventHandler(this.addShef_Click);
+            this.addUsgsRDBfile.Image = ((System.Drawing.Image)(resources.GetObject("addUsgsRDBfile.Image")));
+            this.addUsgsRDBfile.Name = "addUsgsRDBfile";
+            this.addUsgsRDBfile.Size = new System.Drawing.Size(320, 26);
+            this.addUsgsRDBfile.Text = "USGS RDB file";
+            this.addUsgsRDBfile.Visible = false;
+            this.addUsgsRDBfile.Click += new System.EventHandler(this.AddUsgsClick);
             // 
-            // newAccess
+            // addSHEF
             // 
-            this.newAccess.Image = ((System.Drawing.Image)(resources.GetObject("newAccess.Image")));
-            this.newAccess.Name = "newAccess";
-            this.newAccess.Size = new System.Drawing.Size(341, 22);
-            this.newAccess.Text = "&Access Series...";
-            this.newAccess.Click += new System.EventHandler(this.AddAccessClick);
+            this.addSHEF.Name = "addSHEF";
+            this.addSHEF.Size = new System.Drawing.Size(320, 26);
+            this.addSHEF.Text = "SHEF Data";
+            this.addSHEF.Click += new System.EventHandler(this.addShef_Click);
             // 
-            // newModsim
+            // addAccess
             // 
-            this.newModsim.Name = "newModsim";
-            this.newModsim.Size = new System.Drawing.Size(341, 22);
-            this.newModsim.Text = "&Modsim (*.xy)";
-            this.newModsim.Click += new System.EventHandler(this.newModsim_Click);
+            this.addAccess.Image = ((System.Drawing.Image)(resources.GetObject("addAccess.Image")));
+            this.addAccess.Name = "addAccess";
+            this.addAccess.Size = new System.Drawing.Size(320, 26);
+            this.addAccess.Text = "&Access Series";
+            this.addAccess.Click += new System.EventHandler(this.AddAccessClick);
             // 
-            // riverWareDataFileSinglerdfToolStripMenuItem
+            // addRBMS
             // 
-            this.riverWareDataFileSinglerdfToolStripMenuItem.Name = "riverWareDataFileSinglerdfToolStripMenuItem";
-            this.riverWareDataFileSinglerdfToolStripMenuItem.Size = new System.Drawing.Size(341, 22);
-            this.riverWareDataFileSinglerdfToolStripMenuItem.Text = "RiverWare Single Run Data File (*.rdf)";
-            this.riverWareDataFileSinglerdfToolStripMenuItem.Click += new System.EventHandler(this.AddRiverWareSingleRdf_Click);
+            this.addRBMS.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem14,
+            this.toolStripMenuItem15});
+            this.addRBMS.Name = "addRBMS";
+            this.addRBMS.Size = new System.Drawing.Size(320, 26);
+            this.addRBMS.Text = "RBMS Data";
             // 
-            // riverWareMultipleRunDataFilerdfToolStripMenuItem
+            // toolStripMenuItem14
             // 
-            this.riverWareMultipleRunDataFilerdfToolStripMenuItem.Name = "riverWareMultipleRunDataFilerdfToolStripMenuItem";
-            this.riverWareMultipleRunDataFilerdfToolStripMenuItem.Size = new System.Drawing.Size(341, 22);
-            this.riverWareMultipleRunDataFilerdfToolStripMenuItem.Text = "RiverWare Multiple Run Data File (*.rdf)";
-            this.riverWareMultipleRunDataFilerdfToolStripMenuItem.Click += new System.EventHandler(this.AddRiverWareMultipleRdf_Click);
+            this.toolStripMenuItem14.Name = "toolStripMenuItem14";
+            this.toolStripMenuItem14.Size = new System.Drawing.Size(259, 22);
+            this.toolStripMenuItem14.Text = "Add RBMS Manul data entry (*.csv)";
+            this.toolStripMenuItem14.Click += new System.EventHandler(this.AddRBMS_csv_File_Click);
             // 
-            // toolStripMenuItem5
+            // toolStripMenuItem15
             // 
-            this.toolStripMenuItem5.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem5.Image")));
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(341, 22);
-            this.toolStripMenuItem5.Text = "H&DB Model Data";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.AddHDBModel_Click);
+            this.toolStripMenuItem15.Name = "toolStripMenuItem15";
+            this.toolStripMenuItem15.Size = new System.Drawing.Size(259, 22);
+            this.toolStripMenuItem15.Text = "Add RBMS Directory of files";
+            this.toolStripMenuItem15.Click += new System.EventHandler(this.addRBMSDirectory);
             // 
-            // toolStripMenuItem7
+            // addModsim
             // 
-            this.toolStripMenuItem7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem7.Image")));
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(341, 22);
-            this.toolStripMenuItem7.Text = "Add HDB Series...";
-            this.toolStripMenuItem7.Click += new System.EventHandler(this.addHDB_Click);
+            this.addModsim.Name = "addModsim";
+            this.addModsim.Size = new System.Drawing.Size(320, 26);
+            this.addModsim.Text = "&Modsim (*.xy)";
+            this.addModsim.Click += new System.EventHandler(this.newModsim_Click);
             // 
-            // toolStripMenuItem8
+            // addRWsingle
             // 
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(341, 22);
-            this.toolStripMenuItem8.Text = "Add &Nrcs Snotel Series";
-            this.toolStripMenuItem8.Click += new System.EventHandler(this.AddNrcsSnotel);
+            this.addRWsingle.Name = "addRWsingle";
+            this.addRWsingle.Size = new System.Drawing.Size(320, 26);
+            this.addRWsingle.Text = "RiverWare Single Run Data File (*.rdf)";
+            this.addRWsingle.Click += new System.EventHandler(this.AddRiverWareSingleRdf_Click);
             // 
-            // toolStripMenuItemHydross
+            // addRWmultiple
             // 
-            this.toolStripMenuItemHydross.Name = "toolStripMenuItemHydross";
-            this.toolStripMenuItemHydross.Size = new System.Drawing.Size(341, 22);
-            this.toolStripMenuItemHydross.Text = "H&ydross Scenarios (*.ods)";
-            this.toolStripMenuItemHydross.Click += new System.EventHandler(this.AddHydrossClick);
+            this.addRWmultiple.Name = "addRWmultiple";
+            this.addRWmultiple.Size = new System.Drawing.Size(320, 26);
+            this.addRWmultiple.Text = "RiverWare Multiple Run Data File (*.rdf)";
+            this.addRWmultiple.Click += new System.EventHandler(this.AddRiverWareMultipleRdf_Click);
             // 
-            // AddBpaHydsimmenu
+            // addHDBconfig
             // 
-            this.AddBpaHydsimmenu.Name = "AddBpaHydsimmenu";
-            this.AddBpaHydsimmenu.Size = new System.Drawing.Size(341, 22);
-            this.AddBpaHydsimmenu.Text = "Add &Bpa Hydsim Model Output (*.mdb)";
-            this.AddBpaHydsimmenu.Click += new System.EventHandler(this.AddBpaHydsimClick);
+            this.addHDBconfig.Image = ((System.Drawing.Image)(resources.GetObject("addHDBconfig.Image")));
+            this.addHDBconfig.Name = "addHDBconfig";
+            this.addHDBconfig.Size = new System.Drawing.Size(320, 26);
+            this.addHDBconfig.Text = "HDB Config File";
+            this.addHDBconfig.Click += new System.EventHandler(this.addHDBConfigFile_Click);
             // 
-            // Addcr10x
+            // addHDBmodeldata
             // 
-            this.Addcr10x.Image = ((System.Drawing.Image)(resources.GetObject("Addcr10x.Image")));
-            this.Addcr10x.Name = "Addcr10x";
-            this.Addcr10x.ShortcutKeyDisplayString = "";
-            this.Addcr10x.Size = new System.Drawing.Size(341, 22);
-            this.Addcr10x.Text = "Campbell Scientific ";
-            this.Addcr10x.Click += new System.EventHandler(this.AddCampbellDataLogger);
+            this.addHDBmodeldata.Image = ((System.Drawing.Image)(resources.GetObject("addHDBmodeldata.Image")));
+            this.addHDBmodeldata.Name = "addHDBmodeldata";
+            this.addHDBmodeldata.Size = new System.Drawing.Size(320, 26);
+            this.addHDBmodeldata.Text = "H&DB Model Data";
+            this.addHDBmodeldata.Click += new System.EventHandler(this.AddHDBModel_Click);
+            // 
+            // addHDBseries
+            // 
+            this.addHDBseries.Image = ((System.Drawing.Image)(resources.GetObject("addHDBseries.Image")));
+            this.addHDBseries.Name = "addHDBseries";
+            this.addHDBseries.Size = new System.Drawing.Size(320, 26);
+            this.addHDBseries.Text = "HDB Series";
+            this.addHDBseries.Click += new System.EventHandler(this.addHDB_Click);
+            // 
+            // addNrcsSnotelSeries
+            // 
+            this.addNrcsSnotelSeries.Name = "addNrcsSnotelSeries";
+            this.addNrcsSnotelSeries.Size = new System.Drawing.Size(320, 26);
+            this.addNrcsSnotelSeries.Text = "&Nrcs Snotel Series";
+            this.addNrcsSnotelSeries.Click += new System.EventHandler(this.AddNrcsSnotel);
+            // 
+            // addHydross
+            // 
+            this.addHydross.Name = "addHydross";
+            this.addHydross.Size = new System.Drawing.Size(320, 26);
+            this.addHydross.Text = "H&ydross Scenarios (*.ods)";
+            this.addHydross.Click += new System.EventHandler(this.AddHydrossClick);
+            // 
+            // addBpaHydsimModel
+            // 
+            this.addBpaHydsimModel.Name = "addBpaHydsimModel";
+            this.addBpaHydsimModel.Size = new System.Drawing.Size(320, 26);
+            this.addBpaHydsimModel.Text = "&Bpa Hydsim Model Output (*.mdb)";
+            this.addBpaHydsimModel.Click += new System.EventHandler(this.AddBpaHydsimClick);
+            // 
+            // addcr10x
+            // 
+            this.addcr10x.Image = ((System.Drawing.Image)(resources.GetObject("addcr10x.Image")));
+            this.addcr10x.Name = "addcr10x";
+            this.addcr10x.ShortcutKeyDisplayString = "";
+            this.addcr10x.Size = new System.Drawing.Size(320, 26);
+            this.addcr10x.Text = "Campbell Scientific ";
+            this.addcr10x.Click += new System.EventHandler(this.AddCampbellDataLogger);
             // 
             // addPiscesDatabase
             // 
             this.addPiscesDatabase.Name = "addPiscesDatabase";
-            this.addPiscesDatabase.Size = new System.Drawing.Size(341, 22);
-            this.addPiscesDatabase.Text = "Add Pisces Database file";
+            this.addPiscesDatabase.Size = new System.Drawing.Size(320, 26);
+            this.addPiscesDatabase.Text = "Pisces Database file";
             this.addPiscesDatabase.Click += new System.EventHandler(this.addPiscesDatabase_Click);
             // 
             // AddUrgwom
             // 
             this.AddUrgwom.Name = "AddUrgwom";
-            this.AddUrgwom.Size = new System.Drawing.Size(341, 22);
-            this.AddUrgwom.Text = "URGWOM ...";
+            this.AddUrgwom.Size = new System.Drawing.Size(320, 26);
+            this.AddUrgwom.Text = "URGWOM";
             this.AddUrgwom.Visible = false;
             this.AddUrgwom.Click += new System.EventHandler(this.AddUrgwomClick);
             // 
-            // newURGSIM
+            // addURGSIMModel
             // 
-            this.newURGSIM.Name = "newURGSIM";
-            this.newURGSIM.Size = new System.Drawing.Size(341, 22);
-            this.newURGSIM.Text = "URGSiM Model Data";
-            this.newURGSIM.Visible = false;
-            this.newURGSIM.Click += new System.EventHandler(this.AddURGSIM_Click);
+            this.addURGSIMModel.Name = "addURGSIMModel";
+            this.addURGSIMModel.Size = new System.Drawing.Size(320, 26);
+            this.addURGSIMModel.Text = "URGSiM Model Data";
+            this.addURGSIMModel.Visible = false;
+            this.addURGSIMModel.Click += new System.EventHandler(this.AddURGSIM_Click);
             // 
-            // toolStripMenuItem6
+            // toolStripMenuItemBottom
             // 
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(338, 6);
+            this.toolStripMenuItemBottom.Name = "toolStripMenuItemBottom";
+            this.toolStripMenuItemBottom.Size = new System.Drawing.Size(317, 6);
             // 
-            // AddCalc
+            // addCalcSeries
             // 
-            this.AddCalc.Image = ((System.Drawing.Image)(resources.GetObject("AddCalc.Image")));
-            this.AddCalc.Name = "AddCalc";
-            this.AddCalc.Size = new System.Drawing.Size(341, 22);
-            this.AddCalc.Text = "Calculation Series";
-            this.AddCalc.Click += new System.EventHandler(this.AddCalculationClick);
+            this.addCalcSeries.Image = ((System.Drawing.Image)(resources.GetObject("addCalcSeries.Image")));
+            this.addCalcSeries.Name = "addCalcSeries";
+            this.addCalcSeries.Size = new System.Drawing.Size(320, 26);
+            this.addCalcSeries.Text = "Calculation Series";
+            this.addCalcSeries.Click += new System.EventHandler(this.AddCalculationClick);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // menuClear
             // 
             this.menuClear.Name = "menuClear";
-            this.menuClear.Size = new System.Drawing.Size(144, 22);
+            this.menuClear.Size = new System.Drawing.Size(152, 22);
             this.menuClear.Text = "Clear";
             this.menuClear.ToolTipText = "Clears all data from this series";
             this.menuClear.Click += new System.EventHandler(this.ClearClick);
@@ -475,7 +525,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.menuDelete.AccessibleDescription = "delete this series and remove from the tree";
             this.menuDelete.Name = "menuDelete";
-            this.menuDelete.Size = new System.Drawing.Size(144, 22);
+            this.menuDelete.Size = new System.Drawing.Size(152, 22);
             this.menuDelete.Text = "Delete";
             this.menuDelete.ToolTipText = "delete selected series or folder";
             this.menuDelete.Click += new System.EventHandler(this.DeleteClick);
@@ -483,24 +533,24 @@ namespace Reclamation.TimeSeries.Forms
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // menuCalculate
             // 
             this.menuCalculate.Name = "menuCalculate";
-            this.menuCalculate.Size = new System.Drawing.Size(144, 22);
+            this.menuCalculate.Size = new System.Drawing.Size(152, 22);
             this.menuCalculate.Text = "Calculate...";
             this.menuCalculate.Click += new System.EventHandler(this.CalculateClick);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
             // 
             // menuProperties
             // 
             this.menuProperties.Name = "menuProperties";
-            this.menuProperties.Size = new System.Drawing.Size(144, 22);
+            this.menuProperties.Size = new System.Drawing.Size(152, 22);
             this.menuProperties.Text = "&Properties";
             this.menuProperties.Click += new System.EventHandler(this.Properties);
             // 
@@ -645,7 +695,7 @@ namespace Reclamation.TimeSeries.Forms
             this.AddRioGrandeSpreadsheet,
             this.toolStripAddUrgwom,
             this.AddURGSIM,
-            this.toolStripMenuItemBottom,
+            this.toolStripSeparator9,
             this.toolStripMenuItemAddCalculation,
             this.ratingTableToolStripMenuItem});
             this.DataMenu.Name = "DataMenu";
@@ -657,7 +707,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.toolStripMenuItemAddFolder.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddFolder.Image")));
             this.toolStripMenuItemAddFolder.Name = "toolStripMenuItemAddFolder";
-            this.toolStripMenuItemAddFolder.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddFolder.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddFolder.Text = "Add Folder";
             this.toolStripMenuItemAddFolder.Click += new System.EventHandler(this.toolStripMenuItemAddFolder_Click);
             // 
@@ -665,19 +715,19 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.toolStripMenuItemAddSite.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddSite.Image")));
             this.toolStripMenuItemAddSite.Name = "toolStripMenuItemAddSite";
-            this.toolStripMenuItemAddSite.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddSite.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddSite.Text = "Add Site...";
             this.toolStripMenuItemAddSite.Click += new System.EventHandler(this.newSite);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(338, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(342, 6);
             // 
             // toolStripMenuItemAddSeries
             // 
             this.toolStripMenuItemAddSeries.Name = "toolStripMenuItemAddSeries";
-            this.toolStripMenuItemAddSeries.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddSeries.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddSeries.Text = "Add Blank Series";
             this.toolStripMenuItemAddSeries.Click += new System.EventHandler(this.AddSeriesClick);
             // 
@@ -685,7 +735,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.toolStripMenuItemAddExcel.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddExcel.Image")));
             this.toolStripMenuItemAddExcel.Name = "toolStripMenuItemAddExcel";
-            this.toolStripMenuItemAddExcel.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddExcel.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddExcel.Text = "Add &Excel Series...";
             this.toolStripMenuItemAddExcel.Click += new System.EventHandler(this.AddExcelClick);
             // 
@@ -693,7 +743,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.toolStripMenuItemAddHydromet.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddHydromet.Image")));
             this.toolStripMenuItemAddHydromet.Name = "toolStripMenuItemAddHydromet";
-            this.toolStripMenuItemAddHydromet.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddHydromet.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddHydromet.Text = "Add &Hydromet/AgriMet Series...";
             this.toolStripMenuItemAddHydromet.Click += new System.EventHandler(this.AddHydrometClick);
             // 
@@ -701,7 +751,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.toolStripMenuItemAddTextFile.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddTextFile.Image")));
             this.toolStripMenuItemAddTextFile.Name = "toolStripMenuItemAddTextFile";
-            this.toolStripMenuItemAddTextFile.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddTextFile.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddTextFile.Text = "Add &Text file Series(*.txt, *.csv) ...";
             this.toolStripMenuItemAddTextFile.Click += new System.EventHandler(this.AddTextFileClick);
             // 
@@ -709,7 +759,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.toolStripAddOWRD.Image = ((System.Drawing.Image)(resources.GetObject("toolStripAddOWRD.Image")));
             this.toolStripAddOWRD.Name = "toolStripAddOWRD";
-            this.toolStripAddOWRD.Size = new System.Drawing.Size(341, 22);
+            this.toolStripAddOWRD.Size = new System.Drawing.Size(345, 26);
             this.toolStripAddOWRD.Text = "Add Oregon Water Resources Department (OWRD)";
             this.toolStripAddOWRD.Click += new System.EventHandler(this.addOwrd_Click);
             // 
@@ -717,7 +767,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.toolStripMenuItem10.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem10.Image")));
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItem10.Text = "Add &USGS Series from internet...";
             this.toolStripMenuItem10.Click += new System.EventHandler(this.AddUsgsClick);
             // 
@@ -725,7 +775,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.AddUsgsRDB.Image = ((System.Drawing.Image)(resources.GetObject("AddUsgsRDB.Image")));
             this.AddUsgsRDB.Name = "AddUsgsRDB";
-            this.AddUsgsRDB.Size = new System.Drawing.Size(341, 22);
+            this.AddUsgsRDB.Size = new System.Drawing.Size(345, 26);
             this.AddUsgsRDB.Text = "Add USGS RDB file";
             this.AddUsgsRDB.Visible = false;
             this.AddUsgsRDB.Click += new System.EventHandler(this.AddUsgsClick);
@@ -733,7 +783,7 @@ namespace Reclamation.TimeSeries.Forms
             // toolStripMenuItemAddSHEF
             // 
             this.toolStripMenuItemAddSHEF.Name = "toolStripMenuItemAddSHEF";
-            this.toolStripMenuItemAddSHEF.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddSHEF.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddSHEF.Text = "Add SHEF Data";
             this.toolStripMenuItemAddSHEF.Click += new System.EventHandler(this.addShef_Click);
             // 
@@ -741,7 +791,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.toolStripMenuItemAddAccess.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddAccess.Image")));
             this.toolStripMenuItemAddAccess.Name = "toolStripMenuItemAddAccess";
-            this.toolStripMenuItemAddAccess.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddAccess.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddAccess.Text = "Add &Access Series...";
             this.toolStripMenuItemAddAccess.Click += new System.EventHandler(this.AddAccessClick);
             // 
@@ -751,7 +801,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemRBMScsv,
             this.aToolStripMenuItem});
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItem4.Text = "Add RBMS Data";
             // 
             // toolStripMenuItemRBMScsv
@@ -771,21 +821,21 @@ namespace Reclamation.TimeSeries.Forms
             // toolStripMenuItemAddModsim
             // 
             this.toolStripMenuItemAddModsim.Name = "toolStripMenuItemAddModsim";
-            this.toolStripMenuItemAddModsim.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddModsim.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddModsim.Text = "Add &Modsim Series";
             this.toolStripMenuItemAddModsim.Click += new System.EventHandler(this.newModsim_Click);
             // 
             // toolStripMenuItemAddRdfSingleRun
             // 
             this.toolStripMenuItemAddRdfSingleRun.Name = "toolStripMenuItemAddRdfSingleRun";
-            this.toolStripMenuItemAddRdfSingleRun.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddRdfSingleRun.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddRdfSingleRun.Text = "Add RiverWare Single Run Data File (*.rdf)";
             this.toolStripMenuItemAddRdfSingleRun.Click += new System.EventHandler(this.AddRiverWareSingleRdf_Click);
             // 
             // toolStripMenuItemAddRdfMultipleRun
             // 
             this.toolStripMenuItemAddRdfMultipleRun.Name = "toolStripMenuItemAddRdfMultipleRun";
-            this.toolStripMenuItemAddRdfMultipleRun.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddRdfMultipleRun.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddRdfMultipleRun.Text = "Add RiverWare Multiple Run Data File (*.rdf) ";
             this.toolStripMenuItemAddRdfMultipleRun.Click += new System.EventHandler(this.AddRiverWareMultipleRdf_Click);
             // 
@@ -793,7 +843,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.addHDBConfigFile.Image = ((System.Drawing.Image)(resources.GetObject("addHDBConfigFile.Image")));
             this.addHDBConfigFile.Name = "addHDBConfigFile";
-            this.addHDBConfigFile.Size = new System.Drawing.Size(341, 22);
+            this.addHDBConfigFile.Size = new System.Drawing.Size(345, 26);
             this.addHDBConfigFile.Text = "Add HDB Config File ...";
             this.addHDBConfigFile.Click += new System.EventHandler(this.addHDBConfigFile_Click);
             // 
@@ -801,7 +851,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.AddHDBModel.Image = ((System.Drawing.Image)(resources.GetObject("AddHDBModel.Image")));
             this.AddHDBModel.Name = "AddHDBModel";
-            this.AddHDBModel.Size = new System.Drawing.Size(341, 22);
+            this.AddHDBModel.Size = new System.Drawing.Size(345, 26);
             this.AddHDBModel.Text = "Add H&DB Model Data";
             this.AddHDBModel.Click += new System.EventHandler(this.AddHDBModel_Click);
             // 
@@ -809,28 +859,28 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.addHDB.Image = ((System.Drawing.Image)(resources.GetObject("addHDB.Image")));
             this.addHDB.Name = "addHDB";
-            this.addHDB.Size = new System.Drawing.Size(341, 22);
+            this.addHDB.Size = new System.Drawing.Size(345, 26);
             this.addHDB.Text = "Add HDB Series...";
             this.addHDB.Click += new System.EventHandler(this.addHDB_Click);
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItem9.Text = "Add NRCS Snotel Series...";
             this.toolStripMenuItem9.Click += new System.EventHandler(this.AddNrcsSnotel);
             // 
             // toolStripMenuItemAddHydross
             // 
             this.toolStripMenuItemAddHydross.Name = "toolStripMenuItemAddHydross";
-            this.toolStripMenuItemAddHydross.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddHydross.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddHydross.Text = "Add H&ydross Scenarios";
             this.toolStripMenuItemAddHydross.Click += new System.EventHandler(this.AddHydrossClick);
             // 
             // AddBpaHydsim
             // 
             this.AddBpaHydsim.Name = "AddBpaHydsim";
-            this.AddBpaHydsim.Size = new System.Drawing.Size(341, 22);
+            this.AddBpaHydsim.Size = new System.Drawing.Size(345, 26);
             this.AddBpaHydsim.Text = "Add &Bpa Hydsim Model Output";
             this.AddBpaHydsim.Click += new System.EventHandler(this.AddBpaHydsimClick);
             // 
@@ -838,21 +888,21 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.toolStripMenuItemAddCr10x.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddCr10x.Image")));
             this.toolStripMenuItemAddCr10x.Name = "toolStripMenuItemAddCr10x";
-            this.toolStripMenuItemAddCr10x.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddCr10x.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddCr10x.Text = "Add Campbell Scientific Logger File";
             this.toolStripMenuItemAddCr10x.Click += new System.EventHandler(this.AddCampbellDataLogger);
             // 
             // AddRioGrandeSpreadsheet
             // 
             this.AddRioGrandeSpreadsheet.Name = "AddRioGrandeSpreadsheet";
-            this.AddRioGrandeSpreadsheet.Size = new System.Drawing.Size(341, 22);
+            this.AddRioGrandeSpreadsheet.Size = new System.Drawing.Size(345, 26);
             this.AddRioGrandeSpreadsheet.Text = "Add RioGrande Spreadsheet";
             this.AddRioGrandeSpreadsheet.Click += new System.EventHandler(this.AddRioGrandeSpreadsheet_Click);
             // 
             // toolStripAddUrgwom
             // 
             this.toolStripAddUrgwom.Name = "toolStripAddUrgwom";
-            this.toolStripAddUrgwom.Size = new System.Drawing.Size(341, 22);
+            this.toolStripAddUrgwom.Size = new System.Drawing.Size(345, 26);
             this.toolStripAddUrgwom.Text = "Add URGWOM Model Output";
             this.toolStripAddUrgwom.Visible = false;
             this.toolStripAddUrgwom.Click += new System.EventHandler(this.AddUrgwomClick);
@@ -860,28 +910,23 @@ namespace Reclamation.TimeSeries.Forms
             // AddURGSIM
             // 
             this.AddURGSIM.Name = "AddURGSIM";
-            this.AddURGSIM.Size = new System.Drawing.Size(341, 22);
+            this.AddURGSIM.Size = new System.Drawing.Size(345, 26);
             this.AddURGSIM.Text = "Add &URGSiM Model Data";
             this.AddURGSIM.Visible = false;
             this.AddURGSIM.Click += new System.EventHandler(this.AddURGSIM_Click);
-            // 
-            // toolStripMenuItemBottom
-            // 
-            this.toolStripMenuItemBottom.Name = "toolStripMenuItemBottom";
-            this.toolStripMenuItemBottom.Size = new System.Drawing.Size(338, 6);
             // 
             // toolStripMenuItemAddCalculation
             // 
             this.toolStripMenuItemAddCalculation.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemAddCalculation.Image")));
             this.toolStripMenuItemAddCalculation.Name = "toolStripMenuItemAddCalculation";
-            this.toolStripMenuItemAddCalculation.Size = new System.Drawing.Size(341, 22);
+            this.toolStripMenuItemAddCalculation.Size = new System.Drawing.Size(345, 26);
             this.toolStripMenuItemAddCalculation.Text = "Add Calculation Series";
             this.toolStripMenuItemAddCalculation.Click += new System.EventHandler(this.AddCalculationClick);
             // 
             // ratingTableToolStripMenuItem
             // 
             this.ratingTableToolStripMenuItem.Name = "ratingTableToolStripMenuItem";
-            this.ratingTableToolStripMenuItem.Size = new System.Drawing.Size(341, 22);
+            this.ratingTableToolStripMenuItem.Size = new System.Drawing.Size(345, 26);
             this.ratingTableToolStripMenuItem.Text = "Rating Table";
             this.ratingTableToolStripMenuItem.Visible = false;
             // 
@@ -926,6 +971,13 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
             this.toolStripSeparator8.Size = new System.Drawing.Size(244, 6);
+            // 
+            // toolStripProfileTool
+            // 
+            this.toolStripProfileTool.Name = "toolStripProfileTool";
+            this.toolStripProfileTool.Size = new System.Drawing.Size(247, 22);
+            this.toolStripProfileTool.Text = "&Profile Animation Tool";
+            this.toolStripProfileTool.Click += new System.EventHandler(this.toolStripProfileTool_Click);
             // 
             // ImportHydrologicModels
             // 
@@ -1022,12 +1074,17 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // toolStripProfileTool
+            // addRioGrande
             // 
-            this.toolStripProfileTool.Name = "toolStripProfileTool";
-            this.toolStripProfileTool.Size = new System.Drawing.Size(247, 22);
-            this.toolStripProfileTool.Text = "&Profile Animation Tool";
-            this.toolStripProfileTool.Click += new System.EventHandler(this.toolStripProfileTool_Click);
+            this.addRioGrande.Name = "addRioGrande";
+            this.addRioGrande.Size = new System.Drawing.Size(320, 26);
+            this.addRioGrande.Text = "RioGrande Spreadsheet";
+            this.addRioGrande.Click += new System.EventHandler(this.AddRioGrandeSpreadsheet_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(342, 6);
             // 
             // PiscesForm
             // 
@@ -1063,7 +1120,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripTree;
         private System.Windows.Forms.ToolStripMenuItem AddMenu;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewFolder;
+        private System.Windows.Forms.ToolStripMenuItem addSite;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem menuProperties;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
@@ -1073,12 +1130,12 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.OpenFileDialog openTextFileDialog;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-        private System.Windows.Forms.ToolStripMenuItem newSeries;
-        private System.Windows.Forms.ToolStripMenuItem newUsgs;
-        private System.Windows.Forms.ToolStripMenuItem newHydromet;
-        private System.Windows.Forms.ToolStripMenuItem newTextFile;
-        private System.Windows.Forms.ToolStripMenuItem newAccess;
-        private System.Windows.Forms.ToolStripMenuItem newExcel;
+        private System.Windows.Forms.ToolStripMenuItem addBlankSeries;
+        private System.Windows.Forms.ToolStripMenuItem addUsgsInternet;
+        private System.Windows.Forms.ToolStripMenuItem addHydromet;
+        private System.Windows.Forms.ToolStripMenuItem addTextFile;
+        private System.Windows.Forms.ToolStripMenuItem addAccess;
+        private System.Windows.Forms.ToolStripMenuItem addExcel;
         private System.Windows.Forms.OpenFileDialog openExcelDialog;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
@@ -1108,52 +1165,51 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.OpenFileDialog openAccessDialog;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddRdfMultipleRun;
-        private System.Windows.Forms.ToolStripMenuItem riverWareDataFileSinglerdfToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addRWsingle;
         private System.Windows.Forms.OpenFileDialog openRdfFileDialog;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserExport;
-        private System.Windows.Forms.ToolStripMenuItem newModsim;
+        private System.Windows.Forms.ToolStripMenuItem addModsim;
         private System.Windows.Forms.ToolStripMenuItem menuUpdate;
-        private System.Windows.Forms.ToolStripMenuItem Addcr10x;
+        private System.Windows.Forms.ToolStripMenuItem addcr10x;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddCr10x;
         private System.Windows.Forms.OpenFileDialog openFileDialogCr10x;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItemBottom;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddCalculation;
         private System.Windows.Forms.ToolStripMenuItem ratingTableToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem AddCalc;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem addCalcSeries;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItemBottom;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddModsim;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuCompactDB;
         private System.Windows.Forms.ToolStripMenuItem exportMenu;
         private System.Windows.Forms.ToolStripMenuItem menuImport;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddHydross;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemHydross;
+        private System.Windows.Forms.ToolStripMenuItem addHydross;
         private System.Windows.Forms.ToolStripMenuItem AddHDBModel;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem addHDBmodeldata;
         private System.Windows.Forms.ToolStripMenuItem addHDB;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripMenuItem addHDBseries;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButtonRefresh;
         private System.Windows.Forms.ToolStripMenuItem AddBpaHydsim;
-        private System.Windows.Forms.ToolStripMenuItem AddBpaHydsimmenu;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
+        private System.Windows.Forms.ToolStripMenuItem addBpaHydsimModel;
+        private System.Windows.Forms.ToolStripMenuItem addNrcsSnotelSeries;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem menuCalculate;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem AddURGSIM;
-        private System.Windows.Forms.ToolStripMenuItem newURGSIM;
+        private System.Windows.Forms.ToolStripMenuItem addURGSIMModel;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemStandalone;
         private System.Windows.Forms.ToolStripMenuItem AddUrgwom;
         private System.Windows.Forms.ToolStripMenuItem toolStripAddUrgwom;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddRdfSingleRun;
-        private System.Windows.Forms.ToolStripMenuItem riverWareMultipleRunDataFilerdfToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addRWmultiple;
         private System.Windows.Forms.ToolStripMenuItem connectToServer;
         private System.Windows.Forms.ToolStripMenuItem addOwrd;
         private System.Windows.Forms.ToolStripMenuItem toolStripAddOWRD;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddFolder;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem addFolder;
         private System.Windows.Forms.ToolStripMenuItem addHDBConfigFile;
         private System.Windows.Forms.ToolStripMenuItem addPiscesDatabase;
         private System.Windows.Forms.ToolStripMenuItem addSqLiteModel;
@@ -1165,8 +1221,15 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
         private System.Windows.Forms.ToolStripMenuItem ImportHydrologicModels;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAddSHEF;
-        private System.Windows.Forms.ToolStripMenuItem newSHEF;
+        private System.Windows.Forms.ToolStripMenuItem addSHEF;
         private System.Windows.Forms.ToolStripMenuItem toolStripProfileTool;
+        private System.Windows.Forms.ToolStripMenuItem addUsgsRDBfile;
+        private System.Windows.Forms.ToolStripMenuItem addRBMS;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
+        private System.Windows.Forms.ToolStripMenuItem addHDBconfig;
+        private System.Windows.Forms.ToolStripMenuItem addRioGrande;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         //private System.Windows.Forms.ToolStripMenuItem menuUpdate;
 
     }
