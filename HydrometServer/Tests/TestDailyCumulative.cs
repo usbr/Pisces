@@ -87,10 +87,10 @@ namespace Pisces.NunitTests.SeriesMath
 
             var pp = new Series("daily_wrdo_pp");
             pp.TimeInterval = TimeInterval.Daily;
-            pu.Add("10-1-2014", 1);
-            pu.Add("10-2-2014", 1);
-            pu.Add("10-3-2014", 1); // 5
-            pu.Add("10-4-2014", 1); // 6
+            pp.Add("10-1-2014", 1);
+            pp.Add("10-2-2014", 1);
+            pp.Add("10-3-2014", 1); // 5
+            pp.Add("10-4-2014", 1); // 6
             pp.Add("10-5-2014", 1); // 7
             pp.Add("10-6-2014", 1); // 8
 
