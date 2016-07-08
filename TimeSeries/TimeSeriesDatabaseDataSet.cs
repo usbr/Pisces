@@ -5,12 +5,14 @@ using System.IO;
 using System.Data;
 using System;
 using System.Text.RegularExpressions;
-namespace Reclamation.TimeSeries {
-    
-    
+namespace Reclamation.TimeSeries
+{
 
 
-    public partial class TimeSeriesDatabaseDataSet {
+
+
+    public partial class TimeSeriesDatabaseDataSet
+    {
 
         partial class alarmDataTable
         {
@@ -57,12 +59,12 @@ namespace Reclamation.TimeSeries {
 
             public bool Contains(string name, string siteid)
             {
-                return Select("name='" + name + "' and siteid = '" + siteid+"'").Length == 1;
+                return Select("name='" + name + "' and siteid = '" + siteid + "'").Length == 1;
             }
 
             public string Get(string name, string defaultValue, string siteid)
             {
-                var rows = Select("name='" + name + "' and siteid = '" + siteid+"'");
+                var rows = Select("name='" + name + "' and siteid = '" + siteid + "'");
                 if (rows.Length != 1)
                     return defaultValue;
 
@@ -71,7 +73,7 @@ namespace Reclamation.TimeSeries {
 
             public void Set(string name, string value, string siteid)
             {
-                var rows = Select("name='" + name + "' and siteid = '" + siteid+"'");
+                var rows = Select("name='" + name + "' and siteid = '" + siteid + "'");
                 if (rows.Length == 0)
                 {
                     AddsitepropertiesRow(NextID(), siteid, name, value);
@@ -90,14 +92,14 @@ namespace Reclamation.TimeSeries {
         {
 
             TimeSeriesDatabase m_db;
-            public seriespropertiesDataTable (TimeSeriesDatabase db ):base()
-	    {
-            string sql = "Select * from seriesproperties";
+            public seriespropertiesDataTable(TimeSeriesDatabase db) : base()
+            {
+                string sql = "Select * from seriesproperties";
 
-            db.Server.FillTable(this, sql);
-            this.TableName = "seriesproperties";
+                db.Server.FillTable(this, sql);
+                this.TableName = "seriesproperties";
                 m_db = db;
-        }
+            }
 
             public void Save()
             {
@@ -131,11 +133,11 @@ namespace Reclamation.TimeSeries {
             }
 
 
-            public static void Set(string name,string value, TimeSeriesName tn, BasicDBServer svr)
+            public static void Set(string name, string value, TimeSeriesName tn, BasicDBServer svr)
             {
                 var tableName = tn.GetTableName();
                 var sc = svr.Table("seriescatalog", "select * from seriescatalog where tablename = '" + tableName + "'");
-                if( sc.Rows.Count ==1)
+                if (sc.Rows.Count == 1)
                 {
                     int id = Convert.ToInt32(sc.Rows[0]["id"]);
                     Set(name, value, id, svr);
@@ -158,7 +160,7 @@ namespace Reclamation.TimeSeries {
 
                 if (tbl.Rows.Count == 0)
                 {
-                    tbl.AddseriespropertiesRow(svr.NextID("seriesproperties", "id"), seriesID, name,value);
+                    tbl.AddseriespropertiesRow(svr.NextID("seriesproperties", "id"), seriesID, name, value);
                 }
                 else
                 {
@@ -205,7 +207,7 @@ namespace Reclamation.TimeSeries {
             {
                 var rows = Select("seriesid = " + currentID);
                 foreach (var item in rows)
-                { 
+                {
                     AddseriespropertiesRow(NextID(), newID, item["name"].ToString(), item["value"].ToString());
                 }
             }
@@ -216,7 +218,7 @@ namespace Reclamation.TimeSeries {
             internal void DeleteAll(int id)
             {
                 var rows = Select("seriesid = " + id);
-                
+
                 foreach (var item in rows)
                 {
                     item.Delete();
@@ -226,15 +228,15 @@ namespace Reclamation.TimeSeries {
 
         public partial class sitecatalogDataTable
         {
-            
+
             public void AddsitecatalogRow(string siteid, string description, string state)
             {
-                AddsitecatalogRow(siteid, description, state,"","","","","","","",0,"","","","","","");
+                AddsitecatalogRow(siteid, description, state, "", "", "", "", "", "", "", 0, "", "", "", "", "", "");
             }
 
             public bool Exists(string siteid)
             {
-                var rows = Select("siteid = '" + siteid+"'");
+                var rows = Select("siteid = '" + siteid + "'");
                 if (rows.Length == 1)
                     return true;
                 if (rows.Length > 1)
@@ -249,7 +251,7 @@ namespace Reclamation.TimeSeries {
                 if (tableName == "")
                     tableName = s.Table.TableName;
                 if (tableName == "")
-                    tableName =   "ts_" + Guid.NewGuid();
+                    tableName = "ts_" + Guid.NewGuid();
 
                 var rval = AddSeriesCatalogRow(id, parentID, false, 0, s.Source, s.Name, s.SiteID, s.Units,
                     s.TimeInterval.ToString(), s.Parameter, tableName, s.Provider, s.ConnectionString, s.Expression, s.Notes, true);
@@ -261,7 +263,7 @@ namespace Reclamation.TimeSeries {
                 AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "", false);
                 return id;
             }
-            public int AddFolder(string folderName, int parentID=-1)
+            public int AddFolder(string folderName, int parentID = -1)
             {
                 int id = NextID();
                 if (parentID == -1)
@@ -280,23 +282,24 @@ namespace Reclamation.TimeSeries {
                 var rval = new List<string>();
 
                 var row = FindByid(id);
-                do{
-                  row = FindByid(row.ParentID);
-                  if (row == null || row.Name == null)
-                  {
-                      Console.WriteLine("yikes! parent does not exist");
-                      rval.Reverse();
-                      return rval.ToArray();
-                  }
-                  rval.Add(row.Name);
-                 
-                } while( row.ParentID != row.id) ; // ids equal at root level of tree
+                do
+                {
+                    row = FindByid(row.ParentID);
+                    if (row == null || row.Name == null)
+                    {
+                        Console.WriteLine("yikes! parent does not exist");
+                        rval.Reverse();
+                        return rval.ToArray();
+                    }
+                    rval.Add(row.Name);
+
+                } while (row.ParentID != row.id); // ids equal at root level of tree
 
                 rval.Reverse();
                 return rval.ToArray();
             }
 
-            public int GetOrCreateFolder( params string[] folderNames)
+            public int GetOrCreateFolder(params string[] folderNames)
             {
                 int rval = -1;
                 for (int i = 0; i < folderNames.Length; i++)
@@ -309,18 +312,18 @@ namespace Reclamation.TimeSeries {
                     }
                     else
                     {
-                       rval = AddFolder(fn,rval);
-                       Logger.WriteLine("Creating folder '" + fn + "'");
+                        rval = AddFolder(fn, rval);
+                        Logger.WriteLine("Creating folder '" + fn + "'");
                     }
                 }
                 return rval;
             }
 
-            private int FolderID(string name, int parentid= -1)
+            private int FolderID(string name, int parentid = -1)
             {
-                string sql = "name = '"+name+"' and isfolder = true ";
-                if( parentid != -1)
-                    sql += " and parentid = "+parentid ;
+                string sql = "name = '" + name + "' and isfolder = true ";
+                if (parentid != -1)
+                    sql += " and parentid = " + parentid;
                 DataRow[] foundFolder = this.Select(sql);
                 if (foundFolder.Length == 1)
                     return Convert.ToInt32(foundFolder[0]["id"]);
@@ -328,7 +331,7 @@ namespace Reclamation.TimeSeries {
                 return -1;
             }
 
-            public bool FolderExists(string folderName, int parentID=-1)
+            public bool FolderExists(string folderName, int parentID = -1)
             {
                 return FolderID(folderName, parentID) >= 0;
             }
@@ -353,7 +356,7 @@ namespace Reclamation.TimeSeries {
                 return null;
             }
 
-            public int AddInstantRow(string siteID, int parentid, string units, string pcode, string expression="")
+            public int AddInstantRow(string siteID, int parentid, string units, string pcode, string expression = "")
             {
                 var provider = "Series";
                 string iconName = "";
@@ -365,8 +368,8 @@ namespace Reclamation.TimeSeries {
                 string tableName = "instant_" + siteID + "_" + pcode;
 
                 var rows = Select("tablename = '" + tableName + "'");
-                if( rows.Length >0)
-                    Console.WriteLine("Warning table:'"+tableName+"' allready exists");
+                if (rows.Length > 0)
+                    Console.WriteLine("Warning table:'" + tableName + "' allready exists");
 
                 int rval = NextID();
                 AddSeriesCatalogRow(rval, parentid, false, 1, iconName, siteID + "_" + pcode, siteID, units, "Irregular",
@@ -377,13 +380,13 @@ namespace Reclamation.TimeSeries {
 
         public partial class ScenarioRow
         {
-             public string GetConnectionStringParameter(string name,string defaultValue="")
+            public string GetConnectionStringParameter(string name, string defaultValue = "")
             {
-             return   ConnectionStringUtility.GetToken(this.Path,name, defaultValue);
+                return ConnectionStringUtility.GetToken(this.Path, name, defaultValue);
             }
         }
 
-        
+
 
         partial class ScenarioDataTable
         {
@@ -416,20 +419,20 @@ namespace Reclamation.TimeSeries {
         //static TimeSeriesDatabaseDataSet.SeriesCatalogDataTable s_catalog = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
         public partial class SeriesCatalogRow : global::System.Data.DataRow
         {
-           // public TimeSeriesDatabase TimeSeriesDatabase;
+            // public TimeSeriesDatabase TimeSeriesDatabase;
 
-           // internal int FileIndex=0;
+            // internal int FileIndex=0;
             private Image _icon;
 
-        public Image Icon
-        {
-            get { return _icon; }
-            set { _icon = value; }
-        }
+            public Image Icon
+            {
+                get { return _icon; }
+                set { _icon = value; }
+            }
 
         }
 
-        
+
     }
 }
 
