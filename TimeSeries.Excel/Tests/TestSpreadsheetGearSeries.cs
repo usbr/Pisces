@@ -215,15 +215,15 @@ namespace Pisces.NunitTests.SeriesTypes
 
 
 
-        [Test]
+        [Test, Category("Internal")]
         public void LargeImport()
         {
 
             Performance perf = new Performance();
             string dataPath = TestData.DataPath;
-            string fn = Path.Combine(dataPath, "CraigAddley\\Testout.txt");
+            string fn = @"T:\PN6200\Staff\KTarbet\PiscesSampleData\CraigAddley\Testout.txt";
             Console.WriteLine(fn);
-            Assert.IsTrue(File.Exists(fn));
+            Assert.IsTrue(File.Exists(fn),"Missing file "+fn);
             SpreadsheetGearExcel xls = new SpreadsheetGearExcel(fn);
             perf.Report("done reading " + fn);
             Series s = SpreadsheetGearSeries.ReadFromWorkbook(xls.Workbook,"sheet1", "DateTime", "flow",false,"cfs");

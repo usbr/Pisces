@@ -11,6 +11,7 @@ namespace Reclamation.TimeSeries.Usace
     /// </summary>
     public class UsaceSeries : Series
     {
+        //http://www.nwd-wc.usace.army.mil/cgi-bin/dataquery.pl
         //http://www.nwd-wc.usace.army.mil/perl/dataquery.pl?k=id%3ADWR%2Brecord%3A%2F%2FDWR%2FHF%2F%2FIR-MONTH%2FDRXZZAZD%2F%2Bpk%3Adworshak&sd=10&sm=OCT&sy=2007&ed=20&em=OCT&ey=2007&of=Text+Comma-Delimited&et=Screen&dc=One+Column&snpt=Daily&snph=00&snpw=15&f1m=OCT&f1d=20&f2sm=OCT&f2sd=20&f2em=OCT&f2ed=20&f3c=Less+Than+Or+Equal+To&f3t=
 
 
@@ -55,7 +56,7 @@ namespace Reclamation.TimeSeries.Usace
             //http://www.nwd-wc.usace.army.mil/perl/dataquery.pl?k=id%3ACHJ%2Brecord%3A%2F%2FCHJ%2FYT%2F%2FIR-MONTH%2FIRVZZBZD%2F%2Bpk%3Aid.chj&sd=23&sm=MAY&sy=2011&ed=24&em=MAY&ey=2011&of=Text+Comma-Delimited&et=Screen&dc=One+Column&snpt=Daily&snph=00&snpw=15&f1m=MAY&f1d=24&f2=on&f2sm=MAY&f2sd=15&f2em=MAY&f2ed=24&f3c=Less+Than+Or+Equal+To&f3t=
             //record://los/hf//ir-month/drxzzazd/ time:-1m
 
-            string url = "http://www.nwd-wc.usace.army.mil/perl/dataquery.pl?k=id:hydromet@usbr.gov+record:";
+            string url = "http://www.nwd-wc.usace.army.mil/cgi-bin/dataquery.pl?k=id:hydromet@usbr.gov+record:";
             url += m_path + "&sd=01&sm=JAN&sy=2007&ed=23&em=FEB&ey=2007&of=Text+Comma-Delimited";
 
             url = ApplyDatesToURL(t1, t2, url);
