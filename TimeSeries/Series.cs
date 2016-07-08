@@ -1994,6 +1994,27 @@ namespace Reclamation.TimeSeries
 
 
         /// <summary>
+        /// Normalize series by inserting missing data entries
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        //public void Normalize()
+        //{
+        //    if (Count == 0)
+        //        return;
+        //    if (TimeInterval != TimeSeries.TimeInterval.Daily)
+        //    {
+        //        DateTime t1 = MinDateTime;
+        //        DateTime t2 = MaxDateTime;
+        //        NormalizeDaily(t1, t2);
+        //    }
+        //   else
+        //        throw new NotImplementedException();
+          
+        //}
+
+
+        /// <summary>
         /// Enforce consistent range of data, fills missing gaps with nulls
         /// </summary>
         /// <param name="t1"></param>

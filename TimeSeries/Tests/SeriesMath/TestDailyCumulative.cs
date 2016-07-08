@@ -75,7 +75,8 @@ namespace Reclamation.TimeSeries.Tests.SeriesMath
             }
             var rval = Math.DailyCalendarYearRunningTotal(s, cu);
             rval.RemoveMissing();
-            Assert.AreEqual(59, rval.Count);
+            Assert.AreEqual(27, rval.Count);
+            Assert.AreEqual(1026, rval["2016-02-28"].Value);
         }
 
         [Test]
