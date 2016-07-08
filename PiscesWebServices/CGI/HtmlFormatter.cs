@@ -72,13 +72,13 @@ namespace PiscesWebServices.CGI
             if (m_printHeader)
             {
                 WriteLine("<tr>");
-                WriteLine("<td>DateTime</td>");
+                WriteLine("<th>DateTime</th>");
                 for (int i = 0; i < list.Count; i++)
                 {
                     TimeSeriesName tn = new TimeSeriesName(list[i].Table.TableName);
-                    WriteLine("<td>" + tn.siteid + "_" + tn.pcode + "</td>");
+                    WriteLine("<th>" + tn.siteid + "_" + tn.pcode + "</th>");
                     if( PrintFlags )
-                        WriteLine("<td>flag</td>");
+                        WriteLine("<th>flag</th>");
                 }
                 WriteLine("</tr>");
             }

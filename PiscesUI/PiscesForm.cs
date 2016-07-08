@@ -37,7 +37,7 @@ namespace Reclamation.TimeSeries.Forms
 
             this.explorer1 = explorer;
             InitializePisces();
-            m_pluginManager.RegisterPlugins(this.DataMenu);
+            m_pluginManager.RegisterPlugins(this.contextMenuStripTree.Items["AddMenu"]);
             m_pluginManager.PluginClick += m_pluginManager_PluginClick;
             Enabling();
             
@@ -533,26 +533,16 @@ namespace Reclamation.TimeSeries.Forms
 
          bool canAddStuff = (CurrentFolder != null);
 
-         toolStripMenuItemAddSite.Enabled = canAddStuff;
-         toolStripMenuItemAddAccess.Enabled = canAddStuff;
-         toolStripMenuItemAddExcel.Enabled = canAddStuff;
-         toolStripMenuItemAddHydromet.Enabled = canAddStuff;
-         toolStripMenuItemAddSeries.Enabled = canAddStuff;
-         toolStripMenuItemAddTextFile.Enabled = canAddStuff;
-         AddUsgsRDB.Enabled = canAddStuff;
-         toolStripMenuItemAddRdfSingleRun.Enabled = canAddStuff;
-         toolStripMenuItemAddRdfMultipleRun.Enabled = canAddStuff;
-         toolStripMenuItemAddModsim.Enabled = canAddStuff;
-         toolStripMenuItemAddCr10x.Enabled = canAddStuff;
-         toolStripMenuItemAddCalculation.Enabled = canAddStuff;
+         AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
 
-            AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
-            newSeries.Enabled = canAddStuff;// folderSelected;
-            // Replacing Math menu with functions
-            //menuMath.Enabled = singleSeriesSelected || multiSeriesSelected;
-            //menuMath.Visible = false;
+         var addMenuItem = AddMenu as ToolStripDropDownItem;
+         foreach (var item in addMenuItem.DropDownItems)
+         {
+             if (item is ToolStripMenuItem)
+                ((ToolStripMenuItem)item).Enabled = canAddStuff;
+         }
+
             menuUpdate.Enabled = anySelected;
-            // folder or series 
             menuDelete.Enabled = anySelected;
             menuProperties.Enabled = singleSelection; 
             menuClear.Enabled = singleSeriesSelected;

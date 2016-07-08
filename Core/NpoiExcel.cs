@@ -8,6 +8,7 @@ using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using Reclamation.Core;
 using NPOI.SS.Util;
+using System.Globalization;
 
 namespace Reclamation.Core
 {
@@ -428,7 +429,25 @@ namespace Reclamation.Core
             if (t == typeof(double))
                 return cell.NumericCellValue;
             if (t == typeof(string))
-                return cell.ToString();
+            {
+                
+                if (cell.CellType == CellType.Numeric)
+                    return cell.ToString();
+                if( cell.CellType == CellType.Formula)
+                {
+                    if (cell.CachedFormulaResultType == CellType.Numeric
+                        && cell.DateCellValue != null )
+                        return cell.DateCellValue.ToString() ;
+
+                    if (cell.CachedFormulaResultType == CellType.String)
+                        return cell.StringCellValue;
+
+                }
+
+                DataFormatter f = new DataFormatter(CultureInfo.CurrentCulture);
+                return  f.FormatCellValue(cell);
+                //return cell.StringCellValue;
+            }
             if (t == typeof(DateTime))
                 return cell.DateCellValue;
 

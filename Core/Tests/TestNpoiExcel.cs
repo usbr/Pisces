@@ -7,15 +7,34 @@ using NUnit.Framework;
 namespace Reclamation.Core.Tests
 {
     [TestFixture]
-    public class NpoiExcelTest
+    public class TestNpoiExcel
     {
 
         static void Main(string[] args)
         {
-            NpoiExcelTest t = new NpoiExcelTest();
+            TestNpoiExcel t = new TestNpoiExcel();
             t.Test2();
             //t.Test1();
         }
+
+        [Test]
+        public void TestDataTypesToString()
+        {
+         var fn = Path.Combine(Globals.TestDataPath,"npoi", "datatypes.xlsx");
+         NpoiExcel x = new NpoiExcel(fn);
+         var tbl = x.ReadDataTable("Sheet1",true,true);
+         Console.WriteLine(DataTableOutput.ToJson(tbl));
+         Assert.AreEqual("text entry", tbl.Rows[0][0].ToString());
+         Assert.AreEqual("1", tbl.Rows[1][0].ToString());
+         Assert.AreEqual("3.15", tbl.Rows[2][0].ToString());
+         Assert.AreEqual(Convert.ToDateTime("7/8/2016"), 
+                         Convert.ToDateTime(tbl.Rows[3][0].ToString()));
+         Assert.AreEqual(Convert.ToDateTime("7/8/2016"),
+                     Convert.ToDateTime(tbl.Rows[4][0].ToString()));
+          
+
+        }
+
 
         [Test]
         public void Test2()
