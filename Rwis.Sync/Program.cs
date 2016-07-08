@@ -13,7 +13,7 @@ namespace Rwis.Sync
 {
     class Program
     {
-        static void Main(string[] argList)
+        static void SyncMain(string[] argList)
         {
             Arguments args = new Arguments(argList);
             var p = new OptionSet();
