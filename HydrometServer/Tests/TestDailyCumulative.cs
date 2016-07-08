@@ -126,8 +126,8 @@ namespace Pisces.NunitTests.SeriesMath
             var x = Reclamation.TimeSeries.Math.DailyWaterYearRunningTotal(pp, pu);
 
             x.WriteToConsole();
-            Console.WriteLine(x["2014-10-7"]);
-            Assert.AreEqual(0,x["2014-10-7"].Value,"PU ");
+            Console.WriteLine(x["2014-10-6"]);
+            Assert.AreEqual(0,x["2014-10-6"].Value,"PU ");
 
         }
 

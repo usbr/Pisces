@@ -71,44 +71,66 @@ namespace Reclamation.TimeSeries
             return DailyCumulative(incremental, cumulative, resetMonth, resetDay);
         }
 
+        private static DateTime GetRunningTotalStartDate(Series incremental, Series cumulative)
+        {
+            DateTime date = new DateTime();
+            if (cumulative.Count == 0)
+            {
+                date = incremental.MinDateTime;
+            }
+            else if (incremental.MinDateTime > cumulative.MinDateTime)
+            {
+                date = incremental.MinDateTime;
+            }
+            else
+            {
+                date = cumulative.MinDateTime;  
+            }
 
-
+            return date;
+        }
 
         private static Series DailyCumulative(Series incremental, Series cumulative, int resetMonth, int resetDay)
         {
+            //cumulative.Normalize();
+            //incremental.Normalize();
+
+            DateTime t;
             Series rval = new Series();
             rval.TimeInterval = TimeInterval.Daily;
             if (incremental.Count == 0) 
             {
-                Console.WriteLine("there is no incremental data ");
+                Console.WriteLine("there is no data ");
                 return rval;
             }
-
+            if (incremental.TimeInterval != TimeInterval.Daily || cumulative.TimeInterval != TimeInterval.Daily)
+            {
+                throw new ArgumentException("Error: arguments must both have daily interval");
+            }
 
             double sum = 0.0;  
             bool missing = false;
             bool primed = false;
-
-            if(cumulative.Count >0 &&
-                cumulative.MinDateTime != incremental.MinDateTime)
-            {
-                // startDate
-            }
-
             int index = 0;
-            if (cumulative.Count > 0 
-                && cumulative[0].DateTime == incremental[0].DateTime
-                && !cumulative[0].IsMissing)
+            
+            t = GetRunningTotalStartDate(incremental, cumulative);
+            if (cumulative.IndexOf(t) >= 0 && !cumulative[t].IsMissing)
             {
-                sum = cumulative[0].Value;
-                rval.Add(cumulative[0]);
+                sum = cumulative[t].Value;
+                rval.Add(cumulative[t]);
                 primed = true;
-                index++;
+                index = incremental.IndexOf(t) + 1;
             }
+            else
+            {
+                index = incremental.IndexOf(t);
+            }
+            
+
             for ( ; index < incremental.Count; index++)
             {
-                var t = incremental[index].DateTime;
-                if (t.Month == resetMonth && t.Day == resetDay)
+                var t2 = incremental[index].DateTime;
+                if (t2.Month == resetMonth && t2.Day == resetDay)
                 {
                     sum = 0.0;
                     primed = true;
@@ -126,9 +148,7 @@ namespace Reclamation.TimeSeries
                     Console.WriteLine("Missing data: incremental: " + incremental[index].ToString());
                     missing = true;
                 }
-
             }
-
             return rval;
         }
 
