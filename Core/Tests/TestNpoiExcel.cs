@@ -24,13 +24,14 @@ namespace Reclamation.Core.Tests
          NpoiExcel x = new NpoiExcel(fn);
          var tbl = x.ReadDataTable("Sheet1",true,true);
          Console.WriteLine(DataTableOutput.ToJson(tbl));
-
          Assert.AreEqual("text entry", tbl.Rows[0][0].ToString());
          Assert.AreEqual("1", tbl.Rows[1][0].ToString());
          Assert.AreEqual("3.15", tbl.Rows[2][0].ToString());
          Assert.AreEqual(Convert.ToDateTime("7/8/2016"), 
                          Convert.ToDateTime(tbl.Rows[3][0].ToString()));
-         Assert.AreEqual("Now()".ToLower(), tbl.Rows[4][0].ToString().ToLower());
+         Assert.AreEqual(Convert.ToDateTime("7/8/2016"),
+                     Convert.ToDateTime(tbl.Rows[4][0].ToString()));
+          
 
         }
 
