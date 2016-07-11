@@ -1,6 +1,7 @@
 ﻿using Reclamation.Core;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -111,6 +112,60 @@ namespace Reclamation.TimeSeries
             var fn = FileUtility.GetTempFileName(".txt");
             File.WriteAllLines(fn, lines.ToArray());
             Process.Start(fn);
+        }
+
+        public static DataTable WaterYearTable(Series s)
+        {
+            DateTime startDate = DateTime.Now;
+            if (s.Count > 0)
+            {
+                startDate = s[0].DateTime;
+            }
+            startDate = new DateTime(startDate.Year, 10, 1);
+            //one water year table
+            DataTable rval = new DataTable();
+
+            rval.Columns.Add("Day");
+
+            for (int i = 0; i < 12; i++)
+            {
+                rval.Columns.Add(startDate.ToString("MMM yyyy"));
+                startDate = startDate.AddMonths(1);
+            }
+
+            for (int i = 1; i <= 31; i++)
+            {
+                var row = rval.NewRow();
+                rval.Rows.Add(row);
+                row[0] = i;
+
+                for (int j = 0; j <= 12; j++)
+                {
+                    row[j + 1] = "---";
+                }
+
+            }
+            var m = 10;
+            for (int j = 1; j <= 12; j++)
+            {
+                startDate = new DateTime(startDate.Year, m, 1);
+                var days = DateTime.DaysInMonth(startDate.Year, startDate.Month);
+
+                for (int i = 0; i < days; i++)
+                {
+                    if (s.IndexOf(startDate) >= 0)
+                    {
+                        rval.Rows[i][j] = s[startDate].Value.ToString("F2");
+                    }
+                    startDate = startDate.AddDays(1);
+                }
+                m++;
+                if (m > 12)
+                {
+                    m = 1;
+                }
+            }
+            return rval;
         }
     }
 }
