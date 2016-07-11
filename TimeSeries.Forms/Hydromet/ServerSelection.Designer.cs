@@ -42,11 +42,12 @@
             this.groupBox1.Controls.Add(this.radioButtonGP);
             this.groupBox1.Controls.Add(this.radioButtonYakHydromet);
             this.groupBox1.Controls.Add(this.radioButtonPnHydromet);
-            this.groupBox1.Location = new System.Drawing.Point(2, 2);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(157, 136);
+            this.groupBox1.Size = new System.Drawing.Size(188, 143);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "time series data source";
@@ -86,7 +87,7 @@
             this.radioButtonPnHydromet.Location = new System.Drawing.Point(12, 32);
             this.radioButtonPnHydromet.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonPnHydromet.Name = "radioButtonPnHydromet";
-            this.radioButtonPnHydromet.Size = new System.Drawing.Size(102, 20);
+            this.radioButtonPnHydromet.Size = new System.Drawing.Size(152, 20);
             this.radioButtonPnHydromet.TabIndex = 0;
             this.radioButtonPnHydromet.Text = "Boise Hydromet";
             this.radioButtonPnHydromet.CheckedChanged += new System.EventHandler(this.serverChanged);
@@ -98,7 +99,7 @@
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ServerSelection";
-            this.Size = new System.Drawing.Size(166, 143);
+            this.Size = new System.Drawing.Size(188, 143);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 

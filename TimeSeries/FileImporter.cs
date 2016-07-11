@@ -18,7 +18,7 @@ namespace Reclamation.TimeSeries
     public class FileImporter
     {
         private TimeSeriesDatabase m_db;
-        private bool m_computeDailyOnMidnight=false;
+        private bool m_computeDailyDependencies=false;
         private bool m_computeDependencies=false;
         string[] validPcodes = new string[]{};
         string[] validSites = new string[] { };
@@ -37,7 +37,7 @@ namespace Reclamation.TimeSeries
         public void ImportFile(string fileName, RouteOptions routing = RouteOptions.None,
            bool computeDependencies = false, bool computeDailyOnMidnight = false, string searchPattern = "*.*")
         {
-            this.m_computeDailyOnMidnight = computeDailyOnMidnight;
+            this.m_computeDailyDependencies = computeDailyOnMidnight;
             this.m_computeDependencies = computeDependencies;
             Console.WriteLine(fileName);
             ProcessFile(routing, fileName);
@@ -45,7 +45,7 @@ namespace Reclamation.TimeSeries
         public void Import( string path, RouteOptions routing=RouteOptions.None,
             bool computeDependencies = false, bool computeDailyOnMidnight = false, string searchPattern = "*.*")
         {
-            this.m_computeDailyOnMidnight = computeDailyOnMidnight;
+            this.m_computeDailyDependencies = computeDailyOnMidnight;
             this.m_computeDependencies = computeDependencies;
             Console.WriteLine(path);
              DirectoryInfo di = new DirectoryInfo(path);
@@ -114,7 +114,7 @@ namespace Reclamation.TimeSeries
 
                 if (sl.Count > 0)
                 {
-                    m_importer.Import(sl, m_computeDependencies, m_computeDailyOnMidnight,importTag);
+                    m_importer.Import(sl, m_computeDependencies, m_computeDailyDependencies,importTag);
                     FileUtility.MoveToSubDirectory(Path.GetDirectoryName(fileName), "attic", fileName);
                 }
 

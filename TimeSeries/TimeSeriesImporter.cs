@@ -48,10 +48,10 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="inputSeriesList"></param>
         /// <param name="computeDependencies"></param>
-        /// <param name="ComputeDailyDependencies"></param>
+        /// <param name="computeDailyDependencies"></param>
         public void Import(SeriesList inputSeriesList,
             bool computeDependencies = false,
-            bool ComputeDailyDependencies = false,
+            bool computeDailyDependencies = false,
             string importTag="data")
         {
             var calculationQueue = new SeriesList();
@@ -73,7 +73,8 @@ namespace Reclamation.TimeSeries
                     var z = ComputeDependenciesSameInterval(s);
                     routingList.AddRange(z);
                 }
-                if (ComputeDailyDependencies)
+
+                if (computeDailyDependencies)
                 {
                     var x = GetDailyDependentCalculations(s);
                     foreach (var item in x)
@@ -86,48 +87,7 @@ namespace Reclamation.TimeSeries
 
             if (calculationQueue.Count >0)
             {
-                // do Actual Computations now. (in proper order...)
-                var list = new List<CalculationSeries>();
-                foreach (Series item in calculationQueue)
-                {
-                    list.Add(item as CalculationSeries);
-                }
-                TimeSeriesDependency td = new TimeSeriesDependency(list);
-                var sortedCalculations = td.Sort();
-                foreach (CalculationSeries cs in sortedCalculations)
-                {
-                    Console.Write(">>> " + cs.Table.TableName + ": " + cs.Expression);
-                    //var cs = item as CalculationSeries;
-                    var t1 = inputSeriesList.MinDateTime.Date;
-                    var t2 = inputSeriesList.MaxDateTime;
-
-                    // compute daily value for yesterday
-                    if (t1.Date == t2.AddDays(-1).Date)    // spans midnight, compute yesterday.
-                    {
-                        t1 = t1.Date;
-                        t2 = t1.Date;
-                    }
-                    else if( t1.Date == t2.Date) //  not a whole day of data
-                    {
-                        t1 = t1.AddDays(-1);
-                        t2 = t1;
-                    }
-
-                    // TO DO....
-                    var t1a = t1;
-                    //var t1a = cs.AdjustStartingDateFromProperties(t1, t2);
-
-                    cs.Calculate(t1a, t2);
-                    if (cs.Count > 0)
-                    {
-                        routingList.Add(cs);
-                        if( cs.CountMissing() >0)
-                        
-                            Console.WriteLine(" Missing "+cs.CountMissing()+" records");
-                        else
-                            Console.WriteLine(" OK");
-                    }
-                } 
+                PerformComputations(inputSeriesList, calculationQueue, routingList); 
             }
 
             SeriesList instantRoute = new SeriesList();
@@ -148,6 +108,49 @@ namespace Reclamation.TimeSeries
             TimeSeriesRouting.RouteDaily(dailyRoute, importTag, m_routing);
 
 
+        }
+
+        private static void PerformComputations(SeriesList inputSeriesList, SeriesList calculationQueue, SeriesList routingList)
+        {
+            // do Actual Computations now. (in proper order...)
+            var list = new List<CalculationSeries>();
+            foreach (Series item in calculationQueue)
+            {
+                list.Add(item as CalculationSeries);
+            }
+            TimeSeriesDependency td = new TimeSeriesDependency(list);
+            var sortedCalculations = td.Sort();
+            foreach (CalculationSeries cs in sortedCalculations)
+            {
+                Console.Write(">>> " + cs.Table.TableName + ": " + cs.Expression);
+                var t1 = inputSeriesList.MinDateTime.Date;
+                var t2 = inputSeriesList.MaxDateTime;
+
+                // compute daily value for previous day
+                if (t1.Date == t2.AddDays(-1).Date)    // spans midnight, compute previous day
+                {
+                    t1 = t1.Date;
+                    t2 = t1.Date;
+                }
+                else if (t1.Date == t2.Date) //  not a whole day of data
+                {
+                    t1 = t1.AddDays(-1);
+                    t2 = t1;
+                }
+
+                var t1a = t1;
+
+                cs.Calculate(t1a, t2);
+                if (cs.Count > 0)
+                {
+                    routingList.Add(cs);
+                    if (cs.CountMissing() > 0)
+
+                        Console.WriteLine(" Missing " + cs.CountMissing() + " records");
+                    else
+                        Console.WriteLine(" OK");
+                }
+            }
         }
         private SeriesList ComputeDependenciesSameInterval(Series s)
         {
@@ -179,9 +182,13 @@ namespace Reclamation.TimeSeries
         private SeriesList GetDailyDependentCalculations(Series s)
         {
             var calcList = new SeriesList();
+            if (s.Count == 0)
+                return calcList;
+
             // check for midnight values, and initiate daily calculations.
             if (s.TimeInterval == TimeInterval.Irregular)
             {
+
                 for (int i = 0; i < s.Count; i++)
                 {
                     var pt = s[i];
