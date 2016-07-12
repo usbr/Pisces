@@ -312,6 +312,7 @@
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="FileImporter.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HDB\HDBSeries.cs" />
     <Compile Include="PiscesMeasurement.cs" />
     <Compile Include="Profile\WaterProfileDatabase.cs" />
@@ -344,7 +345,6 @@
     <None Include="Alarms\AlarmDataSet.xss">
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
     </None>
-    <None Include="ClassDiagram2.cd" />
     <None Include="RatingTables\MeasurementsDataSet.xsc">
       <DependentUpon>MeasurementsDataSet.xsd</DependentUpon>
     </None>

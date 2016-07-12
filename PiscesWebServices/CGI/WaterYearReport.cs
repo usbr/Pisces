@@ -17,18 +17,23 @@ namespace PiscesWebServices.CGI
     public partial class WaterYearReport
     {
         private TimeSeriesDatabase db;
-        private string payload;
+        private string query;
 
         public WaterYearReport(TimeSeriesDatabase db, string payload)
         {
             this.db = db;
-            this.payload = payload;
+            this.query = payload;
         }
 
 
         internal void Run()
         {
-            var query = HydrometWebUtility.GetQuery();
+            if (query == "")
+            {
+                query = HydrometWebUtility.GetQuery();
+            }
+
+
             var collection = HttpUtility.ParseQueryString(query);
 
             TimeRange r = GetDateRange(collection);

@@ -46,10 +46,10 @@ namespace Reclamation.TimeSeries
         /// 3) compute dependent data (same interval)
         /// 4) compute daily data when encountering midnight values
         /// </summary>
-        /// <param name="inputSeriesList"></param>
+        /// <param name="importSeries"></param>
         /// <param name="computeDependencies"></param>
         /// <param name="computeDailyDependencies"></param>
-        public void Import(SeriesList inputSeriesList,
+        public void Import(SeriesList importSeries,
             bool computeDependencies = false,
             bool computeDailyDependencies = false,
             string importTag="data")
@@ -57,7 +57,7 @@ namespace Reclamation.TimeSeries
             var calculationQueue = new SeriesList();
             var routingList = new SeriesList();
 
-            foreach (var s in inputSeriesList)
+            foreach (var s in importSeries)
             {
                 // set flags.
                 Logger.WriteLine("Checking Flags ");
@@ -76,7 +76,7 @@ namespace Reclamation.TimeSeries
 
                 if (computeDailyDependencies)
                 {
-                    var x = GetDailyDependentCalculations(s);
+                    var x = GetDailyDependentCalculations(s); // daily calcs that depend on instant
                     foreach (var item in x)
                     {
                         if (!calculationQueue.ContainsTableName(item))
@@ -87,7 +87,7 @@ namespace Reclamation.TimeSeries
 
             if (calculationQueue.Count >0)
             {
-                PerformDailyComputations(inputSeriesList, calculationQueue, routingList); 
+                PerformDailyComputations(importSeries, calculationQueue, routingList); 
             }
 
             SeriesList instantRoute = new SeriesList();
@@ -110,7 +110,7 @@ namespace Reclamation.TimeSeries
 
         }
 
-        private static void PerformDailyComputations(SeriesList inputSeriesList, SeriesList calculationQueue, SeriesList routingList)
+        private static void PerformDailyComputations(SeriesList importSeries, SeriesList calculationQueue, SeriesList routingList)
         {
             // do Actual Computations now. (in proper order...)
             var list = new List<CalculationSeries>();
@@ -128,7 +128,7 @@ namespace Reclamation.TimeSeries
                 //if (cs.MinDateTime == DateTime.Now.Date)
                   //  continue; // data is all in today or future... don't compute
  
-                TimeRange tr = GetDailyCalculationTimeRange(inputSeriesList); 
+                TimeRange tr = GetDailyCalculationTimeRange(importSeries); 
                 
 
 

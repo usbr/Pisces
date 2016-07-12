@@ -134,7 +134,7 @@ namespace PiscesWebServices
                     Logger.WriteLine("Error: " + e.Message);
                 }
             }
-            else if (cgi == "wateryear"  )
+            else if (cgi == "wyreport"  )
             {
                 try
                 {
