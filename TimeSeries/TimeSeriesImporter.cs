@@ -87,7 +87,7 @@ namespace Reclamation.TimeSeries
 
             if (calculationQueue.Count >0)
             {
-                PerformComputations(inputSeriesList, calculationQueue, routingList); 
+                PerformDailyComputations(inputSeriesList, calculationQueue, routingList); 
             }
 
             SeriesList instantRoute = new SeriesList();
@@ -110,7 +110,7 @@ namespace Reclamation.TimeSeries
 
         }
 
-        private static void PerformComputations(SeriesList inputSeriesList, SeriesList calculationQueue, SeriesList routingList)
+        private static void PerformDailyComputations(SeriesList inputSeriesList, SeriesList calculationQueue, SeriesList routingList)
         {
             // do Actual Computations now. (in proper order...)
             var list = new List<CalculationSeries>();
@@ -123,24 +123,16 @@ namespace Reclamation.TimeSeries
             foreach (CalculationSeries cs in sortedCalculations)
             {
                 Console.Write(">>> " + cs.Table.TableName + ": " + cs.Expression);
-                var t1 = inputSeriesList.MinDateTime.Date;
-                var t2 = inputSeriesList.MaxDateTime;
 
-                // compute daily value for previous day
-                if (t1.Date == t2.AddDays(-1).Date)    // spans midnight, compute previous day
-                {
-                    t1 = t1.Date;
-                    t2 = t1.Date;
-                }
-                else if (t1.Date == t2.Date) //  not a whole day of data
-                {
-                    t1 = t1.AddDays(-1);
-                    t2 = t1;
-                }
+                
+                //if (cs.MinDateTime == DateTime.Now.Date)
+                  //  continue; // data is all in today or future... don't compute
+ 
+                TimeRange tr = GetDailyCalculationTimeRange(inputSeriesList); 
+                
 
-                var t1a = t1;
 
-                cs.Calculate(t1a, t2);
+                cs.Calculate(tr.StartDate, tr.EndDate);
                 if (cs.Count > 0)
                 {
                     routingList.Add(cs);
@@ -152,12 +144,46 @@ namespace Reclamation.TimeSeries
                 }
             }
         }
+
+        /// <summary>
+        /// Return range of dates to compute daily data.
+        /// </summary>
+        /// <param name="inputSeriesList"></param>
+        /// <returns></returns>
+        private static TimeRange GetDailyCalculationTimeRange(SeriesList inputSeriesList)
+        {
+           var t1 = inputSeriesList.MinDateTime.Date;
+           var t2 = inputSeriesList.MaxDateTime;
+
+               
+           // determine dates for calculation 
+           // based on:
+           //   * don't compute for today until we get to midnight
+           //   * compute daily value for previous day
+           if (t1.Date == t2.AddDays(-1).Date)    // spans midnight, compute previous day
+           {
+               t1 = t1.Date;
+               t2 = t1.Date;
+           }
+           else if (t1.Date == t2.Date) //  not a whole day of data
+           {
+               t1 = t1.AddDays(-1);
+               t2 = t1;
+           }
+
+           var t1a = t1;
+
+           TimeRange rval = new TimeRange(t1a, t2);
+           return rval;
+        }
         private SeriesList ComputeDependenciesSameInterval(Series s)
         {
             SeriesList rval = new SeriesList();
             var calcList = GetDependentCalculations(s.Table.TableName, s.TimeInterval);
             if (calcList.Count > 0)
                 Logger.WriteLine("Found " + calcList.Count + " " + s.TimeInterval + " calculations to update ");
+
+            // TO DO:  sort calc list and perform in proper order.
             foreach (var item in calcList)
             {
                 var cs = item as CalculationSeries;
@@ -200,6 +226,7 @@ namespace Reclamation.TimeSeries
                             if (!calcList.ContainsTableName(item))
                                 calcList.AddRange(x);
                         }
+                        break; 
                     }
                 }
             }

@@ -10,18 +10,18 @@ using System.IO;
 namespace Reclamation.TimeSeries
 {
     /// <summary>
-    /// TimeSeriesCalculator manages calculation series. 
+    /// DailyTimeSeriesCalculator manages calculation series. 
     /// Used to compute daily values in a batch type operation.
     /// 
     /// </summary>
-    public class TimeSeriesCalculator
+    public class DailyTimeSeriesCalculator
     {
         TimeSeriesDatabase m_db;
         TimeInterval m_interval;
         string m_filter;
         string m_propertyFilter;
         List<CalculationSeries> m_dependencyList;
-        public TimeSeriesCalculator(TimeSeriesDatabase db, TimeInterval interval, string filter="",
+        public DailyTimeSeriesCalculator(TimeSeriesDatabase db, TimeInterval interval, string filter="",
             string propertyFilter="")
         {
             m_db = db;
@@ -33,21 +33,21 @@ namespace Reclamation.TimeSeries
 
 
 
-        public CalculationSeries[] GetDependentCalculations(string siteID, string pcode)
-        {
+        //public CalculationSeries[] GetDependentCalculations(string siteID, string pcode)
+        //{
 
-            TimeSeriesDependency td = new TimeSeriesDependency(m_dependencyList);
-            TimeSeriesName tn = new TimeSeriesName(siteID + "_" + pcode, m_interval);
-            var list = td.LookupCalculations(tn.GetTableName(), m_interval).ToArray();
+        //    TimeSeriesDependency td = new TimeSeriesDependency(m_dependencyList);
+        //    TimeSeriesName tn = new TimeSeriesName(siteID + "_" + pcode, m_interval);
+        //    var list = td.LookupCalculations(tn.GetTableName(), m_interval).ToArray();
 
-            var cList = new List<CalculationSeries>();
-            foreach (var item in list)
-            {
-                if (item is CalculationSeries)
-                    cList.Add(item as CalculationSeries);
-            }
-            return cList.ToArray();
-        }
+        //    var cList = new List<CalculationSeries>();
+        //    foreach (var item in list)
+        //    {
+        //        if (item is CalculationSeries)
+        //            cList.Add(item as CalculationSeries);
+        //    }
+        //    return cList.ToArray();
+        //}
 
 
         /// <summary>

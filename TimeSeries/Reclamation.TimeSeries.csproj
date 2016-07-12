@@ -344,6 +344,7 @@
     <None Include="Alarms\AlarmDataSet.xss">
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
     </None>
+    <None Include="ClassDiagram2.cd" />
     <None Include="RatingTables\MeasurementsDataSet.xsc">
       <DependentUpon>MeasurementsDataSet.xsd</DependentUpon>
     </None>
@@ -605,7 +606,7 @@
     <Compile Include="Tests\SeriesTypes\TestRiverwareSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestUsgs.cs" />
     <Compile Include="Tests\SeriesTypes\UrgwomTest.cs" />
-    <Compile Include="TimeSeriesCalculator.cs" />
+    <Compile Include="DailyTimeSeriesCalculator.cs" />
     <Compile Include="TimeSeriesImporter.cs" />
     <Compile Include="TimeSeriesRouting.cs" />
     <Compile Include="Hydromet\VaxBinaryReader.cs" />
