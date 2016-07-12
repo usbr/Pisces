@@ -312,7 +312,6 @@
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="FileImporter.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="HDB\HDBSeries.cs" />
     <Compile Include="PiscesMeasurement.cs" />
     <Compile Include="Profile\WaterProfileDatabase.cs" />
