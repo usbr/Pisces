@@ -7,30 +7,30 @@ namespace Reclamation.TimeSeries
 {
     public class TimeRange
     {
-        private List<TimeRange> rval = new List<TimeRange>();
+        private List<TimeRange> rval = null;
         private DateTime start;
         private DateTime end;
         private DateTime temp;
-        private int maxDaysInMemory;
+        private int days;
 
-        public TimeRange(DateTime start, DateTime end, int maxDaysInMemory = 60)
+        public TimeRange(DateTime start, DateTime end)
         {
             this.start = start;
             this.end = end.EndOfDay();
-            this.maxDaysInMemory = maxDaysInMemory;
-
         }
 
-        public List<TimeRange> List()
+        public List<TimeRange> Split(int days = 60)
         {
+            rval = new List<TimeRange>();
+            this.days = days;
             while (start < end)
             {
-                temp = start.AddDays(maxDaysInMemory).EndOfDay();
+                temp = start.AddDays(days).EndOfDay();
                 if (temp > end)
                 {
                     temp = end;
                 }
-                rval.Add(new TimeRange(start, temp, maxDaysInMemory));
+                rval.Add(new TimeRange(start, temp));
                 start = temp.NextDay();
             }
             return rval;

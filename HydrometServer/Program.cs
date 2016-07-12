@@ -594,8 +594,8 @@ namespace HydrometServer
             // TO DO.. the outer loop of Date ranges  (t,t3) could
             // be generated as a separate task.
             Console.WriteLine("ImportHydrometInstant");
-            TimeRange timeRange = new TimeRange(start, end, 30);
-            foreach (TimeRange item in timeRange.List())
+            TimeRange timeRange = new TimeRange(start, end);
+            foreach (TimeRange item in timeRange.Split(30))
             {
                 int block = 1;
                 foreach (string query in GetBlockOfQueries(db, TimeInterval.Irregular, filter, propertyFilter))
