@@ -57,8 +57,7 @@
             this.t2Date = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.t1Date = new System.Windows.Forms.DateTimePicker();
-            this.dataProviderComboBox = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.dataProviderLabel = new System.Windows.Forms.Label();
             this.testConnectionButton = new System.Windows.Forms.Button();
             this.conxnStringLabel = new System.Windows.Forms.Label();
             this.sdiLabel = new System.Windows.Forms.Label();
@@ -104,6 +103,7 @@
             this.mpRadioButton.TabStop = true;
             this.mpRadioButton.Text = "Mid-Pacific (MP)";
             this.mpRadioButton.UseVisualStyleBackColor = true;
+            this.mpRadioButton.CheckedChanged += new System.EventHandler(this.setRegion);
             // 
             // ucRadioButton
             // 
@@ -115,6 +115,7 @@
             this.ucRadioButton.TabStop = true;
             this.ucRadioButton.Text = "Upper Colorado (UC)";
             this.ucRadioButton.UseVisualStyleBackColor = true;
+            this.ucRadioButton.CheckedChanged += new System.EventHandler(this.setRegion);
             // 
             // lcRadioButton
             // 
@@ -126,6 +127,7 @@
             this.lcRadioButton.TabStop = true;
             this.lcRadioButton.Text = "Lower Colorado (LC)";
             this.lcRadioButton.UseVisualStyleBackColor = true;
+            this.lcRadioButton.CheckedChanged += new System.EventHandler(this.setRegion);
             // 
             // gpRadioButton
             // 
@@ -137,6 +139,7 @@
             this.gpRadioButton.TabStop = true;
             this.gpRadioButton.Text = "Great Plains (GP)";
             this.gpRadioButton.UseVisualStyleBackColor = true;
+            this.gpRadioButton.CheckedChanged += new System.EventHandler(this.setRegion);
             // 
             // pnRadioButton
             // 
@@ -148,12 +151,12 @@
             this.pnRadioButton.TabStop = true;
             this.pnRadioButton.Text = "Pacific Northwest (PN)";
             this.pnRadioButton.UseVisualStyleBackColor = true;
+            this.pnRadioButton.CheckedChanged += new System.EventHandler(this.setRegion);
             // 
             // tstepComboBox
             // 
             this.tstepComboBox.FormattingEnabled = true;
             this.tstepComboBox.Items.AddRange(new object[] {
-            "",
             "Day",
             "Month"});
             this.tstepComboBox.Location = new System.Drawing.Point(68, 17);
@@ -161,6 +164,7 @@
             this.tstepComboBox.Size = new System.Drawing.Size(121, 21);
             this.tstepComboBox.TabIndex = 1;
             this.tstepComboBox.SelectedIndexChanged += new System.EventHandler(this.clearParameterComboBox);
+            this.tstepComboBox.SelectedIndex = 0;
             // 
             // tstepLabel
             // 
@@ -336,8 +340,7 @@
             this.regionInfoGroupBox.Controls.Add(this.t2Date);
             this.regionInfoGroupBox.Controls.Add(this.label2);
             this.regionInfoGroupBox.Controls.Add(this.t1Date);
-            this.regionInfoGroupBox.Controls.Add(this.dataProviderComboBox);
-            this.regionInfoGroupBox.Controls.Add(this.label1);
+            this.regionInfoGroupBox.Controls.Add(this.dataProviderLabel);
             this.regionInfoGroupBox.Controls.Add(this.testConnectionButton);
             this.regionInfoGroupBox.Controls.Add(this.conxnStringLabel);
             this.regionInfoGroupBox.Controls.Add(this.sdiLabel);
@@ -370,6 +373,7 @@
             this.t2Date.Name = "t2Date";
             this.t2Date.Size = new System.Drawing.Size(123, 20);
             this.t2Date.TabIndex = 23;
+            this.t2Date.ValueChanged += new System.EventHandler(this.BuildConnectionString);
             // 
             // label2
             // 
@@ -388,27 +392,16 @@
             this.t1Date.Name = "t1Date";
             this.t1Date.Size = new System.Drawing.Size(123, 20);
             this.t1Date.TabIndex = 21;
+            this.t1Date.ValueChanged += new System.EventHandler(this.BuildConnectionString);
             // 
-            // dataProviderComboBox
+            // dataProviderLabel
             // 
-            this.dataProviderComboBox.FormattingEnabled = true;
-            this.dataProviderComboBox.Items.AddRange(new object[] {
-            "",
-            "Daily",
-            "Monthly"});
-            this.dataProviderComboBox.Location = new System.Drawing.Point(345, 18);
-            this.dataProviderComboBox.Name = "dataProviderComboBox";
-            this.dataProviderComboBox.Size = new System.Drawing.Size(270, 21);
-            this.dataProviderComboBox.TabIndex = 19;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(246, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 13);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "Data Provider";
+            this.dataProviderLabel.AutoSize = true;
+            this.dataProviderLabel.Location = new System.Drawing.Point(246, 21);
+            this.dataProviderLabel.Name = "dataProviderLabel";
+            this.dataProviderLabel.Size = new System.Drawing.Size(78, 13);
+            this.dataProviderLabel.TabIndex = 20;
+            this.dataProviderLabel.Text = "Data Provider: ";
             // 
             // testConnectionButton
             // 
@@ -424,9 +417,9 @@
             this.conxnStringLabel.AutoSize = true;
             this.conxnStringLabel.Location = new System.Drawing.Point(5, 102);
             this.conxnStringLabel.Name = "conxnStringLabel";
-            this.conxnStringLabel.Size = new System.Drawing.Size(121, 13);
+            this.conxnStringLabel.Size = new System.Drawing.Size(119, 13);
             this.conxnStringLabel.TabIndex = 17;
-            this.conxnStringLabel.Text = "Pisces Connection: N/A";
+            this.conxnStringLabel.Text = "RWIS Connection: N/A";
             // 
             // sdiLabel
             // 
@@ -457,10 +450,13 @@
             // 
             // sdiTextBox
             // 
+            this.sdiTextBox.Enabled = false;
             this.sdiTextBox.Location = new System.Drawing.Point(105, 71);
             this.sdiTextBox.Name = "sdiTextBox";
             this.sdiTextBox.Size = new System.Drawing.Size(131, 20);
             this.sdiTextBox.TabIndex = 2;
+            this.sdiTextBox.Text = "[Enter an SDI]";
+            this.sdiTextBox.TextChanged += new System.EventHandler(this.BuildConnectionString);
             // 
             // parameterCodeTextBox
             // 
@@ -468,6 +464,8 @@
             this.parameterCodeTextBox.Name = "parameterCodeTextBox";
             this.parameterCodeTextBox.Size = new System.Drawing.Size(131, 20);
             this.parameterCodeTextBox.TabIndex = 1;
+            this.parameterCodeTextBox.Text = "[Enter a Parameter Code]";
+            this.parameterCodeTextBox.TextChanged += new System.EventHandler(this.BuildConnectionString);
             // 
             // siteCodeTextbox
             // 
@@ -475,6 +473,8 @@
             this.siteCodeTextbox.Name = "siteCodeTextbox";
             this.siteCodeTextbox.Size = new System.Drawing.Size(131, 20);
             this.siteCodeTextbox.TabIndex = 0;
+            this.siteCodeTextbox.Text = "[Enter a Site Code]";
+            this.siteCodeTextbox.TextChanged += new System.EventHandler(this.BuildConnectionString);
             // 
             // addToSeriesCatalogButton
             // 
@@ -495,6 +495,7 @@
             this.cancelButton.TabIndex = 20;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.CloseForm);
             // 
             // siteCatalogButton
             // 
@@ -609,8 +610,7 @@
         private System.Windows.Forms.Button siteCatalogButton;
         private System.Windows.Forms.Button parameterCatalogButton;
         private System.Windows.Forms.Label rwisNameLabel;
-        private System.Windows.Forms.ComboBox dataProviderComboBox;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label dataProviderLabel;
         private System.Windows.Forms.DateTimePicker t2Date;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker t1Date;

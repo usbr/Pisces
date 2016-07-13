@@ -23,20 +23,28 @@ namespace Rwis.Sync
         private static DataTable siteCat = db.GetSiteCatalog();
         private static DataTable parCat = db.GetParameterCatalog();
 
-
+        /// <summary>
+        /// Main entry form
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
-
             // Starts the application.
             Application.Run(new rwisForm());
         }
 
+        /// <summary>
+        /// Generate form
+        /// </summary>
         public rwisForm()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
-
+        /// <summary>
+        /// Gets Region option selected for use by other options
+        /// </summary>
+        /// <returns></returns>
         public string GetRegion()
         {
             if (this.pnRadioButton.Checked)
@@ -53,6 +61,34 @@ namespace Rwis.Sync
             { return "PN"; }
         }
 
+        /// <summary>
+        /// Controls visibility of Required Regional Connection Information based on Region selection
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void setRegion(object sender, EventArgs e)
+        {
+            var region = GetRegion();
+            if (region == "LC" || region == "UC")
+            {
+                this.siteCodeTextbox.Enabled = false;
+                this.parameterCodeTextBox.Enabled = false;
+                this.sdiTextBox.Enabled = true;
+            }
+            else
+            {
+                this.siteCodeTextbox.Enabled = true;
+                this.parameterCodeTextBox.Enabled = true;
+                this.sdiTextBox.Enabled = false;
+            }
+            GetDataProvider();
+        }
+
+        /// <summary>
+        ///  Gets Parameter Type options
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void getParTypes(object sender, EventArgs e)
         {
             DataTable distinctPars = parCat.DefaultView.ToTable(true, "name");
@@ -61,6 +97,11 @@ namespace Rwis.Sync
             { this.parameterTypeComboBox.Items.Add(row[0].ToString()); }
         }
 
+        /// <summary>
+        /// Gets Site Type options
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void getSiteTypes(object sender, EventArgs e)
         {
             DataTable distinctSites = siteCat.DefaultView.ToTable(true, "type");
@@ -69,6 +110,11 @@ namespace Rwis.Sync
             { this.siteTypeComboBox.Items.Add(row[0].ToString()); }
         }
 
+        /// <summary>
+        /// Gets Sites given option selections
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void getSitesByType(object sender, EventArgs e)
         {
             string typeVal;
@@ -81,23 +127,43 @@ namespace Rwis.Sync
             if (typeVal != "")
             {
                 DataRow[] distinctSites = siteCat.Select("type='" + typeVal + "' AND agency_region='" + region + "'");
-                foreach (DataRow row in distinctSites)
+                if (distinctSites.Count() < 1)
                 {
                     ComboboxItem item = new ComboboxItem();
-                    item.Text = row["description"].ToString();
-                    item.Value = row["siteid"].ToString();
+                    item.Text = "No sites found in " + region + " for SiteType=" + typeVal + "...";
+                    item.Value = "";
                     this.siteComboBox.Items.Add(item);
+                }
+                else
+                {
+                    foreach (DataRow row in distinctSites)
+                    {
+                        ComboboxItem item = new ComboboxItem();
+                        item.Text = row["description"].ToString();
+                        item.Value = row["siteid"].ToString();
+                        this.siteComboBox.Items.Add(item);
+                    }
                 }
             }
             else
             { this.siteComboBox.Items.Add("SELECT A SITE TYPE..."); }
         }
-        
+
+        /// <summary>
+        /// Clear contents for labels on option changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void clearSiteComboBox(object sender, EventArgs e)
         {
             this.siteComboBox.SelectedIndex = -1;
         }
 
+        /// <summary>
+        /// Gets Parameters given option selections
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void getParametersByTypeTimeStep(object sender, EventArgs e)
         {
             string typeVal, tStep;
@@ -127,9 +193,15 @@ namespace Rwis.Sync
             { this.parameterComboBox.Items.Add("SELECT A TIME-STEP AND PARAMETER TYPE..."); }
         }
 
+        /// <summary>
+        /// Clear contents for labels on option changes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void clearParameterComboBox(object sender, EventArgs e)
         {
             this.parameterComboBox.SelectedIndex = -1;
+            GetDataProvider();
         }
 
         /// <summary>
@@ -182,6 +254,11 @@ namespace Rwis.Sync
             GetPiscesName();
         }
 
+        /// <summary>
+        /// Sets text for Parameter Info labels
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GetParameterInfo(object sender, EventArgs e)
         {
             string parCode;
@@ -209,6 +286,44 @@ namespace Rwis.Sync
             GetPiscesName();
         }
 
+        /// <summary>
+        /// Builds the Data Provider string
+        /// </summary>
+        private void GetDataProvider()
+        {
+            var region = GetRegion();
+            string intervalCode = intervalCode = this.tstepComboBox.SelectedItem.ToString();
+            switch (intervalCode)
+            {
+                case "Day":
+                    intervalCode = "Daily";
+                    break;
+                case "Month":
+                    intervalCode = "Monthly";
+                    break;
+                default:
+                    intervalCode = "Daily";
+                    break;
+            }
+            string provider = "";
+            switch (region)
+            {
+                case "PN": case "GP": 
+                    provider += "Hydromet" + intervalCode + "Series";
+                    break;
+                case "LC": case "UC":
+                    provider += "HDBSeries";
+                    break;
+                case "MP":
+                    provider += "SFTPSeries";
+                    break;
+            }
+            this.dataProviderLabel.Text = "Data Provider: " + provider;
+        }
+
+        /// <summary>
+        /// Resolves the table and series name for storage into RWIS
+        /// </summary>
         private void GetPiscesName()
         {
             string siteId, parId;
@@ -221,11 +336,65 @@ namespace Rwis.Sync
             catch
             {
                 this.rwisNameLabel.Text  = "RWIS Name: N/A";
-            }
-
-
-
+            }            
         }
 
+        /// <summary>
+        ///  Build Connection String to be stored in RWIS
+        /// </summary>
+        private void BuildConnectionString(object sender, EventArgs e)
+        {
+            string conx = "";
+            var region = GetRegion();
+            var siteCode = this.siteCodeTextbox.Text.ToString();
+            var parCode = this.parameterCodeTextBox.Text.ToString();
+            var sdiCode = this.sdiTextBox.Text.ToString();
+            var intervalCode = this.tstepComboBox.SelectedItem.ToString();
+
+            switch (intervalCode)
+            {
+                case "Day":
+                    intervalCode = "Daily";
+                    break;
+                case "Month":
+                    intervalCode = "Monthly";
+                    break;
+                default:
+                    intervalCode = "Daily";
+                    break;                
+            }
+            switch (region)
+            {
+                case "PN":
+                    conx += "server=PN;cbtt=" + siteCode + ";pcode=" + parCode;
+                    break;
+                case "GP":
+                    conx += "server=GreatPlains;cbtt=" + siteCode + ";pcode=" + parCode;
+                    break;
+                case "LC":
+                    conx += "server=LCHDB2;sdi="+sdiCode+";timeinterval="+intervalCode;
+                    break;
+                case "UC":
+                    conx += "server=UCHDB2;sdi=" + sdiCode + ";timeinterval=" + intervalCode;
+                    break;
+                case "MP":
+                    conx += "server=MPSFTP;cbtt=" + siteCode + ";pcode=" + parCode;
+                    break;
+
+            }
+            this.conxnStringLabel.Text = "RWIS Connection: " + conx;
+        }
+
+        /// <summary>
+        /// Close Form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CloseForm(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        
     }
 }
