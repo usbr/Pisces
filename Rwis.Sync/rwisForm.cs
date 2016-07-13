@@ -64,8 +64,6 @@ namespace Rwis.Sync
         /// <summary>
         /// Controls visibility of Required Regional Connection Information based on Region selection
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void setRegion(object sender, EventArgs e)
         {
             var region = GetRegion();
@@ -87,8 +85,6 @@ namespace Rwis.Sync
         /// <summary>
         ///  Gets Parameter Type options
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public void getParTypes(object sender, EventArgs e)
         {
             DataTable distinctPars = parCat.DefaultView.ToTable(true, "name");
@@ -100,8 +96,6 @@ namespace Rwis.Sync
         /// <summary>
         /// Gets Site Type options
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public void getSiteTypes(object sender, EventArgs e)
         {
             DataTable distinctSites = siteCat.DefaultView.ToTable(true, "type");
@@ -113,8 +107,6 @@ namespace Rwis.Sync
         /// <summary>
         /// Gets Sites given option selections
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void getSitesByType(object sender, EventArgs e)
         {
             string typeVal;
@@ -152,8 +144,6 @@ namespace Rwis.Sync
         /// <summary>
         /// Clear contents for labels on option changes
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void clearSiteComboBox(object sender, EventArgs e)
         {
             this.siteComboBox.SelectedIndex = -1;
@@ -162,8 +152,6 @@ namespace Rwis.Sync
         /// <summary>
         /// Gets Parameters given option selections
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void getParametersByTypeTimeStep(object sender, EventArgs e)
         {
             string typeVal, tStep;
@@ -196,8 +184,6 @@ namespace Rwis.Sync
         /// <summary>
         /// Clear contents for labels on option changes
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void clearParameterComboBox(object sender, EventArgs e)
         {
             this.parameterComboBox.SelectedIndex = -1;
@@ -222,8 +208,6 @@ namespace Rwis.Sync
         /// <summary>
         /// Sets text for the Site Info labels
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void GetSiteInfo(object sender, EventArgs e)
         {
             string siteCode;
@@ -257,8 +241,6 @@ namespace Rwis.Sync
         /// <summary>
         /// Sets text for Parameter Info labels
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void GetParameterInfo(object sender, EventArgs e)
         {
             string parCode;
@@ -388,13 +370,35 @@ namespace Rwis.Sync
         /// <summary>
         /// Close Form
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void CloseForm(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        
+        /// <summary>
+        /// Opens Form with sitecatalog Data
+        /// </summary>
+        private void viewSiteCat(object sender, EventArgs e)
+        {
+            catalogViewer form = new catalogViewer(siteCat);
+            form.Show();
+        }
+
+        /// <summary>
+        /// Opens Form with parametercatalog Data
+        /// </summary>
+        private void viewParCat(object sender, EventArgs e)
+        {
+            catalogViewer form = new catalogViewer(parCat);
+            form.Show();
+        }
+
+        private void addDatasetToRWIS(object sender, EventArgs e)
+        {
+            DataTable serCat = db.GetParameterCatalog();
+
+        }
+
+
     }
 }

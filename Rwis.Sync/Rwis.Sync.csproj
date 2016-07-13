@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="catalogViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catalogViewer.Designer.cs">
+      <DependentUpon>catalogViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="InitializeRwisDB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +78,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="catalogViewer.resx">
+      <DependentUpon>catalogViewer.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="rwisForm.resx">
       <DependentUpon>rwisForm.cs</DependentUpon>
     </EmbeddedResource>

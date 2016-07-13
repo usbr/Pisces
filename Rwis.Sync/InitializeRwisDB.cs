@@ -12,8 +12,9 @@ namespace Rwis.Initialize
 {
     class Program
     {
-        static bool initializeSeriesCatalog = false;
+        static bool initializeSiteCatalog = false;
         static bool initializeParameterCatalog = false;
+        static bool initializeSeriesCatalog = false;
         static private string path = @"C:\Users\jrocha\Desktop\RWIS\";
 
         static void initializeMain(string[] argList)
@@ -39,7 +40,7 @@ namespace Rwis.Initialize
                 // Save Table
                 svr.SaveTable(parCat);
             }
-            if (initializeSeriesCatalog)
+            if (initializeSiteCatalog)
             {
                 // Get Site Catalog CSV
                 var steCatCSV = ConvertCSVtoDataTable(path + "sitecatalog.csv");
@@ -57,8 +58,24 @@ namespace Rwis.Initialize
                 // Save Table
                 svr.SaveTable(steCat);
             }
-
-
+            if (initializeSeriesCatalog)
+            {
+                // Get Site Catalog CSV
+                var serCatCSV = ConvertCSVtoDataTable(path + "seriescatalog.csv");
+                // Get DB Site Catalog
+                var serCat = db.GetSeriesCatalog();
+                // Populate DB sitecatalog
+                foreach (DataRow row in serCatCSV.Rows)
+                {
+                    serCat.AddSeriesCatalogRow(Convert.ToInt32(row["A_ID"]), Convert.ToInt32(row["parentid"]), Convert.ToBoolean(Convert.ToInt32(row["isfolder"])),
+                        Convert.ToInt32(row["sortorder"]), row["iconname"].ToString(), row["name"].ToString(), row["siteid"].ToString(),
+                        row["units"].ToString(), row["timeinterval"].ToString(), row["parameter"].ToString(),
+                        row["tablename"].ToString(), row["provider"].ToString(), row["connectionstring"].ToString(),
+                        row["expression"].ToString(), row["notes"].ToString(), Convert.ToBoolean(Convert.ToInt32(row["enabled"].ToString())));
+                }
+                // Save Table
+                svr.SaveTable(serCat);
+            }
         }
 
 

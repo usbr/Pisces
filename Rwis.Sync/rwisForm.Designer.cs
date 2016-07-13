@@ -164,7 +164,6 @@
             this.tstepComboBox.Size = new System.Drawing.Size(121, 21);
             this.tstepComboBox.TabIndex = 1;
             this.tstepComboBox.SelectedIndexChanged += new System.EventHandler(this.clearParameterComboBox);
-            this.tstepComboBox.SelectedIndex = 0;
             // 
             // tstepLabel
             // 
@@ -504,8 +503,9 @@
             this.siteCatalogButton.Name = "siteCatalogButton";
             this.siteCatalogButton.Size = new System.Drawing.Size(134, 23);
             this.siteCatalogButton.TabIndex = 21;
-            this.siteCatalogButton.Text = "View/Edit Site Catalog";
+            this.siteCatalogButton.Text = "View Site Catalog";
             this.siteCatalogButton.UseVisualStyleBackColor = true;
+            this.siteCatalogButton.Click += new System.EventHandler(this.viewSiteCat);
             // 
             // parameterCatalogButton
             // 
@@ -514,8 +514,9 @@
             this.parameterCatalogButton.Name = "parameterCatalogButton";
             this.parameterCatalogButton.Size = new System.Drawing.Size(166, 23);
             this.parameterCatalogButton.TabIndex = 22;
-            this.parameterCatalogButton.Text = "View/Edit Parameter Catalog";
+            this.parameterCatalogButton.Text = "View Parameter Catalog";
             this.parameterCatalogButton.UseVisualStyleBackColor = true;
+            this.parameterCatalogButton.Click += new System.EventHandler(this.viewParCat);
             // 
             // statusStrip1
             // 
