@@ -45,12 +45,7 @@ namespace HydrometServer
             }
 
 
-            
-
-
-
             string errorFileName = "errors.txt";
-            string detailFileName = "detail.txt";
             Performance perf = new Performance();
          //   try
             {
@@ -111,20 +106,11 @@ namespace HydrometServer
                 return;
             }
 
-            bool simulate = args.Contains("simulate");
-            bool hydrometCompare = args.Contains("hydromet-compare");
-
             
             if (args.Contains("error-log"))
             {
                 errorFileName = args["error-log"];
                 File.AppendAllText(errorFileName,"HydrometServer.exe:  Started " + DateTime.Now.ToString()+"\n");
-            }
-
-            if (args.Contains("detail-log"))
-            {
-                detailFileName = args["detail-log"];
-                File.AppendAllText(detailFileName, "HydrometServer.exe:  Started " + DateTime.Now.ToString() + "\n");
             }
 
                 string propertyFilter = "";
@@ -193,7 +179,7 @@ namespace HydrometServer
                     DailyTimeSeriesCalculator calc = new DailyTimeSeriesCalculator(db, TimeInterval.Daily,
                         filter,propertyFilter);
                     File.AppendAllText(errorFileName, "begin: calculate-daily " + DateTime.Now.ToString() + "\n");
-                    calc.ComputeDailyValues(t1, t2, hydrometCompare, errorFileName,detailFileName, simulate);
+                    calc.ComputeDailyValues(t1, t2, errorFileName);
                 }
 
 
@@ -320,10 +306,6 @@ namespace HydrometServer
             Console.WriteLine("           raw sql filter against seriescatalog");
             Console.WriteLine("--error-log=errors.txt");
             Console.WriteLine("           file to log error messages");
-            Console.WriteLine("--detail-log=detail.txt");
-            Console.WriteLine("           file to log error messages");
-            Console.WriteLine("--hydromet-compare");
-            Console.WriteLine("           compare computed values to hydromet values");
             Console.WriteLine("--import-hydromet-instant");
             Console.WriteLine("           imports hydromet (vms) instant data default (t1-3 days)");
             Console.WriteLine("--import-hydromet-daily");
@@ -333,8 +315,6 @@ namespace HydrometServer
             Console.WriteLine("--import-from-gmail");
             Console.WriteLine("           import from gmail using Gmail-API");
 
-            Console.WriteLine("--simulate");
-            Console.WriteLine("           simulate daily calcs (echo equation but don't compute)");
             Console.WriteLine("--create-database=timeseries");
             Console.WriteLine("          creates a new database");
             Console.WriteLine("--import-rating-tables=site_list.csv  [--generateNewTables]");
