@@ -10,18 +10,18 @@ using System.IO;
 namespace Reclamation.TimeSeries
 {
     /// <summary>
-    /// TimeSeriesCalculator manages calculation series. 
+    /// DailyTimeSeriesCalculator manages calculation series. 
     /// Used to compute daily values in a batch type operation.
     /// 
     /// </summary>
-    public class TimeSeriesCalculator
+    public class DailyTimeSeriesCalculator
     {
         TimeSeriesDatabase m_db;
         TimeInterval m_interval;
         string m_filter;
         string m_propertyFilter;
         List<CalculationSeries> m_dependencyList;
-        public TimeSeriesCalculator(TimeSeriesDatabase db, TimeInterval interval, string filter="",
+        public DailyTimeSeriesCalculator(TimeSeriesDatabase db, TimeInterval interval, string filter="",
             string propertyFilter="")
         {
             m_db = db;
@@ -33,21 +33,21 @@ namespace Reclamation.TimeSeries
 
 
 
-        public CalculationSeries[] GetDependentCalculations(string siteID, string pcode)
-        {
+        //public CalculationSeries[] GetDependentCalculations(string siteID, string pcode)
+        //{
 
-            TimeSeriesDependency td = new TimeSeriesDependency(m_dependencyList);
-            TimeSeriesName tn = new TimeSeriesName(siteID + "_" + pcode, m_interval);
-            var list = td.LookupCalculations(tn.GetTableName(), m_interval).ToArray();
+        //    TimeSeriesDependency td = new TimeSeriesDependency(m_dependencyList);
+        //    TimeSeriesName tn = new TimeSeriesName(siteID + "_" + pcode, m_interval);
+        //    var list = td.LookupCalculations(tn.GetTableName(), m_interval).ToArray();
 
-            var cList = new List<CalculationSeries>();
-            foreach (var item in list)
-            {
-                if (item is CalculationSeries)
-                    cList.Add(item as CalculationSeries);
-            }
-            return cList.ToArray();
-        }
+        //    var cList = new List<CalculationSeries>();
+        //    foreach (var item in list)
+        //    {
+        //        if (item is CalculationSeries)
+        //            cList.Add(item as CalculationSeries);
+        //    }
+        //    return cList.ToArray();
+        //}
 
 
         /// <summary>
@@ -57,10 +57,9 @@ namespace Reclamation.TimeSeries
         /// <param name="t2"></param>
         /// <param name="propertyFilter">series property filter.  Example  program:agrimet </param>
         /// <param name="simulate">simulate calculations, don't actuually do it.</param>
-        public CalculationSeries[] ComputeDailyValues(DateTime t1, DateTime t2,  bool compareToHydromet=false, string errorFileName="", 
-            string detailFileName = "", bool simulate=false)
+        public CalculationSeries[] ComputeDailyValues(DateTime t1, DateTime t2, 
+            string errorFileName="")
         {
-           
 
             Performance p = new Performance();
             HydrometInstantSeries.Cache = new HydrometDataCache(); // clear out and make new cache.
@@ -89,12 +88,6 @@ namespace Reclamation.TimeSeries
                     CacheAllParametersForSite(s, t1a, t2); // 50% performance boost.
 
                 Console.Write(s.Table.TableName + " = " + s.Expression);
-                if (simulate)
-                {
-                    Console.WriteLine("skipping calc");
-                    continue;
-                }
-
               
 
 
@@ -110,7 +103,6 @@ namespace Reclamation.TimeSeries
                         msg += "\n" + x;
                     }
                     Console.WriteLine(msg);
-                    File.AppendAllText(detailFileName, msg);
                 }
                 else
                 {
@@ -118,10 +110,6 @@ namespace Reclamation.TimeSeries
                     Console.WriteLine(" OK. ");
                 }
 
-                if (compareToHydromet)
-                {
-                    CompareToHydromet(s);
-                }
                 s.Expression = originalExpression;
 
                 TimeSeriesName n = new TimeSeriesName(s.Table.TableName);
@@ -161,67 +149,6 @@ namespace Reclamation.TimeSeries
 
 
         static string debugFileName="";
-
-        /// <summary>
-        ///  read computed value from hydromet and compare..
-        ///  
-        /// </summary>
-        /// <param name="s"></param>
-        private void CompareToHydromet(CalculationSeries s)
-        {
-            if (s.Count == 0)
-                return;
-            // TO DO.. also check instant calcs.
-            TimeSeriesName n = new TimeSeriesName(s.Table.TableName);
-
-            if (s.TimeInterval == TimeInterval.Daily)
-            {
-                var tmp = HydrometDailySeries.Cache;
-                HydrometDailySeries.Cache = null; // don't use cache..
-                HydrometDailySeries h = new HydrometDailySeries(n.siteid, n.pcode);
-                HydrometDailySeries.Cache = tmp;
-
-                h.Read(s.MinDateTime, s.MaxDateTime);
-
-                Series diff = Reclamation.TimeSeries.Math.Abs(h - s);
-
-                var pt = Reclamation.TimeSeries.Math.MaxPoint(diff);
-                double tolerance = 0.1;
-                if (Array.IndexOf(new string[] { "sr", "wr" }, n.pcode) >= 0)
-                {
-                    tolerance = 1.0;
-                }
-
-                double delta = h[0].Value - s[0].Value;
-                double pctError = 0;
-                if (System.Math.Abs(delta) > 0)
-                    pctError = System.Math.Abs(delta / h[0].Value);
-
-                if (pctError > tolerance)
-                {
-                    if (debugFileName == "")
-                    {
-                        debugFileName="calc_errors.csv";
-                        if(File.Exists(debugFileName))
-                          File.Delete(debugFileName);
-                        File.AppendAllText(debugFileName, "site,pcode,interval,openvms,linux,delta,percentError" + "\n");
-                    }
-                    if (h[0].Value != Point.MissingValueFlag)
-                    {
-                        string msg = n.siteid + "," + n.pcode + "," + n.interval + "," + h[0].Value + ", " + s[0].Value + ", " + delta + ", " + pctError;
-                        Console.WriteLine(msg);
-                        File.AppendAllText(debugFileName, msg + "\n");
-                    }
-                }
-
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
-
-
-        }
 
         static HashSet<string> visitedSites = new HashSet<string>();
         

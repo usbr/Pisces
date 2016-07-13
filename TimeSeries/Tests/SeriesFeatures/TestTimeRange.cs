@@ -18,7 +18,7 @@ namespace Pisces.NunitTests.SeriesFeatures
             var t1 = new DateTime(1999, 1, 1);
             var t2 = new DateTime(2001, 1, 1);
             TimeRange testTime = new TimeRange(t1, t2);
-            foreach (TimeRange item in testTime.List())
+            foreach (TimeRange item in testTime.Split())
             {
                 
                 Console.WriteLine(item.StartDate+", " +item.EndDate);

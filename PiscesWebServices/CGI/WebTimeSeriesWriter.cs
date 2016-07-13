@@ -191,17 +191,17 @@ namespace PiscesWebServices.CGI
             
             m_formatter.WriteSeriesHeader(list);
 
-            int maxDaysInMemory = 30;
+            int daysStored = 30;
 
             if (m_formatter.Interval == TimeInterval.Daily)
-                maxDaysInMemory = 3650; // 10 years
+                daysStored = 3650; // 10 years
 
             if (m_formatter.Interval == TimeInterval.Monthly)
-                maxDaysInMemory = 36500;
+                daysStored = 36500;
 
-            TimeRange timeRange = new TimeRange(start, end, maxDaysInMemory);
+            TimeRange timeRange = new TimeRange(start, end);
 
-            foreach (TimeRange item in timeRange.List())
+            foreach (TimeRange item in timeRange.Split(daysStored))
             {
                 var tbl = Read(list, item.StartDate, item.EndDate); // 0.0 seconds windows/linux
                 var interval = m_formatter.Interval;

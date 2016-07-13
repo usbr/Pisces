@@ -46,18 +46,18 @@ namespace Reclamation.TimeSeries
         /// 3) compute dependent data (same interval)
         /// 4) compute daily data when encountering midnight values
         /// </summary>
-        /// <param name="inputSeriesList"></param>
+        /// <param name="importSeries"></param>
         /// <param name="computeDependencies"></param>
-        /// <param name="ComputeDailyDependencies"></param>
-        public void Import(SeriesList inputSeriesList,
+        /// <param name="computeDailyDependencies"></param>
+        public void Import(SeriesList importSeries,
             bool computeDependencies = false,
-            bool ComputeDailyDependencies = false,
+            bool computeDailyDependencies = false,
             string importTag="data")
         {
             var calculationQueue = new SeriesList();
             var routingList = new SeriesList();
 
-            foreach (var s in inputSeriesList)
+            foreach (var s in importSeries)
             {
                 // set flags.
                 Logger.WriteLine("Checking Flags ");
@@ -73,9 +73,10 @@ namespace Reclamation.TimeSeries
                     var z = ComputeDependenciesSameInterval(s);
                     routingList.AddRange(z);
                 }
-                if (ComputeDailyDependencies)
+
+                if (computeDailyDependencies)
                 {
-                    var x = GetDailyDependentCalculations(s);
+                    var x = GetDailyDependentCalculations(s); // daily calcs that depend on instant
                     foreach (var item in x)
                     {
                         if (!calculationQueue.ContainsTableName(item))
@@ -86,48 +87,7 @@ namespace Reclamation.TimeSeries
 
             if (calculationQueue.Count >0)
             {
-                // do Actual Computations now. (in proper order...)
-                var list = new List<CalculationSeries>();
-                foreach (Series item in calculationQueue)
-                {
-                    list.Add(item as CalculationSeries);
-                }
-                TimeSeriesDependency td = new TimeSeriesDependency(list);
-                var sortedCalculations = td.Sort();
-                foreach (CalculationSeries cs in sortedCalculations)
-                {
-                    Console.Write(">>> " + cs.Table.TableName + ": " + cs.Expression);
-                    //var cs = item as CalculationSeries;
-                    var t1 = inputSeriesList.MinDateTime.Date;
-                    var t2 = inputSeriesList.MaxDateTime;
-
-                    // compute daily value for yesterday
-                    if (t1.Date == t2.AddDays(-1).Date)    // spans midnight, compute yesterday.
-                    {
-                        t1 = t1.Date;
-                        t2 = t1.Date;
-                    }
-                    else if( t1.Date == t2.Date) //  not a whole day of data
-                    {
-                        t1 = t1.AddDays(-1);
-                        t2 = t1;
-                    }
-
-                    // TO DO....
-                    var t1a = t1;
-                    //var t1a = cs.AdjustStartingDateFromProperties(t1, t2);
-
-                    cs.Calculate(t1a, t2);
-                    if (cs.Count > 0)
-                    {
-                        routingList.Add(cs);
-                        if( cs.CountMissing() >0)
-                        
-                            Console.WriteLine(" Missing "+cs.CountMissing()+" records");
-                        else
-                            Console.WriteLine(" OK");
-                    }
-                } 
+                PerformDailyComputations(importSeries, calculationQueue, routingList); 
             }
 
             SeriesList instantRoute = new SeriesList();
@@ -149,12 +109,81 @@ namespace Reclamation.TimeSeries
 
 
         }
+
+        private static void PerformDailyComputations(SeriesList importSeries, SeriesList calculationQueue, SeriesList routingList)
+        {
+            // do Actual Computations now. (in proper order...)
+            var list = new List<CalculationSeries>();
+            foreach (Series item in calculationQueue)
+            {
+                list.Add(item as CalculationSeries);
+            }
+            TimeSeriesDependency td = new TimeSeriesDependency(list);
+            var sortedCalculations = td.Sort();
+            foreach (CalculationSeries cs in sortedCalculations)
+            {
+                Console.Write(">>> " + cs.Table.TableName + ": " + cs.Expression);
+
+                
+                //if (cs.MinDateTime == DateTime.Now.Date)
+                  //  continue; // data is all in today or future... don't compute
+ 
+                TimeRange tr = GetDailyCalculationTimeRange(importSeries); 
+                
+
+
+                cs.Calculate(tr.StartDate, tr.EndDate);
+                if (cs.Count > 0)
+                {
+                    routingList.Add(cs);
+                    if (cs.CountMissing() > 0)
+
+                        Console.WriteLine(" Missing " + cs.CountMissing() + " records");
+                    else
+                        Console.WriteLine(" OK");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Return range of dates to compute daily data.
+        /// </summary>
+        /// <param name="inputSeriesList"></param>
+        /// <returns></returns>
+        private static TimeRange GetDailyCalculationTimeRange(SeriesList inputSeriesList)
+        {
+           var t1 = inputSeriesList.MinDateTime.Date;
+           var t2 = inputSeriesList.MaxDateTime;
+
+               
+           // determine dates for calculation 
+           // based on:
+           //   * don't compute for today until we get to midnight
+           //   * compute daily value for previous day
+           if (t1.Date == t2.AddDays(-1).Date)    // spans midnight, compute previous day
+           {
+               t1 = t1.Date;
+               t2 = t1.Date;
+           }
+           else if (t1.Date == t2.Date) //  not a whole day of data
+           {
+               t1 = t1.AddDays(-1);
+               t2 = t1;
+           }
+
+           var t1a = t1;
+
+           TimeRange rval = new TimeRange(t1a, t2);
+           return rval;
+        }
         private SeriesList ComputeDependenciesSameInterval(Series s)
         {
             SeriesList rval = new SeriesList();
             var calcList = GetDependentCalculations(s.Table.TableName, s.TimeInterval);
             if (calcList.Count > 0)
                 Logger.WriteLine("Found " + calcList.Count + " " + s.TimeInterval + " calculations to update ");
+
+            // TO DO:  sort calc list and perform in proper order.
             foreach (var item in calcList)
             {
                 var cs = item as CalculationSeries;
@@ -179,9 +208,13 @@ namespace Reclamation.TimeSeries
         private SeriesList GetDailyDependentCalculations(Series s)
         {
             var calcList = new SeriesList();
+            if (s.Count == 0)
+                return calcList;
+
             // check for midnight values, and initiate daily calculations.
             if (s.TimeInterval == TimeInterval.Irregular)
             {
+
                 for (int i = 0; i < s.Count; i++)
                 {
                     var pt = s[i];
@@ -193,6 +226,7 @@ namespace Reclamation.TimeSeries
                             if (!calcList.ContainsTableName(item))
                                 calcList.AddRange(x);
                         }
+                        break; 
                     }
                 }
             }
