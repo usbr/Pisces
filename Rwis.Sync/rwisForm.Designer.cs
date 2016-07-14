@@ -379,6 +379,7 @@
             this.t2Date.Size = new System.Drawing.Size(123, 20);
             this.t2Date.TabIndex = 23;
             this.t2Date.ValueChanged += new System.EventHandler(this.BuildConnectionString);
+            this.t2Date.Value = System.DateTime.Now.AddDays(-1);
             // 
             // label2
             // 
@@ -398,7 +399,7 @@
             this.t1Date.Size = new System.Drawing.Size(123, 20);
             this.t1Date.TabIndex = 21;
             this.t1Date.ValueChanged += new System.EventHandler(this.BuildConnectionString);
-            this.t1Date.Value = this.t2Date.Value.AddDays(-1);
+            this.t1Date.Value = this.t2Date.Value.AddDays(-10);
             // 
             // dataProviderLabel
             // 

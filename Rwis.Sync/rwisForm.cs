@@ -14,6 +14,11 @@ namespace Rwis.Sync
 {
     public partial class rwisForm : Form
     {
+        //<add key = "MySqlUser" value="root" />        <!-- jrocha for Denver DB | root or rwis_user for test DB -->
+        //<add key = "MySqlDatabase" value="mysql" />     <!-- timeseries for Denver DB | mysql for test DB -->
+        //<add key = "MySqlServer" value="ibr3lcrsrv02.bor.doi.net" />
+        //<add key = "LocalConfigurationDataPath" value="~" />
+
         // Connect to DB Server
         private static string dbname = ConfigurationManager.AppSettings["MySqlDatabase"];
         private static string server = ConfigurationManager.AppSettings["MySqlServer"];
