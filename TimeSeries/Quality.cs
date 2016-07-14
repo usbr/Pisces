@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reclamation.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +31,7 @@ namespace Reclamation.TimeSeries
         {
             if (m_db == null)
                 return;
-
+            Logger.WriteLine("Checking Flags ");
             
 
             var row = GetRow(s.Table.TableName);

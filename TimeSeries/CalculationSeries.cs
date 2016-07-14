@@ -87,7 +87,11 @@ namespace Reclamation.TimeSeries
             //if( this.TimeInterval == TimeSeries.TimeInterval.Irregular)
                t2a = t2.AddDays(1); // we may need midnight value in the next day.
 
-           // t1a = this.AdjustStartingDateFromProperties(t1, t2a);// DO DO??? needed??
+               if (this.TimeInterval == TimeSeries.TimeInterval.Daily)
+               {
+                   // daily_wrdo_pu needs AdjustStartingDate
+                   t1a = this.AdjustStartingDateFromProperties(t1, t2a);// DO DO??? needed??
+               }
 
 
             Exception error = new Exception();
@@ -141,7 +145,7 @@ namespace Reclamation.TimeSeries
                     this.Table.TableName = tableName;
                     if (m_db != null)
                     {
-                        Logger.WriteLine("Setting Flags");
+                       // Logger.WriteLine("Setting Flags");
                         m_db.Quality.SetFlags(this);
                     }
 

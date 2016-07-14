@@ -35,7 +35,6 @@ namespace Reclamation.TimeSeries
             var sl = new SeriesList();
             sl.Add(s);
             Import(sl, computeDependencies, computeDailyEachMidnight,"test");
-
         }
 
 
@@ -59,12 +58,10 @@ namespace Reclamation.TimeSeries
 
             foreach (var s in importSeries)
             {
-                // set flags.
-                Logger.WriteLine("Checking Flags ");
                 m_db.Quality.SetFlags(s); // to do, log/email flagged data
-                // To Do.. check for alarms..
 
-                
+                // m_db.Alarms.Check(s);To Do.. check for alarms..
+
                 m_db.ImportSeriesUsingTableName(s,  "");
                 routingList.Add(s);
 
@@ -75,13 +72,9 @@ namespace Reclamation.TimeSeries
                 }
 
                 if (computeDailyDependencies)
-                {
-                    var x = GetDailyDependentCalculations(s); // daily calcs that depend on instant
-                    foreach (var item in x)
-                    {
-                        if (! calculationQueue.Any(a => a.Table.TableName == item.Table.TableName))   //calculationQueue.ContainsTableName(item))
-                            calculationQueue.Add(item);
-                    }
+                {  // daily calcs that depend on instant
+                   // if( ! s.AllInToday() )
+                    GetDailyDependentCalculations(s,calculationQueue); 
                 }
             }
 
@@ -90,24 +83,34 @@ namespace Reclamation.TimeSeries
                 PerformDailyComputations(importSeries, calculationQueue, routingList); 
             }
 
+            RouteData(importTag, routingList);
+
+
+        }
+
+        /// <summary>
+        /// Routes data to incoming and/or outgoing directories
+        /// </summary>
+        /// <param name="importTag"></param>
+        /// <param name="routingList"></param>
+        private void RouteData(string importTag, SeriesList routingList)
+        {
             SeriesList instantRoute = new SeriesList();
             SeriesList dailyRoute = new SeriesList();
             // route data to other locations.
             foreach (var item in routingList)
-            	{
+            {
                 TimeSeriesName tn = new TimeSeriesName(item.Table.TableName);
                 item.Parameter = tn.pcode;
                 item.SiteID = tn.siteid;
                 if (item.TimeInterval == TimeInterval.Irregular)
-                    instantRoute.Add(item); 
+                    instantRoute.Add(item);
                 if (item.TimeInterval == TimeInterval.Daily)
-                    dailyRoute.Add(item); 
+                    dailyRoute.Add(item);
             }
             Console.WriteLine("Routing data");
             TimeSeriesRouting.RouteInstant(instantRoute, importTag, m_routing);
             TimeSeriesRouting.RouteDaily(dailyRoute, importTag, m_routing);
-
-
         }
 
         private static void PerformDailyComputations(SeriesList importSeries,
@@ -201,16 +204,14 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private List<CalculationSeries> GetDailyDependentCalculations(Series s)
+        private void GetDailyDependentCalculations(Series s,List<CalculationSeries> calculationQueue)
         {
-            var calcList = new List<CalculationSeries>();
             if (s.Count == 0)
-                return calcList;
+                return;
 
             // check for midnight values, and initiate daily calculations.
             if (s.TimeInterval == TimeInterval.Irregular)
             {
-
                 for (int i = 0; i < s.Count; i++)
                 {
                     var pt = s[i];
@@ -219,14 +220,13 @@ namespace Reclamation.TimeSeries
                         var x = GetDailyDependents(s.Table.TableName);
                         foreach (var item in x)
                         {
-                            if( !calcList.Any(a => a.Table.TableName == item.Table.TableName ))
-                                calcList.AddRange(x);
+                            if (!calculationQueue.Any(a => a.Table.TableName == item.Table.TableName))
+                                calculationQueue.AddRange(x);
                         }
                         break; 
                     }
                 }
             }
-            return calcList;
         }
 
         /// <summary>

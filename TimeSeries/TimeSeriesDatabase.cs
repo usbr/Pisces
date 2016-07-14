@@ -916,7 +916,14 @@ namespace Reclamation.TimeSeries
                 {
                     count = m_server.SaveTable(table);
                 }
-            Logger.WriteLine("Saved " + count + " records "+ table.TableName+" "+m_server.DataSource+" "+perf.ElapsedSeconds.ToString("F2"));
+
+            string por = "";
+            if( table.Rows.Count > 0)
+            {
+                por = "("+table.Rows[0][0].ToString()+", "+table.Rows[table.Rows.Count-1][0].ToString()+")";
+            }
+
+            Logger.WriteLine("TimeSeriesDatabase: Saved " + count + " records "+ table.TableName+" "+por);
 
             return count;
         }

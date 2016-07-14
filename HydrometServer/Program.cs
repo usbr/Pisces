@@ -14,9 +14,10 @@ using Reclamation.TimeSeries.AgriMet;
 namespace HydrometServer
 {   
     /// <summary>
-    /// This HydrometServer processes incoming data and stores it in a SQL database.
-    /// values are flagged are based on high and low limits, computations are performed and 
-    /// data is routed outgoing to the Hydromet vms server.
+    /// HydrometServer processes incoming data and
+    /// stores it in a SQL database. Values are flagged 
+    /// are based on high and low limits, alarms (email/phone calls)
+    /// are made, and computations are performed.  
     /// </summary>
     class Program
     {
@@ -266,8 +267,8 @@ namespace HydrometServer
             //}
 
             var mem = GC.GetTotalMemory(true);
-            double mb = mem / 1024.0 / 1024.0;
-            Console.WriteLine("Memory Usage: " + mb.ToString("F3") + " Mb");
+            long mb = mem / 1024 / 1024;
+            Console.WriteLine("Memory Usage: " + mb.ToString() + " Mb");
             perf.Report("HydrometServer: finished ");
         }
 
