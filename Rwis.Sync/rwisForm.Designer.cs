@@ -164,6 +164,8 @@
             this.tstepComboBox.Size = new System.Drawing.Size(121, 21);
             this.tstepComboBox.TabIndex = 1;
             this.tstepComboBox.SelectedIndexChanged += new System.EventHandler(this.clearParameterComboBox);
+            this.tstepComboBox.SelectedIndex = 0;
+            this.tstepComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // tstepLabel
             // 
@@ -262,6 +264,7 @@
             this.parameterTypeComboBox.TabIndex = 9;
             this.parameterTypeComboBox.DropDown += new System.EventHandler(this.getParTypes);
             this.parameterTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.clearParameterComboBox);
+            this.parameterTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // parameterTypeLabel
             // 
@@ -281,6 +284,7 @@
             this.siteTypeComboBox.TabIndex = 7;
             this.siteTypeComboBox.DropDown += new System.EventHandler(this.getSiteTypes);
             this.siteTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.clearSiteComboBox);
+            this.siteTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // siteTypeLabel
             // 
@@ -302,6 +306,7 @@
             this.parameterComboBox.TabIndex = 6;
             this.parameterComboBox.DropDown += new System.EventHandler(this.getParametersByTypeTimeStep);
             this.parameterComboBox.SelectedIndexChanged += new System.EventHandler(this.GetParameterInfo);
+            this.parameterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // parameterLabel
             // 
@@ -332,6 +337,7 @@
             this.siteComboBox.TabIndex = 3;
             this.siteComboBox.DropDown += new System.EventHandler(this.getSitesByType);
             this.siteComboBox.SelectedIndexChanged += new System.EventHandler(this.GetSiteInfo);
+            this.siteComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // regionInfoGroupBox
             // 
@@ -392,6 +398,7 @@
             this.t1Date.Size = new System.Drawing.Size(123, 20);
             this.t1Date.TabIndex = 21;
             this.t1Date.ValueChanged += new System.EventHandler(this.BuildConnectionString);
+            this.t1Date.Value = this.t2Date.Value.AddDays(-1);
             // 
             // dataProviderLabel
             // 
@@ -410,6 +417,7 @@
             this.testConnectionButton.TabIndex = 18;
             this.testConnectionButton.Text = "Test Connection...";
             this.testConnectionButton.UseVisualStyleBackColor = true;
+            this.testConnectionButton.Click += new System.EventHandler(this.testConnection);
             // 
             // conxnStringLabel
             // 
@@ -484,6 +492,7 @@
             this.addToSeriesCatalogButton.TabIndex = 19;
             this.addToSeriesCatalogButton.Text = "Add Dataset to RWIS";
             this.addToSeriesCatalogButton.UseVisualStyleBackColor = true;
+            this.addToSeriesCatalogButton.Click += new System.EventHandler(this.addDatasetToRWIS);
             // 
             // cancelButton
             // 

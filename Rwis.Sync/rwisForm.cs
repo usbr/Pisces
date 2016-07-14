@@ -88,8 +88,9 @@ namespace Rwis.Sync
         public void getParTypes(object sender, EventArgs e)
         {
             DataTable distinctPars = parCat.DefaultView.ToTable(true, "name");
+            DataRow[] distinctParRows = distinctPars.Select("", "name ASC");
             var outVals = new List<string>(); ;
-            foreach (DataRow row in distinctPars.Rows)
+            foreach (DataRow row in distinctParRows)
             { this.parameterTypeComboBox.Items.Add(row[0].ToString()); }
         }
 
@@ -98,6 +99,7 @@ namespace Rwis.Sync
         /// </summary>
         public void getSiteTypes(object sender, EventArgs e)
         {
+            this.siteTypeComboBox.Items.Clear();
             DataTable distinctSites = siteCat.DefaultView.ToTable(true, "type");
             var outVals = new List<string>(); ;
             foreach (DataRow row in distinctSites.Rows)
@@ -118,7 +120,8 @@ namespace Rwis.Sync
             this.siteComboBox.Items.Clear();
             if (typeVal != "")
             {
-                DataRow[] distinctSites = siteCat.Select("type='" + typeVal + "' AND agency_region='" + region + "'");
+                DataRow[] distinctSites = siteCat.Select("type='" + typeVal + "' AND agency_region='" + region + "'",
+                    "description ASC");
                 if (distinctSites.Count() < 1)
                 {
                     ComboboxItem item = new ComboboxItem();
@@ -168,7 +171,8 @@ namespace Rwis.Sync
             this.parameterComboBox.Items.Clear();
             if (typeVal != "" && tStep != "")
             {
-                DataRow[] distinctSites = parCat.Select("name='" + typeVal + "' AND timeinterval='" + tStep + "'");
+                DataRow[] distinctSites = parCat.Select("name='" + typeVal + "' AND timeinterval='" + tStep + "'",
+                    "id ASC");
                 foreach (DataRow row in distinctSites)
                 {
                     ComboboxItem item = new ComboboxItem();
@@ -271,22 +275,12 @@ namespace Rwis.Sync
         /// <summary>
         /// Builds the Data Provider string
         /// </summary>
-        private void GetDataProvider()
+        private string GetDataProvider()
         {
             var region = GetRegion();
             string intervalCode = intervalCode = this.tstepComboBox.SelectedItem.ToString();
-            switch (intervalCode)
-            {
-                case "Day":
-                    intervalCode = "Daily";
-                    break;
-                case "Month":
-                    intervalCode = "Monthly";
-                    break;
-                default:
-                    intervalCode = "Daily";
-                    break;
-            }
+            intervalCode = GetIntervalCode(intervalCode);
+
             string provider = "";
             switch (region)
             {
@@ -301,6 +295,7 @@ namespace Rwis.Sync
                     break;
             }
             this.dataProviderLabel.Text = "Data Provider: " + provider;
+            return provider;
         }
 
         /// <summary>
@@ -322,9 +317,19 @@ namespace Rwis.Sync
         }
 
         /// <summary>
-        ///  Build Connection String to be stored in RWIS
+        /// Get Connection String for GUI label
         /// </summary>
         private void BuildConnectionString(object sender, EventArgs e)
+        {
+            var conx = GetConnectionString();
+            this.conxnStringLabel.Text = "RWIS Connection: " + conx;
+        }
+
+        /// <summary>
+        /// Build Connection String
+        /// </summary>
+        /// <returns></returns>
+        private string GetConnectionString()
         {
             string conx = "";
             var region = GetRegion();
@@ -333,6 +338,37 @@ namespace Rwis.Sync
             var sdiCode = this.sdiTextBox.Text.ToString();
             var intervalCode = this.tstepComboBox.SelectedItem.ToString();
 
+            intervalCode = GetIntervalCode(intervalCode);
+
+            switch (region)
+            {
+                case "PN":
+                    conx += "server=PN;cbtt=" + siteCode + ";pcode=" + parCode;
+                    break;
+                case "GP":
+                    conx += "server=GreatPlains;cbtt=" + siteCode + ";pcode=" + parCode;
+                    break;
+                case "LC":
+                    conx += "server=LCHDB2;sdi=" + sdiCode + ";timeinterval=" + intervalCode;
+                    break;
+                case "UC":
+                    conx += "server=UCHDB2;sdi=" + sdiCode + ";timeinterval=" + intervalCode;
+                    break;
+                case "MP":
+                    conx += "server=MPSFTP;cbtt=" + siteCode + ";pcode=" + parCode;
+                    break;
+
+            }
+            return conx;
+        }
+
+        /// <summary>
+        /// Match RWIS Interval Code in Tables
+        /// </summary>
+        /// <param name="intervalCode"></param>
+        /// <returns></returns>
+        private string GetIntervalCode(string intervalCode)
+        {
             switch (intervalCode)
             {
                 case "Day":
@@ -343,28 +379,9 @@ namespace Rwis.Sync
                     break;
                 default:
                     intervalCode = "Daily";
-                    break;                
+                    break;
             }
-            switch (region)
-            {
-                case "PN":
-                    conx += "server=PN;cbtt=" + siteCode + ";pcode=" + parCode;
-                    break;
-                case "GP":
-                    conx += "server=GreatPlains;cbtt=" + siteCode + ";pcode=" + parCode;
-                    break;
-                case "LC":
-                    conx += "server=LCHDB2;sdi="+sdiCode+";timeinterval="+intervalCode;
-                    break;
-                case "UC":
-                    conx += "server=UCHDB2;sdi=" + sdiCode + ";timeinterval=" + intervalCode;
-                    break;
-                case "MP":
-                    conx += "server=MPSFTP;cbtt=" + siteCode + ";pcode=" + parCode;
-                    break;
-
-            }
-            this.conxnStringLabel.Text = "RWIS Connection: " + conx;
+            return intervalCode;
         }
 
         /// <summary>
@@ -393,10 +410,157 @@ namespace Rwis.Sync
             form.Show();
         }
 
+        /// <summary>
+        /// Add dataset to RWIS DB
+        /// </summary>
         private void addDatasetToRWIS(object sender, EventArgs e)
         {
-            DataTable serCat = db.GetParameterCatalog();
+            //////////////////////////////////////////////////////////////////////////
+            // Get required variables to add dataset from GUI
+            //////////////////////////////////////////////////////////////////////////
+            // Get Site Info
+            string siteCode;
+            try
+            { siteCode = (this.siteComboBox.SelectedItem as ComboboxItem).Value.ToString(); }
+            catch
+            {
+                MessageBox.Show("Select a Site...");
+                return;
+            }
+            var site = siteCat.Select("siteid='" + siteCode + "'")[0];
+            // Get Parameter Info
+            string parCode;
+            try
+            { parCode = (this.parameterComboBox.SelectedItem as ComboboxItem).Value.ToString(); }
+            catch
+            {
+                MessageBox.Show("Select a Parameter...");
+                return;
+            }
+            var par= parCat.Select("id='" + parCode + "'")[0];
+            // Get Connection Information
+            var connectionstring = GetConnectionString() + ";LastUpdate=" + DateTime.Now.ToString("MM/dd/yyyy HH:mm");
+            var provider = GetDataProvider();
+            // Get Parameter information from parametercatalog
+            var timeinterval = GetIntervalCode(par["timeinterval"].ToString());
+            var parameter = par["id"].ToString();
+            var units = par["units"].ToString();
+            // Get Site Information from sitecatalog
+            var siteid = site["siteid"].ToString();
+            // Get Parent ID from seriescatalog
+            var region = GetRegion();
+            DataTable serCatFolders = db.GetSeriesCatalog("isfolder=1");
+            var regionFolderId = serCatFolders.Select("name='" + region + "'")[0]["id"];
+            var intervalFolderId = serCatFolders.Select("parentid=" +regionFolderId + " AND name='" + timeinterval + "'")[0]["id"];
+            var parentid = serCatFolders.Select("parentid=" + intervalFolderId + " AND name='" + site["type"] + "'")[0]["id"];
+            // Get Sort Order from seriescatalog
+            DataTable serCatMembers = db.GetSeriesCatalog("parentid=" + parentid);
+            int sortOrder;
+            Int32.TryParse(serCatMembers.Compute("max(sortorder)", string.Empty).ToString(), out sortOrder);
+            sortOrder = System.Math.Max(sortOrder, 1);
+            // Set other standard input variables
+            string name = (siteid + "_" + parameter).ToLower();
+            string tablename = (region + "_" + RemoveSpecialCharacters(name)).ToLower();
+            int isFolder = 0;
+            int enabled = 1;
+            string expression = "";
+            string notes = "";
+            string iconname = GetIconName();
 
+            //////////////////////////////////////////////////////////////////////////
+            // Add data to DB
+            //////////////////////////////////////////////////////////////////////////
+            // Check for duplicates
+            DataTable duplicateCheckTable = db.GetSeriesCatalog("tablename='"+ tablename + "'");
+            if (duplicateCheckTable.Rows.Count != 0)
+            {
+                MessageBox.Show("Dataset for " + site["description"].ToString().ToUpper() + " " + 
+                    par["statistic"].ToString().ToUpper() + " " + par["timeinterval"].ToString().ToUpper() + 
+                    " " + par["name"].ToString().ToUpper() +" already exists in the RWIS DB. " + 
+                    "Select a different Site and Parameter...");
+            }
+            else
+            {
+                // Add to series catalog
+                showMessage("Adding metadata fields to RWIS DB...");
+                string sqlInsertSeriesCatalog = "INSERT INTO seriescatalog (parentid, " + "isfolder," +
+                                        "sortorder, " + "iconname, " + "name, " + "siteid, " + "units, " +
+                                        "timeinterval, " + "parameter, " + "tablename, " + "provider, " +
+                                        "connectionstring, " + "expression, " + "notes, " + "enabled) " +
+                             "VALUES (" + parentid + "," + isFolder + ", " + sortOrder + ", " + "'" + 
+                                        iconname + "', " + "'" + name + "', " + "'" + siteid + "', " +
+                                        "'" + units + "', " + "'" + timeinterval + "', " + "'" + parameter + 
+                                        "', " + "'" + tablename + "', " + "'" + provider + "', " + "'" + 
+                                        connectionstring + "', " + "'" + expression + "', " + "'" + notes + 
+                                        "', " + "" + enabled + "); ";
+                svr.RunSqlCommand(sqlInsertSeriesCatalog);
+                // Add timeseries table
+                showMessage("Adding new table to RWIS DB...");
+                string sqlCreateTable = "Create Table " + tablename;
+                sqlCreateTable += " (datetime datetime primary key, value float, flag varchar(50)" + " );";
+                svr.RunSqlCommand(sqlCreateTable);
+                // Add entries to seriesproperties table
+                showMessage("Downloading data from regional DB...");
+                // Update data
+                var s = db.GetSeriesFromTableName(tablename);
+                s.Update(this.t1Date.Value, this.t2Date.Value);
+                var newSeriesId = db.GetSeriesCatalog("tablename='" + tablename + "'")[0]["id"];
+                string sqlInsertSeriesProperties = "INSERT INTO seriesproperties (seriesid, name, value) " +
+                    "VALUES (" + newSeriesId + ", 't1', '" + this.t1Date.Value.ToShortDateString() + "'), (" + newSeriesId + ", 't2', '" + this.t2Date.Value.ToShortDateString() + "')";
+                svr.RunSqlCommand(sqlInsertSeriesProperties);
+
+                showMessage("Success!");
+            }
+
+        }
+
+        private void showMessage(string msg)
+        {
+            this.toolStripStatusMessage.Text = msg;
+            statusStrip1.Refresh();
+        }
+
+        /// <summary>
+        /// Removes special characters from string
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string RemoveSpecialCharacters(string str)
+        {
+            return System.Text.RegularExpressions.Regex.Replace(str, "[^a-zA-Z0-9_]+", "", System.Text.RegularExpressions.RegexOptions.Compiled);
+        }
+
+        /// <summary>
+        /// Sets Icon Name for seriescatalog
+        /// </summary>
+        private string GetIconName()
+        {
+            var region = GetRegion();
+            string iconName = "";
+            switch (region)
+            {
+                case "PN":case "GP":
+                    iconName += "hydromet";
+                    break;
+                case "LC":case "UC":
+                    iconName += "hdb";
+                    break;
+                case "MP":
+                    iconName += "har";
+                    break;
+            }
+            return iconName;
+        }
+
+        /// <summary>
+        /// Test connection to source DB given connection information
+        /// </summary>
+        private void testConnection(object sender, EventArgs e)
+        {
+            var s = new Series();
+            s.ConnectionString = GetConnectionString();
+            s.Provider = GetDataProvider();
+            s.Update(this.t1Date.Value, this.t2Date.Value);
         }
 
 
