@@ -54,7 +54,7 @@ namespace Reclamation.TimeSeries
             bool computeDailyDependencies = false,
             string importTag="data")
         {
-            var calculationQueue = new SeriesList();
+            var calculationQueue = new List<CalculationSeries>();
             var routingList = new SeriesList();
 
             foreach (var s in importSeries)
@@ -79,7 +79,7 @@ namespace Reclamation.TimeSeries
                     var x = GetDailyDependentCalculations(s); // daily calcs that depend on instant
                     foreach (var item in x)
                     {
-                        if (!calculationQueue.ContainsTableName(item))
+                        if (! calculationQueue.Any(a => a.Table.TableName == item.Table.TableName))   //calculationQueue.ContainsTableName(item))
                             calculationQueue.Add(item);
                     }
                 }
@@ -110,15 +110,11 @@ namespace Reclamation.TimeSeries
 
         }
 
-        private static void PerformDailyComputations(SeriesList importSeries, SeriesList calculationQueue, SeriesList routingList)
+        private static void PerformDailyComputations(SeriesList importSeries,
+            List<CalculationSeries> calculationQueue, SeriesList routingList)
         {
             // do Actual Computations now. (in proper order...)
-            var list = new List<CalculationSeries>();
-            foreach (Series item in calculationQueue)
-            {
-                list.Add(item as CalculationSeries);
-            }
-            TimeSeriesDependency td = new TimeSeriesDependency(list);
+            TimeSeriesDependency td = new TimeSeriesDependency(calculationQueue);
             var sortedCalculations = td.Sort();
             foreach (CalculationSeries cs in sortedCalculations)
             {
@@ -205,9 +201,9 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        private SeriesList GetDailyDependentCalculations(Series s)
+        private List<CalculationSeries> GetDailyDependentCalculations(Series s)
         {
-            var calcList = new SeriesList();
+            var calcList = new List<CalculationSeries>();
             if (s.Count == 0)
                 return calcList;
 
@@ -223,7 +219,7 @@ namespace Reclamation.TimeSeries
                         var x = GetDailyDependents(s.Table.TableName);
                         foreach (var item in x)
                         {
-                            if (!calcList.ContainsTableName(item))
+                            if( !calcList.Any(a => a.Table.TableName == item.Table.TableName ))
                                 calcList.AddRange(x);
                         }
                         break; 
@@ -239,9 +235,9 @@ namespace Reclamation.TimeSeries
         /// <param name="tableName"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        private SeriesList GetDailyDependents(string tableName)
+        private List<CalculationSeries> GetDailyDependents(string tableName)
         {
-            SeriesList rval = new SeriesList();
+            var rval = new List<CalculationSeries>();
             TimeSeriesName tn = new TimeSeriesName(tableName);
             var calcList = GetDependentCalculations(tableName, TimeInterval.Daily);
             //if (calcList.Count > 0)
@@ -267,7 +263,7 @@ namespace Reclamation.TimeSeries
         /// <param name="tableName"></param>
         /// <param name="timeInterval"></param>
         /// <returns></returns>
-         SeriesList GetDependentCalculations(string tableName, TimeSeries.TimeInterval timeInterval)
+        List<CalculationSeries> GetDependentCalculations(string tableName, TimeSeries.TimeInterval timeInterval)
         {
             // cache with s_instantDependencies speed up from 174 seconds to 28 seconds (agrimet test)
             if (timeInterval == TimeSeries.TimeInterval.Irregular)

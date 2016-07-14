@@ -147,9 +147,9 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="inputSeries"></param>
         /// <returns></returns>
-        public SeriesList LookupCalculations(string tableName, TimeInterval interval)
+        public List<CalculationSeries> LookupCalculations(string tableName, TimeInterval interval)
         {
-            var rval = new SeriesList();
+            var rval = new List<CalculationSeries>();
 
             if (inputDictionary == null)
             {

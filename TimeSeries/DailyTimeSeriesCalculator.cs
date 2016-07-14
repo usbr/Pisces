@@ -20,7 +20,7 @@ namespace Reclamation.TimeSeries
         TimeInterval m_interval;
         string m_filter;
         string m_propertyFilter;
-        List<CalculationSeries> m_dependencyList;
+        List<CalculationSeries> m_calculationList;
         public DailyTimeSeriesCalculator(TimeSeriesDatabase db, TimeInterval interval, string filter="",
             string propertyFilter="")
         {
@@ -28,112 +28,88 @@ namespace Reclamation.TimeSeries
             m_interval = interval;
             m_filter = filter;
             m_propertyFilter = propertyFilter;
-            m_dependencyList = m_db.Factory.GetCalculationSeries(TimeInterval.Daily, m_filter, m_propertyFilter);
+            m_calculationList = m_db.Factory.GetCalculationSeries(TimeInterval.Daily, m_filter, m_propertyFilter);
         }
 
 
-
-        //public CalculationSeries[] GetDependentCalculations(string siteID, string pcode)
-        //{
-
-        //    TimeSeriesDependency td = new TimeSeriesDependency(m_dependencyList);
-        //    TimeSeriesName tn = new TimeSeriesName(siteID + "_" + pcode, m_interval);
-        //    var list = td.LookupCalculations(tn.GetTableName(), m_interval).ToArray();
-
-        //    var cList = new List<CalculationSeries>();
-        //    foreach (var item in list)
-        //    {
-        //        if (item is CalculationSeries)
-        //            cList.Add(item as CalculationSeries);
-        //    }
-        //    return cList.ToArray();
-        //}
-
-
         /// <summary>
-        /// Calculates a group of daily values.
+        /// Calculates Daily values
         /// </summary>
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <param name="propertyFilter">series property filter.  Example  program:agrimet </param>
-        /// <param name="simulate">simulate calculations, don't actuually do it.</param>
         public CalculationSeries[] ComputeDailyValues(DateTime t1, DateTime t2, 
             string errorFileName="")
         {
 
             Performance p = new Performance();
             HydrometInstantSeries.Cache = new HydrometDataCache(); // clear out and make new cache.
-            string dailyFileName = GetDailyFileName(m_propertyFilter);
-
-            bool appendToFile = false; // for output file.
-            
-            Console.WriteLine("Computing daily values for  "+m_dependencyList.Count+" series" );
-            TimeSeriesDependency td = new TimeSeriesDependency(m_dependencyList);
+            string dailyFileName = GetDailyOutgoingFileName(m_propertyFilter);
+            Console.WriteLine("Computing daily values for  "+m_calculationList.Count+" series" );
+            TimeSeriesDependency td = new TimeSeriesDependency(m_calculationList);
             
             var sorted = td.Sort();
             foreach (var s in sorted)
             {
                 if (!s.Enabled)
+                {
+                    Console.WriteLine("Skipping disabled calculation: "+s.Name);
                     continue; // calculations turned off
-
-                string originalExpression = s.Expression;
-                // compute  Values
-
-                var t1a = s.AdjustStartingDateFromProperties(t1, t2);
-
-
-
+                }
+                var t1a = s.AdjustStartingDateFromProperties(t1, t2); // move inside s.Calculate();
                 
                 if( m_db.Parser.VariableResolver is HydrometVariableResolver)
                     CacheAllParametersForSite(s, t1a, t2); // 50% performance boost.
 
                 Console.Write(s.Table.TableName + " = " + s.Expression);
-              
 
-
-                s.Calculate(t1a, t2); // Calculate() also saves to local time series database.
-
-                
-                if (s.Count == 0 || s.CountMissing() > 0)
-                {
-                    File.AppendAllText(errorFileName, "Error: " + s.Table.TableName + " = " + s.Expression + "\n");
-                    string msg = "\nDetails: "+s.Table.TableName + " = " + s.Expression+"\n";
-                    foreach (var x in s.Messages)
-                    {
-                        msg += "\n" + x;
-                    }
-                    Console.WriteLine(msg);
-                }
-                else
-                {
-                 //   File.AppendAllText(errorFileName, " OK. ");
-                    Console.WriteLine(" OK. ");
-                }
-
-                s.Expression = originalExpression;
-
-                TimeSeriesName n = new TimeSeriesName(s.Table.TableName);
-
-                HydrometDailySeries.WriteToArcImportFile(s, n.siteid, n.pcode, dailyFileName, appendToFile);
-
-                if (!appendToFile )
-                    appendToFile = true; // append after the first time.
-                
+                s.Calculate(t1a, t2); // saves to local time series database.
+                LogStatusOfCalculation(errorFileName, s);
+                WriteToHydrometDailyFile(dailyFileName, s);
             }
 
-            if( appendToFile) // might not have any results
-            Console.WriteLine("Results Saved to "+dailyFileName);
-
-          
+            if( s_appendToFile) // might not have any results
+               Console.WriteLine("Results Saved to "+dailyFileName);
 
             p.Report(); // 185 seconds   
 
             return sorted;
         }
 
+        static bool s_appendToFile = false; // for output file.
+
+        private static void WriteToHydrometDailyFile(string dailyFileName, CalculationSeries s)
+        {
+            TimeSeriesName n = new TimeSeriesName(s.Table.TableName);
+
+            HydrometDailySeries.WriteToArcImportFile(s, n.siteid, n.pcode,
+                dailyFileName, s_appendToFile);
+
+            if (!s_appendToFile)
+                s_appendToFile = true; // append after the first time.
+        }
+
+        private static void LogStatusOfCalculation(string errorFileName, CalculationSeries s)
+        {
+            if (s.Count == 0 || s.CountMissing() > 0)
+            {
+                File.AppendAllText(errorFileName, "Error: " + s.Table.TableName + " = " + s.Expression + "\n");
+                string msg = "\nDetails: " + s.Table.TableName + " = " + s.Expression + "\n";
+                foreach (var x in s.Messages)
+                {
+                    msg += "\n" + x;
+                }
+                Console.WriteLine(msg);
+            }
+            else
+            {
+                Console.WriteLine(" OK. ");
+            }
+        }
+
         
 
-        private static string GetDailyFileName(string propertyFilter)
+        private static string GetDailyOutgoingFileName(string propertyFilter)
         {
 
              string valueFilter = "";
@@ -146,9 +122,6 @@ namespace Reclamation.TimeSeries
 
         }
 
-
-
-        static string debugFileName="";
 
         static HashSet<string> visitedSites = new HashSet<string>();
         

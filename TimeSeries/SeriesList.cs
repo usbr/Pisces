@@ -781,10 +781,10 @@ namespace Reclamation.TimeSeries
           return -1;
       }
 
-      public bool ContainsTableName(Series s)
-      {
-          return IndexOfTableName(s.Table.TableName) >= 0;
-      }
+      //public bool ContainsTableName(Series s)
+      //{
+      //    return IndexOfTableName(s.Table.TableName) >= 0;
+      //}
 
       /// <summary>
       /// Creates a USGS table from monthly data

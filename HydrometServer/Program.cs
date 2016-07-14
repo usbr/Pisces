@@ -465,13 +465,21 @@ namespace HydrometServer
 
         }
 
-        public static IEnumerable<String> GetBlockOfQueries(TimeSeriesDatabase db,TimeInterval interval, string filter,string propertyFilter="", int blockSize=75)
+        static string[] s_quality_parameters = new string[] { 
+            "parity","power","msglen","lenerr","timeerr","batvolt","bay","demod",
+            "charcnt",
+            "channel","freq","signal","modul","illchrs","maxpos","timesec","rmsgcnt","eotchar"};
+        public static IEnumerable<String> GetBlockOfQueries(TimeSeriesDatabase db,
+            TimeInterval interval, string filter,string propertyFilter="", int blockSize=75,
+            bool ignoreQuality=true)
         {
             var rval = new List<string>();
             foreach (Series s in db.GetSeries(interval, filter,propertyFilter).ToArray())
             {
                 TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
                 //rval.Add(s.SiteID + " " + s.Parameter);
+                if (Array.IndexOf(s_quality_parameters, tn.pcode.ToLower() ) >=0 )
+                    continue; // skip quality parameters
                 rval.Add(tn.siteid + " " + tn.pcode);
                 if (rval.Count >= blockSize)
                 {
