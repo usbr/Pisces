@@ -569,7 +569,7 @@ namespace HydrometServer
                 int rc = series1.Count;
                 if( rc>0)
                    rc = db.SaveTimeSeriesTable(series1.ID, series1, DatabaseSaveOptions.UpdateExisting);
-                Console.WriteLine(rc + " records saved");
+                Console.WriteLine(rc + " records saved "+series1.GetPeriodOfRecord().ToString());
             }
         }
 
