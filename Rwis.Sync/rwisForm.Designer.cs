@@ -155,6 +155,7 @@
             // 
             // tstepComboBox
             // 
+            this.tstepComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.tstepComboBox.FormattingEnabled = true;
             this.tstepComboBox.Items.AddRange(new object[] {
             "Day",
@@ -164,8 +165,6 @@
             this.tstepComboBox.Size = new System.Drawing.Size(121, 21);
             this.tstepComboBox.TabIndex = 1;
             this.tstepComboBox.SelectedIndexChanged += new System.EventHandler(this.clearParameterComboBox);
-            this.tstepComboBox.SelectedIndex = 0;
-            this.tstepComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // tstepLabel
             // 
@@ -257,6 +256,7 @@
             // 
             // parameterTypeComboBox
             // 
+            this.parameterTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.parameterTypeComboBox.FormattingEnabled = true;
             this.parameterTypeComboBox.Location = new System.Drawing.Point(94, 45);
             this.parameterTypeComboBox.Name = "parameterTypeComboBox";
@@ -264,7 +264,6 @@
             this.parameterTypeComboBox.TabIndex = 9;
             this.parameterTypeComboBox.DropDown += new System.EventHandler(this.getParTypes);
             this.parameterTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.clearParameterComboBox);
-            this.parameterTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // parameterTypeLabel
             // 
@@ -277,6 +276,7 @@
             // 
             // siteTypeComboBox
             // 
+            this.siteTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.siteTypeComboBox.FormattingEnabled = true;
             this.siteTypeComboBox.Location = new System.Drawing.Point(258, 17);
             this.siteTypeComboBox.Name = "siteTypeComboBox";
@@ -284,7 +284,6 @@
             this.siteTypeComboBox.TabIndex = 7;
             this.siteTypeComboBox.DropDown += new System.EventHandler(this.getSiteTypes);
             this.siteTypeComboBox.SelectedIndexChanged += new System.EventHandler(this.clearSiteComboBox);
-            this.siteTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // siteTypeLabel
             // 
@@ -297,6 +296,7 @@
             // 
             // parameterComboBox
             // 
+            this.parameterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.parameterComboBox.FormattingEnabled = true;
             this.parameterComboBox.Items.AddRange(new object[] {
             "SELECT A TIME-STEP AND PARAMETER TYPE..."});
@@ -306,7 +306,6 @@
             this.parameterComboBox.TabIndex = 6;
             this.parameterComboBox.DropDown += new System.EventHandler(this.getParametersByTypeTimeStep);
             this.parameterComboBox.SelectedIndexChanged += new System.EventHandler(this.GetParameterInfo);
-            this.parameterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // parameterLabel
             // 
@@ -328,6 +327,7 @@
             // 
             // siteComboBox
             // 
+            this.siteComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.siteComboBox.FormattingEnabled = true;
             this.siteComboBox.Items.AddRange(new object[] {
             "SELECT A SITE TYPE..."});
@@ -337,7 +337,6 @@
             this.siteComboBox.TabIndex = 3;
             this.siteComboBox.DropDown += new System.EventHandler(this.getSitesByType);
             this.siteComboBox.SelectedIndexChanged += new System.EventHandler(this.GetSiteInfo);
-            this.siteComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             // 
             // regionInfoGroupBox
             // 
@@ -378,8 +377,8 @@
             this.t2Date.Name = "t2Date";
             this.t2Date.Size = new System.Drawing.Size(123, 20);
             this.t2Date.TabIndex = 23;
+            this.t2Date.Value = new System.DateTime(2016, 7, 13, 15, 32, 50, 219);
             this.t2Date.ValueChanged += new System.EventHandler(this.BuildConnectionString);
-            this.t2Date.Value = System.DateTime.Now.AddDays(-1);
             // 
             // label2
             // 
@@ -398,8 +397,8 @@
             this.t1Date.Name = "t1Date";
             this.t1Date.Size = new System.Drawing.Size(123, 20);
             this.t1Date.TabIndex = 21;
+            this.t1Date.Value = new System.DateTime(2016, 7, 3, 15, 32, 50, 219);
             this.t1Date.ValueChanged += new System.EventHandler(this.BuildConnectionString);
-            this.t1Date.Value = this.t2Date.Value.AddDays(-10);
             // 
             // dataProviderLabel
             // 
@@ -568,6 +567,8 @@
             this.Controls.Add(this.metadataGroupBox);
             this.Controls.Add(this.regionSelectionGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(672, 528);
+            this.MinimumSize = new System.Drawing.Size(672, 528);
             this.Name = "rwisForm";
             this.Text = "RWIS Database Management Interface";
             this.regionSelectionGroupBox.ResumeLayout(false);

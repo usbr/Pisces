@@ -327,10 +327,6 @@
     <None Include="Resources\folder_closed_32.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\HdbPoet\HdbPoet.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
-      <Project>{b60964f8-8699-4638-9460-68262e4d37a3}</Project>
-      <Name>HdbPoet</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core\Reclamation.Core.csproj">
       <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
       <Name>Reclamation.Core</Name>
