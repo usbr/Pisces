@@ -107,6 +107,7 @@ namespace Reclamation.TimeSeries.Usgs
 
         private void ReadSeriesData(string url,DateTime t1, DateTime t2)
         {
+            url += "&startDT=" + t1.ToString("yyyy-MM-dd") + "&endDT=" + t2.ToString("yyyy-MM-dd");
             string[] response = Web.GetPage(url, true);
 
             m_rdb = new UsgsRDBFile(response,true);
