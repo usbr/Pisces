@@ -13,7 +13,7 @@ namespace Rwis.Sync
 {
     class Program
     {
-        static void Main(string[] argList)
+        static void SyncMain(string[] argList)
         {
             Arguments args = new Arguments(argList);
             var p = new OptionSet();
@@ -58,7 +58,16 @@ namespace Rwis.Sync
             }
             if (args.Contains("update"))
             {
-                string sql = "provider = '" + db.Server.SafeSqlLiteral(args["update"]) + "'";
+                var updateType = args["update"].ToString();
+                string sql = "";
+                if (updateType.ToLower() == "all")
+                {
+                    sql = "provider IN ('HydrometDailySeries','HDBSeries')";
+                }
+                else
+                {
+                    sql = "provider = '" + db.Server.SafeSqlLiteral(args["update"]) + "'";
+                }
                 var updateList = db.GetSeriesCatalog(sql);
                 Console.WriteLine("Updating  " + updateList.Count + " Series ");
                 foreach (var item in updateList)
@@ -76,8 +85,6 @@ namespace Rwis.Sync
                     { Console.WriteLine(e.Message); }
                 }
             }
-            
-
             db.Server.Cleanup();
 
             File.AppendAllText(errorFileName, "RWIS Sync.exe:  Completed " + DateTime.Now.ToString() + "\n");
