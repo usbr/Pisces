@@ -24,24 +24,12 @@ namespace Rwis.Sync
                 return;
             }
 
-            string errorFileName = "errors.txt";
-            string detailFileName = "detail.txt";
             Performance perf = new Performance();
 
             if (args.Contains("debug"))
             {
                 Logger.EnableLogger();
                 Reclamation.TimeSeries.Parser.SeriesExpressionParser.Debug = true;
-            }
-            if (args.Contains("error-log"))
-            {
-                errorFileName = args["error-log"];
-                File.AppendAllText(errorFileName, "HydrometServer.exe:  Started " + DateTime.Now.ToString() + "\n");
-            }
-            if (args.Contains("detail-log"))
-            {
-                detailFileName = args["detail-log"];
-                File.AppendAllText(detailFileName, "HydrometServer.exe:  Started " + DateTime.Now.ToString() + "\n");
             }
 
             var db = TimeSeriesDatabase.InitDatabase(args);
@@ -87,7 +75,7 @@ namespace Rwis.Sync
             }
             db.Server.Cleanup();
 
-            File.AppendAllText(errorFileName, "RWIS Sync.exe:  Completed " + DateTime.Now.ToString() + "\n");
+            Console.WriteLine("RWIS Sync.exe:  Completed " + DateTime.Now.ToString() + "\n");
 
             var mem = GC.GetTotalMemory(true);
             double mb = mem / 1024.0 / 1024.0;
