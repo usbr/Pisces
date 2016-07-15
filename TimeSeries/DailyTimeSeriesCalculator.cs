@@ -10,9 +10,8 @@ using System.IO;
 namespace Reclamation.TimeSeries
 {
     /// <summary>
-    /// DailyTimeSeriesCalculator manages calculation series. 
-    /// Used to compute daily values in a batch type operation.
-    /// 
+    /// DailyTimeSeriesCalculator compute daily values
+    /// for all Daily CalculationSeries.  Used in a batch type operation.
     /// </summary>
     public class DailyTimeSeriesCalculator
     {
