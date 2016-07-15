@@ -13,6 +13,7 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
 
         NpoiExcel xls;
         TimeSeriesDatabase m_db;
+        List<string> errors = new List<string>();
         public void Import(string filename, TimeSeriesDatabase db)
         {
              xls = new NpoiExcel(filename);
@@ -37,12 +38,19 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
                 AddSeries(m_db, scenario.ScenarioName, scenario.ScenarioNumber );
             }
             m_db.Server.SaveTable(scenarios);
+
+            if (errors.Count > 0)
+            {
+                var msg = string.Join("\n", errors.ToArray());
+                Logger.WriteLine(msg);
+                throw new FileNotFoundException(msg);
+            }
         }
 
         private void AddSeries(TimeSeriesDatabase db, string scenarioName, string scenarioNumber)
         {
             DataTable scenarioSheet = xls.ReadDataTable(scenarioNumber,true,true);
-            var errors = new List<string>();
+           
             int count = 0;
             foreach (DataRow row in scenarioSheet.Rows)
             {
@@ -53,7 +61,8 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
                 string filename = row["FilePath"].ToString();
                 if( !File.Exists(filename))
                 {
-                    errors.Add("Missing File: " + filename);
+                    if( filename!= "")
+                       errors.Add("Missing File: " + filename);
                     continue;
                 }
 
@@ -67,10 +76,7 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
                     var sc = db.GetSeriesCatalog("id =" + id);
                   // alter entry in database to remove scenario postfix from table name
                     sc.Rows[0]["tablename"] = internalSiteID.ToLower();
-                    if (OnProgress != null)
-                        OnProgress(this, 
-                            new ProgressEventArgs(
-                             "saving " + internalSiteID + " " + scenarioName, count / scenarioSheet.Rows.Count *100));
+                    
                     db.Server.SaveTable(sc);
                 }
                 else
@@ -80,12 +86,15 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
                     s.Table.Columns[1].ColumnName = "value";
                     db.CreateSeriesTable(s.Table.TableName, false);
                     db.Server.InsertTable(s.Table);
-
                 }
+
+                if (OnProgress != null)
+                    OnProgress(this,
+                        new ProgressEventArgs(
+                         "saving " + internalSiteID + " " + scenarioName, count / scenarioSheet.Rows.Count * 100));
                 count++;
             }
-            if( errors.Count >0)
-                throw new FileNotFoundException(string.Join("\n", errors.ToArray()));
+            
         }       
 
         private static Series ReadExternalSeriesData(string scenarioName, string filename, string externalSiteID)
