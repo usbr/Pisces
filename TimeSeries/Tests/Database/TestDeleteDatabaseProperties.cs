@@ -29,9 +29,13 @@ namespace Pisces.NunitTests.Database
 
             string dataPath = TestData.DataPath;
             Series s = new Series("Glomma River");
-            s.Properties.Set("elevation", " 690 m");
-
+            
             db.AddSeries(s);
+
+            s = db.GetSeriesFromName("Glomma River");
+            s.TimeSeriesDatabase = db;
+            s.Properties.Set("elevation", " 690 m");
+            s.Properties.Save();
         }
 
 
@@ -39,7 +43,7 @@ namespace Pisces.NunitTests.Database
         public void TestSeriesDeleteGlommaRiver()
         {
             var s = db.GetSeriesFromName("Glomma River");
-
+           Assert.AreEqual(" 690 m", s.Properties.Get("elevation"));
             db.Delete(s);
 
             Assert.AreEqual(0, db.GetSeriesProperties().Count, "expect zero properties");
