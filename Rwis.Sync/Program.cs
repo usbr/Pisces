@@ -8,11 +8,33 @@ using Reclamation.Core;
 using System.Configuration;
 using System.IO;
 using Mono.Options;
+using System.DirectoryServices;
 
 namespace Rwis.Sync
 {
     class Program
     {
+        static void Main(string[] argList)
+        {
+            //var usrDom = System.Environment.UserDomainName;
+            System.DirectoryServices.ActiveDirectory.Domain usrDom;
+            try
+            {
+                usrDom = System.DirectoryServices.ActiveDirectory.Domain.GetComputerDomain();
+                if (usrDom.Name == "usbr.gov")
+                { rwisForm.startRwisUiMain(argList); }
+                else
+                { System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network..."); }
+            }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network...");
+            }
+
+            //Rwis.Sync.Program.SyncMain(argList);
+            //Rwis.Initialize.Program.initializeMain(argList);
+        }
+
         static void SyncMain(string[] argList)
         {
             Arguments args = new Arguments(argList);

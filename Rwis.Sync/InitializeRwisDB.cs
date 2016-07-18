@@ -17,7 +17,7 @@ namespace Rwis.Initialize
         static bool initializeSeriesCatalog = false;
         static private string path = @"C:\Users\jrocha\Desktop\RWIS\";
 
-        static void initializeMain(string[] argList)
+        public static void initializeMain(string[] argList)
         {
             // Connect to DB Server
             var dbname = ConfigurationManager.AppSettings["MySqlDatabase"];

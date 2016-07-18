@@ -32,7 +32,7 @@ namespace Rwis.Sync
         /// Main entry form
         /// </summary>
         /// <param name="args"></param>
-        public static void Main(string[] args)
+        public static void startRwisUiMain(string[] args)
         {
             // Starts the application.
             Application.Run(new rwisForm());
