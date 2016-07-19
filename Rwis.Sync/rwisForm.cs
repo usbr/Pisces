@@ -692,109 +692,109 @@ namespace Rwis.Sync
             {
                 var csvFile = openFileDialog1.FileName;
                 batchTable = ConvertCSVtoDataTable(csvFile);
-            }
 
-            foreach (DataRow row in batchTable.Rows)
-            {
-                var region = row["Region"].ToString();
-                var interval = row["Time_step"].ToString();
-                var siteCode = row["Site"].ToString();
-                var parCode = row["Parameter"].ToString();
-                var cbtt = row["Site Code"].ToString();
-                var pcode = row["Parameter Code"].ToString();
-                var sdi = row["SDI"].ToString();
-                var provider = row["Data Provider"].ToString();
-                var t1 = FromExcelSerialDate(Convert.ToInt32(row["t1"].ToString()));
-                var t2 = FromExcelSerialDate(Convert.ToInt32(row["t2"].ToString()));
-                //Console.WriteLine(region + " | " + ste + " | " + par + " | " + cbtt + " | " + pcode + " | " + sdi + " | " + provider + " | " + t1 + " | " + t2);
-
-                //////////////////////////////////////////////////////////////////////////
-                // Get required variables to add dataset from GUI
-                //////////////////////////////////////////////////////////////////////////
-                // Get Site Info
-                var site = siteCat.Select("siteid='" + siteCode + "'")[0];
-                // Get Parameter Info
-                var par = parCat.Select("id='" + parCode + "'")[0];
-                // Get Connection Information
-                var connectionstring = GetConnectionString(region, cbtt, pcode, sdi, interval) + ";LastUpdate=" + DateTime.Now.ToString("MM/dd/yyyy HH:mm");
-                // Get Parameter information from parametercatalog
-                var timeinterval = GetIntervalCode(par["timeinterval"].ToString());
-                var parameter = par["id"].ToString();
-                var units = par["units"].ToString();
-                // Get Site Information from sitecatalog
-                var siteid = site["siteid"].ToString();
-                // Get Parent ID from seriescatalog
-                DataTable serCatFolders = db.GetSeriesCatalog("isfolder=1");
-                var regionFolderId = serCatFolders.Select("name='" + region + "'")[0]["id"];
-                var intervalFolderId = serCatFolders.Select("parentid=" + regionFolderId + " AND name='" + timeinterval + "'")[0]["id"];
-                var parentid = serCatFolders.Select("parentid=" + intervalFolderId + " AND name='" + site["type"] + "'")[0]["id"];
-                // Get Sort Order from seriescatalog
-                DataTable serCatMembers = db.GetSeriesCatalog("parentid=" + parentid);
-                int sortOrder;
-                Int32.TryParse(serCatMembers.Compute("max(sortorder)", string.Empty).ToString(), out sortOrder);
-                sortOrder = System.Math.Max(sortOrder++, 1);
-                // Set other standard input variables
-                string name = (siteid + "_" + parameter).ToLower();
-                string tablename = (region + "_" + RemoveSpecialCharacters(name)).ToLower();
-                int isFolder = 0;
-                int enabled = 1;
-                string expression = "";
-                string notes = "";
-                string iconname = GetIconName(region);
-
-                //////////////////////////////////////////////////////////////////////////
-                // Add data to DB
-                //////////////////////////////////////////////////////////////////////////
-                // Check for duplicates
-                DataTable duplicateCheckTable = db.GetSeriesCatalog("tablename='" + tablename + "'");
-                if (duplicateCheckTable.Rows.Count != 0)
+                foreach (DataRow row in batchTable.Rows)
                 {
-                    outputDiagnostics.Add("Dataset for " + site["description"].ToString().ToUpper() + " " +
-                        par["statistic"].ToString().ToUpper() + " " + par["timeinterval"].ToString().ToUpper() +
-                        " " + par["name"].ToString().ToUpper() + " already exists in the RWIS DB. " +
-                        "Select a different Site and Parameter...");
-                }
-                else
-                {
-                    // Add to series catalog
-                    showMessage("Adding metadata fields to RWIS DB...");
-                    string sqlInsertSeriesCatalog = "INSERT INTO seriescatalog (parentid, " + "isfolder," +
-                                            "sortorder, " + "iconname, " + "name, " + "siteid, " + "units, " +
-                                            "timeinterval, " + "parameter, " + "tablename, " + "provider, " +
-                                            "connectionstring, " + "expression, " + "notes, " + "enabled) " +
-                                 "VALUES (" + parentid + "," + isFolder + ", " + sortOrder + ", " + "'" +
-                                            iconname + "', " + "'" + name + "', " + "'" + siteid + "', " +
-                                            "'" + units + "', " + "'" + timeinterval + "', " + "'" + parameter +
-                                            "', " + "'" + tablename + "', " + "'" + provider + "', " + "'" +
-                                            connectionstring + "', " + "'" + expression + "', " + "'" + notes +
-                                            "', " + "" + enabled + "); ";
-                    // RUN SQL COMMAND
-                    svr.RunSqlCommand(sqlInsertSeriesCatalog);
-                    // Add timeseries table
-                    showMessage("Adding new table to RWIS DB...");
-                    string sqlCreateTable = "Create Table " + tablename;
-                    sqlCreateTable += " (datetime datetime primary key, value float, flag varchar(50)" + " );";
-                    // RUN SQL COMMAND
-                    svr.RunSqlCommand(sqlCreateTable);
-                    // Add entries to seriesproperties table
-                    showMessage("Downloading data from regional DB...");
-                    // Update data
-                    var s = db.GetSeriesFromTableName(tablename);
-                    s.Update(t1, t2);
-                    var newSeriesId = db.GetSeriesCatalog("tablename='" + tablename + "'")[0]["id"];
-                    string sqlInsertSeriesProperties = "INSERT INTO seriesproperties (seriesid, name, value) " +
-                        "VALUES (" + newSeriesId + ", 't1', '" + t1.ToShortDateString() + "'), (" + newSeriesId + ", 't2', '" + t2.ToShortDateString() + "')";
-                    // RUN SQL COMMAND
-                    svr.RunSqlCommand(sqlInsertSeriesProperties);
+                    // Get Batch Control File inputs
+                    var region = row["Region"].ToString();
+                    var interval = row["Time_step"].ToString();
+                    var siteCode = row["Site"].ToString();
+                    var parCode = row["Parameter"].ToString();
+                    var cbtt = row["Site Code"].ToString();
+                    var pcode = row["Parameter Code"].ToString();
+                    var sdi = row["SDI"].ToString();
+                    var provider = row["Data Provider"].ToString();
+                    var t1 = FromExcelSerialDate(Convert.ToInt32(row["t1"].ToString()));
+                    var t2 = FromExcelSerialDate(Convert.ToInt32(row["t2"].ToString()));
+                    
+                    //////////////////////////////////////////////////////////////////////////
+                    // Get required variables to add dataset from Batch Control File
+                    //////////////////////////////////////////////////////////////////////////
+                    // Get Site Info
+                    var site = siteCat.Select("siteid='" + siteCode + "'")[0];
+                    // Get Parameter Info
+                    var par = parCat.Select("id='" + parCode + "'")[0];
+                    // Get Connection Information
+                    var connectionstring = GetConnectionString(region, cbtt, pcode, sdi, interval) + ";LastUpdate=" + DateTime.Now.ToString("MM/dd/yyyy HH:mm");
+                    // Get Parameter information from parametercatalog
+                    var timeinterval = GetIntervalCode(par["timeinterval"].ToString());
+                    var parameter = par["id"].ToString();
+                    var units = par["units"].ToString();
+                    // Get Site Information from sitecatalog
+                    var siteid = site["siteid"].ToString();
+                    // Get Parent ID from seriescatalog
+                    DataTable serCatFolders = db.GetSeriesCatalog("isfolder=1");
+                    var regionFolderId = serCatFolders.Select("name='" + region + "'")[0]["id"];
+                    var intervalFolderId = serCatFolders.Select("parentid=" + regionFolderId + " AND name='" + timeinterval + "'")[0]["id"];
+                    var parentid = serCatFolders.Select("parentid=" + intervalFolderId + " AND name='" + site["type"] + "'")[0]["id"];
+                    // Get Sort Order from seriescatalog
+                    DataTable serCatMembers = db.GetSeriesCatalog("parentid=" + parentid);
+                    int sortOrder;
+                    Int32.TryParse(serCatMembers.Compute("max(sortorder)", string.Empty).ToString(), out sortOrder);
+                    sortOrder = System.Math.Max(sortOrder++, 1);
+                    // Set other standard input variables
+                    string name = (siteid + "_" + parameter).ToLower();
+                    string tablename = (region + "_" + RemoveSpecialCharacters(name)).ToLower();
+                    int isFolder = 0;
+                    int enabled = 1;
+                    string expression = "";
+                    string notes = "";
+                    string iconname = GetIconName(region);
 
-                    showMessage("Success!");
-                    outputDiagnostics.Add("Dataset for " + site["description"].ToString().ToUpper() + " " +
-                        par["statistic"].ToString().ToUpper() + " " + par["timeinterval"].ToString().ToUpper() +
-                        " " + par["name"].ToString().ToUpper() + " added successfully!");
+                    //////////////////////////////////////////////////////////////////////////
+                    // Add data to DB
+                    //////////////////////////////////////////////////////////////////////////
+                    // Check for duplicates
+                    DataTable duplicateCheckTable = db.GetSeriesCatalog("tablename='" + tablename + "'");
+                    if (duplicateCheckTable.Rows.Count != 0)
+                    {
+                        outputDiagnostics.Add("Dataset for " + site["description"].ToString().ToUpper() + " " +
+                            par["statistic"].ToString().ToUpper() + " " + par["timeinterval"].ToString().ToUpper() +
+                            " " + par["name"].ToString().ToUpper() + " already exists in the RWIS DB. " +
+                            "Select a different Site and Parameter...");
+                    }
+                    else
+                    {
+                        // Add to series catalog
+                        showMessage("Adding metadata fields to RWIS DB...");
+                        string sqlInsertSeriesCatalog = "INSERT INTO seriescatalog (parentid, " + "isfolder," +
+                                                "sortorder, " + "iconname, " + "name, " + "siteid, " + "units, " +
+                                                "timeinterval, " + "parameter, " + "tablename, " + "provider, " +
+                                                "connectionstring, " + "expression, " + "notes, " + "enabled) " +
+                                     "VALUES (" + parentid + "," + isFolder + ", " + sortOrder + ", " + "'" +
+                                                iconname + "', " + "'" + name + "', " + "'" + siteid + "', " +
+                                                "'" + units + "', " + "'" + timeinterval + "', " + "'" + parameter +
+                                                "', " + "'" + tablename + "', " + "'" + provider + "', " + "'" +
+                                                connectionstring + "', " + "'" + expression + "', " + "'" + notes +
+                                                "', " + "" + enabled + "); ";
+                        // RUN SQL COMMAND
+                        svr.RunSqlCommand(sqlInsertSeriesCatalog);
+                        // Add timeseries table
+                        showMessage("Adding new table to RWIS DB...");
+                        string sqlCreateTable = "Create Table " + tablename;
+                        sqlCreateTable += " (datetime datetime primary key, value float, flag varchar(50)" + " );";
+                        // RUN SQL COMMAND
+                        svr.RunSqlCommand(sqlCreateTable);
+                        // Add entries to seriesproperties table
+                        showMessage("Downloading data from regional DB...");
+                        // Update data
+                        var s = db.GetSeriesFromTableName(tablename);
+                        s.Update(t1, t2);
+                        var newSeriesId = db.GetSeriesCatalog("tablename='" + tablename + "'")[0]["id"];
+                        string sqlInsertSeriesProperties = "INSERT INTO seriesproperties (seriesid, name, value) " +
+                            "VALUES (" + newSeriesId + ", 't1', '" + t1.ToShortDateString() + "'), (" + newSeriesId + ", 't2', '" + t2.ToShortDateString() + "')";
+                        // RUN SQL COMMAND
+                        svr.RunSqlCommand(sqlInsertSeriesProperties);
+
+                        showMessage("Success!");
+                        outputDiagnostics.Add("Dataset for " + site["description"].ToString().ToUpper() + " " +
+                            par["statistic"].ToString().ToUpper() + " " + par["timeinterval"].ToString().ToUpper() +
+                            " " + par["name"].ToString().ToUpper() + " added successfully!");
+                    }
                 }
+                var message = string.Join(Environment.NewLine, outputDiagnostics);
+                MessageBox.Show(message);
             }
-            var message = string.Join(Environment.NewLine, outputDiagnostics);
-            MessageBox.Show(message);
         }
     }
 }
