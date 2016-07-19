@@ -610,7 +610,8 @@ namespace Rwis.Sync
             DataTable serCatMembers = db.GetSeriesCatalog("parentid=" + parentid);
             int sortOrder;
             Int32.TryParse(serCatMembers.Compute("max(sortorder)", string.Empty).ToString(), out sortOrder);
-            sortOrder = System.Math.Max(sortOrder++, 1);
+            sortOrder = sortOrder + 1;
+            sortOrder = System.Math.Max(sortOrder, 1);
             // Set other standard input variables
             string name = (siteid + "_" + parameter).ToLower();
             string tablename = (region + "_" + RemoveSpecialCharacters(name)).ToLower();
@@ -657,10 +658,14 @@ namespace Rwis.Sync
                 // Update data
                 var s = db.GetSeriesFromTableName(tablename);
                 s.Update(this.t1Date.Value, this.t2Date.Value);
-                var newSeriesId = db.GetSeriesCatalog("tablename='" + tablename + "'")[0]["id"];
-                string sqlInsertSeriesProperties = "INSERT INTO seriesproperties (seriesid, name, value) " +
-                    "VALUES (" + newSeriesId + ", 't1', '" + this.t1Date.Value.ToShortDateString() + "'), (" + newSeriesId + ", 't2', '" + this.t2Date.Value.ToShortDateString() + "')";
-                svr.RunSqlCommand(sqlInsertSeriesProperties);
+                //var newSeriesId = db.GetSeriesCatalog("tablename='" + tablename + "'")[0]["id"];
+                //string sqlInsertSeriesProperties = "INSERT INTO seriesproperties (seriesid, name, value) " +
+                //    "VALUES (" + newSeriesId + ", 't1', '" + this.t1Date.Value.ToShortDateString() + "'), (" + newSeriesId + ", 't2', '" + this.t2Date.Value.ToShortDateString() + "')";
+                //svr.RunSqlCommand(sqlInsertSeriesProperties);
+                s.Properties.Set("t1", this.t1Date.Value.ToShortDateString());
+                s.Properties.Set("t2", this.t2Date.Value.ToShortDateString());
+                s.Properties.Set("count", s.Count.ToString());
+                s.Properties.Save();
 
                 showMessage("Success!");
             }
@@ -731,7 +736,8 @@ namespace Rwis.Sync
                     DataTable serCatMembers = db.GetSeriesCatalog("parentid=" + parentid);
                     int sortOrder;
                     Int32.TryParse(serCatMembers.Compute("max(sortorder)", string.Empty).ToString(), out sortOrder);
-                    sortOrder = System.Math.Max(sortOrder++, 1);
+                    sortOrder = sortOrder + 1;
+                    sortOrder = System.Math.Max(sortOrder, 1);
                     // Set other standard input variables
                     string name = (siteid + "_" + parameter).ToLower();
                     string tablename = (region + "_" + RemoveSpecialCharacters(name)).ToLower();
@@ -780,11 +786,15 @@ namespace Rwis.Sync
                         // Update data
                         var s = db.GetSeriesFromTableName(tablename);
                         s.Update(t1, t2);
-                        var newSeriesId = db.GetSeriesCatalog("tablename='" + tablename + "'")[0]["id"];
-                        string sqlInsertSeriesProperties = "INSERT INTO seriesproperties (seriesid, name, value) " +
-                            "VALUES (" + newSeriesId + ", 't1', '" + t1.ToShortDateString() + "'), (" + newSeriesId + ", 't2', '" + t2.ToShortDateString() + "')";
-                        // RUN SQL COMMAND
-                        svr.RunSqlCommand(sqlInsertSeriesProperties);
+                        //var newSeriesId = db.GetSeriesCatalog("tablename='" + tablename + "'")[0]["id"];
+                        //string sqlInsertSeriesProperties = "INSERT INTO seriesproperties (seriesid, name, value) " +
+                        //    "VALUES (" + newSeriesId + ", 't1', '" + t1.ToShortDateString() + "'), (" + newSeriesId + ", 't2', '" + t2.ToShortDateString() + "')";
+                        //// RUN SQL COMMAND
+                        //svr.RunSqlCommand(sqlInsertSeriesProperties);
+                        s.Properties.Set("t1", t1.ToShortDateString());
+                        s.Properties.Set("t2", t2.ToShortDateString());
+                        s.Properties.Set("count", s.Count.ToString());
+                        s.Properties.Save();
 
                         showMessage("Success!");
                         outputDiagnostics.Add("Dataset for " + site["description"].ToString().ToUpper() + " " +
