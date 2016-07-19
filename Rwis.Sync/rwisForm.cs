@@ -283,7 +283,7 @@ namespace Rwis.Sync
         private string GetDataProvider()
         {
             var region = GetRegion();
-            string intervalCode = intervalCode = this.tstepComboBox.SelectedItem.ToString();
+            string intervalCode = this.tstepComboBox.SelectedItem.ToString();
             intervalCode = GetIntervalCode(intervalCode);
 
             string provider = "";
@@ -331,7 +331,7 @@ namespace Rwis.Sync
         }
 
         /// <summary>
-        /// Build Connection String
+        /// Build Connection String from GUI
         /// </summary>
         /// <returns></returns>
         private string GetConnectionString()
@@ -343,6 +343,42 @@ namespace Rwis.Sync
             var sdiCode = this.sdiTextBox.Text.ToString();
             var intervalCode = this.tstepComboBox.SelectedItem.ToString();
 
+            intervalCode = GetIntervalCode(intervalCode);
+
+            switch (region)
+            {
+                case "PN":
+                    conx += "server=PN;cbtt=" + siteCode + ";pcode=" + parCode;
+                    break;
+                case "GP":
+                    conx += "server=GreatPlains;cbtt=" + siteCode + ";pcode=" + parCode;
+                    break;
+                case "LC":
+                    conx += "server=LCHDB2;sdi=" + sdiCode + ";timeinterval=" + intervalCode;
+                    break;
+                case "UC":
+                    conx += "server=UCHDB2;sdi=" + sdiCode + ";timeinterval=" + intervalCode;
+                    break;
+                case "MP":
+                    conx += "server=MPSFTP;cbtt=" + siteCode + ";pcode=" + parCode;
+                    break;
+
+            }
+            return conx;
+        }
+
+        /// <summary>
+        /// Build Connection String from Bach Control File
+        /// </summary>
+        /// <param name="region"></param>
+        /// <param name="siteCode"></param>
+        /// <param name="parCode"></param>
+        /// <param name="sdiCode"></param>
+        /// <param name="intervalCode"></param>
+        /// <returns></returns>
+        private string GetConnectionString(string region, string siteCode, string parCode, string sdiCode, string intervalCode)
+        {
+            string conx = "";
             intervalCode = GetIntervalCode(intervalCode);
 
             switch (region)
@@ -415,10 +451,122 @@ namespace Rwis.Sync
             form.Show();
         }
 
+        private void showMessage(string msg)
+        {
+            this.toolStripStatusMessage.Text = msg;
+            statusStrip1.Refresh();
+        }
+
         /// <summary>
-        /// Add dataset to RWIS DB
+        /// Removes special characters from string
         /// </summary>
-        private void addDatasetToRWIS(object sender, EventArgs e)
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string RemoveSpecialCharacters(string str)
+        {
+            return System.Text.RegularExpressions.Regex.Replace(str, "[^a-zA-Z0-9_]+", "", System.Text.RegularExpressions.RegexOptions.Compiled);
+        }
+
+        /// <summary>
+        /// Sets Icon Name from GUI for seriescatalog
+        /// </summary>
+        private string GetIconName()
+        {
+            var region = GetRegion();
+            string iconName = "";
+            switch (region)
+            {
+                case "PN":case "GP":
+                    iconName += "hydromet";
+                    break;
+                case "LC":case "UC":
+                    iconName += "hdb";
+                    break;
+                case "MP":
+                    iconName += "har";
+                    break;
+            }
+            return iconName;
+        }
+
+        /// <summary>
+        /// Sets Icon Name from Batch Control File for seriescatalog
+        /// </summary>
+        private string GetIconName(string region)
+        {
+            string iconName = "";
+            switch (region)
+            {
+                case "PN":
+                case "GP":
+                    iconName += "hydromet";
+                    break;
+                case "LC":
+                case "UC":
+                    iconName += "hdb";
+                    break;
+                case "MP":
+                    iconName += "har";
+                    break;
+            }
+            return iconName;
+        }
+
+        /// <summary>
+        /// Test connection to source DB given connection information
+        /// </summary>
+        private void testConnection(object sender, EventArgs e)
+        {
+            var s = new Series();
+            s.ConnectionString = GetConnectionString();
+            s.Provider = GetDataProvider();
+            s.Update(this.t1Date.Value, this.t2Date.Value);
+        }
+        
+        /// <summary>
+        /// Convert CSV to C# DataTable
+        /// </summary>
+        /// <param name="strFilePath"></param>
+        /// <returns></returns>
+        public static DataTable ConvertCSVtoDataTable(string strFilePath)
+        {
+            DataTable dt = new DataTable();
+            using (System.IO.StreamReader sr = new System.IO.StreamReader(strFilePath))
+            {
+                string[] headers = sr.ReadLine().Split(',');
+                foreach (string header in headers)
+                {
+                    dt.Columns.Add(header);
+                }
+                while (!sr.EndOfStream)
+                {
+                    string[] rows = sr.ReadLine().Split(',');
+                    DataRow dr = dt.NewRow();
+                    for (int i = 0; i < headers.Length; i++)
+                    {
+                        dr[i] = rows[i];
+                    }
+                    dt.Rows.Add(dr);
+                }
+            }
+            return dt;
+        }
+
+        /// <summary>
+        /// Convert Excel Serial Int to DateTime
+        /// </summary>
+        /// <param name="SerialDate"></param>
+        /// <returns></returns>
+        public static DateTime FromExcelSerialDate(int SerialDate)
+        {
+            if (SerialDate > 59) SerialDate -= 1; //Excel/Lotus 2/29/1900 bug   
+            return new DateTime(1899, 12, 31).AddDays(SerialDate);
+        }
+
+        /// <summary>
+        /// Add single dataset to RWIS DB via GUI selections
+        /// </summary>
+        private void addSingleDatasetToRWIS(object sender, EventArgs e)
         {
             //////////////////////////////////////////////////////////////////////////
             // Get required variables to add dataset from GUI
@@ -442,7 +590,7 @@ namespace Rwis.Sync
                 MessageBox.Show("Select a Parameter...");
                 return;
             }
-            var par= parCat.Select("id='" + parCode + "'")[0];
+            var par = parCat.Select("id='" + parCode + "'")[0];
             // Get Connection Information
             var connectionstring = GetConnectionString() + ";LastUpdate=" + DateTime.Now.ToString("MM/dd/yyyy HH:mm");
             var provider = GetDataProvider();
@@ -456,13 +604,13 @@ namespace Rwis.Sync
             var region = GetRegion();
             DataTable serCatFolders = db.GetSeriesCatalog("isfolder=1");
             var regionFolderId = serCatFolders.Select("name='" + region + "'")[0]["id"];
-            var intervalFolderId = serCatFolders.Select("parentid=" +regionFolderId + " AND name='" + timeinterval + "'")[0]["id"];
+            var intervalFolderId = serCatFolders.Select("parentid=" + regionFolderId + " AND name='" + timeinterval + "'")[0]["id"];
             var parentid = serCatFolders.Select("parentid=" + intervalFolderId + " AND name='" + site["type"] + "'")[0]["id"];
             // Get Sort Order from seriescatalog
             DataTable serCatMembers = db.GetSeriesCatalog("parentid=" + parentid);
             int sortOrder;
             Int32.TryParse(serCatMembers.Compute("max(sortorder)", string.Empty).ToString(), out sortOrder);
-            sortOrder = System.Math.Max(sortOrder, 1);
+            sortOrder = System.Math.Max(sortOrder++, 1);
             // Set other standard input variables
             string name = (siteid + "_" + parameter).ToLower();
             string tablename = (region + "_" + RemoveSpecialCharacters(name)).ToLower();
@@ -476,12 +624,12 @@ namespace Rwis.Sync
             // Add data to DB
             //////////////////////////////////////////////////////////////////////////
             // Check for duplicates
-            DataTable duplicateCheckTable = db.GetSeriesCatalog("tablename='"+ tablename + "'");
+            DataTable duplicateCheckTable = db.GetSeriesCatalog("tablename='" + tablename + "'");
             if (duplicateCheckTable.Rows.Count != 0)
             {
-                MessageBox.Show("Dataset for " + site["description"].ToString().ToUpper() + " " + 
-                    par["statistic"].ToString().ToUpper() + " " + par["timeinterval"].ToString().ToUpper() + 
-                    " " + par["name"].ToString().ToUpper() +" already exists in the RWIS DB. " + 
+                MessageBox.Show("Dataset for " + site["description"].ToString().ToUpper() + " " +
+                    par["statistic"].ToString().ToUpper() + " " + par["timeinterval"].ToString().ToUpper() +
+                    " " + par["name"].ToString().ToUpper() + " already exists in the RWIS DB. " +
                     "Select a different Site and Parameter...");
             }
             else
@@ -492,11 +640,11 @@ namespace Rwis.Sync
                                         "sortorder, " + "iconname, " + "name, " + "siteid, " + "units, " +
                                         "timeinterval, " + "parameter, " + "tablename, " + "provider, " +
                                         "connectionstring, " + "expression, " + "notes, " + "enabled) " +
-                             "VALUES (" + parentid + "," + isFolder + ", " + sortOrder + ", " + "'" + 
+                             "VALUES (" + parentid + "," + isFolder + ", " + sortOrder + ", " + "'" +
                                         iconname + "', " + "'" + name + "', " + "'" + siteid + "', " +
-                                        "'" + units + "', " + "'" + timeinterval + "', " + "'" + parameter + 
-                                        "', " + "'" + tablename + "', " + "'" + provider + "', " + "'" + 
-                                        connectionstring + "', " + "'" + expression + "', " + "'" + notes + 
+                                        "'" + units + "', " + "'" + timeinterval + "', " + "'" + parameter +
+                                        "', " + "'" + tablename + "', " + "'" + provider + "', " + "'" +
+                                        connectionstring + "', " + "'" + expression + "', " + "'" + notes +
                                         "', " + "" + enabled + "); ";
                 svr.RunSqlCommand(sqlInsertSeriesCatalog);
                 // Add timeseries table
@@ -516,58 +664,137 @@ namespace Rwis.Sync
 
                 showMessage("Success!");
             }
-
-        }
-
-        private void showMessage(string msg)
-        {
-            this.toolStripStatusMessage.Text = msg;
-            statusStrip1.Refresh();
         }
 
         /// <summary>
-        /// Removes special characters from string
+        /// Add multiple datasets to RWIS DB via Batch Control File
         /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static string RemoveSpecialCharacters(string str)
+        private void addMultipleDatasetsToRWIS(object sender, EventArgs e)
         {
-            return System.Text.RegularExpressions.Regex.Replace(str, "[^a-zA-Z0-9_]+", "", System.Text.RegularExpressions.RegexOptions.Compiled);
-        }
+            var outputDiagnostics = new List<string>();
 
-        /// <summary>
-        /// Sets Icon Name for seriescatalog
-        /// </summary>
-        private string GetIconName()
-        {
-            var region = GetRegion();
-            string iconName = "";
-            switch (region)
+            OpenFileDialog openFileDialog1 = this.openBatchFileDialog;
+            openFileDialog1.InitialDirectory = @"C:\";
+            openFileDialog1.Title = "Select File";
+            openFileDialog1.CheckFileExists = true;
+            openFileDialog1.CheckPathExists = true;
+            openFileDialog1.DefaultExt = "csv";
+            openFileDialog1.Filter = "Comma Separated Variables File (*.csv)|*.csv";
+            openFileDialog1.FilterIndex = 2;
+            openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.Multiselect = false;
+            openFileDialog1.ReadOnlyChecked = true;
+            openFileDialog1.ShowReadOnly = true;
+
+            DataTable batchTable = new DataTable();
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK) // Test result.
             {
-                case "PN":case "GP":
-                    iconName += "hydromet";
-                    break;
-                case "LC":case "UC":
-                    iconName += "hdb";
-                    break;
-                case "MP":
-                    iconName += "har";
-                    break;
+                var csvFile = openFileDialog1.FileName;
+                batchTable = ConvertCSVtoDataTable(csvFile);
             }
-            return iconName;
+
+            foreach (DataRow row in batchTable.Rows)
+            {
+                var region = row["Region"].ToString();
+                var interval = row["Time_step"].ToString();
+                var siteCode = row["Site"].ToString();
+                var parCode = row["Parameter"].ToString();
+                var cbtt = row["Site Code"].ToString();
+                var pcode = row["Parameter Code"].ToString();
+                var sdi = row["SDI"].ToString();
+                var provider = row["Data Provider"].ToString();
+                var t1 = FromExcelSerialDate(Convert.ToInt32(row["t1"].ToString()));
+                var t2 = FromExcelSerialDate(Convert.ToInt32(row["t2"].ToString()));
+                //Console.WriteLine(region + " | " + ste + " | " + par + " | " + cbtt + " | " + pcode + " | " + sdi + " | " + provider + " | " + t1 + " | " + t2);
+
+                //////////////////////////////////////////////////////////////////////////
+                // Get required variables to add dataset from GUI
+                //////////////////////////////////////////////////////////////////////////
+                // Get Site Info
+                var site = siteCat.Select("siteid='" + siteCode + "'")[0];
+                // Get Parameter Info
+                var par = parCat.Select("id='" + parCode + "'")[0];
+                // Get Connection Information
+                var connectionstring = GetConnectionString(region, cbtt, pcode, sdi, interval) + ";LastUpdate=" + DateTime.Now.ToString("MM/dd/yyyy HH:mm");
+                // Get Parameter information from parametercatalog
+                var timeinterval = GetIntervalCode(par["timeinterval"].ToString());
+                var parameter = par["id"].ToString();
+                var units = par["units"].ToString();
+                // Get Site Information from sitecatalog
+                var siteid = site["siteid"].ToString();
+                // Get Parent ID from seriescatalog
+                DataTable serCatFolders = db.GetSeriesCatalog("isfolder=1");
+                var regionFolderId = serCatFolders.Select("name='" + region + "'")[0]["id"];
+                var intervalFolderId = serCatFolders.Select("parentid=" + regionFolderId + " AND name='" + timeinterval + "'")[0]["id"];
+                var parentid = serCatFolders.Select("parentid=" + intervalFolderId + " AND name='" + site["type"] + "'")[0]["id"];
+                // Get Sort Order from seriescatalog
+                DataTable serCatMembers = db.GetSeriesCatalog("parentid=" + parentid);
+                int sortOrder;
+                Int32.TryParse(serCatMembers.Compute("max(sortorder)", string.Empty).ToString(), out sortOrder);
+                sortOrder = System.Math.Max(sortOrder++, 1);
+                // Set other standard input variables
+                string name = (siteid + "_" + parameter).ToLower();
+                string tablename = (region + "_" + RemoveSpecialCharacters(name)).ToLower();
+                int isFolder = 0;
+                int enabled = 1;
+                string expression = "";
+                string notes = "";
+                string iconname = GetIconName(region);
+
+                //////////////////////////////////////////////////////////////////////////
+                // Add data to DB
+                //////////////////////////////////////////////////////////////////////////
+                // Check for duplicates
+                DataTable duplicateCheckTable = db.GetSeriesCatalog("tablename='" + tablename + "'");
+                if (duplicateCheckTable.Rows.Count != 0)
+                {
+                    outputDiagnostics.Add("Dataset for " + site["description"].ToString().ToUpper() + " " +
+                        par["statistic"].ToString().ToUpper() + " " + par["timeinterval"].ToString().ToUpper() +
+                        " " + par["name"].ToString().ToUpper() + " already exists in the RWIS DB. " +
+                        "Select a different Site and Parameter...");
+                }
+                else
+                {
+                    // Add to series catalog
+                    showMessage("Adding metadata fields to RWIS DB...");
+                    string sqlInsertSeriesCatalog = "INSERT INTO seriescatalog (parentid, " + "isfolder," +
+                                            "sortorder, " + "iconname, " + "name, " + "siteid, " + "units, " +
+                                            "timeinterval, " + "parameter, " + "tablename, " + "provider, " +
+                                            "connectionstring, " + "expression, " + "notes, " + "enabled) " +
+                                 "VALUES (" + parentid + "," + isFolder + ", " + sortOrder + ", " + "'" +
+                                            iconname + "', " + "'" + name + "', " + "'" + siteid + "', " +
+                                            "'" + units + "', " + "'" + timeinterval + "', " + "'" + parameter +
+                                            "', " + "'" + tablename + "', " + "'" + provider + "', " + "'" +
+                                            connectionstring + "', " + "'" + expression + "', " + "'" + notes +
+                                            "', " + "" + enabled + "); ";
+                    // RUN SQL COMMAND
+                    svr.RunSqlCommand(sqlInsertSeriesCatalog);
+                    // Add timeseries table
+                    showMessage("Adding new table to RWIS DB...");
+                    string sqlCreateTable = "Create Table " + tablename;
+                    sqlCreateTable += " (datetime datetime primary key, value float, flag varchar(50)" + " );";
+                    // RUN SQL COMMAND
+                    svr.RunSqlCommand(sqlCreateTable);
+                    // Add entries to seriesproperties table
+                    showMessage("Downloading data from regional DB...");
+                    // Update data
+                    var s = db.GetSeriesFromTableName(tablename);
+                    s.Update(t1, t2);
+                    var newSeriesId = db.GetSeriesCatalog("tablename='" + tablename + "'")[0]["id"];
+                    string sqlInsertSeriesProperties = "INSERT INTO seriesproperties (seriesid, name, value) " +
+                        "VALUES (" + newSeriesId + ", 't1', '" + t1.ToShortDateString() + "'), (" + newSeriesId + ", 't2', '" + t2.ToShortDateString() + "')";
+                    // RUN SQL COMMAND
+                    svr.RunSqlCommand(sqlInsertSeriesProperties);
+
+                    showMessage("Success!");
+                    outputDiagnostics.Add("Dataset for " + site["description"].ToString().ToUpper() + " " +
+                        par["statistic"].ToString().ToUpper() + " " + par["timeinterval"].ToString().ToUpper() +
+                        " " + par["name"].ToString().ToUpper() + " added successfully!");
+                }
+            }
+            var message = string.Join(Environment.NewLine, outputDiagnostics);
+            MessageBox.Show(message);
         }
-
-        /// <summary>
-        /// Test connection to source DB given connection information
-        /// </summary>
-        private void testConnection(object sender, EventArgs e)
-        {
-            var s = new Series();
-            s.ConnectionString = GetConnectionString();
-            s.Provider = GetDataProvider();
-            s.Update(this.t1Date.Value, this.t2Date.Value);
-        }
-
-
     }
 }

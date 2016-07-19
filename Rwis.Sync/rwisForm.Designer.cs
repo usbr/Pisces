@@ -73,6 +73,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusMessage = new System.Windows.Forms.ToolStripStatusLabel();
+            this.openBatchFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.openBatchFileButton = new System.Windows.Forms.Button();
             this.regionSelectionGroupBox.SuspendLayout();
             this.metadataGroupBox.SuspendLayout();
             this.regionInfoGroupBox.SuspendLayout();
@@ -164,6 +166,7 @@
             this.tstepComboBox.Name = "tstepComboBox";
             this.tstepComboBox.Size = new System.Drawing.Size(121, 21);
             this.tstepComboBox.TabIndex = 1;
+            this.tstepComboBox.SelectedIndex = 0;
             this.tstepComboBox.SelectedIndexChanged += new System.EventHandler(this.clearParameterComboBox);
             // 
             // tstepLabel
@@ -486,20 +489,20 @@
             // addToSeriesCatalogButton
             // 
             this.addToSeriesCatalogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.addToSeriesCatalogButton.Location = new System.Drawing.Point(509, 440);
+            this.addToSeriesCatalogButton.Location = new System.Drawing.Point(509, 487);
             this.addToSeriesCatalogButton.Name = "addToSeriesCatalogButton";
             this.addToSeriesCatalogButton.Size = new System.Drawing.Size(134, 23);
             this.addToSeriesCatalogButton.TabIndex = 19;
             this.addToSeriesCatalogButton.Text = "Add Dataset to RWIS";
             this.addToSeriesCatalogButton.UseVisualStyleBackColor = true;
-            this.addToSeriesCatalogButton.Click += new System.EventHandler(this.addDatasetToRWIS);
+            this.addToSeriesCatalogButton.Click += new System.EventHandler(this.addSingleDatasetToRWIS);
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancelButton.Location = new System.Drawing.Point(421, 440);
+            this.cancelButton.Location = new System.Drawing.Point(434, 487);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(82, 23);
+            this.cancelButton.Size = new System.Drawing.Size(69, 23);
             this.cancelButton.TabIndex = 20;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -508,9 +511,9 @@
             // siteCatalogButton
             // 
             this.siteCatalogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.siteCatalogButton.Location = new System.Drawing.Point(12, 440);
+            this.siteCatalogButton.Location = new System.Drawing.Point(12, 487);
             this.siteCatalogButton.Name = "siteCatalogButton";
-            this.siteCatalogButton.Size = new System.Drawing.Size(134, 23);
+            this.siteCatalogButton.Size = new System.Drawing.Size(109, 23);
             this.siteCatalogButton.TabIndex = 21;
             this.siteCatalogButton.Text = "View Site Catalog";
             this.siteCatalogButton.UseVisualStyleBackColor = true;
@@ -519,9 +522,9 @@
             // parameterCatalogButton
             // 
             this.parameterCatalogButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.parameterCatalogButton.Location = new System.Drawing.Point(152, 440);
+            this.parameterCatalogButton.Location = new System.Drawing.Point(127, 487);
             this.parameterCatalogButton.Name = "parameterCatalogButton";
-            this.parameterCatalogButton.Size = new System.Drawing.Size(166, 23);
+            this.parameterCatalogButton.Size = new System.Drawing.Size(141, 23);
             this.parameterCatalogButton.TabIndex = 22;
             this.parameterCatalogButton.Text = "View Parameter Catalog";
             this.parameterCatalogButton.UseVisualStyleBackColor = true;
@@ -532,7 +535,7 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel,
             this.toolStripStatusMessage});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 468);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 515);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(656, 22);
             this.statusStrip1.TabIndex = 23;
@@ -553,11 +556,28 @@
             this.toolStripStatusMessage.Text = "-----";
             this.toolStripStatusMessage.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             // 
+            // openBatchFileDialog
+            // 
+            this.openBatchFileDialog.FileName = "openBatchFileDialog";
+            // 
+            // openBatchFileButton
+            // 
+            this.openBatchFileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.openBatchFileButton.Location = new System.Drawing.Point(12, 441);
+            this.openBatchFileButton.Name = "openBatchFileButton";
+            this.openBatchFileButton.Size = new System.Drawing.Size(140, 23);
+            this.openBatchFileButton.TabIndex = 24;
+            this.openBatchFileButton.Text = "Open Batch Upload File";
+            this.openBatchFileButton.UseVisualStyleBackColor = true;
+            this.openBatchFileButton.Click += new System.EventHandler(this.addMultipleDatasetsToRWIS);
+
+            // 
             // rwisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 490);
+            this.ClientSize = new System.Drawing.Size(656, 537);
+            this.Controls.Add(this.openBatchFileButton);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.parameterCatalogButton);
             this.Controls.Add(this.siteCatalogButton);
@@ -567,8 +587,8 @@
             this.Controls.Add(this.metadataGroupBox);
             this.Controls.Add(this.regionSelectionGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(672, 528);
-            this.MinimumSize = new System.Drawing.Size(672, 528);
+            this.MaximumSize = new System.Drawing.Size(672, 575);
+            this.MinimumSize = new System.Drawing.Size(672, 575);
             this.Name = "rwisForm";
             this.Text = "RWIS Database Management Interface";
             this.regionSelectionGroupBox.ResumeLayout(false);
@@ -630,5 +650,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusMessage;
+        private System.Windows.Forms.OpenFileDialog openBatchFileDialog;
+        private System.Windows.Forms.Button openBatchFileButton;
     }
 }

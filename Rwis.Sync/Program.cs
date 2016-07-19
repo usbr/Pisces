@@ -14,22 +14,28 @@ namespace Rwis.Sync
 {
     class Program
     {
+        [STAThreadAttribute]
         static void Main(string[] argList)
         {
             //var usrDom = System.Environment.UserDomainName;
             System.DirectoryServices.ActiveDirectory.Domain usrDom;
-            try
-            {
-                usrDom = System.DirectoryServices.ActiveDirectory.Domain.GetComputerDomain();
-                if (usrDom.Name == "usbr.gov")
-                { rwisForm.startRwisUiMain(argList); }
-                else
-                { System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network..."); }
-            }
-            catch
-            {
-                System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network...");
-            }
+            usrDom = System.DirectoryServices.ActiveDirectory.Domain.GetComputerDomain();
+            if (usrDom.Name == "bor.doi.net")
+            { rwisForm.startRwisUiMain(argList); }
+            else
+            { System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network..."); }
+            //try
+            //{
+            //    usrDom = System.DirectoryServices.ActiveDirectory.Domain.GetComputerDomain();
+            //    if (usrDom.Name == "bor.doi.net")
+            //    { rwisForm.startRwisUiMain(argList); }
+            //    else
+            //    { System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network..."); }
+            //}
+            //catch
+            //{
+            //    System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network...");
+            //}
 
             //Rwis.Sync.Program.SyncMain(argList);
             //Rwis.Initialize.Program.initializeMain(argList);
