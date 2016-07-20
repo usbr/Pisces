@@ -728,6 +728,10 @@ namespace Rwis.Sync
                     // Get Site Information from sitecatalog
                     var siteid = site["siteid"].ToString();
                     // Get Parent ID from seriescatalog
+                    var sck =  db.GetSeriesCatalog();
+
+                    //var idk = sck.GetOrCreateFolder("Untitled", "PN", "stream");
+
                     DataTable serCatFolders = db.GetSeriesCatalog("isfolder=1");
                     var regionFolderId = serCatFolders.Select("name='" + region + "'")[0]["id"];
                     var intervalFolderId = serCatFolders.Select("parentid=" + regionFolderId + " AND name='" + timeinterval + "'")[0]["id"];
@@ -761,6 +765,12 @@ namespace Rwis.Sync
                     }
                     else
                     {
+                       // var sc = db.GetSeriesCatalog();
+                      //  var nr = sc.NewSeriesCatalogRow();
+
+                        //nr.id = sc.NextID();
+                       // nr.ParentID = parentid;
+
                         // Add to series catalog
                         showMessage("Adding metadata fields to RWIS DB...");
                         string sqlInsertSeriesCatalog = "INSERT INTO seriescatalog (parentid, " + "isfolder," +
