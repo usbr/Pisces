@@ -14,6 +14,7 @@ using Reclamation.TimeSeries.Hydromet;
 using System.IO;
 using Reclamation.TimeSeries.Forms.RatingTables;
 using Reclamation.TimeSeries.Forms.Graphing;
+using Rwis.Sync;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -1023,6 +1024,21 @@ namespace Reclamation.TimeSeries.Forms
         {
             ProfileDesigner d = new ProfileDesigner(DB);
             d.Show();
+        }
+
+        private void toolStripMenuRWIS_Click(object sender, EventArgs e)
+        {
+            System.DirectoryServices.ActiveDirectory.Domain usrDom;
+            usrDom = System.DirectoryServices.ActiveDirectory.Domain.GetComputerDomain();
+            if (usrDom.Name != "bor.doi.net")
+            {
+                System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network...");
+
+            }
+
+           var f= new  Rwis.Sync.rwisForm();
+           f.DB = this.DB;
+           f.ShowDialog();
         }
 
         

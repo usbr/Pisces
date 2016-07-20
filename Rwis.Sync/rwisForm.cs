@@ -23,10 +23,10 @@ namespace Rwis.Sync
         private static string dbname = ConfigurationManager.AppSettings["MySqlDatabase"];
         private static string server = ConfigurationManager.AppSettings["MySqlServer"];
         private static string user = ConfigurationManager.AppSettings["MySqlUser"];
-        private static BasicDBServer svr = MySqlServer.GetMySqlServer(server, dbname, user);
-        private static TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
-        private static DataTable siteCat = db.GetSiteCatalog();
-        private static DataTable parCat = db.GetParameterCatalog();
+        //private static BasicDBServer svr = MySqlServer.GetMySqlServer(server, dbname, user);
+        private static TimeSeriesDatabase db;// = new TimeSeriesDatabase(svr);
+        private static DataTable siteCat;// = db.GetSiteCatalog();
+        private static DataTable parCat;// = db.GetParameterCatalog();
 
         /// <summary>
         /// Main entry form
@@ -43,7 +43,9 @@ namespace Rwis.Sync
         /// </summary>
         public rwisForm()
         {
-            InitializeComponent();            
+            InitializeComponent();
+           
+            
         }
 
         /// <summary>
@@ -647,12 +649,12 @@ namespace Rwis.Sync
                                         "', " + "'" + tablename + "', " + "'" + provider + "', " + "'" +
                                         connectionstring + "', " + "'" + expression + "', " + "'" + notes +
                                         "', " + "" + enabled + "); ";
-                svr.RunSqlCommand(sqlInsertSeriesCatalog);
+                db.Server.RunSqlCommand(sqlInsertSeriesCatalog);
                 // Add timeseries table
                 showMessage("Adding new table to RWIS DB...");
                 string sqlCreateTable = "Create Table " + tablename;
                 sqlCreateTable += " (datetime datetime primary key, value float, flag varchar(50)" + " );";
-                svr.RunSqlCommand(sqlCreateTable);
+                db.Server.RunSqlCommand(sqlCreateTable);
                 // Add entries to seriesproperties table
                 showMessage("Downloading data from regional DB...");
                 // Update data
@@ -784,13 +786,13 @@ namespace Rwis.Sync
                                                 connectionstring + "', " + "'" + expression + "', " + "'" + notes +
                                                 "', " + "" + enabled + "); ";
                         // RUN SQL COMMAND
-                        svr.RunSqlCommand(sqlInsertSeriesCatalog);
+                        db.Server.RunSqlCommand(sqlInsertSeriesCatalog);
                         // Add timeseries table
                         showMessage("Adding new table to RWIS DB...");
                         string sqlCreateTable = "Create Table " + tablename;
                         sqlCreateTable += " (datetime datetime primary key, value float, flag varchar(50)" + " );";
                         // RUN SQL COMMAND
-                        svr.RunSqlCommand(sqlCreateTable);
+                        db.Server.RunSqlCommand(sqlCreateTable);
                         // Add entries to seriesproperties table
                         showMessage("Downloading data from regional DB...");
                         // Update data
@@ -816,5 +818,14 @@ namespace Rwis.Sync
                 MessageBox.Show(message);
             }
         }
+
+        public TimeSeriesDatabase DB {  
+            
+            set
+            {
+                db = value;
+                siteCat= db.GetSiteCatalog();
+                parCat = db.GetParameterCatalog();
+            } }
     }
 }
