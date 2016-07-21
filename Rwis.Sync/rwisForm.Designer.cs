@@ -166,6 +166,7 @@
             this.tstepComboBox.Name = "tstepComboBox";
             this.tstepComboBox.Size = new System.Drawing.Size(121, 21);
             this.tstepComboBox.TabIndex = 1;
+            this.tstepComboBox.SelectedIndex = 0;
             this.tstepComboBox.SelectedIndexChanged += new System.EventHandler(this.clearParameterComboBox);
             // 
             // tstepLabel

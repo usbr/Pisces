@@ -20,9 +20,9 @@ namespace Rwis.Sync
         //<add key = "LocalConfigurationDataPath" value="~" />
 
         // Connect to DB Server
-        private static string dbname = ConfigurationManager.AppSettings["MySqlDatabase"];
-        private static string server = ConfigurationManager.AppSettings["MySqlServer"];
-        private static string user = ConfigurationManager.AppSettings["MySqlUser"];
+        //private static string dbname = ConfigurationManager.AppSettings["MySqlDatabase"];
+        //private static string server = ConfigurationManager.AppSettings["MySqlServer"];
+        //private static string user = ConfigurationManager.AppSettings["MySqlUser"];
         //private static BasicDBServer svr = MySqlServer.GetMySqlServer(server, dbname, user);
         private static TimeSeriesDatabase db;// = new TimeSeriesDatabase(svr);
         private static DataTable siteCat;// = db.GetSiteCatalog();
@@ -94,6 +94,7 @@ namespace Rwis.Sync
         /// </summary>
         public void getParTypes(object sender, EventArgs e)
         {
+            this.parameterTypeComboBox.Items.Clear();
             DataTable distinctPars = parCat.DefaultView.ToTable(true, "name");
             DataRow[] distinctParRows = distinctPars.Select("", "name ASC");
             var outVals = new List<string>(); ;
@@ -603,6 +604,7 @@ namespace Rwis.Sync
             // Get Site Information from sitecatalog
             var siteid = site["siteid"].ToString();
             // Get Parent ID from seriescatalog
+            var sck = db.GetSeriesCatalog();
             var region = GetRegion();
             DataTable serCatFolders = db.GetSeriesCatalog("isfolder=1");
             var regionFolderId = serCatFolders.Select("name='" + region + "'")[0]["id"];
@@ -617,10 +619,6 @@ namespace Rwis.Sync
             // Set other standard input variables
             string name = (siteid + "_" + parameter).ToLower();
             string tablename = (region + "_" + RemoveSpecialCharacters(name)).ToLower();
-            int isFolder = 0;
-            int enabled = 1;
-            string expression = "";
-            string notes = "";
             string iconname = GetIconName();
 
             //////////////////////////////////////////////////////////////////////////
@@ -637,19 +635,28 @@ namespace Rwis.Sync
             }
             else
             {
+                var nr = sck.NewSeriesCatalogRow();
+
                 // Add to series catalog
                 showMessage("Adding metadata fields to RWIS DB...");
-                string sqlInsertSeriesCatalog = "INSERT INTO seriescatalog (parentid, " + "isfolder," +
-                                        "sortorder, " + "iconname, " + "name, " + "siteid, " + "units, " +
-                                        "timeinterval, " + "parameter, " + "tablename, " + "provider, " +
-                                        "connectionstring, " + "expression, " + "notes, " + "enabled) " +
-                             "VALUES (" + parentid + "," + isFolder + ", " + sortOrder + ", " + "'" +
-                                        iconname + "', " + "'" + name + "', " + "'" + siteid + "', " +
-                                        "'" + units + "', " + "'" + timeinterval + "', " + "'" + parameter +
-                                        "', " + "'" + tablename + "', " + "'" + provider + "', " + "'" +
-                                        connectionstring + "', " + "'" + expression + "', " + "'" + notes +
-                                        "', " + "" + enabled + "); ";
-                db.Server.RunSqlCommand(sqlInsertSeriesCatalog);
+                nr.id = sck.NextID();
+                nr.ParentID = Convert.ToInt32(parentid);
+                nr.IsFolder = false;
+                nr.SortOrder = Convert.ToInt32(sortOrder);
+                nr.iconname = iconname;
+                nr.Name = name;
+                nr.siteid = siteid;
+                nr.Units = units;
+                nr.TimeInterval = timeinterval;
+                nr.Parameter = parameter;
+                nr.TableName = tablename;
+                nr.Provider = provider;
+                nr.ConnectionString = connectionstring;
+                nr.Expression = "";
+                nr.Notes = "";
+                nr.enabled = true;
+                sck.AddSeriesCatalogRow(nr);
+                db.Server.SaveTable(sck);
                 // Add timeseries table
                 showMessage("Adding new table to RWIS DB...");
                 string sqlCreateTable = "Create Table " + tablename;
@@ -671,6 +678,7 @@ namespace Rwis.Sync
 
                 showMessage("Success!");
             }
+            refreshPiscesTree();
         }
 
         /// <summary>
@@ -731,9 +739,7 @@ namespace Rwis.Sync
                     var siteid = site["siteid"].ToString();
                     // Get Parent ID from seriescatalog
                     var sck =  db.GetSeriesCatalog();
-
-                    //var idk = sck.GetOrCreateFolder("Untitled", "PN", "stream");
-
+                    
                     DataTable serCatFolders = db.GetSeriesCatalog("isfolder=1");
                     var regionFolderId = serCatFolders.Select("name='" + region + "'")[0]["id"];
                     var intervalFolderId = serCatFolders.Select("parentid=" + regionFolderId + " AND name='" + timeinterval + "'")[0]["id"];
@@ -747,10 +753,6 @@ namespace Rwis.Sync
                     // Set other standard input variables
                     string name = (siteid + "_" + parameter).ToLower();
                     string tablename = (region + "_" + RemoveSpecialCharacters(name)).ToLower();
-                    int isFolder = 0;
-                    int enabled = 1;
-                    string expression = "";
-                    string notes = "";
                     string iconname = GetIconName(region);
 
                     //////////////////////////////////////////////////////////////////////////
@@ -767,26 +769,28 @@ namespace Rwis.Sync
                     }
                     else
                     {
-                       // var sc = db.GetSeriesCatalog();
-                      //  var nr = sc.NewSeriesCatalogRow();
-
-                        //nr.id = sc.NextID();
-                       // nr.ParentID = parentid;
-
+                        var nr = sck.NewSeriesCatalogRow();
+                        
                         // Add to series catalog
                         showMessage("Adding metadata fields to RWIS DB...");
-                        string sqlInsertSeriesCatalog = "INSERT INTO seriescatalog (parentid, " + "isfolder," +
-                                                "sortorder, " + "iconname, " + "name, " + "siteid, " + "units, " +
-                                                "timeinterval, " + "parameter, " + "tablename, " + "provider, " +
-                                                "connectionstring, " + "expression, " + "notes, " + "enabled) " +
-                                     "VALUES (" + parentid + "," + isFolder + ", " + sortOrder + ", " + "'" +
-                                                iconname + "', " + "'" + name + "', " + "'" + siteid + "', " +
-                                                "'" + units + "', " + "'" + timeinterval + "', " + "'" + parameter +
-                                                "', " + "'" + tablename + "', " + "'" + provider + "', " + "'" +
-                                                connectionstring + "', " + "'" + expression + "', " + "'" + notes +
-                                                "', " + "" + enabled + "); ";
-                        // RUN SQL COMMAND
-                        db.Server.RunSqlCommand(sqlInsertSeriesCatalog);
+                        nr.id = sck.NextID();
+                        nr.ParentID = Convert.ToInt32(parentid);
+                        nr.IsFolder = false;
+                        nr.SortOrder = Convert.ToInt32(sortOrder);
+                        nr.iconname = iconname;
+                        nr.Name = name;
+                        nr.siteid = siteid;
+                        nr.Units = units;
+                        nr.TimeInterval = timeinterval;
+                        nr.Parameter = parameter;
+                        nr.TableName = tablename;
+                        nr.Provider = provider;
+                        nr.ConnectionString = connectionstring;
+                        nr.Expression = "";
+                        nr.Notes = "";
+                        nr.enabled = true;
+                        sck.AddSeriesCatalogRow(nr);
+                        db.Server.SaveTable(sck);
                         // Add timeseries table
                         showMessage("Adding new table to RWIS DB...");
                         string sqlCreateTable = "Create Table " + tablename;
@@ -798,11 +802,6 @@ namespace Rwis.Sync
                         // Update data
                         var s = db.GetSeriesFromTableName(tablename);
                         s.Update(t1, t2);
-                        //var newSeriesId = db.GetSeriesCatalog("tablename='" + tablename + "'")[0]["id"];
-                        //string sqlInsertSeriesProperties = "INSERT INTO seriesproperties (seriesid, name, value) " +
-                        //    "VALUES (" + newSeriesId + ", 't1', '" + t1.ToShortDateString() + "'), (" + newSeriesId + ", 't2', '" + t2.ToShortDateString() + "')";
-                        //// RUN SQL COMMAND
-                        //svr.RunSqlCommand(sqlInsertSeriesProperties);
                         s.Properties.Set("t1", t1.ToShortDateString());
                         s.Properties.Set("t2", t2.ToShortDateString());
                         s.Properties.Set("count", s.Count.ToString());
@@ -817,15 +816,25 @@ namespace Rwis.Sync
                 var message = string.Join(Environment.NewLine, outputDiagnostics);
                 MessageBox.Show(message);
             }
+            refreshPiscesTree();
         }
 
-        public TimeSeriesDatabase DB {  
-            
+        /// <summary>
+        /// Get DB from Pisces
+        /// </summary>
+        public TimeSeriesDatabase DB
+        {  
             set
             {
                 db = value;
                 siteCat= db.GetSiteCatalog();
                 parCat = db.GetParameterCatalog();
-            } }
+            }
+        }
+
+        private void refreshPiscesTree()
+        {
+            db.RefreshFolder(db.RootFolder);
+        }
     }
 }
