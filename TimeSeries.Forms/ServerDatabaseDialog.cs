@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections.Specialized;
+using System.IO;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -16,9 +17,17 @@ namespace Reclamation.TimeSeries.Forms
         StringCollection dbList = Properties.Settings.Default.DatabaseList;
         string clearItems = string.Empty;
         int currentIdx = 0;
-        
+        TextFileCredentials credentials;
+
         public ServerDatabaseDialog()
         {
+         var fn = Path.Combine(FileUtility.GetExecutableDirectory(), "pisces_login.txt");
+            if (!File.Exists(fn))
+                File.Create(fn);
+
+        TextFileCredentials credentials = new TextFileCredentials(fn);
+
+
             InitializeComponent();
 
             //add dashes to start and end of clear items to roughly the
@@ -27,6 +36,7 @@ namespace Reclamation.TimeSeries.Forms
             clearItems = dashes + "  clear items  " + dashes;
 
             LoadDatabaseList();
+            this.labelUserName.Text = WindowsUtility.GetShortUserName();
         }
 
         private void LoadDatabaseList()
@@ -72,7 +82,7 @@ namespace Reclamation.TimeSeries.Forms
         {
             get
             {
-                // serverip:database #mysql
+                // server:database #mysql
                 var t = this.comboBox1.Text.Split(':', '#');
 
                 if( t.Length >=2)
@@ -82,13 +92,15 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void save_Click(object sender, EventArgs e)
         {
             if (!dbList.Contains(this.comboBox1.Text))
             {
                 dbList.Insert(0, this.comboBox1.Text);
                 Properties.Settings.Default.Save();
             }
+
+            credentials.Save(comboBox1.Text.Trim(), textBoxPassword.Text);
         }
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
@@ -114,6 +126,11 @@ namespace Reclamation.TimeSeries.Forms
                     cb.SelectedIndex = currentIdx;
                 }
             }
+
+            if( credentials.Contains( comboBox1.Text.Trim()))
+            {
+                textBoxPassword.Text = credentials.GetPassword(comboBox1.Text.Trim());
+            }
         }
 
         private void comboBox1_DropDown(object sender, EventArgs e)
@@ -126,6 +143,14 @@ namespace Reclamation.TimeSeries.Forms
 
             currentIdx = cb.SelectedIndex;
             LoadDatabaseList();
+        }
+
+        private void checkBoxHide_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxHide.Checked)
+                this.textBoxPassword.PasswordChar = '*';
+            else
+                this.textBoxPassword.PasswordChar = '\0';
         }
     }
 }

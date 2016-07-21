@@ -249,7 +249,10 @@
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
@@ -274,6 +277,7 @@
     <Compile Include="NpoiExcel.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="SimpleFtp.cs" />
+    <Compile Include="Tests\TestCredentialsFile.cs" />
     <Compile Include="Tests\TestNpoiExcel.cs" />
     <Compile Include="PostgreSQL.cs" />
     <Compile Include="DataGridSelection.cs" />
@@ -330,6 +334,7 @@
     <Compile Include="Tests\TestExcelReader.cs" />
     <Compile Include="Tests\TestTextAndCsvFile.cs" />
     <Compile Include="TextFile.cs" />
+    <Compile Include="TextFileCredentials.cs" />
     <Compile Include="UserPreference.cs" />
     <Compile Include="Web.cs" />
     <Compile Include="SimpleWebCache.cs" />

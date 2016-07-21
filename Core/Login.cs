@@ -13,9 +13,6 @@ namespace Reclamation.Core
 	/// </summary>
   public class Login : System.Windows.Forms.Form
   {
-    string _username="";
-    string _password="";
-    static DateTime _PasswordChanged = DateTime.MinValue;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Label label1;
     private System.Windows.Forms.TextBox textBoxPass;
@@ -145,8 +142,6 @@ namespace Reclamation.Core
     private void buttonOk_Click(object sender, System.EventArgs e)
     {
 
-      _password=this.textBoxPass.Text;
-      _username = this.textBoxUser.Text;
     }
 
     private void buttonCancel_Click(object sender, System.EventArgs e)
@@ -163,15 +158,15 @@ namespace Reclamation.Core
 
     public  string Username
     {
-      get {return  _username;}
-      set {_username = value;}
+        get { return this.textBoxUser.Text; }
+      set {this.textBoxPass.Text = value;}
 
      }
 
     public string Password
     {
-      get { return _password;}
-      set { _password=value;}
+      get { return this.textBoxPass.Text;}
+      set { this.textBoxPass.Text=value;}
     }
 	}
 }

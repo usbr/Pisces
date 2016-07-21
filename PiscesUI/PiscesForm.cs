@@ -726,6 +726,8 @@ namespace Reclamation.TimeSeries.Forms
         {
             try
             {
+              
+
                 ServerDatabaseDialog dlg = new ServerDatabaseDialog();
 
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
