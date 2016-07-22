@@ -40,6 +40,7 @@ namespace Pisces.NunitTests.SeriesMath
 
         void Logger_OnLogEvent(object sender, StatusEventArgs e)
         {
+            Console.WriteLine(e.Message);
             if (e.Message.IndexOf("Error:") >= 0)
                 anyErrors = true;
         }
