@@ -25,7 +25,7 @@ namespace Reclamation.TimeSeries.Forms
             if (!File.Exists(fn))
                 File.Create(fn);
 
-        TextFileCredentials credentials = new TextFileCredentials(fn);
+           credentials = new TextFileCredentials(fn);
 
 
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace Reclamation.TimeSeries.Forms
             clearItems = dashes + "  clear items  " + dashes;
 
             LoadDatabaseList();
-            this.labelUserName.Text = WindowsUtility.GetShortUserName();
+            this.labelUserName.Text = WindowsUtility.GetShortUserName().ToLower();
         }
 
         private void LoadDatabaseList()
@@ -96,7 +96,7 @@ namespace Reclamation.TimeSeries.Forms
         {
             if (!dbList.Contains(this.comboBox1.Text))
             {
-                dbList.Insert(0, this.comboBox1.Text);
+                dbList.Insert(0, this.comboBox1.SelectedItem.ToString());
                 Properties.Settings.Default.Save();
             }
 
@@ -111,7 +111,8 @@ namespace Reclamation.TimeSeries.Forms
                 return;
             }
 
-            if (cb.SelectedItem.ToString() == clearItems)
+            string sel = cb.SelectedItem.ToString().Trim();
+            if (sel == clearItems)
             {
                 var msg = "OK to clear database list?";
                 var result = MessageBox.Show(msg, "Clear Database List", MessageBoxButtons.OKCancel);
@@ -127,9 +128,13 @@ namespace Reclamation.TimeSeries.Forms
                 }
             }
 
-            if( credentials.Contains( comboBox1.Text.Trim()))
+            if( credentials.Contains( sel))
             {
-                textBoxPassword.Text = credentials.GetPassword(comboBox1.Text.Trim());
+                textBoxPassword.Text = credentials.GetPassword(sel);
+            }
+            else
+            {
+                textBoxPassword.Text = "";
             }
         }
 

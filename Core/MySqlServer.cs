@@ -20,20 +20,20 @@ namespace Reclamation.Core
         }
 
 
-        private static string GeneratePassword()
-        {
-            string fileName = FileUtility.GetFileReference("mysql_key.txt");
+        //private static string GeneratePassword()
+        //{
+        //    string fileName = FileUtility.GetFileReference("mysql_key.txt");
 
-            if (File.Exists(fileName))
-            {
-                return GetWindowsUserName() + File.ReadAllText(fileName);
-            }
-            else
-            {
-                Logger.WriteLine("Error:  missing mysql_key.txt");
-                throw new FileNotFoundException("mysql_key.txt");
-            }
-        }
+        //    if (File.Exists(fileName))
+        //    {
+        //        return GetWindowsUserName() + File.ReadAllText(fileName);
+        //    }
+        //    else
+        //    {
+        //        Logger.WriteLine("Error:  missing mysql_key.txt");
+        //        throw new FileNotFoundException("mysql_key.txt");
+        //    }
+        //}
         public override string DataSource
         {
             get {
@@ -320,7 +320,7 @@ namespace Reclamation.Core
         /// <param name="databaseName"></param>
         /// <param name="user"></param>
         /// <returns></returns>
-     public static BasicDBServer GetMySqlServer(string server, string databaseName, string user = "")
+     public static BasicDBServer GetMySqlServer(string server, string databaseName, string user = "", string password="")
      {
          Logger.WriteLine("Linux="+LinuxUtility.IsLinux());
 
@@ -339,9 +339,9 @@ namespace Reclamation.Core
          { // use windows login for username
              var cs = "server=" + server + ";uid="
            + GetWindowsUserName() + ";"
-           + "pwd=" + GeneratePassword() + ";database=" + databaseName + ";";
+           + "pwd=" + password + ";database=" + databaseName + ";";
              string msg = cs;
-             msg = msg.Replace("pwd=" + GeneratePassword(), "pwd=" + "xxxxx");
+             msg = msg.Replace("pwd=" + password, "pwd=" + "xxxxx");
              Logger.WriteLine(msg);
 
              return new MySqlServer(cs);

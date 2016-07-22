@@ -76,7 +76,7 @@ namespace Reclamation.TimeSeries
             m_db.ReadSettingsFromDatabase(TimeWindow);
         }
 
-        public void ConnectToServer(string server, string database,  DatabaseType t)
+        public void ConnectToServer(string server, string database,  DatabaseType t, string password="")
         {
             string cs = ""; // connection string
             BasicDBServer svr = null;
@@ -91,7 +91,7 @@ namespace Reclamation.TimeSeries
             }
             if (t == DatabaseType.MySQL)
             {
-              svr=  MySqlServer.GetMySqlServer(server, database);
+              svr=  MySqlServer.GetMySqlServer(server, database,password);
             }
 
             Connect(svr);
