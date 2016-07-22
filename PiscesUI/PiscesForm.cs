@@ -15,6 +15,7 @@ using System.IO;
 using Reclamation.TimeSeries.Forms.RatingTables;
 using Reclamation.TimeSeries.Forms.Graphing;
 using Rwis.Sync;
+using System.Collections.Generic;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -536,11 +537,21 @@ namespace Reclamation.TimeSeries.Forms
 
          AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
 
+         var hideItemsPiscesOpen = new List<string> { "addExcel", "addHDBconfig", 
+             "addHDBmodeldata", "addHDBseries" };
+
          var addMenuItem = AddMenu as ToolStripDropDownItem;
          foreach (var item in addMenuItem.DropDownItems)
          {
-             if (item is ToolStripMenuItem)
-                ((ToolStripMenuItem)item).Enabled = canAddStuff;
+             var toolstripItem = item as ToolStripMenuItem;
+             if (toolstripItem != null)
+             {
+                 toolstripItem.Enabled = canAddStuff;
+#if PISCES_OPEN
+                 toolstripItem.Visible = !hideItemsPiscesOpen.Contains(toolstripItem.Name);
+#endif
+             }
+
          }
 
             menuUpdate.Enabled = anySelected;
