@@ -45,7 +45,7 @@ namespace Reclamation.TimeSeries.AgriMet
         {
             get
             {
-                return PostgreSQL.GetPostgresServer("agrimet");
+                return PostgreSQL.GetPostgresServer("agrimet","","agrimet");
             }
         }
 
