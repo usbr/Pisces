@@ -31,7 +31,7 @@ namespace Reclamation.Core
       /// </summary>
       /// <param name="databaseName"></param>
       /// <returns></returns>
-    public static BasicDBServer GetPostgresServer(string databaseName="", string serverName="") 
+    public static BasicDBServer GetPostgresServer(string databaseName="", string serverName="", string userName="") 
     {
         string server = serverName;
         if(server == "") // use config file.
@@ -44,8 +44,12 @@ namespace Reclamation.Core
 
         if (LinuxUtility.IsLinux())
         {
-            string user = ConfigurationManager.AppSettings["PostgresUser"];
-            string cs = "Server=" + server + ";Database=" + databaseName + ";User id=" + user + ";";
+            if (userName == "")
+            {
+                userName = ConfigurationManager.AppSettings["PostgresUser"];
+            }
+           
+            string cs = "Server=" + server + ";Database=" + databaseName + ";User id=" + userName + ";";
             return new PostgreSQL(cs);
         }
         else

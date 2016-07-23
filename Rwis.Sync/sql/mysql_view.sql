@@ -1,3 +1,49 @@
-CREATE ALGORITHM=UNDEFINED DEFINER=`admin`@`%` SQL SECURITY DEFINER VIEW `view_seriescatalog` 
-AS select `a`.`id` AS `id`,`a`.`parentid` AS `parentid`,`a`.`isfolder` AS `isfolder`,`a`.`sortorder` 
-AS `sortorder`,`a`.`iconname` AS `iconname`,`e`.`description` AS `name`,`e`.`siteid` AS `siteid`,`a`.`tablename` AS `tablename`,`a`.`provider` AS `provider`,`a`.`connectionstring` AS `connectionstring`,`a`.`expression` AS `expression`,`a`.`notes` AS `notes`,`a`.`enabled` AS `enabled`,(case when ((`a`.`provider` = 'HydrometDailySeries') and (`a`.`connectionstring` like 'server=GreatPlains%')) then 'GreatPlains' when ((`a`.`provider` = 'HDBSeries') and (`a`.`connectionstring` like 'server=LCHDB2%')) then 'LCHDB2' when ((`a`.`provider` = 'HDBSeries') and (`a`.`connectionstring` like 'server=UCHDB2%')) then 'UCHDB2' when ((`a`.`provider` = 'HydrometDailySeries') and (`a`.`connectionstring` like 'server=PN;%')) then 'PN' when ((`a`.`provider` = 'SFTPSeries') and (`a`.`connectionstring` like 'server=MPSFTP;%')) then 'MP' else '' end) AS `server`,`b`.`value` AS `t1`,`c`.`value` AS `t2`,`d`.`value` AS `count` from (((((`seriescatalog` `a` left join `seriesproperties` `b` on(((`b`.`seriesid` = `a`.`id`) and (`b`.`name` = 't1')))) left join `seriesproperties` `c` on(((`c`.`seriesid` = `a`.`id`) and (`c`.`name` = 't2')))) left join `seriesproperties` `d` on(((`d`.`seriesid` = `a`.`id`) and (`d`.`name` = 'count')))) left join `sitecatalog` `e` on((`a`.`siteid` = `e`.`siteid`))) left join `parametercatalog` `f` on((`a`.`parameter` = `f`.`id`))) where (`a`.`isfolder` = 0);
+CREATE VIEW rwis.view_seriescatalog
+AS SELECT a.id AS id,
+          a.parentid AS parentid,
+          a.isfolder AS isfolder,
+          a.sortorder AS sortorder,
+          a.iconname AS iconname,
+          e.description AS name,
+          e.siteid AS siteid,
+          f.units AS units,
+          f.timeinterval AS timeinterval,
+          f.statistic AS statistic,
+          f.name AS parameter,
+          a.tablename AS tablename,
+          a.provider AS provider,
+          a.connectionstring AS connectionstring,
+          a.expression AS expression,
+          a.notes AS notes,a.enabled AS enabled,
+          (CASE 
+                WHEN ((a.provider = 'HydrometDailySeries') AND (a.connectionstring LIKE 'server=GreatPlains%')) 
+                    THEN 'GreatPlains' 
+                WHEN ((a.provider = 'HDBSeries') AND (a.connectionstring LIKE 'server=LCHDB2%')) 
+                     THEN 'LCHDB2' 
+                WHEN ((a.provider = 'HDBSeries') AND (a.connectionstring LIKE 'server=UCHDB2%')) 
+                     THEN 'UCHDB2' 
+                WHEN ((a.provider = 'HydrometDailySeries') AND (a.connectionstring LIKE 'server=PN;%')) 
+                      THEN 'PN' 
+                WHEN ((a.provider = 'SFTPSeries') AND (a.connectionstring LIKE 'server=MPSFTP;%')) 
+                      THEN 'MP' 
+                ELSE '' END
+            ) AS server,
+          b.value AS t1,
+          c.value AS t2,
+          d.value AS count 
+          FROM (
+                  (
+                    (
+                      rwis.seriescatalog a 
+                      LEFT JOIN rwis.seriesproperties b 
+                      ON(((b.seriesid = a.id) AND (b.name = 't1')))) 
+                      LEFT JOIN rwis.seriesproperties c 
+                      ON(((c.seriesid = a.id) AND (c.name = 't2')))) 
+                      LEFT JOIN rwis.seriesproperties d
+                      ON(((d.seriesid = a.id) AND (d.name = 'count')))
+                      LEFT JOIN rwis.sitecatalog e
+                      ON(a.siteid=e.siteid)
+                      LEFT JOIN rwis.parametercatalog f
+                      ON (a.parameter=f.id)
+                )
+            WHERE a.isfolder=0;

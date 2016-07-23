@@ -15,6 +15,7 @@ using System.IO;
 using Reclamation.TimeSeries.Forms.RatingTables;
 using Reclamation.TimeSeries.Forms.Graphing;
 using Rwis.Sync;
+using System.Collections.Generic;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -536,11 +537,21 @@ namespace Reclamation.TimeSeries.Forms
 
          AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
 
+         var hideItemsPiscesOpen = new List<string> { "addExcel", "addHDBconfig", 
+             "addHDBmodeldata", "addHDBseries" };
+
          var addMenuItem = AddMenu as ToolStripDropDownItem;
          foreach (var item in addMenuItem.DropDownItems)
          {
-             if (item is ToolStripMenuItem)
-                ((ToolStripMenuItem)item).Enabled = canAddStuff;
+             var toolstripItem = item as ToolStripMenuItem;
+             if (toolstripItem != null)
+             {
+                 toolstripItem.Enabled = canAddStuff;
+#if PISCES_OPEN
+                 toolstripItem.Visible = !hideItemsPiscesOpen.Contains(toolstripItem.Name);
+#endif
+             }
+
          }
 
             menuUpdate.Enabled = anySelected;
@@ -1031,17 +1042,27 @@ namespace Reclamation.TimeSeries.Forms
         private void toolStripMenuRWIS_Click(object sender, EventArgs e)
         {
             System.DirectoryServices.ActiveDirectory.Domain usrDom;
-            usrDom = System.DirectoryServices.ActiveDirectory.Domain.GetComputerDomain();
-            if (usrDom.Name != "bor.doi.net")
+            bool allowForm = false;
+            try
             {
-                System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network...");
-
+                usrDom = System.DirectoryServices.ActiveDirectory.Domain.GetComputerDomain();
+                if (usrDom.Name != "bor.doi.net")
+                { System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network..."); }
+                else
+                { allowForm = true; }
             }
+            catch
+            { System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network..."); }
 
-           var f= new  Rwis.Sync.rwisForm();
-           f.DB = this.DB;
-           f.ShowDialog();
+            if (allowForm)
+            {
+                var f = new Rwis.Sync.rwisForm();
+                f.DB = this.DB;
+                f.ShowDialog();
+            }
         }
+
+       
 
         
 
