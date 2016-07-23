@@ -254,10 +254,10 @@ namespace Reclamation.TimeSeries
             }
             public void Save()
             {
-                if( m_svr != null)
-                  m_svr.SaveTable(this);
+                if (m_svr != null)
+                    m_svr.SaveTable(this);
                 else
-                    Logger.WriteLine("server is not set.  Can't save this way")
+                    Logger.WriteLine("server is not set.  Can't save this way");
             }
             public SeriesCatalogRow AddSeriesCatalogRow(Series s, int id, int parentID, string tableName = "")
             {
