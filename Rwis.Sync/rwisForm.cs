@@ -14,11 +14,6 @@ namespace Rwis.Sync
 {
     public partial class rwisForm : Form
     {
-        //<add key = "MySqlUser" value="root" />        <!-- jrocha for Denver DB | root or rwis_user for test DB -->
-        //<add key = "MySqlDatabase" value="mysql" />     <!-- timeseries for Denver DB | mysql for test DB -->
-        //<add key = "MySqlServer" value="ibr3lcrsrv02.bor.doi.net" />
-        //<add key = "LocalConfigurationDataPath" value="~" />
-
         // Connect to DB Server
         //private static string dbname = ConfigurationManager.AppSettings["MySqlDatabase"];
         //private static string server = ConfigurationManager.AppSettings["MySqlServer"];
@@ -27,6 +22,7 @@ namespace Rwis.Sync
         private static TimeSeriesDatabase db;// = new TimeSeriesDatabase(svr);
         private static DataTable siteCat;// = db.GetSiteCatalog();
         private static DataTable parCat;// = db.GetParameterCatalog();
+        private static bool jrDebug = false;
 
         /// <summary>
         /// Main entry form
@@ -34,6 +30,17 @@ namespace Rwis.Sync
         /// <param name="args"></param>
         public static void startRwisUiMain(string[] args)
         {
+            if (jrDebug)
+            {
+                // Connect to DB Server
+                string dbname = ConfigurationManager.AppSettings["MySqlDatabase"];
+                string server = ConfigurationManager.AppSettings["MySqlServer"];
+                string user = ConfigurationManager.AppSettings["MySqlUser"];
+                BasicDBServer svr = MySqlServer.GetMySqlServer(server, dbname, user);
+                db = new TimeSeriesDatabase(svr);
+                siteCat = db.GetSiteCatalog();
+                parCat = db.GetParameterCatalog();
+            }
             // Starts the application.
             Application.Run(new rwisForm());
         }
@@ -762,13 +769,14 @@ namespace Rwis.Sync
                     DataTable duplicateCheckTable = db.GetSeriesCatalog("tablename='" + tablename + "'");
                     if (duplicateCheckTable.Rows.Count != 0)
                     {
+                        Console.WriteLine("Skipping " + name);
                         outputDiagnostics.Add("Dataset for " + site["description"].ToString().ToUpper() + " " +
                             par["statistic"].ToString().ToUpper() + " " + par["timeinterval"].ToString().ToUpper() +
                             " " + par["name"].ToString().ToUpper() + " already exists in the RWIS DB. " +
                             "Select a different Site and Parameter...");
                     }
                     else
-                    {
+                    {                       
                         var nr = sck.NewSeriesCatalogRow();
                         
                         // Add to series catalog
@@ -791,6 +799,9 @@ namespace Rwis.Sync
                         nr.enabled = true;
                         sck.AddSeriesCatalogRow(nr);
                         db.Server.SaveTable(sck);
+
+                        Console.WriteLine("Adding " + name);
+
                         // Add timeseries table
                         showMessage("Adding new table to RWIS DB...");
                         string sqlCreateTable = "Create Table " + tablename;
@@ -832,6 +843,9 @@ namespace Rwis.Sync
             }
         }
 
+        /// <summary>
+        /// Refresh the Pisces Series Tree
+        /// </summary>
         private void refreshPiscesTree()
         {
             db.RefreshFolder(db.RootFolder);

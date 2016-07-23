@@ -12,9 +12,9 @@ namespace Rwis.Initialize
 {
     class Program
     {
-        static bool initializeSiteCatalog = false;
-        static bool initializeParameterCatalog = false;
-        static bool initializeSeriesCatalog = false;
+        static bool initializeSiteCatalog = true;
+        static bool initializeParameterCatalog = true;
+        static bool initializeSeriesCatalog = true;
         static private string path = @"C:\Users\jrocha\Desktop\RWIS\";
 
         public static void initializeMain(string[] argList)

@@ -172,7 +172,7 @@ DATETIME,     SDI_1930
                 if (DateTime.TryParse(tokens[0], out t))
                 {
                     double result = Point.MissingValueFlag;
-                    if (!double.TryParse(tokens[1], out result))
+                    if (!double.TryParse(tokens[1], out result) || tokens[1].Contains("NaN"))
                     {
                         if (errorCount < 50)
                             Logger.WriteLine("Error parsing " + data[i]);

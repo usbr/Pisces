@@ -14,7 +14,7 @@ namespace Rwis.Sync
 {
     class Program
     {
-        //[STAThreadAttribute]
+        [STAThreadAttribute]
         static void Main(string[] argList)
         {
             //var usrDom = System.Environment.UserDomainName;
