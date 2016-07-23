@@ -45,7 +45,7 @@ namespace Reclamation.TimeSeries.Forms
                         "Flow Measurements");   //    "Flow Measurements"
                sc.Save();
 
-                          f.Date.ToString());  //       2016-07-23
+                        //  f.Date.ToString());  //       2016-07-23
 
             }
         }

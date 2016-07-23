@@ -247,11 +247,13 @@ namespace Reclamation.TimeSeries
         public partial class SeriesCatalogDataTable
         {
             BasicDBServer m_svr;
-            public SeriesCatalogDataTable(BasicDBServer svr)
-                : base()
+
+            public BasicDBServer Server
             {
-                m_svr = svr;
+                get { return m_svr; }
+                set { m_svr = value; }
             }
+            
             public void Save()
             {
                 if (m_svr != null)

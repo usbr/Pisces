@@ -293,8 +293,10 @@ namespace Reclamation.TimeSeries
         
         public TimeSeriesDatabaseDataSet.SeriesCatalogDataTable GetSeriesCatalog()
         {
-            var tbl = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable(m_server);
+            var tbl = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
+            tbl.Server = m_server;
             m_server.FillTable(tbl);
+           
             return tbl;
         }
 
