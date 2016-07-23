@@ -31,6 +31,26 @@ namespace Reclamation.TimeSeries.Forms
 
     public partial class PiscesForm
     {
+
+        private void AddMeasurement(object sender, EventArgs e)
+        {
+            FormNewMeasurment f = new FormNewMeasurment(MeasurementType.Manual, DB.GetSiteCatalog());
+            if( f.ShowDialog() == DialogResult.OK)
+            {
+                var sc = DB.GetSeriesCatalog();
+
+               int id =  sc.GetOrCreateFolder(
+                   tree1.RootFolder.Name,      //"Untitled"
+                      f.SiteID,                //  SouthBend
+                        "Flow Measurements");   //    "Flow Measurements"
+               sc.Save();
+
+                          f.Date.ToString());  //       2016-07-23
+
+            }
+        }
+
+
         private void ImportHydrologicModels_Click(object sender, EventArgs e)
         {
             DB.SuspendTreeUpdates();
