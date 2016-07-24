@@ -91,7 +91,7 @@ namespace Reclamation.TimeSeries
             }
             if (t == DatabaseType.MySQL)
             {
-              svr=  MySqlServer.GetMySqlServer(server, database,password);
+              svr=  MySqlServer.GetMySqlServer(server, database,"",password);
             }
 
             Connect(svr);

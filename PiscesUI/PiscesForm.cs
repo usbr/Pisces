@@ -743,7 +743,7 @@ namespace Reclamation.TimeSeries.Forms
 
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    explorer1.ConnectToServer(dlg.ServerName, dlg.DatabaseName,dlg.DatabaseType);
+                    explorer1.ConnectToServer(dlg.ServerName, dlg.DatabaseName,dlg.DatabaseType, dlg.Password);
                     DatabaseChanged();
                 }
             }

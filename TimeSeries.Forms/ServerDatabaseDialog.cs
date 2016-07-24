@@ -91,6 +91,18 @@ namespace Reclamation.TimeSeries.Forms
                 return "";
             }
         }
+        public string Password
+        {
+            get
+            {
+                var t = this.textBoxPassword.Text;
+
+                if (t != "")
+                    return t;
+
+                return "";
+            }
+        }
 
         private void save_Click(object sender, EventArgs e)
         {
