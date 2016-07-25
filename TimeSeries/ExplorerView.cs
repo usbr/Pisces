@@ -120,6 +120,7 @@ namespace Reclamation.TimeSeries
         }
 
 
+       public BasicMeasurement Measurement { get; set; }
 
 
        

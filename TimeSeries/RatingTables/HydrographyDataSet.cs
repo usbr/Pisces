@@ -4,7 +4,7 @@ using System.Linq;
 namespace Reclamation.TimeSeries.RatingTables {
     
     
-    public partial class MeasurementsDataSet {
+    public partial class HydrographyDataSet {
 
         public partial class measurementDataTable : global::System.Data.TypedTableBase<measurementRow>
         {

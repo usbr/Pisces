@@ -9,12 +9,16 @@ using System.Windows.Forms;
 
 namespace Reclamation.TimeSeries.Forms.RatingTables
 {
-    public partial class PiscesMeasurementView : UserControl, IExplorerView
+    public partial class BasicMeasurementView : UserControl, IExplorerView
     {
-        public PiscesMeasurementView()
+        public BasicMeasurementView()
         {
             InitializeComponent();
         }
+
+        public BasicMeasurement Measurement { get; set; }
+
+
 
         SeriesList IExplorerView.SeriesList
         {
@@ -73,7 +77,9 @@ namespace Reclamation.TimeSeries.Forms.RatingTables
 
         void IExplorerView.Draw()
         {
-             ;
+            this.labelTitle.Text = Measurement.SiteID;
+            //this.textBox_Discharge.Text = Measurement.
+
         }
 
         bool IExplorerView.UndoZoom
@@ -85,5 +91,6 @@ namespace Reclamation.TimeSeries.Forms.RatingTables
         {
              ;
         }
+
     }
 }

@@ -306,6 +306,12 @@
     <Content Include="images\hdb.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\measurement.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="images\measurementselected.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\owrd.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

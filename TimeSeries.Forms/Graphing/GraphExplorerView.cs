@@ -97,5 +97,7 @@ namespace Reclamation.TimeSeries.Graphing
 
 
         #endregion
+
+        public BasicMeasurement Measurement { get; set; }
     }
 }

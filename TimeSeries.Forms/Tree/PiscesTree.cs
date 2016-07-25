@@ -245,7 +245,7 @@ namespace Reclamation.TimeSeries.Forms
             {
                 if (treeView1.SelectedNode == null)
                     return false;
-                return treeView1.SelectedNode.Tag is PiscesMeasurement;
+                return treeView1.SelectedNode.Tag is BasicMeasurement;
             }
         }
 

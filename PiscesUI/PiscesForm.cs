@@ -107,6 +107,7 @@ namespace Reclamation.TimeSeries.Forms
             control.Visible = true;
             toolStripStatusMessage.Spring = true;
             toolStripStatusMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            explorer1.View = control as IExplorerView;
         }
 
         delegate void SetStatusTextCallback(object sender, StatusEventArgs e);
@@ -384,6 +385,8 @@ namespace Reclamation.TimeSeries.Forms
         }
 
 
+        IExplorerView measurementView;
+
         private void UpdateView()
         {
             if (backgroundWorker1.IsBusy)
@@ -396,32 +399,37 @@ namespace Reclamation.TimeSeries.Forms
 
             if( tree1.IsMeasurementSelected)
             {
-                IExplorerView v = new PiscesMeasurementView();
-                SetView(v as UserControl);
-                explorer1.View = v;
+                if( measurementView == null)
+                   measurementView = new BasicMeasurementView();
+
+                SetView(measurementView as UserControl);
+                measurementView.Measurement = tree1.SelectedObject as BasicMeasurement;
             }
-
-
-            explorer1.SelectedSeries = tree1.GetSelectedSeries();
-
-            if (explorer1.SelectedSeries.Length == 0)
+            else
             {
-                ClearDisplay();
-                toolStripProgressBar1.Visible = false;
-                Console.WriteLine("no update needed");
-                return;
+                if (explorer1.View is BasicMeasurementView)
+                { // need to switch back to timeseries views
+                    SetView(graphView1);
+                }
+                explorer1.SelectedSeries = tree1.GetSelectedSeries();
+
+                if (explorer1.SelectedSeries.Length == 0)
+                {
+                    ClearDisplay();
+                    toolStripProgressBar1.Visible = false;
+                    Console.WriteLine("no update needed");
+                    return;
+                }
+
+                explorer1.SubtractFromBaseline = scenarioChooser1.SubtractFromBaseline;
+                explorer1.IncludeBaseline = scenarioChooser1.IncludeBaseline;
+                explorer1.IncludeSelected = scenarioChooser1.IncludeSelected;
+                explorer1.MergeSelected = scenarioChooser1.MergeSelected;
+
             }
 
-            //for (int i = 0; i < explorer1.SelectedSeries.Length; i++)
-            //{
-            //    Console.WriteLine(i.ToString() + ": "+explorer1.SelectedSeries[i].Appearance.LegendText);
-            //}
 
-            //explorer1.SelectedScenarios = scenarioChooser1.Selected;
-            explorer1.SubtractFromBaseline = scenarioChooser1.SubtractFromBaseline;
-            explorer1.IncludeBaseline = scenarioChooser1.IncludeBaseline;
-            explorer1.IncludeSelected = scenarioChooser1.IncludeSelected;
-            explorer1.MergeSelected = scenarioChooser1.MergeSelected;
+           
             backgroundWorker1.RunWorkerAsync();
         }
 

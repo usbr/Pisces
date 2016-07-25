@@ -18,7 +18,7 @@ namespace Reclamation.TimeSeries.RatingTables
 
 
 
-        public static void FillTable(string filename, MeasurementsDataSet.measurementDataTable table)
+        public static void FillTable(string filename, HydrographyDataSet.measurementDataTable table)
         {
             var xls = new NpoiExcel(filename);
 

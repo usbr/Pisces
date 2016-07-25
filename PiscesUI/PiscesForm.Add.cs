@@ -34,19 +34,13 @@ namespace Reclamation.TimeSeries.Forms
 
         private void AddMeasurement(object sender, EventArgs e)
         {
-            FormNewMeasurment f = new FormNewMeasurment(MeasurementType.Manual, DB.GetSiteCatalog());
+            FormNewMeasurment f = new FormNewMeasurment( DB.GetSiteCatalog());
             if( f.ShowDialog() == DialogResult.OK)
             {
-                var sc = DB.GetSeriesCatalog();
-
-               int id =  sc.GetOrCreateFolder(
-                   tree1.RootFolder.Name,      //"Untitled"
-                      f.SiteID,                //  SouthBend
-                        "Flow Measurements");   //    "Flow Measurements"
-               sc.Save();
-
-                        //  f.Date.ToString());  //       2016-07-23
-
+               
+              var mid= DB.Hydrography.NewMeasurement(f.SiteID, f.DateTime,f.Flow,
+                   f.Stage,f.Quality,f.Party,f.Notes);
+              DatabaseChanged();
             }
         }
 

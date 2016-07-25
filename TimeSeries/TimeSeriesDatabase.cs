@@ -1806,6 +1806,14 @@ namespace Reclamation.TimeSeries
             // add properties. TO DO.
 
         }
+
+        
+        public Reclamation.TimeSeries.RatingTables.Hydrography Hydrography
+        {
+            get {
+                return new Reclamation.TimeSeries.RatingTables.Hydrography(this);    
+            }
+        }
        
     }
 }

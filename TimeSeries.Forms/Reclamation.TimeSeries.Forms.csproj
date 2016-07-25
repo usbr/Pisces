@@ -310,11 +310,11 @@
     <Compile Include="RatingTables\FormNewMeasurement.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RatingTables\PiscesMeasurementView.cs">
+    <Compile Include="RatingTables\BasicMeasurementView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RatingTables\PiscesMeasurementView.Designer.cs">
-      <DependentUpon>PiscesMeasurementView.cs</DependentUpon>
+    <Compile Include="RatingTables\BasicMeasurementView.Designer.cs">
+      <DependentUpon>BasicMeasurementView.cs</DependentUpon>
     </Compile>
     <Compile Include="MetaData\DataRowEditor.cs">
       <SubType>UserControl</SubType>
@@ -704,8 +704,8 @@
       <DependentUpon>FormNewMeasurement.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RatingTables\PiscesMeasurementView.resx">
-      <DependentUpon>PiscesMeasurementView.cs</DependentUpon>
+    <EmbeddedResource Include="RatingTables\BasicMeasurementView.resx">
+      <DependentUpon>BasicMeasurementView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MetaData\DataRowEditor.resx">
       <DependentUpon>DataRowEditor.cs</DependentUpon>

@@ -196,6 +196,12 @@ namespace Reclamation.TimeSeries
                 v.Icon = AssignIcon(sr.iconname);
                 return v;
             }
+            else if( sr.IsMeasurement)
+            {
+                var m = GetMeasurement(sr);
+                m.Icon = AssignIcon(sr.iconname);
+                return m;
+            }
             else
             {
                 return GetSeries(sr); //11.53125 seconds elapsed.
@@ -204,6 +210,12 @@ namespace Reclamation.TimeSeries
 
             //return new PiscesObject();
 
+        }
+
+        private PiscesObject GetMeasurement(SeriesCatalogRow sr)
+        {
+            BasicMeasurement bm = new BasicMeasurement(db, sr);
+            return bm;
         }
 
 
@@ -249,14 +261,26 @@ namespace Reclamation.TimeSeries
 
                     foreach (var f in files)
                     {
-                        if (f.Extension.ToLower() == ".ico"
-                            || f.Extension.ToLower() == ".bmp")
+                        var ext = f.Extension.ToLower();
+                        if (ext == ".ico"
+                            || ext == ".bmp"
+                            || ext == ".gif")
                         {
                             Bitmap b = null;
                             try
                             {
-                                Logger.WriteLine("reading "+f.FullName);
-                                var b1 = new Bitmap(f.FullName);
+                                Logger.WriteLine("reading " + f.FullName);
+                                Bitmap b1;
+                                if (ext == ".gif")
+                                {
+                                    byte[] ir = File.ReadAllBytes(f.FullName);
+                                    Image i = Image.FromStream(new MemoryStream(ir));
+                                    b1 = new Bitmap(new Bitmap(i));
+                                }
+                                else
+                                {
+                                    b1 = new Bitmap(f.FullName);
+                                }
                                 b = new Bitmap(b1, new Size(16, 16));
 
                             }

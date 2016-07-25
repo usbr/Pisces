@@ -391,6 +391,7 @@ namespace Reclamation.TimeSeries
                  pcode, tableName, provider, "", expression, "", true);
                 return rval;
             }
+
         }
 
         public partial class ScenarioRow
@@ -443,6 +444,14 @@ namespace Reclamation.TimeSeries
             {
                 get { return _icon; }
                 set { _icon = value; }
+            }
+
+
+            public bool IsMeasurement
+            {
+                get {
+                    return Provider == "BasicMeasurement";
+                }
             }
 
         }

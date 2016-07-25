@@ -16,5 +16,7 @@ namespace Reclamation.TimeSeries
         bool UndoZoom { set; }
 
         void Clear();
+
+        BasicMeasurement Measurement { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Reclamation.TimeSeries.Forms.RatingTables
 {
-    partial class PiscesMeasurementView
+    partial class BasicMeasurementView
     {
         /// <summary> 
         /// Required designer variable.
