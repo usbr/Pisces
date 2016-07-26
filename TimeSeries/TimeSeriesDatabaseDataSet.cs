@@ -273,6 +273,46 @@ namespace Reclamation.TimeSeries
                 return rval;
             }
 
+            public string[] GetRootFolderNames()
+            {
+                var rows = this.Select("id = parentid");
+                var rval = new List<string>();
+
+                if (rows.Length == 0)
+                {
+                    Reclamation.Core.Logger.WriteLine("Tree Requires at least one root Node");
+                    Logger.WriteLine("AutoCreation of New Root Folder");
+                    AddFolder("root");
+                    return new string[] { "root" };
+                }
+
+                else
+                {
+                    foreach (var item in rows)
+                    {
+                        rval.Add(item["name"].ToString());
+                    }
+                }
+                return rval.ToArray();
+            }
+
+            public int AddMeasurement(string siteID,string name, DateTime date)
+            {
+                int folderID = GetOrCreateFolder(
+               GetRootFolderNames()[0],      //"Untitled"
+                   siteID,                          //  SouthBend
+                     "Flow Measurements");          //    "Flow Measurements"
+
+
+                int unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+                var r = AddSeriesCatalogRow(NextID(), folderID, false, unixTimestamp,
+                "measurement", name,
+                siteID, "", "Instant", "", "", "BasicMeasurement", "", "",
+                "", true);
+
+                return r.id;
+            }
+
             public int AddFolder(string folderName, int id, int parentID)
             {
                 AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "", false);
@@ -314,8 +354,21 @@ namespace Reclamation.TimeSeries
                 return rval.ToArray();
             }
 
+
+            int prevFolderID = -1;
+            string prevFolderKey = "";
+
             public int GetOrCreateFolder(params string[] folderNames)
             {
+                for (int i = 0; i < folderNames.Length; i++)
+                {
+                    folderNames[i] = folderNames[i].ToLower();
+                }
+                var key = String.Join(",", folderNames);
+                if (prevFolderID >= 0 && key == prevFolderKey)
+                    return prevFolderID;
+
+
                 int rval = -1;
                 for (int i = 0; i < folderNames.Length; i++)
                 {
@@ -331,6 +384,9 @@ namespace Reclamation.TimeSeries
                         Logger.WriteLine("Creating folder '" + fn + "'");
                     }
                 }
+
+                prevFolderID = rval;
+                prevFolderKey = key;
                 return rval;
             }
 

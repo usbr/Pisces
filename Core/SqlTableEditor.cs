@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using System.IO;
 using DgvFilterPopup;
+using System.Collections.Generic;
 namespace Reclamation.Core
 {
 	/// <summary>
@@ -22,6 +23,7 @@ namespace Reclamation.Core
 		/// </summary>
 		private System.ComponentModel.Container components = null;
         private Button buttonExcel;
+        private Button buttonImport;
 
         private BasicDBServer m_server;
 		public SqlTableEditor(BasicDBServer server,string[] tableNames=null)
@@ -74,6 +76,7 @@ namespace Reclamation.Core
             this.dataGrid1 = new System.Windows.Forms.DataGridView();
             this.comboBoxTableNames = new System.Windows.Forms.ComboBox();
             this.buttonExcel = new System.Windows.Forms.Button();
+            this.buttonImport = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -114,11 +117,21 @@ namespace Reclamation.Core
             this.buttonExcel.TabIndex = 9;
             this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
             // 
+            // buttonImport
+            // 
+            this.buttonImport.Location = new System.Drawing.Point(440, 6);
+            this.buttonImport.Name = "buttonImport";
+            this.buttonImport.Size = new System.Drawing.Size(120, 23);
+            this.buttonImport.TabIndex = 10;
+            this.buttonImport.Text = "Import from CSV ...";
+            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
+            // 
             // SqlTableEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(568, 462);
+            this.Controls.Add(this.buttonImport);
             this.Controls.Add(this.buttonExcel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.dataGrid1);
@@ -200,6 +213,33 @@ namespace Reclamation.Core
             {
 
                 MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void buttonImport_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "Csv file (*.csv)|*.csv";
+            if( dlg.ShowDialog() ==  DialogResult.OK)
+            {
+                DataTable table = (DataTable)this.dataGrid1.DataSource;
+                if (table == null)
+                    return;
+                var dataTypes = new List<string>();
+
+                for (int i = 0; i < table.Columns.Count; i++)
+                {
+                    dataTypes.Add(table.Columns[i].DataType.ToString());
+
+                }
+
+                CsvFile csv = new CsvFile(dlg.FileName, dataTypes.ToArray());
+
+               
+                table.Merge(csv);
+              //  m_server.SaveTable(table);
+
             }
 
         }

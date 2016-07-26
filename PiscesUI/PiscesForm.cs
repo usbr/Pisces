@@ -1070,6 +1070,19 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
+        /// <summary>
+        /// Sync the pisces tree to show all measurements
+        /// in folder structure siteid/Flow Measurements/
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void showMeasurementsInTreeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            DB.Hydrography.SyncTreeWithMeasurementTable();
+            DatabaseChanged();
+        }
+
        
 
         

@@ -79,7 +79,7 @@ namespace Reclamation.TimeSeries.RatingTables
             if (!dataRow.Table.Columns.Contains(colName))
                 return rval;
 
-            return dataRow[colName].ToString();
+            return dataRow[colName].ToString().Replace("\n"," ").Replace("\r"," ");
             
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reclamation.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,11 +30,6 @@ namespace Reclamation.TimeSeries.RatingTables
         {
 
             var sc = m_db.GetSeriesCatalog();
-            
-            int folderID = sc.GetOrCreateFolder(
-                m_db.GetRootObjects()[0].Name,      //"Untitled"
-                   siteID,                          //  SouthBend
-                     "Flow Measurements");          //    "Flow Measurements"
 
             var dt = new HydrographyDataSet.measurementDataTable();
             var mr = dt.NewmeasurementRow();
@@ -48,16 +44,48 @@ namespace Reclamation.TimeSeries.RatingTables
             dt.Rows.Add(mr);
             m_db.Server.SaveTable(dt);
 
-            sc.AddSeriesCatalogRow(sc.NextID() , folderID, false, 0,
-                "measurement", date.ToString("yyy-MM-dd HHMM"),
-                siteID, "", "Instant", "", "", "BasicMeasurement", "", "", "", true);
 
+            sc.AddMeasurement(siteID, date.ToString(MeasurementDateFormat),date);
+            
             sc.Save();
 
             return mr.id;
 
         }
 
+        public string MeasurementDateFormat = "yyyy-MM-dd HHMM";
 
+
+
+         HydrographyDataSet.measurementDataTable GetMeasurements()
+        {
+            var rval = new HydrographyDataSet.measurementDataTable();
+            m_db.Server.FillTable(rval,"select * from measurement order by siteid, date_measured" );
+
+            return rval;
+        }
+
+        public void SyncTreeWithMeasurementTable()
+        {
+            Performance p = new Performance();
+            var sc = m_db.GetSeriesCatalog();
+            var measurements = GetMeasurements();
+
+            for (int i = 0; i < measurements.Count; i++)
+            {
+                var m = measurements[i];
+
+                sc.AddMeasurement(m.siteid, m.date_measured.ToString(MeasurementDateFormat),m.date_measured);
+
+                if (i % 100 == 0)
+                {
+                    System.Windows.Forms.Application.DoEvents();
+                    double x = i*1.0 / measurements.Count * 100.0;
+                    Logger.WriteLine(x.ToString("F2")+"%", "ui");
+                }
+            }
+            p.Report(); // 26 seconds
+            sc.Save();
+        }
     }
 }
