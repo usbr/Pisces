@@ -1,5 +1,6 @@
 using System.Data;
 using System.Collections.Generic;
+using Reclamation.TimeSeries.RatingTables;
 namespace Reclamation.TimeSeries
 {
     public interface IExplorerView
@@ -16,7 +17,5 @@ namespace Reclamation.TimeSeries
         bool UndoZoom { set; }
 
         void Clear();
-
-        BasicMeasurement Measurement { get; set; }
     }
 }

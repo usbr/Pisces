@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Aga.Controls.Tree;
 using Aga.Controls.Tree.NodeControls;
 using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow;
+using Reclamation.TimeSeries.RatingTables;
 namespace Reclamation.TimeSeries.Forms
 {
     /// <summary>
@@ -140,6 +141,25 @@ namespace Reclamation.TimeSeries.Forms
 
         }
 
+        public BasicMeasurement[] GetSelectedMeasurements()
+        {
+            var rval = new List<BasicMeasurement>();
+
+            if (IsCommandLine)
+            {
+                return rval.ToArray();
+            }
+            else
+            {
+                for (int i = 0; i < treeView1.SelectedNodes.Count; i++)
+                {
+                    PiscesObject o = treeView1.SelectedNodes[i].Tag as PiscesObject;
+                    if (o is BasicMeasurement)
+                        rval.Add(o as BasicMeasurement);
+                }
+            }
+            return rval.ToArray();
+        }
         
 
         public Series[] GetSelectedSeries()

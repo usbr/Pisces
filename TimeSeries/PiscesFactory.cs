@@ -7,6 +7,7 @@ using System.Reflection;
 using Reclamation.Core;
 using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow;
 using Reclamation.TimeSeries.Parser;
+using Reclamation.TimeSeries.RatingTables;
 
 namespace Reclamation.TimeSeries
 {
@@ -212,7 +213,7 @@ namespace Reclamation.TimeSeries
 
         }
 
-        private PiscesObject GetMeasurement(SeriesCatalogRow sr)
+        public BasicMeasurement GetMeasurement(SeriesCatalogRow sr)
         {
             BasicMeasurement bm = new BasicMeasurement(db, sr);
             return bm;

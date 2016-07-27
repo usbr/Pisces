@@ -6,10 +6,12 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Reclamation.Core;
+using Reclamation.TimeSeries.RatingTables;
 
 namespace Reclamation.TimeSeries.Forms.RatingTables
 {
-    public partial class BasicMeasurementView : UserControl, IExplorerView
+    public partial class BasicMeasurementView : UserControl
     {
         public BasicMeasurementView()
         {
@@ -18,66 +20,12 @@ namespace Reclamation.TimeSeries.Forms.RatingTables
 
         public BasicMeasurement Measurement { get; set; }
 
+        
 
-
-        SeriesList IExplorerView.SeriesList
-        {
-            get
-            {
-                return new SeriesList();
-            }
-            set
-            {
-            }
-        }
-
-        string IExplorerView.Title
-        {
-            set { ; }
-        }
-
-        string IExplorerView.SubTitle
-        {
-            set { ; }
-        }
-
-        bool IExplorerView.MultipleYAxis
-        {
-            set { ; }
-        }
-
-        DataTable IExplorerView.DataTable
-        {
-            get
-            {
-                return new DataTable();
-            }
-            set
-            {
-                ;
-            }
-        }
-
-        AnalysisType IExplorerView.AnalysisType
-        {
-            set {  ; }
-        }
-
-        List<string> IExplorerView.Messages
-        {
-            get
-            {
-                return new List<string>();
-            }
-            set
-            {
-                ;
-            }
-        }
-
-        void IExplorerView.Draw()
+        public void Draw()
         {
             this.labelTitle.Text = Measurement.SiteID;
+            Logger.WriteLine("Measurement: " + Measurement.SiteID + " " + Measurement.ID);
             this.textBox_Memo.Text = Measurement.MeasurementRow.notes;
             this.textBox_Party.Text = Measurement.MeasurementRow.party;
             this.textBox_Prim_Gage.Text = Measurement.MeasurementRow.stage.ToString("F2");
@@ -86,15 +34,7 @@ namespace Reclamation.TimeSeries.Forms.RatingTables
 
         }
 
-        bool IExplorerView.UndoZoom
-        {
-            set {  ; }
-        }
-
-        void IExplorerView.Clear()
-        {
-             ;
-        }
+         
 
     }
 }

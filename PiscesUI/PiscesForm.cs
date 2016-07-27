@@ -16,6 +16,7 @@ using Reclamation.TimeSeries.Forms.RatingTables;
 using Reclamation.TimeSeries.Forms.Graphing;
 using Rwis.Sync;
 using System.Collections.Generic;
+using Reclamation.TimeSeries.RatingTables;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -328,7 +329,8 @@ namespace Reclamation.TimeSeries.Forms
         {
             try
             {
-                explorer1.View.Draw();
+                if( explorer1.View != null)
+                     explorer1.View.Draw();
             }
             catch (Exception ex)
             {
@@ -385,7 +387,8 @@ namespace Reclamation.TimeSeries.Forms
         }
 
 
-        IExplorerView measurementView;
+        BasicMeasurementView measurementView = new BasicMeasurementView();
+        RatingTableZedGraph ratingTableView = new RatingTableZedGraph();
 
         private void UpdateView()
         {
@@ -397,17 +400,28 @@ namespace Reclamation.TimeSeries.Forms
             toolStripProgressBar1.Visible = true;
             //Cursor = Cursors.WaitCursor;
 
-            if( tree1.IsMeasurementSelected)
+            if( tree1.IsMeasurementSelected && !tree1.IsCommandLine)
             {
-                if( measurementView == null)
-                   measurementView = new BasicMeasurementView();
+                var measurements = tree1.GetSelectedMeasurements();
 
-                SetView(measurementView as UserControl);
-                measurementView.Measurement = tree1.SelectedObject as BasicMeasurement;
+                if (measurements.Length > 1)
+                {
+                    SetView(ratingTableView);
+                    
+                    ratingTableView.Draw(measurements);
+
+                }else // view edit single measurement
+                {
+                    SetView(measurementView);
+                    measurementView.Measurement = tree1.SelectedObject as BasicMeasurement;
+                    measurementView.Draw();
+                }
+
+                toolStripProgressBar1.Visible = false;
             }
             else
             {
-                if (explorer1.View is BasicMeasurementView)
+                if ( !(explorer1.View is GraphExplorerView) || explorer1.View == null)
                 { // need to switch back to timeseries views
                     SetView(graphView1);
                 }
@@ -425,12 +439,13 @@ namespace Reclamation.TimeSeries.Forms
                 explorer1.IncludeBaseline = scenarioChooser1.IncludeBaseline;
                 explorer1.IncludeSelected = scenarioChooser1.IncludeSelected;
                 explorer1.MergeSelected = scenarioChooser1.MergeSelected;
+                backgroundWorker1.RunWorkerAsync();
 
             }
 
 
            
-            backgroundWorker1.RunWorkerAsync();
+          
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -439,7 +454,8 @@ namespace Reclamation.TimeSeries.Forms
             try
             {
 #endif
-            explorer1.Run();
+              if( explorer1.View != null)
+                  explorer1.Run();
 #if (CATCH_EXCEPTION)
 
             }

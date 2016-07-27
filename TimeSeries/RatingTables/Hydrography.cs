@@ -18,6 +18,21 @@ namespace Reclamation.TimeSeries.RatingTables
             m_db = db;
         }
 
+
+
+        public MeasurementList GetMeasurements(string siteID)
+        {
+            var rval = new MeasurementList();
+            var tbl = m_db.GetSeriesCatalog("siteid = '" + siteID + "' and provider = 'BasicMeasurement'");
+
+            foreach (TimeSeriesDatabaseDataSet.SeriesCatalogRow item in tbl)
+            {
+                rval.Add(m_db.Factory.GetMeasurement(item) );
+            }
+
+            return rval;
+        }
+
         /// <summary>
         /// Creates an new Manual measurement.
         /// Returns new MeasurementNumber for a Manaul Measurement.

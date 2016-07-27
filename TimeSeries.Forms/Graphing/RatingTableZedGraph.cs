@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ZedGraph;
+using Reclamation.TimeSeries.RatingTables;
 
 namespace Reclamation.TimeSeries.Graphing
 {
@@ -20,39 +21,32 @@ namespace Reclamation.TimeSeries.Graphing
         {
             InitializeComponent();
             mypane = chart1.GraphPane;
-            mypane.XAxis.Type = AxisType.Log;
-            mypane.AxisChange();
-            mypane.XAxis.MajorGrid.IsVisible = true;
 
             SetGridsON();
 
-            //mypane.XAxis.Scale.Min = 1;
-            //mypane.XAxis.Scale.Max = 10000;
-            mypane.XAxis.Title.Text = "Flow (cfs)";
-
-            mypane.YAxis.Type = AxisType.Log;
-            //mypane.YAxis.Scale.Min = 1;
-            //mypane.YAxis.Scale.Max = 10000;
-            mypane.YAxis.Title.Text = "Stage (feet)";
-            mypane.AxisChange();
         }
 
+        
         private void SetGridsON( )
         {
             
             mypane.XAxis.MinorGrid.IsVisible = true;
             mypane.XAxis.MajorGrid.IsVisible = true;
             mypane.XAxis.MajorGrid.Color = System.Drawing.Color.DarkGreen;
+            
             mypane.XAxis.MajorGrid.DashOff = 2.0f;
             mypane.XAxis.MajorGrid.DashOn = 2.0f;
             mypane.XAxis.MinorGrid.DashOn = 4;
+            mypane.XAxis.MinorGrid.DashOff = 1;
 
             mypane.YAxis.MinorGrid.IsVisible = true;
             mypane.YAxis.MajorGrid.IsVisible = true;
             mypane.YAxis.MajorGrid.Color = System.Drawing.Color.DarkGreen;
+
             mypane.YAxis.MajorGrid.DashOff = 2.0f;
             mypane.YAxis.MajorGrid.DashOn = 2.0f;
             mypane.YAxis.MinorGrid.DashOn = 4;
+            mypane.YAxis.MinorGrid.DashOff = 1;
         }
 
 
@@ -159,6 +153,68 @@ RefreshGraph();
                 chart1.GraphPane.AxisChange(g);
             }
             chart1.Refresh();
+        }
+
+        private void SetupAxis(MeasurementList list)
+        {
+            //mypane.XAxis.Type = AxisType.Log;
+           // mypane.AxisChange();
+           // mypane.XAxis.MajorGrid.IsVisible = true;
+            //mypane.AxisChange();
+            mypane.XAxis.Scale.IsUseTenPower = false;
+            mypane.XAxis.Scale.Mag = 0;
+            mypane.XAxis.Scale.Format = "#,#";
+            mypane.AxisChange();
+            mypane.XAxis.Scale.Min = list.MinDischarge;
+            mypane.XAxis.Scale.Max = list.MaxDischarge;
+            mypane.XAxis.Title.Text = "Flow (cfs)";
+            mypane.AxisChange();
+
+            //mypane.YAxis.Type = AxisType.Log;
+            //mypane.YAxis.Scale.IsUseTenPower = false;
+            //mypane.AxisChange();
+            //mypane.YAxis.ScaleFormatEvent += YAxis_ScaleFormatEvent;
+            //mypane.AxisChange();
+            mypane.YAxis.Scale.Min = list.MinStage ;
+            mypane.YAxis.Scale.Max = list.MaxStage;
+            mypane.YAxis.Title.Text = "Stage (feet)";
+            mypane.AxisChange();
+        }
+
+        string YAxis_ScaleFormatEvent(GraphPane pane, Axis axis, double val, int index)
+        {
+            return val.ToString("F0");
+        }
+
+        public void Draw(BasicMeasurement[] measurements)
+        {
+            chart1.GraphPane.CurveList.Clear();
+            if (measurements.Length == 0)
+                return;
+            MeasurementList list = new MeasurementList(measurements);
+            Title = list.Text;
+            chart1.GraphPane.Title.Text = Title;
+            SetupAxis(list);
+            
+
+            PointPairList points = new PointPairList();
+
+            for (int i = 0; i < measurements.Length; i++)
+            {
+                points.Add(measurements[i].MeasurementRow.discharge,
+                    measurements[i].MeasurementRow.stage);
+            }
+
+            if (measurements.Length > 0)
+            {
+              var c = chart1.GraphPane.AddCurve(measurements[0].MeasurementRow.siteid, points, Color.Green, SymbolType.Circle);
+              c.Line.IsVisible = false;
+              c.Symbol.Fill = new Fill(Color.Green);
+              c.Symbol.IsVisible = true;
+
+            }
+
+            RefreshGraph();
         }
     }
 }

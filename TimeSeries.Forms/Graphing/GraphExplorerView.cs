@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using Reclamation.TimeSeries;
+using Reclamation.TimeSeries.RatingTables;
 
 namespace Reclamation.TimeSeries.Graphing
 {
@@ -98,6 +99,5 @@ namespace Reclamation.TimeSeries.Graphing
 
         #endregion
 
-        public BasicMeasurement Measurement { get; set; }
     }
 }
