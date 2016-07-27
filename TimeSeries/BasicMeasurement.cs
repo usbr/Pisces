@@ -13,12 +13,21 @@ namespace Reclamation.TimeSeries
 
         HydrographyDataSet.measurementRow m_measurementRow;
 
+        public HydrographyDataSet.measurementRow MeasurementRow
+        {
+            get { return m_measurementRow; }
+        }
+
+        
         public BasicMeasurement(TimeSeriesDatabase db, 
             TimeSeriesDatabaseDataSet.SeriesCatalogRow sr):base(sr)
         {
             this.m_db = db;
             this.m_sr = sr;
-            // TO DO: Lookup Measurement Row
+            int id = Convert.ToInt32(ConnectionStringToken("id", "-1"));
+            var tbl = m_db.Hydrography.GetMeasurements();
+
+            m_measurementRow = tbl.FindByid(id);
 
         }
 

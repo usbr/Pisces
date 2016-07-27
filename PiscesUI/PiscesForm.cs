@@ -578,6 +578,7 @@ namespace Reclamation.TimeSeries.Forms
             {
                 Reclamation.Core.SqlView v = new Reclamation.Core.SqlView(DB.Server);
                 v.ShowDialog();
+                DatabaseChanged();
             }
         }
 

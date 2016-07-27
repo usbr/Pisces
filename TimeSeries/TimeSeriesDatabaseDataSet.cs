@@ -5,6 +5,7 @@ using System.IO;
 using System.Data;
 using System;
 using System.Text.RegularExpressions;
+using Reclamation.TimeSeries.RatingTables;
 namespace Reclamation.TimeSeries
 {
 
@@ -296,18 +297,20 @@ namespace Reclamation.TimeSeries
                 return rval.ToArray();
             }
 
-            public int AddMeasurement(string siteID,string name, DateTime date)
+            public int AddMeasurement(HydrographyDataSet.measurementRow m)
             {
                 int folderID = GetOrCreateFolder(
                GetRootFolderNames()[0],      //"Untitled"
-                   siteID,                          //  SouthBend
+                   m.siteid,                          //  SouthBend
                      "Flow Measurements");          //    "Flow Measurements"
 
 
+                int id = NextID();
                 int unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-                var r = AddSeriesCatalogRow(NextID(), folderID, false, unixTimestamp,
-                "measurement", name,
-                siteID, "", "Instant", "", "", "BasicMeasurement", "", "",
+                var r = AddSeriesCatalogRow(id, folderID, false, unixTimestamp,
+                "measurement", 
+                m.date_measured.ToString(Hydrography.MeasurementDateFormat)+" ("+m.stage.ToString("F2")+","+m.discharge.ToString("F2")+")" ,
+                m.siteid, "", "Instant", "", "", "BasicMeasurement", "id=" + m.id, "",
                 "", true);
 
                 return r.id;

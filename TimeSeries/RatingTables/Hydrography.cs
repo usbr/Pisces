@@ -45,7 +45,7 @@ namespace Reclamation.TimeSeries.RatingTables
             m_db.Server.SaveTable(dt);
 
 
-            sc.AddMeasurement(siteID, date.ToString(MeasurementDateFormat),date);
+            sc.AddMeasurement(mr);
             
             sc.Save();
 
@@ -53,17 +53,20 @@ namespace Reclamation.TimeSeries.RatingTables
 
         }
 
-        public string MeasurementDateFormat = "yyyy-MM-dd HHMM";
+        public static string MeasurementDateFormat = "yyyy-MM-dd HHMM";
 
 
+        static HydrographyDataSet.measurementDataTable s_measurememnt;
 
-         HydrographyDataSet.measurementDataTable GetMeasurements()
+         internal HydrographyDataSet.measurementDataTable GetMeasurements()
         {
-            var rval = new HydrographyDataSet.measurementDataTable();
-            m_db.Server.FillTable(rval,"select * from measurement order by siteid, date_measured" );
-
-            return rval;
-        }
+            if (s_measurememnt == null)
+            {
+                s_measurememnt = new HydrographyDataSet.measurementDataTable();
+                m_db.Server.FillTable(s_measurememnt, "select * from measurement order by siteid, date_measured");
+            }
+            return s_measurememnt;
+         }
 
         public void SyncTreeWithMeasurementTable()
         {
@@ -75,7 +78,7 @@ namespace Reclamation.TimeSeries.RatingTables
             {
                 var m = measurements[i];
 
-                sc.AddMeasurement(m.siteid, m.date_measured.ToString(MeasurementDateFormat),m.date_measured);
+                sc.AddMeasurement(m);
 
                 if (i % 100 == 0)
                 {

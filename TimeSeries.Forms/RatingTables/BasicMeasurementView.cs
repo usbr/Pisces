@@ -78,6 +78,10 @@ namespace Reclamation.TimeSeries.Forms.RatingTables
         void IExplorerView.Draw()
         {
             this.labelTitle.Text = Measurement.SiteID;
+            this.textBox_Memo.Text = Measurement.MeasurementRow.notes;
+            this.textBox_Party.Text = Measurement.MeasurementRow.party;
+            this.textBox_Prim_Gage.Text = Measurement.MeasurementRow.stage.ToString("F2");
+            this.textBox_Discharge.Text = Measurement.MeasurementRow.discharge.ToString("F2");
             //this.textBox_Discharge.Text = Measurement.
 
         }
