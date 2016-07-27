@@ -1,5 +1,2 @@
-﻿Reclamation.TimeSeries.Excel.dll
-Reclamation.TimeSeries.Modsim.dll
-Reclamation.TimeSeries.Urgsim.dll
-Reclamation.TimeSeries.ArmyCorps.dll
+﻿Reclamation.TimeSeries.ArmyCorps.dll
 
