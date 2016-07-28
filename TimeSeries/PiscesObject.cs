@@ -49,12 +49,23 @@ namespace Reclamation.TimeSeries
             set
             {
 
-                row.Name = value;
+                row.Name = CleanTextForTreeName(value);
             }
             get
             {
                 return row.Name;
             }
+        }
+
+        /// <summary>
+        /// removes invalid characters for use with calculation series.
+        /// </summary>
+        private string CleanTextForTreeName(string txt)
+        {
+            txt = txt.Replace(".", "_");
+            txt = txt.Replace("$", "_");
+
+            return txt;
         }
 
         [Obsolete("Use SiteID, also see sitecatalog for site name")]
