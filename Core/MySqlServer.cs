@@ -324,28 +324,34 @@ namespace Reclamation.Core
      {
          Logger.WriteLine("Linux="+LinuxUtility.IsLinux());
 
-         if (LinuxUtility.IsLinux() || server == "localhost")
-         {//Linux login is from config file.  Assuming localhost access
-             if (user == "")
-                 user = WindowsUtility.GetShortUserName();
+            if (LinuxUtility.IsLinux() || server == "localhost")
+            {//Linux login is from config file.  Assuming localhost access
+                if (user == "")
+                    user = WindowsUtility.GetShortUserName();
 
-             var cs= "server=" + server + ";uid="
-            + user + ";"
-            + "database=" + databaseName + ";";
-             Logger.WriteLine(cs);
-             return new MySqlServer(cs);
-         }
-         else
-         { // use windows login for username
-             var cs = "server=" + server + ";uid="
-           + GetWindowsUserName() + ";"
-           + "pwd=" + password + ";database=" + databaseName + ";";
-             string msg = cs;
-             msg = msg.Replace("pwd=" + password, "pwd=" + "xxxxx");
-             Logger.WriteLine(msg);
+                var cs = "server=" + server + ";uid="
+               + user + ";"
+               + "database=" + databaseName + ";";
+                Logger.WriteLine(cs);
+                return new MySqlServer(cs);
+            }
+            else
+            { // use windows login for username
+                if (password == "")
+                {
+                    try
+                    { password = user + File.ReadAllLines(@"mysql_key.txt", Encoding.UTF8)[0]; }
+                    catch
+                    { password = ""; }
+                }
+                var cs = "server=" + server + ";uid=" + GetWindowsUserName() + ";" + "pwd=" + password +
+                       ";database=" + databaseName + ";";
+                string msg = cs;
+                msg = msg.Replace("pwd=" + password, "pwd=" + "xxxxx");
+                Logger.WriteLine(msg);
 
-             return new MySqlServer(cs);
-         }
+                return new MySqlServer(cs);
+            }
      }
     }
 }
