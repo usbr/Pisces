@@ -51,7 +51,7 @@ namespace PiscesWebServices
         {
             // list of instant, daily, etc..
             //select  s.siteid, s.parameter, description, units, timeinterval from seriescatalog s join ref_parameter p on s.parameter=p.parameter where siteid = 'Billy_Chinook'
-            string sql = "select  tablename, s.parameter, name,description, units, timeinterval,server, t1 as start, t2 as end, count from view_seriescatalog s left join ref_parameter p on s.parameter=p.parameter where siteid = '" + siteid + "' order by timeinterval";
+            string sql = "select  s.tablename, s.parameter, s.name, s.units, s.timeinterval, s.statistic, s.server, s.t1 as start, s.t2 as end, count from view_seriescatalog s left join parametercatalog p on s.parameter=p.name where s.siteid = '" + siteid + "' order by timeinterval";
             return s_db.Server.Table("a", sql);
         }
 
@@ -63,7 +63,7 @@ namespace PiscesWebServices
 
         internal static DataTable GetSeries()
         {
-            string sql = "select  tablename, s.parameter, name,description, units, timeinterval,server, t1 as start, t2 as end, count from view_seriescatalog s left join ref_parameter p on s.parameter=p.parameter  where isfolder = 0 order by timeinterval ";
+            string sql = "select  tablename, s.parameter, s.name, s.units, s.timeinterval, s.statistic, s.server, s.t1 as start, s.t2 as end, count from view_seriescatalog s left join parametercatalog p on s.parameter=p.name  where isfolder = 0 order by timeinterval ";
             return s_db.Server.Table("a", sql);
    
         }

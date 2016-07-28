@@ -17,27 +17,10 @@ namespace Rwis.Sync
         //[STAThreadAttribute]
         static void Main(string[] argList)
         {
-            //var usrDom = System.Environment.UserDomainName;
-            System.DirectoryServices.ActiveDirectory.Domain usrDom;
-            usrDom = System.DirectoryServices.ActiveDirectory.Domain.GetComputerDomain();
-            if (usrDom.Name == "bor.doi.net")
-            { rwisForm.startRwisUiMain(argList); }
-            else
-            { System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network..."); }
-            //try
-            //{
-            //    usrDom = System.DirectoryServices.ActiveDirectory.Domain.GetComputerDomain();
-            //    if (usrDom.Name == "bor.doi.net")
-            //    { rwisForm.startRwisUiMain(argList); }
-            //    else
-            //    { System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network..."); }
-            //}
-            //catch
-            //{
-            //    System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network...");
-            //}
-
-            //Rwis.Sync.Program.SyncMain(argList);
+            //var args = new List<string>();
+            //args.Add("update=all t1=yesterday");
+            //argList = args.ToArray();
+            Rwis.Sync.Program.SyncMain(argList);
             //Rwis.Initialize.Program.initializeMain(argList);
         }
 
@@ -79,6 +62,10 @@ namespace Rwis.Sync
                 if (updateType.ToLower() == "all")
                 {
                     sql = "provider IN ('HydrometDailySeries','HDBSeries')";
+                }
+                else if (updateType.Length == 2)
+                {
+                    sql = "SUBSTRING(tablename,1,2) = '" + db.Server.SafeSqlLiteral(args["update"]).ToLower() + "'";
                 }
                 else
                 {
@@ -169,8 +156,10 @@ namespace Rwis.Sync
             Console.WriteLine("      ending date: default is yesterday");
             Console.WriteLine("      with [X] = yesterday, lastweek, lastmonth, lastyear, ");
             Console.WriteLine("                 or a valid date in YYYY-MM-DD format");
-            Console.WriteLine("--update t1=[X] t2=[Y]");
+            Console.WriteLine("--update=[Z] t1=[X] t2=[Y]");
             Console.WriteLine("      Updates data and series properties given a period range");
+            Console.WriteLine("      with [Z] as all, HydrometDailySeries, HDBSeries, or region code");
+            Console.WriteLine("                  PN, GP, LC, UC, or MP");
             Console.WriteLine("      with [X] as a valid date in YYYY-MM-DD format and [X] < [Y]");
             Console.WriteLine("      with [Y] as a valid date in YYYY-MM-DD format and [X] < [Y]");
 
