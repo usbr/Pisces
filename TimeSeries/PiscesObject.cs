@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
+using System.Text.RegularExpressions;
 
 namespace Reclamation.TimeSeries
 {
@@ -62,8 +63,15 @@ namespace Reclamation.TimeSeries
         /// </summary>
         private string CleanTextForTreeName(string txt)
         {
-            txt = txt.Replace(".", "_");
-            txt = txt.Replace("$", "_");
+            if (string.IsNullOrEmpty(txt))
+                return txt;
+
+            if (txt.Length > 0 && char.IsDigit(txt, 0))
+                txt = "_" + txt;
+            
+            // replace all non-alphanumeric characters except underscore with
+            // underscore ignoring whitespace
+            txt = Regex.Replace(txt, @"[^a-zA-Z0-9_\s]", "_");
 
             return txt;
         }
