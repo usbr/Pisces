@@ -48,7 +48,11 @@ namespace Reclamation.TimeSeries
                 var dbname = ConfigurationManager.AppSettings["MySqlDatabase"];
                 var server = ConfigurationManager.AppSettings["MySqlServer"];
                 var user = ConfigurationManager.AppSettings["MySqlUser"];
-                var svr = MySqlServer.GetMySqlServer(server, dbname, user);
+                string pass = "";
+                if( ConfigurationManager.AppSettings["MySqlPassword"] != null
+                     || ConfigurationManager.AppSettings["MySqlPassword"] != "")
+                pass = ConfigurationManager.AppSettings["MySqlPassword"];
+                var svr = MySqlServer.GetMySqlServer(server, dbname, user,pass);
                 var db = new TimeSeriesDatabase(svr, LookupOption.TableName,readOnly);
                 db.Parser.RecursiveCalculations = false;
                 Logger.WriteLine("database initilized..");
