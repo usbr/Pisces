@@ -17,12 +17,7 @@ namespace Rwis.Sync
         //[STAThreadAttribute]
         static void Main(string[] argList)
         {
-            if (argList.Length == 1 && argList[0] == "initialize")
-            //var args = new List<string>();
-            //args.Add("update=all t1=yesterday");
-            //argList = args.ToArray();
             Rwis.Sync.Program.SyncMain(argList);
-            //Rwis.Initialize.Program.initializeMain(argList);
         }
 
         static void SyncMain(string[] argList)
