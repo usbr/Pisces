@@ -15,7 +15,7 @@ namespace Rwis.Initialize
         static bool initializeSiteCatalog = true;
         static bool initializeParameterCatalog = true;
         static bool initializeSeriesCatalog = true;
-        static private string path = @"C:\Users\jrocha\Desktop\RWIS\";
+        static private string path = "";//@"C:\Users\jrocha\Desktop\RWIS\";
 
         public static void initializeMain(string[] argList)
         {
@@ -23,7 +23,16 @@ namespace Rwis.Initialize
             var dbname = ConfigurationManager.AppSettings["MySqlDatabase"];
             var server = ConfigurationManager.AppSettings["MySqlServer"];
             var user = ConfigurationManager.AppSettings["MySqlUser"];
-            var svr = MySqlServer.GetMySqlServer(server, dbname, user);
+            BasicDBServer svr;
+            if (LinuxUtility.IsLinux())
+            {
+                var pw = ConfigurationManager.AppSettings["MySqlPassword"];
+                svr = MySqlServer.GetMySqlServer(server, dbname, user,pw);
+            }
+            else
+            {
+                svr = MySqlServer.GetMySqlServer(server, dbname, user);
+            }
             var db = new TimeSeriesDatabase(svr);
             if (initializeParameterCatalog)
             {

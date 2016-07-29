@@ -17,6 +17,7 @@ namespace Rwis.Sync
         //[STAThreadAttribute]
         static void Main(string[] argList)
         {
+            if (argList.Length == 1 && argList[0] == "initialize")
             //var args = new List<string>();
             //args.Add("update=all t1=yesterday");
             //argList = args.ToArray();
@@ -34,6 +35,13 @@ namespace Rwis.Sync
                 ShowHelp(p);
                 return;
             }
+
+            if (args.Contains("initialize"))
+            {
+                Rwis.Initialize.Program.initializeMain(argList);
+                return;
+            }
+
 
             Performance perf = new Performance();
 

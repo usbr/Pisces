@@ -324,7 +324,7 @@ namespace Reclamation.Core
      {
          Logger.WriteLine("Linux="+LinuxUtility.IsLinux());
 
-            if (LinuxUtility.IsLinux() || server == "localhost")
+            if (LinuxUtility.IsLinux() || server == "localhost" )
             {//Linux login is from config file.  Assuming localhost access
                 if (user == "")
                     user = WindowsUtility.GetShortUserName();
@@ -333,6 +333,9 @@ namespace Reclamation.Core
                + user + ";"
                + "database=" + databaseName + ";";
                 Logger.WriteLine(cs);
+
+                if (password != "")
+                    cs += "pwd=" + password+";";
                 return new MySqlServer(cs);
             }
             else
