@@ -31,6 +31,12 @@ namespace Rwis.Sync
                 return;
             }
 
+            if (args.Contains("debug"))
+            {
+                Logger.EnableLogger();
+                Reclamation.TimeSeries.Parser.SeriesExpressionParser.Debug = true;
+            }
+
             if (args.Contains("initialize"))
             {
                 Rwis.Initialize.Program.initializeMain(argList);
@@ -40,12 +46,7 @@ namespace Rwis.Sync
 
             Performance perf = new Performance();
 
-            if (args.Contains("debug"))
-            {
-                Logger.EnableLogger();
-                Reclamation.TimeSeries.Parser.SeriesExpressionParser.Debug = true;
-            }
-
+            
             var db = TimeSeriesDatabase.InitDatabase(args);
             DateTime t1, t2;
             SetupDates(args, out t1, out t2);
