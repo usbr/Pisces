@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Reclamation.TimeSeries;
 
 namespace Reclamation.TimeSeries
 {
@@ -74,10 +75,7 @@ namespace Reclamation.TimeSeries
 
             var sumOct = Math.Sum(oct);
             //var avgOct = Math.Average(oct, TimeInterval.Monthly);
-           double avgOct = Math.AverageOfSeries(oct);
-
-
-
+            double avgOct = Math.AverageOfSeries(oct);
 
             return report.ToArray();
         }
@@ -121,18 +119,17 @@ namespace Reclamation.TimeSeries
             {
                 startDate = s[0].DateTime;
             }
-            startDate = new DateTime(startDate.Year, 10, 1);
             //one water year table
             DataTable rval = new DataTable();
-
+            DateTime tblDate = startDate;
             rval.Columns.Add("Day");
-
+           
             for (int i = 0; i < 12; i++)
             {
-                rval.Columns.Add(startDate.ToString("MMM yyyy"));
-                startDate = startDate.AddMonths(1);
+                rval.Columns.Add(tblDate.ToString("MMM yyyy"));
+                tblDate = tblDate.AddMonths(1);
             }
-
+            //create empty tbl for the data
             for (int i = 1; i <= 31; i++)
             {
                 var row = rval.NewRow();
@@ -145,19 +142,46 @@ namespace Reclamation.TimeSeries
                 }
 
             }
+            String[] name = {"Total","Ave","Max","Min"};
+            int nameIndex = 0;
+            //add rows for total ave max min
+            for (int i = 32; i < 36; i++)
+            {
+                var row = rval.NewRow();
+                rval.Rows.Add(row);
+                row[0] = name[nameIndex++];
+                
+                for (int j = 1; j <= 12; j++)
+                {
+                    row[j] = "---";
+                }
+            }
+           
+            //put data into table
             var m = 10;
             for (int j = 1; j <= 12; j++)
             {
-                startDate = new DateTime(startDate.Year, m, 1);
-                var days = DateTime.DaysInMonth(startDate.Year, startDate.Month);
-
+                DateTime datatblDate;
+                int days;
+                if (m >= 1 && m < 10)
+                {
+                    
+                    datatblDate = new DateTime(startDate.Year + 1, m, 1);
+                    days = DateTime.DaysInMonth(datatblDate.Year, datatblDate.Month);
+                }
+                else
+                {
+                    datatblDate = new DateTime(startDate.Year, m, 1);
+                    days = DateTime.DaysInMonth(datatblDate.Year, datatblDate.Month);
+                }
+                
                 for (int i = 0; i < days; i++)
                 {
-                    if (s.IndexOf(startDate) >= 0)
+                    if (s.IndexOf(datatblDate) >= 0)
                     {
-                        rval.Rows[i][j] = s[startDate].Value.ToString("F2");
+                        rval.Rows[i][j] = s[datatblDate].Value.ToString("F2");
                     }
-                    startDate = startDate.AddDays(1);
+                    datatblDate = datatblDate.AddDays(1);
                 }
                 m++;
                 if (m > 12)
@@ -165,6 +189,23 @@ namespace Reclamation.TimeSeries
                     m = 1;
                 }
             }
+
+            //implement math for total ave max min
+
+            //for (int i = 32; i < 36; i++)
+            //{
+
+       
+            //    for (int j = 1; j <= 12; j++)
+            //    {
+                    //update math
+                    //rval.Rows[i][j] = "---";
+            //    }
+            //}
+
+
+
+
             return rval;
         }
     }
