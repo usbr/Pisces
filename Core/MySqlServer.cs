@@ -336,6 +336,9 @@ namespace Reclamation.Core
 
                 if (password != "")
                     cs += "pwd=" + password+";";
+                var msg = cs;
+                msg = msg.Replace("pwd=" + password, "pwd=" + "xxxxx");
+                Logger.WriteLine(msg);
                 return new MySqlServer(cs);
             }
             else
