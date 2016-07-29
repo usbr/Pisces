@@ -108,7 +108,10 @@ namespace Reclamation.TimeSeries.Forms
         {
             if (!dbList.Contains(this.comboBox1.Text))
             {
-                dbList.Insert(0, this.comboBox1.SelectedItem.ToString());
+                string val = comboBox1.Text;
+                if( this.comboBox1.SelectedItem != null)
+                      val = comboBox1.Text;
+                dbList.Insert(0,val );
                 Properties.Settings.Default.Save();
             }
 
