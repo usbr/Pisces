@@ -78,6 +78,7 @@ namespace Reclamation.TimeSeries.RatingTables
             if (s_measurememnt == null)
             {
                 s_measurememnt = new HydrographyDataSet.measurementDataTable();
+                if (m_db.Server.TableExists("measurement"))
                 m_db.Server.FillTable(s_measurememnt, "select * from measurement order by siteid, date_measured");
             }
             return s_measurememnt;
