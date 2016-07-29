@@ -45,9 +45,3 @@ CREATE TRIGGER before_delete_seriescatalog
     END$$
 DELIMITER ;
 
---delete from seriescatalog where id <0;
-
---insert into seriescatalog values (-7,0,0,0,'','test bad interval','abei','units','Daily','Day.Sum.ReservoirRelease-Total.af','table1','','','','',1); 
-
---insert into seriescatalog values (-7,0,1,0,'','test bad interval','abei','units','Daily','Day.Sum.ReservoirRelease-Total.af','table1','','','','',1); 
- 
