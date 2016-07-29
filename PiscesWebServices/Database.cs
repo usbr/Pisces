@@ -40,6 +40,13 @@ namespace PiscesWebServices
             return s_db.Server.Table("a", sql);
         }
 
+        internal static DataTable GetSiteByRegion(string regionName)
+        {
+            string sql = "select agency_region, siteid, description,state,latitude,longitude from sitecatalog " +
+                "where agency_region = '" + regionName + "'";
+            return s_db.Server.Table("a", sql);
+        }
+
         internal static DataTable GetTableProperties()
         {
             string sql = "select seriescatalog.tablename, sitecatalog.description, seriescatalog.name, seriescatalog.units " +
@@ -63,7 +70,7 @@ namespace PiscesWebServices
 
         internal static DataTable GetSeries()
         {
-            string sql = "select  tablename, s.parameter, s.name, s.units, s.timeinterval, s.statistic, s.server, s.t1 as start, s.t2 as end, count from view_seriescatalog s left join parametercatalog p on s.parameter=p.name  where isfolder = 0 order by timeinterval ";
+            string sql = "select  tablename, s.parameter, s.name, s.units, s.timeinterval, s.statistic, s.server, s.t1 as start, s.t2 as end, count from view_seriescatalog s left join parametercatalog p on s.parameter=p.name  where isfolder = 0 order by s.name ";
             return s_db.Server.Table("a", sql);
    
         }

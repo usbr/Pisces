@@ -144,10 +144,10 @@ namespace PiscesWebServices
                 "<br><li><a href=/query>Query Interface</a></li>" +
                 "<br><li>Pisces Database Predefined Views</li> " +
                 "</strong>" +
-                "<a href=/sites>List of Sites</a>" +
-                "<br><a href=/series>List of Series</a>" +
-                "<br><a href=/types>List of Types</a>" +
-                
+                "<a href=/sites>List All Sites</a>" +
+                "<br><a href=/series>List All Series</a>" +
+                "<br><a href=/types>List By Site Type</a>" +
+                "<br><a href=/region>List By USBR Regions</a>" +
                 webPage2ndPart;
             return webPage;
         }
@@ -163,6 +163,21 @@ namespace PiscesWebServices
                 "<br><li><a href=/types/snotel>Snotel Sites</a></li>" +
                 "<br><li><a href=/types/stream>Stream Gages</a></li>" +
                 "<br><li><a href=/types/weather>Weather Stations</a></li>" +
+                "</strong>" +
+                webPage2ndPart;
+            return webPage;
+        }
+
+        public static string BuildRegionsPage()
+        {
+            string webPage = @"" +
+                webPage1stPart +
+                "<strong>" +
+                "<br><li><a href=/region/PN>Pacific Northwest</a></li>" +
+                "<br><li><a href=/region/GP>Great Plains</a></li>" +
+                "<br><li><a href=/region/LC>Lower Colorado</a></li>" +
+                "<br><li><a href=/region/UC>Upper Colorado</a></li>" +
+                "<br><li><a href=/region/MP>Mid-Pacific</a></li>" +
                 "</strong>" +
                 webPage2ndPart;
             return webPage;
@@ -228,42 +243,6 @@ namespace PiscesWebServices
 @"});" +
 @"});" +
 @"</script>" +
-// Define list filter
-@"<script>" +
-@"    jQuery.fn.filterByText = function(textbox, selectSingleMatch) {" +
-@"        return this.each(function() {" +
-@"            var select = this;" +
-@"            var options = [];" +
-@"            $(select).find('option').each(function() {" +
-@"                options.push({value: $(this).val(), text: $(this).text()});" +
-@"            });" +
-@"            $(select).data('options', options);" +
-@"            $(textbox).bind('change keyup', function() {" +
-@"                var options = $(select).empty().data('options');" +
-@"                var search = $.trim($(this).val());" +
-@"                var regex = new RegExp(search,""gi"");" +
-@"              " +
-@"                $.each(options, function(i) {" +
-@"                    var option = options[i];" +
-@"                    if(option.text.match(regex) !== null) {" +
-@"                        $(select).append(" +
-@"                           $('<option>').text(option.text).val(option.value)" +
-@"                        );" +
-@"                    }" +
-@"                });" +
-@"                if (selectSingleMatch === true && $(select).children().length === 1) {" +
-@"                    $(select).children().get(0).selected = true;" +
-@"                }" +
-@"            });            " +
-@"        });" +
-@"    };" +
-@"" +
-@"    $(function() {" +
-@"        $('#tableName').filterByText($('#textbox'), true);" +
-@"    });  " +
-@"</script>" +
-
-
 @"<!-- Outlines -->" +
 @"<script src=""http://www.usbr.gov/js/components/outlines.js""></script>" +
 @"" +
@@ -296,12 +275,10 @@ namespace PiscesWebServices
 @"<form action='' method=""GET"" id=""piscesForm"" target=""_blank"">" +
 @"<div style=""border:5px solid #244A9F;"">"+
 
-@"<strong>Select Pisces Data from the drop-down list: (sorted alphabetically by site name)</strong>" +
+@"<strong>Select Pisces Data from the list: (sorted alphabetically by site name)</strong>" +
 @"" +
 @"<blockquote>" +
-@"<input id=""textbox"" placeholder=""Type to filter"">"+
-@"<br><br>" +
-@"<select id=""tableName"" name=""tableName"" class=""List"" style=""width:500px"">" + 
+@"<select id=""tableName"" size=""10"" name=""tableName"" class=""List"" style=""min-width:90%"">" + 
 BuildQueryPageHtmlList() + 
 @"</select>" + 
 @"</blockquote>" +

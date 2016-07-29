@@ -93,6 +93,21 @@ C:\WINDOWS\system32>
                     return WebPageBuilder.BuildQueryPage(siteList);
                 };
 
+            Get["/region"] = x =>
+            {
+                //var fmt = this.Request.Query["format"].ToString();
+                //var types = Database.Types;
+                return WebPageBuilder.BuildRegionsPage();// FormatDataTable(fmt, types);
+            };
+
+            Get["/region/(?<regionname>^[A-Za-z0-9]{1,40}$)"] = x =>
+            { // list paramters for a site, and other stuff?
+                var fmt = this.Request.Query["format"].ToString();
+                var typeName = x.regionname.ToString();
+
+                var sites = Database.GetSiteByRegion(typeName);
+                return FormatDataTable(fmt, sites);
+            };
         }
 
 
