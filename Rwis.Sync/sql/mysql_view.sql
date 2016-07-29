@@ -1,4 +1,4 @@
-CREATE VIEW rwis.view_seriescatalog
+CREATE VIEW view_seriescatalog
 AS SELECT a.id AS id,
           a.parentid AS parentid,
           a.isfolder AS isfolder,
@@ -34,16 +34,16 @@ AS SELECT a.id AS id,
           FROM (
                   (
                     (
-                      rwis.seriescatalog a 
-                      LEFT JOIN rwis.seriesproperties b 
+                      seriescatalog a 
+                      LEFT JOIN seriesproperties b 
                       ON(((b.seriesid = a.id) AND (b.name = 't1')))) 
-                      LEFT JOIN rwis.seriesproperties c 
+                      LEFT JOIN seriesproperties c 
                       ON(((c.seriesid = a.id) AND (c.name = 't2')))) 
-                      LEFT JOIN rwis.seriesproperties d
+                      LEFT JOIN seriesproperties d
                       ON(((d.seriesid = a.id) AND (d.name = 'count')))
-                      LEFT JOIN rwis.sitecatalog e
+                      LEFT JOIN sitecatalog e
                       ON(a.siteid=e.siteid)
-                      LEFT JOIN rwis.parametercatalog f
+                      LEFT JOIN parametercatalog f
                       ON (a.parameter=f.id)
                 )
             WHERE a.isfolder=0;
