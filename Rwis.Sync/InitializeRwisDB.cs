@@ -15,7 +15,7 @@ namespace Rwis.Initialize
         static bool initializeSiteCatalog = true;
         static bool initializeParameterCatalog = true;
         static bool initializeSeriesCatalog = true;
-        static private string path = "";//@"C:\Users\jrocha\Desktop\RWIS\";
+        static private string path = ""; 
 
         public static void initializeMain(string[] argList)
         {

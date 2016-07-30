@@ -67,6 +67,9 @@
     <None Include="MySQLApp.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="sitecatalog.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Reclamation.Core.csproj">

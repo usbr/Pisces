@@ -175,6 +175,7 @@ RefreshGraph();
             //mypane.AxisChange();
             //mypane.YAxis.ScaleFormatEvent += YAxis_ScaleFormatEvent;
             //mypane.AxisChange();
+            mypane.YAxis.Scale.IsUseTenPower = false;
             mypane.YAxis.Scale.Min = list.MinStage ;
             mypane.YAxis.Scale.Max = list.MaxStage;
             mypane.YAxis.Title.Text = "Stage (feet)";
@@ -215,6 +216,11 @@ RefreshGraph();
             }
 
             RefreshGraph();
+        }
+
+        private void toolStripButtonSettings_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
