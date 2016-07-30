@@ -19,21 +19,9 @@ namespace Rwis.Initialize
 
         public static void initializeMain(string[] argList)
         {
-            // Connect to DB Server
-            var dbname = ConfigurationManager.AppSettings["MySqlDatabase"];
-            var server = ConfigurationManager.AppSettings["MySqlServer"];
-            var user = ConfigurationManager.AppSettings["MySqlUser"];
-            BasicDBServer svr;
-            if (LinuxUtility.IsLinux())
-            {
-                var pw = ConfigurationManager.AppSettings["MySqlPassword"];
-                svr = MySqlServer.GetMySqlServer(server, dbname, user,pw);
-            }
-            else
-            {
-                svr = MySqlServer.GetMySqlServer(server, dbname, user);
-            }
-            var db = new TimeSeriesDatabase(svr);
+
+            var db = TimeSeriesDatabase.InitDatabase(new Arguments(argList));
+            var svr = db.Server;
             if (initializeParameterCatalog)
             {
                 // Get Parameter Catalog CSV
