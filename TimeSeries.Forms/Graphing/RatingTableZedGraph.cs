@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using ZedGraph;
 using Reclamation.TimeSeries.RatingTables;
+using Reclamation.TimeSeries.Forms.Graphing;
 
 namespace Reclamation.TimeSeries.Graphing
 {
@@ -170,12 +171,7 @@ RefreshGraph();
             mypane.XAxis.Title.Text = "Flow (cfs)";
             mypane.AxisChange();
 
-            //mypane.YAxis.Type = AxisType.Log;
-            //mypane.YAxis.Scale.IsUseTenPower = false;
-            //mypane.AxisChange();
-            //mypane.YAxis.ScaleFormatEvent += YAxis_ScaleFormatEvent;
-            //mypane.AxisChange();
-            mypane.YAxis.Scale.IsUseTenPower = false;
+            
             mypane.YAxis.Scale.Min = list.MinStage ;
             mypane.YAxis.Scale.Max = list.MaxStage;
             mypane.YAxis.Title.Text = "Stage (feet)";
@@ -220,7 +216,11 @@ RefreshGraph();
 
         private void toolStripButtonSettings_Click(object sender, EventArgs e)
         {
-
+            var uc  = new RatingTableZedGraphOptions(chart1.GraphPane);
+            uc.Parent = chart1;
+            uc.Dock = DockStyle.Fill;
+            uc.BringToFront();
+            
         }
     }
 }

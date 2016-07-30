@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TimeSeriesZedGraph));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RatingTableZedGraph));
             this.chart1 = new ZedGraph.ZedGraphControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
@@ -37,16 +37,16 @@
             this.toolStripButtonUndoZoom = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonZoomOut = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonZoomIn = new System.Windows.Forms.ToolStripButton();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.toolStripButtonSettings = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // chart1
             // 
-            this.chart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.chart1.IsShowContextMenu = false;
-            this.chart1.Location = new System.Drawing.Point(0, 28);
+            this.chart1.Location = new System.Drawing.Point(0, 47);
             this.chart1.Name = "chart1";
             this.chart1.PanButtons = System.Windows.Forms.MouseButtons.Right;
             this.chart1.PanModifierKeys = System.Windows.Forms.Keys.None;
@@ -57,7 +57,7 @@
             this.chart1.ScrollMinX = 0D;
             this.chart1.ScrollMinY = 0D;
             this.chart1.ScrollMinY2 = 0D;
-            this.chart1.Size = new System.Drawing.Size(521, 439);
+            this.chart1.Size = new System.Drawing.Size(611, 446);
             this.chart1.TabIndex = 0;
             // 
             // toolStrip1
@@ -67,10 +67,11 @@
             this.toolStripButtonPrint,
             this.toolStripButtonUndoZoom,
             this.toolStripButtonZoomOut,
-            this.toolStripButtonZoomIn});
+            this.toolStripButtonZoomIn,
+            this.toolStripButtonSettings});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(524, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(611, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -126,14 +127,33 @@
             this.toolStripButtonZoomIn.ToolTipText = "zoom in";
             this.toolStripButtonZoomIn.Click += new System.EventHandler(this.toolStripButtonZoomIn_Click);
             // 
-            // TimeSeriesZedGraph
+            // panel1
+            // 
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 25);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(611, 22);
+            this.panel1.TabIndex = 2;
+            // 
+            // toolStripButtonSettings
+            // 
+            this.toolStripButtonSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSettings.Name = "toolStripButtonSettings";
+            this.toolStripButtonSettings.Size = new System.Drawing.Size(49, 22);
+            this.toolStripButtonSettings.Text = "setup...";
+            this.toolStripButtonSettings.ToolTipText = "options...";
+            this.toolStripButtonSettings.Click += new System.EventHandler(this.toolStripButtonSettings_Click);
+            // 
+            // RatingTableZedGraph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.chart1);
-            this.Name = "TimeSeriesZedGraph";
-            this.Size = new System.Drawing.Size(524, 470);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.toolStrip1);
+            this.Name = "RatingTableZedGraph";
+            this.Size = new System.Drawing.Size(611, 493);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -150,5 +170,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonZoomOut;
         private System.Windows.Forms.ToolStripButton toolStripButtonZoomIn;
         private System.Windows.Forms.ToolStripButton toolStripButtonSave;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSettings;
+        private System.Windows.Forms.Panel panel1;
     }
 }

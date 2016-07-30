@@ -264,6 +264,12 @@
     <Compile Include="Graphing\ProfileZedGraph.Designer.cs">
       <DependentUpon>ProfileZedGraph.cs</DependentUpon>
     </Compile>
+    <Compile Include="Graphing\RatingTableZedGraphOptions.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\RatingTableZedGraphOptions.Designer.cs">
+      <DependentUpon>RatingTableZedGraphOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Graphing\TimeSeriesZedGraph.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -677,6 +683,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Graphing\ProfileZedGraph.resx">
       <DependentUpon>ProfileZedGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\RatingTableZedGraphOptions.resx">
+      <DependentUpon>RatingTableZedGraphOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Graphing\TimeSeriesZedGraph.resx">
       <DependentUpon>TimeSeriesZedGraph.cs</DependentUpon>
