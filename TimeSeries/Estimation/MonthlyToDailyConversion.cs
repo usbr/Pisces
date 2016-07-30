@@ -271,9 +271,13 @@ namespace Reclamation.TimeSeries.Estimation
 
         }
 
-        public static int LookupExceedance(DataTable monthlyTable, DateTime t, double mvcfsdays, out double exceedanceValue)
+        private static int IntFromColumnName(string columnName)
         {
-            int rval = Convert.ToInt32(monthlyTable.Columns[monthlyTable.Columns.Count - 1].ColumnName); // 95
+           return Convert.ToInt32(columnName.Replace("_", ""));
+        }
+        private static int LookupExceedance(DataTable monthlyTable, DateTime t, double mvcfsdays, out double exceedanceValue)
+        {
+            int rval = IntFromColumnName(monthlyTable.Columns[monthlyTable.Columns.Count - 1].ColumnName); // 95
             exceedanceValue = 0;
 
             for (int i = 0; i < monthlyTable.Rows.Count; i++)
@@ -292,7 +296,7 @@ namespace Reclamation.TimeSeries.Estimation
 
                         if (mvcfsdays >= val)
                         {
-                            rval = Convert.ToInt32(monthlyTable.Columns[j].ColumnName);
+                            rval = IntFromColumnName(monthlyTable.Columns[j].ColumnName);
                             return rval;
                         }
                     }
