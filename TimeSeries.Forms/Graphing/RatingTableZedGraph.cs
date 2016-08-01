@@ -28,26 +28,23 @@ namespace Reclamation.TimeSeries.Graphing
         }
 
         
+        private void SetupGrid(ZedGraph.MinorGrid g, Color c, double dashPercent=0.5)
+        {
+            g.IsVisible = true;
+            g.Color = c;
+            g.DashOff = 5*(float)(1.0- dashPercent ); 
+            g.DashOn = 5*(float)(dashPercent);
+        }
+
         private void SetGridsON( )
         {
-            
-            mypane.XAxis.MinorGrid.IsVisible = true;
-            mypane.XAxis.MajorGrid.IsVisible = true;
-            mypane.XAxis.MajorGrid.Color = System.Drawing.Color.DarkGreen;
-            
-            mypane.XAxis.MajorGrid.DashOff = 2.0f;
-            mypane.XAxis.MajorGrid.DashOn = 2.0f;
-            mypane.XAxis.MinorGrid.DashOn = 4;
-            mypane.XAxis.MinorGrid.DashOff = 1;
+            var c = System.Drawing.Color.DarkGreen;
+            double pct = .80;
+            SetupGrid(mypane.XAxis.MajorGrid, c, pct);
+            SetupGrid(mypane.XAxis.MinorGrid, c, pct);
 
-            mypane.YAxis.MinorGrid.IsVisible = true;
-            mypane.YAxis.MajorGrid.IsVisible = true;
-            mypane.YAxis.MajorGrid.Color = System.Drawing.Color.DarkGreen;
-
-            mypane.YAxis.MajorGrid.DashOff = 2.0f;
-            mypane.YAxis.MajorGrid.DashOn = 2.0f;
-            mypane.YAxis.MinorGrid.DashOn = 4;
-            mypane.YAxis.MinorGrid.DashOff = 1;
+            SetupGrid(mypane.YAxis.MajorGrid, c, pct);
+            SetupGrid(mypane.YAxis.MinorGrid, c, pct);
         }
 
 
@@ -165,15 +162,21 @@ RefreshGraph();
             mypane.XAxis.Scale.IsUseTenPower = false;
             mypane.XAxis.Scale.Mag = 0;
             mypane.XAxis.Scale.Format = "#,#";
+            mypane.XAxis.Scale.MinGrace = 0.05;
             mypane.AxisChange();
-            mypane.XAxis.Scale.Min = list.MinDischarge;
-            mypane.XAxis.Scale.Max = list.MaxDischarge;
+           // mypane.XAxis.Scale.Min = list.MinDischarge;
+            //mypane.XAxis.Scale.Min = 0;
+           // mypane.XAxis.Scale.Max = list.MaxDischarge;
             mypane.XAxis.Title.Text = "Flow (cfs)";
             mypane.AxisChange();
 
             
-            mypane.YAxis.Scale.Min = list.MinStage ;
-            mypane.YAxis.Scale.Max = list.MaxStage;
+            //mypane.YAxis.Scale.Min = list.MinStage ;
+           // mypane.YAxis.Scale.Max = list.MaxStage;
+            mypane.YAxis.Scale.IsUseTenPower = false;
+            mypane.YAxis.Scale.Mag = 0;
+            mypane.YAxis.Scale.Format = "#,#";
+            mypane.YAxis.Scale.MinGrace = 0.05;
             mypane.YAxis.Title.Text = "Stage (feet)";
             mypane.AxisChange();
         }

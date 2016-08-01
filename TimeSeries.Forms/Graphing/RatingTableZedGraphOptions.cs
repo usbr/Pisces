@@ -17,6 +17,10 @@ namespace Reclamation.TimeSeries.Forms.Graphing
         {
             m_chart = chart;
             InitializeComponent();
+
+            this.checkBoxXAxisIsLog.Checked = m_chart.XAxis.Type == AxisType.Log;
+            this.checkBoxYAxisIsLog.Checked = m_chart.YAxis.Type == AxisType.Log;
+
         }
         public RatingTableZedGraphOptions()
         {
