@@ -569,10 +569,21 @@ namespace HydrometServer
                 int rc = series1.Count;
                 if( rc>0)
                    rc = db.SaveTimeSeriesTable(series1.ID, series1, DatabaseSaveOptions.UpdateExisting);
-                Console.WriteLine(rc + " records saved "+series1.GetPeriodOfRecord().ToString());
+                Console.WriteLine(rc + " records saved "+POR(series1.Table));
             }
         }
 
+        private static string POR(DataTable t)
+        {
+            var rval = "";
+            if( t.Rows.Count > 0)
+            {
+                rval = Convert.ToDateTime(t.Rows[0][0]).ToShortDateString()+ " "
+                + Convert.ToDateTime(t.Rows[t.Rows.Count -1][0]).ToShortDateString();
+            }
+
+            return rval;
+        }
 
         /// <summary>
         /// Imports instant data from Hydromet into TimeSeriesDatabase
