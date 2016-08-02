@@ -118,7 +118,7 @@ namespace Reclamation.TimeSeries
                 if (item.TimeInterval == TimeInterval.Daily)
                     dailyRoute.Add(item);
             }
-            Console.WriteLine("Routing data");
+            Logger.WriteLine("Routing data");
             TimeSeriesRouting.RouteInstant(instantRoute, importTag, m_routing);
             TimeSeriesRouting.RouteDaily(dailyRoute, importTag, m_routing);
         }

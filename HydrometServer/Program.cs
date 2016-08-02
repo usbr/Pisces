@@ -313,8 +313,6 @@ namespace HydrometServer
             Console.WriteLine("           imports hydromet (vms) daily data default ( t1-100 days)");
             Console.WriteLine("--import-hydromet-monthly");
             Console.WriteLine("           imports hydromet monthly data ( last 5 years)");
-            Console.WriteLine("--import-from-gmail");
-            Console.WriteLine("           import from gmail using Gmail-API");
 
             Console.WriteLine("--create-database=timeseries");
             Console.WriteLine("          creates a new database");

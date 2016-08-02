@@ -366,7 +366,7 @@ Alan
                 conn.Close();
         }
 
-        Logger.WriteLine("Saved " + recordCount + " records in " + perf.ElapsedSeconds + "seconds");
+        Logger.WriteLine("Saved " + recordCount + " records in " + perf.ElapsedSeconds + "seconds","ui");
         if (SqlCommands.Count > 5000)
         {
             SqlCommands.Clear();

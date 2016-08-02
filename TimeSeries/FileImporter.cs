@@ -81,7 +81,12 @@ namespace Reclamation.TimeSeries
                 if (HydrometInstantSeries.IsValidDMS3(tf)) 
                 {
                     importTag = "decodes";
-                    sl = Reclamation.TimeSeries.Hydromet.HydrometInstantSeries.HydrometDMS3DataToSeriesList(tf);
+                    sl = HydrometInstantSeries.HydrometDMS3DataToSeriesList(tf);
+                }
+                else if( HydrometDailySeries.IsValidArchiveFile(tf))
+                {
+                    importTag = "htools";
+                    sl = HydrometDailySeries.HydrometDailyDataToSeriesList(tf);
                 }
                 else if (LoggerNetFile.IsValidFile(tf))
                 {
@@ -101,7 +106,7 @@ namespace Reclamation.TimeSeries
                 }
                 else
                 {
-                    Console.WriteLine("skipped Unknown File Format: " + fileName);
+                    Logger.WriteLine("skipped Unknown File Format: " + fileName);
                     return;
                 }
 

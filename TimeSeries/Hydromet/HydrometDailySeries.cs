@@ -7,6 +7,7 @@ using System.Configuration;
 using System.IO;
 using System.Data.Linq;
 using System.Linq;
+using System.Globalization;
 
 namespace Reclamation.TimeSeries.Hydromet
 {
@@ -374,6 +375,9 @@ namespace Reclamation.TimeSeries.Hydromet
             A.Add(s);
             WriteToArcImportFile(A,outputFileName,append);
         }
+
+
+        static string archiveHeader = "MM/dd/yyyy cbtt         PC        NewValue      OldValue ";
         /// <summary>
         /// Writes Daily Series data to a temporary file.
         /// hydromet cbtt is copied from Series[].SiteID
@@ -391,7 +395,7 @@ namespace Reclamation.TimeSeries.Hydromet
             // first column is date, other columns are values
             if (!oldFile)
             {
-                output.WriteLine("MM/dd/yyyy cbtt         PC        NewValue      OldValue ");
+                output.WriteLine(archiveHeader);
             }
            
                
@@ -446,5 +450,81 @@ namespace Reclamation.TimeSeries.Hydromet
             sOut.Appearance.LegendText = sOut.Name;
             return sOut;
         }
+
+        internal static bool IsValidArchiveFile(TextFile tf)
+        {
+            if (tf.Length > 0 && tf[0].IndexOf(archiveHeader) == 0)
+                return true;
+
+            return false;
+
+        }
+        /// <summary>
+        /// converts Daily formated data for 'arcimport.exe' prorgram into SeriesList
+        /// each series is named  daily_cbtt_pcode,
+        /// for example  daily_jck_fb
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        public static SeriesList HydrometDailyDataToSeriesList(TextFile tf)
+        {
+            var rval = new SeriesList();
+
+            for (int i = 1; i < tf.Length; i++) // skip first row (header)
+            {
+                var fmt = "MM/dd/yyyy";
+                var strDate = tf[i].Substring(0, fmt.Length);
+                DateTime t;
+                if (!DateTime.TryParseExact(strDate, fmt, new CultureInfo("en-US"), System.Globalization.DateTimeStyles.None, out t))
+                {
+                    Console.WriteLine("Bad Date, Skipping line: " + tf[i]);
+                    continue;
+                }
+                /*
+07/28/2016 CKVY         MN        998877.00     40.91   
+                 */
+                string cbtt = tf[i].Substring(11, 12).Trim();
+                string pcode = tf[i].Substring(24, 9).Trim();
+                string strValue = tf[i].Substring(34, 10);
+                double val = 0;
+
+                if (!double.TryParse(strValue, out val))
+                {
+                    Console.WriteLine("Error parsing double " + strValue);
+                    continue;
+                }
+
+                string name = "daily_" + cbtt + "_" + pcode;
+                name = name.ToLower();
+                var idx = rval.IndexOfTableName(name);
+                Series s;
+                if (idx >= 0)
+                    s = rval[idx];
+                else
+                {
+                    s = new Series();
+                    s.SiteID = cbtt;
+                    s.Parameter = pcode;
+                    s.Name = cbtt + "_" + pcode;
+                    s.Name = s.Name.ToLower();
+                    s.Table.TableName = name;
+                    rval.Add(s);
+                }
+
+                string flag = "";
+                if (s.IndexOf(t) < 0)
+                {
+                    s.Add(t, val, flag);
+                }
+                else
+                {
+                    Logger.WriteLine(s.SiteID + ":" + s.Parameter + "skipped duplicate datetime " + t.ToString());
+                }
+
+            }
+
+            return rval;
+        }
+
     }
 }
