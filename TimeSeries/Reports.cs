@@ -112,6 +112,15 @@ namespace Reclamation.TimeSeries
             Process.Start(fn);
         }
 
+        /// <summary>
+        /// This report provides access to historical AgriMet archive weather data in a USGS 
+        /// style water year report format with 12 monthly columns. Statistics are computed 
+        /// at the bottom of each monthly column (max, min, avg, and total). Note: Not all 
+        /// parameters are collected at each station. See AgriMet Weather Station Instrumentation 
+        /// for the specific data parameters collected at each AgriMet station.
+        /// </summary>
+        /// <param name="s"></param> series for data table
+        /// <returns></returns>
         public static DataTable WaterYearTable(Series s)
         {
             DateTime startDate = DateTime.Now;
@@ -135,43 +144,43 @@ namespace Reclamation.TimeSeries
                 var row = rval.NewRow();
                 rval.Rows.Add(row);
                 row[0] = i;
-
                 for (int j = 1; j <= 12; j++)
                 {
                     row[j] = "---";
                 }
-
             }
-            String[] name = {"Total","Ave","Max","Min"};
+            //names for the math at the bottom of the table
+            String[] row_name = {"Total","Ave","Max","Min"};
             int nameIndex = 0;
+            int rowTotalIndex = 32; 
+            int lastRowIndex = 35;
             //add rows for total ave max min
-            for (int i = 32; i < 36; i++)
+            for (int i = rowTotalIndex; i <= lastRowIndex; i++)
             {
                 var row = rval.NewRow();
                 rval.Rows.Add(row);
-                row[0] = name[nameIndex++];
-                
+                row[0] = row_name[nameIndex++];
+                // fill colomuns with dashes accross the table
                 for (int j = 1; j <= 12; j++)
                 {
                     row[j] = "---";
                 }
             }
-           
-            //put data into table
-            var m = 10;
+            //put data into table --------------------------------------------------------------
+            var month = 10;
             for (int j = 1; j <= 12; j++)
             {
                 DateTime datatblDate;
                 int days;
-                if (m >= 1 && m < 10)
+                if (month >= 1 && month < 10)
                 {
                     
-                    datatblDate = new DateTime(startDate.Year + 1, m, 1);
+                    datatblDate = new DateTime(startDate.Year + 1, month, 1);
                     days = DateTime.DaysInMonth(datatblDate.Year, datatblDate.Month);
                 }
                 else
                 {
-                    datatblDate = new DateTime(startDate.Year, m, 1);
+                    datatblDate = new DateTime(startDate.Year, month, 1);
                     days = DateTime.DaysInMonth(datatblDate.Year, datatblDate.Month);
                 }
                 
@@ -183,27 +192,37 @@ namespace Reclamation.TimeSeries
                     }
                     datatblDate = datatblDate.AddDays(1);
                 }
-                m++;
-                if (m > 12)
+                month++;
+                if (month > 12)
                 {
-                    m = 1;
+                    month = 1;
                 }
             }
 
-            //implement math for total ave max min
-
-            //for (int i = 32; i < 36; i++)
+            //inserts the sum row of the water year table report
+            month = 10;
+            for (int j = 1; j <= 12; j++)
+            {
+                var monthCol = Math.Subset(s, new int[] { month });
+                var sum = Math.Sum(monthCol);
+                rval.Rows[rowTotalIndex - 1][j] = sum;
+                month++;
+                if (month > 12)
+                {
+                    month = 1;
+                }
+            }
+            
+            //for (int i = rowTotalIndex; i <= lastRowIndex; i++)
             //{
-
-       
             //    for (int j = 1; j <= 12; j++)
             //    {
-                    //update math
-                    //rval.Rows[i][j] = "---";
+            //        rval.Rows[i][j] = 1;
             //    }
             //}
-
-
+     
+            //var avgOct = Math.Average(oct, TimeInterval.Monthly);
+            //double avgOct = Math.AverageOfSeries(oct);
 
 
             return rval;
