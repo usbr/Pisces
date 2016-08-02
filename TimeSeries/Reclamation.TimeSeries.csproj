@@ -310,6 +310,7 @@
     <Compile Include="BpaHydsim\HydSimScenarioPicker.Designer.cs">
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="Estimation\Regression.cs" />
     <Compile Include="FileImporter.cs" />
     <Compile Include="HDB\HDBSeries.cs" />
     <Compile Include="RatingTables\BasicMeasurement.cs" />
