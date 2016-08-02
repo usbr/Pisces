@@ -166,7 +166,7 @@ namespace Reclamation.TimeSeries
                     row[j] = "---";
                 }
             }
-            //put data into table --------------------------------------------------------------
+            //put data into table 
             var month = 10;
             for (int j = 1; j <= 12; j++)
             {
@@ -199,31 +199,47 @@ namespace Reclamation.TimeSeries
                 }
             }
 
-            //inserts the sum row of the water year table report
+            //inserts the sum ave max min rows of the water year table report
             month = 10;
+            var indexTotal = 31;
+            var indexAve = 32;
+            var indexMax = 33;
+            var indexMin = 34;
+            var index = indexTotal;
+           
             for (int j = 1; j <= 12; j++)
             {
                 var monthCol = Math.Subset(s, new int[] { month });
-                var sum = Math.Sum(monthCol);
-                rval.Rows[rowTotalIndex - 1][j] = sum;
+                if (index == indexTotal) 
+                {
+                    var sum = Math.Sum(monthCol);
+                    rval.Rows[indexTotal][j] = sum;
+                    index++;
+                }
+                if (index == indexAve)
+                {
+                    var ave = Math.AverageOfSeries(monthCol).ToString("F2");
+                    rval.Rows[indexAve][j] = ave;
+                    index++;
+                }
+                if (index == indexMax)
+                {
+                    var max = Math.MaxValue(monthCol);
+                    rval.Rows[indexMax][j] = max;
+                    index++;
+                }
+                if (index == indexMin)
+                {
+                    var max = Math.MinValue(monthCol);
+                    rval.Rows[indexMin][j] = max;
+                }
+                index = indexTotal;
                 month++;
                 if (month > 12)
                 {
                     month = 1;
                 }
             }
-            
-            //for (int i = rowTotalIndex; i <= lastRowIndex; i++)
-            //{
-            //    for (int j = 1; j <= 12; j++)
-            //    {
-            //        rval.Rows[i][j] = 1;
-            //    }
-            //}
-     
-            //var avgOct = Math.Average(oct, TimeInterval.Monthly);
-            //double avgOct = Math.AverageOfSeries(oct);
-
 
             return rval;
         }
