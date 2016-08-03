@@ -18,6 +18,11 @@ namespace Reclamation.TimeSeries.Parser
     public class HydrometVariableResolver:VariableResolver
     {
         HydrometHost svr;
+
+        public HydrometHost Server
+        {
+            get { return svr; }
+        }
         public HydrometVariableResolver(HydrometHost h= HydrometHost.PN):base()
         {
             svr = h;

@@ -12,7 +12,7 @@ namespace Reclamation.TimeSeries.Parser
 
     /// <summary>
     /// variable resolver for calculation expressions.
-    /// It is used to lookup time series data
+    /// It is used to lookup time series data in the TimeSeriesDatabase
     /// </summary>
     public class VariableResolver
     {
