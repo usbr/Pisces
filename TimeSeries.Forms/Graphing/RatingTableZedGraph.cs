@@ -155,30 +155,28 @@ RefreshGraph();
 
         private void SetupAxis(MeasurementList list)
         {
-            //mypane.XAxis.Type = AxisType.Log;
-            // mypane.AxisChange();
-            // mypane.XAxis.MajorGrid.IsVisible = true;
-            //mypane.AxisChange();
-            //mypane.XAxis.Scale.Min = list.MinStage ;
-            //mypane.XAxis.Scale.Max = list.MaxStage;
+            //mypane.XAxis.Scale.Min = list.MinDischarge;
+            //mypane.XAxis.Scale.Min = 0;
+            //mypane.XAxis.Scale.Max = list.MaxDischarge;
             mypane.XAxis.Scale.IsUseTenPower = false;
             mypane.XAxis.Scale.Mag = 0;
             mypane.XAxis.Scale.Format = "#,#";
             mypane.XAxis.Scale.MinGrace = 0.05;
-            mypane.AxisChange();
-           
-            mypane.XAxis.Title.Text = "Stage (feet)";
+            mypane.AxisChange();           
+            mypane.XAxis.Title.Text = "Flow (cfs)";
             mypane.AxisChange();
 
-
-            //mypane.YAxis.Scale.Min = list.MinDischarge;
-            //mypane.YAxis.Scale.Min = 0;
-            //mypane.YAxis.Scale.Max = list.MaxDischarge;
+            //mypane.YAxis.Type = AxisType.Log;
+            //mypane.AxisChange();
+            //mypane.YAxis.MajorGrid.IsVisible = true;
+            //mypane.AxisChange();
+            //mypane.YAxis.Scale.Min = list.MinStage ;
+            //mypane.YAxis.Scale.Max = list.MaxStage;
             mypane.YAxis.Scale.IsUseTenPower = false;
             mypane.YAxis.Scale.Mag = 0;
             mypane.YAxis.Scale.Format = "#,#";
             mypane.YAxis.Scale.MinGrace = 0.05;
-            mypane.YAxis.Title.Text = "Flow (cfs)";
+            mypane.YAxis.Title.Text = "Stage (feet)";
             mypane.AxisChange();
         }
 
@@ -202,8 +200,8 @@ RefreshGraph();
 
             for (int i = 0; i < measurements.Length; i++)
             {
-                points.Add(measurements[i].MeasurementRow.stage, 
-                    measurements[i].MeasurementRow.discharge);
+                points.Add(measurements[i].MeasurementRow.discharge,
+                    measurements[i].MeasurementRow.stage);
             }
 
             if (measurements.Length > 0)
@@ -218,18 +216,34 @@ RefreshGraph();
                 double[] yData = new double[measurements.Length];
                 for (int i=0;i<points.Count;i++)
                 {
-                    xData[i] = points[i].X;
-                    yData[i] = points[i].Y;
+                    xData[i] = points[i].Y;
+                    yData[i] = points[i].X;
                 }
+
+                // Linear Regression Line
                 var fitPoints = Reclamation.TimeSeries.Estimation.Regression.SimpleLinearRegression(xData, yData);
                 PointPairList fitPointsArray = new PointPairList();
                 for (int i = 0; i < fitPoints.Length; i++)
                 {
-                    fitPointsArray.Add(fitPoints[i].Item1, fitPoints[i].Item2);
+                    fitPointsArray.Add(fitPoints[i].Item2, fitPoints[i].Item1);
                 }
                 var f = chart1.GraphPane.AddCurve("Best Linear Fit Line", fitPointsArray, Color.Black, SymbolType.None);
                 f.Line.IsVisible = true;
                 f.Symbol.IsVisible = false;
+
+                // Log base-10 regression line
+                var logPoints = Reclamation.TimeSeries.Estimation.Regression.SimpleLinearRegression(xData, yData,true);
+                PointPairList logPointsArray = new PointPairList();
+                for (int i = 0; i < logPoints.Length; i++)
+                {
+                    logPointsArray.Add(logPoints[i].Item2, logPoints[i].Item1);
+                }
+                var l = chart1.GraphPane.AddCurve("Best Log Fit Line", logPointsArray, Color.Red, SymbolType.None);
+                l.Line.IsVisible = true;
+                l.Symbol.IsVisible = false;
+
+
+
             }
 
             RefreshGraph();
