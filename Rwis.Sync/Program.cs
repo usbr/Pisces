@@ -31,10 +31,21 @@ namespace Rwis.Sync
                 return;
             }
 
+
             if (args.Contains("debug"))
             {
                 Logger.EnableLogger();
                 Reclamation.TimeSeries.Parser.SeriesExpressionParser.Debug = true;
+            }
+
+            if (args.Contains("test-web"))
+            {
+                var data = Reclamation.Core.Web.GetPage("www.usbr.gov");
+                foreach (var item in data)
+                {
+                    Console.WriteLine(item);
+                }
+                return;
             }
 
             if (args.Contains("initialize"))
