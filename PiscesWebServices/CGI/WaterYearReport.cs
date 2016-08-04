@@ -51,12 +51,18 @@ namespace PiscesWebServices.CGI
             }
 
             var s = new HydrometDailySeries(siteID, parameter);
-            s.Read(r.StartDate, r.EndDate);
-
-            DataTable wyTable = Reports.WaterYearTable(s);
-            Console.WriteLine("print header");
-            var html = DataTableOutput.ToHTML(wyTable);
-            Console.WriteLine(html);
+            var startYear = r.StartDate.Year;
+            var endYear = r.EndDate.Year;
+            DateTime t1 = r.StartDate;
+                for (int i = startYear; i < endYear; i++)
+                {
+                    s.Read(t1, t1.AddMonths(12));
+                    DataTable wyTable = Reports.WaterYearTable(s);
+                    Console.WriteLine("print header");
+                    var html = DataTableOutput.ToHTML(wyTable);
+                    Console.WriteLine(html);
+                    t1 = t1.AddMonths(12);
+                }
         }
 
         private static TimeRange GetDateRange(NameValueCollection collection)
