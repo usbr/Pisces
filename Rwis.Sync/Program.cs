@@ -40,7 +40,7 @@ namespace Rwis.Sync
 
             if (args.Contains("test-web"))
             {
-                var data = Reclamation.Core.Web.GetPage("www.usbr.gov");
+                var data = Reclamation.Core.Web.GetPage("http://www.usbr.gov");
                 foreach (var item in data)
                 {
                     Console.WriteLine(item);
