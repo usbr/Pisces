@@ -73,7 +73,7 @@ namespace HydrometServer
 
                 if( args.Contains("run-crop-charts"))
                 {
-                    var str_yr = args["run-crop-charts"];
+                    var str_yr = args["run-crop-charts"].Trim();
                     int year = DateTime.Now.Year;
                     if (str_yr != "")
                         year = Convert.ToInt32(str_yr);
