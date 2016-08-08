@@ -43,6 +43,7 @@ namespace Reclamation.TimeSeries.Forms
             this.menuUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addMeasurementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showMeasurementsInTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.addFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.addSite = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,7 +109,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuRWIS = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripProfileTool = new System.Windows.Forms.ToolStripMenuItem();
             this.ImportHydrologicModels = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemExportModelScenarios = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOptions = new System.Windows.Forms.ToolStripMenuItem();
@@ -122,7 +123,6 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.showMeasurementsInTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -186,7 +186,7 @@ namespace Reclamation.TimeSeries.Forms
             this.menuProperties});
             this.contextMenuStripTree.Name = "contextMenuStripTree";
             this.contextMenuStripTree.OwnerItem = this.DataMenu;
-            this.contextMenuStripTree.Size = new System.Drawing.Size(153, 242);
+            this.contextMenuStripTree.Size = new System.Drawing.Size(145, 220);
             // 
             // toolStripMenuItem2
             // 
@@ -194,7 +194,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.ShortcutKeyDisplayString = "";
             this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(144, 22);
             this.toolStripMenuItem2.Text = "&Copy";
             this.toolStripMenuItem2.Visible = false;
             // 
@@ -203,14 +203,14 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem3.Enabled = false;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(144, 22);
             this.toolStripMenuItem3.Text = "&Paste";
             this.toolStripMenuItem3.Visible = false;
             // 
             // menuUpdate
             // 
             this.menuUpdate.Name = "menuUpdate";
-            this.menuUpdate.Size = new System.Drawing.Size(152, 22);
+            this.menuUpdate.Size = new System.Drawing.Size(144, 22);
             this.menuUpdate.Text = "&Update";
             this.menuUpdate.Click += new System.EventHandler(this.toolStripMenuUpdate_Click);
             // 
@@ -220,15 +220,22 @@ namespace Reclamation.TimeSeries.Forms
             this.addMeasurementToolStripMenuItem,
             this.showMeasurementsInTreeToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
             this.toolStripMenuItem1.Text = "&Hydrography";
             // 
             // addMeasurementToolStripMenuItem
             // 
             this.addMeasurementToolStripMenuItem.Name = "addMeasurementToolStripMenuItem";
-            this.addMeasurementToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.addMeasurementToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.addMeasurementToolStripMenuItem.Text = "New &Measurement...";
             this.addMeasurementToolStripMenuItem.Click += new System.EventHandler(this.AddMeasurement);
+            // 
+            // showMeasurementsInTreeToolStripMenuItem
+            // 
+            this.showMeasurementsInTreeToolStripMenuItem.Name = "showMeasurementsInTreeToolStripMenuItem";
+            this.showMeasurementsInTreeToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.showMeasurementsInTreeToolStripMenuItem.Text = "&Show Measurements in Tree";
+            this.showMeasurementsInTreeToolStripMenuItem.Click += new System.EventHandler(this.showMeasurementsInTreeToolStripMenuItem_Click);
             // 
             // AddMenu
             // 
@@ -265,7 +272,7 @@ namespace Reclamation.TimeSeries.Forms
             this.addCalcSeries,
             this.addRatingTable});
             this.AddMenu.Name = "AddMenu";
-            this.AddMenu.Size = new System.Drawing.Size(152, 22);
+            this.AddMenu.Size = new System.Drawing.Size(144, 22);
             this.AddMenu.Text = "&Add";
             // 
             // addFolder
@@ -518,12 +525,12 @@ namespace Reclamation.TimeSeries.Forms
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(141, 6);
             // 
             // menuClear
             // 
             this.menuClear.Name = "menuClear";
-            this.menuClear.Size = new System.Drawing.Size(152, 22);
+            this.menuClear.Size = new System.Drawing.Size(144, 22);
             this.menuClear.Text = "Clear";
             this.menuClear.ToolTipText = "Clears all data from this series";
             this.menuClear.Click += new System.EventHandler(this.ClearClick);
@@ -532,7 +539,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.menuDelete.AccessibleDescription = "delete this series and remove from the tree";
             this.menuDelete.Name = "menuDelete";
-            this.menuDelete.Size = new System.Drawing.Size(152, 22);
+            this.menuDelete.Size = new System.Drawing.Size(144, 22);
             this.menuDelete.Text = "Delete";
             this.menuDelete.ToolTipText = "delete selected series or folder";
             this.menuDelete.Click += new System.EventHandler(this.DeleteClick);
@@ -540,24 +547,24 @@ namespace Reclamation.TimeSeries.Forms
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(141, 6);
             // 
             // menuCalculate
             // 
             this.menuCalculate.Name = "menuCalculate";
-            this.menuCalculate.Size = new System.Drawing.Size(152, 22);
+            this.menuCalculate.Size = new System.Drawing.Size(144, 22);
             this.menuCalculate.Text = "Calculate...";
             this.menuCalculate.Click += new System.EventHandler(this.CalculateClick);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(141, 6);
             // 
             // menuProperties
             // 
             this.menuProperties.Name = "menuProperties";
-            this.menuProperties.Size = new System.Drawing.Size(152, 22);
+            this.menuProperties.Size = new System.Drawing.Size(144, 22);
             this.menuProperties.Text = "&Properties";
             this.menuProperties.Click += new System.EventHandler(this.Properties);
             // 
@@ -691,7 +698,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuRWIS,
             this.toolStripProfileTool,
             this.ImportHydrologicModels,
-            this.toolStripMenuItem12,
+            this.toolStripMenuItemExportModelScenarios,
             this.toolStripSeparator7,
             this.optionsToolStripMenuItem});
             this.menuView.Name = "menuView";
@@ -701,65 +708,66 @@ namespace Reclamation.TimeSeries.Forms
             // logToolStripMenuItemViewLog
             // 
             this.logToolStripMenuItemViewLog.Name = "logToolStripMenuItemViewLog";
-            this.logToolStripMenuItemViewLog.Size = new System.Drawing.Size(247, 22);
+            this.logToolStripMenuItemViewLog.Size = new System.Drawing.Size(256, 22);
             this.logToolStripMenuItemViewLog.Text = "View &Log...";
             this.logToolStripMenuItemViewLog.Click += new System.EventHandler(this.logToolStripMenuItemViewLog_Click);
             // 
             // databaseTablesToolStripMenuItem
             // 
             this.databaseTablesToolStripMenuItem.Name = "databaseTablesToolStripMenuItem";
-            this.databaseTablesToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.databaseTablesToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.databaseTablesToolStripMenuItem.Text = "Show &Database Tables...";
             this.databaseTablesToolStripMenuItem.Click += new System.EventHandler(this.tableEditor_Click);
             // 
             // sToolStripMenuItem
             // 
             this.sToolStripMenuItem.Name = "sToolStripMenuItem";
-            this.sToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.sToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.sToolStripMenuItem.Text = "&SQL Commands";
             this.sToolStripMenuItem.Click += new System.EventHandler(this.sqlCommands_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(244, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(253, 6);
             // 
             // toolStripMenuRWIS
             // 
             this.toolStripMenuRWIS.Name = "toolStripMenuRWIS";
-            this.toolStripMenuRWIS.Size = new System.Drawing.Size(247, 22);
+            this.toolStripMenuRWIS.Size = new System.Drawing.Size(256, 22);
             this.toolStripMenuRWIS.Text = "RWIS Database Management...";
             this.toolStripMenuRWIS.Click += new System.EventHandler(this.toolStripMenuRWIS_Click);
             // 
             // toolStripProfileTool
             // 
             this.toolStripProfileTool.Name = "toolStripProfileTool";
-            this.toolStripProfileTool.Size = new System.Drawing.Size(247, 22);
+            this.toolStripProfileTool.Size = new System.Drawing.Size(256, 22);
             this.toolStripProfileTool.Text = "&Profile Animation Tool...";
             this.toolStripProfileTool.Click += new System.EventHandler(this.toolStripProfileTool_Click);
             // 
             // ImportHydrologicModels
             // 
             this.ImportHydrologicModels.Name = "ImportHydrologicModels";
-            this.ImportHydrologicModels.Size = new System.Drawing.Size(247, 22);
+            this.ImportHydrologicModels.Size = new System.Drawing.Size(256, 22);
             this.ImportHydrologicModels.Text = "Hydrologic Model Import...";
             this.ImportHydrologicModels.Click += new System.EventHandler(this.ImportHydrologicModels_Click);
             // 
-            // toolStripMenuItem12
+            // toolStripMenuItemExportModelScenarios
             // 
-            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(247, 22);
-            this.toolStripMenuItem12.Text = "River and Reservoir Model Export";
+            this.toolStripMenuItemExportModelScenarios.Name = "toolStripMenuItemExportModelScenarios";
+            this.toolStripMenuItemExportModelScenarios.Size = new System.Drawing.Size(256, 22);
+            this.toolStripMenuItemExportModelScenarios.Text = "River and Reservoir Model Export...";
+            this.toolStripMenuItemExportModelScenarios.Click += new System.EventHandler(this.toolStripMenuItemExportModelScenarios_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(244, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(253, 6);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.optionsToolStripMenuItem.Text = "&Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -832,13 +840,6 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Enabled = true;
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // showMeasurementsInTreeToolStripMenuItem
-            // 
-            this.showMeasurementsInTreeToolStripMenuItem.Name = "showMeasurementsInTreeToolStripMenuItem";
-            this.showMeasurementsInTreeToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
-            this.showMeasurementsInTreeToolStripMenuItem.Text = "&Show Measurements in Tree";
-            this.showMeasurementsInTreeToolStripMenuItem.Click += new System.EventHandler(this.showMeasurementsInTreeToolStripMenuItem_Click);
             // 
             // PiscesForm
             // 
@@ -943,7 +944,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem addPiscesDatabase;
         private System.Windows.Forms.ToolStripMenuItem addSqLiteModel;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExportModelScenarios;
         private System.Windows.Forms.ToolStripMenuItem ImportHydrologicModels;
         private System.Windows.Forms.ToolStripMenuItem addSHEF;
         private System.Windows.Forms.ToolStripMenuItem toolStripProfileTool;
