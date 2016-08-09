@@ -203,38 +203,44 @@ namespace PiscesWebServices.CGI
 
             foreach (TimeRange item in timeRange.Split(daysStored))
             {
-                var tbl = Read(list, item.StartDate, item.EndDate); // 0.0 seconds windows/linux
                 var interval = m_formatter.Interval;
-            
+                var tbl = Read(list, item.StartDate, item.EndDate,interval); 
                 PrintDataTable(list, tbl, m_formatter, interval);
-                if( interval == TimeInterval.Daily)
-                {// fill in missing dates
-                    FillDailyGapsWithNull(tbl, item.StartDate,item.EndDate);
-                }
             }
             m_formatter.WriteSeriesTrailer();
             
         }
 
-        private void FillDailyGapsWithNull(DataTable tbl, DateTime dateTime1, DateTime dateTime2)
+
+        private DataTable Read(SeriesList list, DateTime t1, DateTime t2, TimeInterval interval)
         {
-            int idx = -1;
+            var sql = CreateSQL(list, t1, t2, interval);
+            if (sql == "")
+                return new DataTable();
 
-           // DateTime next = Convert.ToDateTime(rval.Rows[0][0]).AddMinutes(interval); ;
-
-              
-        }
-
-         
-
-        private DataTable Read(SeriesList list, DateTime t1, DateTime t2)
-        {
-            var sql = CreateSQL(list, t1, t2);
             var tbl = db.Server.Table("tbl", sql);
             return tbl;
         }
 
 
+        /*
+         * 
+SELECT   'daily_karl_test' as tablename,a.datetime, value,flag 
+FROM  ( Select datetime from generate_series
+        ( '2016-07-23'::timestamp 
+        , '2016-08-03 23:59:59.996'::timestamp
+        , '1 day'::interval) datetime ) a
+
+left join daily_karl_test b on a.datetime = b.datetime
+ 
+WHERE  a.datetime >= '2016-07-23 00:00:00.000' AND  a.datetime <= '2016-08-03 23:59:59.996' 
+
+UNION ALL 
+SELECT 'daily_hrmo_etos' as tablename, datetime,value,flag FROM daily_hrmo_etos WHERE datetime >= '2016-07-23 00:00:00.000' AND  datetime <= '2016-08-03 23:59:59.996' 
+order by datetime,tablename 
+
+
+         * */
         /// <summary>
         /// Create a SQL command that performs UNION of multiple series
         /// so that can be queried in one round-trip to the server.
@@ -243,36 +249,89 @@ namespace PiscesWebServices.CGI
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns></returns>
-        private string CreateSQL(SeriesList list, DateTime t1, DateTime t2)
+        private string CreateSQL(SeriesList list, DateTime t1, DateTime t2, TimeInterval interval)
         {
+            if (list.Count == 0)
+                return "";
+
+            string tableName = list[0].Table.TableName;
             Logger.WriteLine("CreateSQL");
             Logger.WriteLine("list of " + list.Count + " series");
+            int startIndex = 0;
             var sql = "";
-            for (int i = 0; i < list.Count; i++)
+
+            if (interval == TimeInterval.Daily)
             {
-                string tableName = list[i].Table.TableName;
+                startIndex = 1; // take care of first table with join to enumerate all dates in range
+                sql = JoinFirstTableWithDatesBetween(t1, t2, tableName);
+                if (list.Count > 1)
+                    sql += "\n UNION ALL \n";
+            }
+
+           sql += BuildUnionSQL(list, t1, t2, startIndex);
+           sql += " \norder by datetime,tablename ";
+
+            return sql;
+        }
+
+        private string JoinFirstTableWithDatesBetween(DateTime t1, DateTime t2, string tableName)
+        {
+            string st1 = t1.ToString("yyyy-MM-dd");
+            string st2 = t2.ToString("yyyy-MM-dd") + " 23:59:59.996";
+            string sql = "";
+            
+            if (db.Server.TableExists(tableName))
+            {
+                sql = "SELECT   '" + tableName + "' as tablename,a.datetime, value,flag "
+                  + " FROM  ( Select datetime from generate_series" 
+                  + "( '" + st1 + "'::timestamp , '" + st2 + "'::timestamp , '1 day'::interval) datetime ) a ";
+                sql += @" left join "+tableName+"  b on a.datetime = b.datetime "
+                    + " WHERE  a.datetime >= '" + st1 
+                    +"' AND    a.datetime <= '"+st2+"'";
+            }
+            else
+            {
+                sql = "SELECT   '" + tableName + "' as tablename, datetime, null as value  , '' as flag "
+                  + " FROM  ( Select datetime from generate_series"
+                  + "( '" + st1 + "'::timestamp , '" + st2 + "'::timestamp , '1 day'::interval) datetime ) a ";
+                
+            }
+            return sql;
+        }
+
+        private string BuildUnionSQL(SeriesList list, DateTime t1, DateTime t2, int startIndex)
+        {
+            string sql = "";
+            for (int i = startIndex; i < list.Count; i++)
+            {
+                var tableName = list[i].Table.TableName;
+
                 if (!db.Server.TableExists(tableName))
                 {
-                      sql += "SELECT '" + tableName + "' as tablename , current_timestamp as datetime, -998877.0 as value, '' as flag where 0=1 ";
+                    sql += " \nSELECT '" + tableName + "' as tablename , current_timestamp as datetime, -998877.0 as value, '' as flag where 0=1 ";
                 }
                 else
                 {
-                   sql += "SELECT '" + tableName + "' as tablename, datetime,value,flag FROM " + tableName;
+                    sql += " \nSELECT '" + tableName + "' as tablename, datetime,value,flag FROM " + tableName;
 
-                    if (t1 != TimeSeriesDatabase.MinDateTime || t2 != TimeSeriesDatabase.MaxDateTime)
-                    {
-                        sql += " WHERE datetime >= " + db.Server.PortableDateString(t1, TimeSeriesDatabase.dateTimeFormat)
-                            + " AND "
-                            + " datetime <= " + db.Server.PortableDateString(t2, TimeSeriesDatabase.dateTimeFormat);
-                    }
+                    sql += DateWhereClause(t1, t2);
                 }
                 if (i != list.Count - 1)
                     sql += " UNION ALL \n";
             }
-
-            sql += " \norder by datetime,tablename ";
-
             return sql;
+        }
+
+        private string DateWhereClause(DateTime t1, DateTime t2)
+        {
+            string rval = "";
+            if (t1 != TimeSeriesDatabase.MinDateTime || t2 != TimeSeriesDatabase.MaxDateTime)
+            {
+                rval = " \nWHERE datetime >= " + db.Server.PortableDateString(t1, TimeSeriesDatabase.dateTimeFormat)
+                    + " \nAND "
+                    + " \ndatetime <= " + db.Server.PortableDateString(t2, TimeSeriesDatabase.dateTimeFormat);
+            }
+            return rval;
         }
 
         
