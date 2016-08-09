@@ -207,10 +207,25 @@ namespace PiscesWebServices.CGI
                 var interval = m_formatter.Interval;
             
                 PrintDataTable(list, tbl, m_formatter, interval);
+                if( interval == TimeInterval.Daily)
+                {// fill in missing dates
+                    FillDailyGapsWithNull(tbl, item.StartDate,item.EndDate);
+                }
             }
             m_formatter.WriteSeriesTrailer();
             
         }
+
+        private void FillDailyGapsWithNull(DataTable tbl, DateTime dateTime1, DateTime dateTime2)
+        {
+            int idx = -1;
+
+           // DateTime next = Convert.ToDateTime(rval.Rows[0][0]).AddMinutes(interval); ;
+
+              
+        }
+
+         
 
         private DataTable Read(SeriesList list, DateTime t1, DateTime t2)
         {
@@ -238,17 +253,11 @@ namespace PiscesWebServices.CGI
                 string tableName = list[i].Table.TableName;
                 if (!db.Server.TableExists(tableName))
                 {
-                   // if( m_printFlags)
                       sql += "SELECT '" + tableName + "' as tablename , current_timestamp as datetime, -998877.0 as value, '' as flag where 0=1 ";
-                    //else
-                      //sql += "SELECT '" + tableName + "' as tablename , current_timestamp as datetime, -998877.0 as value where 0=1 ";
                 }
                 else
                 {
-                    //if(m_printFlags)
-                       sql += "SELECT '" + tableName + "' as tablename, datetime,value,flag FROM " + tableName;
-                    //else
-                      //  sql += "SELECT '" + tableName + "' as tablename, datetime,value FROM " + tableName;
+                   sql += "SELECT '" + tableName + "' as tablename, datetime,value,flag FROM " + tableName;
 
                     if (t1 != TimeSeriesDatabase.MinDateTime || t2 != TimeSeriesDatabase.MaxDateTime)
                     {
