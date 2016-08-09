@@ -1100,10 +1100,35 @@ namespace Reclamation.TimeSeries.Forms
             DatabaseChanged();
         }
 
-       
+        private void toolStripMenuItemExportModelScenarios_Click(object sender, EventArgs e)
+        {
+            DB.SuspendTreeUpdates();
+            toolStripProgressBar1.Visible = true;
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Title ="Export Gains and Forecasts for each scenario";
+            dlg.Filter = "Excel (*.xls;*.xlsx) |*.xls;*.xlsx|All files (*.*)|*.*";
+            var ds = new ScenarioManagement.ScenarioDataSet();
+            ds.OnProgress += explorer_OnProgress;
+            try
+            {
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    ds.Export(dlg.FileName, DB);
+                }
+            }
+            catch (Exception eex)
+            {
+                MessageBox.Show(eex.Message, "Error");
 
-        
-
-       
+            }
+            finally
+            {
+                DB.ResumeTreeUpdates();
+                DatabaseChanged();
+                toolStripProgressBar1.Visible = false;
+            }
+        }
     }
+
+
 }

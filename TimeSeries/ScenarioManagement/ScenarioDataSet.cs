@@ -68,6 +68,10 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
 
                 Series s = ReadExternalSeriesData(scenarioName, filename, externalSiteID);
                 s.Name = internalSiteID;
+                if( row.Table.Columns.IndexOf("units")>=0)
+                {
+                    s.Units = row["units"].ToString();
+                }
                 s.ConnectionString = "ScenarioName=" + scenarioName;
                 var id =-1;
                 if (db.GetSeriesFromName(internalSiteID) == null)
@@ -123,6 +127,18 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
                 return "Error - SiteMapping does not contain ExternalSiteID of '" + externalSiteID + "'";
             else
                 return "Error - SiteMapping has multiple mappings for ExternalSiteID of '" + externalSiteID + "'";
+        }
+
+        /// <summary>
+        /// Exports scenarios. One pisces database per scenario.
+        /// 
+        /// </summary>
+        /// <param name="excelFileName"></param>
+        /// <param name="DB"></param>
+        public void Export(string excelFileName, TimeSeriesDatabase DB)
+        {
+
+
         }
     }
 }

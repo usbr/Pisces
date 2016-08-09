@@ -50,9 +50,10 @@ namespace Reclamation.TimeSeries.Forms
             DB.SuspendTreeUpdates();
             toolStripProgressBar1.Visible = true;
             OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Title = "Import Hydrologic Model output";
             dlg.Filter = "Excel (*.xls;*.xlsx) |*.xls;*.xlsx|All files (*.*)|*.*";
             var ds = new ScenarioManagement.ScenarioDataSet();
-            ds.OnProgress += ds_OnProgress;
+            ds.OnProgress += explorer_OnProgress;
             try
             {
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -71,11 +72,6 @@ namespace Reclamation.TimeSeries.Forms
                 DatabaseChanged();
                 toolStripProgressBar1.Visible = false;
             }
-        }
-
-        void ds_OnProgress(object sender, ProgressEventArgs e)
-        {
-            explorer_OnProgress(sender, e);
         }
 
 
