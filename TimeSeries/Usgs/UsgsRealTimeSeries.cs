@@ -305,20 +305,24 @@ USGS	13206000	2012-05-02 13:45	MDT	8000	P	10.72	P
             }
             Name += (" " + Parameter);
 
-        // find the parts of the column name
-/*
-# Data for the following site(s) are contained in this file
-#    USGS 13206000 BOISE RIVER AT GLENWOOD BRIDGE NR BOISE ID
-# -----------------------------------------------------------------------------------
-#
-# Data provided for site 13206000
-#    DD parameter   Description
-#    01   00060     Discharge, cubic feet per second
-#    02   00065     Gage height, feet
-*/
+            // find the parts of the column name
+            /*
+            # Data for the following site(s) are contained in this file
+            #    USGS 13206000 BOISE RIVER AT GLENWOOD BRIDGE NR BOISE ID
+            # -----------------------------------------------------------------------------------
+            #
+OLD         # Data provided for site 13206000
+            #    DD parameter   Description
+            #    01   00060     Discharge, cubic feet per second
+            #    02   00065     Gage height, feet
+NEW         # Data provided for site 13069500
+            #    TS_ID       Parameter Description
+            #    47218       00060     Discharge, cubic feet per second
+
+            */
             string line = m_rdb.TextFile[idx];
-            string DD = line.Substring(5, 2);
-            string p = line.Substring(10, 5);
+            string DD = line.Substring(5, 6).Trim();
+            string p = line.Substring(17, 5);
             //string stat = line.Substring(20, 5); RealTime doesn't have stat
 
             m_columnName = DD + "_" + p;
