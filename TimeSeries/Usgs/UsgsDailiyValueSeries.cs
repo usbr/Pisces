@@ -616,7 +616,7 @@ USGS	13010065	2007-03-08	338	P
             }
             Name += (" " + Parameter);
 
-        // find the parts of the column name
+            // find the parts of the column name
             /*
             #    USGS 13010065 SNAKE RIVER AB JACKSON LAKE AT FLAGG RANCH WY
              * 
@@ -635,14 +635,17 @@ USGS	13010065	2007-03-08	338	P
 #    04   00095     00001     Specific conductance, water, unfiltered, microsiemens per centimeter at 25 degrees Celsius (Maximum)
 #    04   00095     00002     Specific conductance, water, unfiltered, microsiemens per centimeter at 25 degrees Celsius (Minimum)
 #
+# Data provided for site 13236500
+#    TS_ID       Parameter    Statistic  IV_TS_ID       Description
+#    46157       00060        00003      47665          Discharge, cubic feet per second (Mean)
 
             */
             string line = m_rdb.TextFile[idx];
-            string DD = line.Substring(5, 2);
-            string p = line.Substring(10, 5);
-            string stat = line.Substring(20, 5);
+            string TS_ID = line.Substring(5, 6).Trim();
+            string p = line.Substring(17, 5).Trim();
+            string stat = line.Substring(30, 5).Trim();
 
-            m_columnName = DD + "_" + p + "_" + stat;
+            m_columnName = TS_ID + "_" + p + "_" + stat;
             m_flagColumnName = m_columnName + "_cd";
 
             if (m_rdb.Columns.IndexOf(m_columnName) < 0)

@@ -311,21 +311,17 @@ USGS	13206000	2012-05-02 13:45	MDT	8000	P	10.72	P
             #    USGS 13206000 BOISE RIVER AT GLENWOOD BRIDGE NR BOISE ID
             # -----------------------------------------------------------------------------------
             #
-OLD         # Data provided for site 13206000
-            #    DD parameter   Description
-            #    01   00060     Discharge, cubic feet per second
-            #    02   00065     Gage height, feet
-NEW         # Data provided for site 13069500
+            # Data provided for site 13069500
             #    TS_ID       Parameter Description
             #    47218       00060     Discharge, cubic feet per second
 
             */
             string line = m_rdb.TextFile[idx];
-            string DD = line.Substring(5, 6).Trim();
-            string p = line.Substring(17, 5);
+            string TS_ID = line.Substring(5, 6).Trim();
+            string p = line.Substring(17, 5).Trim();
             //string stat = line.Substring(20, 5); RealTime doesn't have stat
 
-            m_columnName = DD + "_" + p;
+            m_columnName = TS_ID + "_" + p;
             m_flagColumnName = m_columnName + "_cd";
 
             if (m_rdb.Columns.IndexOf(m_columnName) < 0)
