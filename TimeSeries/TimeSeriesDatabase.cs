@@ -584,6 +584,9 @@ namespace Reclamation.TimeSeries
             return this.factory.GetFolder(si.id);
         }
 
+
+        static string[] QualityParameters = new string[] { "PARITY", "POWER", "MSGLEN", "LENERR", "TIMEERR" };
+
         /// <summary>
         /// Adds new site using template subset of a SeriesCatalog
         /// </summary>
@@ -627,7 +630,7 @@ namespace Reclamation.TimeSeries
                 if( item.TimeInterval == "Irregular")
                     parentID = instant;
 
-                if (Decodes.DecodesRawFile.QualityParameters.Contains(item.Parameter.ToUpper()))
+                if (QualityParameters.Contains(item.Parameter.ToUpper()))
                 {
                     parentID = quality;
                 }

@@ -208,13 +208,13 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 AddInstantRow(siteID, "feet", "af", "FileRatingTable(%site%_fb,\"%site%.csv\")");
             }
 
-            if( this.checkBoxQuality.Checked)
-            {
-                foreach (var item in Reclamation.TimeSeries.Decodes.DecodesRawFile.QualityParameters)
-                {
-                    AddInstantRow(siteID, "", item.ToLower());  
-                }
-            }
+            //if( this.checkBoxQuality.Checked)
+            //{
+            //    foreach (var item in QualityParameters)
+            //    {
+            //        AddInstantRow(siteID, "", item.ToLower());  
+            //    }
+            //}
             SetupDataGridView();
         }
 

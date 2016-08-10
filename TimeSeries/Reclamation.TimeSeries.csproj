@@ -389,19 +389,6 @@
     <Compile Include="TimeRange.cs" />
     <Compile Include="TimeSeriesDatabase.Factory.cs" />
     <Compile Include="DataTableSeries.cs" />
-    <Compile Include="Decodes\DecodesRawFile.cs" />
-    <Compile Include="Decodes\GoesMessageDataSet.cs">
-      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Decodes\GoesMessageDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Decodes\McfDecodesConverter.cs" />
-    <Compile Include="Decodes\McfToDecodes.cs" />
-    <Compile Include="Decodes\UnitConversion.cs" />
     <Compile Include="Estimation\AllPossibleCombination.cs" />
     <Compile Include="Estimation\MultipleLinearRegression.cs" />
     <Compile Include="Estimation\MultipleLinearRegressionResults.cs" />
@@ -618,16 +605,6 @@
     <Compile Include="IPlugin.cs" />
     <Compile Include="Math.ET.cs" />
     <Compile Include="DataLogger\LoggerNetFile.cs" />
-    <Compile Include="Decodes\DecodesDataSet.cs">
-      <DependentUpon>DecodesDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Decodes\DecodesDataSet1.Designer.cs">
-      <DependentUpon>DecodesDataSet.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Decodes\DecodesUtility.cs" />
     <Compile Include="Estimation\MonthlyToDailyConversion.cs" />
     <Compile Include="Estimation\Smoothing.cs" />
     <Compile Include="Extensions.cs" />
@@ -743,28 +720,6 @@
     </None>
     <None Include="AgriMet\CropDatesDataSet.xss">
       <DependentUpon>CropDatesDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Decodes\DecodesDataSet.xsc">
-      <DependentUpon>DecodesDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Decodes\DecodesDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DecodesDataSet1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Decodes\DecodesDataSet.xss">
-      <DependentUpon>DecodesDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Decodes\GoesMessageDataSet.xsc">
-      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Decodes\GoesMessageDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>GoesMessageDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Decodes\GoesMessageDataSet.xss">
-      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
     </None>
     <None Include="Hydromet\mcf.xsc">
       <DependentUpon>mcf.xsd</DependentUpon>

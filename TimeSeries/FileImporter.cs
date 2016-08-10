@@ -1,7 +1,6 @@
 ﻿using Reclamation.Core;
 using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.DataLogger;
-using Reclamation.TimeSeries.Decodes;
 using Reclamation.TimeSeries.Hydromet;
 using System;
 using System.Collections.Generic;
@@ -98,12 +97,12 @@ namespace Reclamation.TimeSeries
                         sl = lf.ToSeries(validPcodes);
                     }
                 }
-                else if (DecodesRawFile.IsValidFile(tf))
-                {
-                    DecodesRawFile df = new DecodesRawFile(tf);
-                    importTag = "raw";
-                    sl = df.ToSeries();
-                }
+                //else if (DecodesRawFile.IsValidFile(tf))
+                //{
+                //    DecodesRawFile df = new DecodesRawFile(tf);
+                //    importTag = "raw";
+                //    sl = df.ToSeries();
+                //}
                 else
                 {
                     Logger.WriteLine("skipped Unknown File Format: " + fileName);
