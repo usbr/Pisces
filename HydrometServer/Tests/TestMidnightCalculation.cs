@@ -38,7 +38,7 @@ namespace Pisces.NunitTests.SeriesMath
         ///  10/7/2014 -- full day 
         ///  10/8/2014 -- partial day  ends 12:00
         /// </summary>
-        [Test]
+        [Test, Category("Internal")]
         public void wrdo()
         {
             Logger.EnableLogger();
@@ -122,7 +122,7 @@ namespace Pisces.NunitTests.SeriesMath
             db.AddSeries(c);
 
             FileImporter fi = new FileImporter(db);
-            fi.Import(dir, computeDailyOnMidnight: true,searchPattern:"*.dat");
+            fi.Import(dir,RouteOptions.None,true,true,"*.dat");
 
 
             var s = db.GetSeriesFromTableName("daily_wrdo_ym");
