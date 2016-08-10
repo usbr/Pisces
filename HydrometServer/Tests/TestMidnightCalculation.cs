@@ -38,7 +38,7 @@ namespace Pisces.NunitTests.SeriesMath
         ///  10/7/2014 -- full day 
         ///  10/8/2014 -- partial day  ends 12:00
         /// </summary>
-        [Test]//, Category("Internal")]
+        [Test, Category("Internal")]
         public void wrdo()
         {
             Logger.EnableLogger();
