@@ -93,7 +93,12 @@ namespace Reclamation.TimeSeries
             // check for midnight values, and initiate daily calculations.
             if (s.TimeInterval == TimeInterval.Irregular)
             {
-                return s.MaxDateTime <= DateTime.Now.Date;
+                //foreach (var item in s)
+                //{
+                //    if (item.DateTime.IsMidnight())
+                //        return true;
+                //}
+                return s.MinDateTime <= DateTime.Now.Date;
             }
             return false;
         }
