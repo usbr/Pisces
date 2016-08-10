@@ -363,7 +363,7 @@ namespace Reclamation.TimeSeries.Modsim
                 + " GROUP BY TimeSteps.TSDate ";
             }
 
-            DataTable tbl = AccessDB.Table(m_databaseName, "RES_STOROutput", sql);
+            DataTable tbl = AccessDB.Table(m_databaseName, "RES_STOROutput", new System.Data.SqlClient.SqlCommand(sql));
             InitTimeSeries(tbl, Units, this.TimeInterval, true);
         }
 
@@ -383,7 +383,7 @@ namespace Reclamation.TimeSeries.Modsim
                     + " where NodesInfo.NName = '" + modsimName + "' AND "
                       + GetDateClause(t1, t2);
 
-            DataTable tbl = AccessDB.Table(m_databaseName, "RESOutput", sql);
+            DataTable tbl = AccessDB.Table(m_databaseName, "RESOutput", new System.Data.SqlClient.SqlCommand(sql));
             InitTimeSeries(tbl, Units, TimeInterval, true);
         }
 
@@ -418,7 +418,7 @@ namespace Reclamation.TimeSeries.Modsim
                 + " GROUP BY TimeSteps.TSDate ";
             }
 
-            DataTable tbl = AccessDB.Table(m_databaseName, "DEMOutput", sql);
+            DataTable tbl = AccessDB.Table(m_databaseName, "DEMOutput", new System.Data.SqlClient.SqlCommand(sql));
             InitTimeSeries(tbl, Units, TimeInterval, true);
         }
 
@@ -457,7 +457,7 @@ namespace Reclamation.TimeSeries.Modsim
             }
 
             Performance perf = new Performance();
-            DataTable tbl = AccessDB.Table(m_databaseName, "LinksOutput", sql);
+            DataTable tbl = AccessDB.Table(m_databaseName, "LinksOutput", new System.Data.SqlClient.SqlCommand(sql));
             perf.Report();
             InitTimeSeries(tbl, Units, TimeInterval, true);
         }

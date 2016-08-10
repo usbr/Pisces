@@ -120,7 +120,7 @@ namespace Reclamation.TimeSeries.Forms.Graphing
             timer1.Interval = 1000 / Convert.ToInt32(this.textBoxspeed.Text);
           
             timer1.Enabled = true;
-            var fn = textBoxOutputFile.Text.Trim();
+            var fn = "c:\\temp\\temp.gif";// textBoxOutputFile.Text.Trim();
             if ( fn == "")
                 return;
 

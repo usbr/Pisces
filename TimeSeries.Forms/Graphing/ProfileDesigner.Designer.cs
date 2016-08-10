@@ -292,7 +292,8 @@
             this.textBoxOutputFile.Name = "textBoxOutputFile";
             this.textBoxOutputFile.Size = new System.Drawing.Size(311, 20);
             this.textBoxOutputFile.TabIndex = 20;
-            this.textBoxOutputFile.Text = "c:\\temp\\gcl.gif";
+            this.textBoxOutputFile.Text = "c:\\temp\\temp.gif";
+            this.textBoxOutputFile.Enabled = false;
             // 
             // label9
             // 
