@@ -52,7 +52,10 @@ Source:  ".\bin\debug\Reclamation.TimeSeries.ArmyCorps.dll";   DestDir: "{app}";
 Source:  ".\bin\debug\SpreadsheetGear.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\SQLite.Interop.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\System.Data.SQLite.dll";   DestDir: "{app}";   Flags: ignoreversion
+; Charting
 Source:  ".\bin\debug\TeeChart.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  ".\bin\debug\ZedGraph.dll";   DestDir: "{app}";   Flags: ignoreversion
+
 Source:  ".\bin\debug\hdb-poet.exe";   DestDir: "{app}";   Flags: ignoreversion
 ;Source:  ".\bin\debug\Tamir.SharpSSH.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\DSSUTL.EXE";   DestDir: "{app}";   Flags: ignoreversion
@@ -61,6 +64,10 @@ Source:  ".\bin\debug\MySql.Data.dll";   DestDir: "{app}";   Flags: ignoreversio
 Source:  ".\bin\debug\Npgsql.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\Mono.Security.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\DgvFilterPopup.dll";   DestDir: "{app}";   Flags: ignoreversion
+
+; RWIS
+Source:  "..\Rwis.Sync\bin\Debug\Rwis.Sync.exe";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Rwis.Sync\bin\Debug\Rwis.Sync.exe.config";   DestDir: "{app}";   Flags: ignoreversion
 
 ; ORACLE
 Source:  "C:\Program Files (x86)\Common Files\Devart\dotConnect\5.00\Net2\Common\Devart.Data.Oracle.dll";   DestDir: "{app}";   Flags: ignoreversion
