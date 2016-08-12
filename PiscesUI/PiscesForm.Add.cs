@@ -101,19 +101,14 @@ namespace Reclamation.TimeSeries.Forms
         private void addRBMSDirectory(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
-            DialogResult result = fbd.ShowDialog();
 
-            string[] files = Directory.GetFiles(fbd.SelectedPath);
-            for (int i = 0; i < files.Length; i++)
+            if (fbd.ShowDialog() == DialogResult.OK)
             {
-                //try
-               // {
+                string[] files = Directory.GetFiles(fbd.SelectedPath);
+                for (int i = 0; i < files.Length; i++)
+                {
                     RBMSTextFile.ImportFile(files[i], DB, true);
-                //}
-                //catch (Exception ex)
-                //{
-                   // MessageBox.Show("Error importing "+files[i]+"\n"+ ex.Message);
-                //}
+                } 
             }
         }
 
