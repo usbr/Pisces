@@ -17,6 +17,7 @@ LicenseFile=..\license.md
 
 DefaultDirName={sd}\Pisces2
 DefaultGroupName=Pisces
+AlwaysShowDirOnReadyPage=yes
 
 Compression=lzma
 SolidCompression=yes
