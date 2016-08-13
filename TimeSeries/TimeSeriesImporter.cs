@@ -143,18 +143,25 @@ namespace Reclamation.TimeSeries
  
                 //TimeRange tr = GetDailyCalculationTimeRange(importSeries); 
                 TimeRange tr;
-                if (TryGetDailyTimeRange(importSeries, out tr))
+                if (TryGetDailyTimeRange(importSeries, out tr))  // TO DO: importSeries is not changing why is this in a loop?
                 {
                     cs.Calculate(tr.StartDate, tr.EndDate);
-                }
-                if (cs.Count > 0)
-                {
-                    routingList.Add(cs);
-                    if (cs.CountMissing() > 0)
+                    if (cs.Count > 0)
+                    {
+                        routingList.Add(cs);
+                        if (cs.CountMissing() > 0)
 
-                        Console.WriteLine(" Missing " + cs.CountMissing() + " records");
-                    else
-                        Console.WriteLine(" OK");
+                            Console.WriteLine(" Missing " + cs.CountMissing() + " records");
+                        else
+                            Console.WriteLine(" OK");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine(" time range indicates don't perform calculation.");
+                    Console.WriteLine(" Current Time:"+DateTime.Now.ToString());
+                    Console.WriteLine(" Default time range :"+tr.StartDate.ToString()+" "+tr.EndDate.ToString());
+                    //Console.WriteLine(importSeries.);
                 }
             }
         }
