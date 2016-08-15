@@ -28,6 +28,7 @@ namespace PiscesWebServices.CGI
 
         internal void Run()
         {
+            Console.Write("Content-type: text/html\n\n");
             if (query == "")
             {
                 query = HydrometWebUtility.GetQuery();
