@@ -26,7 +26,7 @@ namespace Reclamation.TimeSeries.Forms
     private System.Windows.Forms.StatusBar statusBar1;
     //private System.Windows.Forms.ToolBarButton toolBarButtonSaveToDatabase;
         private DataGridView dataGridView1;
-        private ToolBarButton toolBarButtonSave;
+        private ToolBarButton toolBarButtonSave=null;
         private ToolBarButton toolBarButtonCustom1;
     private System.ComponentModel.IContainer components;
 

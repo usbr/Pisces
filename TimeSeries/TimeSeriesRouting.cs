@@ -71,7 +71,7 @@ namespace Reclamation.TimeSeries
             if (route == RouteOptions.Both || route == RouteOptions.Outgoing)
             {
                 fileName = GetOutgoingFileName("daily", name, "all");
-                Console.WriteLine(fileName);
+                Console.WriteLine("saving daily outgoing to:"+fileName);
                 HydrometDailySeries.WriteToArcImportFile(list, fileName);
             }
 
@@ -80,6 +80,7 @@ namespace Reclamation.TimeSeries
                 foreach (var s in list)
                 {
                     fileName = GetIncommingFileName("daily", s.SiteID, s.Parameter);
+                    Console.WriteLine("saving daily incoming to:" + fileName);
                     s.WriteCsv(fileName, true);
                 }
 
@@ -107,7 +108,7 @@ namespace Reclamation.TimeSeries
                 
                 var tmpFileName = FileUtility.GetTempFileName(".txt");
                 File.Delete(tmpFileName);
-                Console.WriteLine(tmpFileName);
+                Console.WriteLine("temp file:"+tmpFileName);
                 foreach (var s in list)
                 {
                   HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), tmpFileName,true);
