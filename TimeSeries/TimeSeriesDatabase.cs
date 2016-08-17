@@ -688,15 +688,15 @@ namespace Reclamation.TimeSeries
         /// <param name="server"></param>
         private void DeleteExistingData(DataTable table)
         {
-            string sql = "Select count(*) from " + m_server.PortableTableName(table.TableName);
+            //string sql = "Select count(*) from " + m_server.PortableTableName(table.TableName);
 
-            DataTable tbl = m_server.Table("query", sql);
-            if (tbl.Rows.Count > 0)
-            {
-                int count = Convert.ToInt32(tbl.Rows[0][0]);
-                if (count == 0)
-                    return;
-            }
+            //DataTable tbl = m_server.Table("query", sql);
+            //if (tbl.Rows.Count > 0)
+            //{
+            //    int count = Convert.ToInt32(tbl.Rows[0][0]);
+            //    if (count == 0)
+            //        return;
+            //}
 
             // old method:  33 seconds total  56% of time in this routine... ( avg 1022 ms) per call  (save to temporary table )
             // this new  :  16 seconds total  2% of time in this routine... (avg 17 ms) per call
@@ -705,7 +705,7 @@ namespace Reclamation.TimeSeries
 
             if (dates.Length > 0)
             {
-                sql = "Delete from " + table.TableName + " Where datetime in "
+                var sql = "Delete from " + table.TableName + " Where datetime in "
                 + " ( " + String.Join(",", dates) + " )";
                 int i = m_server.RunSqlCommand(sql);
                 Logger.WriteLine("Deleted " + i + " old records");
