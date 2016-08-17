@@ -31,7 +31,7 @@ namespace Reclamation.Core
         /// <param name="exception"></param>
         public static void WriteLine(string message, Exception exception)
         {
-            Console.WriteLine(exception.Message);
+            //Console.WriteLine(exception.Message);
             WriteLine(message);
             WriteLine(exception.Message);
             WriteLine(exception.StackTrace);
@@ -64,7 +64,7 @@ namespace Reclamation.Core
                 LogHistory = new List<string>();
             }
             if (_traceSwitch.Level != TraceLevel.Off)
-                Console.WriteLine(message);
+                Console.WriteLine(DateTime.Now.ToString() + ": " + message);
 
             Trace.WriteLine(DateTime.Now.ToString() + ": " + message);
             if (LogHistory != null && s_keepHistoryInMemory && tag != "ui")

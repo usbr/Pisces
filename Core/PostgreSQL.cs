@@ -50,6 +50,7 @@ namespace Reclamation.Core
             }
            
             string cs = "Server=" + server + ";Database=" + databaseName + ";User id=" + userName + ";";
+            Logger.WriteLine(cs);
             return new PostgreSQL(cs);
         }
         else
