@@ -688,16 +688,9 @@ namespace Reclamation.TimeSeries
         /// <param name="server"></param>
         private void DeleteExistingData(DataTable table)
         {
-            //string sql = "Select count(*) from " + m_server.PortableTableName(table.TableName);
-
-            //DataTable tbl = m_server.Table("query", sql);
-            //if (tbl.Rows.Count > 0)
-            //{
-            //    int count = Convert.ToInt32(tbl.Rows[0][0]);
-            //    if (count == 0)
-            //        return;
-            //}
-
+            // dropping count(*) query results speedup from 4.3 minutes
+            // to 2.0 minutes in typical batch run of data
+            
             // old method:  33 seconds total  56% of time in this routine... ( avg 1022 ms) per call  (save to temporary table )
             // this new  :  16 seconds total  2% of time in this routine... (avg 17 ms) per call
             string[] dates = (from DataRow row in table.Rows
