@@ -60,7 +60,7 @@ namespace Reclamation.TimeSeries
             {
                 m_db.Quality.SetFlags(s); // to do, log/email flaged data
                 // m_db.Alarms.Check(s);To Do.. check for alarms..
-                m_db.ImportSeriesUsingTableName(s,  "");
+                m_db.ImportSeriesUsingTableName(s,  "",  DatabaseSaveOptions.UpdateExisting);
                 routingList.Add(s);
                 if (computeDependencies)
                 {
@@ -93,11 +93,6 @@ namespace Reclamation.TimeSeries
             // check for midnight values, and initiate daily calculations.
             if (s.TimeInterval == TimeInterval.Irregular)
             {
-                //foreach (var item in s)
-                //{
-                //    if (item.DateTime.IsMidnight())
-                //        return true;
-                //}
                 return s.MinDateTime <= DateTime.Now.Date;
             }
             return false;
@@ -133,17 +128,22 @@ namespace Reclamation.TimeSeries
         {
             // do Actual Computations now. (in proper order...)
             TimeSeriesDependency td = new TimeSeriesDependency(calculationQueue);
+
+             TimeRange tr;
+            bool validRange = TryGetDailyTimeRange(importSeries, out tr);
+
+            if (!validRange)
+            {
+                Console.WriteLine(" time range indicates don't perform calculation.");
+                Console.WriteLine(" Current Time:" + DateTime.Now.ToString());
+                Console.WriteLine(" Default time range :" + tr.StartDate.ToString() + " " + tr.EndDate.ToString());
+            }
+
             var sortedCalculations = td.Sort();
             foreach (CalculationSeries cs in sortedCalculations)
             {
                 Console.Write(">>> " + cs.Table.TableName + ": " + cs.Expression);
-
-                //if (cs.MinDateTime == DateTime.Now.Date)
-                  //  continue; // data is all in today or future... don't compute
- 
-                //TimeRange tr = GetDailyCalculationTimeRange(importSeries); 
-                TimeRange tr;
-                if (TryGetDailyTimeRange(importSeries, out tr))  // TO DO: importSeries is not changing why is this in a loop?
+                if (validRange)
                 {
                     cs.Calculate(tr.StartDate, tr.EndDate);
                     if (cs.Count > 0)
@@ -158,10 +158,7 @@ namespace Reclamation.TimeSeries
                 }
                 else
                 {
-                    Console.WriteLine(" time range indicates don't perform calculation.");
-                    Console.WriteLine(" Current Time:"+DateTime.Now.ToString());
-                    Console.WriteLine(" Default time range :"+tr.StartDate.ToString()+" "+tr.EndDate.ToString());
-                    //Console.WriteLine(importSeries.);
+                    Console.WriteLine("Skipping because there is not a valid time range.");
                 }
             }
         }
@@ -172,28 +169,24 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="inputSeriesList"></param>
         /// <returns></returns>
-        private static bool TryGetDailyTimeRange(SeriesList inputSeriesList, out TimeRange tr)
+        internal static bool TryGetDailyTimeRange(SeriesList inputSeriesList, out TimeRange tr)
         {
-           var t1 = inputSeriesList.MinDateTime.Date;
-           var t2 = inputSeriesList.MaxDateTime;
-           var todayMidnight = DateTime.Now.Date;
+           var t1 = inputSeriesList.MinDateTime.Date; // 8-16 12:00 am
+           var t2 = inputSeriesList.MaxDateTime;      // 8-17  12:00 am
+           var todayMidnight = DateTime.Now.Date;     // 8-17  12:00 am
            tr = new TimeRange(t1, t2);
 
            if (t2 < todayMidnight)
                return true;
 
 
-            if(t1 < todayMidnight &&  t2 > todayMidnight  )
+            if(t1 < todayMidnight &&  t2 >= todayMidnight  )
             {
                 t2=todayMidnight.AddDays(-1);
                 tr = new TimeRange(t1, t2);
                 return true;
             }
 
-            if (t1 > todayMidnight)
-            {
-                return false;
-            }
 
             return false;
         }

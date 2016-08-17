@@ -5,7 +5,7 @@ using NUnit.Framework;
 using Reclamation.TimeSeries;
 using Reclamation.Core;
 
-namespace Pisces.NunitTests.SeriesFeatures
+namespace Pisces.NunitTests.DateMath
 {
     [TestFixture]
     public class TestDateRange

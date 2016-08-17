@@ -888,7 +888,7 @@ namespace Reclamation.TimeSeries
         private int ImportTimeSeriesTable(DataTable table, SeriesCatalogRow sr,
              DatabaseSaveOptions option)
         {
-            Performance perf = new Performance();
+           // Performance perf = new Performance();
             table.Columns[0].ColumnName = "datetime";
             table.Columns[1].ColumnName = "value";
             // table.Columns[2].ColumnName = "flag";
@@ -1635,7 +1635,7 @@ namespace Reclamation.TimeSeries
         /// Computes data dependent on the imported data
         /// Returns List of computed data.
         /// </summary>
-        public void ImportSeriesUsingTableName(Series s, string folderName="" )
+        public void ImportSeriesUsingTableName(Series s, string folderName="" ,DatabaseSaveOptions saveOption = DatabaseSaveOptions.UpdateExisting)
         {
             Logger.WriteLine("ImportSeriesUsingTableName: '" + s.Table.TableName+"'");
             FixInvalidTableName(s);
@@ -1675,7 +1675,7 @@ namespace Reclamation.TimeSeries
             
 
             
-                ImportTimeSeriesTable(s.Table, sr, DatabaseSaveOptions.UpdateExisting);
+                ImportTimeSeriesTable(s.Table, sr, saveOption);
             
           //  OnAfterSave(new SeriesEventArgs(s));    
 

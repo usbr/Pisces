@@ -5,7 +5,7 @@ using Reclamation.TimeSeries;
 using NUnit.Framework;
 using Reclamation.Core;
 
-namespace Pisces.NunitTests.SeriesFeatures
+namespace Pisces.NunitTests.DateMath
 {
     [TestFixture]
     public class TestMonthDayRange

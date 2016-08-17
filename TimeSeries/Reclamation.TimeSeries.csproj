@@ -378,9 +378,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tests\Database\TestDeleteDatabaseProperties.cs" />
+    <Compile Include="Tests\DateMath\TestDailyCalcRange.cs" />
     <Compile Include="Tests\Import\TestImportRioGrande.cs" />
     <Compile Include="Tests\Scenarios\TestScenarios.cs" />
-    <Compile Include="Tests\SeriesFeatures\TestTimeRange.cs" />
+    <Compile Include="Tests\DateMath\TestTimeRange.cs" />
     <Compile Include="Tests\SeriesFeatures\TestShiftSeriesBug.cs" />
     <Compile Include="Tests\SeriesMath\TestDailyCumulative.cs" />
     <Compile Include="Tests\SeriesMath\TestResidual.cs" />
@@ -461,12 +462,12 @@
     <Compile Include="Tests\Database\TimeSeriesDatabaseTest.cs" />
     <Compile Include="Tests\Estimation\TestEstimation.cs" />
     <Compile Include="Tests\SeriesFeatures\InsertDelete.cs" />
-    <Compile Include="Tests\SeriesFeatures\TestDateRange.cs" />
+    <Compile Include="Tests\DateMath\TestDateRange.cs" />
     <Compile Include="Tests\SeriesFeatures\TestFillMissingData.cs" />
     <Compile Include="Tests\SeriesFeatures\TestLookupAndIndexing.cs" />
     <Compile Include="Tests\SeriesFeatures\TestLookupIndex.cs" />
     <Compile Include="Tests\SeriesFeatures\TestMissingRecordCount.cs" />
-    <Compile Include="Tests\SeriesFeatures\TestMonthDayRange.cs" />
+    <Compile Include="Tests\DateMath\TestMonthDayRange.cs" />
     <Compile Include="Tests\SeriesFeatures\TestMoveTo.cs" />
     <Compile Include="Tests\SeriesFeatures\TestOffset.cs" />
     <Compile Include="Tests\SeriesFeatures\TestPeriodicSeries.cs" />
@@ -474,7 +475,7 @@
     <Compile Include="Tests\SeriesFeatures\TestSeriesList.cs" />
     <Compile Include="Tests\SeriesFeatures\TestShiftToYear.cs" />
     <Compile Include="Tests\SeriesFeatures\TestSubset.cs" />
-    <Compile Include="Tests\SeriesFeatures\TestYearRange.cs" />
+    <Compile Include="Tests\DateMath\TestYearRange.cs" />
     <Compile Include="Tests\SeriesMath\AverageTest.cs" />
     <Compile Include="Tests\SeriesMath\TestWeirEquations.cs" />
     <Compile Include="Tests\SeriesMath\TestET.cs" />
