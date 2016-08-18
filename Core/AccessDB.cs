@@ -312,7 +312,7 @@ namespace Reclamation.Core
     /// <param name="tableName">Name for returned DataTable</param>
     /// <param name="sql">sql command i.e. 'SELECT * from myTable'</param>
     /// <returns></returns>
-    public static DataTable Table(string filename,string tableName, string sql,
+    static DataTable Table(string filename,string tableName, string sql,
         bool acceptChangesDuringFill)
     {
         Logger.WriteLine("Reading "+tableName+" from "+filename);
@@ -320,23 +320,26 @@ namespace Reclamation.Core
       CheckIfFileExists(filename);
 
 
-      string strAccessConn = GetConnectionString(filename);
+      string cs = GetConnectionString(filename);
 
       DataSet myDataSet = new DataSet();
       myDataSet.Tables.Add(tableName);
       
-      OleDbConnection myAccessConn = new OleDbConnection(strAccessConn);
-      OleDbCommand myAccessCommand = new OleDbCommand(sql,myAccessConn);
-      OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(myAccessCommand);
+      OleDbConnection c = new OleDbConnection(cs);
+      OleDbCommand cmd = new OleDbCommand();
+        cmd.CommandText =sql;
+        cmd.Connection = c;
+
+      OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(cmd);
       myDataAdapter.AcceptChangesDuringFill = acceptChangesDuringFill;
       try
       {
-        myAccessConn.Open();
+        c.Open();
         myDataAdapter.Fill(myDataSet,tableName);
       }
       finally
       {
-        myAccessConn.Close();
+        c.Close();
       }
       if( debugOutput)
         Logger.WriteLine("completed reading MODSIM data");

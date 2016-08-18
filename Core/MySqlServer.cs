@@ -342,13 +342,14 @@ namespace Reclamation.Core
                 return new MySqlServer(cs);
             }
             else
-            { // use windows login for username
+            {  
                 if (password == "")
                 {
-                    try
-                    { password = user + File.ReadAllLines(@"mysql_key.txt", Encoding.UTF8)[0]; }
-                    catch
-                    { password = ""; }
+                    var fn = "mysql_key.txt";
+                    if( File.Exists(fn) && File.ReadAllLines(fn).Length >0)
+                    { 
+                        password = user + File.ReadAllLines(@"mysql_key.txt", Encoding.UTF8)[0]; 
+                    }
                 }
                 var cs = "server=" + server + ";uid=" + GetWindowsUserName() + ";" + "pwd=" + password +
                        ";database=" + databaseName + ";";

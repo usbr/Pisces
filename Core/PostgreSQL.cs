@@ -118,7 +118,7 @@ Alan
         if( userName == "")
             windowsUser = GetWindowsUserName();
 
-        string passwd="";
+        string passwd = Guid.NewGuid().ToString();
 
         
         string fileName =FileUtility.GetFileReference( keyFile);
