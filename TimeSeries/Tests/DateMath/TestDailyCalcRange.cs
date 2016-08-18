@@ -21,7 +21,7 @@ namespace Pisces.NunitTests.DateMath
 
             SeriesList list = lf.ToSeries();
             TimeRange tr;
-            bool valid = TimeSeriesImporter.TryGetDailyTimeRange(list, out tr);
+            bool valid = TimeSeriesImporter.TryGetDailyTimeRange(list, out tr, new DateTime(2016,8,17,0,10,0));
 
             Assert.IsTrue(valid);
             Assert.AreEqual( DateTime.Parse("2016-08-16"),tr.StartDate);
@@ -41,7 +41,7 @@ namespace Pisces.NunitTests.DateMath
 
             SeriesList list = lf.ToSeries();
             TimeRange tr;
-            bool valid = TimeSeriesImporter.TryGetDailyTimeRange(list, out tr);
+            bool valid = TimeSeriesImporter.TryGetDailyTimeRange(list, out tr,DateTime.Now);
 
             Assert.IsFalse(valid);
         }

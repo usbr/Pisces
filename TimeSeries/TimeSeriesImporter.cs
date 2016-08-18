@@ -130,7 +130,7 @@ namespace Reclamation.TimeSeries
             TimeSeriesDependency td = new TimeSeriesDependency(calculationQueue);
 
              TimeRange tr;
-            bool validRange = TryGetDailyTimeRange(importSeries, out tr);
+            bool validRange = TryGetDailyTimeRange(importSeries, out tr,DateTime.Now);
 
             if (!validRange)
             {
@@ -169,11 +169,11 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="inputSeriesList"></param>
         /// <returns></returns>
-        internal static bool TryGetDailyTimeRange(SeriesList inputSeriesList, out TimeRange tr)
+        internal static bool TryGetDailyTimeRange(SeriesList inputSeriesList, out TimeRange tr, DateTime today)
         {
            var t1 = inputSeriesList.MinDateTime.Date; // 8-16 12:00 am
            var t2 = inputSeriesList.MaxDateTime;      // 8-17  12:00 am
-           var todayMidnight = DateTime.Now.Date;     // 8-17  12:00 am
+           var todayMidnight = today.Date;     // 8-17  12:00 am
            tr = new TimeRange(t1, t2);
 
            if (t2 < todayMidnight)
