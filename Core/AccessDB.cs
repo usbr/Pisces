@@ -59,7 +59,7 @@ namespace Reclamation.Core
     /// <summary>Retuns a DataTable</summary>
       public override DataTable Table(string tableName, string sql)
     {
-      return AccessDB.Table(filename,tableName,sql);
+      return AccessDB.Table(filename,tableName, new System.Data.SqlClient.SqlCommand(sql));
     }
     /// <summary>Retuns a DataTable</summary>
       public override DataTable Table(string tableName)
@@ -79,7 +79,7 @@ namespace Reclamation.Core
 /// <summary>executes a sql command </summary>
       public override int RunSqlCommand(string sql)
     {
-      return	AccessDB.RunSqlCommand(filename,sql);
+      return	AccessDB.RunSqlCommand(filename, new System.Data.SqlClient.SqlCommand(sql));
     }
       public override void FillTable(DataTable dataTable, string sql)
       {
@@ -216,7 +216,8 @@ namespace Reclamation.Core
 
         for(int i=0; i<sz; i++)
         {
-          string cmd = "insert into "+table.TableName+" Values ( ";
+          var query = new System.Data.SqlClient.SqlCommand("INSERT INTO @table VALUES (@values)");
+          var values = "";
           for(int c = 0; c<cols; c++)
           {
             object o = table.Rows[i][c];
@@ -226,21 +227,21 @@ namespace Reclamation.Core
 
             if( type == "System.String")
             {// enclose with quotes.
-              cmd += "'"+o.ToString()+"'";
+              values += "'" + o.ToString() + "'";
             }
             else
             {
-              cmd += o.ToString();
+              values += o.ToString();
             }
 
             if( c!= cols-1)
-              cmd += ",";
+              values += ",";
 
           }
-          cmd += ")";
-          myCommand.CommandText = cmd;
-          myCommand.ExecuteNonQuery();
-         
+          query.Parameters.AddWithValue("@table", table.TableName);
+          query.Parameters.AddWithValue("@values", values);
+          myCommand.CommandText = query.CommandText;
+          myCommand.ExecuteNonQuery();         
         }
         myTrans.Commit();
         //rval = true;
@@ -273,7 +274,8 @@ namespace Reclamation.Core
     /// <param name="tableName"></param>
     public static void CopyTable(string filenameSource, string filenameTarget, string tableName)
     {
-      string sql = "delete * from "+tableName;
+      var sql = new System.Data.SqlClient.SqlCommand("DELETE * FROM  @table");
+      sql.Parameters.AddWithValue("@table", tableName);
       AccessDB.RunSqlCommand(filenameTarget,sql);
       AccessDB.InsertTable(AccessDB.ReadTable(filenameSource,tableName),filenameTarget);
     }
@@ -286,7 +288,8 @@ namespace Reclamation.Core
     public static DataTable ReadTable(string filename, string tableName)
     {
       CheckIfFileExists(filename);
-      string sql = "SELECT * from "+tableName;
+      System.Data.SqlClient.SqlCommand sql = new System.Data.SqlClient.SqlCommand("SELECT * FROM  @table");
+      sql.Parameters.AddWithValue("@table", tableName);
       DataTable rval = Table(filename,tableName,sql);
       rval.TableName = tableName;
       return rval;
@@ -300,7 +303,7 @@ namespace Reclamation.Core
         throw new Exception("File "+filename+" does not exist");
 
     }
-    public static DataTable Table(string filename, string tableName, string sql)
+    public static DataTable Table(string filename, string tableName, System.Data.SqlClient.SqlCommand sql)
     {
         return Table(filename, tableName, sql, true);
     }
@@ -312,7 +315,7 @@ namespace Reclamation.Core
     /// <param name="tableName">Name for returned DataTable</param>
     /// <param name="sql">sql command i.e. 'SELECT * from myTable'</param>
     /// <returns></returns>
-    public static DataTable Table(string filename,string tableName, string sql,
+    public static DataTable Table(string filename,string tableName, System.Data.SqlClient.SqlCommand sql,
         bool acceptChangesDuringFill)
     {
         Logger.WriteLine("Reading "+tableName+" from "+filename);
@@ -326,7 +329,7 @@ namespace Reclamation.Core
       myDataSet.Tables.Add(tableName);
       
       OleDbConnection myAccessConn = new OleDbConnection(strAccessConn);
-      OleDbCommand myAccessCommand = new OleDbCommand(sql,myAccessConn);
+      OleDbCommand myAccessCommand = new OleDbCommand(sql.CommandText,myAccessConn);
       OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(myAccessCommand);
       myDataAdapter.AcceptChangesDuringFill = acceptChangesDuringFill;
       try
@@ -411,7 +414,7 @@ namespace Reclamation.Core
     /// returns true if it works
     /// false if failed.
     /// </summary>
-     static int RunSqlCommand(string filename, string sql)
+     static int RunSqlCommand(string filename, System.Data.SqlClient.SqlCommand sql)
     {
       int rval = 0;
       string strAccessConn = GetConnectionString(filename);
@@ -430,7 +433,7 @@ namespace Reclamation.Core
 
       try
       {
-        myCommand.CommandText = sql;
+        myCommand.CommandText = sql.CommandText;
         //myCommand.CommandType = System.Data.CommandType.Text;
         rval =  myCommand.ExecuteNonQuery();
         myTrans.Commit();
@@ -438,7 +441,7 @@ namespace Reclamation.Core
       catch(Exception e)
       {
         myTrans.Rollback();
-        Console.WriteLine(sql);
+        Console.WriteLine(sql.CommandText);
         Console.WriteLine(e.ToString());
       }
       finally

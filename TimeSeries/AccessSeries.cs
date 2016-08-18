@@ -92,7 +92,7 @@ namespace Reclamation.TimeSeries
             string sql = "select count(*), min(" + m_dateColumn + "),max(" + m_dateColumn + ") from [" + m_tableName + "]";
 
             string query = "Select * from [" + m_tableName + "]  Where 1 = 0";
-            DataTable schema = AccessDB.Table(m_filename, m_tableName, query);
+            DataTable schema = AccessDB.Table(m_filename, m_tableName, new System.Data.SqlClient.SqlCommand(query));
 
            if (m_filterValue != "" && m_filterColumn != "")
             {
@@ -107,7 +107,7 @@ namespace Reclamation.TimeSeries
             DateTime t2 = TimeSeriesDatabase.MaxDateTime;// DateTime.MinValue;
             int count = 0;
 
-            DataTable por = AccessDB.Table(m_filename,"por", sql);
+            DataTable por = AccessDB.Table(m_filename,"por", new System.Data.SqlClient.SqlCommand(sql));
                 count = Convert.ToInt32(por.Rows[0][0]);
                 if (count > 0)
                 {
@@ -129,7 +129,7 @@ namespace Reclamation.TimeSeries
 
 
             string query = "Select * from [" + m_tableName + "]  Where 1 = 0";
-            DataTable schema = AccessDB.Table(m_filename, m_tableName, query);
+            DataTable schema = AccessDB.Table(m_filename, m_tableName, new System.Data.SqlClient.SqlCommand(query));
 
             if (m_filterValue != "" && m_filterColumn != "")
             {
@@ -141,10 +141,10 @@ namespace Reclamation.TimeSeries
 
 
             // get columns to define table
-            DataTable tbl = AccessDB.Table(m_filename, m_tableName, sql+" AND 1 = 0");
+            DataTable tbl = AccessDB.Table(m_filename, m_tableName, new System.Data.SqlClient.SqlCommand(sql +" AND 1 = 0"));
             InitTimeSeries(tbl, this.Units, this.TimeInterval, false);
 
-            tbl = AccessDB.Table(m_filename, m_tableName, sql);
+            tbl = AccessDB.Table(m_filename, m_tableName, new System.Data.SqlClient.SqlCommand(sql));
            // CsvFile.WriteToCSV(tbl, @"c:\temp\a.csv",true);
             foreach (DataRow r in tbl.Rows)
             {
