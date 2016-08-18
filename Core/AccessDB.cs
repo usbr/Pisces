@@ -182,101 +182,101 @@ namespace Reclamation.Core
 
    
 
-    /// <summary>
-    /// Saves data from DataTable to database
-    /// uses insert commands to save.
-    /// This is an alternative to the SaveTable method
-    /// </summary>
-    /// <param name="table"></param>
-    /// <param name="filename"></param>
-    public static void InsertTable(DataTable table,string filename)
-    {
-      if( debugOutput)
-        Console.Write("Inserting "+table.TableName+" to "+filename);
-      int sz = table.Rows.Count;
-      int cols = table.Columns.Count;
+    ///// <summary>
+    ///// Saves data from DataTable to database
+    ///// uses insert commands to save.
+    ///// This is an alternative to the SaveTable method
+    ///// </summary>
+    ///// <param name="table"></param>
+    ///// <param name="filename"></param>
+    //public static void InsertTable(DataTable table,string filename)
+    //{
+    //  if( debugOutput)
+    //    Console.Write("Inserting "+table.TableName+" to "+filename);
+    //  int sz = table.Rows.Count;
+    //  int cols = table.Columns.Count;
 
-      string strAccessConn = GetConnectionString(filename);
+    //  string strAccessConn = GetConnectionString(filename);
 
-      OleDbConnection myConnection = new OleDbConnection(strAccessConn);
-      myConnection.Open();
+    //  OleDbConnection myConnection = new OleDbConnection(strAccessConn);
+    //  myConnection.Open();
 
-      OleDbCommand myCommand = new OleDbCommand();
-      OleDbTransaction myTrans;
+    //  OleDbCommand myCommand = new OleDbCommand();
+    //  OleDbTransaction myTrans;
 
-      // Start a local transaction
-      myTrans = myConnection.BeginTransaction(IsolationLevel.ReadCommitted);
-      // Assign transaction object for a pending local transaction
-      myCommand.Connection = myConnection;
-      myCommand.Transaction = myTrans;
+    //  // Start a local transaction
+    //  myTrans = myConnection.BeginTransaction(IsolationLevel.ReadCommitted);
+    //  // Assign transaction object for a pending local transaction
+    //  myCommand.Connection = myConnection;
+    //  myCommand.Transaction = myTrans;
 
-      try
-      {
+    //  try
+    //  {
 
 
-        for(int i=0; i<sz; i++)
-        {
-          string cmd = "insert into "+table.TableName+" Values ( ";
-          for(int c = 0; c<cols; c++)
-          {
-            object o = table.Rows[i][c];
-            string type =o.GetType().ToString();
+    //    for(int i=0; i<sz; i++)
+    //    {
+    //      string cmd = "insert into "+table.TableName+" Values ( ";
+    //      for(int c = 0; c<cols; c++)
+    //      {
+    //        object o = table.Rows[i][c];
+    //        string type =o.GetType().ToString();
 
-            //TO do.  DateTime...
+    //        //TO do.  DateTime...
 
-            if( type == "System.String")
-            {// enclose with quotes.
-              cmd += "'"+o.ToString()+"'";
-            }
-            else
-            {
-              cmd += o.ToString();
-            }
+    //        if( type == "System.String")
+    //        {// enclose with quotes.
+    //          cmd += "'"+o.ToString()+"'";
+    //        }
+    //        else
+    //        {
+    //          cmd += o.ToString();
+    //        }
 
-            if( c!= cols-1)
-              cmd += ",";
+    //        if( c!= cols-1)
+    //          cmd += ",";
 
-          }
-          cmd += ")";
-          myCommand.CommandText = cmd;
-          myCommand.ExecuteNonQuery();
+    //      }
+    //      cmd += ")";
+    //      myCommand.CommandText = cmd;
+    //      myCommand.ExecuteNonQuery();
          
-        }
-        myTrans.Commit();
-        //rval = true;
-      }
-      catch(Exception e)
-      {
-        myTrans.Rollback();
-        //Console.WriteLine(sql);
-        Console.WriteLine(e.ToString());
-      }
-      finally
-      {
-        myConnection.Close();
-      }
+    //    }
+    //    myTrans.Commit();
+    //    //rval = true;
+    //  }
+    //  catch(Exception e)
+    //  {
+    //    myTrans.Rollback();
+    //    //Console.WriteLine(sql);
+    //    Console.WriteLine(e.ToString());
+    //  }
+    //  finally
+    //  {
+    //    myConnection.Close();
+    //  }
 
 
 
 
-      if( debugOutput)
-        Console.WriteLine(" done.");
-    }
+    //  if( debugOutput)
+    //    Console.WriteLine(" done.");
+    //}
 
 
-    /// <summary>
-    /// Copies table from one database to another.
-    /// deletes original table in target
-    /// </summary>
-    /// <param name="filenameSource"></param>
-    /// <param name="filenameTarget"></param>
-    /// <param name="tableName"></param>
-    public static void CopyTable(string filenameSource, string filenameTarget, string tableName)
-    {
-      string sql = "delete * from "+tableName;
-      AccessDB.RunSqlCommand(filenameTarget,sql);
-      AccessDB.InsertTable(AccessDB.ReadTable(filenameSource,tableName),filenameTarget);
-    }
+    ///// <summary>
+    ///// Copies table from one database to another.
+    ///// deletes original table in target
+    ///// </summary>
+    ///// <param name="filenameSource"></param>
+    ///// <param name="filenameTarget"></param>
+    ///// <param name="tableName"></param>
+    //public static void CopyTable(string filenameSource, string filenameTarget, string tableName)
+    //{
+    //  string sql = "delete * from "+tableName;
+    //  AccessDB.RunSqlCommand(filenameTarget,sql);
+    //  AccessDB.InsertTable(AccessDB.ReadTable(filenameSource,tableName),filenameTarget);
+    //}
     /// <summary>
     /// Returns everything from specified table.
     /// </summary>
