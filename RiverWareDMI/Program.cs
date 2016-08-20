@@ -19,7 +19,6 @@ namespace Reclamation.RiverwareDmi
             int debugLevel = 0;
 
             Arguments arguments = new Arguments(args);
-            
 
             if (arguments.Contains("udebuglevel"))
             {
@@ -89,6 +88,14 @@ namespace Reclamation.RiverwareDmi
             else if (arguments.Contains("usdffilename"))
             {
                 string sdfFileName = arguments["usdffilename"];
+                Regex regex = new Regex(@"\$(.*?)\\");
+                Match match = regex.Match(sdfFileName);
+                if (match.Success)
+                {
+                    var envVar = match.Groups[1].ToString();
+                    var envPath = Environment.GetEnvironmentVariable(envVar);
+                    sdfFileName = sdfFileName.Replace(envVar, envPath).Replace("$", "");
+                }
                 ReadFromPisces(sdfFileName, controlFilename, t1, t2);
             }
             else if (arguments.Contains("uembededdata") && arguments["uembededdata"].ToLower() == "true")
