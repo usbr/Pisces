@@ -91,7 +91,11 @@ namespace Reclamation.TimeSeries.SHEF
                     {
                         var shefItems = System.Text.RegularExpressions.Regex.Split(lineShefCodes[i], @"\s+");
                         var shefcode = shefItems[0];
-                        var shefValue = Convert.ToDouble(shefItems[1]);
+                        double shefValue;
+                        try
+                        { shefValue = Convert.ToDouble(shefItems[1]); }
+                        catch
+                        { shefValue = double.NaN; }
                         shefDataTable.Rows.Add(location, t, shefcode, shefValue);
                     }
                 }
