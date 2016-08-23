@@ -39,7 +39,7 @@ namespace PiscesWebServices.CGI
 
         string[] supportedFormats =new string[] {"csv", // csv with headers
                                                 "html", // basic html
-
+                                                "1", // legacy tab separated.
                                                 "2" // legacy csv
                                                 }; 
        
@@ -111,7 +111,11 @@ namespace PiscesWebServices.CGI
             {
                 m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
             }
-            else if( format == "html")
+            else if (format == "1")
+            {
+                m_formatter = new LegacyCsvFormatter(interval, m_printFlags,"\t");
+            }
+            else if (format == "html")
             {
                 m_formatter = new HtmlFormatter(interval, m_printFlags, printHeader);
             }
