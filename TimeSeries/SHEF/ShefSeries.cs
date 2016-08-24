@@ -22,7 +22,10 @@ namespace Reclamation.TimeSeries.SHEF
     public class ShefSeries : Series
     {
         DataTable shefDataTable = new DataTable();
-        string location, pecode, filename;
+        string m_location, m_pecode, m_filename;
+        TextFile m_textFile;
+        static Dictionary<string, TextFile> s_cache = new Dictionary<string, TextFile>();
+
 
         public ShefSeries()
         {
@@ -44,9 +47,9 @@ namespace Reclamation.TimeSeries.SHEF
 
         public ShefSeries(TimeSeriesDatabase db, TimeSeriesDatabaseDataSet.SeriesCatalogRow sr):base(db, sr)
         {
-            location = ConnectionStringUtility.GetToken(ConnectionString, "ShefLocation", "");
-            pecode = ConnectionStringUtility.GetToken(ConnectionString, "ShefCode", "");
-            filename = ConnectionStringUtility.GetToken(ConnectionString, "File", "");
+            m_location = ConnectionStringUtility.GetToken(ConnectionString, "ShefLocation", "");
+            m_pecode = ConnectionStringUtility.GetToken(ConnectionString, "ShefCode", "");
+            m_filename = ConnectionStringUtility.GetToken(ConnectionString, "File", "");
             InitTimeSeries(null, "", this.TimeInterval, true);
         }
 
@@ -92,10 +95,7 @@ namespace Reclamation.TimeSeries.SHEF
                         var shefItems = System.Text.RegularExpressions.Regex.Split(lineShefCodes[i], @"\s+");
                         var shefcode = shefItems[0];
                         double shefValue;
-                        try
-                        { shefValue = Convert.ToDouble(shefItems[1]); }
-                        catch
-                        { shefValue = double.NaN; }
+                        if (!double.TryParse(shefItems[1], out shefValue)) { shefValue = double.NaN; }
                         shefDataTable.Rows.Add(location, t, shefcode, shefValue);
                     }
                 }
@@ -103,22 +103,64 @@ namespace Reclamation.TimeSeries.SHEF
             return shefDataTable;
         }
 
-        //protected override void ReadCore()
-        //{
-        //    Add(GetShefSeries());
-        //}
+        protected override void UpdateCore(DateTime t1, DateTime t2, bool minimal = false)
+        {
+            ReadFromFile(t1, t2);
+        }
 
-        //private Series GetShefSeries()
-        //{
-        //    var dTab = ReadShefFile(filename);
-        //    var valTable = dTab.Select(string.Format("location = '{0}' AND shefcode = '{1}'", location, pecode));
-        //    foreach (DataRow item in valTable)
-        //    {
-        //        this.Add(DateTime.Parse(item["datetime"].ToString()), Convert.ToDouble(item["value"]));
-        //    }
-        //    return this;
-        //}
+        private void ReadFromFile(DateTime t1, DateTime t2)
+        {
+            Clear();
+            GetFileReference();
+            shefDataTable = ReadShefFile(m_filename);
+            //var newSeries = new ShefSeries(m_location, m_pecode, m_filename);
+            var valTable = shefDataTable.Select(string.Format("location = '{0}' AND shefcode = '{1}'", m_location, m_pecode));
+            foreach (DataRow item in valTable)
+            {
+                this.Add(DateTime.Parse(item["datetime"].ToString()), Convert.ToDouble(item["value"]));
+            }
+            m_db.SaveProperties(this);// LastWriteTime proabably changed
+            m_db.SaveTimeSeriesTable(this.ID, this, DatabaseSaveOptions.DeleteAllExisting);
+        }
 
+        /// <summary>
+        /// Get TextFile from disk or memory
+        /// </summary>
+        private void GetFileReference()
+        {
+            if (s_cache.ContainsKey(m_filename))
+            { // allready in memory.
+                Logger.WriteLine("Found file in cache: " + Path.GetFileName(m_filename));
+                m_textFile = s_cache[m_filename];
+
+                FileInfo fi = new FileInfo(m_filename);
+
+                if (fi.LastWriteTime > m_textFile.LastWriteTime)
+                {
+                    Logger.WriteLine("File has changed... updating cache");
+                    m_textFile = new TextFile(m_filename);
+                    s_cache[m_filename] = m_textFile;
+                }
+            }
+            else
+            {
+                Logger.WriteLine("reading file from disk: " + Path.GetFileName(m_filename));
+                if (!File.Exists(m_filename))
+                {
+                    Logger.WriteLine("File does not exist: '" + m_filename + "'");
+                }
+                m_textFile = new TextFile(m_filename);
+                int max_cache_size = 3;
+                if (s_cache.Count >= max_cache_size)
+                {
+                    s_cache.Clear();
+                    Logger.WriteLine(" s_cache.Clear();");
+                }
+                s_cache.Add(m_filename, m_textFile);
+            }
+        }
+
+        
         //////////////////////////////////////////////////////////////////////////////////////
         // HYDROMET PROGRAM FROM K.TARBET
         //////////////////////////////////////////////////////////////////////////////////////
