@@ -90,7 +90,8 @@ namespace Reclamation.TimeSeries.Forms
             tree1.TreeNodeSortChanged += new EventHandler<SortChangedEventArgs>(tree1_TreeNodeSortChanged);
             explorer1.View = graphView1;
             explorer1.OnProgress += new ProgressEventHandler(explorer_OnProgress);
-            
+
+            DataMenu.DropDown = contextMenuStripTree;
 
            DatabaseChanged();
         }

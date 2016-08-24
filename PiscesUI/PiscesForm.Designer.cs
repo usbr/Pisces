@@ -185,7 +185,6 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripSeparator4,
             this.menuProperties});
             this.contextMenuStripTree.Name = "contextMenuStripTree";
-            this.contextMenuStripTree.OwnerItem = this.DataMenu;
             this.contextMenuStripTree.Size = new System.Drawing.Size(145, 220);
             // 
             // toolStripMenuItem2
@@ -570,7 +569,6 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // DataMenu
             // 
-            this.DataMenu.DropDown = this.contextMenuStripTree;
             this.DataMenu.Name = "DataMenu";
             this.DataMenu.Size = new System.Drawing.Size(43, 20);
             this.DataMenu.Text = "&Data";
