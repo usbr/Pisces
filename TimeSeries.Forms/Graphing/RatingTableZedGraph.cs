@@ -206,57 +206,62 @@ RefreshGraph();
 
             if (measurements.Length > 0)
             {
-                var c = chart1.GraphPane.AddCurve(measurements[0].MeasurementRow.siteid, points, Color.Green, SymbolType.Circle);
-                c.Line.IsVisible = false;
-                c.Symbol.Fill = new Fill(Color.Green);
-                c.Symbol.IsVisible = true;
-
-                // TEST REGRESSION CODE
-                double[] xData = new double[measurements.Length];
-                double[] yData = new double[measurements.Length];
-                for (int i=0;i<points.Count;i++)
-                {
-                    xData[i] = points[i].Y;
-                    yData[i] = points[i].X;
-                }
-
-                // Linear Regression Line
-                var fitPoints = Reclamation.TimeSeries.Estimation.Regression.SimpleRegression(xData, yData);
-                PointPairList fitPointsArray = new PointPairList();
-                for (int i = 0; i < fitPoints.Length; i++)
-                {
-                    fitPointsArray.Add(fitPoints[i].Item2, fitPoints[i].Item1);
-                }
-                var f = chart1.GraphPane.AddCurve("Best Linear Fit Line", fitPointsArray, Color.Black, SymbolType.None);
-                f.Line.IsVisible = true;
-                f.Symbol.IsVisible = false;
-
-                // Log base-10 regression line
-                var logPoints = Reclamation.TimeSeries.Estimation.Regression.SimpleRegression(xData, yData, 1, true, 10);
-                PointPairList logPointsArray = new PointPairList();
-                for (int i = 0; i < logPoints.Length; i++)
-                {
-                    logPointsArray.Add(logPoints[i].Item2, logPoints[i].Item1);
-                }
-                var l = chart1.GraphPane.AddCurve("Best Log Fit Line", logPointsArray, Color.Red, SymbolType.None);
-                l.Line.IsVisible = true;
-                l.Symbol.IsVisible = false;
-
-                // Piecewise Linear Regression Line with 1 break at the flow average value
-                var pcwsePoints = Reclamation.TimeSeries.Estimation.Regression.PiecewiseLinearRegression(xData, yData, 
-                                    new double[] { yData.Average()});
-                PointPairList pcwsePointsArray = new PointPairList();
-                for (int i = 0; i < logPoints.Length; i++)
-                {
-                    pcwsePointsArray.Add(pcwsePoints[i].Item2, pcwsePoints[i].Item1);
-                }
-                var p = chart1.GraphPane.AddCurve("Piecewise Line: 1 break", pcwsePointsArray, Color.Blue, SymbolType.None);
-                p.Line.IsVisible = true;
-                p.Symbol.IsVisible = false;
+                AddRegressionLines(measurements, points);
 
             }
 
             RefreshGraph();
+        }
+
+        private void AddRegressionLines(BasicMeasurement[] measurements, PointPairList points)
+        {
+            var c = chart1.GraphPane.AddCurve(measurements[0].MeasurementRow.siteid, points, Color.Green, SymbolType.Circle);
+            c.Line.IsVisible = false;
+            c.Symbol.Fill = new Fill(Color.Green);
+            c.Symbol.IsVisible = true;
+
+            // TEST REGRESSION CODE
+            double[] xData = new double[measurements.Length];
+            double[] yData = new double[measurements.Length];
+            for (int i = 0; i < points.Count; i++)
+            {
+                xData[i] = points[i].Y;
+                yData[i] = points[i].X;
+            }
+
+            // Linear Regression Line
+            var fitPoints = Reclamation.TimeSeries.Estimation.Regression.SimpleRegression(xData, yData);
+            PointPairList fitPointsArray = new PointPairList();
+            for (int i = 0; i < fitPoints.Length; i++)
+            {
+                fitPointsArray.Add(fitPoints[i].Item2, fitPoints[i].Item1);
+            }
+            var f = chart1.GraphPane.AddCurve("Best Linear Fit Line", fitPointsArray, Color.Black, SymbolType.None);
+            f.Line.IsVisible = true;
+            f.Symbol.IsVisible = false;
+
+            // Log base-10 regression line
+            var logPoints = Reclamation.TimeSeries.Estimation.Regression.SimpleRegression(xData, yData, 1, true, 10);
+            PointPairList logPointsArray = new PointPairList();
+            for (int i = 0; i < logPoints.Length; i++)
+            {
+                logPointsArray.Add(logPoints[i].Item2, logPoints[i].Item1);
+            }
+            var l = chart1.GraphPane.AddCurve("Best Log Fit Line", logPointsArray, Color.Red, SymbolType.None);
+            l.Line.IsVisible = true;
+            l.Symbol.IsVisible = false;
+
+            // Piecewise Linear Regression Line with 1 break at the flow average value
+            var pcwsePoints = Reclamation.TimeSeries.Estimation.Regression.PiecewiseLinearRegression(xData, yData,
+                                new double[] { yData.Average() });
+            PointPairList pcwsePointsArray = new PointPairList();
+            for (int i = 0; i < logPoints.Length; i++)
+            {
+                pcwsePointsArray.Add(pcwsePoints[i].Item2, pcwsePoints[i].Item1);
+            }
+            var p = chart1.GraphPane.AddCurve("Piecewise Line: 1 break", pcwsePointsArray, Color.Blue, SymbolType.None);
+            p.Line.IsVisible = true;
+            p.Symbol.IsVisible = false;
         }
 
         private void toolStripButtonSettings_Click(object sender, EventArgs e)
