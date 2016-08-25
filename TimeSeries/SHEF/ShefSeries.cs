@@ -41,7 +41,7 @@ namespace Reclamation.TimeSeries.SHEF
             this.Source = "SHEF";
             this.Provider = "ShefSeries";
             getShefTimeInterval(pecode);
-            this.ConnectionString = "File=" + filename + ";ShefLocation=" + location + ";ShefCode=" + pecode + ";";
+            this.ConnectionString = "File=" + filename + ";ShefLocation=" + location + ";ShefCode=" + pecode + "";
             this.Table.TableName = this.Name;
         }
 
@@ -73,34 +73,42 @@ namespace Reclamation.TimeSeries.SHEF
 
         public DataTable ReadShefFile(string fileName)
         {
+            m_filename = fileName;
             shefDataTable = new DataTable();
             shefDataTable.Columns.Add(new DataColumn("location", typeof(string)));
             shefDataTable.Columns.Add(new DataColumn("datetime", typeof(DateTime)));
             shefDataTable.Columns.Add(new DataColumn("shefcode", typeof(string)));
             shefDataTable.Columns.Add(new DataColumn("value", typeof(double)));
 
-            List<string> shefInventory = new List<string>();
-            using (var fileStream = File.OpenRead(fileName))
-            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8, true, 128))
+            if (!s_cache.ContainsKey(m_filename))
             {
-                String line;
-                while ((line = streamReader.ReadLine()) != null)
-                {
-                    var lineItems = System.Text.RegularExpressions.Regex.Split(line, @"\s+");
-                    string location = lineItems[1];
-                    DateTime t = DateTime.ParseExact(lineItems[2] + lineItems[4].Replace("DH", ""), "yyyyMMddHHmm", System.Globalization.CultureInfo.InvariantCulture);
-                    var lineShefCodes = System.Text.RegularExpressions.Regex.Split(line, @"\/+");
-                    for (int i = 1; i < lineShefCodes.Count(); i++)
-                    {
-                        var shefItems = System.Text.RegularExpressions.Regex.Split(lineShefCodes[i], @"\s+");
-                        var shefcode = shefItems[0];
-                        double shefValue;
-                        if (!double.TryParse(shefItems[1], out shefValue)) { shefValue = double.NaN; }
-                        shefDataTable.Rows.Add(location, t, shefcode, shefValue);
-                    }
-                }
+                GetFileReference();
             }
+
+            TextFile lines = s_cache[m_filename];
+            for (int i = 0; i < lines.Length; i++)
+            {
+                addShefDataTableLine(lines[i]);
+            }
+
+
             return shefDataTable;
+        }
+
+        private void addShefDataTableLine(string line)
+        {
+            var lineItems = System.Text.RegularExpressions.Regex.Split(line, @"\s+");
+            string location = lineItems[1];
+            DateTime t = DateTime.ParseExact(lineItems[2] + lineItems[4].Replace("DH", ""), "yyyyMMddHHmm", System.Globalization.CultureInfo.InvariantCulture);
+            var lineShefCodes = System.Text.RegularExpressions.Regex.Split(line, @"\/+");
+            for (int i = 1; i < lineShefCodes.Count(); i++)
+            {
+                var shefItems = System.Text.RegularExpressions.Regex.Split(lineShefCodes[i], @"\s+");
+                var shefcode = shefItems[0];
+                double shefValue;
+                if (!double.TryParse(shefItems[1], out shefValue)) { shefValue = double.NaN; }
+                shefDataTable.Rows.Add(location, t, shefcode, shefValue);
+            }
         }
 
         protected override void UpdateCore(DateTime t1, DateTime t2, bool minimal = false)
@@ -124,31 +132,44 @@ namespace Reclamation.TimeSeries.SHEF
         }
 
         /// <summary>
-        /// Get TextFile from disk or memory
+        /// Get TextFile from disk, memory, or web
         /// </summary>
         private void GetFileReference()
         {
-            if (s_cache.ContainsKey(m_filename))
-            { // allready in memory.
-                Logger.WriteLine("Found file in cache: " + Path.GetFileName(m_filename));
-                m_textFile = s_cache[m_filename];
+            if (m_filename.Contains("http") && !s_cache.ContainsKey(m_filename))
+            {
+                Logger.WriteLine("Reading file from web: '" + m_filename + "'");
+                System.Net.WebClient client = new System.Net.WebClient();
+                Stream stream = client.OpenRead(m_filename);
+                StreamReader reader = new StreamReader(stream);
+                String content = reader.ReadToEnd();
 
-                FileInfo fi = new FileInfo(m_filename);
+                string[] stringSeparators = new string[] { "\r\n" };
+                string[] lines = content.Split(stringSeparators, StringSplitOptions.None);
 
-                if (fi.LastWriteTime > m_textFile.LastWriteTime)
+                m_textFile = new TextFile();
+                foreach (var line in lines)
                 {
-                    Logger.WriteLine("File has changed... updating cache");
-                    m_textFile = new TextFile(m_filename);
-                    s_cache[m_filename] = m_textFile;
+                    if (line != "")
+                    { m_textFile.Add(line); }
                 }
+
+                int max_cache_size = 3;
+                if (s_cache.Count >= max_cache_size)
+                {
+                    s_cache.Clear();
+                    Logger.WriteLine(" s_cache.Clear();");
+                }
+                s_cache.Add(m_filename, m_textFile);
             }
-            else
+            else if (!s_cache.ContainsKey(m_filename))
             {
                 Logger.WriteLine("reading file from disk: " + Path.GetFileName(m_filename));
                 if (!File.Exists(m_filename))
                 {
                     Logger.WriteLine("File does not exist: '" + m_filename + "'");
                 }
+
                 m_textFile = new TextFile(m_filename);
                 int max_cache_size = 3;
                 if (s_cache.Count >= max_cache_size)
@@ -158,59 +179,24 @@ namespace Reclamation.TimeSeries.SHEF
                 }
                 s_cache.Add(m_filename, m_textFile);
             }
+            else
+            { // already in memory.
+                Logger.WriteLine("Found file in cache: " + Path.GetFileName(m_filename));
+                m_textFile = s_cache[m_filename];
+
+                if (!m_filename.Contains("http"))
+                {
+                    FileInfo fi = new FileInfo(m_filename);
+                    if (fi.LastWriteTime > m_textFile.LastWriteTime)
+                    {
+                        Logger.WriteLine("File has changed... updating cache");
+                        m_textFile = new TextFile(m_filename);
+                        s_cache[m_filename] = m_textFile;
+                    }
+                }
+            }            
         }
-
         
-        //////////////////////////////////////////////////////////////////////////////////////
-        // HYDROMET PROGRAM FROM K.TARBET
-        //////////////////////////////////////////////////////////////////////////////////////
-        #region
-        //static int Main(string[] args)
-        //{
-        //    if (args.Length != 2)
-        //    {
-        //        Console.WriteLine(" ImportKlamathShef.exe " + Application.ProductVersion + " " + AssemblyUtility.CreationDate());
-        //        Console.WriteLine("Usage: ImportKlamathShef.exe config.csv output.txt");
-        //        return -1;
-        //    }
-        //    CsvFile csv = new CsvFile(args[0]);
-        //    string outputFilename = args[1];
-        //    var tokens = File.ReadAllLines(@"ftp.usbr.gov.txt");
-        //    SimpleFtp ftpClient = new SimpleFtp(@"ftp://ftp.usbr.gov", tokens[0], tokens[1]);
-
-
-        //    string[] dir = ftpClient.directoryListSimple("KBAO_data/");
-        //    for (int i = 0; i < dir.Count(); i++)
-        //    {
-        //        Console.Write("download " + dir[i]);
-        //        ftpClient.download("/KBAO_data/" + dir[i], dir[i]);
-
-        //        ProcessFile(dir[i], outputFilename, csv);
-
-        //        Console.Write("ok.  Delete remote ");
-        //        ftpClient.delete("/KBAO_data/" + dir[i]);
-        //        Console.WriteLine("done.");
-        //        // move to attic.
-        //        FileUtility.MoveToSubDirectory(Path.GetDirectoryName(dir[i]), "attic", dir[i]);
-        //        if (i == 24) // limit number of files processed at once.
-        //        {
-        //            Console.WriteLine("Stopped.  Limit of 24 files per call");
-        //            break;
-        //        }
-        //    }
-
-        //    Console.WriteLine("found " + dir.Length + " files ");
-        //    return 0;
-        //}
-
-        //private static void ProcessFile(string filename, string outputFilename, CsvFile csv)
-        //{
-        //    for (int i = 0; i < csv.Rows.Count; i++)
-        //    {
-        //        var r = csv.Rows[i];
-        //        var s = SimpleShef.ReadSimpleShefA(filename, r["shefloc"].ToString(), r["shefcode"].ToString());
-        //    }
-        //}
-        #endregion
+                        
     }
 }

@@ -306,7 +306,7 @@ namespace Rwis.Sync
                     provider += "HDBSeries";
                     break;
                 case "MP":
-                    provider += "SFTPSeries";
+                    provider += "ShefSeries";
                     break;
             }
             this.dataProviderLabel.Text = "Data Provider: " + provider;
@@ -370,7 +370,8 @@ namespace Rwis.Sync
                     conx += "server=UCHDB2;sdi=" + sdiCode + ";timeinterval=" + intervalCode;
                     break;
                 case "MP":
-                    conx += "server=MPSFTP;cbtt=" + siteCode + ";pcode=" + parCode;
+                    conx += @"File=\\ibr3lcrsrv01.bor.doi.net@8080\DavWWWRoot\mpRwisData\mpShefDailyInventory.shef;ShefLocation=" + siteCode + ";ShefCode=" + parCode + "";
+                    //conx += "server=MPSFTP;cbtt=" + siteCode + ";pcode=" + parCode;
                     break;
 
             }
@@ -406,7 +407,8 @@ namespace Rwis.Sync
                     conx += "server=UCHDB2;sdi=" + sdiCode + ";timeinterval=" + intervalCode;
                     break;
                 case "MP":
-                    conx += "server=MPSFTP;cbtt=" + siteCode + ";pcode=" + parCode;
+                    conx += @"File=\\ibr3lcrsrv01.bor.doi.net@8080\DavWWWRoot\mpRwisData\mpShefDailyInventory.shef;ShefLocation=" + siteCode + ";ShefCode=" + parCode + "";
+                    //conx += "server=MPSFTP;cbtt=" + siteCode + ";pcode=" + parCode;
                     break;
 
             }

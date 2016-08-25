@@ -124,17 +124,21 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxName
             // 
+            this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxName.Location = new System.Drawing.Point(85, 37);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(281, 20);
+            this.textBoxName.Size = new System.Drawing.Size(335, 20);
             this.textBoxName.TabIndex = 0;
             // 
             // textBoxParameter
             // 
+            this.textBoxParameter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxParameter.Location = new System.Drawing.Point(106, 17);
             this.textBoxParameter.Name = "textBoxParameter";
             this.textBoxParameter.ReadOnly = true;
-            this.textBoxParameter.Size = new System.Drawing.Size(245, 20);
+            this.textBoxParameter.Size = new System.Drawing.Size(314, 20);
             this.textBoxParameter.TabIndex = 14;
             this.textBoxParameter.TextChanged += new System.EventHandler(this.textBoxParameter_TextChanged);
             // 
@@ -150,10 +154,12 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxSiteName
             // 
+            this.textBoxSiteName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSiteName.Location = new System.Drawing.Point(106, 147);
             this.textBoxSiteName.Name = "textBoxSiteName";
             this.textBoxSiteName.ReadOnly = true;
-            this.textBoxSiteName.Size = new System.Drawing.Size(245, 20);
+            this.textBoxSiteName.Size = new System.Drawing.Size(314, 20);
             this.textBoxSiteName.TabIndex = 16;
             // 
             // label3
@@ -209,10 +215,12 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxParentID
             // 
+            this.textBoxParentID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxParentID.Location = new System.Drawing.Point(106, 121);
             this.textBoxParentID.Name = "textBoxParentID";
             this.textBoxParentID.ReadOnly = true;
-            this.textBoxParentID.Size = new System.Drawing.Size(245, 20);
+            this.textBoxParentID.Size = new System.Drawing.Size(314, 20);
             this.textBoxParentID.TabIndex = 22;
             // 
             // label4
@@ -226,10 +234,12 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxDBTableName
             // 
+            this.textBoxDBTableName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDBTableName.Location = new System.Drawing.Point(106, 173);
             this.textBoxDBTableName.Name = "textBoxDBTableName";
             this.textBoxDBTableName.ReadOnly = true;
-            this.textBoxDBTableName.Size = new System.Drawing.Size(245, 20);
+            this.textBoxDBTableName.Size = new System.Drawing.Size(314, 20);
             this.textBoxDBTableName.TabIndex = 24;
             // 
             // label6
@@ -243,10 +253,12 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxSiteID
             // 
+            this.textBoxSiteID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSiteID.Location = new System.Drawing.Point(106, 95);
             this.textBoxSiteID.Name = "textBoxSiteID";
             this.textBoxSiteID.ReadOnly = true;
-            this.textBoxSiteID.Size = new System.Drawing.Size(245, 20);
+            this.textBoxSiteID.Size = new System.Drawing.Size(314, 20);
             this.textBoxSiteID.TabIndex = 26;
             // 
             // label7
@@ -269,17 +281,21 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxSource
             // 
+            this.textBoxSource.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSource.Location = new System.Drawing.Point(106, 69);
             this.textBoxSource.Name = "textBoxSource";
             this.textBoxSource.ReadOnly = true;
-            this.textBoxSource.Size = new System.Drawing.Size(245, 20);
+            this.textBoxSource.Size = new System.Drawing.Size(314, 20);
             this.textBoxSource.TabIndex = 33;
             // 
             // textBoxConnectString
             // 
+            this.textBoxConnectString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConnectString.Location = new System.Drawing.Point(106, 43);
             this.textBoxConnectString.Name = "textBoxConnectString";
-            this.textBoxConnectString.Size = new System.Drawing.Size(245, 20);
+            this.textBoxConnectString.Size = new System.Drawing.Size(314, 20);
             this.textBoxConnectString.TabIndex = 34;
             // 
             // label11
@@ -302,10 +318,12 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxFileIndex
             // 
+            this.textBoxFileIndex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFileIndex.Location = new System.Drawing.Point(106, 202);
             this.textBoxFileIndex.Name = "textBoxFileIndex";
             this.textBoxFileIndex.ReadOnly = true;
-            this.textBoxFileIndex.Size = new System.Drawing.Size(245, 20);
+            this.textBoxFileIndex.Size = new System.Drawing.Size(314, 20);
             this.textBoxFileIndex.TabIndex = 39;
             // 
             // label14
@@ -427,7 +445,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.buttonBuildExpression.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBuildExpression.Location = new System.Drawing.Point(352, 262);
+            this.buttonBuildExpression.Location = new System.Drawing.Point(392, 262);
             this.buttonBuildExpression.MaximumSize = new System.Drawing.Size(28, 23);
             this.buttonBuildExpression.Name = "buttonBuildExpression";
             this.buttonBuildExpression.Size = new System.Drawing.Size(28, 23);
@@ -444,7 +462,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxExpression.Location = new System.Drawing.Point(85, 264);
             this.textBoxExpression.Multiline = true;
             this.textBoxExpression.Name = "textBoxExpression";
-            this.textBoxExpression.Size = new System.Drawing.Size(245, 100);
+            this.textBoxExpression.Size = new System.Drawing.Size(301, 100);
             this.textBoxExpression.TabIndex = 54;
             // 
             // label12
@@ -478,7 +496,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxRecordCount.Location = new System.Drawing.Point(85, 220);
             this.textBoxRecordCount.Name = "textBoxRecordCount";
             this.textBoxRecordCount.ReadOnly = true;
-            this.textBoxRecordCount.Size = new System.Drawing.Size(100, 20);
+            this.textBoxRecordCount.Size = new System.Drawing.Size(140, 20);
             this.textBoxRecordCount.TabIndex = 50;
             // 
             // label9
@@ -495,7 +513,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxPOR1.Location = new System.Drawing.Point(85, 172);
             this.textBoxPOR1.Name = "textBoxPOR1";
             this.textBoxPOR1.ReadOnly = true;
-            this.textBoxPOR1.Size = new System.Drawing.Size(138, 20);
+            this.textBoxPOR1.Size = new System.Drawing.Size(140, 20);
             this.textBoxPOR1.TabIndex = 49;
             // 
             // label10
@@ -557,7 +575,7 @@ namespace Reclamation.TimeSeries.Forms
             this.dgvProperties.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvProperties.Location = new System.Drawing.Point(106, 284);
             this.dgvProperties.Name = "dgvProperties";
-            this.dgvProperties.Size = new System.Drawing.Size(288, 107);
+            this.dgvProperties.Size = new System.Drawing.Size(314, 107);
             this.dgvProperties.TabIndex = 47;
             // 
             // label16
@@ -571,10 +589,12 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // textBoxProvider
             // 
+            this.textBoxProvider.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxProvider.Location = new System.Drawing.Point(106, 232);
             this.textBoxProvider.Name = "textBoxProvider";
             this.textBoxProvider.ReadOnly = true;
-            this.textBoxProvider.Size = new System.Drawing.Size(245, 20);
+            this.textBoxProvider.Size = new System.Drawing.Size(314, 20);
             this.textBoxProvider.TabIndex = 45;
             // 
             // labelSortOrder
@@ -591,7 +611,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxSortOrder.Location = new System.Drawing.Point(106, 258);
             this.textBoxSortOrder.Name = "textBoxSortOrder";
             this.textBoxSortOrder.ReadOnly = true;
-            this.textBoxSortOrder.Size = new System.Drawing.Size(100, 20);
+            this.textBoxSortOrder.Size = new System.Drawing.Size(154, 20);
             this.textBoxSortOrder.TabIndex = 43;
             // 
             // tabPageAlarm
@@ -633,7 +653,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxNotes.Location = new System.Drawing.Point(6, 24);
             this.textBoxNotes.Multiline = true;
             this.textBoxNotes.Name = "textBoxNotes";
-            this.textBoxNotes.Size = new System.Drawing.Size(366, 347);
+            this.textBoxNotes.Size = new System.Drawing.Size(414, 347);
             this.textBoxNotes.TabIndex = 0;
             // 
             // SeriesProperties
@@ -648,6 +668,7 @@ namespace Reclamation.TimeSeries.Forms
             this.Controls.Add(this.buttonCancel);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(465, 523);
             this.Name = "SeriesProperties";
             this.Text = "Series Properties";
             this.tabControl1.ResumeLayout(false);
