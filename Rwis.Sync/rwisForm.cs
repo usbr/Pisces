@@ -370,7 +370,7 @@ namespace Rwis.Sync
                     conx += "server=UCHDB2;sdi=" + sdiCode + ";timeinterval=" + intervalCode;
                     break;
                 case "MP":
-                    conx += @"File=\\ibr3lcrsrv01.bor.doi.net@8080\DavWWWRoot\mpRwisData\mpShefDailyInventory.shef;ShefLocation=" + siteCode + ";ShefCode=" + parCode + "";
+                    conx += @"File=http://ibr3lcrsrv01.bor.doi.net:8080/mpRwisData/mpShefDailyInventory.shef;ShefLocation=" + siteCode + ";ShefCode=" + parCode + "";
                     //conx += "server=MPSFTP;cbtt=" + siteCode + ";pcode=" + parCode;
                     break;
 
@@ -407,7 +407,7 @@ namespace Rwis.Sync
                     conx += "server=UCHDB2;sdi=" + sdiCode + ";timeinterval=" + intervalCode;
                     break;
                 case "MP":
-                    conx += @"File=\\ibr3lcrsrv01.bor.doi.net@8080\DavWWWRoot\mpRwisData\mpShefDailyInventory.shef;ShefLocation=" + siteCode + ";ShefCode=" + parCode + "";
+                    conx += @"File=http://ibr3lcrsrv01.bor.doi.net:8080/mpRwisData/mpShefDailyInventory.shef;ShefLocation=" + siteCode + ";ShefCode=" + parCode + "";
                     //conx += "server=MPSFTP;cbtt=" + siteCode + ";pcode=" + parCode;
                     break;
 
