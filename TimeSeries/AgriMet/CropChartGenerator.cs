@@ -72,7 +72,7 @@ namespace Reclamation.TimeSeries.AgriMet
                 var dailyTxtChart = CreateDailyUglyTextReport(cbttList[i], t, cropDates);
                 var dailyHtmlChart = CreateDailyHTMLReport(cbttList[i], t, cropDates);
                 var sumChart = CreateSummaryReport(cbttList[i], t, cropDates);
-
+                CreateDailyHTMLWebReport(cbttList[i], t, cropDates);
 
                 //string header = "AgriMet is excited to announce a partnership with Washington State University to icorporate AgriMet data into WSU's Irrigation Scheduler. To customize crop consumptive water use specific to your field or fields, visit http://weather.wsu.edu/is/";
 
@@ -238,6 +238,77 @@ namespace Reclamation.TimeSeries.AgriMet
             
             return rval;
 
+        }
+
+
+        /// <summary>
+        /// Creates Daily Crop Water Use Charts
+        /// </summary>
+        /// <param name="cbtt"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        private static void CreateDailyHTMLWebReport(string cbtt, DateTime t,
+            CropDatesDataSet.CropDatesRow[] cropRow)
+        {
+            CropDatesDataSet.CropDatesDataTable cropTable = new CropDatesDataSet.CropDatesDataTable();
+            cropTable = CropDatesDataSet.GetCropDataTable(t.Year, false); 
+
+            string html_file = "agricultureEmail-V2.html";
+            var agrimetDir = ConfigurationManager.AppSettings["AgriMetCropOutputDirectory"];
+            var fn = Path.Combine(agrimetDir, "chart", html_file);
+            var contents = File.ReadAllText(fn);
+            var outputfn = Path.Combine(agrimetDir, "chart", t.Year.ToString(), (cbtt + ".html"));
+            var et = new HydrometDailySeries(cbtt, "ETRS", s_host);
+
+            // Below is the calculation to determine how many days to read back. Set to calculate based on ETr Start Date.
+            var etStartDate = cropRow[0].startdate.DayOfYear;
+            var etTodayDate = t.DayOfYear;
+            int numDaysRead = etTodayDate - etStartDate - 1;
+            et.Read(t.AddDays(-numDaysRead), t.AddDays(-1));
+
+            contents = contents.Replace("{site_name}", cbtt);
+            //contents = contents.Replace("{site_high_temp}", );
+            //contents = contents.Replace("{site_low_temp}", );           
+            //contents = contents.Replace("{site_precip}", );
+            //contents = contents.Replace("{site_humidity}", );
+            //contents = contents.Replace("{site_wind}", );
+            //contents = contents.Replace("{site_max_wind}", );
+            
+            contents = contents.Replace("{site_m1}", t.Month.ToString() + "/" + t.AddDays(-1).Day.ToString());
+            contents = contents.Replace("{site_m2}", t.Month.ToString() + "/" + t.AddDays(-2).Day.ToString());
+            contents = contents.Replace("{site_m3}", t.Month.ToString() + "/" + t.AddDays(-3).Day.ToString());
+            contents = contents.Replace("{site_m4}", t.Month.ToString() + "/" + t.AddDays(-4).Day.ToString());
+
+            String[] cropCode = { "ETr", "ALFP", "ALFM", "HAYP", "HAYM", "POTA", "POTS", "WGRN", "SCRN" };
+            String[] cropNames = { "site_ref", "alfalfa_peak", "alfalfa_mean", "grass_peak", "grass_mean", "russet", 
+                                     "shepody", "winter_grain", "spring_grain" };
+            for (int i = 0; i < cropNames.Length; i++ )
+            {
+                var rows = cropTable.Select("cbtt= '"+ cbtt + "' and cropname= '" + cropCode[i] + "'");
+                if (rows.Length == 0) {
+                    continue;
+                }
+
+                var cRow = cropTable.NewCropDatesRow();
+                cRow.ItemArray = rows[0].ItemArray;
+
+                var crop = cropNames[i];
+                contents = contents.Replace("{" + crop + "_et_m1}", CropCurves.ETCropDaily(numDaysRead, 1, et, cRow));
+                contents = contents.Replace("{" + crop + "_et_m2}", CropCurves.ETCropDaily(numDaysRead, 2, et, cRow));
+                contents = contents.Replace("{" + crop + "_et_m3}", CropCurves.ETCropDaily(numDaysRead, 3, et, cRow));
+                contents = contents.Replace("{" + crop + "_et_m4}", CropCurves.ETCropDaily(numDaysRead, 4, et, cRow));
+                contents = contents.Replace("{" + crop + "_et_avg}", (CropCurves.EtSummation(4, et, cRow, numDaysRead) / 4).ToString("F2"));
+                contents = contents.Replace("{" + crop + "_7_day}", CropCurves.EtSummation(7, et, cRow, numDaysRead).ToString("F1"));
+                contents = contents.Replace("{" + crop + "_14_day}", CropCurves.EtSummation(14, et, cRow, numDaysRead).ToString("F1"));
+                contents = contents.Replace("{" + crop + "_total}", CropCurves.EtSummation(numDaysRead, et, cRow, numDaysRead).ToString("F1"));
+                contents = contents.Replace("{" + crop + "_start_date}", cRow.startdate.ToString("MM/dd"));
+                contents = contents.Replace("{" + crop + "_cover_date}", cRow.fullcoverdate.ToString("MM/dd"));
+                contents = contents.Replace("{" + crop + "_term_date}", cRow.terminatedate.ToString("MM/dd"));
+            }
+
+
+            File.WriteAllText(outputfn, contents);
+    
         }
 
         /// <summary>
