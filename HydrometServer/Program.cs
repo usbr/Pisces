@@ -146,7 +146,7 @@ namespace HydrometServer
                         searchPattern = "*";
 
                     string incomingPath = ConfigurationManager.AppSettings["incoming"];
-                    FileImporter importer = new FileImporter(db);
+                    FileImporter importer = new FileImporter(db, DatabaseSaveOptions.Upsert);
                     importer.Import(incomingPath, RouteOptions.Outgoing,computeDependencies,computeDailyOnMidnight,searchPattern);
                 }
 

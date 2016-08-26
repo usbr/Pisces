@@ -16,11 +16,13 @@ namespace Reclamation.TimeSeries
 
         TimeSeriesDatabase m_db;
         RouteOptions m_routing;
-
-        public TimeSeriesImporter(TimeSeriesDatabase db, RouteOptions routing=RouteOptions.None)
+        DatabaseSaveOptions m_saveOption;
+        public TimeSeriesImporter(TimeSeriesDatabase db,
+            RouteOptions routing = RouteOptions.None, DatabaseSaveOptions saveOption = DatabaseSaveOptions.UpdateExisting)
         {
             m_db = db;
             m_routing = routing;
+            m_saveOption = saveOption;
         }
 
         /// <summary>
@@ -60,7 +62,7 @@ namespace Reclamation.TimeSeries
             {
                 m_db.Quality.SetFlags(s); // to do, log/email flaged data
                 // m_db.Alarms.Check(s);To Do.. check for alarms..
-                m_db.ImportSeriesUsingTableName(s,  "",  DatabaseSaveOptions.UpdateExisting);
+                m_db.ImportSeriesUsingTableName(s,  "", m_saveOption);
                 routingList.Add(s);
                 if (computeDependencies)
                 {

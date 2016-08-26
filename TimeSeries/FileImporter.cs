@@ -22,9 +22,12 @@ namespace Reclamation.TimeSeries
         string[] validPcodes = new string[]{};
         string[] validSites = new string[] { };
         private TimeSeriesImporter m_importer;
+        DatabaseSaveOptions m_saveOption;
 
-        public FileImporter(Reclamation.TimeSeries.TimeSeriesDatabase db)
+        public FileImporter(Reclamation.TimeSeries.TimeSeriesDatabase db, 
+            DatabaseSaveOptions saveOption= DatabaseSaveOptions.UpdateExisting)
         {
+            m_saveOption = saveOption;
             m_db = db;
             if(  ConfigurationManager.AppSettings["ValidLoggerNetPcodes"] != null)
             validPcodes = ConfigurationManager.AppSettings["ValidLoggerNetPcodes"].Split(',');
@@ -109,7 +112,7 @@ namespace Reclamation.TimeSeries
                     return;
                 }
 
-                m_importer = new TimeSeriesImporter(m_db, routing);
+                m_importer = new TimeSeriesImporter(m_db, routing,m_saveOption);
                 Console.WriteLine("Found " + sl.Count + " series in " + fileName);
                 foreach (var item in sl)
                 {

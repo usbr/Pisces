@@ -50,7 +50,12 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// Deletes all existing data
         /// </summary>
-        DeleteAllExisting
+        DeleteAllExisting,
+
+        /// <summary>
+        /// Try to insert data, but update if necessary
+        /// </summary>
+        Upsert
     }
 
 
@@ -881,7 +886,10 @@ namespace Reclamation.TimeSeries
         }
 
 
-        
+
+
+        List<string> m_tableNames = new List<string>();
+
         /// <summary>
         /// Imports DataTable to the Database
         /// </summary>
@@ -900,14 +908,32 @@ namespace Reclamation.TimeSeries
                 table.Columns["flag"].DefaultValue = "";
             }
 
-            if (!m_server.TableExists(table.TableName))
+            if (m_tableNames.Count == 0) // table name cache speed up of 17%
+            {
+                m_tableNames.AddRange(m_server.TableNames());
+            }
+
+            if( m_tableNames.IndexOf(table.TableName) <0 )
             {
                 CreateSeriesTable(sr.TableName, true);
+                m_tableNames.Add(sr.TableName);
             }
 
             int count = 0;
          
-
+            if( option == DatabaseSaveOptions.Upsert)
+            {
+                try
+                {
+                    count = m_server.InsertTable(table);
+                }catch (Exception eprimary)
+                {
+                    Logger.WriteLine("Error: insert did not work.. deleting existing data first "+eprimary.Message);
+                    DeleteExistingData(table);
+                    count = m_server.InsertTable(table);
+                }
+            }
+            else
             if (option == DatabaseSaveOptions.UpdateExisting)
             {
                 //count = InsertOrUpdate(table, si.FileIndex); 
