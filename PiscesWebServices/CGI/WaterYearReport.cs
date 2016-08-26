@@ -59,20 +59,29 @@ namespace PiscesWebServices.CGI
             var endYear = r.EndDate.Year;
             DateTime t1 = r.StartDate;
 
-
-
-            string siteDescription = GetSiteDescription(siteID);
-            string parameterDescription = GetParameterDescription(parameter, TimeInterval.Daily);
-
                 for (int i = startYear; i < endYear; i++)
                 {
                     s.Read(t1, t1.AddMonths(12));
                     DataTable wyTable = Reports.WaterYearTable(s);
-                    Console.WriteLine("print header");
-                    var html = DataTableOutput.ToHTML(wyTable);
+                    var header = GetHeader(i, siteID,parameter);
+                    Console.WriteLine(header);
+                    var html = DataTableOutput.ToHTML(wyTable,true, "Water Year Report",header);
                     Console.WriteLine(html);
                     t1 = t1.AddMonths(12);
                 }
+        }
+
+        private string GetHeader(int year, string siteID, string parameter)
+        {
+            string siteDescription = GetSiteDescription(siteID);
+            string parameterDescription = GetParameterDescription(parameter, TimeInterval.Daily);
+
+            return "";
+//            @"<thead align="center"><tr><td colspan="13"><b>Station  ABEI - ABERDEEN IDAHO WEATHER STATION<br /
+//Parameter PP - Precipitation, 24 Hour Total, Inches<br />
+//Report for Water Year 2014<br />
+//Bureau of Reclamation AgriMet System<br /></b>
+//Provisional Data, Subject to Change</thead>";
         }
 
         private string GetSiteDescription(string siteID)
