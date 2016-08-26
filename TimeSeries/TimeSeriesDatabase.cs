@@ -273,6 +273,13 @@ namespace Reclamation.TimeSeries
             return tbl;
         }
 
+        public TimeSeriesDatabaseDataSet.parametercatalogDataTable GetParameterCatalog(string filter="1=1")
+        {
+            var tbl = new TimeSeriesDatabaseDataSet.parametercatalogDataTable();
+            m_server.FillTable(tbl, "select * from parametercatalog where "
+                + filter +"   order by id");
+            return tbl;
+        }
         public TimeSeriesDatabaseDataSet.parametercatalogDataTable GetParameterCatalog()
         {
             var tbl = new TimeSeriesDatabaseDataSet.parametercatalogDataTable();

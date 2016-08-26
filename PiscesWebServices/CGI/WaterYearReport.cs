@@ -14,6 +14,9 @@ using Reclamation.TimeSeries.Hydromet;
 
 namespace PiscesWebServices.CGI
 {
+    /// <summary>
+    /// http://www.usbr.gov/pn-bin/yearrpt.pl?site=ABEI&parameter=PP&START=2016&END=2016
+    /// </summary>
     public partial class WaterYearReport
     {
         private TimeSeriesDatabase db;
@@ -55,6 +58,12 @@ namespace PiscesWebServices.CGI
             var startYear = r.StartDate.Year;
             var endYear = r.EndDate.Year;
             DateTime t1 = r.StartDate;
+
+
+
+            string siteDescription = GetSiteDescription(siteID);
+            string parameterDescription = GetParameterDescription(parameter, TimeInterval.Daily);
+
                 for (int i = startYear; i < endYear; i++)
                 {
                     s.Read(t1, t1.AddMonths(12));
@@ -65,6 +74,24 @@ namespace PiscesWebServices.CGI
                     t1 = t1.AddMonths(12);
                 }
         }
+
+        private string GetSiteDescription(string siteID)
+        {
+             var sc = db.GetSiteCatalog("siteid = '" + siteID + "'");
+             if (sc.Count != 0)
+                 return sc[0].description;
+             return "";
+        }
+
+        private string GetParameterDescription(string parameterCode, TimeInterval interval)
+        {
+            string id = parameterCode + "." + interval.ToString();
+            var pc = db.GetParameterCatalog("id = '"+id+"'");
+            if (pc.Count != 0)
+                return pc[0].name;
+            return "";
+        }
+
 
         private static TimeRange GetDateRange(NameValueCollection collection)
         {
