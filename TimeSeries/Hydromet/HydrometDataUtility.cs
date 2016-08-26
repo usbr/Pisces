@@ -20,7 +20,7 @@ namespace Reclamation.TimeSeries.Hydromet
 
         public static DataTable DayFilesTable(HydrometHost svr, string query, DateTime t1, DateTime t2, int back = 0, int interval = 0)
         {
-            query = HydrometInfoUtility.ExpandQuery(query, HydrometDataBase.Dayfiles);
+            query = HydrometInfoUtility.ExpandQuery(query, TimeInterval.Irregular);
 
             string cgiUrl = ReclamationURL.GetUrlToDataCgi(svr, TimeInterval.Irregular);
 
@@ -56,7 +56,7 @@ namespace Reclamation.TimeSeries.Hydromet
         public static DataTable ArchiveTable(HydrometHost server, string query, DateTime t1, DateTime t2,int back=0)
         {
             
-            query =  HydrometInfoUtility.ExpandQuery(query, HydrometDataBase.Archives);
+            query =  HydrometInfoUtility.ExpandQuery(query, TimeInterval.Daily);
 
             string cgiUrl = ReclamationURL.GetUrlToDataCgi(server, TimeInterval.Daily);
 
@@ -67,7 +67,7 @@ namespace Reclamation.TimeSeries.Hydromet
         public static DataTable MPollTable(HydrometHost server, string query, DateTime t1, DateTime t2)
         {
             
-            query = HydrometInfoUtility.ExpandQuery(query, HydrometDataBase.MPoll);
+            query = HydrometInfoUtility.ExpandQuery(query, TimeInterval.Monthly);
             string cgiUrl = ReclamationURL.GetUrlToDataCgi(server, TimeInterval.Monthly);
             Logger.WriteLine("url:" + cgiUrl);
             return Table(cgiUrl, query, t1, t2, endOfMonth: true);
@@ -501,7 +501,7 @@ namespace Reclamation.TimeSeries.Hydromet
         /// <param name="db"></param>
         /// <param name="autoImport">use path to automated importing</param>
         /// <returns></returns>
-        public static string CreateRemoteFileName(string user, HydrometDataBase db,bool autoImport=false)
+        public static string CreateRemoteFileName(string user, TimeInterval db,bool autoImport=false)
         {
             string prefix = "huser1:[edits]";
 
@@ -510,11 +510,11 @@ namespace Reclamation.TimeSeries.Hydromet
 
             string t = DateTime.Now.ToString("MMMdyyyyHHmmss");
             string remoteFilename = prefix+"edits_" + user +t+ ".txt";
-            if (db == HydrometDataBase.MPoll)
+            if (db == TimeInterval.Monthly)
                 remoteFilename = prefix + "month_" + user + t + ".txt";
-            if (db == HydrometDataBase.Dayfiles)
+            if (db == TimeInterval.Irregular)
                 remoteFilename = prefix + "instant_" + user + t + ".txt";
-            if (db == HydrometDataBase.Archives)
+            if (db == TimeInterval.Daily)
                 remoteFilename = prefix + "daily_" + user + t + ".txt";
             return remoteFilename.ToLower();
         }

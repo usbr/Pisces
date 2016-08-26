@@ -9,7 +9,7 @@ using System.Linq;
 using System.Windows.Forms;
 namespace Reclamation.TimeSeries.Hydromet
 {
-    public enum HydrometDataBase { Dayfiles, Archives, MPoll };
+    ///public enum TimeInterval { Instant, Daily, Monthly };
     public enum HydrometHost { PN, Yakima, GreatPlains, PNLinux };
 
     /// <summary>
@@ -38,21 +38,21 @@ namespace Reclamation.TimeSeries.Hydromet
         }
 
 
-        private static string[] GetParameters(string cbtt, HydrometDataBase db)
+        private static string[] GetParametersFromFile(string cbtt, TimeInterval db)
         {
             var rval = new string[] { };
 
-            if( db == HydrometDataBase.Archives)
+            if( db == TimeInterval.Daily)
                 rval = HydrometInfoUtility.ArchiveParameters(cbtt);
-            if (db == HydrometDataBase.Dayfiles)
+            if (db == TimeInterval.Irregular)
             {
                 rval = DayfileParameters(cbtt);
                 if (rval.Length == 0)
-                { 
-                    return GetParameters(cbtt,TimeInterval.Irregular);
+                {
+                    return GetParametersFromPostgres(cbtt, TimeInterval.Irregular);
                 }
             }
-            if (db == HydrometDataBase.MPoll)
+            if (db == TimeInterval.Monthly)
                 rval = MpollParameters(cbtt);
 
             
@@ -60,7 +60,7 @@ namespace Reclamation.TimeSeries.Hydromet
 
         }
 
-        private static string[] GetParameters(string cbtt, TimeInterval interval)
+        private static string[] GetParametersFromPostgres(string cbtt, TimeInterval interval)
         {
             var rval = new List<string>();
             var svr = PostgreSQL.GetPostgresServer();
@@ -89,7 +89,7 @@ namespace Reclamation.TimeSeries.Hydromet
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static string ExpandQuery(string query,HydrometDataBase db)
+        public static string ExpandQuery(string query,TimeInterval db)
         {
             var rval = new List<string>();
 
@@ -104,7 +104,7 @@ namespace Reclamation.TimeSeries.Hydromet
 
             if (CbttOnly(query))
             {
-                string[] pcodes = GetParameters(query, db);
+                string[] pcodes = GetParametersFromFile(query, db);
                 if (pcodes.Length > 0)
                 {
                     query = query + " " + String.Join(",", pcodes);

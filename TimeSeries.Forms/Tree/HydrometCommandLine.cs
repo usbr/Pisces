@@ -52,8 +52,8 @@ namespace HydrometPisces
         {
             get
             {
-                string query = HydrometInfoUtility.ExpandQuery(this.textBox1.Text.Trim(), HydrometDataBase.Archives);
-                CommandLine cmd = new CommandLine(query, HydrometDataBase.Archives);
+                string query = HydrometInfoUtility.ExpandQuery(this.textBox1.Text.Trim(), TimeInterval.Daily);
+                CommandLine cmd = new CommandLine(query, TimeInterval.Daily);
 
                 var rval = cmd.CreateSeries(Server).ToArray();
 

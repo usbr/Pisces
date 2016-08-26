@@ -22,21 +22,21 @@ namespace Reclamation.TimeSeries.Hydromet
 
         public string Title { get; set; }
 
-        public CommandLine(string cmd, HydrometDataBase  defaultDataBase)
+        public CommandLine(string cmd, TimeInterval  defaultDataBase)
         {
             this.cmd = cmd;
             ParseCommand(cmd, defaultDataBase);
         }
         
-        private void ParseCommand(string cmd, HydrometDataBase defaultDataBase)
+        private void ParseCommand(string cmd, TimeInterval defaultDataBase)
         {
-            if (defaultDataBase == HydrometDataBase.Archives)
+            if (defaultDataBase == TimeInterval.Daily)
                 defaultInterval = "daily";
-            if (defaultDataBase == HydrometDataBase.Dayfiles)
+            if (defaultDataBase == TimeInterval.Irregular)
             {
                 defaultInterval = "instant";
             }
-            if (defaultDataBase == HydrometDataBase.MPoll)
+            if (defaultDataBase == TimeInterval.Monthly)
             {
                 defaultInterval = "mpoll";
             }
