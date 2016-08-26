@@ -109,12 +109,13 @@ namespace Reclamation.Core
             sr.Close();
         }
 
-        public static string ToHTML(DataTable dt, bool border = true, string title = "")
+        public static string ToHTML(DataTable dt, bool border = true, string title = "", string header = "")
         {
-            return ToHTML(dt, FormatCell, border, title);
+            return ToHTML(dt, FormatCell, border, title, header);
         }
 
-        public static string ToHTML(DataTable dt, Func<DataColumn ,DataRow, string, string> f, bool border = true,string title="")
+        public static string ToHTML(DataTable dt, Func<DataColumn ,DataRow, string, string> f, bool border = true,
+            string title="", string header = "")
         {
             
             StringBuilder html = new StringBuilder();
@@ -129,6 +130,12 @@ namespace Reclamation.Core
                 var colspan = dt.Columns.Count.ToString();
                 html.Append("<tr><td colspan=\""+ colspan+"\"><b>" + title + "<br /> "
                 + "<br /></td></tr>");
+            }
+            if (header != "")
+            {
+
+                html.Append(header);
+                
             }
             //add header row
             html.Append( "<tr>");

@@ -64,8 +64,7 @@ namespace PiscesWebServices.CGI
                     s.Read(t1, t1.AddMonths(12));
                     DataTable wyTable = Reports.WaterYearTable(s);
                     var header = GetHeader(i, siteID,parameter);
-                    Console.WriteLine(header);
-                    var html = DataTableOutput.ToHTML(wyTable,true, "Water Year Report",header);
+                    var html = DataTableOutput.ToHTML(wyTable, true, "",header);
                     Console.WriteLine(html);
                     t1 = t1.AddMonths(12);
                 }
@@ -76,28 +75,28 @@ namespace PiscesWebServices.CGI
             string siteDescription = GetSiteDescription(siteID);
             string parameterDescription = GetParameterDescription(parameter, TimeInterval.Daily);
 
-            return "";
-//            @"<thead align="center"><tr><td colspan="13"><b>Station  ABEI - ABERDEEN IDAHO WEATHER STATION<br /
-//Parameter PP - Precipitation, 24 Hour Total, Inches<br />
-//Report for Water Year 2014<br />
-//Bureau of Reclamation AgriMet System<br /></b>
-//Provisional Data, Subject to Change</thead>";
+            return "<thead align=\"center\"><tr><td colspan=\"13\"><b>Station  "+ siteDescription +"<br />" +
+                    parameterDescription + "<br />" +
+                    "Report for Water Year " + year + "<br />"+
+                    "Bureau of Reclamation AgriMet System<br /></b>"+
+                    "Provisional Data, Subject to Change</thead>";
+
         }
 
         private string GetSiteDescription(string siteID)
         {
-             var sc = db.GetSiteCatalog("siteid = '" + siteID + "'");
+             var sc = db.GetSiteCatalog("siteid = '" + siteID.ToLower() + "'");
              if (sc.Count != 0)
-                 return sc[0].description;
+                 return siteID + ", " + sc[0].description;
              return "";
         }
 
         private string GetParameterDescription(string parameterCode, TimeInterval interval)
         {
-            string id = parameterCode + "." + interval.ToString();
+            string id = parameterCode.ToLower() + "." + interval.ToString();
             var pc = db.GetParameterCatalog("id = '"+id+"'");
             if (pc.Count != 0)
-                return pc[0].name;
+                return pc[0].name + ", " + pc[0].units;
             return "";
         }
 

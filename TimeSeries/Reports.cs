@@ -20,7 +20,7 @@ namespace Reclamation.TimeSeries
 
             if (s.TimeInterval != TimeInterval.Monthly)
             {
-                report.Add("Error:  "+s.Name + " is not Monthly.");
+                report.Add("Error:  " + s.Name + " is not Monthly.");
                 return report.ToArray();
             }
 
@@ -33,10 +33,10 @@ namespace Reclamation.TimeSeries
             report.Add("                                             DEPARTMENT OF THE INTERIOR");
             report.Add("                                                BUREAU OF RECLAMATION");
             report.Add("");
-            
-            report.Add(s.Name + " "+s.Parameter +" "+ s.Units);
+
+            report.Add(s.Name + " " + s.Parameter + " " + s.Units);
             report.Add("");
-            
+
             report.Add("Year      Oct      Nov      Dec      Jan      Feb      Mar      Apr      May      Jun      Jul      Aug      Sep       Total");
             report.Add("");
 
@@ -55,7 +55,7 @@ namespace Reclamation.TimeSeries
                 DateTime t = t1;
                 do
                 {
-                    line += FormatValue(s, t, .001,showFlags);
+                    line += FormatValue(s, t, .001, showFlags);
 
                     t = t.AddMonths(1).FirstOfMonth();
                 } while (t <= t2);
@@ -64,14 +64,14 @@ namespace Reclamation.TimeSeries
                 if (singleYear.CountMissing() > 0)
                     line += "      -   ";
                 else
-                    line += " " + (Math.Sum(singleYear)*.001).ToString("F2").PadLeft(9);
+                    line += " " + (Math.Sum(singleYear) * .001).ToString("F2").PadLeft(9);
 
                 report.Add(line);
 
             }
 
             // All October
-            var oct = Math.Subset(s,new int[] {10});
+            var oct = Math.Subset(s, new int[] { 10 });
 
             var sumOct = Math.Sum(oct);
             //var avgOct = Math.Average(oct, TimeInterval.Monthly);
@@ -94,7 +94,7 @@ namespace Reclamation.TimeSeries
             {
                 if (showFlag)
                 {
-                    return (s[idx].Value * scale).ToString("F2").PadLeft(8)+s[idx].Flag;
+                    return (s[idx].Value * scale).ToString("F2").PadLeft(8) + s[idx].Flag;
                 }
                 else
                 {
@@ -132,7 +132,7 @@ namespace Reclamation.TimeSeries
             DataTable rval = new DataTable();
             DateTime tblDate = startDate;
             rval.Columns.Add("Day");
-           
+
             for (int i = 0; i < 12; i++)
             {
                 rval.Columns.Add(tblDate.ToString("MMM yyyy"));
@@ -150,9 +150,9 @@ namespace Reclamation.TimeSeries
                 }
             }
             //names for the math at the bottom of the table
-            String[] row_name = {"Total","Ave","Max","Min"};
+            String[] row_name = { "Total", "Ave", "Max", "Min" };
             int nameIndex = 0;
-            int rowTotalIndex = 32; 
+            int rowTotalIndex = 32;
             int lastRowIndex = 35;
             //add rows for total ave max min
             for (int i = rowTotalIndex; i <= lastRowIndex; i++)
@@ -174,7 +174,7 @@ namespace Reclamation.TimeSeries
                 int days;
                 if (month >= 1 && month < 10)
                 {
-                    
+
                     datatblDate = new DateTime(startDate.Year + 1, month, 1);
                     days = DateTime.DaysInMonth(datatblDate.Year, datatblDate.Month);
                 }
@@ -183,12 +183,14 @@ namespace Reclamation.TimeSeries
                     datatblDate = new DateTime(startDate.Year, month, 1);
                     days = DateTime.DaysInMonth(datatblDate.Year, datatblDate.Month);
                 }
-                
+
                 for (int i = 0; i < days; i++)
                 {
-                    if (s.IndexOf(datatblDate) >= 0)
+                    if (s.IndexOf(datatblDate) >= 0 && datatblDate < DateTime.Now)
                     {
-                        rval.Rows[i][j] = s[datatblDate].Value.ToString("F2");
+                        var val = s[datatblDate].Value.ToString("F2");
+                        if (!val.Contains("-"))
+                            rval.Rows[i][j] = val;
                     }
                     datatblDate = datatblDate.AddDays(1);
                 }
@@ -199,41 +201,33 @@ namespace Reclamation.TimeSeries
                 }
             }
 
-            //inserts the sum ave max min rows of the water year table report
+            //inserts the sum, ave, max, and min rows of the water year table report
             month = 10;
             var indexTotal = 31;
             var indexAve = 32;
             var indexMax = 33;
             var indexMin = 34;
-            var index = indexTotal;
-           
+
             for (int j = 1; j <= 12; j++)
             {
                 var monthCol = Math.Subset(s, new int[] { month });
-                if (index == indexTotal) 
-                {
-                    var sum = Math.Sum(monthCol);
+
+                var sum = Math.Sum(monthCol);
+                if (sum >= 0)
                     rval.Rows[indexTotal][j] = sum;
-                    index++;
-                }
-                if (index == indexAve)
-                {
-                    var ave = Math.AverageOfSeries(monthCol).ToString("F2");
+
+                var ave = Math.AverageOfSeries(monthCol).ToString("F2");
+                if (!ave.Contains("-"))
                     rval.Rows[indexAve][j] = ave;
-                    index++;
-                }
-                if (index == indexMax)
-                {
-                    var max = Math.MaxValue(monthCol);
+
+                var max = Math.MaxValue(monthCol);
+                if (max >= 0)
                     rval.Rows[indexMax][j] = max;
-                    index++;
-                }
-                if (index == indexMin)
-                {
-                    var max = Math.MinValue(monthCol);
-                    rval.Rows[indexMin][j] = max;
-                }
-                index = indexTotal;
+
+                var min = Math.MinValue(monthCol);
+                if (min >= 0 && max >= 0)
+                    rval.Rows[indexMin][j] = min;
+                
                 month++;
                 if (month > 12)
                 {
