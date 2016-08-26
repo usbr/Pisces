@@ -15,7 +15,8 @@ using Reclamation.TimeSeries.Hydromet;
 namespace PiscesWebServices.CGI
 {
     /// <summary>
-    /// http://www.usbr.gov/pn-bin/yearrpt.pl?site=ABEI&parameter=PP&START=2016&END=2016
+    /// http://www.usbr.gov/pn-bin/wyreport.pl?site=ABEI&parameter=PP&start=2016&end=2016
+    /// 
     /// </summary>
     public partial class WaterYearReport
     {
