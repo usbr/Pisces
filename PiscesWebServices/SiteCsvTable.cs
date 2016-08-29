@@ -24,13 +24,15 @@ namespace PiscesWebServices
         /// <summary>
         /// Prints csv dump of Sites
         /// </summary>
-        /// <param name="propertyFilter">two part filter in property table i.e.  'program:agrimet'</param>
-        public void Execute( string propertyFilter="")
+        public void Execute( string siteType="")
         {
             Console.Write("Content-Type:  text/csv\n\n");
             Console.WriteLine("Content-disposition: attachment;filename=location.csv");
 
-            var sites = db.GetSiteCatalog(propertyFilter: propertyFilter);
+            var filter = "";
+            if (siteType != "")
+                filter = "type = '" + siteType + "'";
+            var sites = db.GetSiteCatalog(filter:filter);
 
             var fn = FileUtility.GetTempFileName(".csv");
             CsvFile.WriteToCSV(sites, fn, false, true);

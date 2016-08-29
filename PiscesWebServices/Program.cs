@@ -23,7 +23,7 @@ namespace PiscesWebServices
         public static void Main(string[] args)
         {
 
-            string propertyFilter="";
+            var siteType = ""; // agrimet, hydromet (blank means all)
             var cgi = "";
             var json_property_stubs="";
             var payload = "";
@@ -37,7 +37,7 @@ namespace PiscesWebServices
             p.Add("cgi=","required cgi to execute cgi=sites or cgi=series",x => cgi=x);
             p.Add("json_property_stubs=", "comma separated list of properties (i.e. 'region,url,') to created empty stubs if neeed ",
                               x => json_property_stubs = x);
-            //p.Add("propertyFilter=", "property filter like program:agrimet", x => propertyFilter = x);
+            p.Add("site-type=", "filter agrimet sites", x => siteType = BasicDBServer.SafeSqlLikeClauseLiteral(x));
             p.Add("payload=", "test query data for a CGI", x => payload = x);
             p.Add("format=","format json(default) | csv ",x => format=x);
             p.Add("verbose"," get more details", x => verbose =true);
@@ -107,12 +107,12 @@ namespace PiscesWebServices
                 if (format == "json")
                 {
                     JSONSites d = new JSONSites(db);
-                    d.Execute(json_property_stubs.Split(','), propertyFilter);
+                    d.Execute(json_property_stubs.Split(','), siteType);
                 }
                 else if (format == "csv")
                 {
                     SiteCsvTable c = new SiteCsvTable(db);
-                    c.Execute(propertyFilter);
+                    c.Execute(siteType);
                 }
             }
             else

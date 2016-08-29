@@ -25,15 +25,16 @@ namespace PiscesWebServices
         /// Prints GEOJson dump of Sites
         /// </summary>
         /// <param name="requiredProperties">list of properties to include (if not found in siteproperties an empty string will be inserted)</param>
-        /// <param name="propertyFilter">two part filter in property table i.e.  'program:agrimet'</param>
-        public void Execute(string[] requiredProperties, string propertyFilter="")
+        public void Execute(string[] requiredProperties, string siteType)
         {
             Console.Write("Content-Type:  application/json\n\n");
 
           var features = new List<Feature>();
           FeatureCollection fc = new FeatureCollection(features);
-
-          var sites = db.GetSiteCatalog(propertyFilter:propertyFilter);
+          var filter = "";
+            if( siteType != "")
+                filter = "type = '"+siteType+"'";
+          var sites = db.GetSiteCatalog(filter:filter);
 
          var siteProp = new TimeSeriesDatabaseDataSet.sitepropertiesDataTable(db);
 
