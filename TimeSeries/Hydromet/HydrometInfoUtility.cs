@@ -38,7 +38,7 @@ namespace Reclamation.TimeSeries.Hydromet
         }
 
 
-        private static string[] GetParametersFromFile(string cbtt, TimeInterval db)
+        private static string[] GetParameters(string cbtt, TimeInterval db)
         {
             var rval = new string[] { };
 
@@ -101,10 +101,11 @@ namespace Reclamation.TimeSeries.Hydromet
                title = query.Substring(idx );
                query = query.Substring(0, idx );
             }
+            query = query.Trim();
 
             if (CbttOnly(query))
             {
-                string[] pcodes = GetParametersFromFile(query, db);
+                string[] pcodes = GetParameters(query, db);
                 if (pcodes.Length > 0)
                 {
                     query = query + " " + String.Join(",", pcodes);

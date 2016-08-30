@@ -11,13 +11,18 @@ UninstallDisplayName={#AppName} {#FileVerStr}
 VersionInfoVersion={#FileVerStr}
 VersionInfoTextVersion={#FileVerStr}
 OutputBaseFilename=Pisces2-setup
+;show dialogs even if previous install found
+DisableWelcomePage=no
+DisableDirPage=no
+DisableProgramGroupPage=no
+AlwaysShowDirOnReadyPage=yes
 AlwaysShowGroupOnReadyPage=yes
+
 
 LicenseFile=..\license.md
 
 DefaultDirName={sd}\Pisces2
 DefaultGroupName=Pisces
-AlwaysShowDirOnReadyPage=yes
 
 Compression=lzma
 SolidCompression=yes
