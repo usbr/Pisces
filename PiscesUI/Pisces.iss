@@ -1,5 +1,5 @@
 #define AppName "Pisces"
-#define SrcApp ".\bin\x86\debug\Pisces.exe"
+#define SrcApp ".\bin\debug\Pisces.exe"
 #define FileVerStr GetStringFileInfo(SrcApp, "ProductVersion")
 
 [Setup]
@@ -11,7 +11,7 @@ UninstallDisplayName={#AppName} {#FileVerStr}
 VersionInfoVersion={#FileVerStr}
 VersionInfoTextVersion={#FileVerStr}
 OutputBaseFilename=Pisces2-setup
-
+AlwaysShowGroupOnReadyPage=yes
 
 LicenseFile=..\license.md
 
