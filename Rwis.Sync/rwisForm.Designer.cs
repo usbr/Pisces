@@ -380,7 +380,6 @@
             this.t2Date.Name = "t2Date";
             this.t2Date.Size = new System.Drawing.Size(123, 20);
             this.t2Date.TabIndex = 23;
-            this.t2Date.Value = new System.DateTime(2016, 7, 13, 15, 32, 50, 219);
             this.t2Date.ValueChanged += new System.EventHandler(this.BuildConnectionString);
             // 
             // label2
@@ -400,7 +399,6 @@
             this.t1Date.Name = "t1Date";
             this.t1Date.Size = new System.Drawing.Size(123, 20);
             this.t1Date.TabIndex = 21;
-            this.t1Date.Value = new System.DateTime(2016, 7, 3, 15, 32, 50, 219);
             this.t1Date.ValueChanged += new System.EventHandler(this.BuildConnectionString);
             // 
             // dataProviderLabel

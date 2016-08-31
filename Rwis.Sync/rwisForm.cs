@@ -51,8 +51,8 @@ namespace Rwis.Sync
         public rwisForm()
         {
             InitializeComponent();
-           
-            
+            this.t1Date.Value = DateTime.Now.AddYears(-1);
+            this.t2Date.Value = DateTime.Now.AddDays(-1);
         }
 
         /// <summary>

@@ -76,7 +76,7 @@ namespace Rwis.Sync
                 string sql = "";
                 if (updateType.ToLower() == "all")
                 {
-                    sql = "provider IN ('HydrometDailySeries','HDBSeries')";
+                    sql = "provider IN ('HydrometDailySeries','HDBSeries','ShefSeries')";
                 }
                 else if (updateType.Length == 2)
                 {
@@ -173,8 +173,8 @@ namespace Rwis.Sync
             Console.WriteLine("                 or a valid date in YYYY-MM-DD format");
             Console.WriteLine("--update=[Z] t1=[X] t2=[Y]");
             Console.WriteLine("      Updates data and series properties given a period range");
-            Console.WriteLine("      with [Z] as all, HydrometDailySeries, HDBSeries, or region code");
-            Console.WriteLine("                  PN, GP, LC, UC, or MP");
+            Console.WriteLine("      with [Z] as all, HydrometDailySeries, HDBSeries, ShefSeries, ");
+            Console.WriteLine("                  or region code PN, GP, LC, UC, or MP");
             Console.WriteLine("      with [X] as a valid date in YYYY-MM-DD format and [X] < [Y]");
             Console.WriteLine("      with [Y] as a valid date in YYYY-MM-DD format and [X] < [Y]");
 
