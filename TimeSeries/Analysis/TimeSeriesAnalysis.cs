@@ -25,7 +25,6 @@ namespace Reclamation.TimeSeries.Analysis
 
         public override IExplorerView Run()
         {
-            Logger.WriteLine("TimeSeriesAnalysis.Run()");
             SeriesList list = Explorer.CreateSelectedSeries();
 
             ReadSeriesList(list);

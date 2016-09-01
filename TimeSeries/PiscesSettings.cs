@@ -295,19 +295,28 @@ namespace Reclamation.TimeSeries
 
         internal SeriesList CreateSelectedSeries()
         {
+            Logger.WriteLine("Begin CreateSelectedSeries()");
+            
             TimeSeries.SeriesList rval = new TimeSeries.SeriesList();
             var selScenarios = m_db.GetSelectedScenarios();
+            Logger.WriteLine("There are " + m_selectedSeries.Length + " series selected");
+            Logger.WriteLine("There are "+selScenarios.Rows.Count+" scenarios selected");
 
             for (int i = 0; i < m_selectedSeries.Length; i++)
             {
                 Series s = m_selectedSeries[i];
+                Logger.WriteLine("Series ["+i+"] " + s.Name);
+                Logger.WriteLine(" ScenarioName: "+s.ScenarioName);
+
                 if (s.ScenarioName == "" || (selScenarios.Rows.Count == 0 && !IncludeBaseline ))
                 {
+                    Logger.WriteLine("Not using Scenario. Either blank scenario name, or no scenarios (unless baseline selected)");
                     rval.Add(s);
                 }
                 else if (selScenarios.Rows.Count == 0 && IncludeBaseline)
                 {
                     // baseline only.
+                    Logger.WriteLine("Not using Scenario. baseline only");
                     var baseline = s.CreateBaseline();
                     if (!baseline.SiteID.Contains("reference"))
                         baseline.SiteID += " - reference";
@@ -315,12 +324,13 @@ namespace Reclamation.TimeSeries
                 }
                 else// Using Scenarios.
                 {
+                    Logger.WriteLine("Using scenarios");
                     Series baseline = null;
                     foreach (var sn in selScenarios)
                     {
-
+                        
                         Series scenario = s.CreateScenario(sn);
-
+                        Logger.WriteLine("Scenario: " + scenario.ScenarioName);
                         if (baseline == null && (IncludeBaseline || SubtractFromBaseline))
                             baseline = s.CreateBaseline();
 
@@ -348,6 +358,7 @@ namespace Reclamation.TimeSeries
                 }
             }
 
+            Logger.WriteLine("Finish CreateSelectedSeries()");
             return rval;
 
         }
@@ -381,6 +392,7 @@ namespace Reclamation.TimeSeries
             View.AnalysisType = SelectedAnalysisType;
 
             View.UndoZoom = this.UndoZoom;
+            Logger.WriteLine(SelectedAnalysisType + ".Run()");
             SelectedTimeSeriesAnalysis.Run();
 
             if (View.SeriesList.Count == 0)

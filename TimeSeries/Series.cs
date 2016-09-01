@@ -71,10 +71,15 @@ namespace Reclamation.TimeSeries
             }
             return rval;
         }
-    
-        
-        
-        public string ScenarioName = "";
+
+
+        private string m_scenarioName = "";
+
+        public string ScenarioName
+        {
+            get { return m_scenarioName; }
+            set { this.m_scenarioName = value;  }
+        }
         //public string ConnectionString=""; // example: usgs url to data , or database connection string or modsim xy file name.
         public static string DateTimeFormatDailyAverage = "yyyy-MM-dd";
         public static string DateTimeFormatInstantaneous = "yyyy-MM-dd HH:mm:ss.ff";
@@ -377,7 +382,7 @@ namespace Reclamation.TimeSeries
         protected void InitTimeSeries(DataTable table, string units, TimeInterval tsType,
             bool readOnly, bool hasFlags, bool hasConstraints)
         {
-            this.ScenarioName = ConnectionStringUtility.GetToken(ConnectionString, "ScenarioName", "");
+            //this.ScenarioName = ConnectionStringUtility.GetToken(ConnectionString, "ScenarioName", "");
            // State = "";
 //            Expression = "";
             _readOnly = readOnly;
