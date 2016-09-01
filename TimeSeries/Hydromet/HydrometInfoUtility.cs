@@ -38,23 +38,30 @@ namespace Reclamation.TimeSeries.Hydromet
         }
 
 
-        private static string[] GetParameters(string cbtt, TimeInterval db)
+        private static string[] GetParameters(string cbtt, TimeInterval interval)
         {
             var rval = new string[] { };
 
-            if( db == TimeInterval.Daily)
+            if (interval == TimeInterval.Daily)
+            {
                 rval = HydrometInfoUtility.ArchiveParameters(cbtt);
-            if (db == TimeInterval.Irregular)
+            }
+            else
+            if (interval == TimeInterval.Irregular)
             {
                 rval = DayfileParameters(cbtt);
-                if (rval.Length == 0)
-                {
-                    return GetParametersFromPostgres(cbtt, TimeInterval.Irregular);
-                }
+                
             }
-            if (db == TimeInterval.Monthly)
-                rval = MpollParameters(cbtt);
+            else
+                if (interval == TimeInterval.Monthly)
+                {
+                    rval = MpollParameters(cbtt);
+                }
 
+            if (rval.Length == 0)
+            {
+                return GetParametersFromPostgres(cbtt,interval);
+            }
             
             return rval;
 
@@ -66,6 +73,7 @@ namespace Reclamation.TimeSeries.Hydromet
             var svr = PostgreSQL.GetPostgresServer();
             TimeSeriesDatabase p = new TimeSeriesDatabase(svr,false);
             var sql = " lower(siteid) = '"+ svr.SafeSqlLiteral(cbtt.ToLower())+"' and TimeInterval = '"+interval.ToString()+"'";
+
             var sc = p.GetSeriesCatalog(sql);
             foreach (var item in sc)
             {

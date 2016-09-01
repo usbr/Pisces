@@ -34,7 +34,7 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
             //var sc = m_db.GetSeriesCatalog();
             foreach (var scenario in tableScenarioMapping)
             {
-                scenarios.AddScenarioRow(scenario.ScenarioName, false, scenario.ScenarioNumber, 0, false);
+                scenarios.AddScenarioRow(scenario.ScenarioName, false, scenario.ScenarioNumber, 0);
                 AddSeries(m_db, scenario.ScenarioName, scenario.ScenarioNumber );
             }
             m_db.Server.SaveTable(scenarios);

@@ -176,7 +176,7 @@ namespace Reclamation.TimeSeries.RiverWare
                         name = (dlg.FirstYear + i ).ToString();
                     }
                     //string scenarioPath = ConnectionStringUtility.MakeFileNameRelative("FileName=" + item, DB.Filename);
-                    tblScen.AddScenarioRow(name, true, "ScenarioNumber=" + (i + 1).ToString(), 0, false);
+                    tblScen.AddScenarioRow(name, true, "ScenarioNumber=" + (i + 1).ToString(), 0);
                 }
                 db.Server.SaveTable(tblScen);
             }

@@ -115,7 +115,7 @@ namespace Reclamation.TimeSeries.Urgsim
                     selected = false;
                 foreach (string om in OperationModels())
                 {
-                    scenarioTable.AddScenarioRow(om + "/" + projectionName, selected, UrgsimPath, 0, false);
+                    scenarioTable.AddScenarioRow(om + "/" + projectionName, selected, UrgsimPath, 0);
                 }
             }
             DB.Server.SaveTable(scenarioTable);
