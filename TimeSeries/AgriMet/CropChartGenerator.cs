@@ -254,9 +254,15 @@ namespace Reclamation.TimeSeries.AgriMet
             cropTable = CropDatesDataSet.GetCropDataTable(t.Year, false); 
 
             string html_file = "agricultureEmail-V2.html";
+            if(! File.Exists(html_file))
+            {
+                Logger.WriteLine("Error: missing file :" + html_file);
+                return;
+            }
+                
             var agrimetDir = ConfigurationManager.AppSettings["AgriMetCropOutputDirectory"];
-            var fn = Path.Combine(agrimetDir, "chart", html_file);
-            var contents = File.ReadAllText(fn);
+            //var fn = Path.Combine(agrimetDir, "chart", html_file);
+            var contents = File.ReadAllText(html_file);
             var outputfn = Path.Combine(agrimetDir, "chart", t.Year.ToString(), (cbtt + ".html"));
             var et = new HydrometDailySeries(cbtt, "ETRS", s_host);
 
