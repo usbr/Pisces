@@ -46,7 +46,6 @@ namespace Reclamation.TimeSeries.Forms
             this.checkBoxMerge = new System.Windows.Forms.CheckBox();
             this.groupBoxComparisonn = new System.Windows.Forms.GroupBox();
             this.groupBoxAll = new System.Windows.Forms.GroupBox();
-            this.groupBoxSorting = new System.Windows.Forms.GroupBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.comboBoxOutYear = new System.Windows.Forms.ComboBox();
             this.radioButtonYear2 = new System.Windows.Forms.RadioButton();
@@ -64,21 +63,26 @@ namespace Reclamation.TimeSeries.Forms
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxSelectedSeries = new System.Windows.Forms.ComboBox();
             this.buttonSort = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBoxComparisonn.SuspendLayout();
             this.groupBoxAll.SuspendLayout();
-            this.groupBoxSorting.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(234, 606);
+            this.buttonOK.Location = new System.Drawing.Point(336, 676);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 9;
@@ -88,14 +92,12 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox1.Controls.Add(this.dataGridView);
-            this.groupBox1.Location = new System.Drawing.Point(6, 12);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(3, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(482, 429);
+            this.groupBox1.Size = new System.Drawing.Size(590, 485);
             this.groupBox1.TabIndex = 13;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select Traces / Scenarios";
@@ -108,13 +110,13 @@ namespace Reclamation.TimeSeries.Forms
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Location = new System.Drawing.Point(7, 19);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(468, 403);
+            this.dataGridView.Size = new System.Drawing.Size(576, 444);
             this.dataGridView.TabIndex = 17;
             // 
             // buttonSelectMid20P
             // 
             this.buttonSelectMid20P.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelectMid20P.Location = new System.Drawing.Point(112, 117);
+            this.buttonSelectMid20P.Location = new System.Drawing.Point(127, 116);
             this.buttonSelectMid20P.Name = "buttonSelectMid20P";
             this.buttonSelectMid20P.Size = new System.Drawing.Size(97, 23);
             this.buttonSelectMid20P.TabIndex = 20;
@@ -125,7 +127,7 @@ namespace Reclamation.TimeSeries.Forms
             // buttonSelectLow20P
             // 
             this.buttonSelectLow20P.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelectLow20P.Location = new System.Drawing.Point(212, 117);
+            this.buttonSelectLow20P.Location = new System.Drawing.Point(227, 116);
             this.buttonSelectLow20P.Name = "buttonSelectLow20P";
             this.buttonSelectLow20P.Size = new System.Drawing.Size(97, 23);
             this.buttonSelectLow20P.TabIndex = 19;
@@ -136,7 +138,7 @@ namespace Reclamation.TimeSeries.Forms
             // buttonSelectTop20P
             // 
             this.buttonSelectTop20P.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelectTop20P.Location = new System.Drawing.Point(9, 117);
+            this.buttonSelectTop20P.Location = new System.Drawing.Point(24, 116);
             this.buttonSelectTop20P.Name = "buttonSelectTop20P";
             this.buttonSelectTop20P.Size = new System.Drawing.Size(97, 23);
             this.buttonSelectTop20P.TabIndex = 18;
@@ -146,8 +148,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // buttonClearAll
             // 
-            this.buttonClearAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonClearAll.Location = new System.Drawing.Point(408, 447);
+            this.buttonClearAll.Location = new System.Drawing.Point(216, 15);
             this.buttonClearAll.Name = "buttonClearAll";
             this.buttonClearAll.Size = new System.Drawing.Size(76, 23);
             this.buttonClearAll.TabIndex = 15;
@@ -157,8 +158,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // buttonSelectAll
             // 
-            this.buttonSelectAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSelectAll.Location = new System.Drawing.Point(339, 447);
+            this.buttonSelectAll.Location = new System.Drawing.Point(216, 42);
             this.buttonSelectAll.Name = "buttonSelectAll";
             this.buttonSelectAll.Size = new System.Drawing.Size(63, 23);
             this.buttonSelectAll.TabIndex = 14;
@@ -169,7 +169,7 @@ namespace Reclamation.TimeSeries.Forms
             // buttonApply
             // 
             this.buttonApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonApply.Location = new System.Drawing.Point(406, 606);
+            this.buttonApply.Location = new System.Drawing.Point(508, 676);
             this.buttonApply.Name = "buttonApply";
             this.buttonApply.Size = new System.Drawing.Size(75, 23);
             this.buttonApply.TabIndex = 16;
@@ -181,7 +181,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(319, 606);
+            this.buttonCancel.Location = new System.Drawing.Point(421, 676);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 17;
@@ -194,7 +194,7 @@ namespace Reclamation.TimeSeries.Forms
             this.checkBoxIncludeSelected.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxIncludeSelected.AutoSize = true;
             this.checkBoxIncludeSelected.Enabled = false;
-            this.checkBoxIncludeSelected.Location = new System.Drawing.Point(23, 50);
+            this.checkBoxIncludeSelected.Location = new System.Drawing.Point(23, 52);
             this.checkBoxIncludeSelected.Name = "checkBoxIncludeSelected";
             this.checkBoxIncludeSelected.Size = new System.Drawing.Size(103, 17);
             this.checkBoxIncludeSelected.TabIndex = 20;
@@ -207,7 +207,7 @@ namespace Reclamation.TimeSeries.Forms
             this.checkBoxIncludeBaseline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxIncludeBaseline.AutoSize = true;
             this.checkBoxIncludeBaseline.Enabled = false;
-            this.checkBoxIncludeBaseline.Location = new System.Drawing.Point(23, 33);
+            this.checkBoxIncludeBaseline.Location = new System.Drawing.Point(23, 35);
             this.checkBoxIncludeBaseline.Name = "checkBoxIncludeBaseline";
             this.checkBoxIncludeBaseline.Size = new System.Drawing.Size(102, 17);
             this.checkBoxIncludeBaseline.TabIndex = 19;
@@ -219,7 +219,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.checkBoxSubtractFromBaseline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxSubtractFromBaseline.AutoSize = true;
-            this.checkBoxSubtractFromBaseline.Location = new System.Drawing.Point(7, 16);
+            this.checkBoxSubtractFromBaseline.Location = new System.Drawing.Point(7, 18);
             this.checkBoxSubtractFromBaseline.Name = "checkBoxSubtractFromBaseline";
             this.checkBoxSubtractFromBaseline.Size = new System.Drawing.Size(106, 17);
             this.checkBoxSubtractFromBaseline.TabIndex = 18;
@@ -230,9 +230,8 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // checkBoxMerge
             // 
-            this.checkBoxMerge.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxMerge.AutoSize = true;
-            this.checkBoxMerge.Location = new System.Drawing.Point(7, 67);
+            this.checkBoxMerge.Location = new System.Drawing.Point(7, 72);
             this.checkBoxMerge.Name = "checkBoxMerge";
             this.checkBoxMerge.Size = new System.Drawing.Size(103, 17);
             this.checkBoxMerge.TabIndex = 25;
@@ -243,14 +242,13 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // groupBoxComparisonn
             // 
-            this.groupBoxComparisonn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBoxComparisonn.Controls.Add(this.checkBoxIncludeSelected);
             this.groupBoxComparisonn.Controls.Add(this.checkBoxMerge);
             this.groupBoxComparisonn.Controls.Add(this.checkBoxIncludeBaseline);
             this.groupBoxComparisonn.Controls.Add(this.checkBoxSubtractFromBaseline);
-            this.groupBoxComparisonn.Location = new System.Drawing.Point(339, 476);
+            this.groupBoxComparisonn.Location = new System.Drawing.Point(6, 11);
             this.groupBoxComparisonn.Name = "groupBoxComparisonn";
-            this.groupBoxComparisonn.Size = new System.Drawing.Size(149, 117);
+            this.groupBoxComparisonn.Size = new System.Drawing.Size(174, 111);
             this.groupBoxComparisonn.TabIndex = 24;
             this.groupBoxComparisonn.TabStop = false;
             this.groupBoxComparisonn.Text = "comparison";
@@ -261,44 +259,20 @@ namespace Reclamation.TimeSeries.Forms
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxAll.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBoxAll.Controls.Add(this.groupBoxSorting);
-            this.groupBoxAll.Controls.Add(this.groupBoxComparisonn);
+            this.groupBoxAll.Controls.Add(this.tabControl1);
             this.groupBoxAll.Controls.Add(this.groupBox1);
-            this.groupBoxAll.Controls.Add(this.buttonClearAll);
-            this.groupBoxAll.Controls.Add(this.buttonSelectAll);
             this.groupBoxAll.Location = new System.Drawing.Point(2, 0);
             this.groupBoxAll.Name = "groupBoxAll";
-            this.groupBoxAll.Size = new System.Drawing.Size(494, 600);
+            this.groupBoxAll.Size = new System.Drawing.Size(596, 670);
             this.groupBoxAll.TabIndex = 25;
             this.groupBoxAll.TabStop = false;
-            // 
-            // groupBoxSorting
-            // 
-            this.groupBoxSorting.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBoxSorting.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBoxSorting.Controls.Add(this.panel3);
-            this.groupBoxSorting.Controls.Add(this.panel2);
-            this.groupBoxSorting.Controls.Add(this.panel1);
-            this.groupBoxSorting.Controls.Add(this.label3);
-            this.groupBoxSorting.Controls.Add(this.label2);
-            this.groupBoxSorting.Controls.Add(this.buttonSelectLow20P);
-            this.groupBoxSorting.Controls.Add(this.buttonSelectMid20P);
-            this.groupBoxSorting.Controls.Add(this.label1);
-            this.groupBoxSorting.Controls.Add(this.comboBoxSelectedSeries);
-            this.groupBoxSorting.Controls.Add(this.buttonSelectTop20P);
-            this.groupBoxSorting.Location = new System.Drawing.Point(6, 447);
-            this.groupBoxSorting.Name = "groupBoxSorting";
-            this.groupBoxSorting.Size = new System.Drawing.Size(327, 146);
-            this.groupBoxSorting.TabIndex = 26;
-            this.groupBoxSorting.TabStop = false;
-            this.groupBoxSorting.Text = "sort metric definition";
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.comboBoxOutYear);
             this.panel3.Controls.Add(this.radioButtonYear2);
             this.panel3.Controls.Add(this.radioButtonYear1);
-            this.panel3.Location = new System.Drawing.Point(54, 85);
+            this.panel3.Location = new System.Drawing.Point(63, 83);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(254, 25);
             this.panel3.TabIndex = 34;
@@ -339,7 +313,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.panel2.Controls.Add(this.radioButtonEOP);
             this.panel2.Controls.Add(this.radioButtonSum);
-            this.panel2.Location = new System.Drawing.Point(54, 59);
+            this.panel2.Location = new System.Drawing.Point(63, 57);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(254, 25);
             this.panel2.TabIndex = 33;
@@ -372,7 +346,7 @@ namespace Reclamation.TimeSeries.Forms
             this.panel1.Controls.Add(this.radioButtonMonth);
             this.panel1.Controls.Add(this.radioButtonWY);
             this.panel1.Controls.Add(this.radioButtonCY);
-            this.panel1.Location = new System.Drawing.Point(54, 33);
+            this.panel1.Location = new System.Drawing.Point(63, 31);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(254, 25);
             this.panel1.TabIndex = 32;
@@ -422,7 +396,7 @@ namespace Reclamation.TimeSeries.Forms
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 91);
+            this.label3.Location = new System.Drawing.Point(15, 89);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(22, 13);
             this.label3.TabIndex = 31;
@@ -431,7 +405,7 @@ namespace Reclamation.TimeSeries.Forms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 41);
+            this.label2.Location = new System.Drawing.Point(15, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 21;
@@ -440,7 +414,7 @@ namespace Reclamation.TimeSeries.Forms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 14);
+            this.label1.Location = new System.Drawing.Point(15, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 1;
@@ -451,7 +425,7 @@ namespace Reclamation.TimeSeries.Forms
             this.comboBoxSelectedSeries.DropDownHeight = 200;
             this.comboBoxSelectedSeries.FormattingEnabled = true;
             this.comboBoxSelectedSeries.IntegralHeight = false;
-            this.comboBoxSelectedSeries.Location = new System.Drawing.Point(53, 12);
+            this.comboBoxSelectedSeries.Location = new System.Drawing.Point(62, 10);
             this.comboBoxSelectedSeries.Name = "comboBoxSelectedSeries";
             this.comboBoxSelectedSeries.Size = new System.Drawing.Size(256, 21);
             this.comboBoxSelectedSeries.TabIndex = 0;
@@ -462,7 +436,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.buttonSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSort.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonSort.Location = new System.Drawing.Point(2, 606);
+            this.buttonSort.Location = new System.Drawing.Point(355, 116);
             this.buttonSort.Name = "buttonSort";
             this.buttonSort.Size = new System.Drawing.Size(75, 23);
             this.buttonSort.TabIndex = 26;
@@ -470,12 +444,56 @@ namespace Reclamation.TimeSeries.Forms
             this.buttonSort.UseVisualStyleBackColor = true;
             this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(3, 501);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(590, 166);
+            this.tabControl1.TabIndex = 27;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBoxComparisonn);
+            this.tabPage1.Controls.Add(this.buttonClearAll);
+            this.tabPage1.Controls.Add(this.buttonSelectAll);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(582, 140);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "general";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.buttonSort);
+            this.tabPage2.Controls.Add(this.panel3);
+            this.tabPage2.Controls.Add(this.label1);
+            this.tabPage2.Controls.Add(this.panel2);
+            this.tabPage2.Controls.Add(this.buttonSelectTop20P);
+            this.tabPage2.Controls.Add(this.panel1);
+            this.tabPage2.Controls.Add(this.comboBoxSelectedSeries);
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.buttonSelectMid20P);
+            this.tabPage2.Controls.Add(this.label2);
+            this.tabPage2.Controls.Add(this.buttonSelectLow20P);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(796, 146);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "sort metric definition";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
             // ScenarioSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(499, 638);
-            this.Controls.Add(this.buttonSort);
+            this.ClientSize = new System.Drawing.Size(601, 708);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonApply);
             this.Controls.Add(this.buttonOK);
@@ -491,14 +509,16 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBoxComparisonn.ResumeLayout(false);
             this.groupBoxComparisonn.PerformLayout();
             this.groupBoxAll.ResumeLayout(false);
-            this.groupBoxSorting.ResumeLayout(false);
-            this.groupBoxSorting.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -519,7 +539,6 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.CheckBox checkBoxSubtractFromBaseline;
         private System.Windows.Forms.GroupBox groupBoxAll;
         private System.Windows.Forms.CheckBox checkBoxMerge;
-        private System.Windows.Forms.GroupBox groupBoxSorting;
         private System.Windows.Forms.ComboBox comboBoxSelectedSeries;
         private System.Windows.Forms.Button buttonSelectMid20P;
         private System.Windows.Forms.Button buttonSelectLow20P;
@@ -540,5 +559,8 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.Button buttonSort;
         private System.Windows.Forms.ComboBox comboBoxMonths;
         private System.Windows.Forms.RadioButton radioButtonMonth;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
