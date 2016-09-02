@@ -24,6 +24,7 @@ namespace Reclamation.TimeSeries.Forms
             ReloadGrid();
             LoadSeriesList();
             LoadMonthList();
+            SetSortMetricColumnVisibility(tabControl1);
         }
 
         private void ReloadGrid()
@@ -396,6 +397,33 @@ namespace Reclamation.TimeSeries.Forms
                 scenarioTable.DefaultView.Sort = "SortOrder ASC";
             }
                      
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var ctrl = sender as TabControl;
+
+            if (ctrl == null)
+                return;
+
+            SetSortMetricColumnVisibility(ctrl);
+        }
+
+        private void SetSortMetricColumnVisibility(TabControl ctrl)
+        {
+            // purpose is to hide the Sort Metric column if the sort metric
+            // definition tab is not selected
+
+            if (!dataGridView.Columns.Contains("SortMetric"))
+                return;
+            
+            if (ctrl.TabPages["tabSortMetric"] == null)
+                return;
+
+            var sortMetricColumn = dataGridView.Columns["SortMetric"];
+            var sortMetricTabPage = ctrl.TabPages["tabSortMetric"];
+
+            sortMetricColumn.Visible = (ctrl.SelectedTab == sortMetricTabPage);
         }
         
     }
