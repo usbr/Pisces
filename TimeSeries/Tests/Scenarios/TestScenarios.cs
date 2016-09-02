@@ -25,7 +25,7 @@ namespace Reclamation.TimeSeries.Tests.Scenarios
             var db = new TimeSeriesDatabase(svr,false);
             ds.Import(fn, db);
 
-            Assert.IsTrue(ds.ScenarioMapping.Count == 1);
+            Assert.IsTrue(ds.ScenarioMapping.Count > 0);
 
             // create Scenarios
         }
