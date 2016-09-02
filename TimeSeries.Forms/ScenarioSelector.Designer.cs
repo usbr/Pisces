@@ -46,10 +46,15 @@ namespace Reclamation.TimeSeries.Forms
             this.checkBoxMerge = new System.Windows.Forms.CheckBox();
             this.groupBoxComparisonn = new System.Windows.Forms.GroupBox();
             this.groupBoxAll = new System.Windows.Forms.GroupBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.tabSortMetric = new System.Windows.Forms.TabPage();
+            this.buttonSort = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.comboBoxOutYear = new System.Windows.Forms.ComboBox();
             this.radioButtonYear2 = new System.Windows.Forms.RadioButton();
             this.radioButtonYear1 = new System.Windows.Forms.RadioButton();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.radioButtonEOP = new System.Windows.Forms.RadioButton();
             this.radioButtonSum = new System.Windows.Forms.RadioButton();
@@ -58,24 +63,19 @@ namespace Reclamation.TimeSeries.Forms
             this.radioButtonMonth = new System.Windows.Forms.RadioButton();
             this.radioButtonWY = new System.Windows.Forms.RadioButton();
             this.radioButtonCY = new System.Windows.Forms.RadioButton();
+            this.comboBoxSelectedSeries = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxSelectedSeries = new System.Windows.Forms.ComboBox();
-            this.buttonSort = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.groupBoxComparisonn.SuspendLayout();
             this.groupBoxAll.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabGeneral.SuspendLayout();
+            this.tabSortMetric.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -267,6 +267,64 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBoxAll.TabIndex = 25;
             this.groupBoxAll.TabStop = false;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabGeneral);
+            this.tabControl1.Controls.Add(this.tabSortMetric);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(3, 501);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(590, 166);
+            this.tabControl1.TabIndex = 27;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
+            // 
+            // tabGeneral
+            // 
+            this.tabGeneral.Controls.Add(this.groupBoxComparisonn);
+            this.tabGeneral.Controls.Add(this.buttonClearAll);
+            this.tabGeneral.Controls.Add(this.buttonSelectAll);
+            this.tabGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tabGeneral.Name = "tabGeneral";
+            this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabGeneral.Size = new System.Drawing.Size(582, 140);
+            this.tabGeneral.TabIndex = 0;
+            this.tabGeneral.Text = "general";
+            this.tabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // tabSortMetric
+            // 
+            this.tabSortMetric.Controls.Add(this.buttonSort);
+            this.tabSortMetric.Controls.Add(this.panel3);
+            this.tabSortMetric.Controls.Add(this.label1);
+            this.tabSortMetric.Controls.Add(this.panel2);
+            this.tabSortMetric.Controls.Add(this.buttonSelectTop20P);
+            this.tabSortMetric.Controls.Add(this.panel1);
+            this.tabSortMetric.Controls.Add(this.comboBoxSelectedSeries);
+            this.tabSortMetric.Controls.Add(this.label3);
+            this.tabSortMetric.Controls.Add(this.buttonSelectMid20P);
+            this.tabSortMetric.Controls.Add(this.label2);
+            this.tabSortMetric.Controls.Add(this.buttonSelectLow20P);
+            this.tabSortMetric.Location = new System.Drawing.Point(4, 22);
+            this.tabSortMetric.Name = "tabSortMetric";
+            this.tabSortMetric.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSortMetric.Size = new System.Drawing.Size(582, 140);
+            this.tabSortMetric.TabIndex = 1;
+            this.tabSortMetric.Text = "sort metric definition";
+            this.tabSortMetric.UseVisualStyleBackColor = true;
+            // 
+            // buttonSort
+            // 
+            this.buttonSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSort.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonSort.Location = new System.Drawing.Point(355, 116);
+            this.buttonSort.Name = "buttonSort";
+            this.buttonSort.Size = new System.Drawing.Size(75, 23);
+            this.buttonSort.TabIndex = 26;
+            this.buttonSort.Text = "Sort";
+            this.buttonSort.UseVisualStyleBackColor = true;
+            this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.comboBoxOutYear);
@@ -308,6 +366,15 @@ namespace Reclamation.TimeSeries.Forms
             this.radioButtonYear1.TabStop = true;
             this.radioButtonYear1.Text = "first year";
             this.radioButtonYear1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "using:";
             // 
             // panel2
             // 
@@ -393,6 +460,18 @@ namespace Reclamation.TimeSeries.Forms
             this.radioButtonCY.Text = "cy";
             this.radioButtonCY.UseVisualStyleBackColor = true;
             // 
+            // comboBoxSelectedSeries
+            // 
+            this.comboBoxSelectedSeries.DropDownHeight = 200;
+            this.comboBoxSelectedSeries.FormattingEnabled = true;
+            this.comboBoxSelectedSeries.IntegralHeight = false;
+            this.comboBoxSelectedSeries.Location = new System.Drawing.Point(62, 10);
+            this.comboBoxSelectedSeries.Name = "comboBoxSelectedSeries";
+            this.comboBoxSelectedSeries.Size = new System.Drawing.Size(256, 21);
+            this.comboBoxSelectedSeries.TabIndex = 0;
+            this.comboBoxSelectedSeries.DropDown += new System.EventHandler(this.AdjustWidthComboBox_DropDown);
+            this.comboBoxSelectedSeries.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelectedSeries_SelectedIndexChanged);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -410,84 +489,6 @@ namespace Reclamation.TimeSeries.Forms
             this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 21;
             this.label2.Text = "sort by:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 12);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "using:";
-            // 
-            // comboBoxSelectedSeries
-            // 
-            this.comboBoxSelectedSeries.DropDownHeight = 200;
-            this.comboBoxSelectedSeries.FormattingEnabled = true;
-            this.comboBoxSelectedSeries.IntegralHeight = false;
-            this.comboBoxSelectedSeries.Location = new System.Drawing.Point(62, 10);
-            this.comboBoxSelectedSeries.Name = "comboBoxSelectedSeries";
-            this.comboBoxSelectedSeries.Size = new System.Drawing.Size(256, 21);
-            this.comboBoxSelectedSeries.TabIndex = 0;
-            this.comboBoxSelectedSeries.DropDown += new System.EventHandler(this.AdjustWidthComboBox_DropDown);
-            this.comboBoxSelectedSeries.SelectedIndexChanged += new System.EventHandler(this.comboBoxSelectedSeries_SelectedIndexChanged);
-            // 
-            // buttonSort
-            // 
-            this.buttonSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonSort.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonSort.Location = new System.Drawing.Point(355, 116);
-            this.buttonSort.Name = "buttonSort";
-            this.buttonSort.Size = new System.Drawing.Size(75, 23);
-            this.buttonSort.TabIndex = 26;
-            this.buttonSort.Text = "Sort";
-            this.buttonSort.UseVisualStyleBackColor = true;
-            this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(3, 501);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(590, 166);
-            this.tabControl1.TabIndex = 27;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.groupBoxComparisonn);
-            this.tabPage1.Controls.Add(this.buttonClearAll);
-            this.tabPage1.Controls.Add(this.buttonSelectAll);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(582, 140);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "general";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.buttonSort);
-            this.tabPage2.Controls.Add(this.panel3);
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Controls.Add(this.panel2);
-            this.tabPage2.Controls.Add(this.buttonSelectTop20P);
-            this.tabPage2.Controls.Add(this.panel1);
-            this.tabPage2.Controls.Add(this.comboBoxSelectedSeries);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.buttonSelectMid20P);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.buttonSelectLow20P);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(796, 146);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "sort metric definition";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // ScenarioSelector
             // 
@@ -509,16 +510,16 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBoxComparisonn.ResumeLayout(false);
             this.groupBoxComparisonn.PerformLayout();
             this.groupBoxAll.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.tabGeneral.ResumeLayout(false);
+            this.tabSortMetric.ResumeLayout(false);
+            this.tabSortMetric.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -560,7 +561,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ComboBox comboBoxMonths;
         private System.Windows.Forms.RadioButton radioButtonMonth;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabGeneral;
+        private System.Windows.Forms.TabPage tabSortMetric;
     }
 }
