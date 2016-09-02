@@ -231,6 +231,8 @@ namespace Reclamation.TimeSeries
         public virtual Series CreateScenario(TimeSeriesDatabaseDataSet.ScenarioRow scenario)
         {
             // if we have scenarios in pdb, find the appropriate table.
+            //this.ScenarioName = ConnectionStringUtility.GetToken(ConnectionString, "ScenarioName", "");
+
             if(scenario.Name != "")
             {
                 var rval = this.Clone();
@@ -382,9 +384,8 @@ namespace Reclamation.TimeSeries
         protected void InitTimeSeries(DataTable table, string units, TimeInterval tsType,
             bool readOnly, bool hasFlags, bool hasConstraints)
         {
-            //this.ScenarioName = ConnectionStringUtility.GetToken(ConnectionString, "ScenarioName", "");
-           // State = "";
-//            Expression = "";
+
+            this.ScenarioName = ConnectionStringUtility.GetToken(ConnectionString, "ScenarioName", this.ScenarioName);
             _readOnly = readOnly;
             this.TimeInterval = tsType;
             this._hasFlags = hasFlags;
