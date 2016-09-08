@@ -414,14 +414,11 @@ namespace Reclamation.TimeSeries.Forms
             // purpose is to hide the Sort Metric column if the sort metric
             // definition tab is not selected
 
-            if (!dataGridView.Columns.Contains("SortMetric"))
-                return;
-            
-            if (ctrl.TabPages["tabSortMetric"] == null)
-                return;
-
             var sortMetricColumn = dataGridView.Columns["SortMetric"];
             var sortMetricTabPage = ctrl.TabPages["tabSortMetric"];
+
+            if (sortMetricColumn == null || sortMetricTabPage == null)
+                return;
 
             sortMetricColumn.Visible = (ctrl.SelectedTab == sortMetricTabPage);
         }
