@@ -666,12 +666,6 @@ namespace Rwis.Sync
                 nr.enabled = true;
                 sck.AddSeriesCatalogRow(nr);
                 db.Server.SaveTable(sck);
-                // Add timeseries table
-                showMessage("Adding new table to RWIS DB...");
-                string sqlCreateTable = "Create Table " + tablename;
-                sqlCreateTable += " (datetime datetime primary key, value float, flag varchar(50)" + " );";
-                db.Server.RunSqlCommand(sqlCreateTable);
-                // Add entries to seriesproperties table
                 showMessage("Downloading data from regional DB...");
                 // Update data
                 var s = db.GetSeriesFromTableName(tablename);
@@ -804,13 +798,6 @@ namespace Rwis.Sync
 
                         Console.WriteLine("Adding " + name);
 
-                        // Add timeseries table
-                        showMessage("Adding new table to RWIS DB...");
-                        string sqlCreateTable = "Create Table " + tablename;
-                        sqlCreateTable += " (datetime datetime primary key, value float, flag varchar(50)" + " );";
-                        // RUN SQL COMMAND
-                        db.Server.RunSqlCommand(sqlCreateTable);
-                        // Add entries to seriesproperties table
                         showMessage("Downloading data from regional DB...");
                         // Update data
                         var s = db.GetSeriesFromTableName(tablename);
