@@ -29,6 +29,8 @@ namespace Reclamation.TimeSeries
         {
             get
             {
+                if (m_siteRow.IsstateNull())
+                    return "";
                 return m_siteRow.state;
             }
         }
@@ -36,6 +38,8 @@ namespace Reclamation.TimeSeries
         {
             get
             {
+                if (m_siteRow.IstimezoneNull())
+                    return "";
                 return m_siteRow.timezone;
             }
         }
