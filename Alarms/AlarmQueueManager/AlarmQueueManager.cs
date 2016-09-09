@@ -25,7 +25,7 @@ namespace AlarmQueueManager
             var aq = new AlarmQueueManager();
             if (Asterisk.IsBusy())
             {
-                Console.WriteLine("Asterisk system is busy " + Asterisk.GetAllVariables());
+                Logger.WriteLine("Asterisk system is busy " + Asterisk.GetAllVariables());
                 return;
             }
             else

@@ -1777,9 +1777,25 @@ namespace Reclamation.TimeSeries
 
         }
 
+        public void UpdateSystemStatus()
+        {
+            var sc = GetSeriesCatalog("isfolder = 1");
+            
+        }
+
         public void DailySummaryReport(DateTime t1 , DateTime t2)
         {
             var sc = GetSeriesCatalog("timeinterval = 'Daily'");
+/**
+ 
+(select 'daily_abei_et' as label, datetime,value from daily_abei_et where datetime = '2016--09-01 00:00:00'  and value is not null )
+
+UNION ALL
+
+(select 'daily_abei_etos' as label, datetime,value from daily_abei_etos where datetime = '2016--09-01 00:00:00' and value is not null )
+  
+ 
+ */
         }
 
 
@@ -1844,5 +1860,10 @@ namespace Reclamation.TimeSeries
             }
         }
        
+
+        public SiteInfo  SiteInfo(string siteID)
+        {
+            return new SiteInfo(this, siteID);
+        }
     }
 }
