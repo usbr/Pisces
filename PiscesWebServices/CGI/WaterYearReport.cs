@@ -94,8 +94,10 @@ namespace PiscesWebServices.CGI
 
         private string GetParameterDescription(string parameterCode, TimeInterval interval)
         {
-            string id = parameterCode.ToLower() + "." + interval.ToString();
-            var pc = db.GetParameterCatalog("id = '"+id+"'");
+            string whereClause = "id = '"+parameterCode.ToLower() + "'"
+                 + " and  timeinterval = '" + interval.ToString()+"'";
+
+            var pc = db.GetParameterCatalog(whereClause);
             if (pc.Count != 0)
                 return pc[0].name + ", " + pc[0].units;
             return "";

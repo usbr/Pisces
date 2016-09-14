@@ -215,13 +215,15 @@ namespace Reclamation.TimeSeries
             if (!m_server.TableExists("parametercatalog"))
             {
                 string sql = "Create Table parametercatalog "
-                + "( id  " + m_server.PortableCharacterType(100) + " not null primary key, "
+                + "( id  " + m_server.PortableCharacterType(100) + " not null, "
                 + " timeinterval " + m_server.PortableCharacterType(1024) + " not null default '', "
                 + " units " + m_server.PortableCharacterType(1024) + " not null default '', "
                 + " statistic " + m_server.PortableCharacterType(1024) + " not null default '' ,"
-                + " name " + m_server.PortableCharacterType(1024) + " not null default '' "
+                + " name " + m_server.PortableCharacterType(1024) + " not null default '', "
+                + " CONSTRAINT parametercatalog_pkey PRIMARY KEY (id, timeinterval) "
                 + " )";
                 ExecuteCreateTable(m_server, sql);
+ 
             }
         }
 
