@@ -12,14 +12,21 @@ namespace Pisces.NunitTests.Database
     {
 
         [Test]
-        public void TestSQLite()
+        public void SiteInfoDesignTest()
         {
             var fn = FileUtility.GetTempFileName(".pdb"); 
 
             SQLiteServer svr = new SQLiteServer(fn);
             var db = new TimeSeriesDatabase(svr,false);
+            var siteCatalog = db.GetSiteCatalog();
+            siteCatalog.AddsitecatalogRow("BOII", "Boise station", "ID");
+            svr.SaveTable(siteCatalog);
+            var sc = db.GetSeriesCatalog();
 
             var s = new Series();
+            s.SiteID = "BOII";
+            sc.AddSeriesCatalogRow(s, sc.NextID(), db.GetRootObjects()[0].ID);
+            sc.Save();
 
             var si = db.SiteInfo("BOII");
             bool idaho = si.state == "ID"; //idaho
@@ -34,7 +41,7 @@ namespace Pisces.NunitTests.Database
 
             Console.WriteLine(si.SeriesList()[0].Parameter);
 
-            var goodStats = (si.Parameters()[0].statistic == "Avg");
+            //var goodStats = (si.Parameters()[0].statistic == "Avg");
 
 
         }
