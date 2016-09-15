@@ -12,10 +12,10 @@ namespace PiscesWebServices
     /// <summary>
     /// query for a single site.
     /// </summary>
-    public class SiteInfo
+    public class SiteInfoCGI
     {
         TimeSeriesDatabase db;
-        public SiteInfo(TimeSeriesDatabase db)
+        public SiteInfoCGI(TimeSeriesDatabase db)
         {
             this.db = db;
         }

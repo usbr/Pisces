@@ -33,7 +33,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -117,7 +117,7 @@
     <Compile Include="HomePage.cs" />
     <Compile Include="HydroJsonWriter.cs" />
     <Compile Include="PiscesWebRoutes.cs" />
-    <Compile Include="SiteInfo.cs" />
+    <Compile Include="SiteInfoCGI.cs" />
     <Compile Include="CGI\WebTimeSeriesWriter.cs" />
     <Compile Include="JSONSites.cs" />
     <Compile Include="Program.cs" />

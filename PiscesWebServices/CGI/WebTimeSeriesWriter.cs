@@ -32,48 +32,48 @@ namespace PiscesWebServices.CGI
     {
         TimeSeriesDatabase db;
         DateTime start = DateTime.Now.AddDays(-1).Date;
-        DateTime end  = DateTime.Now.Date;
-        Formatter m_formatter ;
+        DateTime end = DateTime.Now.Date;
+        Formatter m_formatter;
         string m_query = "";
         NameValueCollection m_collection;
-       
 
-        string[] supportedFormats =new string[] {"csv", // csv with headers
+
+        string[] supportedFormats = new string[] {"csv", // csv with headers
                                                 "html", // basic html
                                                 "1", // legacy tab separated.
                                                 "2" // legacy csv
-                                                }; 
-       
+                                                };
 
-       
 
-        public WebTimeSeriesWriter(TimeSeriesDatabase db, TimeInterval interval, string query="")
+
+
+        public WebTimeSeriesWriter(TimeSeriesDatabase db, TimeInterval interval, string query = "")
         {
             this.db = db;
             m_query = query;
             InitFormatter(interval);
 
-            
+
         }
 
         private void InitFormatter(TimeInterval interval)
         {
             if (m_query == "")
-            {  
+            {
                 m_query = HydrometWebUtility.GetQuery();
             }
             Logger.WriteLine("Raw query: = '" + m_query + "'");
 
             if (m_query == "")
             {
-               StopWithError ("Error: Invalid query");
+                StopWithError("Error: Invalid query");
             }
 
             m_query = LegacyTranslation(m_query, interval);
 
             if (!ValidQuery(m_query))
             {
-               StopWithError("Error: Invalid query");
+                StopWithError("Error: Invalid query");
             }
 
             m_collection = HttpUtility.ParseQueryString(m_query);
@@ -114,7 +114,7 @@ namespace PiscesWebServices.CGI
             }
             else if (format == "1")
             {
-                m_formatter = new LegacyCsvFormatter(interval, m_printFlags,"\t");
+                m_formatter = new LegacyCsvFormatter(interval, m_printFlags, "\t");
             }
             else if (format == "html")
             {
@@ -136,7 +136,7 @@ namespace PiscesWebServices.CGI
             throw new Exception(msg);
         }
 
-        public void Run( string outputFile="")
+        public void Run(string outputFile = "")
         {
             StreamWriter sw = null;
             if (outputFile != "")
@@ -144,32 +144,32 @@ namespace PiscesWebServices.CGI
                 sw = new StreamWriter(outputFile);
                 Console.SetOut(sw);
             }
-             Console.Write("Content-type: text/html\n\n");
-          
-           try 
-             {
-                 SeriesList list = CreateSeriesList();
+            Console.Write("Content-type: text/html\n\n");
 
-                 if (list.Count == 0)
-                 {
-                     StopWithError("Error: list of series is empty");
-                 }
+            try
+            {
+                SeriesList list = CreateSeriesList();
 
-                 WriteSeries(list);
-             }
+                if (list.Count == 0)
+                {
+                    StopWithError("Error: list of series is empty");
+                }
+
+                WriteSeries(list);
+            }
             finally
-           {
-               HydrometWebUtility.PrintHydrometTrailer();
+            {
+                HydrometWebUtility.PrintHydrometTrailer();
 
-               if (sw != null)
-                   sw.Close();
+                if (sw != null)
+                    sw.Close();
 
-           }
-        //catch (Exception e)
-        //{
-        //    Logger.WriteLine(e.Message);
-        //  Console.WriteLine("Error: Data");	
-        //}
+            }
+            //catch (Exception e)
+            //{
+            //    Logger.WriteLine(e.Message);
+            //  Console.WriteLine("Error: Data");	
+            //}
 
             StreamWriter standardOutput = new StreamWriter(Console.OpenStandardOutput());
             standardOutput.AutoFlush = true;
@@ -182,7 +182,7 @@ namespace PiscesWebServices.CGI
             if (query == "")
                 return false;
 
-            return Regex.IsMatch(query,"[^A-Za-z0-9=&%+-]");
+            return Regex.IsMatch(query, "[^A-Za-z0-9=&%+-]");
         }
 
 
@@ -193,7 +193,7 @@ namespace PiscesWebServices.CGI
         /// <returns></returns>
         private void WriteSeries(SeriesList list)
         {
-            
+
             m_formatter.WriteSeriesHeader(list);
 
             int daysStored = 30;
@@ -209,11 +209,11 @@ namespace PiscesWebServices.CGI
             foreach (TimeRange item in timeRange.Split(daysStored))
             {
                 var interval = m_formatter.Interval;
-                var tbl = Read(list, item.StartDate, item.EndDate,interval); 
+                var tbl = Read(list, item.StartDate, item.EndDate, interval);
                 PrintDataTable(list, tbl, m_formatter, interval);
             }
             m_formatter.WriteSeriesTrailer();
-            
+
         }
 
 
@@ -229,22 +229,22 @@ namespace PiscesWebServices.CGI
 
 
         /*
-         * 
-SELECT   'daily_karl_test' as tablename,a.datetime, value,flag 
-FROM  ( Select datetime from generate_series
-        ( '2016-07-23'::timestamp 
-        , '2016-08-03 23:59:59.996'::timestamp
-        , '1 day'::interval) datetime ) a
-
-left join daily_karl_test b on a.datetime = b.datetime
- 
-WHERE  a.datetime >= '2016-07-23 00:00:00.000' AND  a.datetime <= '2016-08-03 23:59:59.996' 
-
-UNION ALL 
-SELECT 'daily_hrmo_etos' as tablename, datetime,value,flag FROM daily_hrmo_etos WHERE datetime >= '2016-07-23 00:00:00.000' AND  datetime <= '2016-08-03 23:59:59.996' 
-order by datetime,tablename 
-
-
+         *   ***************** NOTE: ******************
+         *   SELECT   'daily_karl_test' as tablename,a.datetime, value,flag 
+         *   FROM  ( Select datetime from generate_series
+         *   ( '2016-07-23'::timestamp 
+         *   , '2016-08-03 23:59:59.996'::timestamp
+         *   , '1 day'::interval) datetime ) a
+         *
+         *   left join daily_karl_test b on a.datetime = b.datetime
+         *
+         *   WHERE  a.datetime >= '2016-07-23 00:00:00.000' AND  a.datetime <= '2016-08-03 23:59:59.996' 
+         *
+         *   UNION ALL 
+         *   SELECT 'daily_hrmo_etos' as tablename, datetime,value,flag FROM daily_hrmo_etos 
+         *   WHERE datetime >= '2016-07-23 00:00:00.000' AND  datetime <= '2016-08-03 23:59:59.996' 
+         *   order by datetime,tablename 
+         *
          * */
         /// <summary>
         /// Create a SQL command that performs UNION of multiple series
@@ -273,8 +273,8 @@ order by datetime,tablename
                     sql += "\n UNION ALL \n";
             }
 
-           sql += BuildUnionSQL(list, t1, t2, startIndex);
-           sql += " \norder by datetime,tablename ";
+            sql += BuildUnionSQL(list, t1, t2, startIndex);
+            sql += " \norder by datetime,tablename ";
 
             return sql;
         }
@@ -284,22 +284,22 @@ order by datetime,tablename
             string st1 = t1.ToString("yyyy-MM-dd");
             string st2 = t2.ToString("yyyy-MM-dd") + " 23:59:59.996";
             string sql = "";
-            
+
             if (db.Server.TableExists(tableName))
             {
                 sql = "SELECT   '" + tableName + "' as tablename,a.datetime, value,flag "
-                  + " FROM  ( Select datetime from generate_series" 
+                  + " FROM  ( Select datetime from generate_series"
                   + "( '" + st1 + "'::timestamp , '" + st2 + "'::timestamp , '1 day'::interval) datetime ) a ";
-                sql += @" left join "+tableName+"  b on a.datetime = b.datetime "
-                    + " WHERE  a.datetime >= '" + st1 
-                    +"' AND    a.datetime <= '"+st2+"'";
+                sql += @" left join " + tableName + "  b on a.datetime = b.datetime "
+                    + " WHERE  a.datetime >= '" + st1
+                    + "' AND    a.datetime <= '" + st2 + "'";
             }
             else
             {
                 sql = "SELECT   '" + tableName + "' as tablename, datetime, null as value  , '' as flag "
                   + " FROM  ( Select datetime from generate_series"
                   + "( '" + st1 + "'::timestamp , '" + st2 + "'::timestamp , '1 day'::interval) datetime ) a ";
-                
+
             }
             return sql;
         }
@@ -339,8 +339,6 @@ order by datetime,tablename
             return rval;
         }
 
-        
-
         private SeriesList CreateSeriesList()
         {
             var interval = m_formatter.Interval;
@@ -372,7 +370,7 @@ order by datetime,tablename
         /// </summary>
         /// <param name="list"></param>
         /// <param name="table"></param>
-        private static void PrintDataTable(SeriesList list, DataTable table, 
+        private static void PrintDataTable(SeriesList list, DataTable table,
             Formatter fmt, TimeInterval interval)
         {
             var t0 = "";
@@ -388,24 +386,24 @@ order by datetime,tablename
                 dict.Add(list[i].Table.TableName, i);
             }
 
-            string t="";
+            string t = "";
             bool printThisRow = false;
             for (int i = 0; i < table.Rows.Count; i++)
             {
                 var row = table.Rows[i];
-               
+
                 t = fmt.FormatDate(row[1]);
 
-               if( t!= t0)
+                if (t != t0)
                 {
-                   if (printThisRow)
-                    fmt.PrintRow(t0,vals,flags);
+                    if (printThisRow)
+                        fmt.PrintRow(t0, vals, flags);
                     vals = new string[list.Count];
                     flags = new string[list.Count];
                     t0 = t;
                 }
 
-                vals[dict[row[0].ToString()]] =  fmt.FormatNumber(row[2]);
+                vals[dict[row[0].ToString()]] = fmt.FormatNumber(row[2]);
                 flags[dict[row[0].ToString()]] = fmt.FormatFlag(row[3]);
 
                 DateTime date = Convert.ToDateTime(row[1]);
@@ -417,10 +415,6 @@ order by datetime,tablename
                 fmt.PrintRow(t, vals, flags);
         }
 
-       
-
-
-        
 
         private static TimeSeriesName[] GetTimeSeriesName(NameValueCollection query, TimeInterval interval)
         {
@@ -429,25 +423,25 @@ order by datetime,tablename
             //add support for the auto generated parameter list
             //if the sites list is just the site return a list of all parameters in the table
 
-            var sites = HydrometWebUtility.GetParameter(query,"list");
+            var sites = HydrometWebUtility.GetParameter(query, "list");
 
             Logger.WriteLine("GetTimeSeriesName()");
             Logger.WriteLine(query.ToString());
-            
+
             var siteCodePairs = sites.Split(',');
 
             foreach (var item in siteCodePairs)
             {
-                var tokens = item.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
+                var tokens = item.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 if (tokens.Length == 2)
                 {
-                    TimeSeriesName tn = new TimeSeriesName(tokens[0] + "_" + tokens[1] , interval);
+                    TimeSeriesName tn = new TimeSeriesName(tokens[0] + "_" + tokens[1], interval);
                     rval.Add(tn);
                 }
             }
             return rval.ToArray();
         }
-       
+
 
 
     }

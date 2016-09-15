@@ -25,22 +25,22 @@ namespace PiscesWebServices
 
             var siteType = ""; // agrimet, hydromet (blank means all)
             var cgi = "";
-            var json_property_stubs="";
+            var json_property_stubs = "";
             var payload = "";
             var p = new OptionSet();
             var format = "json";
             var verbose = false;
             bool selfHost = false;
-            var sqLiteDatabaseFileName="";
+            var sqLiteDatabaseFileName = "";
 
             p.Add("server", x => selfHost = true);
-            p.Add("cgi=","required cgi to execute cgi=sites or cgi=series",x => cgi=x);
+            p.Add("cgi=", "required cgi to execute cgi=sites or cgi=series", x => cgi = x);
             p.Add("json_property_stubs=", "comma separated list of properties (i.e. 'region,url,') to created empty stubs if neeed ",
                               x => json_property_stubs = x);
             p.Add("site-type=", "filter agrimet sites", x => siteType = BasicDBServer.SafeSqlLikeClauseLiteral(x));
             p.Add("payload=", "test query data for a CGI", x => payload = x);
-            p.Add("format=","format json(default) | csv ",x => format=x);
-            p.Add("verbose"," get more details", x => verbose =true);
+            p.Add("format=", "format json(default) | csv ", x => format = x);
+            p.Add("verbose", " get more details", x => verbose = true);
             p.Add("database", "filename for SQLite database", x => sqLiteDatabaseFileName = x);
 
             try
@@ -54,8 +54,8 @@ namespace PiscesWebServices
             }
             Database.InitDB(args);
             var db = Database.DB();
-            
-            if( selfHost)
+
+            if (selfHost)
             {
                 try
                 {
@@ -94,15 +94,12 @@ namespace PiscesWebServices
                 Logger.WriteLine("payload = " + payload);
             }
 
-            
-
             if (cgi == "inventory")
             {
                 Console.Write("Content-Type: text/html\n\n");
                 db.Inventory();
             }
-            else
-            if (cgi == "sites")
+            else if (cgi == "sites")
             {
                 if (format == "json")
                 {
@@ -115,8 +112,7 @@ namespace PiscesWebServices
                     c.Execute(siteType);
                 }
             }
-            else
-            if (cgi == "instant" || cgi == "daily")
+            else if (cgi == "instant" || cgi == "daily")
             {
                 try
                 {
@@ -124,7 +120,8 @@ namespace PiscesWebServices
                     if (cgi == "instant")
                         c = new WebTimeSeriesWriter(db, TimeInterval.Irregular, payload);
 
-                    else if (cgi == "daily")
+                    else
+                    if (cgi == "daily")
                         c = new WebTimeSeriesWriter(db, TimeInterval.Daily, payload);
 
                     c.Run();
@@ -134,54 +131,46 @@ namespace PiscesWebServices
                     Logger.WriteLine("Error: " + e.Message);
                 }
             }
-            else if (cgi == "wyreport"  )
+            else if (cgi == "wyreport")
             {
                 try
                 {
                     WaterYearReport wy = new WaterYearReport(db, payload);
                     wy.Run();
                 }
-                catch (Exception e )
+                catch (Exception e)
                 {
-                    
-                   Logger.WriteLine("Error: " + e.Message);
+
+                    Logger.WriteLine("Error: " + e.Message);
                 }
             }
-            else
-                if (cgi == "site")
-                {
-                    SiteInfo si = new SiteInfo(db);
-                    si.Run(payload);
-                }
-                else
-                    if (cgi == "test-perf-large")
-                    {
-                        var c = new HydrometGCITests();
-                        c.CGI_PerfTestLarge();
+            else if (cgi == "site")
+            {
+                SiteInfoCGI si = new SiteInfoCGI(db);
+                si.Run(payload);
+            }
+            else if (cgi == "test-perf-large")
+            {
+                var c = new HydrometGCITests();
+                c.CGI_PerfTestLarge();
 
-                    }
-                    else
-                        if (cgi == "test-perf-small")
-                        {
-                            var c = new HydrometGCITests();
-                            c.CGI_PerfTestSmall();
-                        }
-                        else
-                            if (cgi == "dump")
-                            {
-                                var c = new HydrometGCITests();
-                                c.DumpTest();
-                            }
-                            else
-                            {
-                                Console.WriteLine("invalid cgi: " + cgi);
-                            }
+            }
+            else if (cgi == "test-perf-small")
+            {
+                var c = new HydrometGCITests();
+                c.CGI_PerfTestSmall();
+            }
+            else if (cgi == "dump")
+            {
+                var c = new HydrometGCITests();
+                c.DumpTest();
+            }
+            else
+            {
+                Console.WriteLine("invalid cgi: " + cgi);
+            }
 
         }
-
-       
-
-        
 
         static void ShowHelp(OptionSet p)
         {
