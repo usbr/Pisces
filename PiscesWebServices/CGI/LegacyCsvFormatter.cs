@@ -122,6 +122,7 @@ namespace PiscesWebServices.CGI
          public override void WriteSeriesTrailer()
          {
              WriteLine("END DATA");
+             HydrometWebUtility.PrintHydrometTrailer();
          }
 
     }

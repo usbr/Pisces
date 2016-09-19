@@ -17,6 +17,7 @@ namespace PiscesWebServices.CGI
     ///  returns results from web query to timeseries data in pisces.
 
     /// "http://www.usbr.gov/pn-bin/instant.pl?list=boii ob,boii obx&start=2016-04-15&end=2016-04-20"
+    /// "http://www.usbr.gov/pn-bin/instant.pl?list=bewo ob,bewo pc&start=2016-04-15&end=2016-04-20&format=zrxp"
     /// "http://lrgs1/pn-bin/daily?list=jck fb, amf fb&start=2016-04-15&end=2016-04-20"
     /// "http://www.usbr.gov/pn-bin/daily?site=luc&start=2016-04-01&end=2016-04-20"
     /// options :  
@@ -40,6 +41,7 @@ namespace PiscesWebServices.CGI
 
         string[] supportedFormats = new string[] {"csv", // csv with headers
                                                 "html", // basic html
+                                                "zrxp", // wiski zxrp (kisters)
                                                 "1", // legacy tab separated.
                                                 "2" // legacy csv
                                                 };
@@ -108,6 +110,10 @@ namespace PiscesWebServices.CGI
 
             if (format == "csv")
                 m_formatter = new CsvFormatter(interval, m_printFlags);
+                else if( format == "zrxp")
+            {
+                m_formatter = new WiskiFormatter(interval);
+            }
             else if (format == "2")
             {
                 m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
@@ -159,7 +165,7 @@ namespace PiscesWebServices.CGI
             }
             finally
             {
-                HydrometWebUtility.PrintHydrometTrailer();
+                //HydrometWebUtility.PrintHydrometTrailer();
 
                 if (sw != null)
                     sw.Close();
@@ -180,6 +186,8 @@ namespace PiscesWebServices.CGI
         private static bool ValidQuery(string query)
         {
             if (query == "")
+                return false;
+            if (query.Length > 9000)
                 return false;
 
             return Regex.IsMatch(query, "[^A-Za-z0-9=&%+-]");
@@ -209,17 +217,26 @@ namespace PiscesWebServices.CGI
             foreach (TimeRange item in timeRange.Split(daysStored))
             {
                 var interval = m_formatter.Interval;
-                var tbl = Read(list, item.StartDate, item.EndDate, interval);
-                PrintDataTable(list, tbl, m_formatter, interval);
+                var tbl = Read(list, item.StartDate, item.EndDate, interval,m_formatter.OrderByDate);
+                m_formatter.PrintDataTable(list, tbl);
             }
             m_formatter.WriteSeriesTrailer();
 
         }
 
-
-        private DataTable Read(SeriesList list, DateTime t1, DateTime t2, TimeInterval interval)
+        /// <summary>
+        /// Create a single datatable by reading from multiple tables
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <param name="interval"></param>
+        /// <param name="orderByDate"></param>
+        /// <returns></returns>
+        private DataTable Read(SeriesList list, DateTime t1, DateTime t2,
+        TimeInterval interval, bool orderByDate=true)
         {
-            var sql = CreateSQL(list, t1, t2, interval);
+            var sql = CreateSQL(list, t1, t2, interval,orderByDate);
             if (sql == "")
                 return new DataTable();
 
@@ -254,7 +271,7 @@ namespace PiscesWebServices.CGI
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <returns></returns>
-        private string CreateSQL(SeriesList list, DateTime t1, DateTime t2, TimeInterval interval)
+        private string CreateSQL(SeriesList list, DateTime t1, DateTime t2, TimeInterval interval, bool orderByDate=true)
         {
             if (list.Count == 0)
                 return "";
@@ -274,7 +291,10 @@ namespace PiscesWebServices.CGI
             }
 
             sql += BuildUnionSQL(list, t1, t2, startIndex);
-            sql += " \norder by datetime,tablename ";
+            if( orderByDate)
+                sql += " \norder by datetime,tablename ";
+            else
+                sql += " \norder by tablename,datetime ";
 
             return sql;
         }
@@ -364,56 +384,56 @@ namespace PiscesWebServices.CGI
             return sList;
         }
 
-        /// <summary>
-        /// Print DataTable composed of tablename,datetime,value[,flag]
-        /// with columns for each tablename
-        /// </summary>
-        /// <param name="list"></param>
-        /// <param name="table"></param>
-        private static void PrintDataTable(SeriesList list, DataTable table,
-            Formatter fmt, TimeInterval interval)
-        {
-            var t0 = "";
+        ///// <summary>
+        ///// Print DataTable composed of tablename,datetime,value[,flag]
+        ///// with columns for each tablename
+        ///// </summary>
+        ///// <param name="list"></param>
+        ///// <param name="table"></param>
+        //private static void PrintDataTable(SeriesList list, DataTable table,
+        //    Formatter fmt, TimeInterval interval)
+        //{
+        //    var t0 = "";
 
-            if (table.Rows.Count > 0)
-                t0 = fmt.FormatDate(table.Rows[0][1]);
+        //    if (table.Rows.Count > 0)
+        //        t0 = fmt.FormatDate(table.Rows[0][1]);
 
-            var vals = new string[list.Count];
-            var flags = new string[list.Count];
-            var dict = new Dictionary<string, int>();
-            for (int i = 0; i < list.Count; i++)
-            {
-                dict.Add(list[i].Table.TableName, i);
-            }
+        //    var vals = new string[list.Count];
+        //    var flags = new string[list.Count];
+        //    var dict = new Dictionary<string, int>();
+        //    for (int i = 0; i < list.Count; i++)
+        //    {
+        //        dict.Add(list[i].Table.TableName, i);
+        //    }
 
-            string t = "";
-            bool printThisRow = false;
-            for (int i = 0; i < table.Rows.Count; i++)
-            {
-                var row = table.Rows[i];
+        //    string t = "";
+        //    bool printThisRow = false;
+        //    for (int i = 0; i < table.Rows.Count; i++)
+        //    {
+        //        var row = table.Rows[i];
 
-                t = fmt.FormatDate(row[1]);
+        //        t = fmt.FormatDate(row[1]);
 
-                if (t != t0)
-                {
-                    if (printThisRow)
-                        fmt.PrintRow(t0, vals, flags);
-                    vals = new string[list.Count];
-                    flags = new string[list.Count];
-                    t0 = t;
-                }
+        //        if (t != t0)
+        //        {
+        //            if (printThisRow)
+        //                fmt.PrintRow(t0, vals, flags);
+        //            vals = new string[list.Count];
+        //            flags = new string[list.Count];
+        //            t0 = t;
+        //        }
 
-                vals[dict[row[0].ToString()]] = fmt.FormatNumber(row[2]);
-                flags[dict[row[0].ToString()]] = fmt.FormatFlag(row[3]);
+        //        vals[dict[row[0].ToString()]] = fmt.FormatNumber(row[2]);
+        //        flags[dict[row[0].ToString()]] = fmt.FormatFlag(row[3]);
 
-                DateTime date = Convert.ToDateTime(row[1]);
-                bool topOfHour = date.Minute == 0;
-                printThisRow = fmt.HourlyOnly == false || (fmt.HourlyOnly && topOfHour);
+        //        DateTime date = Convert.ToDateTime(row[1]);
+        //        bool topOfHour = date.Minute == 0;
+        //        printThisRow = fmt.HourlyOnly == false || (fmt.HourlyOnly && topOfHour);
 
-            }
-            if (printThisRow)
-                fmt.PrintRow(t, vals, flags);
-        }
+        //    }
+        //    if (printThisRow)
+        //        fmt.PrintRow(t, vals, flags);
+        //}
 
 
         private static TimeSeriesName[] GetTimeSeriesName(NameValueCollection query, TimeInterval interval)

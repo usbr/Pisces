@@ -86,7 +86,7 @@ namespace PiscesWebServices.CGI
 
         public override void WriteSeriesTrailer()
         {
-         // no trailer for simple csv (data just stops)
+            HydrometWebUtility.PrintHydrometTrailer();
         }
 
     }
