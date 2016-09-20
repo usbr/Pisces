@@ -1,4 +1,4 @@
-﻿namespace Reclamation.TimeSeries.Graphing
+﻿namespace Reclamation.TimeSeries.Forms.RatingTables
 {
     partial class RatingTableZedGraph
     {

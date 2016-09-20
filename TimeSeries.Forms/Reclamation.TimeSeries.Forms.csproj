@@ -252,10 +252,10 @@
     <Compile Include="Graphing\ProfileDesigner.Designer.cs">
       <DependentUpon>ProfileDesigner.cs</DependentUpon>
     </Compile>
-    <Compile Include="Graphing\RatingTableZedGraph.cs">
+    <Compile Include="RatingTables\RatingTableZedGraph.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Graphing\RatingTableZedGraph.Designer.cs">
+    <Compile Include="RatingTables\RatingTableZedGraph.Designer.cs">
       <DependentUpon>RatingTableZedGraph.cs</DependentUpon>
     </Compile>
     <Compile Include="Graphing\ProfileZedGraph.cs">
@@ -264,16 +264,16 @@
     <Compile Include="Graphing\ProfileZedGraph.Designer.cs">
       <DependentUpon>ProfileZedGraph.cs</DependentUpon>
     </Compile>
-    <Compile Include="Graphing\RatingTableZedGraphOptions.cs">
+    <Compile Include="RatingTables\RatingTableZedGraphOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Graphing\RatingTableZedGraphOptions.Designer.cs">
+    <Compile Include="RatingTables\RatingTableZedGraphOptions.Designer.cs">
       <DependentUpon>RatingTableZedGraphOptions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Graphing\TestMeasurementPlotting.cs">
+    <Compile Include="RatingTables\TestMeasurementPlotting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Graphing\TestMeasurementPlotting.Designer.cs">
+    <Compile Include="RatingTables\TestMeasurementPlotting.Designer.cs">
       <DependentUpon>TestMeasurementPlotting.cs</DependentUpon>
     </Compile>
     <Compile Include="Graphing\TimeSeriesZedGraph.cs">
@@ -684,16 +684,16 @@
     <EmbeddedResource Include="Graphing\ProfileDesigner.resx">
       <DependentUpon>ProfileDesigner.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Graphing\RatingTableZedGraph.resx">
+    <EmbeddedResource Include="RatingTables\RatingTableZedGraph.resx">
       <DependentUpon>RatingTableZedGraph.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Graphing\ProfileZedGraph.resx">
       <DependentUpon>ProfileZedGraph.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Graphing\RatingTableZedGraphOptions.resx">
+    <EmbeddedResource Include="RatingTables\RatingTableZedGraphOptions.resx">
       <DependentUpon>RatingTableZedGraphOptions.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Graphing\TestMeasurementPlotting.resx">
+    <EmbeddedResource Include="RatingTables\TestMeasurementPlotting.resx">
       <DependentUpon>TestMeasurementPlotting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Graphing\TimeSeriesZedGraph.resx">

@@ -10,7 +10,7 @@ using ZedGraph;
 using Reclamation.TimeSeries.RatingTables;
 using Reclamation.TimeSeries.Forms.Graphing;
 
-namespace Reclamation.TimeSeries.Graphing
+namespace Reclamation.TimeSeries.Forms.RatingTables
 {
     public partial class RatingTableZedGraph : UserControl
     {

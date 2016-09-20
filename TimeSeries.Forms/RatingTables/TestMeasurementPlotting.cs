@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Reclamation.TimeSeries.Forms.Graphing
+namespace Reclamation.TimeSeries.Forms.RatingTables
 {
     public partial class TestMeasurementPlotting : Form
     {

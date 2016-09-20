@@ -83,7 +83,9 @@ Source:  "t:\PN6200\Hydromet\ConfigurationData\gp\*.*";   DestDir: "{app}\gp";  
 Source:  "t:\PN6200\Hydromet\ConfigurationData\yak\*.*";   DestDir: "{app}\yak";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\site.csv";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\daily_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\site1.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\reclamationcgi.csv";   DestDir: "{app}";   Flags: ignoreversion
 
 Source:  "t:\PN6200\Hydromet\ConfigurationData\nwcc_inventory.csv";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\snotel_site_list2.csv";   DestDir: "{app}";   Flags: ignoreversion

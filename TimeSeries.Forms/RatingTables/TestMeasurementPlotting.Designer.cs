@@ -1,4 +1,5 @@
-﻿namespace Reclamation.TimeSeries.Forms.Graphing
+﻿using Reclamation.TimeSeries.RatingTables;
+namespace Reclamation.TimeSeries.Forms.RatingTables
 {
     partial class TestMeasurementPlotting
     {
@@ -28,7 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ratingTableZedGraph1 = new Reclamation.TimeSeries.Graphing.RatingTableZedGraph();
+            this.ratingTableZedGraph1 = new Reclamation.TimeSeries.Forms.RatingTables.RatingTableZedGraph();
             this.SuspendLayout();
             // 
             // ratingTableZedGraph1
@@ -55,6 +56,6 @@
 
         #endregion
 
-        private TimeSeries.Graphing.RatingTableZedGraph ratingTableZedGraph1;
+        private  RatingTableZedGraph ratingTableZedGraph1;
     }
 }

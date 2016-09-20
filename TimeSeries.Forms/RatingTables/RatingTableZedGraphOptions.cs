@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using ZedGraph;
 
-namespace Reclamation.TimeSeries.Forms.Graphing
+namespace Reclamation.TimeSeries.Forms.RatingTables
 {
     public partial class RatingTableZedGraphOptions : UserControl
     {
