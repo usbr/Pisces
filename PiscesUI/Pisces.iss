@@ -97,8 +97,13 @@ Source:  ".\bin\debug\libsim.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\XYFile.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\A2CM.dll";   DestDir: "{app}";   Flags: ignoreversion
 ;
-; Sample Data
+; Sample Data and templates
 ;
+Source:  "..\PiscesTestData\data\el68d_export.csv";   DestDir: "{app}\sample-data";   Flags: ignoreversion
+Source:  "..\PiscesTestData\data\wateryear.xls";   DestDir: "{app}\sample-data";   Flags: ignoreversion
+Source:  "..\PiscesTestData\data\bulk-import-template.xlsx";   DestDir: "{app}\sample-data";   Flags: ignoreversion
+Source:  "..\PiscesTestData\data\ac_flow.xls";   DestDir: "{app}\sample-data";   Flags: ignoreversion                                              
+
 ;Source:  ".\pisces\sample data\SnakeRiverFlow.xls";   DestDir: "{app}\sample data";   Flags: ignoreversion
 ;Source:  ".\pisces\sample data\SnakeRiverTemperature.txt";   DestDir: "{app}\sample data";   Flags: ignoreversion
 ;Source:  ".\pisces\sample data\SpecificationTestData.xls";   DestDir: "{app}\sample data";   Flags: ignoreversion
