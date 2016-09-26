@@ -14,7 +14,9 @@ namespace Reclamation.TimeSeries.Forms
         {
             InitializeComponent();
 
-            this.label1.Text =Application.ProductName +  " " + Application.ProductVersion;
+            var version = new Version(Application.ProductVersion);
+            label1.Text = Application.ProductName + " " + version.ToString(3);
+            
             button1.Select();
         }
     }

@@ -1,15 +1,17 @@
 #define AppName "Pisces"
 #define SrcApp ".\bin\debug\Pisces.exe"
 #define FileVerStr GetStringFileInfo(SrcApp, "ProductVersion")
+#define public StripBuild(str aVerStr) Copy(aVerStr, 1, RPos(".", aVerStr)-1)
+#define AppVerStr StripBuild(FileVerStr)
 
 [Setup]
 AppId={{9DC6B8F6-D59D-491E-8FCC-D601FE200836}
 AppName={#AppName}
-AppVersion={#FileVerStr}
-AppVerName={#AppName} {#FileVerStr}
-UninstallDisplayName={#AppName} {#FileVerStr}
-VersionInfoVersion={#FileVerStr}
-VersionInfoTextVersion={#FileVerStr}
+AppVersion={#AppVerStr}
+AppVerName={#AppName} {#AppVerStr}
+UninstallDisplayName={#AppName} {#AppVerStr}
+VersionInfoVersion={#AppVerStr}
+VersionInfoTextVersion={#AppVerStr}
 OutputBaseFilename=Pisces2-setup
 ;show dialogs even if previous install found
 DisableWelcomePage=no
