@@ -10,26 +10,31 @@ namespace Reclamation.TimeSeries.Import
 {
     /// <summary>
     /// Imports a single spreasheet into a Series.
-    /// The tabs (sheets) are years, and within
-    /// each sheet are 12 columns 
+    /// The tabs (sheets) are labeled as years, and within
+    /// each sheet are 13 columns (Day,Jan,Feb,....Dec)
     /// </summary>
-    public class ImportRioGrandeExcel
+    public class ImportMultiSheetDailySeriesExcel
     {
 
         public static Series ImportSpreadsheet(string fileName)
         {
+            Console.WriteLine("Reading "+fileName);
             Series s = new Series("series1", TimeInterval.Daily);
 
-            var ds = ExcelUtility.GetWorkbookReference(fileName);
+            var xls = new NpoiExcel(fileName);
+            var sheetNames = xls.SheetNames();
 
-            for (int i = 0; i < ds.Tables.Count; i++)
+            //ExcelUtility xls = new ExcelUtility(fileName);
+            //var sheetNames = ExcelUtility.SheetNames(fileName);
+
+            foreach (string sheet in sheetNames)
             {
-                var tbl = ds.Tables[i];
-                string tn = tbl.TableName.Trim();
-                if (Regex.IsMatch(tn, "[0-9]{4}")) // is 4 digit year
+                if (Regex.IsMatch(sheet.Trim(), "[0-9]{4}")) // is 4 digit year
                 {
-                    int yr = int.Parse(tn);
-
+                    int yr = int.Parse(sheet);
+                    Console.WriteLine("Reading sheet:"+sheet);
+                    //var tbl = ExcelUtility.Read(fileName, sheet, false);
+                    var tbl = xls.ReadDataTable(sheet, false, true);
                     ReadTable(s, yr, tbl);
                 }
             }
@@ -53,15 +58,26 @@ namespace Reclamation.TimeSeries.Import
                     Console.WriteLine("oops");
                     continue;
                 }
-               
 
                 while( t.Month == m)
                 {
-                    var x = tbl.Rows[idxDay + 1+t.Day][m ].ToString();
-                    double val;
-                    if( double.TryParse(x,out val))
+                    int idx = idxDay + 1+t.Day;
+                    if( idx >= tbl.Rows.Count || idx <0)
                     {
-                        s.Add(t, val);
+                        Console.WriteLine("Error with index"); 
+                    }
+                    var row = tbl.Rows[idx];
+                    var x = row[m ].ToString();
+                    double val;
+
+                    // check the day is correct
+                    var day =0;
+                    if (int.TryParse(row[0].ToString(), out day))
+                    {
+                        if (double.TryParse(x, out val))
+                        {
+                            s.Add(t, val);
+                        }
                     }
                     t = t.AddDays(1);
                 }
@@ -73,7 +89,8 @@ namespace Reclamation.TimeSeries.Import
         {
             for (int i = 0; i < tbl.Rows.Count; i++)
             {
-
+                if (colIndex >= tbl.Columns.Count)
+                    return -1;
                 if (tbl.Rows[i][colIndex].ToString() == find)
                     return i;
             }

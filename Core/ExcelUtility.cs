@@ -129,6 +129,7 @@ namespace Reclamation.Core
 
             //6. Free resources (IExcelDataReader is IDisposable)
             excelReader.Close();
+            excelReader.Dispose();
             return result;
 
         }
@@ -137,7 +138,7 @@ namespace Reclamation.Core
         private static Dictionary<string, ExcelUtility> s_cache = new Dictionary<string, ExcelUtility>();
 
         /// <summary>
-        /// loads spreadsheet from disk or gets a referecne to cached refererence
+        /// loads spreadsheet from disk or gets a reference to cached refererence
         /// </summary>
         /// <param name="filename"></param>
         /// <returns></returns>

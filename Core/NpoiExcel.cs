@@ -435,6 +435,9 @@ namespace Reclamation.Core
                     return cell.ToString();
                 if( cell.CellType == CellType.Formula)
                 {
+                    if (cell.CachedFormulaResultType == CellType.Numeric)
+                        return cell.NumericCellValue;
+
                     if (cell.CachedFormulaResultType == CellType.Numeric
                         && cell.DateCellValue != null )
                         return cell.DateCellValue.ToString() ;

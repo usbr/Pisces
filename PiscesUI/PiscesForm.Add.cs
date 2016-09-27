@@ -88,7 +88,7 @@ namespace Reclamation.TimeSeries.Forms
             
             if( dlg.ShowDialog() == DialogResult.OK)
             {
-                var s = ImportRioGrandeExcel.ImportSpreadsheet(openFileDialog.FileName);
+                var s = ImportMultiSheetDailySeriesExcel.ImportSpreadsheet(openFileDialog.FileName);
                 s.Name = dlg.SeriesName;
                 s.Units = dlg.Units;
 
@@ -1045,6 +1045,49 @@ namespace Reclamation.TimeSeries.Forms
                 }
             }
         }
+
+        private void createTemplateFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            var fn = Path.Combine(FileUtility.GetExecutableDirectory(), "sample-data", "bulk-import-template.xlsx");
+
+            if( File.Exists(fn))
+            {
+                System.Diagnostics.Process.Start(fn);
+            }
+            else
+            {
+                MessageBox.Show("Error: File is missing: "+fn);
+            }
+        }
+
+        /// <summary>
+        /// Ask user to select template for importing multiple series.
+        /// then import all series defined in the first sheet of the workbook.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void importUsingTemplateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DB.SuspendTreeUpdates();
+                if (openExcelDialog.ShowDialog() == DialogResult.OK)
+                {
+                    BulkImport.Import(DB, openExcelDialog.FileName);
+                    DatabaseChanged();
+                }
+            }
+                catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                DB.ResumeTreeUpdates();
+            }
+        }
+
 
     }
 }

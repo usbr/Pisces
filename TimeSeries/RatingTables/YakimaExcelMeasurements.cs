@@ -64,7 +64,7 @@ namespace Reclamation.TimeSeries.RatingTables
                     string party = TryGetString(tbl.Rows[i], "party");
                     string notes = TryGetString(tbl.Rows[i], "notes");
 
-                    if (stage.HasValue)
+                    if (stage.HasValue && discharge.HasValue)
                         table.AddmeasurementRow(table.NextID(), siteid, date_measured.GetValueOrDefault(), stage.Value,
                             discharge.GetValueOrDefault(), quality, party, notes);
                 }
