@@ -62,7 +62,7 @@ namespace Reclamation.TimeSeries.Import
                 s.Units = units;
                 s.Name = name;
                 s.SiteID = siteID;
-
+                s.Table.TableName = "ts_"+s.Name.ToLower();
                 var folder = db.RootFolder;
                 if( folderName != "")
                 {

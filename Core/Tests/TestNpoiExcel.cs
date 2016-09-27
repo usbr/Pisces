@@ -29,9 +29,12 @@ namespace Reclamation.Core.Tests
          Assert.AreEqual("3.15", tbl.Rows[2][0].ToString());
          Assert.AreEqual(Convert.ToDateTime("7/8/2016"), 
                          Convert.ToDateTime(tbl.Rows[3][0].ToString()));
+
+            var d = Convert.ToDouble(tbl.Rows[4][0].ToString());
          Assert.AreEqual(Convert.ToDateTime("7/8/2016"),
-                     Convert.ToDateTime(tbl.Rows[4][0].ToString()));
-          
+                    DateTime.FromOADate(d) );
+
+         Assert.AreEqual(9,Convert.ToInt32( tbl.Rows[5][0].ToString()));
 
         }
 
