@@ -35,8 +35,16 @@ namespace Reclamation.TimeSeries.IdahoPower
             string idprURL = "https://ps.idahopower.com/RatingsService/Index?id=XXXX";
             downloadURL = idprURL.Replace("XXXX", cbtt);
             var newData = Web.GetPage(idprURL.Replace("XXXX", cbtt));
-            if (newData.Count() == 0)
-            { throw new Exception("OWRD data not found. Check inputs or retry later."); }
+            if (newData.Count() == 0 )
+            {
+                throw new Exception("Idaho Power data not found. Check inputs or retry later."); 
+            }
+
+            if( newData.Length <5 )
+            {
+                var err = String.Join("\n", newData);
+                throw new Exception("Idaho Power:" +err); 
+            }
             TextFile newRDB = new TextFile();
             foreach (var item in newData)
             { newRDB.Add(item); }
