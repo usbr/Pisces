@@ -208,16 +208,16 @@ where b.value = 'M - manually read static water level' ";
                 string[] dataTypes = new string[] { "String", "String", "String", "String", "String" };
                 string[] fieldNames = new string[] { "DH", "Riser", "Date", "Time", "Measured" };
                 //DH-438-RS   ,     1,01-apr-2000,00:00:54     ,    870.290
-                string pattern = @"\s*[A-Za-z\-0-9]{3,}\s*,\s*\d+,\d{1,2}-[A-Za-z]{3}-\d{4},\d{2}:\d{2}:\d{2}\s*,\s*[0-9\.\-\+Ee]+";
-                raw = new CsvFile(filename, dataTypes, fieldNames, pattern);
+                //string pattern = @"\s*[A-Za-z\-0-9]{3,}\s*,\s*\d+,\d{1,2}-[A-Za-z]{3}-\d{4},\d{2}:\d{2}:\d{2}\s*,\s*[0-9\.\-\+Ee]+";
+                raw = new CsvFile(filename, dataTypes, fieldNames);
             }
             else
             {
                 string[] dataTypes = new string[] { "String", "String", "String", "String" };
                 string[] fieldNames = new string[] { "DH", "Riser", "Date", "Measured" };
                 //DH-259-RS   ,     1,01-apr-1991 00:00:32     ,    866.960
-                string pattern = @"\s*[A-Za-z\-0-9]{3,}\s*,\s*\d+,\d{1,2}-[A-Za-z]{3}-\d{4}\s\d{2}:\d{2}(:\d{2})?\s*,\s*[0-9\.\-\+Ee]+";
-                raw = new CsvFile(filename, dataTypes, fieldNames, pattern);
+                //string pattern = @"\s*[A-Za-z\-0-9]{3,}\s*,\s*\d+,\d{1,2}-[A-Za-z]{3}-\d{4}\s\d{2}:\d{2}(:\d{2})?\s*,\s*[0-9\.\-\+Ee]+";
+                raw = new CsvFile(filename, dataTypes, fieldNames);
             }
 
             return CreateDateValueTableForDatabase(raw);

@@ -51,7 +51,7 @@ namespace Reclamation.Core
         /// </summary>
         /// <param name="filename">comma seperated filename</param>
         /// <param name="dataTypes">array of System data types</param>
-        public CsvFile(string filename, string[] dTypes)
+        public CsvFile(string filename, string[] dTypes, string[] columnNames=null)
         {
             dataTypes = new string[dTypes.Length];
             for (int i = 0; i < dTypes.Length; i++)
@@ -60,9 +60,14 @@ namespace Reclamation.Core
             }
             ReadFile(filename);
             char[] delim ={ ',' };
-            if (lines.Length > 0)
+            if (lines.Length > 0 && columnNames == null)
             {
                 fieldNames = lines[0].Split(delim);
+                ParseFile(dataTypes, fieldNames, 1, "");
+            }
+            else
+            {
+                fieldNames = columnNames;
                 ParseFile(dataTypes, fieldNames, 1, "");
             }
         }
