@@ -731,6 +731,8 @@ namespace Reclamation.TimeSeries.Alarms {
             
             private global::System.Data.DataColumn columnstatus;
             
+            private global::System.Data.DataColumn columnstatus_time;
+            
             private global::System.Data.DataColumn columnconfirmed_by;
             
             private global::System.Data.DataColumn columndeleted;
@@ -820,6 +822,14 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn status_timeColumn {
+                get {
+                    return this.columnstatus_time;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn confirmed_byColumn {
                 get {
                     return this.columnconfirmed_by;
@@ -879,7 +889,7 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public alarm_queueRow Addalarm_queueRow(int id, string alarm_group, string siteid, string parameter, double value, string status, string confirmed_by, bool deleted, System.DateTime event_time) {
+            public alarm_queueRow Addalarm_queueRow(int id, string alarm_group, string siteid, string parameter, double value, string status, string status_time, string confirmed_by, bool deleted, System.DateTime event_time) {
                 alarm_queueRow rowalarm_queueRow = ((alarm_queueRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -888,6 +898,7 @@ namespace Reclamation.TimeSeries.Alarms {
                         parameter,
                         value,
                         status,
+                        status_time,
                         confirmed_by,
                         deleted,
                         event_time};
@@ -926,6 +937,7 @@ namespace Reclamation.TimeSeries.Alarms {
                 this.columnparameter = base.Columns["parameter"];
                 this.columnvalue = base.Columns["value"];
                 this.columnstatus = base.Columns["status"];
+                this.columnstatus_time = base.Columns["status_time"];
                 this.columnconfirmed_by = base.Columns["confirmed_by"];
                 this.columndeleted = base.Columns["deleted"];
                 this.columnevent_time = base.Columns["event_time"];
@@ -946,6 +958,8 @@ namespace Reclamation.TimeSeries.Alarms {
                 base.Columns.Add(this.columnvalue);
                 this.columnstatus = new global::System.Data.DataColumn("status", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnstatus);
+                this.columnstatus_time = new global::System.Data.DataColumn("status_time", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnstatus_time);
                 this.columnconfirmed_by = new global::System.Data.DataColumn("confirmed_by", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnconfirmed_by);
                 this.columndeleted = new global::System.Data.DataColumn("deleted", typeof(bool), null, global::System.Data.MappingType.Element);
@@ -1107,11 +1121,11 @@ namespace Reclamation.TimeSeries.Alarms {
             
             private global::System.Data.DataColumn columnparameter;
             
-            private global::System.Data.DataColumn columnminimum;
+            private global::System.Data.DataColumn columnalarm_condition;
             
-            private global::System.Data.DataColumn columnmaxium;
+            private global::System.Data.DataColumn columnclear_condition;
             
-            private global::System.Data.DataColumn columnrate_of_change;
+            private global::System.Data.DataColumn columnmessage;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -1180,25 +1194,25 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn minimumColumn {
+            public global::System.Data.DataColumn alarm_conditionColumn {
                 get {
-                    return this.columnminimum;
+                    return this.columnalarm_condition;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn maxiumColumn {
+            public global::System.Data.DataColumn clear_conditionColumn {
                 get {
-                    return this.columnmaxium;
+                    return this.columnclear_condition;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn rate_of_changeColumn {
+            public global::System.Data.DataColumn messageColumn {
                 get {
-                    return this.columnrate_of_change;
+                    return this.columnmessage;
                 }
             }
             
@@ -1239,16 +1253,16 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public alarm_definitionRow Addalarm_definitionRow(string id, string alarm_group, string siteid, string parameter, string minimum, string maxium, string rate_of_change) {
+            public alarm_definitionRow Addalarm_definitionRow(string id, string alarm_group, string siteid, string parameter, string alarm_condition, string clear_condition, string message) {
                 alarm_definitionRow rowalarm_definitionRow = ((alarm_definitionRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
                         alarm_group,
                         siteid,
                         parameter,
-                        minimum,
-                        maxium,
-                        rate_of_change};
+                        alarm_condition,
+                        clear_condition,
+                        message};
                 rowalarm_definitionRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowalarm_definitionRow);
                 return rowalarm_definitionRow;
@@ -1282,9 +1296,9 @@ namespace Reclamation.TimeSeries.Alarms {
                 this.columnalarm_group = base.Columns["alarm_group"];
                 this.columnsiteid = base.Columns["siteid"];
                 this.columnparameter = base.Columns["parameter"];
-                this.columnminimum = base.Columns["minimum"];
-                this.columnmaxium = base.Columns["maxium"];
-                this.columnrate_of_change = base.Columns["rate_of_change"];
+                this.columnalarm_condition = base.Columns["alarm_condition"];
+                this.columnclear_condition = base.Columns["clear_condition"];
+                this.columnmessage = base.Columns["message"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1298,12 +1312,12 @@ namespace Reclamation.TimeSeries.Alarms {
                 base.Columns.Add(this.columnsiteid);
                 this.columnparameter = new global::System.Data.DataColumn("parameter", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnparameter);
-                this.columnminimum = new global::System.Data.DataColumn("minimum", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnminimum);
-                this.columnmaxium = new global::System.Data.DataColumn("maxium", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmaxium);
-                this.columnrate_of_change = new global::System.Data.DataColumn("rate_of_change", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnrate_of_change);
+                this.columnalarm_condition = new global::System.Data.DataColumn("alarm_condition", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnalarm_condition);
+                this.columnclear_condition = new global::System.Data.DataColumn("clear_condition", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnclear_condition);
+                this.columnmessage = new global::System.Data.DataColumn("message", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmessage);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AllowDBNull = false;
@@ -1869,6 +1883,22 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string status_time {
+                get {
+                    try {
+                        return ((string)(this[this.tablealarm_queue.status_timeColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'status_time\' in table \'alarm_queue\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tablealarm_queue.status_timeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string confirmed_by {
                 get {
                     return ((string)(this[this.tablealarm_queue.confirmed_byColumn]));
@@ -1898,6 +1928,18 @@ namespace Reclamation.TimeSeries.Alarms {
                 set {
                     this[this.tablealarm_queue.event_timeColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isstatus_timeNull() {
+                return this.IsNull(this.tablealarm_queue.status_timeColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setstatus_timeNull() {
+                this[this.tablealarm_queue.status_timeColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1976,49 +2018,49 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string minimum {
+            public string alarm_condition {
                 get {
                     try {
-                        return ((string)(this[this.tablealarm_definition.minimumColumn]));
+                        return ((string)(this[this.tablealarm_definition.alarm_conditionColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'minimum\' in table \'alarm_definition\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'alarm_condition\' in table \'alarm_definition\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablealarm_definition.minimumColumn] = value;
+                    this[this.tablealarm_definition.alarm_conditionColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string maxium {
+            public string clear_condition {
                 get {
                     try {
-                        return ((string)(this[this.tablealarm_definition.maxiumColumn]));
+                        return ((string)(this[this.tablealarm_definition.clear_conditionColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'maxium\' in table \'alarm_definition\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'clear_condition\' in table \'alarm_definition\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablealarm_definition.maxiumColumn] = value;
+                    this[this.tablealarm_definition.clear_conditionColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string rate_of_change {
+            public string message {
                 get {
                     try {
-                        return ((string)(this[this.tablealarm_definition.rate_of_changeColumn]));
+                        return ((string)(this[this.tablealarm_definition.messageColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'rate_of_change\' in table \'alarm_definition\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'message\' in table \'alarm_definition\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tablealarm_definition.rate_of_changeColumn] = value;
+                    this[this.tablealarm_definition.messageColumn] = value;
                 }
             }
             
@@ -2060,38 +2102,38 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsminimumNull() {
-                return this.IsNull(this.tablealarm_definition.minimumColumn);
+            public bool Isalarm_conditionNull() {
+                return this.IsNull(this.tablealarm_definition.alarm_conditionColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetminimumNull() {
-                this[this.tablealarm_definition.minimumColumn] = global::System.Convert.DBNull;
+            public void Setalarm_conditionNull() {
+                this[this.tablealarm_definition.alarm_conditionColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsmaxiumNull() {
-                return this.IsNull(this.tablealarm_definition.maxiumColumn);
+            public bool Isclear_conditionNull() {
+                return this.IsNull(this.tablealarm_definition.clear_conditionColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetmaxiumNull() {
-                this[this.tablealarm_definition.maxiumColumn] = global::System.Convert.DBNull;
+            public void Setclear_conditionNull() {
+                this[this.tablealarm_definition.clear_conditionColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Israte_of_changeNull() {
-                return this.IsNull(this.tablealarm_definition.rate_of_changeColumn);
+            public bool IsmessageNull() {
+                return this.IsNull(this.tablealarm_definition.messageColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Setrate_of_changeNull() {
-                this[this.tablealarm_definition.rate_of_changeColumn] = global::System.Convert.DBNull;
+            public void SetmessageNull() {
+                this[this.tablealarm_definition.messageColumn] = global::System.Convert.DBNull;
             }
         }
         

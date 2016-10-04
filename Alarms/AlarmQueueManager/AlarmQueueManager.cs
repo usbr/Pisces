@@ -20,8 +20,40 @@ namespace AlarmQueueManager
 
         static void Main(string[] args)
         {
+
+            if (InstanceUtility.IsAnotherInstanceRunning())
+            {
+                Console.WriteLine("Exiting: Another instance is running ");
+                return;
+            }
+
+            try
+            {
+                Console.WriteLine("Starting ");
+                InstanceUtility.CreateProcessIdFile();
+                CheckForAlarms();
+            }
+            finally
+            {
+                InstanceUtility.DeleteProcessIdFile();
+            }
+
+        }
+
+        private static void CheckForAlarms()
+        {
+
+           InstanceUtility.TouchProcessFile();
+
+            Console.WriteLine("Done.");
+            if (DateTime.Now.Day > 0)
+                return;
+
             Logger.EnableLogger();
+
             Logger.WriteLine("Starting AlarmQueueManager");
+
+
             var aq = new AlarmQueueManager();
             if (Asterisk.IsBusy())
             {
@@ -33,9 +65,7 @@ namespace AlarmQueueManager
                 Logger.WriteLine("Processing Alarms");
                 aq.ProcessAlarms();
             }
-
         }
-
 
 
         public AlarmQueueManager()
@@ -60,9 +90,16 @@ namespace AlarmQueueManager
 
                 if( alarm.status == "new")
                 {
-                    Asterisk.Call(alarm);
-                    alarm.status = "busy";
+                    string[] numbers = null;
+                    
+                    Asterisk.Call(alarm.siteid, alarm.parameter, alarm.value.ToString("F2"), numbers);
                     DB.SaveTable(alarmQueue);
+
+                    while(1==1)
+                    {
+                        InstanceUtility.TouchProcessFile();
+                        System.Threading.Thread.Sleep(1000);
+                    }
                     return;
                 }
 

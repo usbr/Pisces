@@ -28,19 +28,34 @@ namespace AlarmQueueManager
         /// originates calls on asterisk with a variable extension on the context 
         /// hydromet_groups
         /// </summary>
-        internal static void Call(AlarmDataSet.alarm_queueRow alarm)
+        internal static void Call(string siteId, string parameter, string value,string[] phoneNumbers)
         {
             Logger.WriteLine("Making Asterisk call");
-            Set("hydromet", "alarm_definition", alarm.siteid+"_"+alarm.parameter);
-            Set("hydromet", "alarm_value", alarm.value.ToString());
-           // Set("hydromet", "alarm_status", "busy");
+            
+            Clear("hydromet");
 
-            //asterisk -x "channel originate local/boia_emm@hydromet_groups extension"
-            string context = "hydromet_groups";
-            string cmd = "channel originate local/" + alarm.alarm_group + "@" + context + " extension";
+            Set("hydromet", "siteid", siteId);
+            Set("hydromet", "parameter", value);
+            Set("hydromet", "value", value);
+            Set("hydromet", "sound_file", siteId + "_" + parameter);
+
+            for (int i = 1; i <= phoneNumbers.Length; i++)
+            {
+                Set("hydromet", "phone"+i, phoneNumbers[i]);    
+            }
+            
+
+            //;asterisk -rx "channel originate local/main@hydromet extension "            
+            string cmd = "channel originate local/main@hydromet extension" ;
             RunAsteriskCommand(cmd);
 
         }
+        static void Clear(string family)
+        {
+            var args = "database  database deltree "+family;
+            var output = RunAsteriskCommand(args);
+        }
+
 
         static void Set(string family, string key, string value)
         {
@@ -62,11 +77,19 @@ namespace AlarmQueueManager
         }
 
 
+//       channel request hangup all
+       static void HangupAllChannels()
+        {
+            RunAsteriskCommand("channel request hangup all");
+        }
+
+
         static string[] RunAsteriskCommand(string args)
         {
             var exe = ConfigurationManager.AppSettings["asterisk_executable"];
+            Logger.WriteLine("running asterisk '" + args + "'");
             return RunExecutable(exe, "-x \""+args+"\"");
-            Logger.WriteLine("running asterisk '"+args+"'");
+            
         }
 
 
@@ -108,6 +131,8 @@ namespace AlarmQueueManager
 
         internal static bool IsBusy()
         {
+            // TO DO.  show channels may be a good way to check...
+            //*CLI> core show channels 
             return Get("hydromet", "alarm_status") == "busy";
         }
 

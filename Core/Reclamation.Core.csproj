@@ -274,6 +274,7 @@
     <Compile Include="NetworkUtility.cs" />
     <Compile Include="NpoiExcel.cs" />
     <Compile Include="Options.cs" />
+    <Compile Include="InstanceUtility.cs" />
     <Compile Include="SimpleFtp.cs" />
     <Compile Include="Tests\TestCredentialsFile.cs" />
     <Compile Include="Tests\TestNpoiExcel.cs" />
