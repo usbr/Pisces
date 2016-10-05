@@ -26,13 +26,13 @@ namespace Reclamation.TimeSeries.Alarms {
         /// only alarms with status (new, or unconfirmed)
         /// </summary>
         /// <returns></returns>
-        public alarm_queueDataTable GetNewAlarms()
+        public alarm_phone_queueDataTable GetNewAlarms()
         {
-            string sql = "select * from alarm_queue where status='new' or status ='unconfirmed' ";
-            m_server.FillTable(alarm_queue, sql);
-            return alarm_queue;
-
+            string sql = "select * from alarm_phone_queue where status='new' or status = 'unconfirmed' order by priority";
+            m_server.FillTable(alarm_phone_queue, sql);
+            return alarm_phone_queue;
         }
+
 
        
     }

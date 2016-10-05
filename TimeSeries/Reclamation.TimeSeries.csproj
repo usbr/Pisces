@@ -347,6 +347,7 @@
     <None Include="Alarms\AlarmDataSet.xss">
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
     </None>
+    <None Include="Alarms\extensions.conf" />
     <None Include="RatingTables\HydrographyDataSet.xsc">
       <DependentUpon>HydrographyDataSet.xsd</DependentUpon>
     </None>
@@ -867,6 +868,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Nrcs\NWCC_Web_Report_Scripting.txt" />
+    <Content Include="TimeSeriesDatabase.postgres.sql" />
     <None Include="Service References\Nrcs\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

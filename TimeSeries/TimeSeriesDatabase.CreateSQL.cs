@@ -31,12 +31,10 @@ namespace Reclamation.TimeSeries
                 CreateMeasurementTable();
                 CreateAlarmRecipient();
                 CreateAlarmDef();
-                CreateAlarmQueue();
+                CreateAlarmPhoneQueue();
+                CreateAlarmScripts();
             }
 
-            UpgradeDatabase();
-
-            //CreateCalculationTable();
         }
 
 
@@ -68,27 +66,42 @@ namespace Reclamation.TimeSeries
             }
         }
 
-        private void CreateAlarmQueue()
+        private void CreateAlarmPhoneQueue()
         {
 
-            if (!m_server.TableExists("alarm_queue"))
+            if (!m_server.TableExists("alarm_phone_queue"))
             {
                 string sql = "Create Table alarm_queue "
                 + "( id  int not null primary key, "
-                + " alarm_group " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " phone_numbers " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " value " + m_server.PortableFloatType() + " not null, "
                 + " status " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " status_time " + m_server.PortableDateTimeType() + " not null , "
                 + " confirmed_by " + m_server.PortableCharacterType(256) + " not null default '', "
-                + " deleted  smallint not null default 0, "
-                + " event_time " + m_server.PortableDateTimeType() + " not null  "
+                + " event_time " + m_server.PortableDateTimeType() + " not null  ,"
+                + " priority int not null default 10 "
                 + " )";
                 ExecuteCreateTable(m_server, sql);
             }
 
         }
 
+        private void CreateAlarmScripts()
+        {
+
+            if (!m_server.TableExists("alarm_scripts"))
+            {
+                string sql = "Create Table alarm_queue "
+                + "( id  int not null primary key, "
+                + " text " + m_server.PortableCharacterType(2048) + " not null default '', "
+                + " filename " + m_server.PortableCharacterType(2048) + " not null default '', "
+                + " )";
+                ExecuteCreateTable(m_server, sql);
+            }
+
+        }
 
         private void CreateAlarmDef()
         {
@@ -100,9 +113,10 @@ namespace Reclamation.TimeSeries
                 + " alarm_group " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "
-                + " minimum " + m_server.PortableFloatType() + " not null, "
-                + " maximum " + m_server.PortableFloatType() + " not null, "
-                + " rate_of_change " + m_server.PortableFloatType() + " not null "
+                + " alarm_condition " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " clear_condition " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " message " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " priority int not null default 10 "
                 + " )";
                 ExecuteCreateTable(m_server, sql);
             }

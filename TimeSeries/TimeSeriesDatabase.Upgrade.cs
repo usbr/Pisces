@@ -68,58 +68,6 @@ namespace Reclamation.TimeSeries
         }
 
 
-        /// <summary>
-        /// Upgrades TimeSeries database to match current version
-        /// </summary>
-        private void UpgradeDatabase()
-        {
-            //// add Path to Scenario Table
-            //DataTable tbl = m_server.Table("Scenario","Select * from Scenario where 1=2");
-
-            //if (tbl.Columns.IndexOf("Path") == -1)
-            //{
-            //    string sql = "Alter Table Scenario Add  Path " + m_server.PortableCharacterType(1024) + " not null default ''";
-            //    m_server.RunSqlCommand(sql);
-            //}
-
-            //if (tbl.Columns.IndexOf("Checked") == -1)
-            //{
-            //    string sql = "Alter Table Scenario Add  Checked bit not null default 0";
-            //    m_server.RunSqlCommand(sql);
-            //}
-
-
-
-            //// SeriesCatalog
-
-            //tbl = m_server.Table("SeriesCatalog","Select * from SeriesCatalog where 1=2");
-
-            //if (tbl.Columns.IndexOf("Expression") == -1)
-            //{
-            //    string sql = "Alter Table SeriesCatalog Add  Expression " + m_server.PortableCharacterType(2048) + " not null default ''";
-            //    m_server.RunSqlCommand(sql);
-            //}
-            //if (tbl.Columns.IndexOf("Notes") == -1)
-            //{
-            //    string sql = "Alter Table SeriesCatalog Add  Notes " + m_server.PortableCharacterType(2046) + " not null default ''";
-            //    m_server.RunSqlCommand(sql);
-            //}
-
-            //if( tbl.Columns.IndexOf("Provider") == -1)
-            //{
-            //    string sql = "Alter Table SeriesCatalog Add  Provider " + m_server.PortableCharacterType(200) + " not null default ''";
-            //    m_server.RunSqlCommand(sql);
-            //}
-
-
-            //if (tbl.Columns.IndexOf("acl") == -1)
-            //{
-            //    string sql = "Alter Table SeriesCatalog Add  acl "+m_server.PortableCharacterType(50)+ " not null default ''";
-            //    m_server.RunSqlCommand(sql);
-            //}
-
-        }
-
 
     }
 }

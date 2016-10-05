@@ -1,18 +1,18 @@
 ﻿using Reclamation.Core;
-using Reclamation.TimeSeries.Alarms;
+using Renci.SshNet;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace AlarmQueueManager
 {
   
       ///  <summary>
       ///  Wrapper around command line asterisk program
+      /// 
+      /// Assuming a single phone call at a time to keep it simple.
+      /// 
       ///  makes calls and Reads and writes from Asterisk database.
       ///  asterisk -x "channel originate local/boia_emm@hydromet_groups extension"
       ///  asterisk -x "database put hydromet alarm_status busy"
@@ -24,12 +24,29 @@ namespace AlarmQueueManager
    static class Asterisk
     {
 
+       private static Stopwatch stopwatch1;
+
+        public static int MinutesElapsed
+        {
+            get
+            {
+                var a = stopwatch1.ElapsedMilliseconds;
+
+                return (int)a / 1000 / 60; 
+            }
+        }
+
         /// <summary>
         /// originates calls on asterisk with a variable extension on the context 
         /// hydromet_groups
         /// </summary>
         internal static void Call(string siteId, string parameter, string value,string[] phoneNumbers)
         {
+            stopwatch1 = new Stopwatch();
+            stopwatch1.Restart();
+
+            HangupAllChannels(); // make sure phone is clear.
+
             Logger.WriteLine("Making Asterisk call");
             
             Clear("hydromet");
@@ -41,7 +58,7 @@ namespace AlarmQueueManager
 
             for (int i = 1; i <= phoneNumbers.Length; i++)
             {
-                Set("hydromet", "phone"+i, phoneNumbers[i]);    
+                Set("hydromet", "phone"+i, phoneNumbers[i-1]);    
             }
             
 
@@ -68,9 +85,11 @@ namespace AlarmQueueManager
             var output = RunAsteriskCommand("database show " + family + " " + key + "");
             for (int i = 0; i < output.Length; i++)
             {
+                // ast_cli(a->fd, "%-50s: %-25s\n", key_s, value_s); 
                 if( output[i].IndexOf("/"+family+"/"+key) >=0)
                 {
-                    return output[i].Split(':')[1].Trim();
+                    var x = output[i].Substring(51).Trim();
+                    return x;
                 }
             }
             return "";
@@ -92,6 +111,29 @@ namespace AlarmQueueManager
             
         }
 
+        public static string ConfirmedBy { 
+            get{
+                return Get("hydromet", "confirmed_by");
+            }
+        }
+
+       /// <summary>
+       /// latest log message
+       /// </summary>
+        public static string Log
+        {
+            get
+            {
+                return Get("hydromet", "log");
+            }
+        }
+        public static string LogTime
+        {
+            get
+            {
+                return Get("hydromet", "log_time");
+            }
+        }
 
         /// <summary>
         /// checks asterisk DB for variables to determine the status 
@@ -100,13 +142,40 @@ namespace AlarmQueueManager
         {
             get
             {
-                return Get("hydromet", "alarm_status");
+                return Get("hydromet", "status");
+            }
+        }
+
+        public static DateTime StatusTime
+        {
+            get
+            {
+                var x = Get("hydromet", "status_time");
+                Console.WriteLine(x);
+                return DateTime.Parse(x);
             }
         }
 
        
        //todo run command line function
         private static string[] RunExecutable(string exe, string args)
+        {
+            if (LinuxUtility.IsLinux())
+            {
+                return RunLocal(exe, args);
+            }
+            else
+            {// run remote
+                var tokens = File.ReadAllLines(@"c:\utils\linux\dectalk.txt");
+                SshClient ssh = new SshClient("dectalk",tokens[0],tokens[1]);
+                ssh.Connect();
+                var cmd = ssh.RunCommand(exe +" "+args);
+                Console.WriteLine(cmd.Result);
+                return cmd.Result.Split('\n');
+            }
+        }
+
+        private static string[] RunLocal(string exe, string args)
         {
             Logger.WriteLine("running :" + exe + " " + args);
             Process myProcess = new Process();
@@ -129,14 +198,28 @@ namespace AlarmQueueManager
             return rval;
         }
 
-        internal static bool IsBusy()
+        internal static int ActiveChannels
         {
-            // TO DO.  show channels may be a good way to check...
-            //*CLI> core show channels 
-            return Get("hydromet", "alarm_status") == "busy";
+            get
+            {
+                var output = RunAsteriskCommand("core show channels");
+                TextFile tf = new TextFile(output);
+
+                int idx = tf.IndexOf("active channel");
+                if( idx < 0)
+                {
+                    throw new Exception("Error: index to active channels failed");
+                }
+
+                int idx2  = tf[idx].IndexOf("active channel");
+                var s = tf[idx].Substring(0, idx2);
+                return Convert.ToInt32(s);
+            }
         }
 
-        internal static string GetAllVariables()
+
+
+         static string GetAllVariables()
         {
             Logger.WriteLine("GetAllVariable()");
             string[] output = RunAsteriskCommand("database show " );
@@ -144,6 +227,8 @@ namespace AlarmQueueManager
         }
 
 
-        
+
+
+      
     }
 }
