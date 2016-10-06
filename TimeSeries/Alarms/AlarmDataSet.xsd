@@ -16,7 +16,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
-              <xs:element name="alarm_group" msprop:Generator_ColumnVarNameInTable="columnalarm_group" msprop:Generator_ColumnPropNameInRow="alarm_group" msprop:Generator_ColumnPropNameInTable="alarm_groupColumn" msprop:Generator_UserColumnName="alarm_group" type="xs:string" />
+              <xs:element name="list" msprop:Generator_ColumnVarNameInTable="columnlist" msprop:Generator_ColumnPropNameInRow="list" msprop:Generator_ColumnPropNameInTable="listColumn" msprop:Generator_UserColumnName="list" type="xs:string" />
               <xs:element name="call_order" msprop:Generator_ColumnVarNameInTable="columncall_order" msprop:Generator_ColumnPropNameInRow="call_order" msprop:Generator_ColumnPropNameInTable="call_orderColumn" msprop:Generator_UserColumnName="call_order" type="xs:string" />
               <xs:element name="phone" msprop:Generator_ColumnVarNameInTable="columnphone" msprop:Generator_ColumnPropNameInRow="phone" msprop:Generator_ColumnPropNameInTable="phoneColumn" msprop:Generator_UserColumnName="phone" type="xs:string" />
               <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" />
@@ -28,7 +28,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
-              <xs:element name="phone_numbers" msprop:Generator_ColumnVarNameInTable="columnphone_numbers" msprop:Generator_ColumnPropNameInRow="phone_numbers" msprop:Generator_ColumnPropNameInTable="phone_numbersColumn" msprop:Generator_UserColumnName="phone_numbers" type="xs:string" />
+              <xs:element name="list" msprop:Generator_ColumnVarNameInTable="columnlist" msprop:Generator_ColumnPropNameInRow="list" msprop:Generator_ColumnPropNameInTable="listColumn" msprop:Generator_UserColumnName="list" type="xs:string" />
               <xs:element name="siteid" msprop:Generator_ColumnVarNameInTable="columnsiteid" msprop:Generator_ColumnPropNameInRow="siteid" msprop:Generator_ColumnPropNameInTable="siteidColumn" msprop:Generator_UserColumnName="siteid" type="xs:string" />
               <xs:element name="parameter" msprop:Generator_ColumnVarNameInTable="columnparameter" msprop:Generator_ColumnPropNameInRow="parameter" msprop:Generator_ColumnPropNameInTable="parameterColumn" msprop:Generator_UserColumnName="parameter" type="xs:string" />
               <xs:element name="value" msprop:Generator_ColumnVarNameInTable="columnvalue" msprop:Generator_ColumnPropNameInRow="value" msprop:Generator_ColumnPropNameInTable="valueColumn" msprop:Generator_UserColumnName="value" type="xs:double" />
@@ -44,7 +44,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" />
-              <xs:element name="alarm_group" msprop:Generator_ColumnVarNameInTable="columnalarm_group" msprop:Generator_ColumnPropNameInRow="alarm_group" msprop:Generator_ColumnPropNameInTable="alarm_groupColumn" msprop:Generator_UserColumnName="alarm_group" type="xs:string" minOccurs="0" />
+              <xs:element name="list" msprop:Generator_ColumnVarNameInTable="columnlist" msprop:Generator_ColumnPropNameInRow="list" msprop:Generator_ColumnPropNameInTable="listColumn" msprop:Generator_UserColumnName="list" type="xs:string" minOccurs="0" />
               <xs:element name="siteid" msprop:Generator_ColumnVarNameInTable="columnsiteid" msprop:Generator_ColumnPropNameInRow="siteid" msprop:Generator_ColumnPropNameInTable="siteidColumn" msprop:Generator_UserColumnName="siteid" type="xs:string" minOccurs="0" />
               <xs:element name="parameter" msprop:Generator_ColumnVarNameInTable="columnparameter" msprop:Generator_ColumnPropNameInRow="parameter" msprop:Generator_ColumnPropNameInTable="parameterColumn" msprop:Generator_UserColumnName="parameter" type="xs:string" minOccurs="0" />
               <xs:element name="alarm_condition" msprop:Generator_ColumnVarNameInTable="columnalarm_condition" msprop:Generator_ColumnPropNameInRow="alarm_condition" msprop:Generator_ColumnPropNameInTable="alarm_conditionColumn" msprop:Generator_UserColumnName="alarm_condition" type="xs:string" minOccurs="0" />
@@ -54,11 +54,10 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="alarm_group_names" msprop:Generator_TableClassName="alarm_group_namesDataTable" msprop:Generator_TableVarName="tablealarm_group_names" msprop:Generator_TablePropName="alarm_group_names" msprop:Generator_RowDeletingName="alarm_group_namesRowDeleting" msprop:Generator_RowChangingName="alarm_group_namesRowChanging" msprop:Generator_RowEvHandlerName="alarm_group_namesRowChangeEventHandler" msprop:Generator_RowDeletedName="alarm_group_namesRowDeleted" msprop:Generator_UserTableName="alarm_group_names" msprop:Generator_RowChangedName="alarm_group_namesRowChanged" msprop:Generator_RowEvArgName="alarm_group_namesRowChangeEvent" msprop:Generator_RowClassName="alarm_group_namesRow">
+        <xs:element name="alarm_list" msprop:Generator_TableClassName="alarm_listDataTable" msprop:Generator_TableVarName="tablealarm_list" msprop:Generator_TablePropName="alarm_list" msprop:Generator_RowDeletingName="alarm_listRowDeleting" msprop:Generator_RowChangingName="alarm_listRowChanging" msprop:Generator_RowEvHandlerName="alarm_listRowChangeEventHandler" msprop:Generator_RowDeletedName="alarm_listRowDeleted" msprop:Generator_UserTableName="alarm_list" msprop:Generator_RowChangedName="alarm_listRowChanged" msprop:Generator_RowEvArgName="alarm_listRowChangeEvent" msprop:Generator_RowClassName="alarm_listRow">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="alarm_group" msprop:Generator_ColumnVarNameInTable="columnalarm_group" msprop:Generator_ColumnPropNameInRow="alarm_group" msprop:Generator_ColumnPropNameInTable="alarm_groupColumn" msprop:Generator_UserColumnName="alarm_group" type="xs:string" />
-              <xs:element name="name" msprop:Generator_ColumnVarNameInTable="columnname" msprop:Generator_ColumnPropNameInRow="name" msprop:Generator_ColumnPropNameInTable="nameColumn" msprop:Generator_UserColumnName="name" type="xs:string" minOccurs="0" />
+              <xs:element name="list" msprop:Generator_ColumnVarNameInTable="columnlist" msprop:Generator_ColumnPropNameInRow="list" msprop:Generator_ColumnPropNameInTable="listColumn" msprop:Generator_UserColumnName="list" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -85,9 +84,9 @@
       <xs:selector xpath=".//mstns:alarm_definition" />
       <xs:field xpath="mstns:id" />
     </xs:unique>
-    <xs:unique name="alarm_group_names_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:alarm_group_names" />
-      <xs:field xpath="mstns:alarm_group" />
+    <xs:unique name="alarm_list_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:alarm_list" />
+      <xs:field xpath="mstns:list" />
     </xs:unique>
   </xs:element>
 </xs:schema>

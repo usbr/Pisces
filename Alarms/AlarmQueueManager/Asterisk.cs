@@ -52,7 +52,7 @@ namespace AlarmQueueManager
             Clear("hydromet");
 
             Set("hydromet", "siteid", siteId);
-            Set("hydromet", "parameter", value);
+            Set("hydromet", "parameter", parameter);
             Set("hydromet", "value", value);
             Set("hydromet", "sound_file", siteId + "_" + parameter);
 

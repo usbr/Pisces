@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reclamation.Core;
+using System;
 using System.Data;
 namespace Reclamation.TimeSeries.Alarms
 {
@@ -28,13 +29,19 @@ namespace Reclamation.TimeSeries.Alarms {
         /// <returns></returns>
         public alarm_phone_queueDataTable GetNewAlarms()
         {
+            AlarmDataSet.alarm_phone_queueDataTable tbl = new alarm_phone_queueDataTable();
             string sql = "select * from alarm_phone_queue where status='new' or status = 'unconfirmed' order by priority";
-            m_server.FillTable(alarm_phone_queue, sql);
-            return alarm_phone_queue;
+            m_server.FillTable(tbl, sql);
+            return tbl;
         }
 
 
-       
+        public string[] GetPhoneNumbers(string list)
+        {
+            string sql = "select phone from alarm_recipient where list='"+list+"' order by call_order";
+            var tbl = m_server.Table("alarm_recipient", sql);
+            return DataTableUtility.Strings(tbl,"","phone");
+        }
     }
     
 }

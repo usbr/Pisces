@@ -42,11 +42,10 @@ namespace Reclamation.TimeSeries
         private void CreateAlarmGroups()
         {
 
-            if (!m_server.TableExists("alarm_group_names"))
+            if (!m_server.TableExists("alarm_list"))
             {
-                string sql = "Create Table alarm_group_names "
-                + " ( alarm_group " + m_server.PortableCharacterType(256) + " not null  primary key, "
-                + " description " + m_server.PortableCharacterType(256) + " not null default '' "
+                string sql = "Create Table alarm_list"
+                + " ( list " + m_server.PortableCharacterType(256) + " not null  primary key "
                 + " )";
                 ExecuteCreateTable(m_server, sql);
             }
@@ -57,7 +56,7 @@ namespace Reclamation.TimeSeries
             {
                 string sql = "create table alarm_recipient ("
                         + " id int not null primary key, "
-                        + " alarm_group    " + m_server.PortableCharacterType(20) + " not null default '', "
+                        + " list    " + m_server.PortableCharacterType(20) + " not null default '', "
                         + " call_order int not null default 0,"
                         + " phone    " + m_server.PortableCharacterType(20) + " not null default '', "
                         + " name    " + m_server.PortableCharacterType(20) + " not null default '', "
@@ -73,7 +72,7 @@ namespace Reclamation.TimeSeries
             {
                 string sql = "Create Table alarm_phone_queue "
                 + "( id  int not null primary key, "
-                + " phone_numbers " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " list " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " value " + m_server.PortableFloatType() + " not null, "

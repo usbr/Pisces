@@ -12,7 +12,7 @@ namespace AlarmQueueManager
     /// Overview
     /// 
     ///  check alarm_queue for status = 'new' or 'unconfirmed'
-    ///  process 'new' alarms first.
+    ///  process 'new' alarms first by priority
     ///  
     ///   send the list of phone numbers to asterisk
     ///   monitor status
@@ -70,6 +70,7 @@ namespace AlarmQueueManager
             InstanceUtility.TouchProcessFile();
 
             var alarmQueue = DB.GetNewAlarms();
+            
 
             Logger.WriteLine("found "+alarmQueue.Rows.Count+" new alarms in the queue");
             
@@ -77,8 +78,9 @@ namespace AlarmQueueManager
             {
                 var alarm = alarmQueue[i];
                 LogDetails(alarm);
-                
-                    string[] numbers = new string[] { "5272", "5272" };
+
+                   string[] numbers = DB.GetPhoneNumbers(alarm.list);
+                    //string[] numbers = new string[] { "5272", "5272" };
                     Asterisk.Call(alarm.siteid, alarm.parameter, alarm.value.ToString("F2"), numbers);
                     Thread.Sleep(2000);
                     string prevLog = "";
