@@ -71,7 +71,7 @@ namespace Reclamation.TimeSeries
 
             if (!m_server.TableExists("alarm_phone_queue"))
             {
-                string sql = "Create Table alarm_queue "
+                string sql = "Create Table alarm_phone_queue "
                 + "( id  int not null primary key, "
                 + " phone_numbers " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
