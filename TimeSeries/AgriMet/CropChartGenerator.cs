@@ -32,18 +32,18 @@ namespace Reclamation.TimeSeries.AgriMet
                             select row.cbtt).Distinct().ToArray();
             if (cbttList.Length > 1)
             {// for performance query hydromet only once.
-                var cache = new HydrometDataCache();
-                // boii, abei
-                // boii et, abei et
-                var s = String.Join(" ETRS,", cbttList) + " ETRS";
-                var cbttPcode = s.Split(',');
                 DateTime t1 = new DateTime(year, 1, 1);
                 DateTime t2 = new DateTime(year, 12, 31);
                 if (t2 > DateTime.Now.Date)
                     t2 = DateTime.Now.Date;
 
-                cache.Add(cbttPcode, t1, t2, host, TimeSeries.TimeInterval.Daily);
-                HydrometDailySeries.Cache = cache; ;
+                AddToCache(host, cbttList, "ETRS",t1,t2);
+
+                var pcode = new string[] { "MX", "MN", "PP", "TA", "UA", "WG" };
+                for (int i = 0; i < pcode.Length; i++)
+                { // without 192 seconds., with = 21 seconds
+                   AddToCache(host, cbttList, pcode[i], t1, t2);
+                }
             }
 
             DateTime t = DateTime.Now.Date;
@@ -90,6 +90,23 @@ namespace Reclamation.TimeSeries.AgriMet
 
             }
             Console.WriteLine(" Daily and Summary Crop Charts Saved for "+cbttList.Length+" sites");
+
+        }
+
+        private static void AddToCache(HydrometHost host, 
+            string[] cbttList, string pcode, DateTime t1, DateTime t2)
+        {
+            if (HydrometDailySeries.Cache == null)
+            {
+                HydrometDailySeries.Cache = new HydrometDataCache();
+            }
+
+            // boii, abei
+            // boii et, abei et
+            var s = String.Join(" "+pcode+",", cbttList) + " "+pcode;
+            var cbttPcode = s.Split(',');
+            
+            HydrometDailySeries.Cache.Add(cbttPcode, t1, t2, host, TimeSeries.TimeInterval.Daily);
 
         }
 
@@ -251,16 +268,17 @@ namespace Reclamation.TimeSeries.AgriMet
             CropDatesDataSet.CropDatesRow[] cropRow)
         {
             CropDatesDataSet.CropDatesDataTable cropTable = new CropDatesDataSet.CropDatesDataTable();
-            cropTable = CropDatesDataSet.GetCropDataTable(t.Year, false); 
+            cropTable = CropDatesDataSet.GetCropDataTable(t.Year, false);
+            var agrimetDir = ConfigurationManager.AppSettings["AgriMetCropOutputDirectory"];
 
-            string html_file = "agricultureEmail-V2.html";
+            string html_file = Path.Combine(agrimetDir, "chart","agricultureEmail-V2.html");
             if(! File.Exists(html_file))
             {
                 Logger.WriteLine("Error: missing file :" + html_file);
                 return;
             }
                 
-            var agrimetDir = ConfigurationManager.AppSettings["AgriMetCropOutputDirectory"];
+            
             //var fn = Path.Combine(agrimetDir, "chart", html_file);
             var contents = File.ReadAllText(html_file);
             var outputfn = Path.Combine(agrimetDir, "chart", t.Year.ToString(), (cbtt + ".html"));
@@ -272,20 +290,36 @@ namespace Reclamation.TimeSeries.AgriMet
             int numDaysRead = etTodayDate - etStartDate - 1;
             et.Read(t.AddDays(-numDaysRead), t.AddDays(-1));
 
-            contents = contents.Replace("{site_name}", cbtt);
-            //contents = contents.Replace("{site_high_temp}", );
-            //contents = contents.Replace("{site_low_temp}", );           
-            //contents = contents.Replace("{site_precip}", );
-            //contents = contents.Replace("{site_humidity}", );
-            //contents = contents.Replace("{site_wind}", );
-            //contents = contents.Replace("{site_max_wind}", );
-            
-            contents = contents.Replace("{site_m1}", t.Month.ToString() + "/" + t.AddDays(-1).Day.ToString());
-            contents = contents.Replace("{site_m2}", t.Month.ToString() + "/" + t.AddDays(-2).Day.ToString());
-            contents = contents.Replace("{site_m3}", t.Month.ToString() + "/" + t.AddDays(-3).Day.ToString());
-            contents = contents.Replace("{site_m4}", t.Month.ToString() + "/" + t.AddDays(-4).Day.ToString());
+            var pcode = new string[]{"MX","MN","PP","TA","UA","WG" };
+            var htmlPcode = new string[] {
+                "{site_high_temp}",
+                "{site_low_temp}",
+                "{site_precip}",
+                "{site_humidity}",
+                "{site_wind}",
+                "{site_max_wind}" };
 
-            String[] cropCode = { "ETr", "ALFP", "ALFM", "HAYP", "HAYM", "POTA", "POTS", "WGRN", "SCRN" };
+            for (int i = 0; i < pcode.Length; i++)
+            {
+                var s = new HydrometDailySeries(cbtt, pcode[i], s_host);
+                s.Read(t.AddDays(-1), t.AddDays(-1));
+
+                var val = "";
+                if (s.Count == 1 && !s[0].IsMissing)
+                    val = s[0].Value.ToString("F2");
+
+                contents = contents.Replace(htmlPcode[i],val);
+
+            }
+            contents = contents.Replace("{site_name}", cbtt);
+
+            
+            contents = contents.Replace("{site_m1}", t.AddDays(-1).Month.ToString() + "/" + t.AddDays(-1).Day.ToString());
+            contents = contents.Replace("{site_m2}", t.AddDays(-2).Month.ToString() + "/" + t.AddDays(-2).Day.ToString());
+            contents = contents.Replace("{site_m3}", t.AddDays(-3).Month.ToString() + "/" + t.AddDays(-3).Day.ToString());
+            contents = contents.Replace("{site_m4}", t.AddDays(-4).Month.ToString() + "/" + t.AddDays(-4).Day.ToString());
+
+            String[] cropCode = { "ETr", "ALFP", "ALFM", "HAYP", "HAYM", "POTA", "POTS", "WGRN", "SGRN" };
             String[] cropNames = { "site_ref", "alfalfa_peak", "alfalfa_mean", "grass_peak", "grass_mean", "russet", 
                                      "shepody", "winter_grain", "spring_grain" };
             for (int i = 0; i < cropNames.Length; i++ )
