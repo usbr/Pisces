@@ -93,10 +93,10 @@ namespace Reclamation.TimeSeries
 
             if (!m_server.TableExists("alarm_scripts"))
             {
-                string sql = "Create Table alarm_queue "
+                string sql = "Create Table alarm_scripts "
                 + "( id  int not null primary key, "
                 + " text " + m_server.PortableCharacterType(2048) + " not null default '', "
-                + " filename " + m_server.PortableCharacterType(2048) + " not null default '', "
+                + " filename " + m_server.PortableCharacterType(2048) + " not null default '' "
                 + " )";
                 ExecuteCreateTable(m_server, sql);
             }
