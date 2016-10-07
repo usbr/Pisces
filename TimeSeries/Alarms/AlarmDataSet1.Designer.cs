@@ -1864,10 +1864,10 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public alarm_scriptsRow Addalarm_scriptsRow(int id, string text, string filename) {
+            public alarm_scriptsRow Addalarm_scriptsRow(string text, string filename) {
                 alarm_scriptsRow rowalarm_scriptsRow = ((alarm_scriptsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        id,
+                        null,
                         text,
                         filename};
                 rowalarm_scriptsRow.ItemArray = columnValuesArray;
@@ -1906,6 +1906,8 @@ namespace Reclamation.TimeSeries.Alarms {
                 base.Columns.Add(this.columntext);
                 this.columnfilename = new global::System.Data.DataColumn("filename", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnfilename);
+                this.columnid.AutoIncrement = true;
+                this.columnid.AutoIncrementSeed = -1;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

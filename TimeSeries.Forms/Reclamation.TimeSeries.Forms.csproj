@@ -226,6 +226,12 @@
     <Compile Include="Alarms\AlarmSetup.Designer.cs">
       <DependentUpon>AlarmSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Alarms\SoundFiles.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Alarms\SoundFiles.Designer.cs">
+      <DependentUpon>SoundFiles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Calculations\BasicEquation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -686,6 +692,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Alarms\AlarmSetup.resx">
       <DependentUpon>AlarmSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Alarms\SoundFiles.resx">
+      <DependentUpon>SoundFiles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Calculations\BasicEquation.resx">
       <DependentUpon>BasicEquation.cs</DependentUpon>

@@ -126,6 +126,7 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.toolStripMenuItemAlarmManager = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -696,6 +697,7 @@ namespace Reclamation.TimeSeries.Forms
             this.databaseTablesToolStripMenuItem,
             this.sToolStripMenuItem,
             this.toolStripSeparator8,
+            this.toolStripMenuItemAlarmManager,
             this.toolStripMenuItem4,
             this.toolStripMenuRWIS,
             this.toolStripProfileTool,
@@ -866,6 +868,13 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // toolStripMenuItemAlarmManager
+            // 
+            this.toolStripMenuItemAlarmManager.Name = "toolStripMenuItemAlarmManager";
+            this.toolStripMenuItemAlarmManager.Size = new System.Drawing.Size(256, 22);
+            this.toolStripMenuItemAlarmManager.Text = "Alarm Manager...";
+            this.toolStripMenuItemAlarmManager.Click += new System.EventHandler(this.toolStripMenuItemAlarmManager_Click);
+            // 
             // PiscesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -987,6 +996,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem createTemplateFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importUsingTemplateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAlarmManager;
         //private System.Windows.Forms.ToolStripMenuItem menuUpdate;
 
     }

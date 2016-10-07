@@ -42,6 +42,20 @@ namespace Reclamation.TimeSeries.Alarms {
             var tbl = m_server.Table("alarm_recipient", sql);
             return DataTableUtility.Strings(tbl,"","phone");
         }
+
+
+        public partial class alarm_scriptsDataTable
+        {
+            public int NextID()
+            {
+                if (this.Rows.Count > 0)
+                {
+                    return ((int)this.Compute("Max(id)", "") + 1);
+                }
+                return 1;
+            }
+        }
+
     }
     
 }

@@ -44,7 +44,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(634, 484);
+            this.tabControl1.Size = new System.Drawing.Size(628, 477);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPageSetup
@@ -52,7 +52,7 @@
             this.tabPageSetup.Location = new System.Drawing.Point(4, 22);
             this.tabPageSetup.Name = "tabPageSetup";
             this.tabPageSetup.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSetup.Size = new System.Drawing.Size(626, 458);
+            this.tabPageSetup.Size = new System.Drawing.Size(620, 451);
             this.tabPageSetup.TabIndex = 0;
             this.tabPageSetup.Text = "Setup";
             this.tabPageSetup.UseVisualStyleBackColor = true;
@@ -62,7 +62,7 @@
             this.tabPageAlarms.Location = new System.Drawing.Point(4, 22);
             this.tabPageAlarms.Name = "tabPageAlarms";
             this.tabPageAlarms.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAlarms.Size = new System.Drawing.Size(626, 458);
+            this.tabPageAlarms.Size = new System.Drawing.Size(620, 451);
             this.tabPageAlarms.TabIndex = 1;
             this.tabPageAlarms.Text = "Alarms";
             this.tabPageAlarms.UseVisualStyleBackColor = true;
@@ -72,7 +72,7 @@
             this.tabPageSounds.Location = new System.Drawing.Point(4, 22);
             this.tabPageSounds.Name = "tabPageSounds";
             this.tabPageSounds.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSounds.Size = new System.Drawing.Size(626, 458);
+            this.tabPageSounds.Size = new System.Drawing.Size(620, 451);
             this.tabPageSounds.TabIndex = 2;
             this.tabPageSounds.Text = "Sound Files";
             this.tabPageSounds.UseVisualStyleBackColor = true;
@@ -81,7 +81,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 484);
+            this.ClientSize = new System.Drawing.Size(628, 477);
             this.Controls.Add(this.tabControl1);
             this.Name = "AlarmManagerMain";
             this.Text = "Alarm Management";

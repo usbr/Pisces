@@ -29,7 +29,7 @@ namespace Reclamation.TimeSeries.Import
 
             foreach (string sheet in sheetNames)
             {
-                if (Regex.IsMatch(sheet.Trim(), "[0-9]{4}")) // is 4 digit year
+                if (Regex.IsMatch(sheet.Trim(), "[0-9]{4}$")) // is 4 digit year
                 {
                     int yr = int.Parse(sheet);
                     Console.WriteLine("Reading sheet:"+sheet);
@@ -64,7 +64,8 @@ namespace Reclamation.TimeSeries.Import
                     int idx = idxDay + 1+t.Day;
                     if( idx >= tbl.Rows.Count || idx <0)
                     {
-                        Console.WriteLine("Error with index"); 
+                        Console.WriteLine("Error with index");
+                        return;
                     }
                     var row = tbl.Rows[idx];
                     var x = row[m ].ToString();

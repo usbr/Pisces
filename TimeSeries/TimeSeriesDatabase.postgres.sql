@@ -88,6 +88,6 @@ insert into alarm_list values ( 'test2');
 insert into alarm_recipient values (1,'test',1,'5272','karl','email.@work.com');
 insert into alarm_recipient values (2,'test',2,'5272','karl','email.@work.com');
 
-insert into alarm_phone_queue values (1,'test','rob','ob',56.42,'new',now(),'',now(),5);
+insert into alarm_phone_queue values (1,'test','dedi','fb',56.42,'new',now(),'',now(),5);
 --insert into alarm_phone_queue values (2,'5272,5272','rob','ob',56.42,'new',now(),'',now(),1);
 

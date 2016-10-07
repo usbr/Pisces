@@ -17,6 +17,7 @@ using Reclamation.TimeSeries.Forms.Graphing;
 using Rwis.Sync;
 using System.Collections.Generic;
 using Reclamation.TimeSeries.RatingTables;
+using Reclamation.TimeSeries.Forms.Alarms;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -1128,6 +1129,13 @@ namespace Reclamation.TimeSeries.Forms
                 DatabaseChanged();
                 toolStripProgressBar1.Visible = false;
             }
+        }
+
+        private void toolStripMenuItemAlarmManager_Click(object sender, EventArgs e)
+        {
+            AlarmManagerMain am = new AlarmManagerMain(DB.Server);
+            am.ShowDialog();
+
         }
 
     

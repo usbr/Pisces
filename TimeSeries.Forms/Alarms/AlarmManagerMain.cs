@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reclamation.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,17 @@ namespace Reclamation.TimeSeries.Forms.Alarms
         public AlarmManagerMain()
         {
             InitializeComponent();
+        }
+        BasicDBServer m_svr;
+        public AlarmManagerMain(BasicDBServer svr)
+        {
+            m_svr = svr;
+            InitializeComponent();
+            SoundFiles s = new SoundFiles(svr);
+
+            this.tabPageSounds.Controls.Add(s);
+            s.Dock = DockStyle.Fill;
+
         }
     }
 }
