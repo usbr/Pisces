@@ -270,6 +270,7 @@
     <Compile Include="Graphing\ProfileDesigner.Designer.cs">
       <DependentUpon>ProfileDesigner.cs</DependentUpon>
     </Compile>
+    <Compile Include="RatingTables\IRatingTableGraph.cs" />
     <Compile Include="RatingTables\OldRatingEquationEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>

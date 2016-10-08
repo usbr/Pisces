@@ -12,7 +12,7 @@ using Reclamation.TimeSeries.Forms.Graphing;
 
 namespace Reclamation.TimeSeries.Forms.RatingTables
 {
-    public partial class RatingTableZedGraph : UserControl
+    public partial class RatingTableZedGraph : UserControl, IRatingTableGraph
     {
         string title = "";
         string subTitle = "";
