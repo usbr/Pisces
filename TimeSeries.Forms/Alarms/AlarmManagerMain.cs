@@ -27,5 +27,8 @@ namespace Reclamation.TimeSeries.Forms.Alarms
             s.Dock = DockStyle.Fill;
 
         }
+
+        
+
     }
 }
