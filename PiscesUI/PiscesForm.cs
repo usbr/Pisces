@@ -530,11 +530,12 @@ namespace Reclamation.TimeSeries.Forms
         private void newSite(object sender, EventArgs e)
         {
             var d = new Reclamation.TimeSeries.Forms.ImportForms.AddSite(DB);
-
+            DB.SuspendTreeUpdates();
             if (d.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 DB.AddSiteWithTemplate(CurrentFolder, d.SeriesCatalog, d.SiteName, d.SiteID, 
                     d.State,d.Elevation, d.Lat, d.Lon, d.TimeZone, d.Install,d.Program);
+                DB.ResumeTreeUpdates();
                 DatabaseChanged();
             }
         }

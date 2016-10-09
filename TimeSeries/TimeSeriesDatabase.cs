@@ -625,11 +625,12 @@ namespace Reclamation.TimeSeries
             }
 
             var siteFolder = GetOrCreateFolder(parent,SiteID);
-            var sc = GetSeriesCatalog();
-            var instant = sc.AddFolder("instant", siteFolder.ID);
-            var daily = sc.AddFolder("daily", siteFolder.ID);
-            var quality = sc.AddFolder("quality", siteFolder.ID);
+            
+            var instant = GetOrCreateFolder(parent,SiteID,"instant" );
+            var daily = GetOrCreateFolder(parent,SiteID,"daily");
+            var quality = GetOrCreateFolder(parent, SiteID, "quality");
 
+            var sc = GetSeriesCatalog();
             var series_properties = GetSeriesProperties();
             
             foreach (var item in template)
@@ -637,20 +638,30 @@ namespace Reclamation.TimeSeries
                 int id = sc.NextID();
                 int parentID = siteFolder.ID;
 
-                if (item.TimeInterval == "Daily" )
-                    parentID = daily;
-                if( item.TimeInterval == "Irregular")
-                    parentID = instant;
+                if (item.TimeInterval == "Daily")
+                    parentID = daily.ID;
+                if (item.TimeInterval == "Irregular")
+                    parentID = instant.ID;
 
                 if (QualityParameters.Contains(item.Parameter.ToUpper()))
                 {
-                    parentID = quality;
+                    parentID = quality.ID;
                 }
-                sc.AddSeriesCatalogRow(id,parentID, false, id, item.iconname, item.Name, item.siteid, item.Units, 
-                        item.TimeInterval, item.Parameter, item.TableName, item.Provider, item.ConnectionString, item.Expression, item.Notes, item.enabled);
 
+                 var check = sc.Select("tablename = '"+item.TableName+"'");
 
-                series_properties.AddseriespropertiesRow(series_properties.NextID(), id, "program", program);
+                 if (check.Length > 0)
+                 {
+                     MessageBox.Show("Warning: skipping item that allready exists: "+item.TableName);
+                 }
+                 else
+                 {
+                     sc.AddSeriesCatalogRow(id, parentID, false, id, item.iconname, item.Name, item.siteid, item.Units,
+                             item.TimeInterval, item.Parameter, item.TableName, item.Provider, item.ConnectionString, item.Expression, item.Notes, item.enabled);
+                     series_properties.AddseriespropertiesRow(series_properties.NextID(), id, "program", program);
+                 }
+
+                
                 //series_properties.DuplicateProperties(series item.id, id);
            }
             series_properties.Save();
