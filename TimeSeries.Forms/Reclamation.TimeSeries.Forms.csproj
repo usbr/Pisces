@@ -221,11 +221,23 @@
     <Compile Include="Alarms\AlarmManagerMain.Designer.cs">
       <DependentUpon>AlarmManagerMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Alarms\AlarmQueue.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Alarms\AlarmQueue.Designer.cs">
+      <DependentUpon>AlarmQueue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Alarms\AlarmSetup.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Alarms\AlarmSetup.Designer.cs">
       <DependentUpon>AlarmSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Alarms\FormNewAlarmGroup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Alarms\FormNewAlarmGroup.Designer.cs">
+      <DependentUpon>FormNewAlarmGroup.cs</DependentUpon>
     </Compile>
     <Compile Include="Alarms\SoundFiles.cs">
       <SubType>UserControl</SubType>
@@ -692,8 +704,14 @@
     <EmbeddedResource Include="Alarms\AlarmManagerMain.resx">
       <DependentUpon>AlarmManagerMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Alarms\AlarmQueue.resx">
+      <DependentUpon>AlarmQueue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Alarms\AlarmSetup.resx">
       <DependentUpon>AlarmSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Alarms\FormNewAlarmGroup.resx">
+      <DependentUpon>FormNewAlarmGroup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Alarms\SoundFiles.resx">
       <DependentUpon>SoundFiles.cs</DependentUpon>

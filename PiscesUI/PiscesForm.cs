@@ -1134,8 +1134,15 @@ namespace Reclamation.TimeSeries.Forms
 
         private void toolStripMenuItemAlarmManager_Click(object sender, EventArgs e)
         {
-            AlarmManagerMain am = new AlarmManagerMain(DB.Server);
-            am.ShowDialog();
+            try
+            {
+                AlarmManagerMain am = new AlarmManagerMain(DB.Server);
+                am.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
         }
 

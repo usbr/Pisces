@@ -549,10 +549,10 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public alarm_recipientRow Addalarm_recipientRow(int id, string list, string call_order, string phone, string name, string email) {
+            public alarm_recipientRow Addalarm_recipientRow(string list, string call_order, string phone, string name, string email) {
                 alarm_recipientRow rowalarm_recipientRow = ((alarm_recipientRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        id,
+                        null,
                         list,
                         call_order,
                         phone,
@@ -612,15 +612,18 @@ namespace Reclamation.TimeSeries.Alarms {
                 base.Columns.Add(this.columnemail);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
+                this.columnid.AutoIncrement = true;
                 this.columnid.AutoIncrementSeed = -1;
-                this.columnid.AutoIncrementStep = -1;
                 this.columnid.AllowDBNull = false;
                 this.columnid.Unique = true;
                 this.columnlist.AllowDBNull = false;
-                this.columncall_order.AllowDBNull = false;
+                this.columncall_order.DefaultValue = ((string)("1"));
                 this.columnphone.AllowDBNull = false;
+                this.columnphone.DefaultValue = ((string)(" "));
                 this.columnname.AllowDBNull = false;
+                this.columnname.DefaultValue = ((string)(" "));
                 this.columnemail.AllowDBNull = false;
+                this.columnemail.DefaultValue = ((string)(" "));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1371,6 +1374,8 @@ namespace Reclamation.TimeSeries.Alarms {
                                 this.columnid}, true));
                 this.columnid.AllowDBNull = false;
                 this.columnid.Unique = true;
+                this.columnlist.AllowDBNull = false;
+                this.columnlist.DefaultValue = ((string)("a"));
                 this.columnpriority.AllowDBNull = false;
                 this.columnpriority.DefaultValue = ((int)(10));
             }
@@ -2074,7 +2079,12 @@ namespace Reclamation.TimeSeries.Alarms {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string call_order {
                 get {
-                    return ((string)(this[this.tablealarm_recipient.call_orderColumn]));
+                    try {
+                        return ((string)(this[this.tablealarm_recipient.call_orderColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'call_order\' in table \'alarm_recipient\' is DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tablealarm_recipient.call_orderColumn] = value;
@@ -2112,6 +2122,18 @@ namespace Reclamation.TimeSeries.Alarms {
                 set {
                     this[this.tablealarm_recipient.emailColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Iscall_orderNull() {
+                return this.IsNull(this.tablealarm_recipient.call_orderColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setcall_orderNull() {
+                this[this.tablealarm_recipient.call_orderColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2286,12 +2308,7 @@ namespace Reclamation.TimeSeries.Alarms {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string list {
                 get {
-                    try {
-                        return ((string)(this[this.tablealarm_definition.listColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'list\' in table \'alarm_definition\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tablealarm_definition.listColumn]));
                 }
                 set {
                     this[this.tablealarm_definition.listColumn] = value;
@@ -2387,18 +2404,6 @@ namespace Reclamation.TimeSeries.Alarms {
                 set {
                     this[this.tablealarm_definition.priorityColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IslistNull() {
-                return this.IsNull(this.tablealarm_definition.listColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetlistNull() {
-                this[this.tablealarm_definition.listColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

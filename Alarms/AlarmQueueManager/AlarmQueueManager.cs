@@ -128,14 +128,7 @@ namespace AlarmQueueManager
         {
             get
             {
-                if (m_alarmDS == null)
-                {
-                    var db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[] { }));
-                    m_alarmDS = new AlarmDataSet();
-                    m_alarmDS.Server = db.Server;
-                }
-
-                return m_alarmDS;
+              return AlarmDataSet.Instance;
             }
         }
 
