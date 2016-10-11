@@ -15,10 +15,10 @@ namespace AlarmQueueManager
       /// 
       ///  makes calls and Reads and writes from Asterisk database.
       ///  asterisk -x "channel originate local/boia_emm@hydromet_groups extension"
-      ///  asterisk -x "database put hydromet alarm_status busy"
+      ///  asterisk -x "database put hydromet status busy"
       ///  asterisk -x "database show"
-      ///  asterisk -x "database show hydromet alarm_status"
-      ///  asterisk -x "database del hydromet alarm_status"
+      ///  asterisk -x "database show hydromet status"
+      ///  asterisk -x "database del hydromet status"
       ///  asterisk -x "dialplan reload"
       ///  </summary>
    static class Asterisk
