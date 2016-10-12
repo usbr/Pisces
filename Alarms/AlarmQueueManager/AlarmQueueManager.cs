@@ -88,10 +88,7 @@ namespace AlarmQueueManager
                     {
                         InstanceUtility.TouchProcessFile();
                         Thread.Sleep(2000);
-
-                        alarm.status = Asterisk.Status;
-                        alarm.status_time = Asterisk.StatusTime;
-                        alarm.confirmed_by = Asterisk.ConfirmedBy;
+                        UpdatePiscesStatus(alarm);
 
                         if( Asterisk.Log != prevLog)
                         {
@@ -102,15 +99,27 @@ namespace AlarmQueueManager
                         DB.SaveTable(alarmQueue);
 
                         if (Asterisk.ActiveChannels == 0)
+                        {
+                            UpdatePiscesStatus(alarm);
                             break; // someone hungup or other loss of connection
+                        }
 
                         if( Asterisk.MinutesElapsed >=15)
                         {
+                            UpdatePiscesStatus(alarm);
                             break;
                         }
                         
                     } while (Asterisk.Status == "unconfirmed");
             }
+        }
+
+        private static void UpdatePiscesStatus(AlarmDataSet.alarm_phone_queueRow alarm)
+        {
+
+            alarm.status = Asterisk.Status;
+            alarm.status_time = Asterisk.StatusTime;
+            alarm.confirmed_by = Asterisk.ConfirmedBy;
         }
 
         private void LogDetails(AlarmDataSet.alarm_phone_queueRow alarm)
@@ -128,7 +137,7 @@ namespace AlarmQueueManager
         {
             get
             {
-              return AlarmDataSet.Instance;
+                return AlarmDataSet.CreateInstance();
             }
         }
 

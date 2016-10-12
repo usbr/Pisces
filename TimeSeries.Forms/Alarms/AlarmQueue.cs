@@ -30,6 +30,11 @@ namespace Reclamation.TimeSeries.Forms.Alarms
             this.dataGridView1.DataSource = m_ds.GetAlarmQueue(this.checkBoxAllAlarms.Checked);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Init();
+        }
+
 
     }
 }
