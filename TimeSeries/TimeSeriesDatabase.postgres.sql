@@ -23,12 +23,12 @@ ALTER TABLE alarm_list
 CREATE TABLE alarm_definition
 (
   id integer NOT NULL primary key,
+  enabled  smallint NOT NULL DEFAULT 0,
   list character varying(256) NOT NULL DEFAULT ''  references alarm_list (list)  ,
   siteid character varying(256) NOT NULL references sitecatalog (siteid),
   parameter character varying(256) NOT NULL DEFAULT '',
   alarm_condition character varying(256) NOT NULL DEFAULT '',
   clear_condition character varying(256) NOT NULL DEFAULT '',
-  message character varying(256) NOT NULL DEFAULT '',
   priority int not null default 10
 );
 
