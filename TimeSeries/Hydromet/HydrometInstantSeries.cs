@@ -15,10 +15,9 @@ namespace Reclamation.TimeSeries.Hydromet
         static string[] GoodDataFlags = new string[] { "", " ", "e" };
         private string pcode;
         private string cbtt;
-        private static bool m_keepflaggedData = false;// flagged data
+        private static bool s_keepflaggedData = false;// flagged data
 
-
-        private static int m_fillGapMinutes = 0;
+        private static int s_fillGapMinutes = 0;
 
         public string Cbtt
         {
@@ -39,14 +38,14 @@ namespace Reclamation.TimeSeries.Hydromet
         /// </summary>
         public static int FillInterval
         {
-            get { return HydrometInstantSeries.m_fillGapMinutes; }
-            set { HydrometInstantSeries.m_fillGapMinutes = value; }
+            get { return HydrometInstantSeries.s_fillGapMinutes; }
+            set { HydrometInstantSeries.s_fillGapMinutes = value; }
         }
 
         public static bool KeepFlaggedData
         {
-            get { return m_keepflaggedData; }
-            set { m_keepflaggedData = value; }
+            get { return s_keepflaggedData; }
+            set { s_keepflaggedData = value; }
         }
         HydrometHost server;
 
@@ -123,8 +122,23 @@ namespace Reclamation.TimeSeries.Hydromet
 
         }
 
+        private static HydrometDataCache s_cache;
 
-        public static HydrometDataCache Cache; // in-memory cache for high performance 
+        public static HydrometDataCache Cache // in-memory cache for high performance 
+        {
+            get
+            {
+                if (s_cache == null)
+                {
+                    s_cache = new HydrometDataCache();
+                }
+                return s_cache;
+            }
+            set
+            {
+                s_cache = value;
+            }
+        }
 
         private void ReadAndParse(DateTime t1, DateTime t2)
         {
@@ -152,8 +166,11 @@ namespace Reclamation.TimeSeries.Hydromet
             this.Clear();
             for (int i = 0; i < tbl.Rows.Count; i++)
             {
-                string flag = tbl.Rows[i][flagIndex].ToString();
+                DateTime t = Convert.ToDateTime(tbl.Rows[i][0]);
+                if (t < t1 || t > t2)
+                    continue;
 
+                string flag = tbl.Rows[i][flagIndex].ToString();
 
                 if (!KeepFlaggedData &&
                                  Array.IndexOf(GoodDataFlags, flag) < 0)
@@ -162,8 +179,6 @@ namespace Reclamation.TimeSeries.Hydromet
                     continue;
                 }
 
-
-                DateTime t = Convert.ToDateTime(tbl.Rows[i][0]);
 
                 if (Convert.IsDBNull(tbl.Rows[i][dataIndex]))
                 {

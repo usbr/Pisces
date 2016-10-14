@@ -8,9 +8,9 @@ using System.Linq;
 using System.Text;
 using Reclamation.TimeSeries;
 
-namespace Reclamation.TimeSeries
+namespace Reclamation.TimeSeries.Reports
 {
-    public static class Reports
+    public static class USGSReport
     {
 
 

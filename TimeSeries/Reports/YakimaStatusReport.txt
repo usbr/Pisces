@@ -1,38 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Reclamation.TimeSeries.Hydromet
-{
-    public class YakimaStatusReport
-    {
-        TimeSeriesDatabase m_db;
-        public YakimaStatusReport(TimeSeriesDatabase db)
-        {
-            m_db = db;
-        }
-
-        /// <summary>
-        /// Creates a text file report and returns path to it.
-        /// </summary>
-        /// <returns></returns>
-        public string Create(DateTime t, int hour=8) // default 8am.
-        {
-            string rval = "";
-            HydrometInstantSeries.Cache.Add(this.yakima_data, t.AddDays(-1), t, HydrometHost.Yakima, TimeInterval.Irregular);
-
-
-            return rval;
-
-        }
-        //DATA CAPS/157800.,239000.,436900.,33970.,198000.,        11065400./
-        /*
-         * AF(1)=KEE STORAGE,AF(2)=KAC STORAGE,AF(3)=CLE STORAGE
-C               AF(4)=BUM STORAGE,AF(5)=RIM STORAGE
-         */
-        private string template = @"
-            13-OCT-2016  09:12:35    US BUREAU OF RECLAMATION
+﻿
+     13-OCT-2016  09:12:35    US BUREAU OF RECLAMATION
                                    YAKIMA PROJECT
                                SYSTEM STATUS AT 06:00
 
@@ -71,49 +38,31 @@ C               AF(4)=BUM STORAGE,AF(5)=RIM STORAGE
      Chandler               1258.  Generating 6.2 MW.
 
      UNREGULATED TRIBUTARY & RETURN FLOW ABOVE PARKER     -  -   1837. CFS
-            ";
 
-        private string[] yakima_data =
-            new string[]{
-"KEE FB",
-"KAC FB",
-"CLE FB",
-"BUM FB",
-"RIM FB",
-"CLR FB",
-"KEE AF",
-"KAC AF",
-"CLE AF",
-"BUM AF",
-"RIM AF",
-"EASW Q",
-"YUMW Q",
-"UMTW Q",
-"NACW Q",
-"PARW Q",
-"YRPW Q",
-"KEE Q",
-"KAC Q",
-"CLE Q",
-"BUM Q",
-"RIM Q",
-"KTCW QC",
-"WOPW QC",
-"RZCW QC",
-"NSCW QC",
-"SNCW QC",
-"RSCW QC",
-"TIEW QC",
-"ROZW QC",
-"WESW QC",
-"CHCW QC",
-"KNCW QC",
-"TNAW Q",
-"YRWW Q",
-"CLFW Q",
-"TICW Q",
-"RBDW Q",
-"YRCW Q"            };
+     OPERATIONAL COMMENTS:  Storage is 92.3% of average (1981, 2010).
+     ---------------------
+     Inflow to the five reservoirs is 116% and releases from the five is 96% of 
+     average.  Major canal diversions is 108% of average.  Unregulated flow for the 
+     Yakima R nr Parker is 121% and regulated flow is 114% of average.  Inflow to 
+     the five reservoirs for the Water Year to date (Oct. 01 to Oct. 12) is 22KAF, 
+     or 114% of average and releases from the five is 58KAF, or 113% of average. 
+     Unregulated flow for the Yakima R nr Parker for the same period is 43KAF, or 
+     106% of average and regulated flow is 12KAF, or 100% of average.
+     Precipitation at the five reservoirs for Oct. to date is 9.22 inches, or 136% 
+     of average and 53% of the months average.
+     The mountians will see rain, heavy at times, 1 to 3 inches possible.  High near 
+     50 degrees.  The valleys will be cloudy with showers.  High near 60 degrees.  
+     Southwest wind 10-15 MPH.  For the complete forecast go to 
+     http://www.wrh.noaa.gov/pdt/.
+     Kachess outflow will be reduced 150 CFS.
+     Kittitas Canal will cut 150 CFS, Roza Canal will cut 25 CFS, New Reservation 
+     Canal will cut 300 CFS and Sunnyside Canal will cut 30 CFS.
+     Attention:  The 1146 Spillway nr Thorp is currently passing 90 CFS and will end 
+     operation, shutting down this afternoon.
+     Irrigation diversion changes must be coordinated with the YFO, please allow 
+     48 hours advance notice.  Thank You!
+     For further information contact the River Operator at 509-575-5848, ext. 219, 
+     or click on the link below to visit our homepage.
+     The next River Operations meeting is Nov. 3, at 10:30 am at the YFO.
+     Have a great day!!!!!:>)
 
-    }
-}
