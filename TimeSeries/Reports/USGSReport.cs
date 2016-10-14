@@ -10,7 +10,7 @@ using Reclamation.TimeSeries;
 
 namespace Reclamation.TimeSeries.Reports
 {
-    public static class USGSReport
+    public static class Usgs
     {
 
 

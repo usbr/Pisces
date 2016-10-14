@@ -11,6 +11,7 @@ using Reclamation.Core;
 using System.Net;
 using System.Text;
 using Reclamation.TimeSeries.Hydromet;
+using Reclamation.TimeSeries.Reports;
 
 namespace PiscesWebServices.CGI
 {
@@ -63,7 +64,7 @@ namespace PiscesWebServices.CGI
                 for (int i = startYear; i < endYear; i++)
                 {
                     s.Read(t1, t1.AddMonths(12));
-                    DataTable wyTable = Reports.WaterYearTable(s);
+                    DataTable wyTable = Usgs.WaterYearTable(s);
                     var header = GetHeader(i, siteID,parameter);
                     var html = DataTableOutput.ToHTML(wyTable, true, "",header);
                     Console.WriteLine(html);
