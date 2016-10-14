@@ -46,7 +46,12 @@ namespace Reclamation.TimeSeries.Forms
             //}
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            string expr = textBox1.Text;
+            string[] tokens = expr.Split(' ');
 
-
+           //parse the expression for matching tokens 
+        }
     }
 }
