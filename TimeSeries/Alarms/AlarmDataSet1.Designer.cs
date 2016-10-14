@@ -1153,6 +1153,8 @@ namespace Reclamation.TimeSeries.Alarms {
             
             private global::System.Data.DataColumn columnid;
             
+            private global::System.Data.DataColumn columnenabled;
+            
             private global::System.Data.DataColumn columnlist;
             
             private global::System.Data.DataColumn columnsiteid;
@@ -1162,8 +1164,6 @@ namespace Reclamation.TimeSeries.Alarms {
             private global::System.Data.DataColumn columnalarm_condition;
             
             private global::System.Data.DataColumn columnclear_condition;
-            
-            private global::System.Data.DataColumn columnmessage;
             
             private global::System.Data.DataColumn columnpriority;
             
@@ -1210,6 +1210,14 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn enabledColumn {
+                get {
+                    return this.columnenabled;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public global::System.Data.DataColumn listColumn {
                 get {
                     return this.columnlist;
@@ -1245,14 +1253,6 @@ namespace Reclamation.TimeSeries.Alarms {
             public global::System.Data.DataColumn clear_conditionColumn {
                 get {
                     return this.columnclear_condition;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn messageColumn {
-                get {
-                    return this.columnmessage;
                 }
             }
             
@@ -1301,16 +1301,16 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public alarm_definitionRow Addalarm_definitionRow(string id, string list, string siteid, string parameter, string alarm_condition, string clear_condition, string message, int priority) {
+            public alarm_definitionRow Addalarm_definitionRow(string id, bool enabled, string list, string siteid, string parameter, string alarm_condition, string clear_condition, int priority) {
                 alarm_definitionRow rowalarm_definitionRow = ((alarm_definitionRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
+                        enabled,
                         list,
                         siteid,
                         parameter,
                         alarm_condition,
                         clear_condition,
-                        message,
                         priority};
                 rowalarm_definitionRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowalarm_definitionRow);
@@ -1342,12 +1342,12 @@ namespace Reclamation.TimeSeries.Alarms {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnid = base.Columns["id"];
+                this.columnenabled = base.Columns["enabled"];
                 this.columnlist = base.Columns["list"];
                 this.columnsiteid = base.Columns["siteid"];
                 this.columnparameter = base.Columns["parameter"];
                 this.columnalarm_condition = base.Columns["alarm_condition"];
                 this.columnclear_condition = base.Columns["clear_condition"];
-                this.columnmessage = base.Columns["message"];
                 this.columnpriority = base.Columns["priority"];
             }
             
@@ -1356,6 +1356,8 @@ namespace Reclamation.TimeSeries.Alarms {
             private void InitClass() {
                 this.columnid = new global::System.Data.DataColumn("id", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnid);
+                this.columnenabled = new global::System.Data.DataColumn("enabled", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnenabled);
                 this.columnlist = new global::System.Data.DataColumn("list", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnlist);
                 this.columnsiteid = new global::System.Data.DataColumn("siteid", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1366,14 +1368,13 @@ namespace Reclamation.TimeSeries.Alarms {
                 base.Columns.Add(this.columnalarm_condition);
                 this.columnclear_condition = new global::System.Data.DataColumn("clear_condition", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnclear_condition);
-                this.columnmessage = new global::System.Data.DataColumn("message", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnmessage);
                 this.columnpriority = new global::System.Data.DataColumn("priority", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnpriority);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AllowDBNull = false;
                 this.columnid.Unique = true;
+                this.columnenabled.AllowDBNull = false;
                 this.columnlist.AllowDBNull = false;
                 this.columnlist.DefaultValue = ((string)("a"));
                 this.columnpriority.AllowDBNull = false;
@@ -2306,6 +2307,17 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool enabled {
+                get {
+                    return ((bool)(this[this.tablealarm_definition.enabledColumn]));
+                }
+                set {
+                    this[this.tablealarm_definition.enabledColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string list {
                 get {
                     return ((string)(this[this.tablealarm_definition.listColumn]));
@@ -2381,22 +2393,6 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string message {
-                get {
-                    try {
-                        return ((string)(this[this.tablealarm_definition.messageColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'message\' in table \'alarm_definition\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablealarm_definition.messageColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public int priority {
                 get {
                     return ((int)(this[this.tablealarm_definition.priorityColumn]));
@@ -2452,18 +2448,6 @@ namespace Reclamation.TimeSeries.Alarms {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void Setclear_conditionNull() {
                 this[this.tablealarm_definition.clear_conditionColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsmessageNull() {
-                return this.IsNull(this.tablealarm_definition.messageColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetmessageNull() {
-                this[this.tablealarm_definition.messageColumn] = global::System.Convert.DBNull;
             }
         }
         
