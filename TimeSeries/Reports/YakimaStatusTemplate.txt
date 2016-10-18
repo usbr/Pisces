@@ -36,4 +36,4 @@
      Roza at Headworks   %rzcw_qc  
      Chandler            %chcw_qc  
 
-     UNREGULATED TRIBUTARY & RETURN FLOW ABOVE PARKER     -  -   1837. CFS
+     UNREGULATED TRIBUTARY & RETURN FLOW ABOVE PARKER       %trib_parw CFS

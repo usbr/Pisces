@@ -15,20 +15,26 @@ namespace Reclamation.TimeSeries.Reports
         }
 
         string[] resList = { "kee", "kac", "cle", "bum", "rim", "clr" };
+        string[] major_qc = { "ktcw", "rzcw", "tiew", "rscw", "sncw" };
+        string[] trib_qc = { "ktcw", "sncw", "rscw", "tiew", "rozw"};
+        string[] others_above_parker = { "wesw", "nscw" };
         double[] resCapacity ={157800,239000,436900,33970,198000,-1};
         double[] res_af = { 0, 0, 0, 0, 0, 0 };
         double[] res_af2 = { 0, 0, 0, 0, 0, 0 }; // previous day same hour
         double[] res_q = { 0, 0, 0, 0, 0 ,0};
         double totalCapacity= 1065400;
         double total_af = 0;
-        double total_q = 0;
+        double reservoir_total_release = 0;
         double total_in = 0;
-
+        double major_qc_total = 0;
+        double above_parker_qc = 0;
+        double trib_qc_total = 0;
+        double parw_q = double.MinValue;
         /// <summary>
         /// Creates and returns the report.
         /// </summary>
         /// <returns></returns>
-        public string Create(DateTime t) // default 8am.
+        public string Create(DateTime t, double others, int year1=0, int year2=0) // default 8am.
         {
             string rval = GetTemplate();
             //13-OCT-2016  09:12:35
@@ -57,11 +63,13 @@ namespace Reclamation.TimeSeries.Reports
             rval = ReplaceSymbol(rval, "%total_af", total_af);
             double total_pct = total_af / totalCapacity * 100.0;
             rval = ReplaceSymbol(rval, "%total_pct", total_pct);
-            rval = ReplaceSymbol(rval, "%total_q", total_q);
+            rval = ReplaceSymbol(rval, "%total_q", reservoir_total_release);
 
             // compute inflows.
             for (int i = 0; i < resList.Length; i++)
             {
+                if (resList[i] == "clr")
+                    continue; // no contents
                 var qu = (res_af[i]-res_af2[i]) / 1.9835 + res_q[i];
                 rval = ReplaceSymbol(rval, "%" + resList[i] + "_in", qu);
                 total_in += qu;
@@ -69,20 +77,61 @@ namespace Reclamation.TimeSeries.Reports
             rval = ReplaceSymbol(rval, "%total_in", total_in);
             foreach (var canal in DataSubset("qc"))
             {
-                var x = canal.Substring(0, canal.IndexOf(" "));
-                rval = ProcessParameter(rval, t, x, "qc");
+                var cbtt = canal.Substring(0, canal.IndexOf(" "));
+                rval = ProcessParameter(rval, t, cbtt, "qc");
             }
+
+            rval = ReplaceSymbol(rval, "%major_qc", major_qc_total);
+            rval = ReplaceSymbol(rval, "%other_qc", others);
+            above_parker_qc += others + major_qc_total;
+            rval = ReplaceSymbol(rval, "%parker_qc", above_parker_qc);
+            
 
             foreach (var river in DataSubset("q"))
             {
-                var x = river.Substring(0, river.IndexOf(" "));
-                rval = ProcessParameter(rval, t, x, "q");
+                var cbtt = river.Substring(0, river.IndexOf(" "));
+                if( !resList.Contains(cbtt)) // reservoir allready processed
+                  rval = ProcessParameter(rval, t, cbtt, "q");
             }
             
+            // unregulated tributary and return flows above parker.
+            var above_parker = trib_qc_total + others + parw_q - reservoir_total_release;
+
+             rval = ReplaceSymbol(rval, "%trib_parw", above_parker);
+
+             rval = rval = "\nOPERATIONAL COMMENTS:  ";
+             if (year1 > 0 && year2 > 0)
+             {
+                 var t1a = new DateTime(year1 - 1, 10, 1);
+                 var t2a = new DateTime(year2, 9, 30);
+
+                 double avgPct = MultiYearAvg(t1,t1a, t2a, total_af);
+                 
+            rval = rval +"Storage is " + avgPct.ToString("F0") + "% of average (" + year1
+                 + ", " +year2 + ").";
+             }
+
             return rval;
 
         }
+        private double MultiYearAvg(DateTime t,DateTime t1, DateTime t2, double sys_af)
+        {
+            var s = HydrometDailySeries.GetMultiYearAverage("sys", "af",
+                HydrometHost.Yakima, t1, t2);
 
+            DateTime t2000 = new DateTime(2000, t.Month, t.Day);
+            int idx = s.IndexOf(t2000.Date);
+
+            if (idx >= 0 && !s[idx].IsMissing)
+            {
+                var x= s[idx].Value;
+                x =  sys_af/ x * 100.0;
+                return x;
+            }
+
+            return Reclamation.TimeSeries.Point.MissingValueFlag;
+
+        }
         private string[] DataSubset(string pcode)
         {
             var query = from a in yakima_data
@@ -92,7 +141,8 @@ namespace Reclamation.TimeSeries.Reports
             return rval;
         }
 
-        private string ProcessParameter(string txt, DateTime t, string cbtt, string pcode)
+        private string ProcessParameter(string txt, DateTime t,
+            string cbtt, string pcode)
         {
             var x = GetValue(cbtt, pcode, t);
             int decimals =  ( pcode.Trim() == "fb") ? 2 : 0;
@@ -120,10 +170,30 @@ namespace Reclamation.TimeSeries.Reports
 
             if (pcode == "q" && x != Point.MissingValueFlag )
             {
-                total_q += x;
-                if( idx>=0)
-                  res_q[idx] = x;
+                if (idx >= 0)
+                {
+                    res_q[idx] = x;
+                    reservoir_total_release += x;
+                }
+                if (cbtt == "parw")
+                    parw_q = x;
             }
+
+            if (pcode == "qc" && x != Point.MissingValueFlag)
+            {
+                if(major_qc.Contains(cbtt) )
+                   major_qc_total += x;
+                if (others_above_parker.Contains(cbtt))
+                    above_parker_qc += x;
+
+                if( trib_qc.Contains(cbtt))
+                {
+                    trib_qc_total += x;
+                }
+            }
+
+
+            
 
             return rval;
         }
@@ -211,6 +281,9 @@ namespace Reclamation.TimeSeries.Reports
 "ticw q",
 "rbdw q",
 "yrcw q"            };
+
+
+
 
     }
 }
