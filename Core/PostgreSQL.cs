@@ -315,6 +315,7 @@ Alan
     }
 
     public bool MapToLowerCase = true;
+    public bool SetAllValuesInCommandBuilder = false;
 
     public override int SaveTable(DataTable dataTable, string sql)
     {
@@ -334,6 +335,7 @@ Alan
         da.InsertCommand = cb.GetInsertCommand();
         da.DeleteCommand = cb.GetDeleteCommand();
 
+        cb.SetAllValues = SetAllValuesInCommandBuilder;
         cb.ConflictOption = ConflictOption.OverwriteChanges; // this fixes System.InvalidCastException : Specified cast is not valid.
                                                               // when reserved word  (group) was a column name
 
