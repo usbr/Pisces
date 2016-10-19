@@ -20,28 +20,59 @@ The key programs and assemblies  (HydrometServer.exe, Reclamation.Core.dll and R
  
 Hydrologist, Engineers (especially modelers), and programmers have used these Pisces libraries to manage large amounts of time series data with ease. The main componet in the library called Series can be used without any database if desired.
 
-Here is an example in C# that finds the minimum and maximum temperature each day using spreadsheet data collected at a 30 minute interval
+## Motivation
 
-     [Test]
-        public void MaxMin()
-        { 
-            string fn = TestData.DataPath + "\\temp example 7 day max.xls";
-            var s = new ExcelDataReaderSeries(fn, "457373", "C", "D");
-            s.Read();
+The ability to write simple to understand time series equations is a motivation to create Pisces.
 
-            Series max = Math.DailyMax(s);
-            max.WriteCsv(@"c:\temp\a.csv");
-            Assert.AreEqual(7, max[0].DateTime.Day);
-            Assert.AreEqual(14.68, max[0].Value, 0.01);
-            Assert.AreEqual(17.21, max["8/5/2004"].Value, 0.01);
-            Assert.AreEqual(1965.0, max[max.Count - 1].Value, .001);
+Example simple equation involving three different time series and two different time steps.
+```
+(pal_af-pal_af[t-1])/1.98347+(jck_af[t-1]-jck_af[t-2])/1.98347+heii_qd
+```
 
-            Series min = Math.DailyMin(s);
+The Legacy sysmtem requires writing the equation above like this:
 
-            Assert.AreEqual(7, min[0].DateTime.Day);
-            Assert.AreEqual(12.98, min[0].Value, 0.01);
-            Assert.AreEqual(15.31, min["8/5/2004"].Value, 0.01);
+```
+CL
+CREATE JCK AF
+CREATE PAL AF
+CREATE HEII QD
+CREATE HEII QU
+G JCK/AF
+G PAL/AF
+MATH
+LINE1*1 +1
+MS=TOTAL
+MC=AF
+LINE1+LINE2
+E 2
+E 1
+SP=LINE1
+MS=TOTAL
+MC=CS
+LINE1-LINE2 +1
+LINE3/1.98347
+E 2
+ 
+G HEII /QD
+MATH
+MS=HEII
+MC=TQU
+LINE2+LINE3
+MS=SPAC
+MC=AF
+SP=LINE1
+1484450-LINE5
+ 
+G HEII/QU
+MATH
+RANGE=OCT03,SEP30
+MS=HEII
+MC=QU
+LINE6=LINE4
+MARK HEII QU
+ 
+REPLACE
+SHOW TOTAL,SPAC,HEII /QD,QU,AF
+```
 
-            Assert.AreEqual(1965.0, min[min.Count - 1].Value, 0.001);
-        }
 
