@@ -29,7 +29,7 @@ Example simple equation involving three different time series and two different 
 (pal_af-pal_af[t-1])/1.98347+(jck_af[t-1]-jck_af[t-2])/1.98347+heii_qd
 ```
 
-The Legacy sysmtem requires writing the equation above like this:
+The Legacy system requires writing the equation above like this:
 
 ```
 CL
