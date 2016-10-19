@@ -99,7 +99,7 @@ namespace Reclamation.TimeSeries.Reports
 
              rval = ReplaceSymbol(rval, "%trib_parw", above_parker);
 
-             rval = rval = "\nOPERATIONAL COMMENTS:  ";
+             rval = rval + "\nOPERATIONAL COMMENTS:  ";
              if (year1 > 0 && year2 > 0)
              {
                  var t1a = new DateTime(year1 - 1, 10, 1);
