@@ -19,6 +19,7 @@ namespace Reclamation.TimeSeries.Graphing
         private Steema.TeeChart.Tools.DragPoint dragPoint1;
 
       //  Steema.TeeChart.Tools.RectangleTool rectTool;
+        Steema.TeeChart.Tools.Annotation annotation1;
 
         public TimeSeriesTeeChartGraph()
         {
@@ -30,10 +31,21 @@ namespace Reclamation.TimeSeries.Graphing
             this.dragPoint1.Style = Steema.TeeChart.Tools.DragPointStyles.Y;
             this.tChart1.Tools.Add(this.dragPoint1);
             this.dragPoint1.Drag += new Steema.TeeChart.Tools.DragPointEventHandler(dragPoint1_Drag);
-            //rectTool = new Steema.TeeChart.Tools.RectangleTool(tChart1.Chart);
+            annotation1 = new Steema.TeeChart.Tools.Annotation(tChart1.Chart);
+            annotation1.Active = false;
         }
 
-       
+        public bool AnnotationOnMouseMove
+        {
+            get
+            {
+                return annotation1.Active;
+            }
+            set
+            {
+                annotation1.Active = value;
+            }
+        }
 
 
         public double MissingDataValue
@@ -297,6 +309,34 @@ namespace Reclamation.TimeSeries.Graphing
             {
                 tChart1.Zoom.Allow = true;
             }
+        }
+
+        private void DrawAnnotation(int seriesIndex, int pointIndex)
+        {
+            annotation1.Active = true;
+            var s = tChart1[seriesIndex];
+
+            var t = DateTime.FromOADate(s.XValues[pointIndex]);
+
+            string tip = s.Title + t.ToString("-MM-dd") + " " + s.YValues[pointIndex].ToString();
+            annotation1.Text = tip;
+
+        }
+        private void tChart1_MouseMove(object sender, MouseEventArgs e)
+        {
+
+            if (!annotation1.Active)
+                return;
+            for (int i = 0; i < tChart1.Series.Count; i++)
+            {
+                int idx = tChart1[i].Clicked(e.X, e.Y);
+                if (idx != -1)
+                {
+                    DrawAnnotation(i, idx);
+                    return;
+                }
+            }
+            annotation1.Active = false;
         }
 
         

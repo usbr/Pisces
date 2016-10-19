@@ -244,6 +244,7 @@ namespace Reclamation.TimeSeries.Graphing
             this.tChart1.Walls.Visible = false;
             this.tChart1.ClickSeries += new Steema.TeeChart.TChart.SeriesEventHandler(this.tChart1_ClickSeries);
             this.tChart1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseDown);
+            this.tChart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseMove);
             this.tChart1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseUp);
             // 
             // line1
@@ -273,11 +274,14 @@ namespace Reclamation.TimeSeries.Graphing
             this.line1.Marks.Callout.Distance = 0;
             this.line1.Marks.Callout.Draw3D = false;
             this.line1.Marks.Callout.Length = 10;
+            this.line1.Marks.Callout.Series = this.line1;
             this.line1.Marks.Callout.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
             this.line1.Marks.Callout.Visible = false;
+            this.line1.Marks.Series = this.line1;
             // 
             // 
             // 
+            this.line1.Pointer.Series = this.line1;
             this.line1.Pointer.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
             this.line1.Title = "line1";
             // 
