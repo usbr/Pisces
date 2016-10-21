@@ -70,6 +70,9 @@ namespace Reclamation.TimeSeries.Analysis
 
                 if ((sm & StatisticalMethods.Sum) == StatisticalMethods.Sum)
                     summaryList.Add(CreateSeries(list,summaryTable, seriesIndex, tableIndex++));
+
+                if ((sm & StatisticalMethods.Median) == StatisticalMethods.Median)
+                    summaryList.Add(CreateSeries(list, summaryTable, seriesIndex, tableIndex++));
             }
 
             return summaryList;
@@ -135,6 +138,9 @@ namespace Reclamation.TimeSeries.Analysis
 
                      if ((sm & StatisticalMethods.Sum) == StatisticalMethods.Sum)
                          tbl.Rows[i][m_sumColumnIndex[j]] = Math.Sum(subset);
+
+                     if ((sm & StatisticalMethods.Median) == StatisticalMethods.Median)
+                         tbl.Rows[i][m_medianColumnIndex[j]] = Math.MedianOfSeries(subset);
                 }
             }
 
@@ -146,6 +152,7 @@ namespace Reclamation.TimeSeries.Analysis
        static List<int> m_meanColumnIndex = new List<int>();
        static List<int> m_sumColumnIndex = new List<int>();
        static List<int> m_countColumnIndex = new List<int>();
+       static List<int> m_medianColumnIndex = new List<int>();
         
 
 
@@ -166,7 +173,7 @@ namespace Reclamation.TimeSeries.Analysis
             m_meanColumnIndex.Clear();
             m_sumColumnIndex.Clear();
             m_countColumnIndex.Clear();
-        
+            m_medianColumnIndex.Clear();       
 
             
             DataTable tbl = new DataTable("Summary");
@@ -202,6 +209,11 @@ namespace Reclamation.TimeSeries.Analysis
                 {
                     tbl.Columns.Add("Count " + s, typeof(int));
                     m_countColumnIndex.Add(tbl.Columns.Count - 1);
+                }
+                if ((sm & StatisticalMethods.Median) == StatisticalMethods.Median)
+                {
+                    tbl.Columns.Add("Median " + s, typeof(double));
+                    m_medianColumnIndex.Add(tbl.Columns.Count - 1);
                 }
             }
 

@@ -30,6 +30,8 @@ namespace Reclamation.TimeSeries.Forms
                    rval = rval | StatisticalMethods.Count;
                if (checkBoxMean.Checked)
                    rval = rval | StatisticalMethods.Mean;
+               if (checkBoxMedian.Checked)
+                   rval = rval | StatisticalMethods.Median;
 
 
                return rval;
@@ -41,6 +43,7 @@ namespace Reclamation.TimeSeries.Forms
                 checkBoxSum.Checked = (value == StatisticalMethods.Sum);
                 checkBoxCount.Checked = (value == StatisticalMethods.Count);
                 checkBoxMean.Checked = (value == StatisticalMethods.Mean);
+                checkBoxMedian.Checked = (value == StatisticalMethods.Median);
             
                }
         }

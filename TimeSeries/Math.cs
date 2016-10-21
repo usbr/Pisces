@@ -15,7 +15,8 @@ namespace Reclamation.TimeSeries
         Mean  = 4,
         Sum   = 8,
         Count = 16,
-        Average =32
+        Average = 32,
+        Median = 64
     }
 
     

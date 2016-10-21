@@ -258,6 +258,60 @@ namespace Reclamation.TimeSeries
         }
 
         /// <summary>
+        /// computes median of all values in series.
+        /// missing values are not included in the median.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static double MedianOfSeries(Series s)
+        {
+            /* taken from here:
+             * http://www.i-programmer.info/babbages-bag/505-quick-median.html?start=1 */
+            var rval = double.NaN;
+
+            Series s2 = s.Copy();
+            s2.RemoveMissing();
+            var values = s2.Values;
+
+            int L = 0;
+            int R = values.Length - 1;
+            int k = values.Length / 2;
+
+            int i;
+            int j;
+            while (L < R)
+            {
+                rval = values[k];
+                i = L; j = R;
+                Split(values, rval, ref i, ref j);
+                if (j < k) L = i;
+                if (k < i) R = j;
+            }
+            
+            return rval;
+        }
+
+        private static void Split(double[] a, double x, ref int i, ref int j)
+        {
+            /* taken from here:
+             * http://www.i-programmer.info/babbages-bag/505-quick-median.html?start=1 */
+            do
+            {
+                while (a[i] < x) i++;
+                while (x < a[j]) j--;
+
+                if (i <= j)
+                {
+                    double t = a[i];
+                    a[i] = a[j];
+                    a[j] = t;
+                    i++; j--;
+                }
+
+            } while (i <= j);
+        }
+
+        /// <summary>
         /// get time weighted average for a Date.
         /// must have data before and after midnight (or exactly midnight)
         /// Will not extrapolate.
@@ -612,6 +666,50 @@ namespace Reclamation.TimeSeries
 
             return rval;
         }
+        public static Series AnnualMedian(Series s, MonthDayRange range,
+            int beginningMonth)
+        {
+            if (s.Count == 0)
+            {
+                return new Series();
+            }
+
+            DateTime t1 = s[0].DateTime;
+            DateTime t2 = s[s.Count - 1].DateTime;
+
+            YearRange wy1 = new YearRange(t1, beginningMonth);
+            YearRange wy2 = new YearRange(t2, beginningMonth);
+
+            Series rval = s.Clone();
+            rval.HasFlags = true;
+            rval.TimeInterval = TimeInterval.Yearly;
+            rval.Appearance.Style = Styles.Point;
+
+            for (int wy = wy1.Year; wy <= wy2.Year; wy++)
+            {
+                YearRange yr = new YearRange(wy, beginningMonth);
+                DateRange dr = new DateRange(range, yr.Year, yr.BeginningMonth);
+
+                Series subset = Math.Subset(s, dr);
+
+                int removeCount = subset.RemoveMissing();
+                if (removeCount > 0)
+                {
+                    rval.Messages.Add("Removed " + removeCount + " points from " + s.Name);
+                }
+                double med = Math.MedianOfSeries(subset);
+                string flag = "";
+                if (subset.Count != dr.Count)
+                {
+                    int missingCount = dr.Count - subset.Count;
+                    flag = missingCount + " missing";
+                }
+
+                rval.Add(yr.DateTime2, med, flag);
+            }
+
+            return rval;
+        }
         /// <summary>
         /// find sum for each year.
         /// </summary>
@@ -860,6 +958,8 @@ namespace Reclamation.TimeSeries
                     return AnnualSum(s, range,beginningMonth);
                 case StatisticalMethods.Average:
                     return AnnualAverage(s, range, beginningMonth);
+                case StatisticalMethods.Median:
+                    return AnnualMedian(s, range, beginningMonth);
                 default:
                     throw new NotSupportedException("the Aggregate type " + type.ToString() + " is not supported");
             }
