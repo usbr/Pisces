@@ -61,7 +61,7 @@ namespace Reclamation.TimeSeries
             foreach (var s in importSeries)
             {
                 m_db.Quality.SetFlags(s); // to do, log/email flaged data
-                // m_db.Alarms.Check(s);To Do.. check for alarms..
+                m_db.Alarms.Check(s); //To Do.. check for alarms..
                 m_db.ImportSeriesUsingTableName(s,  "", m_saveOption);
                 routingList.Add(s);
                 if (computeDependencies)

@@ -9,6 +9,7 @@ using System.Linq;
 using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow;
 using System.Windows.Forms;
 using Reclamation.TimeSeries.Parser;
+using Reclamation.TimeSeries.Alarms;
 
 namespace Reclamation.TimeSeries
 {
@@ -1875,6 +1876,21 @@ UNION ALL
         public SiteInfo  SiteInfo(string siteID)
         {
             return new SiteInfo(this, siteID);
+        }
+
+        private AlarmDataSet m_alarmDS = null;
+
+        public AlarmDataSet Alarms
+        {
+            get
+            {
+                if( m_alarmDS == null )
+                {
+                    m_alarmDS = AlarmDataSet.CreateInstance(m_server);
+
+                }
+                return m_alarmDS;
+            }
         }
     }
 }

@@ -29,14 +29,16 @@
         private void InitializeComponent()
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.tabPageAlarms = new System.Windows.Forms.TabPage();
+            this.tabPageSetup = new System.Windows.Forms.TabPage();
             this.tabPageSounds = new System.Windows.Forms.TabPage();
+            this.tabPageAlarmDef = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
+            this.tabControl1.Controls.Add(this.tabPageAlarmDef);
             this.tabControl1.Controls.Add(this.tabPageAlarms);
             this.tabControl1.Controls.Add(this.tabPageSetup);
             this.tabControl1.Controls.Add(this.tabPageSounds);
@@ -46,16 +48,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(628, 477);
             this.tabControl1.TabIndex = 0;
-            // 
-            // tabPageSetup
-            // 
-            this.tabPageSetup.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSetup.Name = "tabPageSetup";
-            this.tabPageSetup.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSetup.Size = new System.Drawing.Size(620, 451);
-            this.tabPageSetup.TabIndex = 0;
-            this.tabPageSetup.Text = "Setup";
-            this.tabPageSetup.UseVisualStyleBackColor = true;
             // 
             // tabPageAlarms
             // 
@@ -67,6 +59,16 @@
             this.tabPageAlarms.Text = "Alarms";
             this.tabPageAlarms.UseVisualStyleBackColor = true;
             // 
+            // tabPageSetup
+            // 
+            this.tabPageSetup.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSetup.Name = "tabPageSetup";
+            this.tabPageSetup.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSetup.Size = new System.Drawing.Size(620, 451);
+            this.tabPageSetup.TabIndex = 0;
+            this.tabPageSetup.Text = "Setup";
+            this.tabPageSetup.UseVisualStyleBackColor = true;
+            // 
             // tabPageSounds
             // 
             this.tabPageSounds.Location = new System.Drawing.Point(4, 22);
@@ -76,6 +78,15 @@
             this.tabPageSounds.TabIndex = 2;
             this.tabPageSounds.Text = "Sound Files";
             this.tabPageSounds.UseVisualStyleBackColor = true;
+            // 
+            // tabPageAlarmDef
+            // 
+            this.tabPageAlarmDef.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAlarmDef.Name = "tabPageAlarmDef";
+            this.tabPageAlarmDef.Size = new System.Drawing.Size(620, 451);
+            this.tabPageAlarmDef.TabIndex = 3;
+            this.tabPageAlarmDef.Text = "Define Alarm";
+            this.tabPageAlarmDef.UseVisualStyleBackColor = true;
             // 
             // AlarmManagerMain
             // 
@@ -96,5 +107,6 @@
         private System.Windows.Forms.TabPage tabPageSetup;
         private System.Windows.Forms.TabPage tabPageAlarms;
         private System.Windows.Forms.TabPage tabPageSounds;
+        private System.Windows.Forms.TabPage tabPageAlarmDef;
     }
 }

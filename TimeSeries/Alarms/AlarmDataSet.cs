@@ -1,6 +1,7 @@
 ﻿using Reclamation.Core;
 using System;
 using System.Data;
+using System.Text.RegularExpressions;
 namespace Reclamation.TimeSeries.Alarms
 {
 }
@@ -128,6 +129,67 @@ namespace Reclamation.TimeSeries.Alarms {
             m_server.FillTable(tbl,sql);
 
             return tbl;
+
+        }
+
+        internal void Check(Series s)
+        {
+            var alarm = GetAlarmDefinition(s.SiteID, s.Parameter);
+            // is alarm defined
+            if (alarm.Rows.Count == 0)
+                return;
+            if (alarm.Rows.Count > 1)
+                throw new Exception("bad... alarm_definition constraint not working (siteid,parameter)");
+
+            
+               AlarmDataSet.alarm_definitionRow row = alarm[0];
+           // check alarm_condition for each value
+
+            string expr = @"\s*above\s*(?<val>[0-9.]+)";
+            Regex re = new Regex(expr);
+
+            if( re.IsMatch( row.alarm_condition) )
+            {
+                string val = re.Match(row.alarm_condition).Groups["val"].Value;
+                double dvalue = Convert.ToDouble(val);
+
+                foreach (Point p in s)
+                {
+                    if( !p.IsMissing)
+                    {
+                        if( p.Value > dvalue)
+                        {// alarm
+                            Console.WriteLine("Alarm found");
+                        }
+                    }
+                }
+            }
+
+            // TO DO  clear alarms if clear_condition
+
+           
+
+        }
+
+        public alarm_definitionDataTable GetAlarmDefinition(string siteid="",string parameter="")
+        {
+            var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
+
+            if (siteid != "" && parameter != "")
+            {
+                siteid = PostgreSQL.SafeSqlLikeClauseLiteral(siteid);
+                parameter = SqlServer.SafeSqlLikeClauseLiteral(parameter);
+                var sql = "select * from alarm_definition where siteid='" + siteid + "'"
+                        + " and parameter ='" + parameter + "'";
+                // select * from alarm_defintion where siteid='jck'
+                m_server.FillTable(alarm_definition, sql);
+            }
+            else
+            {
+                m_server.FillTable(alarm_definition);
+            }
+            alarm_definition.idColumn.AutoIncrementSeed = m_server.NextID("alarm_definition", "id");
+            return alarm_definition;
 
         }
     }

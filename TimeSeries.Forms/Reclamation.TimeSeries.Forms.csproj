@@ -215,6 +215,12 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="Alarms\AlarmDefinition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Alarms\AlarmDefinition.Designer.cs">
+      <DependentUpon>AlarmDefinition.cs</DependentUpon>
+    </Compile>
     <Compile Include="Alarms\AlarmManagerMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -700,6 +706,9 @@
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Alarms\AlarmDefinition.resx">
+      <DependentUpon>AlarmDefinition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Alarms\AlarmManagerMain.resx">
       <DependentUpon>AlarmManagerMain.cs</DependentUpon>
