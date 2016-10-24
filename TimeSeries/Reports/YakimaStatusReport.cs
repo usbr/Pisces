@@ -81,6 +81,7 @@ namespace Reclamation.TimeSeries.Reports
                 rval = ProcessParameter(rval, t, cbtt, "qc");
             }
 
+            others = ComputeOthersAboveParker(t1);
             rval = ReplaceSymbol(rval, "%major_qc", major_qc_total);
             rval = ReplaceSymbol(rval, "%other_qc", others);
             above_parker_qc += others + major_qc_total;
@@ -107,12 +108,47 @@ namespace Reclamation.TimeSeries.Reports
 
                  double avgPct = MultiYearAvg(t1,t1a, t2a, total_af);
                  
-            rval = rval +"Storage is " + avgPct.ToString("F0") + "% of average (" + year1
+            rval = rval +"Storage is " + avgPct.ToString("F2") + "% of average (" + year1
                  + ", " +year2 + ").";
              }
 
             return rval;
 
+        }
+
+        /// <summary>
+        /// Compute/estimate smaller diversions above parker.
+        /// This is done using factors that vary with time
+        /// and  Daily data for WESW QJ, and NSCW QJ.
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <returns></returns>
+        private static double ComputeOthersAboveParker(DateTime t)
+        {
+
+            HydrometDailySeries wesw = new HydrometDailySeries("wesw", "qj", HydrometHost.Yakima);
+            HydrometDailySeries nscw = new HydrometDailySeries("nscw", "qj", HydrometHost.Yakima);
+            
+            DateTime t1 = t.Date.AddDays(-1);
+
+            wesw.Read(t1, t1);
+            nscw.Read(t1, t1);
+
+            wesw.RemoveMissing();
+            nscw.RemoveMissing();
+
+            if( wesw.Count ==0 || nscw.Count == 0)
+            {
+                Logger.WriteLine("Missing data. Check wesw, nscw");
+                return Point.MissingValueFlag;
+            }
+
+            var fn = "YakimaOthersAboveParker.csv";
+
+            CsvFile csv = new CsvFile(fn, CsvFile.FieldTypes.AutoDetect);
+
+
+            return 0;
         }
         private double MultiYearAvg(DateTime t,DateTime t1, DateTime t2, double sys_af)
         {

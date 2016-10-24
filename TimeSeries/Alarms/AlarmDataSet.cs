@@ -192,6 +192,15 @@ namespace Reclamation.TimeSeries.Alarms {
             return alarm_definition;
 
         }
+
+        /// <summary>
+        /// Insert new alarm into the alarm_queue
+        /// </summary>
+        /// <param name="row"></param>
+        public void InsertNewAlarm(alarm_definitionRow row)
+        {
+            throw new NotImplementedException();
+        }
     }
     
 }

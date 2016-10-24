@@ -10,7 +10,8 @@ namespace Reclamation.TimeSeries
     /// <summary>
     /// A repeating series of data, with multiple column 
     /// can be used for flood control Rule curves, and irrigation diversions
-    /// that repeat.
+    /// that repeat.  Column names are numbers to support
+    /// interpolation between rows and columns.
     /// </summary>
     public class PeriodicSeries: Series
     {

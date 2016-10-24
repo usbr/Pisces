@@ -5,7 +5,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 
-namespace AlarmQueueManager
+namespace Reclamation.TimeSeries.Alarms
 {
   
       ///  <summary>
@@ -21,7 +21,7 @@ namespace AlarmQueueManager
       ///  asterisk -x "database del hydromet status"
       ///  asterisk -x "dialplan reload"
       ///  </summary>
-   static class Asterisk
+   public static class Asterisk
     {
 
        private static Stopwatch stopwatch1;
@@ -40,7 +40,7 @@ namespace AlarmQueueManager
         /// originates calls on asterisk with a variable extension on the context 
         /// hydromet_groups
         /// </summary>
-        internal static void Call(string siteId, string parameter, string value,string[] phoneNumbers)
+        public static void Call(string siteId, string parameter, string value,string[] phoneNumbers)
         {
             stopwatch1 = new Stopwatch();
             stopwatch1.Restart();
@@ -69,7 +69,7 @@ namespace AlarmQueueManager
         }
         static void Clear(string family)
         {
-            var args = "database  database deltree "+family;
+            var args = "database deltree "+family;
             var output = RunAsteriskCommand(args);
         }
 
@@ -106,6 +106,9 @@ namespace AlarmQueueManager
         static string[] RunAsteriskCommand(string args)
         {
             var exe = ConfigurationManager.AppSettings["asterisk_executable"];
+            if (exe == null || exe == "")
+                exe = "/usr/sbin/asterisk";
+
             Logger.WriteLine("running asterisk '" + args + "'");
             return RunExecutable(exe, "-x \""+args+"\"");
             
@@ -198,7 +201,7 @@ namespace AlarmQueueManager
             return rval;
         }
 
-        internal static int ActiveChannels
+         public static int ActiveChannels
         {
             get
             {

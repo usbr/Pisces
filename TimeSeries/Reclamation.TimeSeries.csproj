@@ -237,6 +237,10 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.0.0\lib\net40\Renci.SshNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -288,6 +292,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Alarms\Asterisk.cs" />
     <Compile Include="Analysis\AnalysisCollection.cs" />
     <Compile Include="Analysis\BaseAnalysis.cs" />
     <Compile Include="Analysis\TraceAnalysis.cs" />
@@ -361,6 +366,7 @@
     <None Include="RatingTables\HydrographyDataSet.xss">
       <DependentUpon>HydrographyDataSet.xsd</DependentUpon>
     </None>
+    <None Include="Reports\YakimaOthersAboveParker.csv" />
     <None Include="ScenarioManagement\example_VicUnregToModsimScenarios.cs" />
     <Compile Include="ScenarioManagement\ScenarioDataSet.cs">
       <DependentUpon>ScenarioDataSet.xsd</DependentUpon>

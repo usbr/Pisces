@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.panelList = new System.Windows.Forms.Panel();
-            this.buttonTest = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -51,7 +50,6 @@
             // panelList
             // 
             this.panelList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelList.Controls.Add(this.buttonTest);
             this.panelList.Controls.Add(this.buttonDelete);
             this.panelList.Controls.Add(this.buttonAdd);
             this.panelList.Controls.Add(this.panel2);
@@ -60,16 +58,6 @@
             this.panelList.Name = "panelList";
             this.panelList.Size = new System.Drawing.Size(253, 308);
             this.panelList.TabIndex = 0;
-            // 
-            // buttonTest
-            // 
-            this.buttonTest.Enabled = false;
-            this.buttonTest.Location = new System.Drawing.Point(174, 268);
-            this.buttonTest.Name = "buttonTest";
-            this.buttonTest.Size = new System.Drawing.Size(75, 23);
-            this.buttonTest.TabIndex = 4;
-            this.buttonTest.Text = "test...";
-            this.buttonTest.UseVisualStyleBackColor = true;
             // 
             // buttonDelete
             // 
@@ -209,7 +197,6 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.DataGridView dataGridViewRecipient;
-        private System.Windows.Forms.Button buttonTest;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonSaveRecipients;

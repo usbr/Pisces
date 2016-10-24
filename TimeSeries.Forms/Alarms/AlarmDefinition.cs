@@ -46,5 +46,45 @@ namespace Reclamation.TimeSeries.Forms.Alarms
 
             m_ds.SaveTable(alarm_definition);
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+           
+        }
+
+        private void dataGridView1_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            RefreshUi();
+        }
+        private void RefreshUi()
+        {
+            Enabling();
+            this.comboBoxTestList.DataSource= m_ds.GetList();
+            comboBoxTestList.DisplayMember = "list"; 
+
+        }
+
+        private void Enabling()
+        {
+            var sr = dataGridView1.SelectedRows;
+
+            this.buttonTest.Enabled = sr.Count == 1;
+            this.textBoxTest.Enabled = sr.Count == 1;
+            this.comboBoxTestList.Enabled = sr.Count == 1;
+        }
+
+        private void buttonTest_Click(object sender, EventArgs e)
+        {
+           
+         DataRowView currentDataRowView = (DataRowView)dataGridView1.CurrentRow.DataBoundItem;
+         AlarmDataSet.alarm_definitionRow alarm
+             = (AlarmDataSet.alarm_definitionRow)currentDataRowView.Row;
+
+         var numbers = m_ds.GetPhoneNumbers(comboBoxTestList.Text);
+         
+           Asterisk.Call(alarm.siteid, alarm.parameter, 
+                textBoxTest.Text, numbers);
+
+        }
     }
 }
