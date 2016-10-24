@@ -65,7 +65,7 @@ namespace PiscesWebServices.CGI
                 {
                     s.Read(t1, t1.AddMonths(12));
                     DataTable wyTable = Usgs.WaterYearTable(s);
-                    var header = GetHeader(i, siteID,parameter);
+                    var header = GetHeader(i + 1, siteID,parameter);
                     var html = DataTableOutput.ToHTML(wyTable, true, "",header);
                     Console.WriteLine(html);
                     t1 = t1.AddMonths(12);
