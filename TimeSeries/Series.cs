@@ -607,7 +607,7 @@ namespace Reclamation.TimeSeries
                  
                     s.Provider = "Series"; // drop conection to hydromet
 
-                    db.ImportSeriesUsingTableName(s, s.Cbtt);
+                    db.ImportSeriesUsingTableName(s,new string[]{ s.Cbtt});
 
                 }
             }

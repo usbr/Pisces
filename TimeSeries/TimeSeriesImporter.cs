@@ -62,7 +62,8 @@ namespace Reclamation.TimeSeries
             {
                 m_db.Quality.SetFlags(s); // to do, log/email flaged data
                 m_db.Alarms.Check(s); //To Do.. check for alarms..
-                m_db.ImportSeriesUsingTableName(s,  "", m_saveOption);
+                var folderNames = new string[]{}; // TO DO //hydromet/cbtt default.
+                m_db.ImportSeriesUsingTableName(s,folderNames , m_saveOption);
                 routingList.Add(s);
                 if (computeDependencies)
                 {

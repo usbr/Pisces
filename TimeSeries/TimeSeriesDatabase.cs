@@ -1673,7 +1673,7 @@ namespace Reclamation.TimeSeries
         /// Computes data dependent on the imported data
         /// Returns List of computed data.
         /// </summary>
-        public void ImportSeriesUsingTableName(Series s, string folderName="" ,DatabaseSaveOptions saveOption = DatabaseSaveOptions.UpdateExisting)
+        public void ImportSeriesUsingTableName(Series s, string[] folderNames ,DatabaseSaveOptions saveOption = DatabaseSaveOptions.UpdateExisting)
         {
             Logger.WriteLine("ImportSeriesUsingTableName: '" + s.Table.TableName+"'");
             FixInvalidTableName(s);
@@ -1685,15 +1685,15 @@ namespace Reclamation.TimeSeries
                 //sr = GetNewSeriesRow();
                 Logger.WriteLine("table: " + s.Table.TableName + " does not exist in the catalog");
                 TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
-                if (folderName == "")
+                if (folderNames.Length == 0)
                 {
                     if (tn.interval != "")
-                        folderName = tn.interval;
+                        folderNames = new string[] { tn.interval };
                 }
 
                 PiscesFolder folder = null;
-                if (folderName != "")
-                    folder = GetOrCreateFolder(folderName);
+                if (folderNames.Length > 0)
+                    folder = GetOrCreateFolder(folderNames);
                 else
                     folder = RootFolder;
 
