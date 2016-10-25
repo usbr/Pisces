@@ -624,6 +624,13 @@ Alan
              var tableName = m.Groups["table_name"].Value;
              string cmd = "ALTER TABLE "+tableName+" OWNER TO "+owner;
              RunSqlCommand(cmd);
+
+             var r = ConfigurationManager.AppSettings["PostgresTableReader"];
+             if( r != null && r!= "")
+             { // grant select for PostgresTableReader
+                 cmd = "grant select on table "+tableName+ " to "+r;
+                 RunSqlCommand(cmd);
+             }
          }
          else
          {
