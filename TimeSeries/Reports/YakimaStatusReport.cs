@@ -34,7 +34,7 @@ namespace Reclamation.TimeSeries.Reports
         /// Creates and returns the report.
         /// </summary>
         /// <returns></returns>
-        public string Create(DateTime t, double others, int year1=0, int year2=0) // default 8am.
+        public string Create(DateTime t, int year1=0, int year2=0) // default 8am.
         {
             string rval = GetTemplate();
             //13-OCT-2016  09:12:35
@@ -81,7 +81,7 @@ namespace Reclamation.TimeSeries.Reports
                 rval = ProcessParameter(rval, t, cbtt, "qc");
             }
 
-            others = ComputeOthersAboveParker(t1);
+            double others = ComputeOthersAboveParker(t1);
             rval = ReplaceSymbol(rval, "%major_qc", major_qc_total);
             rval = ReplaceSymbol(rval, "%other_qc", others);
             above_parker_qc += others + major_qc_total;
@@ -128,8 +128,8 @@ namespace Reclamation.TimeSeries.Reports
 
             HydrometDailySeries wesw = new HydrometDailySeries("wesw", "qj", HydrometHost.Yakima);
             HydrometDailySeries nscw = new HydrometDailySeries("nscw", "qj", HydrometHost.Yakima);
-            
-            DateTime t1 = t.Date.AddDays(-1);
+
+            DateTime t1 = t.Date;
 
             wesw.Read(t1, t1);
             nscw.Read(t1, t1);
@@ -143,12 +143,34 @@ namespace Reclamation.TimeSeries.Reports
                 return Point.MissingValueFlag;
             }
 
-            var fn = "YakimaOthersAboveParker.csv";
 
+            var rval = GetValue(t1, wesw[0].Value, nscw[0].Value);
+            return rval;
+        }
+
+        private static double GetValue(DateTime t1, double wesw, double nscw)
+        {
+            double rval = 200.0;
+            var fn = Path.Combine(FileUtility.GetExecutableDirectory(),"YakimaOthersAboveParker.csv");
             CsvFile csv = new CsvFile(fn, CsvFile.FieldTypes.AutoDetect);
 
+            for (int i = 0; i < csv.Rows.Count; i++)
+            {
+                var r = csv.Rows[i];
+                var d = Convert.ToDateTime(r["DateTime"]);
 
-            return 0;
+                if (t1.Month == d.Month
+                    && t1.Day == d.Day)
+                {
+                    double a1 =Convert.ToDouble( r[1]);
+                    double a2 = Convert.ToDouble(r[2]);
+                    double a3 = Convert.ToDouble(r[3]);
+                    double a4 = Convert.ToDouble(r[4]);
+                    double a5 = Convert.ToDouble(r[5]);
+                    rval = (a1 + a2) * wesw + (a3 + a4 + a5) * nscw;
+                }
+            }
+            return System.Math.Max(200, rval);
         }
         private double MultiYearAvg(DateTime t,DateTime t1, DateTime t2, double sys_af)
         {

@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-
+using Reclamation.TimeSeries.Forms.Graphing;
 
 namespace Reclamation.TimeSeries.Graphing
 {
@@ -112,7 +112,9 @@ namespace Reclamation.TimeSeries.Graphing
             set { this.analysisType = value;}
         }
 
-       
+
+        public event EventHandler AfterEditGraph;
+
         private void toolStripButtonEditGraph_Click(object sender, EventArgs e)
         {
             Steema.TeeChart.Editor ed = new Steema.TeeChart.Editor(this.tChart1);
@@ -128,7 +130,12 @@ namespace Reclamation.TimeSeries.Graphing
                 {
                     Properties.Settings.Default.SetSeriesWidth(i, line.LinePen.Width);
                 }
-                
+            }
+
+            if( AfterEditGraph != null)
+            {
+                var a = AfterEditGraph;
+                a(this, EventArgs.Empty);
             }
         }
 
@@ -336,10 +343,51 @@ namespace Reclamation.TimeSeries.Graphing
                     return;
                 }
             }
-            annotation1.Active = false;
+           // annotation1.Active = false;
         }
 
-        
+        /// <summary>
+        /// Gets and sets Color and line width, based on series title.
+        /// used to keep water year colors consistent based on title
+        /// </summary>
+        public GraphSettings GraphSettings
+        {
+            get
+            {
+                GraphSettings gs = new GraphSettings();
+                for (int i = 0; i < tChart1.Series.Count; i++)
+                {
+                    var s = tChart1.Series[i];
+                    int width = 1;
+                    if (s is Steema.TeeChart.Styles.Line)
+                    {
+                        var p = s as Steema.TeeChart.Styles.Line;
+                        width = p.LinePen.Width;
+                    }
+                    gs.Add(s.Title, s.Color, width);
+                }
+                return gs;
+            }
+            set
+            {
+                var gs = value;
+                for (int i = 0; i < tChart1.Series.Count; i++)
+                {
+                    var s = tChart1.Series[i];
+
+                    if( !gs.Contains(s.Title))
+                        continue;
+
+                    SeriesSettings settings = gs.Get(s.Title);
+                    s.Color = settings.Color;
+                    if (s is Steema.TeeChart.Styles.Line)
+                    {
+                        var p = s as Steema.TeeChart.Styles.Line;
+                        p.LinePen.Width = settings.Width;
+                    }
+                }
+            }
+        }
     }
 }
 

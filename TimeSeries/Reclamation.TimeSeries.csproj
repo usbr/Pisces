@@ -366,7 +366,9 @@
     <None Include="RatingTables\HydrographyDataSet.xss">
       <DependentUpon>HydrographyDataSet.xsd</DependentUpon>
     </None>
-    <None Include="Reports\YakimaOthersAboveParker.csv" />
+    <None Include="Reports\YakimaOthersAboveParker.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ScenarioManagement\example_VicUnregToModsimScenarios.cs" />
     <Compile Include="ScenarioManagement\ScenarioDataSet.cs">
       <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
