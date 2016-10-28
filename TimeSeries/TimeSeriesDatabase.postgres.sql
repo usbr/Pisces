@@ -22,15 +22,28 @@ ALTER TABLE alarm_list
 
 CREATE TABLE alarm_definition
 (
-  id integer NOT NULL primary key,
-  enabled  smallint NOT NULL DEFAULT 0,
-  list character varying(256) NOT NULL DEFAULT ''  references alarm_list (list)  ,
-  siteid character varying(256) NOT NULL references sitecatalog (siteid),
+  id integer NOT NULL,
+  enabled smallint NOT NULL DEFAULT 0,
+  list character varying(256) NOT NULL DEFAULT '' ,
+  siteid character varying(256) NOT NULL,
   parameter character varying(256) NOT NULL DEFAULT '',
   alarm_condition character varying(256) NOT NULL DEFAULT '',
   clear_condition character varying(256) NOT NULL DEFAULT '',
-  priority int not null default 10
+  priority integer NOT NULL DEFAULT 10,
+  CONSTRAINT alarm_definition_pkey PRIMARY KEY (id),
+  CONSTRAINT alarm_definition_list_fkey FOREIGN KEY (list)
+      REFERENCES alarm_list (list) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT alarm_definition_siteid_fkey FOREIGN KEY (siteid)
+      REFERENCES sitecatalog (siteid) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT unique_siteparameter UNIQUE (siteid, parameter)
 );
+
+ALTER TABLE alarm_definition
+  OWNER TO hydromet;
+GRANT ALL ON TABLE alarm_definition TO hydromet;
+GRANT SELECT ON TABLE alarm_definition TO grp_readonly;
 
 
 ALTER TABLE alarm_definition
