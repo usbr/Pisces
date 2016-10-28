@@ -66,10 +66,10 @@ namespace Reclamation.TimeSeries.Usgs
             else
             {
                 // GW Web Services URL Pattern
-                //http://waterservices.usgs.gov/nwis/gwlevels/?format=rdb&sites=444401116463001&startDT=1974-05-16&endDT=2009-05-11
+                //https://staging.waterservices.usgs.gov/nwis/gwlevels/?format=rdb&sites=444401116463001&startDT=1974-05-16&endDT=2009-05-11
                 // OLD URL
                 //string url = "http://nwis.waterdata.usgs.gov/nwis/gwlevels?site_no=444401116463001&agency_cd=USGS&format=rdb";
-                string url = "http://waterservices.usgs.gov/nwis/gwlevels/?format=rdb&sites=444401116463001";
+                string url = "https://staging.waterservices.usgs.gov/nwis/gwlevels/?format=rdb&sites=444401116463001";
                 url = url.Replace("site_no=444401116463001", "site_no=" + m_site_no);
                 Messages.Add(url);
                 ReadSeriesData(url,TimeSeriesDatabase.MinDateTime,TimeSeriesDatabase.MaxDateTime);
@@ -98,7 +98,7 @@ namespace Reclamation.TimeSeries.Usgs
             }
             else
             {
-                string url = "http://waterservices.usgs.gov/nwis/gwlevels/?format=rdb&sites=444401116463001";
+                string url = "https://staging.waterservices.usgs.gov/nwis/gwlevels/?format=rdb&sites=444401116463001";
                 url = url.Replace("site_no=444401116463001", "site_no=" + m_site_no);
                 Messages.Add(url);
                 ReadSeriesData(url,t1,t2);
