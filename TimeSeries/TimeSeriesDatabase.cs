@@ -1887,8 +1887,8 @@ UNION ALL
                 if( m_alarmDS == null )
                 {
                     m_alarmDS = AlarmDataSet.CreateInstance(m_server);
-
                 }
+
                 return m_alarmDS;
             }
         }

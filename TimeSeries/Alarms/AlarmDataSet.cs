@@ -1,6 +1,8 @@
 ﻿using Reclamation.Core;
 using System;
+using System.Configuration;
 using System.Data;
+using System.Net.Mail;
 using System.Text.RegularExpressions;
 namespace Reclamation.TimeSeries.Alarms
 {
@@ -60,6 +62,13 @@ namespace Reclamation.TimeSeries.Alarms {
             string sql = "select phone from alarm_recipient where list='"+list+"' order by call_order";
             var tbl = m_server.Table("alarm_recipient", sql);
             return DataTableUtility.Strings(tbl,"","phone");
+        }
+
+          public string[] GetEmailList(string list)
+        {
+            string sql = "select email from alarm_recipient where list='"+list+"' order by call_order";
+            var tbl = m_server.Table("alarm_recipient", sql);
+            return DataTableUtility.Strings(tbl,"","email");
         }
 
 
@@ -131,7 +140,10 @@ namespace Reclamation.TimeSeries.Alarms {
             return tbl;
 
         }
-
+        /// <summary>
+        /// Check each point in the series for an alarm
+        /// </summary>
+        /// <param name="s"></param>
         internal void Check(Series s)
         {
             var alarm = GetAlarmDefinition(s.SiteID, s.Parameter);
@@ -160,6 +172,8 @@ namespace Reclamation.TimeSeries.Alarms {
                         if( p.Value > dvalue)
                         {// alarm
                             Console.WriteLine("Alarm found");
+                            
+                            CreateAlarm(row,p );
                         }
                     }
                 }
@@ -171,6 +185,80 @@ namespace Reclamation.TimeSeries.Alarms {
 
         }
 
+        /// <summary>
+        /// make phone calls and send emails
+        // 
+        /// </summary>
+        /// <param name="alarm"></param>
+        /// <param name="Alarmvalue"></param>
+        private void CreateAlarm(AlarmDataSet.alarm_definitionRow alarm, 
+                             Point pt)
+        {
+            SendEmail(alarm, pt);
+
+            //phone call by inserting into table alarm_queue
+            AlarmDataSet.alarm_phone_queueDataTable tbl = new alarm_phone_queueDataTable();
+            
+            var row =  tbl.Newalarm_phone_queueRow();
+            tbl.Rows.Add(row);
+            row.id =  m_server.NextID("alarm_phone_queue", "id");
+
+            row.list = alarm.list;
+            row.siteid = alarm.siteid;
+            row.parameter = alarm.parameter;
+            row.value = pt.Value;
+            row.status = "new";
+            row.status_time = DateTime.Now;
+            row.confirmed_by = "";
+            row.event_time = pt.DateTime;
+            row.priority = alarm.priority;
+
+            m_server.SaveTable(tbl);
+        }
+
+        private void SendEmail(alarm_definitionRow alarm,Point pt)
+        {
+            // old:  Alarm condition at site WICEWS for parameter GH -- value = 0.43
+
+            
+            var t = m_server.Table("select description from sitecatalog where siteid='"+alarm.siteid+"'");
+            var siteDescription = t.Rows[0][0].ToString();
+
+            var parameterName = "";
+            t = m_server.Table("select name from parametercatalog where id='"+alarm.parameter+"' and timeinterval = 'Irregular'");
+            if( t.Rows.Count > 0)
+               parameterName = t.Rows[0][0].ToString();
+
+
+                    var emails = GetEmailList(alarm.list);
+                    SendEmail(emails,"sub","body");
+
+
+        }
+
+         private static void SendEmail(string[] address, string subject, string body)
+        {
+            MailMessage msg = new MailMessage();
+             foreach (var item in address)
+             {
+		      msg.To.Add(item);
+             }
+         
+            msg.From = new MailAddress(ConfigurationManager.AppSettings["email_reply"]);
+            msg.Subject = subject;
+            msg.Body = body;
+            msg.IsBodyHtml = true;
+            SmtpClient c = new System.Net.Mail.SmtpClient();
+            c.Host = ConfigurationManager.AppSettings["smtp"];
+            c.Send(msg);
+
+            
+            Logger.WriteLine("mail server " + c.Host);
+            Logger.WriteLine("to : "+ address);
+            Logger.WriteLine("from : " + msg.From.Address);
+            Logger.WriteLine("message sent ");
+            Logger.WriteLine(body);
+        }
         public alarm_definitionDataTable GetAlarmDefinition(string siteid="",string parameter="")
         {
             var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
@@ -193,15 +281,7 @@ namespace Reclamation.TimeSeries.Alarms {
 
         }
 
-        /// <summary>
-        /// Insert new alarm into the alarm_queue
-        /// </summary>
-        /// <param name="row"></param>
-        public void InsertNewAlarm(alarm_definitionRow row)
-        {
-            throw new NotImplementedException();
-        }
-    }
+        
     
 }
 
