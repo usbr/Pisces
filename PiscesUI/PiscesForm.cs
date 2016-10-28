@@ -819,8 +819,28 @@ namespace Reclamation.TimeSeries.Forms
         }
 
 
+        /// <summary>
+        /// Duplicate Selected Series
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DuplicateClick(object sender, EventArgs e)
+        {
+            Series[] list = tree1.GetSelectedSeries();
+            if (list.Length == 1)
+            {
+                ProcessSelectedSeries(SeriesProcess.Duplicate, list);
+            }
+            else
+            {
+                MessageBox.Show("Please select a single Series to duplicate.");
+                ClearDisplay();
+                return;
+            }
 
-        
+            DrawBasedOnTreeSelection();
+        }
+
 
         /// <summary>
         /// Update Selected Series or folders
@@ -884,7 +904,7 @@ namespace Reclamation.TimeSeries.Forms
                     {
                         Logger.WriteLine(process.ToString() + " " + list[i].Name);
                         Application.DoEvents();
-
+                        
                         if (process == SeriesProcess.Update && !(list[i] is CalculationSeries))
                         {
                             list[i].Update(u.T1, u.T2);
@@ -903,6 +923,29 @@ namespace Reclamation.TimeSeries.Forms
                                 cs.Calculate();
                             else
                                 cs.Calculate(u.T1, u.T2);
+                        }
+                        if (process == SeriesProcess.Duplicate)
+                        {                            
+                            if (list[i] is CalculationSeries)
+                            {
+                                var cs = new CalculationSeries();
+                                cs.Expression = list[i].Expression;
+                                cs.Name = list[i].Name + DateTime.UtcNow.ToString();
+                                DB.AddSeries(cs);
+                            }
+                            else
+                            {
+                                Series s = new Series();
+                                var sSource = list[i] as Series;
+                                if (u.FullPeriodOfRecord)
+                                { sSource.Read(); }
+                                else
+                                { sSource.Read(u.T1, u.T2); }
+                                foreach (Point pt in sSource)
+                                { s.Add(pt); }
+                                s.Name = list[i].Name + DateTime.UtcNow.ToString();
+                                DB.AddSeries(s);
+                            }
                         }
                     }
                 }
@@ -1145,9 +1188,6 @@ namespace Reclamation.TimeSeries.Forms
             }
 
         }
-
-    
-        
     }
 
 

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Reclamation.TimeSeries.Forms
 {
-    public enum SeriesProcess { Update, Calculate };
+    public enum SeriesProcess { Update, Calculate, Duplicate };
     public partial class Update : Form
     {
         SeriesProcess process;
@@ -28,6 +28,13 @@ namespace Reclamation.TimeSeries.Forms
             {
                 Text = "Calculate Selected Series";
                 textBoxInfo.Text = "Click OK to calculate the selected series.  Pisces will recompute based on the math expression.  Existing data will be overwritten.";
+                checkBoxFullPeriod.Checked = true;
+                EnableDates(this, EventArgs.Empty);
+            }
+            if (process == SeriesProcess.Duplicate)
+            {
+                Text = "Duplicate Selected Series";
+                textBoxInfo.Text = "Click OK to duplicate the selected series.  Pisces will either reload data from the original source or recompute based on the math expression.  ";
                 checkBoxFullPeriod.Checked = true;
                 EnableDates(this, EventArgs.Empty);
             }
