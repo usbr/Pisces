@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Linq;
+using System.Data;
 
 namespace Reclamation.TimeSeries.RatingTables {
     
     
     public partial class HydrographyDataSet {
 
-        public partial class measurementDataTable : global::System.Data.TypedTableBase<measurementRow>
+
+        public partial class measurementDataTable :  TypedTableBase<measurementRow>
         {
 
             public int NextID()
@@ -23,3 +25,5 @@ namespace Reclamation.TimeSeries.RatingTables {
 
     }
 }
+
+ 

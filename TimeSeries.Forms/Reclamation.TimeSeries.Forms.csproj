@@ -319,6 +319,12 @@
     <Compile Include="RatingTables\RatingTableZedGraphOptions.Designer.cs">
       <DependentUpon>RatingTableZedGraphOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="RatingTables\SelectMeasurements.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RatingTables\SelectMeasurements.Designer.cs">
+      <DependentUpon>SelectMeasurements.cs</DependentUpon>
+    </Compile>
     <Compile Include="RatingTables\TestMeasurementPlotting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -766,6 +772,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RatingTables\RatingTableZedGraphOptions.resx">
       <DependentUpon>RatingTableZedGraphOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RatingTables\SelectMeasurements.resx">
+      <DependentUpon>SelectMeasurements.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RatingTables\TestMeasurementPlotting.resx">
       <DependentUpon>TestMeasurementPlotting.cs</DependentUpon>
