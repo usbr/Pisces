@@ -544,50 +544,51 @@ namespace Reclamation.TimeSeries.Forms
         {
 
             this.toolStripSplitButtonRefresh.Visible = !DB.AutoRefresh;
-         Series[] selected = tree1.GetSelectedSeries();
-         bool folderSelected = tree1.IsFolderSelected;
-         bool singleSelection = tree1.SelectedCount == 1;
-         bool anySelected = tree1.SelectedCount > 0;
-         bool singleSeriesSelected = selected.Length == 1 && tree1.SelectedCount == 1;
-         bool multiSeriesSelected = selected.Length > 1;
-         bool isCalculation = true;
-         for (int i = 0; i < selected.Length; i++)
-         {
-             if (!(selected[i] is CalculationSeries))
-             {
-                 isCalculation = false;
-                 break;
-             }
-         }
+            Series[] selected = tree1.GetSelectedSeries();
+            bool folderSelected = tree1.IsFolderSelected;
+            bool singleSelection = tree1.SelectedCount == 1;
+            bool anySelected = tree1.SelectedCount > 0;
+            bool singleSeriesSelected = selected.Length == 1 && tree1.SelectedCount == 1;
+            bool multiSeriesSelected = selected.Length > 1;
+            bool isCalculation = true;
+            for (int i = 0; i < selected.Length; i++)
+            {
+                if (!(selected[i] is CalculationSeries))
+                {
+                    isCalculation = false;
+                    break;
+                }
+            }
 
-         bool canAddStuff = (CurrentFolder != null);
+            bool canAddStuff = (CurrentFolder != null);
 
-         AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
+            AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
 
-         var hideItemsPiscesOpen = new List<string> { "addExcel", "addHDBconfig", 
+            var hideItemsPiscesOpen = new List<string> { "addExcel", "addHDBconfig",
              "addHDBmodeldata", "addHDBseries" };
 
-         var addMenuItem = AddMenu as ToolStripDropDownItem;
-         foreach (var item in addMenuItem.DropDownItems)
-         {
-             var toolstripItem = item as ToolStripMenuItem;
-             if (toolstripItem != null)
-             {
-                 toolstripItem.Enabled = canAddStuff;
+            var addMenuItem = AddMenu as ToolStripDropDownItem;
+            foreach (var item in addMenuItem.DropDownItems)
+            {
+                var toolstripItem = item as ToolStripMenuItem;
+                if (toolstripItem != null)
+                {
+                    toolstripItem.Enabled = canAddStuff;
 #if PISCES_OPEN
-                 toolstripItem.Visible = !hideItemsPiscesOpen.Contains(toolstripItem.Name);
+                    toolstripItem.Visible = !hideItemsPiscesOpen.Contains(toolstripItem.Name);
 #endif
-             }
+                }
 
-         }
+            }
 
             menuUpdate.Enabled = anySelected;
             menuDelete.Enabled = anySelected;
-            menuProperties.Enabled = singleSelection; 
+            menuProperties.Enabled = singleSelection;
             menuClear.Enabled = singleSeriesSelected;
             menuCalculate.Enabled = isCalculation && anySelected;
-            
-         }
+            menuDuplicate.Enabled = isCalculation && !folderSelected && singleSeriesSelected;
+
+        }
 
 
 
