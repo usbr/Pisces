@@ -7,6 +7,13 @@ namespace Reclamation.TimeSeries.RatingTables {
     
     public partial class HydrographyDataSet {
 
+        TimeSeriesDatabase m_db;
+        public HydrographyDataSet CreateInstance(TimeSeriesDatabase db)
+        {
+            HydrographyDataSet rval = new HydrographyDataSet();
+            m_db = db;
+            return rval;
+        }
 
         public partial class measurementDataTable :  TypedTableBase<measurementRow>
         {

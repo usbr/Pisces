@@ -6,14 +6,18 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Reclamation.TimeSeries.RatingTables;
 
 namespace Reclamation.TimeSeries.Forms.RatingTables
 {
-    public partial class SelectMeasurements : UserControl
+    public partial class RatingEquationBuilder : UserControl
     {
-        public SelectMeasurements()
+        HydrographyDataSet ds;
+        public RatingEquationBuilder()
         {
             InitializeComponent();
+
+            
         }
     }
 }

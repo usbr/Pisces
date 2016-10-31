@@ -1,6 +1,6 @@
 ﻿namespace Reclamation.TimeSeries.Forms.RatingTables
 {
-    partial class RatingTableEditor
+    partial class RatingEquationBuilder
     {
         /// <summary> 
         /// Required designer variable.
@@ -39,8 +39,10 @@
             this.buttonCompute = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxNote = new System.Windows.Forms.TextBox();
+            this.panelGraph = new System.Windows.Forms.Panel();
             this.textBoxEquation = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPolynomialOrder)).BeginInit();
@@ -48,8 +50,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.textBoxEquation);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.checkBoxZeroIntercept);
             this.groupBox1.Controls.Add(this.textBoxName);
@@ -57,10 +60,9 @@
             this.groupBox1.Controls.Add(this.buttonCompute);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.textBoxNote);
-            this.groupBox1.Controls.Add(this.textBoxEquation);
             this.groupBox1.Location = new System.Drawing.Point(13, 22);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(304, 421);
+            this.groupBox1.Size = new System.Drawing.Size(285, 493);
             this.groupBox1.TabIndex = 96;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Rating Details";
@@ -80,28 +82,28 @@
             // radioButtonlog
             // 
             this.radioButtonlog.AutoSize = true;
-            this.radioButtonlog.Location = new System.Drawing.Point(12, 45);
+            this.radioButtonlog.Checked = true;
+            this.radioButtonlog.Location = new System.Drawing.Point(12, 19);
             this.radioButtonlog.Name = "radioButtonlog";
-            this.radioButtonlog.Size = new System.Drawing.Size(77, 17);
+            this.radioButtonlog.Size = new System.Drawing.Size(39, 17);
             this.radioButtonlog.TabIndex = 86;
-            this.radioButtonlog.Text = "log,  type =";
+            this.radioButtonlog.TabStop = true;
+            this.radioButtonlog.Text = "log";
             this.radioButtonlog.UseVisualStyleBackColor = true;
             // 
             // radioButtonPolynomial
             // 
             this.radioButtonPolynomial.AutoSize = true;
-            this.radioButtonPolynomial.Checked = true;
-            this.radioButtonPolynomial.Location = new System.Drawing.Point(12, 21);
+            this.radioButtonPolynomial.Location = new System.Drawing.Point(12, 43);
             this.radioButtonPolynomial.Name = "radioButtonPolynomial";
             this.radioButtonPolynomial.Size = new System.Drawing.Size(113, 17);
             this.radioButtonPolynomial.TabIndex = 0;
-            this.radioButtonPolynomial.TabStop = true;
             this.radioButtonPolynomial.Text = "polynomial, order =";
             this.radioButtonPolynomial.UseVisualStyleBackColor = true;
             // 
             // numericUpDownPolynomialOrder
             // 
-            this.numericUpDownPolynomialOrder.Location = new System.Drawing.Point(146, 18);
+            this.numericUpDownPolynomialOrder.Location = new System.Drawing.Point(148, 40);
             this.numericUpDownPolynomialOrder.Maximum = new decimal(new int[] {
             4,
             0,
@@ -124,7 +126,7 @@
             // checkBoxZeroIntercept
             // 
             this.checkBoxZeroIntercept.AutoSize = true;
-            this.checkBoxZeroIntercept.Location = new System.Drawing.Point(23, 242);
+            this.checkBoxZeroIntercept.Location = new System.Drawing.Point(11, 258);
             this.checkBoxZeroIntercept.Name = "checkBoxZeroIntercept";
             this.checkBoxZeroIntercept.Size = new System.Drawing.Size(102, 17);
             this.checkBoxZeroIntercept.TabIndex = 105;
@@ -137,7 +139,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxName.Location = new System.Drawing.Point(52, 15);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(208, 20);
+            this.textBoxName.Size = new System.Drawing.Size(189, 20);
             this.textBoxName.TabIndex = 101;
             // 
             // label7
@@ -150,7 +152,7 @@
             // 
             // buttonCompute
             // 
-            this.buttonCompute.Location = new System.Drawing.Point(11, 377);
+            this.buttonCompute.Location = new System.Drawing.Point(11, 281);
             this.buttonCompute.Name = "buttonCompute";
             this.buttonCompute.Size = new System.Drawing.Size(75, 23);
             this.buttonCompute.TabIndex = 96;
@@ -158,7 +160,7 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(8, 122);
+            this.label4.Location = new System.Drawing.Point(8, 158);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 16);
             this.label4.TabIndex = 92;
@@ -168,37 +170,56 @@
             // 
             this.textBoxNote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxNote.Location = new System.Drawing.Point(11, 141);
+            this.textBoxNote.Location = new System.Drawing.Point(11, 189);
             this.textBoxNote.Multiline = true;
             this.textBoxNote.Name = "textBoxNote";
-            this.textBoxNote.Size = new System.Drawing.Size(242, 63);
+            this.textBoxNote.Size = new System.Drawing.Size(241, 63);
             this.textBoxNote.TabIndex = 91;
+            // 
+            // panelGraph
+            // 
+            this.panelGraph.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelGraph.Location = new System.Drawing.Point(304, 15);
+            this.panelGraph.Name = "panelGraph";
+            this.panelGraph.Size = new System.Drawing.Size(597, 521);
+            this.panelGraph.TabIndex = 97;
             // 
             // textBoxEquation
             // 
             this.textBoxEquation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxEquation.Location = new System.Drawing.Point(11, 295);
+            this.textBoxEquation.Location = new System.Drawing.Point(17, 140);
             this.textBoxEquation.Name = "textBoxEquation";
-            this.textBoxEquation.ReadOnly = true;
-            this.textBoxEquation.Size = new System.Drawing.Size(280, 20);
-            this.textBoxEquation.TabIndex = 99;
+            this.textBoxEquation.Size = new System.Drawing.Size(235, 20);
+            this.textBoxEquation.TabIndex = 107;
             // 
-            // panel1
+            // label1
             // 
-            this.panel1.Location = new System.Drawing.Point(324, 15);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(366, 302);
-            this.panel1.TabIndex = 97;
+            this.label1.Location = new System.Drawing.Point(10, 122);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(62, 17);
+            this.label1.TabIndex = 108;
+            this.label1.Text = "equation:";
             // 
-            // RatingTableEditor
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(11, 329);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 109;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // RatingEquationBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelGraph);
             this.Controls.Add(this.groupBox1);
-            this.Name = "RatingTableEditor";
-            this.Size = new System.Drawing.Size(744, 552);
+            this.Name = "RatingEquationBuilder";
+            this.Size = new System.Drawing.Size(919, 557);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -221,7 +242,9 @@
         private System.Windows.Forms.Button buttonCompute;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxNote;
+        private System.Windows.Forms.Panel panelGraph;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxEquation;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button1;
     }
 }

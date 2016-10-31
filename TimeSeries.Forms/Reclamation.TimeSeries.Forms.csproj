@@ -295,11 +295,11 @@
     <Compile Include="RatingTables\OldRatingEquationEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RatingTables\RatingTableEditor.cs">
+    <Compile Include="RatingTables\RatingEquationBuilder.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RatingTables\RatingTableEditor.Designer.cs">
-      <DependentUpon>RatingTableEditor.cs</DependentUpon>
+    <Compile Include="RatingTables\RatingEquationBuilder.Designer.cs">
+      <DependentUpon>RatingEquationBuilder.cs</DependentUpon>
     </Compile>
     <Compile Include="RatingTables\RatingTableZedGraph.cs">
       <SubType>UserControl</SubType>
@@ -318,12 +318,6 @@
     </Compile>
     <Compile Include="RatingTables\RatingTableZedGraphOptions.Designer.cs">
       <DependentUpon>RatingTableZedGraphOptions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="RatingTables\SelectMeasurements.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="RatingTables\SelectMeasurements.Designer.cs">
-      <DependentUpon>SelectMeasurements.cs</DependentUpon>
     </Compile>
     <Compile Include="RatingTables\TestMeasurementPlotting.cs">
       <SubType>Form</SubType>
@@ -761,8 +755,8 @@
       <DependentUpon>OldRatingEquationEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="RatingTables\RatingTableEditor.resx">
-      <DependentUpon>RatingTableEditor.cs</DependentUpon>
+    <EmbeddedResource Include="RatingTables\RatingEquationBuilder.resx">
+      <DependentUpon>RatingEquationBuilder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RatingTables\RatingTableZedGraph.resx">
       <DependentUpon>RatingTableZedGraph.cs</DependentUpon>
@@ -772,9 +766,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RatingTables\RatingTableZedGraphOptions.resx">
       <DependentUpon>RatingTableZedGraphOptions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RatingTables\SelectMeasurements.resx">
-      <DependentUpon>SelectMeasurements.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RatingTables\TestMeasurementPlotting.resx">
       <DependentUpon>TestMeasurementPlotting.cs</DependentUpon>

@@ -325,7 +325,16 @@ namespace Reclamation.TimeSeries.Graphing
 
             var t = DateTime.FromOADate(s.XValues[pointIndex]);
 
-            string tip = s.Title + t.ToString("-MM-dd") + " " + s.YValues[pointIndex].ToString();
+            var syr = s.Title;
+            int yr = 0;
+            var strDate = s.Title + t.ToString("-MM-dd");
+            if( int.TryParse(syr, out yr) && t.Month >=10)
+            { // get proper date from water year
+                yr--;
+                strDate = yr+ t.ToString("-MM-dd");
+            }
+
+            string tip = strDate + " " + s.YValues[pointIndex].ToString();
             annotation1.Text = tip;
 
         }
