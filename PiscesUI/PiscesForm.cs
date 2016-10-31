@@ -765,9 +765,7 @@ namespace Reclamation.TimeSeries.Forms
         {
             try
             {
-              
-
-                ServerDatabaseDialog dlg = new ServerDatabaseDialog();
+              ServerDatabaseDialog dlg = new ServerDatabaseDialog();
 
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -803,9 +801,17 @@ namespace Reclamation.TimeSeries.Forms
                 SeriesList list = new SeriesList();
                 foreach (Series s in tree1.GetSeriesRecursive())
                 {
-                    list.Add(s);
+                    if (s.Expression != "") // only perform calculations on calculation series with a valid expression
+                    { list.Add(s); }
                 }
-                ProcessSelectedSeries(SeriesProcess.Calculate, list.ToArray());
+                if (list.Count > 0)
+                { ProcessSelectedSeries(SeriesProcess.Calculate, list.ToArray()); }
+                else
+                {
+                    MessageBox.Show("No Calculation Series found in folder.");
+                    ClearDisplay();
+                    return;
+                }
             }
             else
             {
@@ -925,25 +931,24 @@ namespace Reclamation.TimeSeries.Forms
                                 cs.Calculate(u.T1, u.T2);
                         }
                         if (process == SeriesProcess.Duplicate)
-                        {                            
+                        {             
+                            string newName = list[i].Name + DateTime.UtcNow.ToString().Replace("_", "").Replace(" ", "");
                             if (list[i] is CalculationSeries)
                             {
                                 var cs = new CalculationSeries();
                                 cs.Expression = list[i].Expression;
-                                cs.Name = list[i].Name + DateTime.UtcNow.ToString();
+                                cs.Name = newName;
                                 DB.AddSeries(cs);
                             }
+                            // add other series-type handlers here if needed...
                             else
                             {
                                 Series s = new Series();
                                 var sSource = list[i] as Series;
-                                if (u.FullPeriodOfRecord)
-                                { sSource.Read(); }
-                                else
-                                { sSource.Read(u.T1, u.T2); }
+                                sSource.Read();
                                 foreach (Point pt in sSource)
                                 { s.Add(pt); }
-                                s.Name = list[i].Name + DateTime.UtcNow.ToString();
+                                s.Name = newName;
                                 DB.AddSeries(s);
                             }
                         }
