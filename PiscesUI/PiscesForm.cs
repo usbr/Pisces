@@ -544,50 +544,51 @@ namespace Reclamation.TimeSeries.Forms
         {
 
             this.toolStripSplitButtonRefresh.Visible = !DB.AutoRefresh;
-         Series[] selected = tree1.GetSelectedSeries();
-         bool folderSelected = tree1.IsFolderSelected;
-         bool singleSelection = tree1.SelectedCount == 1;
-         bool anySelected = tree1.SelectedCount > 0;
-         bool singleSeriesSelected = selected.Length == 1 && tree1.SelectedCount == 1;
-         bool multiSeriesSelected = selected.Length > 1;
-         bool isCalculation = true;
-         for (int i = 0; i < selected.Length; i++)
-         {
-             if (!(selected[i] is CalculationSeries))
-             {
-                 isCalculation = false;
-                 break;
-             }
-         }
+            Series[] selected = tree1.GetSelectedSeries();
+            bool folderSelected = tree1.IsFolderSelected;
+            bool singleSelection = tree1.SelectedCount == 1;
+            bool anySelected = tree1.SelectedCount > 0;
+            bool singleSeriesSelected = selected.Length == 1 && tree1.SelectedCount == 1;
+            bool multiSeriesSelected = selected.Length > 1;
+            bool isCalculation = true;
+            for (int i = 0; i < selected.Length; i++)
+            {
+                if (!(selected[i] is CalculationSeries))
+                {
+                    isCalculation = false;
+                    break;
+                }
+            }
 
-         bool canAddStuff = (CurrentFolder != null);
+            bool canAddStuff = (CurrentFolder != null);
 
-         AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
+            AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
 
-         var hideItemsPiscesOpen = new List<string> { "addExcel", "addHDBconfig", 
+            var hideItemsPiscesOpen = new List<string> { "addExcel", "addHDBconfig",
              "addHDBmodeldata", "addHDBseries" };
 
-         var addMenuItem = AddMenu as ToolStripDropDownItem;
-         foreach (var item in addMenuItem.DropDownItems)
-         {
-             var toolstripItem = item as ToolStripMenuItem;
-             if (toolstripItem != null)
-             {
-                 toolstripItem.Enabled = canAddStuff;
+            var addMenuItem = AddMenu as ToolStripDropDownItem;
+            foreach (var item in addMenuItem.DropDownItems)
+            {
+                var toolstripItem = item as ToolStripMenuItem;
+                if (toolstripItem != null)
+                {
+                    toolstripItem.Enabled = canAddStuff;
 #if PISCES_OPEN
-                 toolstripItem.Visible = !hideItemsPiscesOpen.Contains(toolstripItem.Name);
+                    toolstripItem.Visible = !hideItemsPiscesOpen.Contains(toolstripItem.Name);
 #endif
-             }
+                }
 
-         }
+            }
 
             menuUpdate.Enabled = anySelected;
             menuDelete.Enabled = anySelected;
-            menuProperties.Enabled = singleSelection; 
+            menuProperties.Enabled = singleSelection;
             menuClear.Enabled = singleSeriesSelected;
             menuCalculate.Enabled = isCalculation && anySelected;
-            
-         }
+            menuDuplicate.Enabled = isCalculation && !folderSelected && singleSeriesSelected;
+
+        }
 
 
 
@@ -765,9 +766,7 @@ namespace Reclamation.TimeSeries.Forms
         {
             try
             {
-              
-
-                ServerDatabaseDialog dlg = new ServerDatabaseDialog();
+              ServerDatabaseDialog dlg = new ServerDatabaseDialog();
 
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
@@ -803,9 +802,17 @@ namespace Reclamation.TimeSeries.Forms
                 SeriesList list = new SeriesList();
                 foreach (Series s in tree1.GetSeriesRecursive())
                 {
-                    list.Add(s);
+                    if (s.Expression != "") // only perform calculations on calculation series with a valid expression
+                    { list.Add(s); }
                 }
-                ProcessSelectedSeries(SeriesProcess.Calculate, list.ToArray());
+                if (list.Count > 0)
+                { ProcessSelectedSeries(SeriesProcess.Calculate, list.ToArray()); }
+                else
+                {
+                    MessageBox.Show("No Calculation Series found in folder.");
+                    ClearDisplay();
+                    return;
+                }
             }
             else
             {
@@ -925,25 +932,24 @@ namespace Reclamation.TimeSeries.Forms
                                 cs.Calculate(u.T1, u.T2);
                         }
                         if (process == SeriesProcess.Duplicate)
-                        {                            
+                        {             
+                            string newName = list[i].Name + DateTime.UtcNow.ToString().Replace("_", "").Replace(" ", "");
                             if (list[i] is CalculationSeries)
                             {
                                 var cs = new CalculationSeries();
                                 cs.Expression = list[i].Expression;
-                                cs.Name = list[i].Name + DateTime.UtcNow.ToString();
+                                cs.Name = newName;
                                 DB.AddSeries(cs);
                             }
+                            // add other series-type handlers here if needed...
                             else
                             {
                                 Series s = new Series();
                                 var sSource = list[i] as Series;
-                                if (u.FullPeriodOfRecord)
-                                { sSource.Read(); }
-                                else
-                                { sSource.Read(u.T1, u.T2); }
+                                sSource.Read();
                                 foreach (Point pt in sSource)
                                 { s.Add(pt); }
-                                s.Name = list[i].Name + DateTime.UtcNow.ToString();
+                                s.Name = newName;
                                 DB.AddSeries(s);
                             }
                         }

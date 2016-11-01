@@ -87,7 +87,7 @@ namespace ProcessHydrometEmail
                 if (m.Success)
                 {
                     double d = Convert.ToDouble(m.Groups[1].Value);
-                    var t = Round(msg.Date.Value);
+                    var t = Reclamation.TimeSeries.Math.RoundToNearestHour(msg.Date.Value);
 
                     if (s.IndexOf(t) < 0)
                     {
@@ -100,16 +100,6 @@ namespace ProcessHydrometEmail
             }
             return s;
         }
-        /// <summary>
-        /// http://stackoverflow.com/questions/2499479/how-to-round-off-hours-based-on-minuteshours0-if-min30-hours1-otherwise
-        /// </summary>
-        /// <param name="dateTime"></param>
-        /// <returns></returns>
-        public static DateTime Round(DateTime dateTime)
-        {
-            var updated = dateTime.AddMinutes(30);
-            return new DateTime(updated.Year, updated.Month, updated.Day,
-                                 updated.Hour, 0, 0, dateTime.Kind);
-        }
+        
     }
 }
