@@ -574,6 +574,12 @@ namespace Reclamation.TimeSeries.RatingTables {
                 this.columnid.Unique = true;
                 this.columndate_measured.AllowDBNull = false;
                 this.columnstage.AllowDBNull = false;
+                this.columnquality.AllowDBNull = false;
+                this.columnquality.DefaultValue = ((string)(" "));
+                this.columnparty.AllowDBNull = false;
+                this.columnparty.DefaultValue = ((string)(" "));
+                this.columnnotes.AllowDBNull = false;
+                this.columnnotes.DefaultValue = ((string)(" "));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -807,7 +813,7 @@ namespace Reclamation.TimeSeries.RatingTables {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public rating_equation_measurementsRow Addrating_equation_measurementsRow(string id, string measurementid, string rating_equationid) {
+            public rating_equation_measurementsRow Addrating_equation_measurementsRow(string id, int measurementid, int rating_equationid) {
                 rating_equation_measurementsRow rowrating_equation_measurementsRow = ((rating_equation_measurementsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -852,14 +858,16 @@ namespace Reclamation.TimeSeries.RatingTables {
             private void InitClass() {
                 this.columnid = new global::System.Data.DataColumn("id", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnid);
-                this.columnmeasurementid = new global::System.Data.DataColumn("measurementid", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnmeasurementid = new global::System.Data.DataColumn("measurementid", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnmeasurementid);
-                this.columnrating_equationid = new global::System.Data.DataColumn("rating_equationid", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnrating_equationid = new global::System.Data.DataColumn("rating_equationid", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnrating_equationid);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AllowDBNull = false;
                 this.columnid.Unique = true;
+                this.columnmeasurementid.AllowDBNull = false;
+                this.columnrating_equationid.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1385,12 +1393,7 @@ namespace Reclamation.TimeSeries.RatingTables {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string quality {
                 get {
-                    try {
-                        return ((string)(this[this.tablemeasurement.qualityColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'quality\' in table \'measurement\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tablemeasurement.qualityColumn]));
                 }
                 set {
                     this[this.tablemeasurement.qualityColumn] = value;
@@ -1401,12 +1404,7 @@ namespace Reclamation.TimeSeries.RatingTables {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string party {
                 get {
-                    try {
-                        return ((string)(this[this.tablemeasurement.partyColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'party\' in table \'measurement\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tablemeasurement.partyColumn]));
                 }
                 set {
                     this[this.tablemeasurement.partyColumn] = value;
@@ -1417,12 +1415,7 @@ namespace Reclamation.TimeSeries.RatingTables {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string notes {
                 get {
-                    try {
-                        return ((string)(this[this.tablemeasurement.notesColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'notes\' in table \'measurement\' is DBNull.", e);
-                    }
+                    return ((string)(this[this.tablemeasurement.notesColumn]));
                 }
                 set {
                     this[this.tablemeasurement.notesColumn] = value;
@@ -1451,42 +1444,6 @@ namespace Reclamation.TimeSeries.RatingTables {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetdischargeNull() {
                 this[this.tablemeasurement.dischargeColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsqualityNull() {
-                return this.IsNull(this.tablemeasurement.qualityColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetqualityNull() {
-                this[this.tablemeasurement.qualityColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IspartyNull() {
-                return this.IsNull(this.tablemeasurement.partyColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetpartyNull() {
-                this[this.tablemeasurement.partyColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsnotesNull() {
-                return this.IsNull(this.tablemeasurement.notesColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetnotesNull() {
-                this[this.tablemeasurement.notesColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1517,15 +1474,9 @@ namespace Reclamation.TimeSeries.RatingTables {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string measurementid {
+            public int measurementid {
                 get {
-                    try {
-                        return ((string)(this[this.tablerating_equation_measurements.measurementidColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'measurementid\' in table \'rating_equation_measurements\' is D" +
-                                "BNull.", e);
-                    }
+                    return ((int)(this[this.tablerating_equation_measurements.measurementidColumn]));
                 }
                 set {
                     this[this.tablerating_equation_measurements.measurementidColumn] = value;
@@ -1534,43 +1485,13 @@ namespace Reclamation.TimeSeries.RatingTables {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string rating_equationid {
+            public int rating_equationid {
                 get {
-                    try {
-                        return ((string)(this[this.tablerating_equation_measurements.rating_equationidColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'rating_equationid\' in table \'rating_equation_measurements\' " +
-                                "is DBNull.", e);
-                    }
+                    return ((int)(this[this.tablerating_equation_measurements.rating_equationidColumn]));
                 }
                 set {
                     this[this.tablerating_equation_measurements.rating_equationidColumn] = value;
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsmeasurementidNull() {
-                return this.IsNull(this.tablerating_equation_measurements.measurementidColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetmeasurementidNull() {
-                this[this.tablerating_equation_measurements.measurementidColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool Israting_equationidNull() {
-                return this.IsNull(this.tablerating_equation_measurements.rating_equationidColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void Setrating_equationidNull() {
-                this[this.tablerating_equation_measurements.rating_equationidColumn] = global::System.Convert.DBNull;
             }
         }
         

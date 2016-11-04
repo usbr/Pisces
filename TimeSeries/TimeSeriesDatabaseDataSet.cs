@@ -307,9 +307,9 @@ namespace Reclamation.TimeSeries
 
                 int id = NextID();
                 int unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-                var r = AddSeriesCatalogRow(id, folderID, false, unixTimestamp,
-                "measurement", 
-                m.date_measured.ToString(Hydrography.MeasurementDateFormat)+" ("+m.stage.ToString("F2")+","+m.discharge.ToString("F2")+")" ,
+                var r = AddSeriesCatalogRow(id, folderID, false, 100,
+                "measurement",
+                m.date_measured.ToString(Hydrography.MeasurementDateFormat), //" ("+m.stage.ToString("F2")+","+m.discharge.ToString("F2")+")" ,
                 m.siteid, "", "Instant", "", "", "BasicMeasurement", "id=" + m.id, "",
                 "", true);
 

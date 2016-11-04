@@ -26,6 +26,8 @@ namespace Reclamation.TimeSeries.Forms.RatingTables
         {
             this.labelTitle.Text = Measurement.SiteID;
             Logger.WriteLine("Measurement: " + Measurement.SiteID + " " + Measurement.ID);
+            if( Measurement.MeasurementRow == null)
+                Console.WriteLine("OOPS" +Measurement.MeasurementRow);
             this.textBox_Memo.Text = Measurement.MeasurementRow.notes;
             this.textBox_Party.Text = Measurement.MeasurementRow.party;
             this.textBox_Prim_Gage.Text = Measurement.MeasurementRow.stage.ToString("F2");

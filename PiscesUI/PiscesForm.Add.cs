@@ -37,10 +37,19 @@ namespace Reclamation.TimeSeries.Forms
             FormNewMeasurment f = new FormNewMeasurment( DB.GetSiteCatalog());
             if( f.ShowDialog() == DialogResult.OK)
             {
-               
-              var mid= DB.Hydrography.NewMeasurement(f.SiteID, f.DateTime,f.Flow,
-                   f.Stage,f.Quality,f.Party,f.Notes);
-              DatabaseChanged();
+                try
+                {
+
+                    DB.SuspendTreeUpdates();
+                    var mid = DB.Hydrography.NewMeasurement(f.SiteID, f.DateTime, f.Flow,
+                         f.Stage, f.Quality, f.Party, f.Notes);
+                }
+                finally
+                {
+                    DB.ResumeTreeUpdates();
+                    DatabaseChanged();
+
+                }
             }
         }
 

@@ -450,6 +450,12 @@ namespace Reclamation.Core
                 return rval;
             }
 
+        /// <summary>
+        /// Move a file to sub directory, creating sub directory as needed.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="subdirectory"></param>
+        /// <param name="file"></param>
              public static void MoveToSubDirectory(string path, string subdirectory, string file)
             {
                 var attic = Path.Combine(path, subdirectory);

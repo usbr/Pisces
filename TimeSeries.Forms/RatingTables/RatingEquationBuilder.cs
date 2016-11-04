@@ -12,12 +12,16 @@ namespace Reclamation.TimeSeries.Forms.RatingTables
 {
     public partial class RatingEquationBuilder : UserControl
     {
-        HydrographyDataSet ds;
+        HydrographyDataSet m_ds;
+        public RatingEquationBuilder(HydrographyDataSet ds,int equation_id)
+        {
+            InitializeComponent();
+            m_ds = ds;
+        }
         public RatingEquationBuilder()
         {
             InitializeComponent();
-
-            
+            throw new Exception("Invalid Constructor");
         }
     }
 }

@@ -549,7 +549,7 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public alarm_recipientRow Addalarm_recipientRow(string list, string call_order, string phone, string name, string email) {
+            public alarm_recipientRow Addalarm_recipientRow(string list, int call_order, string phone, string name, string email) {
                 alarm_recipientRow rowalarm_recipientRow = ((alarm_recipientRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -602,7 +602,7 @@ namespace Reclamation.TimeSeries.Alarms {
                 base.Columns.Add(this.columnid);
                 this.columnlist = new global::System.Data.DataColumn("list", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnlist);
-                this.columncall_order = new global::System.Data.DataColumn("call_order", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columncall_order = new global::System.Data.DataColumn("call_order", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncall_order);
                 this.columnphone = new global::System.Data.DataColumn("phone", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnphone);
@@ -617,7 +617,7 @@ namespace Reclamation.TimeSeries.Alarms {
                 this.columnid.AllowDBNull = false;
                 this.columnid.Unique = true;
                 this.columnlist.AllowDBNull = false;
-                this.columncall_order.DefaultValue = ((string)("1"));
+                this.columncall_order.DefaultValue = ((int)(0));
                 this.columnphone.AllowDBNull = false;
                 this.columnphone.DefaultValue = ((string)(" "));
                 this.columnname.AllowDBNull = false;
@@ -1373,8 +1373,7 @@ namespace Reclamation.TimeSeries.Alarms {
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AutoIncrement = true;
-                this.columnid.AutoIncrementSeed = -1;
-                this.columnid.AutoIncrementStep = -1;
+                this.columnid.AutoIncrementSeed = 1;
                 this.columnid.AllowDBNull = false;
                 this.columnid.Unique = true;
                 this.columnenabled.AllowDBNull = false;
@@ -2082,10 +2081,10 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string call_order {
+            public int call_order {
                 get {
                     try {
-                        return ((string)(this[this.tablealarm_recipient.call_orderColumn]));
+                        return ((int)(this[this.tablealarm_recipient.call_orderColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'call_order\' in table \'alarm_recipient\' is DBNull.", e);

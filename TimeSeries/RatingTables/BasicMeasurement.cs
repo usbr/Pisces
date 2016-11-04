@@ -15,7 +15,9 @@ namespace Reclamation.TimeSeries.RatingTables
 
         public HydrographyDataSet.measurementRow MeasurementRow
         {
-            get { return m_measurementRow; }
+            get {
+                return m_measurementRow;
+            }
         }
 
         
@@ -25,6 +27,7 @@ namespace Reclamation.TimeSeries.RatingTables
             this.m_db = db;
             this.m_sr = sr;
             int id = Convert.ToInt32(ConnectionStringToken("id", "-1"));
+            Console.WriteLine("ctor BasicMeasurement  id ="+id);
             var tbl = m_db.Hydrography.GetMeasurements();
 
             m_measurementRow = tbl.FindByid(id);
