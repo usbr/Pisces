@@ -292,6 +292,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Alarms\AlarmRegex.cs" />
     <Compile Include="Alarms\Asterisk.cs" />
     <Compile Include="Analysis\AnalysisCollection.cs" />
     <Compile Include="Analysis\BaseAnalysis.cs" />
@@ -391,6 +392,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tests\Database\TestDeleteDatabaseProperties.cs" />
+    <Compile Include="Tests\Database\TestAlarms.cs" />
     <Compile Include="Tests\Database\TestSiteInfo.cs" />
     <Compile Include="Tests\DateMath\TestDailyCalcRange.cs" />
     <Compile Include="Tests\Import\TestBulkImport.cs" />
