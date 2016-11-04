@@ -31,12 +31,6 @@ namespace Reclamation.TimeSeries.Forms
                 checkBoxFullPeriod.Checked = true;
                 EnableDates(this, EventArgs.Empty);
             }
-            if (process == SeriesProcess.Duplicate)
-            {
-                Text = "Duplicate Selected Series";
-                textBoxInfo.Text = "Click OK to duplicate the selected series.  Pisces will only copy either equations for CalculationSeries, or data from other Series types.  Data connections will be lost.";
-                DisableDates(this, EventArgs.Empty);
-            }
         }
 
 

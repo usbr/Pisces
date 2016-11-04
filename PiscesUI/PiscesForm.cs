@@ -901,59 +901,67 @@ namespace Reclamation.TimeSeries.Forms
 
             try
             {
+                ShowAsBusy("");
                 Update u = new Update(t1, t2, process);
+                Logger.WriteLine(process + " t1 = " + u.T1 + " t2= " + u.T2);
 
-                if (u.ShowDialog() == DialogResult.OK)
+                switch (process)
                 {
-                    ShowAsBusy("");
-                    Logger.WriteLine(process + " t1 = " + u.T1 + " t2= " + u.T2);
-                    for (int i = 0; i < list.Length; i++)
-                    {
-                        Logger.WriteLine(process.ToString() + " " + list[i].Name);
-                        Application.DoEvents();
-                        
-                        if (process == SeriesProcess.Update && !(list[i] is CalculationSeries))
+                    case SeriesProcess.Update:
+                        if (u.ShowDialog() == DialogResult.OK)
                         {
-                            list[i].Update(u.T1, u.T2);
-                        }
-                        if (process == SeriesProcess.Calculate || list[i] is CalculationSeries)
-                        {
-                            var cs = list[i] as CalculationSeries;
-                            if (DB.Settings.ReadBoolean("HydrometVariableResolver", false))
-                            { // this reads data from hydromet server, over http, instead of 'this' database
-                                var svr = HydrometInfoUtility.HydrometServerFromPreferences();
-                                cs.Parser.VariableResolver = new HydrometVariableResolver(svr);
-
-                            }
-
-                            if (u.FullPeriodOfRecord)
-                                cs.Calculate();
-                            else
-                                cs.Calculate(u.T1, u.T2);
-                        }
-                        if (process == SeriesProcess.Duplicate)
-                        {             
-                            string newName = list[i].Name + DateTime.UtcNow.ToString().Replace("_", "").Replace(" ", "");
-                            if (list[i] is CalculationSeries)
+                            foreach (Series s in list)
                             {
-                                var cs = new CalculationSeries();
-                                cs.Expression = list[i].Expression;
-                                cs.Name = newName;
+                                Logger.WriteLine(process.ToString() + " " + s.Name);
+                                Application.DoEvents();
+
+                                if (!(s is CalculationSeries))
+                                    s.Update(u.T1, u.T2);
+                            }
+                        }
+                        break;
+                    case SeriesProcess.Calculate:
+                        if (u.ShowDialog() == DialogResult.OK)
+                        {
+                            foreach (Series s in list)
+                            {
+                                Logger.WriteLine(process.ToString() + " " + s.Name);
+                                Application.DoEvents();
+
+                                if (s is CalculationSeries)
+                                {
+                                    var cs = s as CalculationSeries;
+                                    if (DB.Settings.ReadBoolean("HydrometVariableResolver", false))
+                                    { // this reads data from hydromet server, over http, instead of 'this' database
+                                        var svr = HydrometInfoUtility.HydrometServerFromPreferences();
+                                        cs.Parser.VariableResolver = new HydrometVariableResolver(svr);
+                                    }
+
+                                    if (u.FullPeriodOfRecord)
+                                        cs.Calculate();
+                                    else
+                                        cs.Calculate(u.T1, u.T2);
+                                }
+                            }
+                        }
+                        break;
+                    case SeriesProcess.Duplicate:
+                        foreach (Series s in list)
+                        {
+                            Application.DoEvents();
+
+                            if (s is CalculationSeries)
+                            {
+                                var cs = new CalculationSeries(DB.GetUniqueTableName(s.Name));
+                                cs.Expression = s.Expression;
+                                cs.TimeInterval = s.TimeInterval;
+                                cs.Units = s.Units;
                                 DB.AddSeries(cs);
                             }
-                            // add other series-type handlers here if needed...
-                            else
-                            {
-                                Series s = new Series();
-                                var sSource = list[i] as Series;
-                                sSource.Read();
-                                foreach (Point pt in sSource)
-                                { s.Add(pt); }
-                                s.Name = newName;
-                                DB.AddSeries(s);
-                            }
                         }
-                    }
+                        break;
+                    default:
+                        break;
                 }
             }
             catch (Exception e)

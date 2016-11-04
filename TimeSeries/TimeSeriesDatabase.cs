@@ -979,7 +979,7 @@ namespace Reclamation.TimeSeries
         }
 
 
-        private string GetUniqueTableName(string prefix)
+        public string GetUniqueTableName(string prefix)
         {
             string stn = SafeTableName(prefix);
 
