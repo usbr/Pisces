@@ -251,17 +251,20 @@ RefreshGraph();
             l.Line.IsVisible = true;
             l.Symbol.IsVisible = false;
 
-            // Piecewise Linear Regression Line with 1 break at the flow average value
-            var pcwsePoints = Reclamation.TimeSeries.Estimation.Regression.PiecewiseLinearRegression(xData, yData,
-                                new double[] { yData.Average() });
-            PointPairList pcwsePointsArray = new PointPairList();
-            for (int i = 0; i < logPoints.Length; i++)
-            {
-                pcwsePointsArray.Add(pcwsePoints[i].Item2, pcwsePoints[i].Item1);
+
+            if (xData.Length > 2)
+            {             // Piecewise Linear Regression Line with 1 break at the flow average value
+                var pcwsePoints = Reclamation.TimeSeries.Estimation.Regression.PiecewiseLinearRegression(xData, yData,
+                                    new double[] { yData.Average() });
+                PointPairList pcwsePointsArray = new PointPairList();
+                for (int i = 0; i < logPoints.Length; i++)
+                {
+                    pcwsePointsArray.Add(pcwsePoints[i].Item2, pcwsePoints[i].Item1);
+                }
+                var p = chart1.GraphPane.AddCurve("Piecewise Line: 1 break", pcwsePointsArray, Color.Blue, SymbolType.None);
+                p.Line.IsVisible = true;
+                p.Symbol.IsVisible = false;
             }
-            var p = chart1.GraphPane.AddCurve("Piecewise Line: 1 break", pcwsePointsArray, Color.Blue, SymbolType.None);
-            p.Line.IsVisible = true;
-            p.Symbol.IsVisible = false;
         }
 
         private void toolStripButtonSettings_Click(object sender, EventArgs e)

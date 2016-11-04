@@ -115,9 +115,8 @@ namespace Reclamation.TimeSeries
                 + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " alarm_condition " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " clear_condition " + m_server.PortableCharacterType(256) + " not null default '', "
-                + " message " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " priority int not null default 10 "
-                + " )";
+                + " , unique(siteid,parameter) )";
                 ExecuteCreateTable(m_server, sql);
             }
         }

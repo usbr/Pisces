@@ -51,7 +51,7 @@ namespace Reclamation.TimeSeries.RatingTables
             mr.id= m_db.Server.NextID("measurement", "id");
             mr.siteid = siteID;
             mr.date_measured = date;
-            mr.discharge = 0;
+            mr.discharge = flow;
             mr.stage = stage;
             mr.quality = quality;
             mr.party = party;

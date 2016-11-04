@@ -13,6 +13,10 @@ namespace Reclamation.TimeSeries.Alarms
 
     public partial class AlarmDataSet
     {
+        partial class alarm_definitionDataTable
+        {
+        }
+    
         private Core.BasicDBServer m_server;
 
         public static AlarmDataSet CreateInstance(BasicDBServer server = null)
@@ -127,6 +131,18 @@ namespace Reclamation.TimeSeries.Alarms
             m_server.SaveTable(tbl);
         }
 
+        public AlarmDataSet.alarm_phone_queueDataTable GetAlarmQueue(string siteid, string parameter)
+        {
+            var tbl = new AlarmDataSet.alarm_phone_queueDataTable();
+            string sql = "select * from alarm_phone_queue ";
+            sql += " where siteid = '" + siteid + "' and parameter = '" + parameter + "' ";
+                sql += " and status in ('new', 'unconfirmed')";
+
+            m_server.FillTable(tbl, sql);
+
+            return tbl;
+
+        }
         public AlarmDataSet.alarm_phone_queueDataTable GetAlarmQueue(bool everything = false)
         {
             var tbl = new AlarmDataSet.alarm_phone_queueDataTable();
@@ -159,23 +175,20 @@ namespace Reclamation.TimeSeries.Alarms
             AlarmDataSet.alarm_definitionRow row = alarm[0];
             // check alarm_condition for each value
 
-            string expr = @"\s*above\s*(?<val>[0-9.]+)";
-            Regex re = new Regex(expr);
+            AlarmRegex alarmEx = new AlarmRegex(row.alarm_condition);
 
-            if (re.IsMatch(row.alarm_condition))
+            if (alarmEx.IsMatch())
             {
-                string val = re.Match(row.alarm_condition).Groups["val"].Value;
-                double dvalue = Convert.ToDouble(val);
-
                 foreach (Point p in s)
                 {
                     if (!p.IsMissing)
                     {
-                        if (p.Value > dvalue)
-                        {// alarm
+                        if (alarmEx.IsAlarm(p.Value))
+                        {
+                       
                             Console.WriteLine("Alarm found");
-
                             CreateAlarm(row, p);
+                             return;
                         }
                     }
                 }
@@ -196,15 +209,19 @@ namespace Reclamation.TimeSeries.Alarms
         private void CreateAlarm(AlarmDataSet.alarm_definitionRow alarm,
                              Point pt)
         {
-            SendEmail(alarm, pt);
+            var tbl = GetAlarmQueue(alarm.siteid, alarm.parameter);
 
+            if (tbl.Rows.Count == 1)
+            {
+                Logger.WriteLine("Alarm already active in the queue: " + alarm.siteid + " " + alarm.parameter);
+                return;
+            }
+            
+            SendEmail(alarm, pt);
             //phone call by inserting into table alarm_queue
-            AlarmDataSet.alarm_phone_queueDataTable tbl = new alarm_phone_queueDataTable();
 
             var row = tbl.Newalarm_phone_queueRow();
-            tbl.Rows.Add(row);
             row.id = m_server.NextID("alarm_phone_queue", "id");
-
             row.list = alarm.list;
             row.siteid = alarm.siteid;
             row.parameter = alarm.parameter;
@@ -214,25 +231,25 @@ namespace Reclamation.TimeSeries.Alarms
             row.confirmed_by = "";
             row.event_time = pt.DateTime;
             row.priority = alarm.priority;
-
+            tbl.Rows.Add(row);
             m_server.SaveTable(tbl);
         }
 
         private void SendEmail(alarm_definitionRow alarm, Point pt)
         {
             // old:  Alarm condition at site WICEWS for parameter GH -- value = 0.43
-
-
-            var t = m_server.Table("select description from sitecatalog where siteid='" + alarm.siteid + "'");
-            var siteDescription = t.Rows[0][0].ToString();
+            var siteDescription = "";
+            var t = m_server.Table("sitecatalog","select description from sitecatalog where siteid='" + alarm.siteid + "'");
+            if( t.Rows.Count >0)
+               siteDescription = t.Rows[0][0].ToString();
 
             var parameterName = "";
-            t = m_server.Table("select name from parametercatalog where id='" + alarm.parameter + "' and timeinterval = 'Irregular'");
+            t = m_server.Table("parametercatalog","select name from parametercatalog where id='" + alarm.parameter + "' and timeinterval = 'Irregular'");
             if (t.Rows.Count > 0)
                 parameterName = t.Rows[0][0].ToString();
 
-            var subject = "Alarm Condition at" + siteDescription;
-            var body = "Alarm condition at site" + alarm.siteid;
+            var subject = "Alarm Condition at" + siteDescription+" "+alarm.siteid;
+            var body = "Alarm condition at site" + alarm.siteid + "   parameter = " + alarm.parameter;
 
             var emails = GetEmailList(alarm.list);
             SendEmail(emails, subject, body);
@@ -248,7 +265,15 @@ namespace Reclamation.TimeSeries.Alarms
                 msg.To.Add(item);
             }
 
-            msg.From = new MailAddress(ConfigurationManager.AppSettings["email_reply"]);
+            string reply = "";
+            if (ConfigurationManager.AppSettings["email_reply"] != null)
+                reply = ConfigurationManager.AppSettings["email_reply"];
+            if (reply == "")
+            {
+                Console.WriteLine("");
+                return;
+            }
+            msg.From = new MailAddress(reply);
             msg.Subject = subject;
             msg.Body = body;
             msg.IsBodyHtml = true;
@@ -263,23 +288,24 @@ namespace Reclamation.TimeSeries.Alarms
             Logger.WriteLine("message sent ");
             Logger.WriteLine(body);
         }
-        public alarm_definitionDataTable GetAlarmDefinition(string siteid = "", string parameter = "")
+        public alarm_definitionDataTable GetAlarmDefinition()
+        {
+            var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
+            var sql = "select * from alarm_definition ";
+            m_server.FillTable(alarm_definition, sql);
+            alarm_definition.idColumn.AutoIncrementSeed = m_server.NextID("alarm_definition", "id");
+            return alarm_definition;
+        }
+        public alarm_definitionDataTable GetAlarmDefinition(string siteid, string parameter)
         {
             var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
 
-            if (siteid != "" && parameter != "")
-            {
-                siteid = PostgreSQL.SafeSqlLikeClauseLiteral(siteid);
-                parameter = SqlServer.SafeSqlLikeClauseLiteral(parameter);
-                var sql = "select * from alarm_definition where siteid='" + siteid + "'"
-                        + " and parameter ='" + parameter + "'";
-                // select * from alarm_defintion where siteid='jck'
-                m_server.FillTable(alarm_definition, sql);
-            }
-            else
-            {
-                m_server.FillTable(alarm_definition);
-            }
+            siteid = PostgreSQL.SafeSqlLikeClauseLiteral(siteid);
+            parameter = SqlServer.SafeSqlLikeClauseLiteral(parameter);
+            var sql = "select * from alarm_definition where siteid='" + siteid + "'"
+                    + " and parameter ='" + parameter + "'";
+            m_server.FillTable(alarm_definition, sql);
+
             alarm_definition.idColumn.AutoIncrementSeed = m_server.NextID("alarm_definition", "id");
             return alarm_definition;
 
