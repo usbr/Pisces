@@ -83,7 +83,6 @@ namespace Reclamation.TimeSeries.Forms
             this.menuDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.menuCalculate = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuDuplicate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.menuProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.DataMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -187,11 +186,10 @@ namespace Reclamation.TimeSeries.Forms
             this.menuDelete,
             this.toolStripSeparator5,
             this.menuCalculate,
-            this.menuDuplicate,
             this.toolStripSeparator4,
             this.menuProperties});
             this.contextMenuStripTree.Name = "contextMenuStripTree";
-            this.contextMenuStripTree.Size = new System.Drawing.Size(153, 264);
+            this.contextMenuStripTree.Size = new System.Drawing.Size(153, 242);
             // 
             // toolStripMenuItem2
             // 
@@ -560,13 +558,6 @@ namespace Reclamation.TimeSeries.Forms
             this.menuCalculate.Size = new System.Drawing.Size(152, 22);
             this.menuCalculate.Text = "Calculate...";
             this.menuCalculate.Click += new System.EventHandler(this.CalculateClick);
-            // 
-            // menuDuplicate
-            // 
-            this.menuDuplicate.Name = "menuDuplicate";
-            this.menuDuplicate.Size = new System.Drawing.Size(152, 22);
-            this.menuDuplicate.Text = "Duplicate...";
-            this.menuDuplicate.Click += new System.EventHandler(this.DuplicateClick);
             // 
             // toolStripSeparator4
             // 
@@ -1006,7 +997,6 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem createTemplateFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importUsingTemplateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAlarmManager;
-        private System.Windows.Forms.ToolStripMenuItem menuDuplicate;
         //private System.Windows.Forms.ToolStripMenuItem menuUpdate;
 
     }

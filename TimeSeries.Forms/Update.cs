@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Reclamation.TimeSeries.Forms
 {
-    public enum SeriesProcess { Update, Calculate, Duplicate };
+    public enum SeriesProcess { Update, Calculate };
     public partial class Update : Form
     {
         SeriesProcess process;

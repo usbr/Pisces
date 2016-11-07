@@ -586,7 +586,6 @@ namespace Reclamation.TimeSeries.Forms
             menuProperties.Enabled = singleSelection;
             menuClear.Enabled = singleSeriesSelected;
             menuCalculate.Enabled = isCalculation && anySelected;
-            menuDuplicate.Enabled = isCalculation && !folderSelected && singleSeriesSelected;
 
         }
 
@@ -825,30 +824,6 @@ namespace Reclamation.TimeSeries.Forms
             DrawBasedOnTreeSelection();
         }
 
-
-        /// <summary>
-        /// Duplicate Selected Series
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DuplicateClick(object sender, EventArgs e)
-        {
-            Series[] list = tree1.GetSelectedSeries();
-            if (list.Length == 1)
-            {
-                ProcessSelectedSeries(SeriesProcess.Duplicate, list);
-            }
-            else
-            {
-                MessageBox.Show("Please select a single Series to duplicate.");
-                ClearDisplay();
-                return;
-            }
-
-            DrawBasedOnTreeSelection();
-        }
-
-
         /// <summary>
         /// Update Selected Series or folders
         /// Enabled only for Series or Folders selected NOT both at the
@@ -901,67 +876,37 @@ namespace Reclamation.TimeSeries.Forms
 
             try
             {
-                ShowAsBusy("");
                 Update u = new Update(t1, t2, process);
-                Logger.WriteLine(process + " t1 = " + u.T1 + " t2= " + u.T2);
 
-                switch (process)
+                if (u.ShowDialog() == DialogResult.OK)
                 {
-                    case SeriesProcess.Update:
-                        if (u.ShowDialog() == DialogResult.OK)
+                    ShowAsBusy("");
+                    Logger.WriteLine(process + " t1 = " + u.T1 + " t2= " + u.T2);
+                    for (int i = 0; i < list.Length; i++)
+                    {
+                        Logger.WriteLine(process.ToString() + " " + list[i].Name);
+                        Application.DoEvents();
+
+                        if (process == SeriesProcess.Update && !(list[i] is CalculationSeries))
                         {
-                            foreach (Series s in list)
-                            {
-                                Logger.WriteLine(process.ToString() + " " + s.Name);
-                                Application.DoEvents();
-
-                                if (!(s is CalculationSeries))
-                                    s.Update(u.T1, u.T2);
-                            }
+                            list[i].Update(u.T1, u.T2);
                         }
-                        break;
-                    case SeriesProcess.Calculate:
-                        if (u.ShowDialog() == DialogResult.OK)
+                        if (process == SeriesProcess.Calculate || list[i] is CalculationSeries)
                         {
-                            foreach (Series s in list)
-                            {
-                                Logger.WriteLine(process.ToString() + " " + s.Name);
-                                Application.DoEvents();
+                            var cs = list[i] as CalculationSeries;
+                            if (DB.Settings.ReadBoolean("HydrometVariableResolver", false))
+                            { // this reads data from hydromet server, over http, instead of 'this' database
+                                var svr = HydrometInfoUtility.HydrometServerFromPreferences();
+                                cs.Parser.VariableResolver = new HydrometVariableResolver(svr);
 
-                                if (s is CalculationSeries)
-                                {
-                                    var cs = s as CalculationSeries;
-                                    if (DB.Settings.ReadBoolean("HydrometVariableResolver", false))
-                                    { // this reads data from hydromet server, over http, instead of 'this' database
-                                        var svr = HydrometInfoUtility.HydrometServerFromPreferences();
-                                        cs.Parser.VariableResolver = new HydrometVariableResolver(svr);
-                                    }
-
-                                    if (u.FullPeriodOfRecord)
-                                        cs.Calculate();
-                                    else
-                                        cs.Calculate(u.T1, u.T2);
-                                }
                             }
-                        }
-                        break;
-                    case SeriesProcess.Duplicate:
-                        foreach (Series s in list)
-                        {
-                            Application.DoEvents();
 
-                            if (s is CalculationSeries)
-                            {
-                                var cs = new CalculationSeries(DB.GetUniqueTableName(s.Name));
-                                cs.Expression = s.Expression;
-                                cs.TimeInterval = s.TimeInterval;
-                                cs.Units = s.Units;
-                                DB.AddSeries(cs);
-                            }
+                            if (u.FullPeriodOfRecord)
+                                cs.Calculate();
+                            else
+                                cs.Calculate(u.T1, u.T2);
                         }
-                        break;
-                    default:
-                        break;
+                    }
                 }
             }
             catch (Exception e)
