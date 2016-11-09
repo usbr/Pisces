@@ -340,9 +340,11 @@ namespace Reclamation.Core
             {
                 var newRow = rval.NewRow();
                 var row = sheet.GetRow(rowIndex);
-                int colCount = Math.Min( row.LastCellNum,rval.Columns.Count );
+                int colCount = 0;
+                if( row != null)
+                    colCount = Math.Min(row.LastCellNum, rval.Columns.Count);
 
-                for (int c = 0; row != null && c < colCount ; c++)
+                for (int c = 0;  c < colCount ; c++)
                 {
                     var cell = row.GetCell(c);
                      
