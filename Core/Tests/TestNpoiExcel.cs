@@ -38,6 +38,20 @@ namespace Reclamation.Core.Tests
 
         }
 
+        [Test]
+        public void NpoiReadIntoDataTable()
+        {
+            var fn = Path.Combine(Globals.TestDataPath, "RunningFDR 5ft 2005 Present.xlsx");
+
+            DataTable template = new DataTable("watertemp");
+            template.Columns.Add("DateTime", typeof(DateTime));
+            template.Columns.Add("temp", typeof(double));
+
+            NpoiExcel xls = new NpoiExcel(fn);
+            var tbl = xls.ReadDataTable(0, template,true);
+            Assert.AreEqual(63367, tbl.Rows.Count);
+
+        }
 
         [Test]
         public void Test2()

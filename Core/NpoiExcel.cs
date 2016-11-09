@@ -284,6 +284,33 @@ namespace Reclamation.Core
             return ReadTable(sheet,hasColumnNames,  allText);
         }
 
+        /// <summary>
+        /// Converts a sheet to a DataTable,
+        /// </summary>
+        /// <param name="sheetName"></param>
+        /// <param name="template">data columns name and type for the returned datatable</param>
+        /// <returns></returns>
+        public DataTable ReadDataTable(string sheetName, DataTable template,bool skipFirstRow=false)
+        {
+            var sheet = npoi_workbook.GetSheet(sheetName);
+            var tbl = template.Copy();
+            ReadIntoDataTable(sheet,tbl, (skipFirstRow? 1: 0));
+            return tbl;
+        }
+        /// <summary>
+        /// Converts a sheet to a DataTable,
+        /// </summary>
+        /// <param name="sheetName"></param>
+        /// <param name="template">data columns name and type for the returned datatable</param>
+        /// <returns></returns>
+        public DataTable ReadDataTable(int sheetIndex, DataTable template, bool skipFirstRow=false)
+        {
+            var sheet = npoi_workbook.GetSheetAt(sheetIndex); 
+
+            var tbl = template.Copy();
+            ReadIntoDataTable(sheet,tbl, (skipFirstRow? 1: 0));
+            return tbl;
+        }
         public DataTable ReadDataTable(string sheetName, bool hasColumnNames = false, bool allText = false)
         {
             
@@ -297,37 +324,43 @@ namespace Reclamation.Core
             DataTable rval = new DataTable(sheet.SheetName);
             // get column names, in first row, estimate datatype by second row.
             
-
             SetupColumnNames(sheet,hasColumnNames, allText, rval);
             int startIndex = 0;
 
             if (hasColumnNames)
                 startIndex = 1;
 
-            for (int i = startIndex; i <= sheet.LastRowNum; i++)
+            ReadIntoDataTable(sheet, rval, startIndex);
+            return rval;
+        }
+
+        private void ReadIntoDataTable(ISheet sheet, DataTable rval, int startIndex=0)
+        {
+            for (int rowIndex = startIndex; rowIndex <= sheet.LastRowNum; rowIndex++)
             {
                 var newRow = rval.NewRow();
-                var row = sheet.GetRow(i);
-                for (int c = 0; row!= null && c < row.LastCellNum ; c++)
+                var row = sheet.GetRow(rowIndex);
+                int colCount = Math.Min( row.LastCellNum,rval.Columns.Count );
+
+                for (int c = 0; row != null && c < colCount ; c++)
                 {
                     var cell = row.GetCell(c);
-                    Type t = typeof( string);
+                     
                     if (c < rval.Columns.Count)
                     {
-                        t = rval.Columns[c].DataType;
                         if (cell == null)
                         {
                             newRow[c] = DBNull.Value;
                         }
                         else
                         {
+                            Type t = rval.Columns[c].DataType;
                             newRow[c] = GetCellValue(cell, t);
                         }
                     }
                 }
-                rval.Rows.Add(newRow);
+               rval.Rows.Add(newRow);
             }
-            return rval;
         }
 
         /// <summary>
@@ -452,7 +485,14 @@ namespace Reclamation.Core
                 //return cell.StringCellValue;
             }
             if (t == typeof(DateTime))
+            {
+
+                if( cell.CellType == CellType.String)
+                {// convert from String
+                    return Convert.ToDateTime(cell.StringCellValue);
+                }
                 return cell.DateCellValue;
+            }
 
             return cell.StringCellValue;
         }
