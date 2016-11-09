@@ -1892,5 +1892,36 @@ UNION ALL
                 return m_alarmDS;
             }
         }
+
+
+        public void ImportDirectory(string path)
+        {
+            var files = FileUtility.GetFilesRecursive(path);
+
+            SuspendTreeUpdates();
+            try
+            {
+                for (int i = 0; i < files.Length; i++)
+                {
+                    TextSeries s = new TextSeries(files[i]);
+                    s.Read();
+                    s.Name = Path.GetFileNameWithoutExtension(files[i]);
+                    AddSeries(s);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                ResumeTreeUpdates();
+                
+            }
+
+            
+        }
+
+
     }
 }

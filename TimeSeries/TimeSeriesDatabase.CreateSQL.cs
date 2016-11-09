@@ -388,14 +388,6 @@ namespace Reclamation.TimeSeries
         //    ExecuteCreateTable(m_server, sql);
         //}
 
-
-
-
-
-
-
-
-
        
     }
 }

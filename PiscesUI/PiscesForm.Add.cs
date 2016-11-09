@@ -1097,6 +1097,30 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
+        private void importFromDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                DB.SuspendTreeUpdates();
+                FolderBrowserDialog dlg = new FolderBrowserDialog();
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    DB.ImportDirectory(dlg.SelectedPath);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                DB.ResumeTreeUpdates();
+            }
+
+          
+        }
 
     }
 }
