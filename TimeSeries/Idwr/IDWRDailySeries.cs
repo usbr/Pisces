@@ -124,8 +124,8 @@ namespace Reclamation.TimeSeries.Hydromet
                 urlDate = urlDate + "," + station + "." + year1;
                 year1++;
             }
-            string url = "http://maps.idwr.idaho.gov/qWRAccounting/WRA_Download.aspx?req="
-                + urlDate + "&datatypedatatype=HST&calendartype=" + calendarType + "&file=CSV";
+            string url = "https://maps.idwr.idaho.gov/qWRAccounting/WRA_Download.aspx?req="
+                + urlDate + "&datatype=HST&calendartype=" + calendarType + "&file=CSV";
             var data = Web.GetPage(url);
             if (data[0] == "")
             { throw new ArgumentException("Unexpected IDWR Database Error: Try Again Later"); }
