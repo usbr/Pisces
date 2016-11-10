@@ -1894,33 +1894,39 @@ UNION ALL
         }
 
 
-        public void ImportDirectory(string path)
+        /// <summary>
+        /// Imports all files recursively 
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="fileFilter">filter such as *.csv</param>
+        public void ImportDirectory(string path, string fileFilter)
         {
-            var files = FileUtility.GetFilesRecursive(path);
-
+            var files = Directory.GetFiles(path, fileFilter, SearchOption.AllDirectories);
             SuspendTreeUpdates();
-            try
+
+            for (int i = 0; i < files.Length; i++)
             {
-                for (int i = 0; i < files.Length; i++)
+                try
                 {
+                    Logger.WriteLine("importing [" + i + "] --> " + files[i], "ui");
                     TextSeries s = new TextSeries(files[i]);
                     s.Read();
                     s.Name = Path.GetFileNameWithoutExtension(files[i]);
                     AddSeries(s);
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                ResumeTreeUpdates();
-                
-            }
-
             
+            ResumeTreeUpdates();
         }
+    
+  
+                
+            
+        
 
 
     }

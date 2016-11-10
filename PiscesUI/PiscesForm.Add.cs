@@ -1102,11 +1102,28 @@ namespace Reclamation.TimeSeries.Forms
 
             try
             {
+
                 DB.SuspendTreeUpdates();
+                var path = UserPreference.Lookup("bulk_import_folder");
+                
                 FolderBrowserDialog dlg = new FolderBrowserDialog();
+                if (Directory.Exists(path))
+                {
+                    dlg.SelectedPath = path;
+                }
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    DB.ImportDirectory(dlg.SelectedPath);
+                    UserPreference.Save("bulk_import_folder",dlg.SelectedPath);
+                    BulkImportForm f = new BulkImportForm();
+                    f.ImportClick += delegate {
+                        DB.ImportDirectory(f.SelectedPath, f.Filter);
+                    };
+                    f.SelectedPath = dlg.SelectedPath;
+                    
+                    if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        
+                    }
 
                 }
             }
@@ -1120,6 +1137,11 @@ namespace Reclamation.TimeSeries.Forms
             }
 
           
+        }
+
+        void f_ImportClick(object sender, EventArgs e)
+        {
+
         }
 
     }

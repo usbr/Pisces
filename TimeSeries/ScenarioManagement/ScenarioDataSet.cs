@@ -84,7 +84,7 @@ namespace Reclamation.TimeSeries.ScenarioManagement {
                     db.Server.SaveTable(sc);
                 }
                 else
-                { // if this series allready exists (for another scenario)
+                { // if this series already exists (for another scenario)
                   // only save the TableData
                     s.Table.Columns[0].ColumnName = "datetime";
                     s.Table.Columns[1].ColumnName = "value";

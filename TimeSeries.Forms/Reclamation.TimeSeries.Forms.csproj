@@ -251,6 +251,12 @@
     <Compile Include="Alarms\SoundFiles.Designer.cs">
       <DependentUpon>SoundFiles.cs</DependentUpon>
     </Compile>
+    <Compile Include="BulkImportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BulkImportForm.Designer.cs">
+      <DependentUpon>BulkImportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Calculations\BasicEquation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -726,6 +732,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Alarms\SoundFiles.resx">
       <DependentUpon>SoundFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BulkImportForm.resx">
+      <DependentUpon>BulkImportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Calculations\BasicEquation.resx">
       <DependentUpon>BasicEquation.cs</DependentUpon>
