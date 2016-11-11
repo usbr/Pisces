@@ -1119,11 +1119,9 @@ namespace Reclamation.TimeSeries.Forms
                         DB.ImportDirectory(f.SelectedPath, f.Filter);
                     };
                     f.SelectedPath = dlg.SelectedPath;
-                    
-                    if (f.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        
-                    }
+
+                    f.ShowDialog();
+                    DatabaseChanged();
 
                 }
             }
