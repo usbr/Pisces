@@ -1899,7 +1899,7 @@ UNION ALL
         /// </summary>
         /// <param name="path"></param>
         /// <param name="fileFilter">filter such as *.csv</param>
-        public void ImportDirectory(string path, string fileFilter)
+        public void ImportDirectory(string path, string fileFilter, string regexFilter)
         {
             var files = Directory.GetFiles(path, fileFilter, SearchOption.AllDirectories);
             SuspendTreeUpdates();
@@ -1908,11 +1908,11 @@ UNION ALL
             {
                 try
                 {
-                    Logger.WriteLine("importing [" + i + "] --> " + files[i], "ui");
                     TextSeries s = new TextSeries(files[i]);
                     s.Read();
                     s.Name = Path.GetFileNameWithoutExtension(files[i]);
                     AddSeries(s);
+                    Logger.WriteLine("importing [" + i + "] --> " + files[i], "ui");
                 }
                 catch (Exception ex)
                 {

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Reclamation.TimeSeries.Forms
@@ -60,25 +61,63 @@ namespace Reclamation.TimeSeries.Forms
             set { linkLabelSelectDirectory.Text = value; }
         }
 
+
         private void buttonApplyFilter_Click(object sender, EventArgs e)
         {
             if (!Directory.Exists(SelectedPath))
                 return;
 
             var files = Directory.GetFiles(SelectedPath, this.textBoxFilter.Text, SearchOption.AllDirectories);
-
-            this.dataGridView1.Columns.Clear();
-            dataGridView1.Columns.Add("status", "status");
             
+            this.dataGridView1.Columns.Clear();
+            if (this.comboBoxRegex.Text.Trim() == "")
+                SetupGridBasic(files);
+            else
+                SetupGridRegex(files);
+            if (files.Length > 0)
+                buttonImport.Enabled = true;
+        }
+
+        private void SetupGridBasic(string[] files)
+        {
+            dataGridView1.Columns.Add("status", "status");
             dataGridView1.Columns.Add("filename", "filename");
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             for (int i = 0; i < files.Length; i++)
             {
-                dataGridView1.Rows.Add(new object[]{"",files[i]});
+                dataGridView1.Rows.Add(new object[] { "", files[i] });
             }
+        }
 
-            if (files.Length > 0)
-                buttonImport.Enabled = true;
+        private void SetupGridRegex(string[] files)
+        {
+            Regex re = new Regex(comboBoxRegex.Text, RegexOptions.IgnoreCase);
+            dataGridView1.Columns.Add("status", "status");
+            dataGridView1.Columns.Add("scenario", "scenario");
+            dataGridView1.Columns.Add("siteid", "siteid");
+            dataGridView1.Columns.Add("filename", "filename");
+            dataGridView1.Columns["filename"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            string scenario ="";
+            string siteid = "";
+            for (int i = 0; i < files.Length; i++)
+            {
+                if (re.IsMatch(files[i]))
+                {
+                    var m = re.Matches(files[i])[0];
+                    
+                    if( re.GetGroupNames().Contains("scenario"))
+                    {
+                        scenario = m.Groups["scenario"].Value;
+                    }
+
+                    if (re.GetGroupNames().Contains("siteid"))
+                    {
+                        siteid = m.Groups["siteid"].Value;
+                    }
+
+                    dataGridView1.Rows.Add(new object[] { "",scenario,siteid, files[i] });
+                }
+            }
         }
 
         public string Filter
@@ -86,6 +125,12 @@ namespace Reclamation.TimeSeries.Forms
             get {return this.textBoxFilter.Text ;}
             set {this.textBoxFilter.Text = value;}
         }
+
+        public string RegexFilter
+        {
+            get { return this.comboBoxRegex.Text; }
+        }
+
 
         private void buttonImport_Click(object sender, EventArgs e)
         {
@@ -99,6 +144,11 @@ namespace Reclamation.TimeSeries.Forms
         private void BulkImportForm_Load(object sender, EventArgs e)
         {
             buttonApplyFilter_Click(this, EventArgs.Empty);
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("http://regexstorm.net/");
         }
     }
 }

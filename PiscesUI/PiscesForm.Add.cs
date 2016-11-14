@@ -1083,7 +1083,7 @@ namespace Reclamation.TimeSeries.Forms
                 DB.SuspendTreeUpdates();
                 if (openExcelDialog.ShowDialog() == DialogResult.OK)
                 {
-                    BulkImport.Import(DB, openExcelDialog.FileName);
+                    BulkImportExcelControlFile.Import(DB, openExcelDialog.FileName);
                     DatabaseChanged();
                 }
             }
@@ -1116,7 +1116,7 @@ namespace Reclamation.TimeSeries.Forms
                     UserPreference.Save("bulk_import_folder",dlg.SelectedPath);
                     BulkImportForm f = new BulkImportForm();
                     f.ImportClick += delegate {
-                        DB.ImportDirectory(f.SelectedPath, f.Filter);
+                        DB.ImportDirectory(f.SelectedPath, f.Filter,f.RegexFilter);
                     };
                     f.SelectedPath = dlg.SelectedPath;
 

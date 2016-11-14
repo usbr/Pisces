@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Reclamation.TimeSeries.Import
 {
-    public static class BulkImport
+    public static class BulkImportExcelControlFile
     {
 
         /// <summary>
