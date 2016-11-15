@@ -1,4 +1,5 @@
 ﻿using Reclamation.Core;
+using Reclamation.TimeSeries.Import;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +8,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Reclamation.TimeSeries.Forms
@@ -67,14 +67,13 @@ namespace Reclamation.TimeSeries.Forms
             if (!Directory.Exists(SelectedPath))
                 return;
 
-            var files = Directory.GetFiles(SelectedPath, this.textBoxFilter.Text, SearchOption.AllDirectories);
-            
+            DirectoryScanner di = new DirectoryScanner(SelectedPath, this.textBoxFilter.Text, this.comboBoxRegex.Text);
             this.dataGridView1.Columns.Clear();
             if (this.comboBoxRegex.Text.Trim() == "")
-                SetupGridBasic(files);
+                SetupGridBasic(di.Files);
             else
-                SetupGridRegex(files);
-            if (files.Length > 0)
+                SetupGridRegex(di);
+            if (di.Files.Length > 0)
                 buttonImport.Enabled = true;
         }
 
@@ -89,34 +88,18 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
-        private void SetupGridRegex(string[] files)
+        private void SetupGridRegex(DirectoryScanner di )
         {
-            Regex re = new Regex(comboBoxRegex.Text, RegexOptions.IgnoreCase);
             dataGridView1.Columns.Add("status", "status");
             dataGridView1.Columns.Add("scenario", "scenario");
             dataGridView1.Columns.Add("siteid", "siteid");
             dataGridView1.Columns.Add("filename", "filename");
             dataGridView1.Columns["filename"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            string scenario ="";
-            string siteid = "";
-            for (int i = 0; i < files.Length; i++)
+            for (int i = 0; i < di.Files.Length; i++)
             {
-                if (re.IsMatch(files[i]))
-                {
-                    var m = re.Matches(files[i])[0];
-                    
-                    if( re.GetGroupNames().Contains("scenario"))
-                    {
-                        scenario = m.Groups["scenario"].Value;
-                    }
-
-                    if (re.GetGroupNames().Contains("siteid"))
-                    {
-                        siteid = m.Groups["siteid"].Value;
-                    }
-
-                    dataGridView1.Rows.Add(new object[] { "",scenario,siteid, files[i] });
-                }
+              dataGridView1.Rows.Add(new object[] { "",di.Scenario[i],
+                                                     di.Siteid[i], 
+                                                     di.Files[i] });
             }
         }
 

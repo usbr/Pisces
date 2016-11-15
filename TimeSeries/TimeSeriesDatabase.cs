@@ -10,6 +10,7 @@ using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.Series
 using System.Windows.Forms;
 using Reclamation.TimeSeries.Parser;
 using Reclamation.TimeSeries.Alarms;
+using Reclamation.TimeSeries.Import;
 
 namespace Reclamation.TimeSeries
 {
@@ -1901,18 +1902,52 @@ UNION ALL
         /// <param name="fileFilter">filter such as *.csv</param>
         public void ImportDirectory(string path, string fileFilter, string regexFilter)
         {
-            var files = Directory.GetFiles(path, fileFilter, SearchOption.AllDirectories);
             SuspendTreeUpdates();
 
-            for (int i = 0; i < files.Length; i++)
+            DirectoryScanner ds = new DirectoryScanner(path, fileFilter, regexFilter);
+            var scenarios = this.GetScenarios();
+
+            int scenarioNumber = 1;
+            foreach (var scenario in ds.UniqueScenarios())
+            {
+                if( scenario != "")
+                  scenarios.AddScenarioRow(scenario, false, scenarioNumber.ToString(), 0);
+            }
+
+            this.Server.SaveTable(scenarios);
+
+            for (int i = 0; i < ds.Files.Length; i++)
             {
                 try
                 {
-                    TextSeries s = new TextSeries(files[i]);
+                    TextSeries s = new TextSeries(ds.Files[i]);
                     s.Read();
-                    s.Name = Path.GetFileNameWithoutExtension(files[i]);
-                    AddSeries(s);
-                    Logger.WriteLine("importing [" + i + "] --> " + files[i], "ui");
+                    s.Name = ds.Siteid[i];
+                    s.ConnectionString = "ScenarioName=" + ds.Scenario[i]; ;
+                    s.SiteID = ds.Siteid[i];
+                    if (scenarios.Count > 0)
+                        s.Table.TableName = (ds.Siteid[i] + "_" + ds.Scenario[i]).ToLower();
+                    else
+                        s.Table.TableName = Path.GetFileNameWithoutExtension(ds.Files[i]);
+
+                    if (GetSeriesFromName(ds.Siteid[i]) == null)
+                    {
+                        int id = AddSeries(s);
+                        var sc = GetSeriesCatalog("id =" + id);
+                        // alter entry in database to remove scenario postfix from table name
+                        sc.Rows[0]["tablename"] = ds.Siteid[i];
+                        Server.SaveTable(sc);
+                    }
+                    else
+                    { // if this series already exists (for another scenario)
+                        // only save the TableData
+                        s.Table.Columns[0].ColumnName = "datetime";
+                        s.Table.Columns[1].ColumnName = "value";
+                        CreateSeriesTable(s.Table.TableName, false);
+                        Server.InsertTable(s.Table);
+                    }
+
+                    Logger.WriteLine("importing [" + i + "] --> " + ds.Files[i], "ui");
                 }
                 catch (Exception ex)
                 {

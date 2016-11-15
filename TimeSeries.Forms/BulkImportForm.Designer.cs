@@ -81,8 +81,8 @@
             // 
             this.comboBoxRegex.FormattingEnabled = true;
             this.comboBoxRegex.Items.AddRange(new object[] {
-            "C:\\\\TEMP\\\\UWdata\\\\AllData\\\\(?<scenario>[a-z_0-9]+)-(?<siteid>[a-z]+)-biascorrecte" +
-                "d_streamflow-provisional_0.5.csv"});
+            "C:\\\\TEMP\\\\UWdata\\\\AllData\\\\(?<scenario>[-a-z_0-9]+)-(?<siteid>[a-z0-9]+)-biascorrect" +
+                "ed_streamflow-provisional_0.5.csv"});
             this.comboBoxRegex.Location = new System.Drawing.Point(98, 74);
             this.comboBoxRegex.Name = "comboBoxRegex";
             this.comboBoxRegex.Size = new System.Drawing.Size(572, 21);
