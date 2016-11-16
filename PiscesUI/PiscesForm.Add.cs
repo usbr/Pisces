@@ -1116,7 +1116,7 @@ namespace Reclamation.TimeSeries.Forms
                     UserPreference.Save("bulk_import_folder",dlg.SelectedPath);
                     BulkImportForm f = new BulkImportForm();
                     f.ImportClick += delegate {
-                        DB.ImportDirectory(f.SelectedPath, f.Filter,f.RegexFilter);
+                        BulkImportDirectory.Import(DB,f.SelectedPath, f.Filter,f.RegexFilter);
                     };
                     f.SelectedPath = dlg.SelectedPath;
 

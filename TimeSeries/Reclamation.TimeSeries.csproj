@@ -321,6 +321,7 @@
     <Compile Include="HDB\HDBSeries.cs" />
     <Compile Include="Import\BulkImportExcelControlFile.cs" />
     <Compile Include="Import\DirectoryScanner.cs" />
+    <Compile Include="Import\BulkImportDirectory.cs" />
     <Compile Include="RatingTables\BasicMeasurement.cs" />
     <Compile Include="Profile\WaterProfileDatabase.cs" />
     <Compile Include="RatingTables\Hydrography.cs" />
