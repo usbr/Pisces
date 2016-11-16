@@ -38,9 +38,29 @@ namespace Reclamation.TimeSeries.Import
         Regex re = null;
         public DirectoryScanner(string path, string filter, string regexPattern)
         {
-          m_files = Directory.GetFiles(path, filter, SearchOption.AllDirectories);
-          m_scenario = Enumerable.Repeat<string>("", m_files.Length).ToArray();
-          m_siteid = Enumerable.Repeat<string>("",m_files.Length).ToArray();
+            var dirs = new List<string>{path};
+            dirs.AddRange(Directory.EnumerateDirectories(path, "*"));
+
+            var files = new List<string>();
+            foreach (var dir in dirs)
+            {
+                try
+                {
+                    files.AddRange(Directory.EnumerateFiles(dir, filter, SearchOption.AllDirectories));
+                }
+                catch (UnauthorizedAccessException UAEx)
+                {
+                    continue;
+                }
+                catch (PathTooLongException PathEx)
+                {
+                    continue;
+                }
+            }
+
+            m_files = files.ToArray();
+            m_scenario = Enumerable.Repeat<string>("", m_files.Length).ToArray();
+            m_siteid = Enumerable.Repeat<string>("", m_files.Length).ToArray();
 
             if( regexPattern != "")
             {
