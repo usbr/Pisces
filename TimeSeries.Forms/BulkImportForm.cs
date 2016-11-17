@@ -52,6 +52,7 @@ namespace Reclamation.TimeSeries.Forms
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 this.linkLabelSelectDirectory.Text = dlg.SelectedPath;
+                buttonApplyFilter_Click(this, EventArgs.Empty);
             }
         }
 
