@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reclamation.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -48,12 +49,9 @@ namespace Reclamation.TimeSeries.Import
                 {
                     files.AddRange(Directory.EnumerateFiles(dir, filter, SearchOption.AllDirectories));
                 }
-                catch (UnauthorizedAccessException UAEx)
+                catch (Exception ex)
                 {
-                    continue;
-                }
-                catch (PathTooLongException PathEx)
-                {
+                    Logger.WriteLine(ex.Message, "ui");
                     continue;
                 }
             }
@@ -82,7 +80,7 @@ namespace Reclamation.TimeSeries.Import
                     
                     if (re.GetGroupNames().Contains("scenario"))
                     {
-                        m_scenario[i] = m.Groups["scenario"].Value;
+                        m_scenario[i] = TimeSeriesDatabase.SafeTableName(m.Groups["scenario"].Value);
                     }
                     
                     if (re.GetGroupNames().Contains("siteid"))

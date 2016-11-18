@@ -15,10 +15,10 @@ namespace Reclamation.TimeSeries.Import
         /// </summary>
         /// <param name="path"></param>
         /// <param name="fileFilter">filter such as *.csv</param>
-        public static void Import(TimeSeriesDatabase db,string path, string fileFilter, string regexFilter)
+        public static void Import(TimeSeriesDatabase db,string path, string fileFilter, string scenarioRegex)
         {
 
-            DirectoryScanner ds = new DirectoryScanner(path, fileFilter, regexFilter);
+            DirectoryScanner ds = new DirectoryScanner(path, fileFilter, scenarioRegex);
             var scenarios = db.GetScenarios();
 
             int scenarioNumber = 1;
@@ -36,13 +36,22 @@ namespace Reclamation.TimeSeries.Import
                 {
                     TextSeries s = new TextSeries(ds.Files[i]);
                     s.Read();
-                    s.Name = ds.Siteid[i];
-                    s.ConnectionString = "ScenarioName=" + ds.Scenario[i]; ;
-                    s.SiteID = ds.Siteid[i];
-                    if (scenarios.Count > 0)
+                    
+                    if (scenarioRegex != "")
+                    {
+                        s.Name = ds.Siteid[i];
+                        s.ConnectionString = "ScenarioName=" + ds.Scenario[i];
+                        s.SiteID = ds.Siteid[i];
                         s.Table.TableName = (ds.Siteid[i] + "_" + ds.Scenario[i]).ToLower();
+                    }
                     else
-                        s.Table.TableName = Path.GetFileNameWithoutExtension(ds.Files[i]);
+                    {
+                        var name = TimeSeriesDatabase.SafeTableName(Path.GetFileNameWithoutExtension(ds.Files[i]));
+                        s.Name = name;
+                        s.SiteID = name;
+                        s.Table.TableName = name;
+                        ds.Siteid[i] = name;
+                    }
 
                     if (db.GetSeriesFromName(ds.Siteid[i]) == null)
                     {

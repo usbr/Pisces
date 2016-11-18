@@ -29,7 +29,7 @@ namespace Pisces.NunitTests.Import
           BasicDBServer svr = new SQLiteServer(@"c:\temp\import_dir.pdb");
           TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
           BulkImportDirectory.Import(db,dir, "*.csv", 
-@"C:\\TEMP\\UWdata\\AllData\\(?<scenario>[-a-z_0-9]+)-(?<siteid>[a-z0-9]+)-biascorrected_streamflow-provisional_0\.5\.csv");
+@".+AllData\\(?<scenario>[-a-z_0-9]+)-(?<siteid>[a-z0-9]+)-biascorrected_streamflow");
              
         }
   
