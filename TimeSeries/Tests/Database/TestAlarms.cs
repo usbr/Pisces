@@ -33,7 +33,8 @@ namespace Pisces.NunitTests.Database
                 "5272", "office", "hydromet@usbr.gov");
             ds.SaveTable(ds.alarm_recipient);
 
-            TextSeries s = new TextSeries(Path.Combine(TestData.DataPath, "alarms", "pal_fb.csv"));
+            String file = Path.Combine(TestData.DataPath, "alarms", "pal_fb.csv");
+            TextSeries s = new TextSeries(file);
             //TO DO .. read flags
             
             s.Parameter = "fb";
@@ -53,32 +54,38 @@ namespace Pisces.NunitTests.Database
         {
             AlarmRegex re = new AlarmRegex("above 4198.20");
 
-            Assert.IsFalse(re.IsAlarm(1.0));
+            Assert.IsTrue(re.AlarmConditions()[0].Condition == AlarmType.Above);
 
-            Assert.IsFalse(re.IsAlarm(4198.20));
+            //Assert.IsFalse(re.IsAlarm(1.0));
 
-            Assert.IsTrue(re.IsAlarm(5000.1));
+            //Assert.IsFalse(re.IsAlarm(4198.20));
+
+            //Assert.IsTrue(re.IsAlarm(5000.1));
         }
         [Test]
         public void Below()
         {
             AlarmRegex re = new AlarmRegex("below 4198.20");
 
-           // Assert.IsTrue( re.IsAlarm( 1.0));
+            Assert.IsTrue(re.AlarmConditions().Length == 1);
+            var c = re.AlarmConditions()[0];
+            Assert.AreEqual(4198.20, c.Value);
+            Assert.AreEqual(AlarmType.Below, c.Condition);
+
         }
         [Test]
         public void Dropping()
         {
             AlarmRegex re = new AlarmRegex("dropping 0.25");
 
-            // TO DO. Assert.IsTrue(re.IsAlarm(1.0,2.0));
+            //Assert.IsTrue(re.IsAlarm(1.0,2.0));
         }
         [Test]
         public void Rising()
         {
             AlarmRegex re = new AlarmRegex("rising  1");
 
-            // TO DO. Assert.IsTrue(re.IsAlarm(1.0,2.0));
+           // Assert.IsTrue(re.IsAlarm(1.0,2.0));
         }
         
 

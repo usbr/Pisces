@@ -30,7 +30,7 @@ namespace Reclamation.Core
                     if (item.FullName.IndexOf("Reclamation.Core") == 0)
                     {
                         Uri u = new Uri(item.CodeBase);
-                        var dir = u.AbsolutePath;
+                        var dir = u.AbsolutePath.Replace("%20"," ");
                         int idx = dir.ToLower().LastIndexOf("pisces/");
                         if (idx > 0)
                             dir = dir.Substring(0, idx+6); // include 'pisces'

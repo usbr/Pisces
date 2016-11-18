@@ -179,19 +179,38 @@ namespace Reclamation.TimeSeries.Alarms
 
             if (alarmEx.IsMatch())
             {
-                foreach (Point p in s)
+
+                foreach(var c in alarmEx.AlarmConditions())
                 {
-                    if (!p.IsMissing)
+                    if(c.Condition == AlarmType.Above)
                     {
-                        if (alarmEx.IsAlarm(p.Value))
+                        foreach (Point p in s)
                         {
-                       
-                            Console.WriteLine("Alarm found");
-                            CreateAlarm(row, p);
-                             return;
+                            if (!p.IsMissing && p.Value > c.Value)
+                            {
+                                    Console.WriteLine("Alarm above found");
+                                    CreateAlarm(row, p);
+                                    return;
+                            }
                         }
                     }
+
+                    if(c.Condition == AlarmType.Below)
+                    {
+                        foreach (Point p in s)
+                        {
+                            if (!p.IsMissing && p.Value < c.Value)
+                            {
+                                Console.WriteLine("Alarm below found");
+                                CreateAlarm(row, p);
+                                return;
+                            }
+                        }
+                    }
+
                 }
+
+               
             }
 
             // TO DO  clear alarms if clear_condition
