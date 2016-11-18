@@ -24,8 +24,7 @@ namespace Reclamation.TimeSeries.Import
             int scenarioNumber = 1;
             foreach (var scenario in ds.UniqueScenarios())
             {
-                if (scenario != "")
-                    scenarios.AddScenarioRow(scenario, false, scenarioNumber.ToString(), 0);
+               scenarios.AddScenarioRow(scenario, false, scenarioNumber.ToString(), 0);
             }
 
             db.Server.SaveTable(scenarios);
@@ -37,7 +36,7 @@ namespace Reclamation.TimeSeries.Import
                     TextSeries s = new TextSeries(ds.Files[i]);
                     s.Read();
                     
-                    if (scenarioRegex != "")
+                    if (scenarioRegex != "" && ds.Scenario[i] != "")
                     {
                         s.Name = ds.Siteid[i];
                         s.ConnectionString = "ScenarioName=" + ds.Scenario[i];

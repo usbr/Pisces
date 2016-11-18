@@ -33,7 +33,9 @@ namespace Reclamation.TimeSeries.Import
 
         public string[] UniqueScenarios()
         {
-            return m_scenario.Distinct().ToArray();
+            List<string> rval = new List<string>(m_scenario);
+            rval.RemoveAll(x => x == "");
+            return rval.Distinct().ToArray();
         }
 
         Regex re = null;

@@ -177,7 +177,7 @@ namespace Reclamation.TimeSeries.Forms
             this.comboBoxUnits.Location = new System.Drawing.Point(85, 64);
             this.comboBoxUnits.Name = "comboBoxUnits";
             this.comboBoxUnits.Size = new System.Drawing.Size(175, 21);
-            this.comboBoxUnits.TabIndex = 18;
+            this.comboBoxUnits.TabIndex = 1;
             // 
             // labelunits
             // 
@@ -202,7 +202,7 @@ namespace Reclamation.TimeSeries.Forms
             this.comboBoxTimeInterval.Location = new System.Drawing.Point(85, 92);
             this.comboBoxTimeInterval.Name = "comboBoxTimeInterval";
             this.comboBoxTimeInterval.Size = new System.Drawing.Size(175, 21);
-            this.comboBoxTimeInterval.TabIndex = 20;
+            this.comboBoxTimeInterval.TabIndex = 2;
             // 
             // label5
             // 
@@ -396,7 +396,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxLow.Location = new System.Drawing.Point(85, 140);
             this.textBoxLow.Name = "textBoxLow";
             this.textBoxLow.Size = new System.Drawing.Size(51, 20);
-            this.textBoxLow.TabIndex = 61;
+            this.textBoxLow.TabIndex = 3;
             // 
             // label20
             // 
@@ -412,7 +412,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxHigh.Location = new System.Drawing.Point(142, 140);
             this.textBoxHigh.Name = "textBoxHigh";
             this.textBoxHigh.Size = new System.Drawing.Size(51, 20);
-            this.textBoxHigh.TabIndex = 59;
+            this.textBoxHigh.TabIndex = 4;
             // 
             // label19
             // 
@@ -463,7 +463,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxExpression.Multiline = true;
             this.textBoxExpression.Name = "textBoxExpression";
             this.textBoxExpression.Size = new System.Drawing.Size(301, 100);
-            this.textBoxExpression.TabIndex = 54;
+            this.textBoxExpression.TabIndex = 8;
             // 
             // label12
             // 
@@ -489,7 +489,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxPOR2.Name = "textBoxPOR2";
             this.textBoxPOR2.ReadOnly = true;
             this.textBoxPOR2.Size = new System.Drawing.Size(140, 20);
-            this.textBoxPOR2.TabIndex = 52;
+            this.textBoxPOR2.TabIndex = 6;
             // 
             // textBoxRecordCount
             // 
@@ -497,7 +497,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxRecordCount.Name = "textBoxRecordCount";
             this.textBoxRecordCount.ReadOnly = true;
             this.textBoxRecordCount.Size = new System.Drawing.Size(140, 20);
-            this.textBoxRecordCount.TabIndex = 50;
+            this.textBoxRecordCount.TabIndex = 7;
             // 
             // label9
             // 
@@ -514,7 +514,7 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxPOR1.Name = "textBoxPOR1";
             this.textBoxPOR1.ReadOnly = true;
             this.textBoxPOR1.Size = new System.Drawing.Size(140, 20);
-            this.textBoxPOR1.TabIndex = 49;
+            this.textBoxPOR1.TabIndex = 5;
             // 
             // label10
             // 
