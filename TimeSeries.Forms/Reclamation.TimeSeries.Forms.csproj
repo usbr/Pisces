@@ -297,6 +297,12 @@
       <DependentUpon>ProfileDesigner.cs</DependentUpon>
     </Compile>
     <Compile Include="Graphing\SeriesSettings.cs" />
+    <Compile Include="Graphing\XYZedGraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\XYZedGraph.Designer.cs">
+      <DependentUpon>XYZedGraph.cs</DependentUpon>
+    </Compile>
     <Compile Include="RatingTables\IRatingTableGraph.cs" />
     <Compile Include="RatingTables\OldRatingEquationEditor.cs">
       <SubType>UserControl</SubType>
@@ -324,6 +330,30 @@
     </Compile>
     <Compile Include="RatingTables\RatingTableZedGraphOptions.Designer.cs">
       <DependentUpon>RatingTableZedGraphOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RatingTables\RecordNotes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RatingTables\RecordNotes.Designer.cs">
+      <DependentUpon>RecordNotes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RatingTables\RecordSelection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RatingTables\RecordSelection.Designer.cs">
+      <DependentUpon>RecordSelection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RatingTables\RecordWorkup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RatingTables\RecordWorkup.Designer.cs">
+      <DependentUpon>RecordWorkup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RatingTables\ShiftFileEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RatingTables\ShiftFileEditor.Designer.cs">
+      <DependentUpon>ShiftFileEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="RatingTables\TestMeasurementPlotting.cs">
       <SubType>Form</SubType>
@@ -760,6 +790,9 @@
     <EmbeddedResource Include="Graphing\ProfileDesigner.resx">
       <DependentUpon>ProfileDesigner.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\XYZedGraph.resx">
+      <DependentUpon>XYZedGraph.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RatingTables\OldRatingEquationEditor.resx">
       <DependentUpon>OldRatingEquationEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -775,6 +808,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RatingTables\RatingTableZedGraphOptions.resx">
       <DependentUpon>RatingTableZedGraphOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RatingTables\RecordNotes.resx">
+      <DependentUpon>RecordNotes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RatingTables\RecordSelection.resx">
+      <DependentUpon>RecordSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RatingTables\RecordWorkup.resx">
+      <DependentUpon>RecordWorkup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RatingTables\ShiftFileEditor.resx">
+      <DependentUpon>ShiftFileEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RatingTables\TestMeasurementPlotting.resx">
       <DependentUpon>TestMeasurementPlotting.cs</DependentUpon>

@@ -17,7 +17,18 @@ namespace Reclamation.TimeSeries.Graphing
 
         UserControl uc;
 
+
+        public GraphExplorerView()
+        {
+            var uc = new TimeSeriesZedGraph();
+            InitControl(uc);
+        }
         public GraphExplorerView(ITimeSeriesGraph timeSeriesGraph)
+        {
+            InitControl(timeSeriesGraph);
+        }
+
+        private void InitControl(ITimeSeriesGraph timeSeriesGraph)
         {
             uc = timeSeriesGraph as UserControl;
             this.timeSeriesGraph1 = timeSeriesGraph;
