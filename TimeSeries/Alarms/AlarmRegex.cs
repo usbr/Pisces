@@ -34,20 +34,17 @@ namespace Reclamation.TimeSeries.Alarms
                 if (g["condition"].Value == "below")
                     rval.Add(new AlarmCondition(AlarmType.Below,
                              Convert.ToDouble(g["val"].Value)));
-
+                if (g["condition"].Value == "rising")
+                    rval.Add(new AlarmCondition(AlarmType.Rising,
+                             Convert.ToDouble(g["val"].Value)));
+                if (g["condition"].Value == "dropping")
+                    rval.Add(new AlarmCondition(AlarmType.Dropping,
+                             Convert.ToDouble(g["val"].Value)));
             }
 
             return rval.ToArray();
         }
 
-        //internal bool IsAlarm(double d)
-        //{
-        //    string val = re.Match(m_condition).Groups["val"].Value;
-        //    double dvalue = Convert.ToDouble(val);
-
-        //    return (d > dvalue);
-
-        //}
     }
 
  

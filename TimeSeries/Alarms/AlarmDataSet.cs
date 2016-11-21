@@ -16,7 +16,7 @@ namespace Reclamation.TimeSeries.Alarms
         partial class alarm_definitionDataTable
         {
         }
-    
+
         private Core.BasicDBServer m_server;
 
         public static AlarmDataSet CreateInstance(BasicDBServer server = null)
@@ -136,7 +136,7 @@ namespace Reclamation.TimeSeries.Alarms
             var tbl = new AlarmDataSet.alarm_phone_queueDataTable();
             string sql = "select * from alarm_phone_queue ";
             sql += " where siteid = '" + siteid + "' and parameter = '" + parameter + "' ";
-                sql += " and status in ('new', 'unconfirmed')";
+            sql += " and status in ('new', 'unconfirmed')";
 
             m_server.FillTable(tbl, sql);
 
@@ -180,23 +180,24 @@ namespace Reclamation.TimeSeries.Alarms
             if (alarmEx.IsMatch())
             {
 
-                foreach(var c in alarmEx.AlarmConditions())
+                foreach (var c in alarmEx.AlarmConditions())
                 {
-                    if(c.Condition == AlarmType.Above)
+                    if (c.Condition == AlarmType.Above)
                     {
                         foreach (Point p in s)
                         {
                             if (!p.IsMissing && p.Value > c.Value)
                             {
-                                    Console.WriteLine("Alarm above found");
-                                    CreateAlarm(row, p);
-                                    return;
+                                Console.WriteLine("Alarm above found");
+                                CreateAlarm(row, p);
+                                return;
                             }
                         }
                     }
 
-                    if(c.Condition == AlarmType.Below)
+                    if (c.Condition == AlarmType.Below)
                     {
+
                         foreach (Point p in s)
                         {
                             if (!p.IsMissing && p.Value < c.Value)
@@ -208,9 +209,41 @@ namespace Reclamation.TimeSeries.Alarms
                         }
                     }
 
+                    if (c.Condition == AlarmType.Dropping)
+                    {
+                        double num_a = s[0].Value;
+                        double num_b = s[1].Value;
+                        double num_c = s[2].Value;
+                        double num_d = s[3].Value;
+
+                        if ((num_a - num_b) >= c.Value
+                            | (num_b - num_c) >= c.Value
+                            | (num_c - num_d) >= c.Value)
+                        {
+                            Console.WriteLine("Alarm dropping found");
+                            CreateAlarm(row, s[0]);
+                            return;
+                        }
+                    }
+
+                    if (c.Condition == AlarmType.Rising)
+                    {
+                        double num_a = s[0].Value;
+                        double num_b = s[1].Value;
+                        double num_c = s[2].Value;
+                        double num_d = s[3].Value;
+
+                        if ((num_b - num_a) >= c.Value
+                            | (num_c - num_b) >= c.Value
+                            | (num_d - num_c) >= c.Value)
+                        {
+                            Console.WriteLine("Alarm dropping found");
+                            CreateAlarm(row, s[0]);
+                            return;
+                        }
+                    }
                 }
 
-               
             }
 
             // TO DO  clear alarms if clear_condition
@@ -235,7 +268,7 @@ namespace Reclamation.TimeSeries.Alarms
                 Logger.WriteLine("Alarm already active in the queue: " + alarm.siteid + " " + alarm.parameter);
                 return;
             }
-            
+
             SendEmail(alarm, pt);
             //phone call by inserting into table alarm_queue
 
@@ -258,16 +291,16 @@ namespace Reclamation.TimeSeries.Alarms
         {
             // old:  Alarm condition at site WICEWS for parameter GH -- value = 0.43
             var siteDescription = "";
-            var t = m_server.Table("sitecatalog","select description from sitecatalog where siteid='" + alarm.siteid + "'");
-            if( t.Rows.Count >0)
-               siteDescription = t.Rows[0][0].ToString();
+            var t = m_server.Table("sitecatalog", "select description from sitecatalog where siteid='" + alarm.siteid + "'");
+            if (t.Rows.Count > 0)
+                siteDescription = t.Rows[0][0].ToString();
 
             var parameterName = "";
-            t = m_server.Table("parametercatalog","select name from parametercatalog where id='" + alarm.parameter + "' and timeinterval = 'Irregular'");
+            t = m_server.Table("parametercatalog", "select name from parametercatalog where id='" + alarm.parameter + "' and timeinterval = 'Irregular'");
             if (t.Rows.Count > 0)
                 parameterName = t.Rows[0][0].ToString();
 
-            var subject = "Alarm Condition at" + siteDescription+" "+alarm.siteid;
+            var subject = "Alarm Condition at" + siteDescription + " " + alarm.siteid;
             var body = "Alarm condition at site" + alarm.siteid + "   parameter = " + alarm.parameter;
 
             var emails = GetEmailList(alarm.list);

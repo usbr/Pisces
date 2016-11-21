@@ -53,20 +53,16 @@ namespace Pisces.NunitTests.Database
         public void Above()
         {
             AlarmRegex re = new AlarmRegex("above 4198.20");
+            Assert.IsTrue(re.AlarmConditions().Length == 1);
+            var c = re.AlarmConditions()[0];
+            Assert.AreEqual(4198.20, c.Value);
+            Assert.AreEqual(AlarmType.Above, c.Condition);
 
-            Assert.IsTrue(re.AlarmConditions()[0].Condition == AlarmType.Above);
-
-            //Assert.IsFalse(re.IsAlarm(1.0));
-
-            //Assert.IsFalse(re.IsAlarm(4198.20));
-
-            //Assert.IsTrue(re.IsAlarm(5000.1));
         }
         [Test]
         public void Below()
         {
             AlarmRegex re = new AlarmRegex("below 4198.20");
-
             Assert.IsTrue(re.AlarmConditions().Length == 1);
             var c = re.AlarmConditions()[0];
             Assert.AreEqual(4198.20, c.Value);
@@ -77,15 +73,19 @@ namespace Pisces.NunitTests.Database
         public void Dropping()
         {
             AlarmRegex re = new AlarmRegex("dropping 0.25");
-
-            //Assert.IsTrue(re.IsAlarm(1.0,2.0));
+            Assert.IsTrue(re.AlarmConditions().Length == 1);
+            var c = re.AlarmConditions()[0];
+            Assert.AreEqual(0.25, c.Value);
+            Assert.AreEqual(AlarmType.Dropping, c.Condition);
         }
         [Test]
         public void Rising()
         {
             AlarmRegex re = new AlarmRegex("rising  1");
-
-           // Assert.IsTrue(re.IsAlarm(1.0,2.0));
+            Assert.IsTrue(re.AlarmConditions().Length == 1);
+            var c = re.AlarmConditions()[0];
+            Assert.AreEqual(1.0, c.Value);
+            Assert.AreEqual(AlarmType.Rising, c.Condition);
         }
         
 
