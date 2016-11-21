@@ -216,9 +216,9 @@ namespace Reclamation.TimeSeries.Alarms
                         double num_c = s[2].Value;
                         double num_d = s[3].Value;
 
-                        if ((num_a - num_b) >= c.Value
-                            | (num_b - num_c) >= c.Value
-                            | (num_c - num_d) >= c.Value)
+                        if ((num_a - num_b) > c.Value
+                            | (num_b - num_c) > c.Value
+                            | (num_c - num_d) > c.Value)
                         {
                             Console.WriteLine("Alarm dropping found");
                             CreateAlarm(row, s[0]);
@@ -233,9 +233,9 @@ namespace Reclamation.TimeSeries.Alarms
                         double num_c = s[2].Value;
                         double num_d = s[3].Value;
 
-                        if ((num_b - num_a) >= c.Value
-                            | (num_c - num_b) >= c.Value
-                            | (num_d - num_c) >= c.Value)
+                        if ((num_b - num_a) > c.Value
+                            | (num_c - num_b) > c.Value
+                            | (num_d - num_c) > c.Value)
                         {
                             Console.WriteLine("Alarm dropping found");
                             CreateAlarm(row, s[0]);

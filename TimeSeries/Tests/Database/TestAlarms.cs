@@ -15,15 +15,19 @@ namespace Pisces.NunitTests.Database
     [TestFixture]
     public class TestAlarms
     {
+        SQLiteServer svr;
+        TimeSeriesDatabase db;
+        public TestAlarms()
+        {
+            var fn = FileUtility.GetTempFileName(".pdb");
+            this.svr = new SQLiteServer(fn);
+            this.db = new TimeSeriesDatabase(svr);
+        }
 
         [Test]
-        public void DatabaseAlarmTest()
+        public void DatabaseAboveAlarmTest()
         {
             // create database with alarm def
-            var fn = FileUtility.GetTempFileName(".pdb");
-            SQLiteServer svr = new SQLiteServer(fn);
-            TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
-
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("palisades");
             ds.alarm_definition.Addalarm_definitionRow(true, "palisades",
@@ -41,51 +45,98 @@ namespace Pisces.NunitTests.Database
             s.SiteID = "pal";
             s.Read();
             Assert.IsTrue(s.Count > 500);
-            
+
             ds.Check(s);
 
             var queue = ds.GetAlarmQueue();
-            Assert.AreEqual(1, queue.Count, "expected 1 alarm in the queue");
-
+            string sql = "list = 'palisades' AND siteid = 'pal' "
+                + "AND parameter = 'fb' AND status = 'new'";
+            Assert.IsTrue(queue.Select(sql).Length == 1);
+            
         }
 
-        [Test]
-        public void Above()
-        {
-            AlarmRegex re = new AlarmRegex("above 4198.20");
-            Assert.IsTrue(re.AlarmConditions().Length == 1);
-            var c = re.AlarmConditions()[0];
-            Assert.AreEqual(4198.20, c.Value);
-            Assert.AreEqual(AlarmType.Above, c.Condition);
-
-        }
+    
         [Test]
         public void Below()
         {
-            AlarmRegex re = new AlarmRegex("below 4198.20");
-            Assert.IsTrue(re.AlarmConditions().Length == 1);
-            var c = re.AlarmConditions()[0];
-            Assert.AreEqual(4198.20, c.Value);
-            Assert.AreEqual(AlarmType.Below, c.Condition);
+            var ds = db.Alarms;
+            ds.AddNewAlarmGroup("lucky");
+            ds.alarm_definition.Addalarm_definitionRow(true, "lucky",
+                "luc", "fb", "below 5525", "", 10);
+            ds.SaveTable(ds.alarm_definition);
+            ds.alarm_recipient.Addalarm_recipientRow("lucky", 4,
+                "5272", "office", "hydromet@usbr.gov");
+            ds.SaveTable(ds.alarm_recipient);
+
+            Series s = new Series();
+            s.Parameter = "fb";
+            s.SiteID = "luc";
+            s.Add(DateTime.Parse("2016-11-21 02:00"), 5520.12);
+            s.Add(DateTime.Parse("2016-11-21 02:15"), 5520.12);
+            s.Add(DateTime.Parse("2016-11-21 02:30"), 5520.12);
+            s.Add(DateTime.Parse("2016-11-21 02:45"), 5520.12);
+
+            ds.Check(s);
+
+            var queue = ds.GetAlarmQueue();
+            string sql = "list = 'lucky' AND siteid = 'luc' "
+                + "AND parameter = 'fb' AND status = 'new'";
+            Assert.IsTrue(queue.Select(sql).Length == 1);
 
         }
         [Test]
         public void Dropping()
         {
-            AlarmRegex re = new AlarmRegex("dropping 0.25");
-            Assert.IsTrue(re.AlarmConditions().Length == 1);
-            var c = re.AlarmConditions()[0];
-            Assert.AreEqual(0.25, c.Value);
-            Assert.AreEqual(AlarmType.Dropping, c.Condition);
+            var ds = db.Alarms;
+            ds.AddNewAlarmGroup("cre");
+            ds.alarm_definition.Addalarm_definitionRow(true, "cre",
+                "cre", "fb", "dropping 1", "", 10);
+            ds.SaveTable(ds.alarm_definition);
+            ds.alarm_recipient.Addalarm_recipientRow("cre", 4,
+                "5272", "office", "hydromet@usbr.gov");
+            ds.SaveTable(ds.alarm_recipient);
+
+            Series s = new Series();
+            s.Parameter = "fb";
+            s.SiteID = "cre";
+            s.Add(DateTime.Parse("2016-11-21 02:00"), 5520.12);
+            s.Add(DateTime.Parse("2016-11-21 02:15"), 5519.00);
+            s.Add(DateTime.Parse("2016-11-21 02:30"), 5519.00);
+            s.Add(DateTime.Parse("2016-11-21 02:45"), 5519.00);
+
+            ds.Check(s);
+
+            var queue = ds.GetAlarmQueue();
+            string sql = "list = 'cre' AND siteid = 'cre' "
+                + "AND parameter = 'fb' AND status = 'new'";
+            Assert.IsTrue(queue.Select(sql).Length == 1);
         }
         [Test]
         public void Rising()
         {
-            AlarmRegex re = new AlarmRegex("rising  1");
-            Assert.IsTrue(re.AlarmConditions().Length == 1);
-            var c = re.AlarmConditions()[0];
-            Assert.AreEqual(1.0, c.Value);
-            Assert.AreEqual(AlarmType.Rising, c.Condition);
+            var ds = db.Alarms;
+            ds.AddNewAlarmGroup("emi");
+            ds.alarm_definition.Addalarm_definitionRow(true, "emi",
+                "emi", "fb", "rising 1", "", 10);
+            ds.SaveTable(ds.alarm_definition);
+            ds.alarm_recipient.Addalarm_recipientRow("emi", 4,
+                "5272", "office", "hydromet@usbr.gov");
+            ds.SaveTable(ds.alarm_recipient);
+
+            Series s = new Series();
+            s.Parameter = "fb";
+            s.SiteID = "emi";
+            s.Add(DateTime.Parse("2016-11-21 02:00"), 38000.12);
+            s.Add(DateTime.Parse("2016-11-21 02:15"), 38002.02);
+            s.Add(DateTime.Parse("2016-11-21 02:30"), 38002.02);
+            s.Add(DateTime.Parse("2016-11-21 02:45"), 38002.02);
+
+            ds.Check(s);
+
+            var queue = ds.GetAlarmQueue();
+            string sql = "list = 'emi' AND siteid = 'emi' "
+                + "AND parameter = 'fb' AND status = 'new'";
+            Assert.IsTrue(queue.Select(sql).Length == 1);
         }
         
 
