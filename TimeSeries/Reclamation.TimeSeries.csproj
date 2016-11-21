@@ -276,6 +276,7 @@
     <Compile Include="AgriMet\CropCurves.cs" />
     <Compile Include="AgriMet\CropDatesDataSet.cs">
       <DependentUpon>CropDatesDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="AgriMet\CropDatesDataSet1.Designer.cs">
       <DependentUpon>CropDatesDataSet.xsd</DependentUpon>
@@ -284,6 +285,7 @@
     </Compile>
     <Compile Include="Alarms\AlarmDataSet.cs">
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Alarms\AlarmDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -326,6 +328,7 @@
     <Compile Include="RatingTables\Hydrography.cs" />
     <Compile Include="RatingTables\HydrographyDataSet.cs">
       <DependentUpon>HydrographyDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="RatingTables\HydrographyDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -334,7 +337,8 @@
     </Compile>
     <Compile Include="RatingTables\MeasurementList.cs" />
     <Compile Include="RatingTables\RatingTableUtility.cs" />
-    <Compile Include="RatingTables\YakimaExcelMeasurements.cs" />
+    <Compile Include="RatingTables\Yakima82RatingFile.cs" />
+    <Compile Include="RatingTables\YakimaUtility.cs" />
     <Compile Include="RBMS\RBMSTextFile.cs" />
     <Compile Include="RBMS\RbmsUtility.cs" />
     <Compile Include="Import\ImportMultiSheetDailySeriesExcel.cs" />
@@ -373,6 +377,7 @@
     <None Include="ScenarioManagement\example_VicUnregToModsimScenarios.cs" />
     <Compile Include="ScenarioManagement\ScenarioDataSet.cs">
       <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ScenarioManagement\ScenarioDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -418,7 +423,9 @@
     <Compile Include="Hydromet\DayFiles.cs" />
     <Compile Include="NOAA\SimpleShef.cs" />
     <Compile Include="Nrcs\MonthlySnowCourseSeries.cs" />
-    <Compile Include="Hydromet\mcf.cs" />
+    <Compile Include="Hydromet\mcf.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Hydromet\mcf1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -426,6 +433,7 @@
     </Compile>
     <Compile Include="Hydromet\Operations\FcPlotDataSet.cs">
       <DependentUpon>FcPlotDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Hydromet\Operations\FcPlotDataSet.Designer.cs">
       <DependentUpon>FcPlotDataSet.xsd</DependentUpon>
@@ -439,6 +447,7 @@
     <Compile Include="Hydromet\HydrometDataCache.cs" />
     <Compile Include="Hydromet\HydrometDataSet.cs">
       <DependentUpon>HydrometDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Hydromet\HydrometDataSet.Designer.cs">
       <DependentUpon>HydrometDataSet.xsd</DependentUpon>
@@ -649,7 +658,9 @@
     <Compile Include="Quality.cs" />
     <Compile Include="Reports\USGSReport.cs" />
     <Compile Include="TimeSeriesDatabase.CreateSQL.cs" />
-    <Compile Include="TimeSeriesDatabaseDataSet.RatingTable.cs" />
+    <Compile Include="TimeSeriesDatabaseDataSet.RatingTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TimeSeriesDependency.cs" />
     <Compile Include="TimeSeriesName.cs" />
     <Compile Include="Urgsim\UrgsimReferenceSeries.cs" />
@@ -669,7 +680,9 @@
       <DependentUpon>ScenarioPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="DataLogger\Cr10xSeries.cs" />
-    <Compile Include="Idwr\IdwrMonthy.cs" />
+    <Compile Include="Idwr\IdwrMonthy.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IScenarioSelector.cs" />
     <Compile Include="Owrd\OwrdSeries.cs" />
     <Compile Include="Parser\ParserResult.cs" />
@@ -688,6 +701,7 @@
     <Compile Include="TimeSeriesDatabase.Upgrade.cs" />
     <Compile Include="TimeSeriesDatabaseDataSet.cs">
       <DependentUpon>TimeSeriesDatabaseDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="TimeSeriesDatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>

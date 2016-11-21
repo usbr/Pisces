@@ -12,7 +12,7 @@
   <xs:element name="HydrographyDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="HydrographyDataSet" msprop:Generator_UserDSName="HydrographyDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="measurement" msprop:Generator_TableClassName="measurementDataTable" msprop:Generator_TableVarName="tablemeasurement" msprop:Generator_RowChangedName="measurementRowChanged" msprop:Generator_TablePropName="measurement" msprop:Generator_RowDeletingName="measurementRowDeleting" msprop:Generator_RowChangingName="measurementRowChanging" msprop:Generator_RowEvHandlerName="measurementRowChangeEventHandler" msprop:Generator_RowDeletedName="measurementRowDeleted" msprop:Generator_RowClassName="measurementRow" msprop:Generator_UserTableName="measurement" msprop:Generator_RowEvArgName="measurementRowChangeEvent">
+        <xs:element name="measurement" msprop:Generator_TableClassName="measurementDataTable" msprop:Generator_TableVarName="tablemeasurement" msprop:Generator_TablePropName="measurement" msprop:Generator_RowDeletingName="measurementRowDeleting" msprop:Generator_RowChangingName="measurementRowChanging" msprop:Generator_RowEvHandlerName="measurementRowChangeEventHandler" msprop:Generator_RowDeletedName="measurementRowDeleted" msprop:Generator_UserTableName="measurement" msprop:Generator_RowChangedName="measurementRowChanged" msprop:Generator_RowEvArgName="measurementRowChangeEvent" msprop:Generator_RowClassName="measurementRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" />
@@ -26,7 +26,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rating_equation_measurements" msprop:Generator_TableClassName="rating_equation_measurementsDataTable" msprop:Generator_TableVarName="tablerating_equation_measurements" msprop:Generator_TablePropName="rating_equation_measurements" msprop:Generator_RowDeletingName="rating_equation_measurementsRowDeleting" msprop:Generator_RowChangingName="rating_equation_measurementsRowChanging" msprop:Generator_RowEvHandlerName="rating_equation_measurementsRowChangeEventHandler" msprop:Generator_RowDeletedName="rating_equation_measurementsRowDeleted" msprop:Generator_UserTableName="rating_equation_measurements" msprop:Generator_RowChangedName="rating_equation_measurementsRowChanged" msprop:Generator_RowEvArgName="rating_equation_measurementsRowChangeEvent" msprop:Generator_RowClassName="rating_equation_measurementsRow">
+        <xs:element name="rating_equation_measurements" msprop:Generator_TableClassName="rating_equation_measurementsDataTable" msprop:Generator_TableVarName="tablerating_equation_measurements" msprop:Generator_RowChangedName="rating_equation_measurementsRowChanged" msprop:Generator_TablePropName="rating_equation_measurements" msprop:Generator_RowDeletingName="rating_equation_measurementsRowDeleting" msprop:Generator_RowChangingName="rating_equation_measurementsRowChanging" msprop:Generator_RowEvHandlerName="rating_equation_measurementsRowChangeEventHandler" msprop:Generator_RowDeletedName="rating_equation_measurementsRowDeleted" msprop:Generator_RowClassName="rating_equation_measurementsRow" msprop:Generator_UserTableName="rating_equation_measurements" msprop:Generator_RowEvArgName="rating_equation_measurementsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:string" />
@@ -35,7 +35,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="rating_equation" msprop:Generator_TableClassName="rating_equationDataTable" msprop:Generator_TableVarName="tablerating_equation" msprop:Generator_RowChangedName="rating_equationRowChanged" msprop:Generator_TablePropName="rating_equation" msprop:Generator_RowDeletingName="rating_equationRowDeleting" msprop:Generator_RowChangingName="rating_equationRowChanging" msprop:Generator_RowEvHandlerName="rating_equationRowChangeEventHandler" msprop:Generator_RowDeletedName="rating_equationRowDeleted" msprop:Generator_RowClassName="rating_equationRow" msprop:Generator_UserTableName="rating_equation" msprop:Generator_RowEvArgName="rating_equationRowChangeEvent">
+        <xs:element name="rating_equation" msprop:Generator_TableClassName="rating_equationDataTable" msprop:Generator_TableVarName="tablerating_equation" msprop:Generator_TablePropName="rating_equation" msprop:Generator_RowDeletingName="rating_equationRowDeleting" msprop:Generator_RowChangingName="rating_equationRowChanging" msprop:Generator_RowEvHandlerName="rating_equationRowChangeEventHandler" msprop:Generator_RowDeletedName="rating_equationRowDeleted" msprop:Generator_UserTableName="rating_equation" msprop:Generator_RowChangedName="rating_equationRowChanged" msprop:Generator_RowEvArgName="rating_equationRowChangeEvent" msprop:Generator_RowClassName="rating_equationRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" default="1" />
@@ -43,6 +43,18 @@
               <xs:element name="equation" msprop:Generator_ColumnVarNameInTable="columnequation" msprop:Generator_ColumnPropNameInRow="equation" msprop:Generator_ColumnPropNameInTable="equationColumn" msprop:Generator_UserColumnName="equation" type="xs:string" minOccurs="0" />
               <xs:element name="notes" msprop:Generator_ColumnVarNameInTable="columnnotes" msprop:Generator_ColumnPropNameInRow="notes" msprop:Generator_ColumnPropNameInTable="notesColumn" msprop:Generator_UserColumnName="notes" type="xs:string" minOccurs="0" />
               <xs:element name="siteid" msprop:Generator_ColumnVarNameInTable="columnsiteid" msprop:Generator_ColumnPropNameInRow="siteid" msprop:Generator_ColumnPropNameInTable="siteidColumn" msprop:Generator_UserColumnName="siteid" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="rating_tables" msprop:Generator_TableClassName="rating_tablesDataTable" msprop:Generator_TableVarName="tablerating_tables" msprop:Generator_TablePropName="rating_tables" msprop:Generator_RowDeletingName="rating_tablesRowDeleting" msprop:Generator_RowChangingName="rating_tablesRowChanging" msprop:Generator_RowEvHandlerName="rating_tablesRowChangeEventHandler" msprop:Generator_RowDeletedName="rating_tablesRowDeleted" msprop:Generator_UserTableName="rating_tables" msprop:Generator_RowChangedName="rating_tablesRowChanged" msprop:Generator_RowEvArgName="rating_tablesRowChangeEvent" msprop:Generator_RowClassName="rating_tablesRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" default="0" />
+              <xs:element name="version" msprop:Generator_ColumnVarNameInTable="columnversion" msprop:Generator_ColumnPropNameInRow="version" msprop:Generator_ColumnPropNameInTable="versionColumn" msprop:Generator_UserColumnName="version" type="xs:string" />
+              <xs:element name="siteid" msprop:Generator_ColumnVarNameInTable="columnsiteid" msprop:Generator_ColumnPropNameInRow="siteid" msprop:Generator_ColumnPropNameInTable="siteidColumn" msprop:Generator_UserColumnName="siteid" type="xs:string" />
+              <xs:element name="stage_variable" msprop:Generator_ColumnVarNameInTable="columnstage_variable" msprop:Generator_ColumnPropNameInRow="stage_variable" msprop:Generator_ColumnPropNameInTable="stage_variableColumn" msprop:Generator_UserColumnName="stage_variable" type="xs:string" />
+              <xs:element name="discharge_variable" msprop:Generator_ColumnVarNameInTable="columndischarge_variable" msprop:Generator_ColumnPropNameInRow="discharge_variable" msprop:Generator_ColumnPropNameInTable="discharge_variableColumn" msprop:Generator_UserColumnName="discharge_variable" type="xs:string" />
+              <xs:element name="csv_table" msprop:Generator_ColumnVarNameInTable="columncsv_table" msprop:Generator_ColumnPropNameInRow="csv_table" msprop:Generator_ColumnPropNameInTable="csv_tableColumn" msprop:Generator_UserColumnName="csv_table" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -58,6 +70,10 @@
     </xs:unique>
     <xs:unique name="rating_equation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:rating_equation" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="rating_tables_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rating_tables" />
       <xs:field xpath="mstns:id" />
     </xs:unique>
   </xs:element>
