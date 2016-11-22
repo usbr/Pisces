@@ -40,7 +40,7 @@ namespace Pisces.NunitTests.Database
             String file = Path.Combine(TestData.DataPath, "alarms", "pal_fb.csv");
             TextSeries s = new TextSeries(file);
             //TO DO .. read flags
-            
+
             s.Parameter = "fb";
             s.SiteID = "pal";
             s.Read();
@@ -52,10 +52,10 @@ namespace Pisces.NunitTests.Database
             string sql = "list = 'palisades' AND siteid = 'pal' "
                 + "AND parameter = 'fb' AND status = 'new'";
             Assert.IsTrue(queue.Select(sql).Length == 1);
-            
+
         }
 
-    
+
         [Test]
         public void Below()
         {
@@ -138,12 +138,36 @@ namespace Pisces.NunitTests.Database
                 + "AND parameter = 'fb' AND status = 'new'";
             Assert.IsTrue(queue.Select(sql).Length == 1);
         }
-        
+
 
         [Test]
         public void AboveOrRising()
         {
+            var ds = db.Alarms;
+            ds.AddNewAlarmGroup("uny");
+            ds.alarm_definition.Addalarm_definitionRow(true, "uny",
+                "uny", "pc", "above 300 or rising 1", "", 10);
+            ds.SaveTable(ds.alarm_definition);
+            ds.alarm_recipient.Addalarm_recipientRow("uny", 4,
+                "5272", "office", "hydromet@usbr.gov");
+            ds.SaveTable(ds.alarm_recipient);
 
+
+            Series s = new Series();
+            s.Parameter = "pc";
+            s.SiteID = "uny";
+            s.Add(DateTime.Parse("2016-11-21 02:00"), 38002.12);
+            s.Add(DateTime.Parse("2016-11-21 02:15"), 38005.02);
+            s.Add(DateTime.Parse("2016-11-21 02:30"), 38002.02);
+            s.Add(DateTime.Parse("2016-11-21 02:45"), 38002.02);
+
+            ds.Check(s);
+
+
+            var queue = ds.GetAlarmQueue();
+            string sql = "list = 'uny' AND siteid = 'uny' "
+                + "AND parameter = 'pc' AND status = 'new'";
+            Assert.IsTrue(queue.Select(sql).Length == 1);
         }
 
     }

@@ -12,7 +12,7 @@ namespace Reclamation.TimeSeries.Alarms
         string m_condition;
         public AlarmRegex(string condition)
         {
-            string expr = @"\s*(?<condition>above|below|rising|dropping)\s*(?<val>[0-9.]+)";
+            string expr = @"\s*(?<condition>above|below|rising|dropping)\s*(?<val>[+-]{0,1}[0-9.]+)\s*";
             re = new Regex(expr);
             m_condition = condition;
         }
