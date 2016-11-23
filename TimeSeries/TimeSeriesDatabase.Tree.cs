@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Reclamation.Core;
 using System.Data;
+using System.Linq;
 
 namespace Reclamation.TimeSeries
 {
@@ -42,7 +43,8 @@ namespace Reclamation.TimeSeries
            else
            {
                Stack<object> stack = new Stack<object>();
-               while (node.ID != m_root.ID)
+               var rootObjectsID = GetRootObjects().Select(x => x.ID).ToList();
+               while (!rootObjectsID.Contains(node.ID))
                {
                    stack.Push(node);
                    if (node.Parent == null)
@@ -53,7 +55,7 @@ namespace Reclamation.TimeSeries
                    }
                    node = node.Parent;
                }
-               stack.Push(node);//root
+               stack.Push(node); //root object
                return stack.ToArray();
            }
         }
@@ -147,7 +149,7 @@ namespace Reclamation.TimeSeries
         }
 
 
-        public PiscesObject[] GetRootObjects()
+        public List<PiscesObject> GetRootObjects()
         {
             var tbl = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
             string sql = "select * from seriescatalog where id = parentid ";
@@ -169,7 +171,7 @@ namespace Reclamation.TimeSeries
 
             if (rval.Count > 0)    
                 m_root = rval[0];
-            return rval.ToArray();
+            return rval;
         }
 
 
@@ -184,7 +186,7 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        private TimeSeriesDatabaseDataSet.SeriesCatalogDataTable GetFilteredCatalog( )
+        internal TimeSeriesDatabaseDataSet.SeriesCatalogDataTable GetFilteredCatalog( )
         {
             if (m_prevFilter == Filter && m_SeriesCatalog != null)
                 return m_SeriesCatalog;

@@ -20,7 +20,7 @@ namespace Reclamation.TimeSeries
         {
             this.m_db = db;
             sdi = o.ID;
-            catalog = m_db.GetSeriesCatalog();
+            catalog = m_db.GetFilteredCatalog();
             m_seriesProperties = m_db.GetSeriesProperties();
             //catalog.PrimaryKey = new DataColumn[] { catalog.Columns["id"]};
         }

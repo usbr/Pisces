@@ -25,7 +25,7 @@ namespace Reclamation.TimeSeries.Forms
 
             if (treePath.IsEmpty())
             {
-                PiscesObject[] roots = db.GetRootObjects();
+                var roots = db.GetRootObjects();
                 
                 foreach (PiscesObject o in roots)
                 {
