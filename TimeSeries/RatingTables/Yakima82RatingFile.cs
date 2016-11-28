@@ -104,12 +104,8 @@ namespace Reclamation.TimeSeries.RatingTables
             return tbl;
                 
         }
-        public HydrographyDataSet.rating_tablesDataTable ToDataTable()
+         public HydrographyDataSet.rating_tablesDataTable SaveToTable(HydrographyDataSet.rating_tablesDataTable tbl)
         {
-
-                    
-            var tbl = new HydrographyDataSet.rating_tablesDataTable();
-
 
             foreach (var item in UniqueTables())
             {

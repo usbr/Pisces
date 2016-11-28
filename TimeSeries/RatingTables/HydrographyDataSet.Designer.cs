@@ -1358,9 +1358,9 @@ namespace Reclamation.TimeSeries.RatingTables {
             
             private global::System.Data.DataColumn columnsiteid;
             
-            private global::System.Data.DataColumn columnstage_variable;
+            private global::System.Data.DataColumn columnx_variable;
             
-            private global::System.Data.DataColumn columndischarge_variable;
+            private global::System.Data.DataColumn columny_variable;
             
             private global::System.Data.DataColumn columncsv_table;
             
@@ -1423,17 +1423,17 @@ namespace Reclamation.TimeSeries.RatingTables {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn stage_variableColumn {
+            public global::System.Data.DataColumn x_variableColumn {
                 get {
-                    return this.columnstage_variable;
+                    return this.columnx_variable;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn discharge_variableColumn {
+            public global::System.Data.DataColumn y_variableColumn {
                 get {
-                    return this.columndischarge_variable;
+                    return this.columny_variable;
                 }
             }
             
@@ -1482,14 +1482,14 @@ namespace Reclamation.TimeSeries.RatingTables {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public rating_tablesRow Addrating_tablesRow(int id, string version, string siteid, string stage_variable, string discharge_variable, string csv_table) {
+            public rating_tablesRow Addrating_tablesRow(int id, string version, string siteid, string x_variable, string y_variable, string csv_table) {
                 rating_tablesRow rowrating_tablesRow = ((rating_tablesRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
                         version,
                         siteid,
-                        stage_variable,
-                        discharge_variable,
+                        x_variable,
+                        y_variable,
                         csv_table};
                 rowrating_tablesRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowrating_tablesRow);
@@ -1523,8 +1523,8 @@ namespace Reclamation.TimeSeries.RatingTables {
                 this.columnid = base.Columns["id"];
                 this.columnversion = base.Columns["version"];
                 this.columnsiteid = base.Columns["siteid"];
-                this.columnstage_variable = base.Columns["stage_variable"];
-                this.columndischarge_variable = base.Columns["discharge_variable"];
+                this.columnx_variable = base.Columns["x_variable"];
+                this.columny_variable = base.Columns["y_variable"];
                 this.columncsv_table = base.Columns["csv_table"];
             }
             
@@ -1537,10 +1537,10 @@ namespace Reclamation.TimeSeries.RatingTables {
                 base.Columns.Add(this.columnversion);
                 this.columnsiteid = new global::System.Data.DataColumn("siteid", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnsiteid);
-                this.columnstage_variable = new global::System.Data.DataColumn("stage_variable", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnstage_variable);
-                this.columndischarge_variable = new global::System.Data.DataColumn("discharge_variable", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columndischarge_variable);
+                this.columnx_variable = new global::System.Data.DataColumn("x_variable", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnx_variable);
+                this.columny_variable = new global::System.Data.DataColumn("y_variable", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columny_variable);
                 this.columncsv_table = new global::System.Data.DataColumn("csv_table", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncsv_table);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
@@ -1550,8 +1550,8 @@ namespace Reclamation.TimeSeries.RatingTables {
                 this.columnid.DefaultValue = ((int)(0));
                 this.columnversion.AllowDBNull = false;
                 this.columnsiteid.AllowDBNull = false;
-                this.columnstage_variable.AllowDBNull = false;
-                this.columndischarge_variable.AllowDBNull = false;
+                this.columnx_variable.AllowDBNull = false;
+                this.columny_variable.AllowDBNull = false;
                 this.columncsv_table.AllowDBNull = false;
             }
             
@@ -2034,23 +2034,23 @@ namespace Reclamation.TimeSeries.RatingTables {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string stage_variable {
+            public string x_variable {
                 get {
-                    return ((string)(this[this.tablerating_tables.stage_variableColumn]));
+                    return ((string)(this[this.tablerating_tables.x_variableColumn]));
                 }
                 set {
-                    this[this.tablerating_tables.stage_variableColumn] = value;
+                    this[this.tablerating_tables.x_variableColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string discharge_variable {
+            public string y_variable {
                 get {
-                    return ((string)(this[this.tablerating_tables.discharge_variableColumn]));
+                    return ((string)(this[this.tablerating_tables.y_variableColumn]));
                 }
                 set {
-                    this[this.tablerating_tables.discharge_variableColumn] = value;
+                    this[this.tablerating_tables.y_variableColumn] = value;
                 }
             }
             

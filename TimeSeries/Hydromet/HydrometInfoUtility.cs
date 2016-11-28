@@ -791,14 +791,12 @@ namespace Reclamation.TimeSeries.Hydromet
 
             if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
             {
-                //url = "http://www.usbr.gov/gp-bin/expandrtf.pl?site=adatunco&pcode=q&form=col";
                 url = "http://www.usbr.gov/gp-bin/expandrtf.pl?site=pali&pcode=q&form=col";
                 url = url.Replace("site=pali", "site=" + cbtt.Trim());
                 url = url.Replace("pcode=q", "pcode=" + pcode.Trim());
             }
-            else
+            else if( HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.PN)
             {
-                //url = "http://www.usbr.gov/pn-bin/expandrtf.pl?site=pali&pcode=q&form=col";
                 url = "http://lrgs1.pn.usbr.gov/rating_tables/"+ratingName+".csv";
                 if( !NetworkUtility.Intranet)
                     url = "http://www.usbr.gov/pn/hydromet/configurationdata/rating_tables/" + ratingName + ".csv";
@@ -810,18 +808,22 @@ namespace Reclamation.TimeSeries.Hydromet
                 rt.ReadFile(tmp);
                 return rt;
             }
-            // yakima ?
-            //http://www.usbr.gov/pn-bin/yak/expandrtf.pl?site=kee&pcode=af&form=col
+            else if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.Yakima)
+            {            // yakima ?
+                url = "http://www.usbr.gov/pn-bin/yak/expandrtf.pl?site=kee&pcode=af&form=col";
+                url = url.Replace("site=kee", "site=" + cbtt.Trim());
+                url = url.Replace("pcode=af", "pcode=" + pcode.Trim());
+            }
 
-            
-            return ReadFromWeb(cbtt, pcode, url);
-        }
-
-        private static TimeSeriesDatabaseDataSet.RatingTableDataTable ReadFromWeb(string cbtt, string pcode, string url)
-        {
             string[] data = Web.GetPage(url);
             TextFile tf = new TextFile(data);
+            return ParseRatingTableData(tf, cbtt, pcode);
+        }
 
+        public static TimeSeriesDatabaseDataSet.RatingTableDataTable ParseRatingTableData(TextFile tf, 
+            string cbtt, string pcode)
+        {
+            
             /*
              <table border="1" summary="Expanded Rating Table">	<tr align="center">
 <th width="80px"><b>ft</b></th>
