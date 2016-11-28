@@ -185,26 +185,6 @@ namespace HydrometServer
                 }
 
 
-                if (args.Contains("import-dayfile"))
-                {
-                    var fn  = args["import-dayfile"];
-
-                    ImportVaxFile(db,fn);
-                }
-                if (args.Contains("import-archive"))
-                {
-                    var fn = args["import-archive"];
-
-                    ImportVaxFile(db, fn);
-                }
-                if (args.Contains("import-mpoll"))
-                {
-                    var fn = args["import-mpoll"];
-
-                    ImportVaxFile(db, fn);
-                }
-                 
-
 
                 if (args.Contains("update-daily"))
                 {
@@ -319,12 +299,6 @@ namespace HydrometServer
             Console.WriteLine("          creates a new database");
             Console.WriteLine("--import-rating-tables=site_list.csv  [--generateNewTables]");
             Console.WriteLine("          updates usgs,idahopower, and owrd rating tables");
-            Console.WriteLine("--import-dayfile=/data/dayfiles/2013*.DAY");
-            Console.WriteLine("          imports data from VAX binary dayfile");
-            Console.WriteLine("--import-archive=/data/archives/wy2013.acf");
-            Console.WriteLine("          imports data from VAX binary archive file");
-            Console.WriteLine("--import-mpoll=/data/mpoll/mpoll.ind");
-            Console.WriteLine("          imports data from VAX binary monthly file");
             Console.WriteLine("--update-daily=HydrometDailySeries");
             Console.WriteLine("--update-period-of-record");
             Console.WriteLine("          updates series properties with t1 and t2 for the data");
@@ -333,9 +307,6 @@ namespace HydrometServer
 
             // --update-daily=HydrometDailySeries --t1=lastyear
             // --update-daily=HDBDailySeries  --t2=yesterday
-
-            Console.WriteLine(" updates all daily series from source data");
-
         }
         
         
@@ -360,110 +331,6 @@ namespace HydrometServer
             return false;
         }
 
-        /// <summary>
-        /// Goal: High performance import of Dayfiles to TimeSeriesDatabase
-        /// </summary>
-        /// <param name="fileName"></param>
-        private static void ImportVaxFile(TimeSeriesDatabase db,string fileNamePattern)
-        {
-            // we have  12,000  dayfiles to import.  (avg 3.0 MB each)
-            // if it takes 4 seconds to read one file and sort
-            // that is allready  13 hours just to read the files.
-
-            // initial results   72  seconds to import 2013sep21.day (agrimet/hydromet subset)
-            // that would take 10 days
-
-            Console.WriteLine("Reading file(s): "+fileNamePattern);
-            Performance p = new Performance();
-            string path = Path.GetDirectoryName(fileNamePattern);
-            string searchPattern = Path.GetFileName(fileNamePattern);
-
-
-            var files = Directory.GetFiles(path, searchPattern, SearchOption.TopDirectoryOnly);
-            DataTable tbl = null;
-            foreach (var fileName in files)
-            {
-                if (db.Server.SqlCommands.Count > 5000)
-                    db.Server.SqlCommands.Clear(); // we can run out out of memory if we save all commands.
-
-                Console.Write("Reading " + fileName + " ");
-                string interval = "instant";
-
-                if (Path.GetExtension(fileName).ToLower() == ".day")
-                {
-                    var df = new DayFile(fileName, false, false);
-                    tbl = df.GetTable();
-                }
-                if (Path.GetExtension(fileName).ToLower() == ".acf")
-                {
-                    var acf = new ArchiveFile(fileName);
-                    interval = "daily";
-                    tbl = acf.GetTable();
-                }
-                if (Path.GetExtension(fileName).ToLower() == ".ind")
-                {
-                    var acf = new MpollFile(fileName);
-                    interval = "daily";
-                    tbl = acf.GetTable();
-                }
-
-                // sw.WriteLine("DateTime, site,pcode,value,flag");
-                // tbl = DataTableUtility.Select(tbl, "", "site,pcode");
-                //p.Report("sorted");  // 4.3 sec
-
-                var distinct = DataTableUtility.SelectDistinct(tbl, "site", "pcode");
-                //p.Report("distinct list " + distinct.Rows.Count + " items");
-
-
-                foreach (DataRow row in distinct.Rows)
-                {
-                    string cbtt = row["site"].ToString();
-                    string pcode = row["pcode"].ToString();
-                    
-                    
-                    TimeSeriesName tn = new TimeSeriesName(cbtt + "_" + pcode, interval);
-
-                    if (!tn.Valid)
-                    {
-                        Console.WriteLine("skipping Invalid cbtt/pcode "+ cbtt+"/"+pcode);
-                        continue;
-                    }
-
-
-                    string filter = "site = '" + cbtt + "' and pcode = '" + pcode + "'";
-                    var filterRows = tbl.Select(filter, "");
-
-                    var s = db.GetSeriesFromTableName(tn.GetTableName(),"",true);
-
-                    if (s == null)
-                    {
-                        //Console.WriteLine("Skipping : " + tn.GetTableName() + " not found in database ");
-                        continue;
-                    }
-                    else
-                    {
-                        for (int i = 0; i < filterRows.Length; i++)
-                        {
-                            DateTime t = Convert.ToDateTime(filterRows[i]["DateTime"]);
-                            if (s.IndexOf(t) >=0 )
-                            {
-                                Console.WriteLine("Warning: skipping duplicate date "+t.ToString());
-                                continue;
-                            }
-                            s.Add(t, Convert.ToDouble(filterRows[i]["value"]),
-                                filterRows[i]["flag"].ToString());
-                        }
-
-                        int count = db.SaveTimeSeriesTable(s.ID, s, DatabaseSaveOptions.Insert);
-                        Console.WriteLine(tn.GetTableName() + ": Saved " + count + " rows");
-                    }
-
-                }
-            }
-
-            p.Report("Done. importing " + searchPattern);
-
-        }
 
         static string[] s_quality_parameters = new string[] { 
             "parity","power","msglen","lenerr","timeerr","batvolt","bay","demod",

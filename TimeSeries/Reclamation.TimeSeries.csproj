@@ -409,12 +409,8 @@
     <Compile Include="Estimation\MultipleLinearRegression.cs" />
     <Compile Include="Estimation\MultipleLinearRegressionResults.cs" />
     <Compile Include="ExcelReaderSeries1.cs" />
-    <Compile Include="Hydromet\ArchiveFile.cs" />
-    <Compile Include="Hydromet\ArchiveFileRecord.cs" />
     <Compile Include="Hydromet\AsceEtCalculator.cs" />
     <Compile Include="Hydromet\CommandLine.cs" />
-    <Compile Include="Hydromet\DayFile.cs" />
-    <Compile Include="Hydromet\DayFileRecord.cs" />
     <Compile Include="Hydromet\DayFiles.cs" />
     <Compile Include="NOAA\SimpleShef.cs" />
     <Compile Include="Nrcs\MonthlySnowCourseSeries.cs" />
@@ -453,8 +449,6 @@
     <Compile Include="ReclamationURL.cs" />
     <Compile Include="Hydromet\KimberlyPenmanEtSeries.cs" />
     <Compile Include="Hydromet\McfUtility.cs" />
-    <Compile Include="Hydromet\MpollFile.cs" />
-    <Compile Include="Hydromet\MpollRecord.cs" />
     <Compile Include="Hydromet\Operations\ResidualForecast.cs" />
     <Compile Include="Hydromet\Operations\RuleCurveFactory.cs" />
     <Compile Include="Hydromet\Tests\TestForecasting.cs" />
@@ -610,7 +604,6 @@
     <Compile Include="DailyTimeSeriesCalculator.cs" />
     <Compile Include="TimeSeriesImporter.cs" />
     <Compile Include="TimeSeriesRouting.cs" />
-    <Compile Include="Hydromet\VaxBinaryReader.cs" />
     <Compile Include="Hydromet\Operations\WodiRuleCurve.cs" />
     <Compile Include="IdahoPower\IdahoPowerSeries.cs" />
     <Compile Include="Idwr\IDWRDailySeries.cs" />
@@ -761,7 +754,6 @@
     <None Include="Hydromet\HydrometDataSet.xss">
       <DependentUpon>HydrometDataSet.xsd</DependentUpon>
     </None>
-    <None Include="Hydromet\hydromet_file_format.pdf" />
     <None Include="Hydromet\MPAVG.FOR" />
     <None Include="packages.config" />
     <None Include="Parser\HerbertSchildtExample.cs" />
