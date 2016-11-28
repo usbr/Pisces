@@ -546,10 +546,10 @@ namespace HydrometServer
                     DateTime t = Convert.ToDateTime(row[0]);
                     if (interval == TimeInterval.Monthly)
                     {
-                        if( tsn.pcode.ToLower() == "fc" || tsn.pcode.ToLower() == "se" || tsn.pcode.ToLower() == "fcm")
+                        //if( tsn.pcode.ToLower() == "fc" || tsn.pcode.ToLower() == "se" || tsn.pcode.ToLower() == "fcm")
                         t = t.FirstOfMonth();
-                        if (val != Point.MissingValueFlag && HydrometMonthlySeries.LookupUnits(tsn.pcode) == "1000 acre-feet")
-                            val = val * 1000;
+                        //if (val != Point.MissingValueFlag && HydrometMonthlySeries.LookupUnits(tsn.pcode) == "1000 acre-feet")
+                          //  val = val * 1000;
                     
                     }
                    var pt = new Point(t, val, flag);
