@@ -29,6 +29,7 @@ namespace Reclamation.TimeSeries.Forms
                 Text = "Calculate Selected Series";
                 textBoxInfo.Text = "Click OK to calculate the selected series.  Pisces will recompute based on the math expression.  Existing data will be overwritten.";
                 checkBoxFullPeriod.Checked = true;
+                this.timeSelectorBeginEnd1.SetInclusiveDates();
                 EnableDates(this, EventArgs.Empty);
             }
         }
