@@ -29,12 +29,29 @@ namespace Reclamation.TimeSeries
             {
                 CreateAlarmGroups();
                 CreateMeasurementTable();
+                CreateRatingTable();
                 CreateAlarmRecipient();
                 CreateAlarmDef();
                 CreateAlarmPhoneQueue();
                 CreateAlarmScripts();
             }
 
+        }
+
+        private void CreateRatingTable()
+        {
+            if (!m_server.TableExists("rating_tables"))
+            {
+                string sql = "Create Table rating_tables"
+                + " (id int not null primary key, "
+                + " version " + m_server.PortableCharacterType(256) + " not null , "
+                + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " stage_variable " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " discharge_variable " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " csv_table " + m_server.PortableCharacterType(100000) + " not null default '' "
+                + " )";
+                ExecuteCreateTable(m_server, sql);
+            }
         }
 
 

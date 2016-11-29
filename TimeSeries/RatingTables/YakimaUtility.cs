@@ -10,15 +10,15 @@ using System.Text.RegularExpressions;
 namespace Reclamation.TimeSeries.RatingTables
 {
 
-    /// <summary>
-    /// Reads Yakima Excel sheets that contain flow measurements
-    /// </summary>
-    public class YakimaExcelMeasurements
+    
+    public class YakimaUtility
     {
-
-
-
-        public static void FillTable(string filename, HydrographyDataSet.measurementDataTable table)
+       
+  
+        /// <summary>
+        /// Reads Yakima Excel sheets that contain flow measurements
+        /// </summary>
+        public static void FillMeasurementTable(string filename, HydrographyDataSet.measurementDataTable table)
         {
             var xls = new NpoiExcel(filename);
 

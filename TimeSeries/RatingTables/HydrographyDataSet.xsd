@@ -46,6 +46,18 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="rating_tables" msprop:Generator_TableClassName="rating_tablesDataTable" msprop:Generator_TableVarName="tablerating_tables" msprop:Generator_RowChangedName="rating_tablesRowChanged" msprop:Generator_TablePropName="rating_tables" msprop:Generator_RowDeletingName="rating_tablesRowDeleting" msprop:Generator_RowChangingName="rating_tablesRowChanging" msprop:Generator_RowEvHandlerName="rating_tablesRowChangeEventHandler" msprop:Generator_RowDeletedName="rating_tablesRowDeleted" msprop:Generator_RowClassName="rating_tablesRow" msprop:Generator_UserTableName="rating_tables" msprop:Generator_RowEvArgName="rating_tablesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" msprop:Generator_ColumnVarNameInTable="columnid" msprop:Generator_ColumnPropNameInRow="id" msprop:Generator_ColumnPropNameInTable="idColumn" msprop:Generator_UserColumnName="id" type="xs:int" default="0" />
+              <xs:element name="version" msprop:Generator_ColumnVarNameInTable="columnversion" msprop:Generator_ColumnPropNameInRow="version" msprop:Generator_ColumnPropNameInTable="versionColumn" msprop:Generator_UserColumnName="version" type="xs:string" />
+              <xs:element name="siteid" msprop:Generator_ColumnVarNameInTable="columnsiteid" msprop:Generator_ColumnPropNameInRow="siteid" msprop:Generator_ColumnPropNameInTable="siteidColumn" msprop:Generator_UserColumnName="siteid" type="xs:string" />
+              <xs:element name="x_variable" msprop:Generator_ColumnVarNameInTable="columnx_variable" msprop:Generator_ColumnPropNameInRow="x_variable" msprop:Generator_ColumnPropNameInTable="x_variableColumn" msprop:Generator_UserColumnName="x_variable" type="xs:string" />
+              <xs:element name="y_variable" msprop:Generator_ColumnVarNameInTable="columny_variable" msprop:Generator_ColumnPropNameInRow="y_variable" msprop:Generator_ColumnPropNameInTable="y_variableColumn" msprop:Generator_UserColumnName="y_variable" type="xs:string" />
+              <xs:element name="csv_table" msprop:Generator_ColumnVarNameInTable="columncsv_table" msprop:Generator_ColumnPropNameInRow="csv_table" msprop:Generator_ColumnPropNameInTable="csv_tableColumn" msprop:Generator_UserColumnName="csv_table" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -58,6 +70,10 @@
     </xs:unique>
     <xs:unique name="rating_equation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:rating_equation" />
+      <xs:field xpath="mstns:id" />
+    </xs:unique>
+    <xs:unique name="rating_tables_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:rating_tables" />
       <xs:field xpath="mstns:id" />
     </xs:unique>
   </xs:element>

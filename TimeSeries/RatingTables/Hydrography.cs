@@ -18,7 +18,12 @@ namespace Reclamation.TimeSeries.RatingTables
             m_db = db;
         }
 
-
+        public HydrographyDataSet.rating_tablesDataTable GetRatingTables()
+        {
+            var rval = new HydrographyDataSet.rating_tablesDataTable();
+            m_db.Server.FillTable(rval);
+            return rval;
+        }
 
         public MeasurementList GetMeasurements(string siteID)
         {

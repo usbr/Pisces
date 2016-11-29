@@ -14,6 +14,19 @@ namespace Reclamation.TimeSeries.RatingTables {
             m_db = db;
             return rval;
         }
+        public partial class rating_tablesDataTable : TypedTableBase<rating_tablesRow>
+        {
+
+            public int NextID()
+            {
+                if (this.Rows.Count == 0)
+                    return 1;
+
+                int max = this.AsEnumerable().Select(row => row.id).Max();
+                return max + 1;
+
+            }
+        }
 
         public partial class measurementDataTable :  TypedTableBase<measurementRow>
         {
