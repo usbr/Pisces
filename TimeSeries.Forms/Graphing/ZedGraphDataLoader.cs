@@ -293,7 +293,6 @@ namespace Reclamation.TimeSeries.Graphing
 
             pane.XAxis.Type = AxisType.Date;
 
-            double avg = TimeSeries.Math.AverageOfSeries(s);
             int sz = s.Count;
             
             for (int i = 0; i < sz; i++)
@@ -307,7 +306,7 @@ namespace Reclamation.TimeSeries.Graphing
                 }
                 else
                 {
-                    //list.Add(x, avg, System.Drawing.Color.Transparent);
+                    tSeries.AddPoint(x, Double.NaN);
                 }
             }
         }
