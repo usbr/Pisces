@@ -1582,7 +1582,7 @@ namespace Reclamation.TimeSeries
 
        
         /// <summary>
-        /// Removes all points that have a value of Point.MissingValueFlag
+        /// Removes nulls from series
         /// </summary>
         /// <param name="removeFlagged">also remove data flagged bad. i.e '+' or '-' or '^' </param>
         /// <returns></returns>
@@ -1591,7 +1591,7 @@ namespace Reclamation.TimeSeries
             int rval = 0;
             string valcolName = table.Columns[m_valueColumnIndex].ColumnName;
 
-            string sql = "ISNull([" + valcolName + "]," + Point.MissingValueFlag + ") =" + Point.MissingValueFlag;
+            string sql = string.Format("[{0}] is null", valcolName);
 
             if (HasFlags && removeFlagged)
             {

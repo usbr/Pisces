@@ -64,18 +64,13 @@ namespace Reclamation.TimeSeries
     public double Percent;
 
         /// <summary>
-        /// -999.0
+        /// NaN
         /// </summary>
-    public static double MissingValueFlag = -999.0;
+    public static double MissingValueFlag = Double.NaN;
 
         public static bool IsMissingValue(double value)
         {
-            if (System.Math.Abs(value - MissingValueFlag) < 0.01)
-            {
-                return true;
-            }
-
-            return false;
+            return Double.IsNaN(value);
         }
 
         public static object DoubleOrNull(ref Point pt)
@@ -138,9 +133,7 @@ namespace Reclamation.TimeSeries
     {
       get
       {
-        if( Flag == PointFlag.Missing
-           || this.Value == Point.MissingValueFlag
-           || double.IsNaN(this.Value) )
+        if(Flag == PointFlag.Missing || Double.IsNaN(this.Value))
         {
           return true;
         }
