@@ -24,6 +24,7 @@ namespace Reclamation.TimeSeries.Graphing
         {
             chart1 = chart;
             pane = chart1.GraphPane;
+            pane.Border.IsVisible = false;
             pane.IsFontsScaled = false;
             pane.YAxis.Scale.MinGrace = 0;
             pane.YAxis.Scale.MaxGrace = 0;
@@ -31,7 +32,7 @@ namespace Reclamation.TimeSeries.Graphing
             pane.XAxis.Scale.MaxGrace = 0;
             pane.XAxis.Scale.MagAuto = false;
             pane.YAxis.Scale.MagAuto = false;
-            
+
             SetPaneVisible(false);
 
             chart1.ZoomEvent += chart1_ZoomEvent;
@@ -43,18 +44,25 @@ namespace Reclamation.TimeSeries.Graphing
         {
             pane.Title.Text = "";
 
-            pane.Border.IsVisible = visible;
             pane.Legend.IsVisible = visible;
             pane.XAxis.IsVisible = visible;
             pane.YAxis.IsVisible = visible;
             pane.Y2Axis.IsVisible = !pane.Y2Axis.IsAxisSegmentVisible;
 
+            // hide top and right tick marks
+            pane.XAxis.MajorTic.IsOpposite = false;
+            pane.XAxis.MinorTic.IsOpposite = false;
+            pane.YAxis.MajorTic.IsOpposite = false;
+            pane.YAxis.MinorTic.IsOpposite = false;
+
+            // setup grid
             pane.XAxis.MajorGrid.IsVisible = visible;
             pane.YAxis.MajorGrid.IsVisible = visible;
             pane.XAxis.MajorGrid.DashOn = 5f;
             pane.YAxis.MajorGrid.DashOn = 5f;
             pane.XAxis.MajorGrid.Color = Color.LightGray;
             pane.YAxis.MajorGrid.Color = Color.LightGray;
+
         }
 
         private bool chart1_MouseUpEvent(ZedGraphControl sender, System.Windows.Forms.MouseEventArgs e)
@@ -109,9 +117,7 @@ namespace Reclamation.TimeSeries.Graphing
 
             SetPaneVisible(true);
             FormatBottomAxisStandard();
-            pane.YAxis.Scale.Format = "#,#";
-            pane.YAxis.Scale.MinAuto = true;
-            pane.YAxis.Scale.MaxAuto = true;
+            FormatYAxisStandard();
             LabelYaxis(list);
             RefreshChart(chart1);
         }
@@ -142,11 +148,11 @@ namespace Reclamation.TimeSeries.Graphing
             pane.XAxis.Title.Text = xAxisTitle;
            
             pane.XAxis.Type = AxisType.Linear;
-            pane.YAxis.Scale.Format = "#,#";
+            
             pane.XAxis.Scale.Format = "";
             pane.XAxis.Scale.MajorStep = 5;
-            pane.YAxis.Scale.MinAuto = true;
-            pane.YAxis.Scale.MaxAuto = true;
+           
+            FormatYAxisStandard();
             SetPaneVisible(true);
             LabelYaxis(list);
             RefreshChart(chart1);
@@ -175,6 +181,7 @@ namespace Reclamation.TimeSeries.Graphing
                 FillTimeSeries(list[i], chart1.GraphPane.CurveList[i]);
             }
             FormatBottomAxisStandard();
+            FormatYAxisStandard();
             pane.XAxis.Scale.Format = "MMM d";
             pane.YAxis.Scale.MinAuto = true;
             pane.YAxis.Scale.MaxAuto = true;
@@ -182,19 +189,28 @@ namespace Reclamation.TimeSeries.Graphing
             RefreshChart(chart1);
         }
 
+        private void FormatYAxisStandard()
+        {
+            pane.YAxis.Scale.Format = "#,#";
+            pane.YAxis.MajorTic.IsBetweenLabels = true;
+            pane.YAxis.MajorTic.IsInside = false;
+            pane.YAxis.MinorTic.IsInside = false;
+            pane.YAxis.Scale.MinAuto = true;
+            pane.YAxis.Scale.MaxAuto = true;
+        }
+
         private void FormatBottomAxisStandard()
         {
             pane.XAxis.Title.Text = "Date";
             pane.XAxis.Type = AxisType.Date;
-            pane.XAxis.Scale.Format = "M/d/yyyy";
-            pane.XAxis.Scale.MajorUnit = DateUnit.Month;
-            pane.XAxis.Scale.MajorStep = 1;
-            pane.XAxis.Scale.MinGrace = 0;
-            pane.XAxis.Scale.MaxGrace = 0;
+            //pane.XAxis.Scale.Format = "M/d/yyyy";
+            //pane.XAxis.Scale.MajorUnit = DateUnit.Month;
+            //pane.XAxis.Scale.MajorStep = 1;
+            //pane.XAxis.Scale.MinGrace = 0;
+            //pane.XAxis.Scale.MaxGrace = 0;
             pane.XAxis.MajorTic.IsBetweenLabels = true;
-            pane.XAxis.MinorTic.Size = 0;
             pane.XAxis.MajorTic.IsInside = false;
-            pane.XAxis.MajorTic.IsOutside = true;
+            pane.XAxis.MinorTic.IsInside = false;
         }
 
         internal void DrawCorrelation(Series s1, Series s2, string title, string subTitle)
@@ -264,7 +280,6 @@ namespace Reclamation.TimeSeries.Graphing
             series1.Symbol.IsVisible = false;
             series1.Color =  Default.GetSeriesColor(pane.CurveList.Count);
             series1.Line.Width = Default.GetSeriesWidth(pane.CurveList.Count);
-            series1.Line.Width = defaultLineWidth;
             return series1;
         }
 
