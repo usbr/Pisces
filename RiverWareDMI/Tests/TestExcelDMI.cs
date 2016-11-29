@@ -80,11 +80,11 @@ namespace ReclamationTesting.RiverWareDmiTest
             args.Add("-UXlsFileName=" + path + "\\Riverware\\SnakeTestData.xls");
             args.Add("-UWaterYear=1931"); // actual xls data begins 10/4/1930  (water year 1931)
             args.Add("-UFirstWaterYear=1928");
+            Reclamation.RiverwareDmi.Program.Main(args.ToArray());
 
             string fn = @"c:\temp\Inflow.Jackson.txt";
-            File.Delete(fn);
-            Reclamation.RiverwareDmi.Program.Main(args.ToArray());
             TextFile tf = new TextFile(fn);
+            File.Delete(fn);
 
             Assert.AreEqual("# import began on line index: 1113", tf[tf.IndexOf("# import")]);
             Assert.AreEqual("start_date: 1927-10-04 24:00", tf[tf.IndexOf("start_date")]);
@@ -114,15 +114,11 @@ namespace ReclamationTesting.RiverWareDmiTest
             args.Add("1DAY");
             args.Add("-UXlsFileName=" +path + "\\RiverWare\\SnakeTestData.xls");
             args.Add("-STrace=4");
-
+            Reclamation.RiverwareDmi.Program.Main(args.ToArray());
 
             string fn = @"c:\temp\Local Inflow.MinidokaToMilner_Milner.txt";
-            File.Delete(fn);
-
-
-            Reclamation.RiverwareDmi.Program.Main(args.ToArray());
-            
             TextFile tf = new TextFile(fn);
+            File.Delete(fn);
             
             int idx = tf.IndexOf("start_date") ;
             Assert.AreEqual(-2906, Convert.ToDouble(tf[idx + 1]), .6);
