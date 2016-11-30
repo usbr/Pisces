@@ -58,10 +58,12 @@ namespace Reclamation.TimeSeries.Graphing
             // setup grid
             pane.XAxis.MajorGrid.IsVisible = visible;
             pane.YAxis.MajorGrid.IsVisible = visible;
-            pane.XAxis.MajorGrid.DashOn = 5f;
-            pane.YAxis.MajorGrid.DashOn = 5f;
-            pane.XAxis.MajorGrid.Color = Color.LightGray;
-            pane.YAxis.MajorGrid.Color = Color.LightGray;
+            pane.XAxis.MajorGrid.DashOff = 1f;
+            pane.YAxis.MajorGrid.DashOff = 1f;
+            pane.XAxis.MajorGrid.DashOn = 3f;
+            pane.YAxis.MajorGrid.DashOn = 3f;
+            pane.XAxis.MajorGrid.Color = Color.DarkGray;
+            pane.YAxis.MajorGrid.Color = Color.DarkGray;
 
         }
 
@@ -183,31 +185,63 @@ namespace Reclamation.TimeSeries.Graphing
             FormatBottomAxisStandard();
             FormatYAxisStandard();
             pane.XAxis.Scale.Format = "MMM d";
-            pane.YAxis.Scale.MinAuto = true;
-            pane.YAxis.Scale.MaxAuto = true;
             SetPaneVisible(true);
             RefreshChart(chart1);
         }
 
         private void FormatYAxisStandard()
         {
-            pane.YAxis.Scale.Format = "#,#";
             pane.YAxis.MajorTic.IsBetweenLabels = true;
             pane.YAxis.MajorTic.IsInside = false;
             pane.YAxis.MinorTic.IsInside = false;
             pane.YAxis.Scale.MinAuto = true;
             pane.YAxis.Scale.MaxAuto = true;
+            
+            double xmin,xmax,ymin,ymax;
+            double ymaxx = Double.NaN;
+            foreach (CurveItem item in pane.CurveList)
+            {
+                item.GetRange(out xmin, out xmax, out ymin, out ymax, false, false, pane);
+                
+                if (ymax > ymaxx || Double.IsNaN(ymaxx))
+                    ymaxx = ymax;
+            }
+            GuessYAxisMajorStep(ymaxx);
+
+            if (ymaxx > 1000)
+                pane.YAxis.Scale.Format = "#,#";
+            else
+                pane.YAxis.Scale.FormatAuto = true;
+        }
+
+        private void GuessYAxisMajorStep(double max)
+        {
+            if (max <= 3)
+                pane.YAxis.Scale.MajorStep = 0.1;
+            else if (max <= 10)
+                pane.YAxis.Scale.MajorStep = 0.5;
+            else if (max <= 30)
+                pane.YAxis.Scale.MajorStep = 1;
+            else if (max <= 100)
+                pane.YAxis.Scale.MajorStep = 10;
+            else if (max <= 300)
+                pane.YAxis.Scale.MajorStep = 25;
+            else if (max <= 1000)
+                pane.YAxis.Scale.MajorStep = 50;
+            else if (max <= 5000)
+                pane.YAxis.Scale.MajorStep = 100;
+            else if (max <= 10000)
+                pane.YAxis.Scale.MajorStep = 250;
+            else if (max <= 50000)
+                pane.YAxis.Scale.MajorStep = 1000;
+            else
+                pane.YAxis.Scale.MajorStepAuto = true;
         }
 
         private void FormatBottomAxisStandard()
         {
             pane.XAxis.Title.Text = "Date";
             pane.XAxis.Type = AxisType.Date;
-            //pane.XAxis.Scale.Format = "M/d/yyyy";
-            //pane.XAxis.Scale.MajorUnit = DateUnit.Month;
-            //pane.XAxis.Scale.MajorStep = 1;
-            //pane.XAxis.Scale.MinGrace = 0;
-            //pane.XAxis.Scale.MaxGrace = 0;
             pane.XAxis.MajorTic.IsBetweenLabels = true;
             pane.XAxis.MajorTic.IsInside = false;
             pane.XAxis.MinorTic.IsInside = false;
