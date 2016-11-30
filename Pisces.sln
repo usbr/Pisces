@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.25920.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries", "TimeSeries\Reclamation.TimeSeries.csproj", "{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}"
 EndProject
@@ -27,6 +27,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pisces", "PiscesUI\Pisces.csproj", "{60537C98-6E33-42F7-9B7D-9B326ABC019E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rwis.Sync", "Rwis.Sync\Rwis.Sync.csproj", "{D2B37530-5D24-4772-8480-325920744643}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverwareDMI", "RiverWareDMI\RiverwareDMI.csproj", "{AAB62A5F-54CA-4115-92FE-91D54B9E932A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -350,6 +352,42 @@ Global
 		{D2B37530-5D24-4772-8480-325920744643}.WatchDog|Mixed Platforms.Build.0 = Release|Any CPU
 		{D2B37530-5D24-4772-8480-325920744643}.WatchDog|x86.ActiveCfg = Release|Any CPU
 		{D2B37530-5D24-4772-8480-325920744643}.WatchDog|x86.Build.0 = Release|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Debug|x86.Build.0 = Debug|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Forecasting|Any CPU.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Forecasting|Any CPU.Build.0 = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Forecasting|Mixed Platforms.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Forecasting|Mixed Platforms.Build.0 = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Forecasting|x86.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Forecasting|x86.Build.0 = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.pisces|Any CPU.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.pisces|Any CPU.Build.0 = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.pisces|Mixed Platforms.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.pisces|Mixed Platforms.Build.0 = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.pisces|x86.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.pisces|x86.Build.0 = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.poet|Any CPU.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.poet|Any CPU.Build.0 = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.poet|Mixed Platforms.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.poet|Mixed Platforms.Build.0 = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.poet|x86.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.poet|x86.Build.0 = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Release|x86.ActiveCfg = Release|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Release|x86.Build.0 = Release|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.WatchDog|Any CPU.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.WatchDog|Any CPU.Build.0 = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.WatchDog|Mixed Platforms.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.WatchDog|Mixed Platforms.Build.0 = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.WatchDog|x86.ActiveCfg = poet|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.WatchDog|x86.Build.0 = poet|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
