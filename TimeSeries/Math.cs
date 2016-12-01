@@ -1114,7 +1114,7 @@ namespace Reclamation.TimeSeries
             {
                 Point pt = rval[i];
                 var missing = new Point(pt.DateTime, Point.MissingValueFlag, PointFlag.Missing);
-                if (pt.IsMissing  || p == Point.MissingValueFlag)
+                if (pt.IsMissing  || Point.IsMissingValue(p))
                 {
                     pt = missing;
                 }

@@ -258,7 +258,7 @@ namespace Pisces.NunitTests.SeriesMath
                     int numMissing = Convert.ToInt32(rows[0]["missing"]);
 
                     Console.WriteLine("yr = " + yr + " sum = '" + sum+"'");
-                    if (dsum != Point.MissingValueFlag)
+                    if (!Point.IsMissingValue(dsum))
                     { // we compute sum anyway, but flag it.
                         Assert.AreEqual(dsum, ptSum.Value, 0.25, "sum different in year " + yr);
                     }

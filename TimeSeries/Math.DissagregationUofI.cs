@@ -220,7 +220,7 @@ namespace Reclamation.TimeSeries
             // Assign a ridiculously large value to penalize missing or zeroed data from the source series
             // this is a hack that prevents the selection of a daily series with no values when there is data
             // for the monthly series
-            if (sourceVal == 0.0 || sourceVal == Point.MissingValueFlag)
+            if (sourceVal == 0.0 || Point.IsMissingValue(sourceVal))
             {
                 sourceVal = -999999999999999.99;
             }

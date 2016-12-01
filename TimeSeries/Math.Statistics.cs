@@ -25,7 +25,7 @@ namespace Reclamation.TimeSeries
             {
                 Point pt = a[i];
 
-                if (pt.Flag != PointFlag.Missing && pt.Value != Point.MissingValueFlag)
+                if (pt.Flag != PointFlag.Missing && !Point.IsMissingValue(pt.Value))
                 {
                     if (ignoreNegatives && pt.Value < 0)
                     {
@@ -451,7 +451,7 @@ namespace Reclamation.TimeSeries
                if (filtered.Count != 7) // require 7 days of data
                   rval.AddMissing(t);
                else
-               if (avg == Point.MissingValueFlag)
+               if (Point.IsMissingValue(avg))
                    rval.AddMissing(t);
                else
                    rval.Add(t.Date, avg, PointFlag.Computed);

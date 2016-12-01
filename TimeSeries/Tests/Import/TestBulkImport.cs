@@ -26,14 +26,15 @@ namespace Pisces.NunitTests.Import
         public void ImportDirectory()
         {
           var dir = Path.Combine(TestData.DataPath,"Scenarios","dir_import");
-          if (File.Exists(@"c:\temp\import_dir.pdb"))
-              File.Delete(@"c:\temp\import_dir.pdb");
+          var tmp = @"c:\temp\import_dir.pdb";
+          if (File.Exists(tmp))
+              File.Delete(tmp);
 
           BasicDBServer svr = new SQLiteServer(@"c:\temp\import_dir.pdb");
           TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
           BulkImportDirectory.Import(db,dir, "*.csv", 
 @".+dir_import\\(?<scenario>[-a-z_0-9]+)-(?<siteid>[a-z0-9]+)-biascorrected_streamflow");
-             
+          File.Delete(tmp);
         }
   
 

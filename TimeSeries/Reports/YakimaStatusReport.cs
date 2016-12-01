@@ -208,7 +208,7 @@ namespace Reclamation.TimeSeries.Reports
 
             var rval =  ReplaceSymbol(txt, "%" + cbtt + "_" + pcode, x, decimals);
 
-            if( pcode == "af" && x != Point.MissingValueFlag)
+            if( pcode == "af" && !Point.IsMissingValue(x))
             {// also take care of percent full
                 total_af += x;
                 
@@ -219,14 +219,14 @@ namespace Reclamation.TimeSeries.Reports
                     rval = ReplaceSymbol(rval, "%" + cbtt + "_pct", pct, 0);
                    // get yesterdays storage
                     var x2 = GetValue(cbtt, pcode, t.AddDays(-1));
-                    if( x2 != Point.MissingValueFlag)
+                    if (!Point.IsMissingValue(x2))
                     {
                         res_af2[idx] = x2;
                     }
                 }
             }
 
-            if (pcode == "q" && x != Point.MissingValueFlag )
+            if (pcode == "q" && !Point.IsMissingValue(x))
             {
                 if (idx >= 0)
                 {
@@ -237,7 +237,7 @@ namespace Reclamation.TimeSeries.Reports
                     parw_q = x;
             }
 
-            if (pcode == "qc" && x != Point.MissingValueFlag)
+            if (pcode == "qc" && !Point.IsMissingValue(x))
             {
                 if(major_qc.Contains(cbtt) )
                    major_qc_total += x;

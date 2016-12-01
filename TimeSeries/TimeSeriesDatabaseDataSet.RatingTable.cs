@@ -165,7 +165,7 @@ namespace Reclamation.TimeSeries
 
                 double d = Lookup(pt.Value);
 
-                if (d == Point.MissingValueFlag)
+                if (Point.IsMissingValue(d))
                 {
                     Logger.WriteLine("Rating Table Lookup failed for "+ pt.ToString());
                     return new Point(pt.DateTime, Point.MissingValueFlag);

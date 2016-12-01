@@ -28,6 +28,8 @@ namespace Reclamation.TimeSeries.Tests.Scenarios
             Assert.IsTrue(ds.ScenarioMapping.Count > 0);
 
             // create Scenarios
+
+            File.Delete(fn1);
         }
     }
 }
