@@ -835,7 +835,7 @@ namespace Reclamation.TimeSeries
             // TO DO: if the underlying table supports multiple tables 
             // need to use table.NewRow() and column indexes for data and date and flag,
             object o = val;
-            if (val == Point.MissingValueFlag || flag == PointFlag.Missing)
+            if (Point.IsMissingValue(val) || flag == PointFlag.Missing)
             {
                 _missingRecordCount++;
                 o = DBNull.Value;

@@ -223,6 +223,8 @@ namespace Pisces.NunitTests.SeriesMath
             checkProgram.Rows.Add(2005, 11442.2, 0, DateTime.Parse("9/21/2006"), 202.02, DateTime.Parse("10/13/2006"), 0);
             checkProgram.Rows.Add(2006, -999.0, 91, DateTime.Parse("5/02/2006"), 1119.98, DateTime.Parse("11/22/2006"), 0);
 
+            Point.MissingValueFlag = -999.0;
+
             string fn = TestData.DataPath + @"\rire hydromet daily.txt";
             TextSeries ts = new TextSeries(fn);
             ts.Read();

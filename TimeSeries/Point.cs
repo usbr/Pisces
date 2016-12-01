@@ -70,7 +70,7 @@ namespace Reclamation.TimeSeries
 
         public static bool IsMissingValue(double value)
         {
-            return Double.IsNaN(value);
+            return Double.IsNaN(value) || value == MissingValueFlag;
         }
 
         public static object DoubleOrNull(ref Point pt)
@@ -133,7 +133,9 @@ namespace Reclamation.TimeSeries
     {
       get
       {
-        if(Flag == PointFlag.Missing || Double.IsNaN(this.Value))
+        if(Flag == PointFlag.Missing 
+            || this.Value == MissingValueFlag
+            || Double.IsNaN(this.Value))
         {
           return true;
         }

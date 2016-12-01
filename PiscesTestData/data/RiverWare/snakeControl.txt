@@ -1,0 +1,2 @@
+Jackson.Inflow: obj=StorageReservoir file=c:\temp\Inflow.Jackson.txt units=cfs scale=0.504167 import=resize excel_sheet=unregulation excel_data_column=jck_qu
+MinidokaToMilner:Milner.Local Inflow: obj=Reach file="c:\temp\Local Inflow.MinidokaToMilner_Milner.txt" units=cfs scale=0.504167 import=resize excel_sheet=unregulation excel_data_column=mili_ql

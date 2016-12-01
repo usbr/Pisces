@@ -28,7 +28,7 @@ namespace ReclamationTesting.RiverWareDmiTest
                 args.Add("12:00");
                 args.Add("1928-07-01");
                 args.Add("12:00");
-                args.Add("-UXlsFileName=" + path + "\\RiverWare\\BoiseModelData.xls");
+                args.Add("-UXlsFileName=" + path + "\\RiverWare\\BoiseModelData.xlsx");
                 args.Add("-sTrace="+i);
 
                 
@@ -67,7 +67,7 @@ namespace ReclamationTesting.RiverWareDmiTest
         {
             Performance p = new Performance();
             string path = Globals.TestDataPath;
-//controlfile tempPath yyyy-mm-dd hh:mm yyyy-mm-dd hh:mm 1DAY -UxlsFileName=file.xls [-STrace=n]");
+            //controlfile tempPath yyyy-mm-dd hh:mm yyyy-mm-dd hh:mm 1DAY -UxlsFileName=file.xls [-STrace=n]");
             //-UxlsFileName=V:\PN6200\Models\BoiseRiverWare\BoiseModelData.xls -UDebugLevel=1 -UWaterYear=1943 -UFirstWaterYear=1919 
             List<string> args = new List<string>();
             args.Add(path + "\\RiverWare\\snakeControl.txt");
@@ -77,7 +77,7 @@ namespace ReclamationTesting.RiverWareDmiTest
             args.Add("1928-07-01");// end date for riverware
             args.Add("12:00");
             args.Add("1DAY");
-            args.Add("-UXlsFileName=" + path + "\\Riverware\\SnakeTestData.xls");
+            args.Add("-UXlsFileName=" + path + "\\Riverware\\SnakeTestData.xlsx");
             args.Add("-UWaterYear=1931"); // actual xls data begins 10/4/1930  (water year 1931)
             args.Add("-UFirstWaterYear=1928");
             Reclamation.RiverwareDmi.Program.Main(args.ToArray());
@@ -112,7 +112,7 @@ namespace ReclamationTesting.RiverWareDmiTest
             args.Add("1928-07-01");
             args.Add("12:00");
             args.Add("1DAY");
-            args.Add("-UXlsFileName=" +path + "\\RiverWare\\SnakeTestData.xls");
+            args.Add("-UXlsFileName=" +path + "\\RiverWare\\SnakeTestData.xlsx");
             args.Add("-STrace=4");
             Reclamation.RiverwareDmi.Program.Main(args.ToArray());
 
@@ -120,7 +120,7 @@ namespace ReclamationTesting.RiverWareDmiTest
             TextFile tf = new TextFile(fn);
             File.Delete(fn);
             
-            int idx = tf.IndexOf("start_date") ;
+            int idx = tf.IndexOf("start_date");
             Assert.AreEqual(-2906, Convert.ToDouble(tf[idx + 1]), .6);
             Assert.AreEqual(-2864, Convert.ToDouble(tf[idx + 2]), .6);
             
