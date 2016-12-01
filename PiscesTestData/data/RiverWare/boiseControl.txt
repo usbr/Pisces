@@ -1,0 +1,6 @@
+Anderson Ranch.Inflow: obj=LevelPowerReservoir file="C:\Temp\dmitest\Inflow.Anderson Ranch.txt" units=cfs scale=1 import=resize excel_sheet=locals excel_data_column=and_ql excel_date_column=date
+OperationsData.SystemResidual: obj=DataObj file=C:\Temp\dmitest\SystemResidual.OperationsData.txt units=acre-feet scale=1 import=resize excel_sheet=locals excel_data_column=SystemResidual excel_date_column=date
+OperationsData.LowerResidual: obj=DataObj file=C:\Temp\dmitest\LowerResidual.OperationsData.txt units=acre-feet scale=1 import=resize excel_sheet=locals excel_data_column=LowerResidual excel_date_column=date
+Lucky Peak Local:Gain.Local Inflow: obj=Reach file="C:\Temp\dmitest\Local Inflow.Lucky Peak Local_Gain.txt" units=cfs scale=1 import=resize excel_sheet=locals excel_data_column=luc_ql excel_date_column=date
+Arrowrock Locals:Gain.Local Inflow: obj=Reach file="C:\Temp\dmitest\Local Inflow.Arrowrock Locals_Gain.txt" units=cfs scale=1 import=resize excel_sheet=locals excel_data_column=ark_ql excel_date_column=date
+Boise Diversions:Gain.Local Inflow: obj=Reach file="C:\Temp\dmitest\Local Inflow.Boise Diversions_Gain.txt" units=cfs scale=1 import=resize excel_sheet=locals excel_data_column=bigi_qls excel_date_column=date
