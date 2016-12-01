@@ -160,8 +160,26 @@ namespace Reclamation.TimeSeries.Forms
             }
             return rval.ToArray();
         }
-        
 
+        public BasicRating[] GetSelectedRatings()
+        {
+            var rval = new List<BasicRating>();
+
+            if (IsCommandLine)
+            {
+                return rval.ToArray();
+            }
+            else
+            {
+                for (int i = 0; i < treeView1.SelectedNodes.Count; i++)
+                {
+                    PiscesObject o = treeView1.SelectedNodes[i].Tag as PiscesObject;
+                    if (o is BasicRating)
+                        rval.Add(o as BasicRating);
+                }
+            }
+            return rval.ToArray();
+        }
         public Series[] GetSelectedSeries()
         {
                 var rval = new List<Series>();
@@ -269,6 +287,15 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
+        public bool IsRatingSelected
+        {
+            get
+            {
+                if (treeView1.SelectedNode == null)
+                    return false;
+                return treeView1.SelectedNode.Tag is BasicRating;
+            }
+        }
 
         internal void SelectParent()
         {

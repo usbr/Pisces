@@ -24,8 +24,9 @@ namespace Reclamation.TimeSeries.RatingTables {
 
                 int max = this.AsEnumerable().Select(row => row.id).Max();
                 return max + 1;
-
             }
+
+            
         }
 
         public partial class measurementDataTable :  TypedTableBase<measurementRow>

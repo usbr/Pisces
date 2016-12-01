@@ -106,7 +106,7 @@ namespace Reclamation.TimeSeries.Reports
                  var t1a = new DateTime(year1 - 1, 10, 1);
                  var t2a = new DateTime(year2, 9, 30);
 
-                 double avgPct = MultiYearAvg(t1,t1a, t2a, total_af);
+                 double avgPct = MultiYearAvg(t1,t1a, t2a);
                  
             rval = rval +"Storage is " + avgPct.ToString("F2") + "% of average (" + year1
                  + ", " +year2 + ").";
@@ -172,19 +172,25 @@ namespace Reclamation.TimeSeries.Reports
             }
             return System.Math.Max(200, rval);
         }
-        private double MultiYearAvg(DateTime t,DateTime t1, DateTime t2, double sys_af)
+        private static double MultiYearAvg(DateTime t,DateTime t1, DateTime t2)
         {
             var s = HydrometDailySeries.GetMultiYearAverage("sys", "af",
                 HydrometHost.Yakima, t1, t2);
+            
 
             DateTime t2000 = new DateTime(2000, t.Month, t.Day);
             int idx = s.IndexOf(t2000.Date);
 
             if (idx >= 0 && !s[idx].IsMissing)
             {
-                var x= s[idx].Value;
-                x =  sys_af/ x * 100.0;
-                return x;
+                var af = HydrometDailySeries.Read("sys", "af", t, t, HydrometHost.Yakima);
+                af.RemoveMissing();
+                if (af.Count == 1)
+                {
+                    var x = s[idx].Value;
+                    x = af[0].Value / x * 100.0;
+                    return x;
+                }
             }
 
             return Reclamation.TimeSeries.Point.MissingValueFlag;

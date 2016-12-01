@@ -409,7 +409,6 @@ namespace Reclamation.TimeSeries.Forms
                 if (measurements.Length > 1)
                 {
                     SetView(ratingTableView);
-                    
                     ratingTableView.Draw(measurements);
 
                 }else // view edit single measurement
@@ -421,6 +420,27 @@ namespace Reclamation.TimeSeries.Forms
 
                 toolStripProgressBar1.Visible = false;
             }
+            else if (tree1.IsRatingSelected && !tree1.IsCommandLine)
+            {
+                var ratings = tree1.GetSelectedRatings();
+
+                if (ratings.Length > 1)
+                {
+                    SetView(ratingTableView);
+
+                    ratingTableView.Draw(ratings);
+
+                }
+                else // view edit single measurement
+                {
+                    SetView(ratingTableView);
+                    ratingTableView.Draw(ratings);
+                }
+
+                toolStripProgressBar1.Visible = false;
+            }
+
+
             else
             {
                 if ( !(explorer1.View is GraphExplorerView) || explorer1.View == null)
@@ -1082,7 +1102,10 @@ namespace Reclamation.TimeSeries.Forms
                 { allowForm = true; }
             }
             catch
-            { System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network..."); }
+            {
+                System.Windows.Forms.MessageBox.Show("RWIS Management Interface only available within the DOI-USBR network...");
+                toolStripMenuRWIS.Enabled = false;
+            }
 
             if (allowForm)
             {
@@ -1092,18 +1115,6 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
-        /// <summary>
-        /// Sync the pisces tree to show all measurements
-        /// in folder structure siteid/Flow Measurements/
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void showMeasurementsInTreeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            DB.Hydrography.SyncTreeWithMeasurementTable();
-            DatabaseChanged();
-        }
 
         private void toolStripMenuItemExportModelScenarios_Click(object sender, EventArgs e)
         {

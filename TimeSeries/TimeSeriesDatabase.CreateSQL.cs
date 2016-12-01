@@ -46,8 +46,8 @@ namespace Reclamation.TimeSeries
                 + " (id int not null primary key, "
                 + " version " + m_server.PortableCharacterType(256) + " not null , "
                 + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
-                + " stage_variable " + m_server.PortableCharacterType(256) + " not null default '', "
-                + " discharge_variable " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " x_variable " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " y_variable " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " csv_table " + m_server.PortableCharacterType(100000) + " not null default '' "
                 + " )";
                 ExecuteCreateTable(m_server, sql);

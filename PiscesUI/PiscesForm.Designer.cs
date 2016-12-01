@@ -43,7 +43,6 @@ namespace Reclamation.TimeSeries.Forms
             this.menuUpdate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.addMeasurementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showMeasurementsInTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.addFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.addSite = new System.Windows.Forms.ToolStripMenuItem();
@@ -109,14 +108,16 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemAlarmManager = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.importFromDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createTemplateFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importUsingTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.createTemplateFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuRWIS = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripProfileTool = new System.Windows.Forms.ToolStripMenuItem();
             this.ImportHydrologicModels = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemExportModelScenarios = new System.Windows.Forms.ToolStripMenuItem();
-            this.openModelExportTemplate = new System.Windows.Forms.ToolStripMenuItem();
             this.importUsingModelExportTemplate = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.openModelExportTemplate = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOptions = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,8 +131,7 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.newRatingTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -226,7 +226,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addMeasurementToolStripMenuItem,
-            this.showMeasurementsInTreeToolStripMenuItem});
+            this.newRatingTableToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
             this.toolStripMenuItem1.Text = "&Hydrography";
@@ -234,16 +234,9 @@ namespace Reclamation.TimeSeries.Forms
             // addMeasurementToolStripMenuItem
             // 
             this.addMeasurementToolStripMenuItem.Name = "addMeasurementToolStripMenuItem";
-            this.addMeasurementToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.addMeasurementToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.addMeasurementToolStripMenuItem.Text = "New &Measurement...";
             this.addMeasurementToolStripMenuItem.Click += new System.EventHandler(this.AddMeasurement);
-            // 
-            // showMeasurementsInTreeToolStripMenuItem
-            // 
-            this.showMeasurementsInTreeToolStripMenuItem.Name = "showMeasurementsInTreeToolStripMenuItem";
-            this.showMeasurementsInTreeToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
-            this.showMeasurementsInTreeToolStripMenuItem.Text = "&Show Measurements in Tree";
-            this.showMeasurementsInTreeToolStripMenuItem.Click += new System.EventHandler(this.showMeasurementsInTreeToolStripMenuItem_Click);
             // 
             // AddMenu
             // 
@@ -765,19 +758,24 @@ namespace Reclamation.TimeSeries.Forms
             this.importFromDirectoryToolStripMenuItem.Text = "Import From &Directory...";
             this.importFromDirectoryToolStripMenuItem.Click += new System.EventHandler(this.importFromDirectoryToolStripMenuItem_Click);
             // 
-            // createTemplateFileToolStripMenuItem
-            // 
-            this.createTemplateFileToolStripMenuItem.Name = "createTemplateFileToolStripMenuItem";
-            this.createTemplateFileToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
-            this.createTemplateFileToolStripMenuItem.Text = "&Open Example Template";
-            this.createTemplateFileToolStripMenuItem.Click += new System.EventHandler(this.createTemplateFileToolStripMenuItem_Click);
-            // 
             // importUsingTemplateToolStripMenuItem
             // 
             this.importUsingTemplateToolStripMenuItem.Name = "importUsingTemplateToolStripMenuItem";
             this.importUsingTemplateToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.importUsingTemplateToolStripMenuItem.Text = "&Import Using Template...";
             this.importUsingTemplateToolStripMenuItem.Click += new System.EventHandler(this.importUsingTemplateToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(202, 6);
+            // 
+            // createTemplateFileToolStripMenuItem
+            // 
+            this.createTemplateFileToolStripMenuItem.Name = "createTemplateFileToolStripMenuItem";
+            this.createTemplateFileToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.createTemplateFileToolStripMenuItem.Text = "&Open Example Template";
+            this.createTemplateFileToolStripMenuItem.Click += new System.EventHandler(this.createTemplateFileToolStripMenuItem_Click);
             // 
             // toolStripMenuRWIS
             // 
@@ -812,17 +810,22 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemExportModelScenarios.Text = "River and Reservoir Model Export";
             this.toolStripMenuItemExportModelScenarios.Click += new System.EventHandler(this.toolStripMenuItemExportModelScenarios_Click);
             // 
-            // openModelExportTemplate
-            // 
-            this.openModelExportTemplate.Name = "openModelExportTemplate";
-            this.openModelExportTemplate.Size = new System.Drawing.Size(205, 22);
-            this.openModelExportTemplate.Text = "&Open Example Template";
-            // 
             // importUsingModelExportTemplate
             // 
             this.importUsingModelExportTemplate.Name = "importUsingModelExportTemplate";
             this.importUsingModelExportTemplate.Size = new System.Drawing.Size(205, 22);
             this.importUsingModelExportTemplate.Text = "&Import Using Template...";
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(202, 6);
+            // 
+            // openModelExportTemplate
+            // 
+            this.openModelExportTemplate.Name = "openModelExportTemplate";
+            this.openModelExportTemplate.Size = new System.Drawing.Size(205, 22);
+            this.openModelExportTemplate.Text = "&Open Example Template";
             // 
             // toolStripSeparator7
             // 
@@ -906,15 +909,11 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // toolStripSeparator2
+            // newRatingTableToolStripMenuItem
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(202, 6);
-            // 
-            // toolStripSeparator9
-            // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(202, 6);
+            this.newRatingTableToolStripMenuItem.Name = "newRatingTableToolStripMenuItem";
+            this.newRatingTableToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.newRatingTableToolStripMenuItem.Text = "New &Rating Table";
             // 
             // PiscesForm
             // 
@@ -1033,7 +1032,6 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuRWIS;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addMeasurementToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem showMeasurementsInTreeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem createTemplateFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importUsingTemplateToolStripMenuItem;
@@ -1043,6 +1041,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem importUsingModelExportTemplate;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem newRatingTableToolStripMenuItem;
         //private System.Windows.Forms.ToolStripMenuItem menuUpdate;
 
     }

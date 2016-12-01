@@ -153,7 +153,7 @@ RefreshGraph();
             chart1.Refresh();
         }
 
-        private void SetupAxis(MeasurementList list)
+        private void SetupAxis(string xTitle, string yTitle)
         {
             //mypane.XAxis.Scale.Min = list.MinDischarge;
             //mypane.XAxis.Scale.Min = 0;
@@ -163,7 +163,7 @@ RefreshGraph();
             mypane.XAxis.Scale.Format = "#,#";
             mypane.XAxis.Scale.MinGrace = 0.05;
             mypane.AxisChange();           
-            mypane.XAxis.Title.Text = "Flow (cfs)";
+            mypane.XAxis.Title.Text = xTitle;
             mypane.AxisChange();
 
             //mypane.YAxis.Type = AxisType.Log;
@@ -176,7 +176,7 @@ RefreshGraph();
             mypane.YAxis.Scale.Mag = 0;
             mypane.YAxis.Scale.Format = "#,#";
             mypane.YAxis.Scale.MinGrace = 0.05;
-            mypane.YAxis.Title.Text = "Stage (feet)";
+            mypane.YAxis.Title.Text = yTitle;
             mypane.AxisChange();
         }
 
@@ -185,6 +185,33 @@ RefreshGraph();
             return val.ToString("F0");
         }
 
+        public void Draw(BasicRating[] ratings)
+        {
+            chart1.GraphPane.CurveList.Clear();
+            if (ratings.Length == 0)
+                return;
+            chart1.GraphPane.XAxis.Type = AxisType.Log;
+            chart1.GraphPane.YAxis.Type = AxisType.Log;
+            //Title = list.Text;
+            chart1.GraphPane.Title.Text = ratings[0].SiteID;
+            //SetupAxis(list);
+            foreach (BasicRating rt in ratings)
+            {
+                PointPairList points = new PointPairList();
+
+                var pts = rt.Points;
+                foreach (var item in pts)
+                {
+                    points.Add( item.Value,item.Key);
+                }
+                var line = chart1.GraphPane.AddCurve(rt.Name, points, ColorSymbolRotator.StaticNextColor);
+                SetupAxis(rt.RatingRow.x_variable, rt.RatingRow.y_variable);
+            }
+           
+            
+            RefreshGraph();
+
+        }
         public void Draw(BasicMeasurement[] measurements)
         {
             chart1.GraphPane.CurveList.Clear();
@@ -193,7 +220,7 @@ RefreshGraph();
             MeasurementList list = new MeasurementList(measurements);
             Title = list.Text;
             chart1.GraphPane.Title.Text = Title;
-            SetupAxis(list);
+            SetupAxis("Flow (cfs)", "Stage (feet)");
             
 
             PointPairList points = new PointPairList();
@@ -206,9 +233,14 @@ RefreshGraph();
 
             if (measurements.Length > 0)
             {
-                AddRegressionLines(measurements, points);
+               // AddRegressionLines(measurements, points);
 
             }
+            // TODO ,  check for multiple sites...
+            var c = chart1.GraphPane.AddCurve(measurements[0].MeasurementRow.siteid, points, Color.Green, SymbolType.Circle);
+            c.Line.IsVisible = false;
+            c.Symbol.Fill = new Fill(Color.Green);
+            c.Symbol.IsVisible = true;
 
             RefreshGraph();
         }

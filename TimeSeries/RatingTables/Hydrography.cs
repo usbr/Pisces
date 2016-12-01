@@ -88,8 +88,8 @@ namespace Reclamation.TimeSeries.RatingTables
             }
             return s_measurememnt;
          }
-
-        public void SyncTreeWithMeasurementTable()
+        
+        public void AddMeasurementsToTree()
         {
             Performance p = new Performance();
             var sc = m_db.GetSeriesCatalog();
@@ -106,6 +106,29 @@ namespace Reclamation.TimeSeries.RatingTables
                     System.Windows.Forms.Application.DoEvents();
                     double x = i*1.0 / measurements.Count * 100.0;
                     Logger.WriteLine(x.ToString("F2")+"%", "ui");
+                }
+            }
+            p.Report(); // 26 seconds
+            sc.Save();
+        }
+
+        public void AddRatingTablesToTree()
+        {
+            Performance p = new Performance();
+            var sc = m_db.GetSeriesCatalog();
+            var r = GetRatingTables();
+
+            for (int i = 0; i < r.Count; i++)
+            {
+                var m = r[i];
+
+                sc.AddRatingTable(m);
+
+                if (i % 100 == 0)
+                {
+                    System.Windows.Forms.Application.DoEvents();
+                    double x = i * 1.0 / r.Count * 100.0;
+                    Logger.WriteLine(x.ToString("F2") + "%", "ui");
                 }
             }
             p.Report(); // 26 seconds

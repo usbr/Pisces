@@ -297,6 +297,24 @@ namespace Reclamation.TimeSeries
                 return rval.ToArray();
             }
 
+            internal int AddRatingTable(HydrographyDataSet.rating_tablesRow m)
+            {
+                int folderID = GetOrCreateFolder(
+                 GetRootFolderNames()[0],      //"Untitled"
+                     m.siteid,                     //  NACW
+                       "Rating Tables");          //    "Flow Measurements"
+
+
+                int id = NextID();
+                var r = AddSeriesCatalogRow(id, folderID, false, 100,
+                "rating",
+                m.version,
+                m.siteid, "", "Instant", "", "", "BasicRating", "id=" + m.id, "",
+                "", true);
+
+                return r.id;
+            }
+
             public int AddMeasurement(HydrographyDataSet.measurementRow m)
             {
                 int folderID = GetOrCreateFolder(
@@ -306,7 +324,6 @@ namespace Reclamation.TimeSeries
 
 
                 int id = NextID();
-                int unixTimestamp = (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
                 var r = AddSeriesCatalogRow(id, folderID, false, 100,
                 "measurement",
                 m.date_measured.ToString(Hydrography.MeasurementDateFormat), //" ("+m.stage.ToString("F2")+","+m.discharge.ToString("F2")+")" ,
@@ -451,6 +468,8 @@ namespace Reclamation.TimeSeries
                 return rval;
             }
 
+
+           
         }
 
         public partial class ScenarioRow
@@ -510,6 +529,13 @@ namespace Reclamation.TimeSeries
             {
                 get {
                     return Provider == "BasicMeasurement";
+                }
+            }
+            public bool IsRatingTable
+            {
+                get
+                {
+                    return Provider == "BasicRating";
                 }
             }
 

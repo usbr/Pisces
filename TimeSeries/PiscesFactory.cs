@@ -190,27 +190,26 @@ namespace Reclamation.TimeSeries
 
         public PiscesObject CreateObject(SeriesCatalogRow sr)
         {
-          
+            PiscesObject rval = null;
             if (sr.IsFolder)
             {
-                var v = new PiscesFolder(db, sr);
-                v.Icon = AssignIcon(sr.iconname);
-                return v;
+                rval = new PiscesFolder(db, sr);
             }
             else if( sr.IsMeasurement)
             {
-                var m = GetMeasurement(sr);
-                m.Icon = AssignIcon(sr.iconname);
-                return m;
+                rval = GetMeasurement(sr);
+            }
+            else if( sr.IsRatingTable)
+            {
+                rval = GetRatingTable(sr);
             }
             else
             {
                 return GetSeries(sr); //11.53125 seconds elapsed.
-                //return GetSeries(sdi, db); //31.96875
             }
 
-            //return new PiscesObject();
-
+            rval.Icon = AssignIcon(sr.iconname);
+            return rval;
         }
 
         public BasicMeasurement GetMeasurement(SeriesCatalogRow sr)
@@ -218,7 +217,11 @@ namespace Reclamation.TimeSeries
             BasicMeasurement bm = new BasicMeasurement(db, sr);
             return bm;
         }
-
+        public BasicRating GetRatingTable(SeriesCatalogRow sr)
+        {
+            var r = new BasicRating(db, sr);
+            return r;
+        }
 
 
         static private Image AssignIcon(string source)
