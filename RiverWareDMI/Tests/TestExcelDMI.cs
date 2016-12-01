@@ -53,7 +53,7 @@ namespace ReclamationTesting.RiverWareDmiTest
                     Assert.AreEqual(348, val, .5);
                 }
 
-
+                Directory.Delete(dir, true);
             }
 
         }

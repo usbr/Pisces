@@ -5,12 +5,26 @@ using NUnit.Framework;
 using Reclamation.TimeSeries.Hydromet;
 using ReclamationTesting;
 using Reclamation.Core;
+using System.IO;
 
 namespace ReclamationTesting.RiverWareDmiTest
 {
     [TestFixture]
     public class TestHydrometDMI
     {
+        string[] tempFiles = new string[] 
+        { 
+            @"c:\temp\Storage.Jackson.txt",
+            @"c:\temp\Storage.IslandPark.txt",
+            @"c:\temp\Storage.Palisades.txt",
+            @"c:\temp\Storage.AmericanFalls.txt",
+            @"c:\temp\Inflow.BlackfootToAmericanFalls_Routing.txt",
+            @"c:\temp\Inflow.IslandParkToSnake_Routing2.txt",
+            @"c:\temp\Inflow.ShelleyToBlackfoot_Routing.txt",
+            @"c:\temp\Inflow.HeiseToShelley_Routing.txt",
+            @"c:\temp\Outflow.JacksonToPalisades_Routing.txt"
+        };
+
         /// <summary>
         /// reads hydromet data starting at controler start date
         /// and ends based on !count=value in control file
@@ -26,6 +40,10 @@ namespace ReclamationTesting.RiverWareDmiTest
             dmi = new Reclamation.Riverware.HydrometDMI(HydrometHost.PN, cf, t, DateTime.Now);
             dmi.ExportTextFiles();
 
+            foreach (var item in tempFiles)
+            {
+                File.Delete(item);
+            }
         }
 
         /// <summary>
@@ -43,6 +61,10 @@ namespace ReclamationTesting.RiverWareDmiTest
             dmi = new Reclamation.Riverware.HydrometDMI(HydrometHost.PN, cf, t1, t2);
             dmi.ExportTextFiles();
 
+            foreach (var item in tempFiles)
+            {
+                File.Delete(item);
+            }
         }
     }
 }
