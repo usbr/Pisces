@@ -101,7 +101,7 @@ namespace Reclamation.TimeSeries
 
                 resid = ResetResidualBasedOnForecast(t, forecast, resid);
 
-                bool missing = resid == Point.MissingValueFlag;
+                bool missing = Point.IsMissingValue(resid);
 
                 if (!missing && !runoff[i].IsMissing && t <=runoff.MaxDateTime)
                 {

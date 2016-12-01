@@ -1025,7 +1025,7 @@ namespace Reclamation.TimeSeries
             DataRow row = this.table.NewRow();
             row[0] = pt.DateTime;
             row[m_valueColumnIndex] = pt.Value;
-            if (pt.Flag == PointFlag.Missing || pt.Value == Point.MissingValueFlag)
+            if (pt.Flag == PointFlag.Missing || Point.IsMissingValue(pt.Value))
                 _missingRecordCount++;
 
             if (HasFlags)
