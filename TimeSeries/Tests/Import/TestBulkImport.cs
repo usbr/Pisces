@@ -36,6 +36,9 @@ namespace Pisces.NunitTests.Import
 @".+dir_import\\(?<scenario>[-a-z_0-9]+)-(?<siteid>[a-z0-9]+)-biascorrected_streamflow");
 
           Assert.IsTrue(db.GetSeriesCatalog().Rows.Count == 3);
+
+          svr.CloseAllConnections();
+          File.Delete(tmp);
         }
   
 

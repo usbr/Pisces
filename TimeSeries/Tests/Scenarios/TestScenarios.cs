@@ -29,6 +29,7 @@ namespace Reclamation.TimeSeries.Tests.Scenarios
 
             // create Scenarios
 
+            svr.CloseAllConnections();
             File.Delete(fn1);
         }
     }
