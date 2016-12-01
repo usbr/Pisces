@@ -79,13 +79,10 @@ namespace Reclamation.Core
 
 
         public void CloseAllConnections()
-        {//http://stackoverflow.com/questions/444750/spring-net-drop-all-adotemplate-connections
+        {//http://stackoverflow.com/a/24501130/2333687
             SQLiteConnection.ClearAllPools();
-            // if any connections were being used at the time of the clear, hopefully waiting
-            // 3 seconds will give them time to be released and we can now close them as well
-            //System.Threading.Thread.Sleep(3000);
-            //clear again
-            //SqlConnection.ClearAllPools();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         /// <summary>
