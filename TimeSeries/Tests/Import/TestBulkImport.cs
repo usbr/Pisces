@@ -30,11 +30,12 @@ namespace Pisces.NunitTests.Import
           if (File.Exists(tmp))
               File.Delete(tmp);
 
-          BasicDBServer svr = new SQLiteServer(@"c:\temp\import_dir.pdb");
-          TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
+          var svr = new SQLiteServer(tmp);
+          var db = new TimeSeriesDatabase(svr);
           BulkImportDirectory.Import(db,dir, "*.csv", 
 @".+dir_import\\(?<scenario>[-a-z_0-9]+)-(?<siteid>[a-z0-9]+)-biascorrected_streamflow");
-          File.Delete(tmp);
+
+          Assert.IsTrue(db.GetSeriesCatalog().Rows.Count == 3);
         }
   
 
