@@ -28,7 +28,7 @@ namespace ReclamationTesting.RiverWareDmiTest
                 args.Add("12:00");
                 args.Add("1928-07-01");
                 args.Add("12:00");
-                args.Add("-UXlsFileName=" + path + "\\RiverWare\\BoiseModelData.xlsx");
+                args.Add("-UXlsFileName=" + path + "\\RiverWare\\BoiseModelData.xls");
                 args.Add("-sTrace="+i);
 
                 
@@ -77,7 +77,7 @@ namespace ReclamationTesting.RiverWareDmiTest
             args.Add("1928-07-01");// end date for riverware
             args.Add("12:00");
             args.Add("1DAY");
-            args.Add("-UXlsFileName=" + path + "\\Riverware\\SnakeTestData.xlsx");
+            args.Add("-UXlsFileName=" + path + "\\Riverware\\SnakeTestData.xls");
             args.Add("-UWaterYear=1931"); // actual xls data begins 10/4/1930  (water year 1931)
             args.Add("-UFirstWaterYear=1928");
             Reclamation.RiverwareDmi.Program.Main(args.ToArray());
@@ -112,7 +112,7 @@ namespace ReclamationTesting.RiverWareDmiTest
             args.Add("1928-07-01");
             args.Add("12:00");
             args.Add("1DAY");
-            args.Add("-UXlsFileName=" +path + "\\RiverWare\\SnakeTestData.xlsx");
+            args.Add("-UXlsFileName=" +path + "\\RiverWare\\SnakeTestData.xls");
             args.Add("-STrace=4");
             Reclamation.RiverwareDmi.Program.Main(args.ToArray());
 
