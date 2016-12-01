@@ -1,0 +1,9 @@
+Jackson.Storage: obj=StorageReservoir file=c:\temp\Storage.Jackson.txt units=acre-feet import=resize days_offset=0 count=1 pcode=AF cbtt=JCK
+IslandPark.Storage: obj=LevelPowerReservoir file=c:\temp\Storage.IslandPark.txt units=acre-feet import=resize days_offset=0 pcode=AF cbtt=ISL
+Palisades.Storage: obj=LevelPowerReservoir file=c:\temp\Storage.Palisades.txt units=acre-feet import=resize days_offset=0  pcode=AF cbtt=PAL
+AmericanFalls.Storage: obj=LevelPowerReservoir file=c:\temp\Storage.AmericanFalls.txt units=acre-feet import=resize days_offset=0 pcode=AF cbtt=AMF
+BlackfootToAmericanFalls:Routing.Inflow: obj=Reach file=c:\temp\Inflow.BlackfootToAmericanFalls_Routing.txt units=cfs import=resize days_offset=0 pcode=QD cbtt=BFTI
+IslandParkToSnake:Routing2.Inflow: obj=Reach file=c:\temp\Inflow.IslandParkToSnake_Routing2.txt units=cfs import=resize days_offset=0  pcode=QD cbtt=REXI
+ShelleyToBlackfoot:Routing.Inflow: obj=Reach file=c:\temp\Inflow.ShelleyToBlackfoot_Routing.txt units=cfs import=resize days_offset=-2 pcode=QD cbtt=SHYI
+HeiseToShelley:Routing.Inflow: obj=Reach file=c:\temp\Inflow.HeiseToShelley_Routing.txt units=cfs import=resize days_offset=0  pcode=QD cbtt=HEII
+JacksonToPalisades:Routing.Outflow: obj=Reach file=c:\temp\Outflow.JacksonToPalisades_Routing.txt units=cfs import=resize days_offset=0 count=1 pcode=QD cbtt=JCK
