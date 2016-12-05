@@ -3,6 +3,7 @@ using System.Net.Mail;
 using Reclamation.Core;
 using System.Configuration;
 using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace HydrometNotifications
 {
@@ -153,25 +154,36 @@ namespace HydrometNotifications
 
         private static void SendEmailNotice(string[] email_list, string subject, string emailMsg,string txtMsg)
         {
+            var emailRecipients = new List<string>();
+            var txtRecipients = new List<string>();
             foreach (var emailAddress in email_list)
             {
                 var address = emailAddress.Trim();
                 if (Regex.IsMatch(emailAddress, @"^(\d{10}@)")) // cell phone---> use text message
                 {
-                    SendEmail(address, subject, txtMsg);
+                    txtRecipients.Add(address);
                 }
                 else// use html formatted email message
                 {
-                    SendEmail(address, subject, emailMsg);
+                    emailRecipients.Add(address);
                 }
             }
+
+            SendEmail(txtRecipients.ToArray(), subject, txtMsg);
+            SendEmail(emailRecipients.ToArray(), subject, emailMsg);
         }
 
-        private static void SendEmail(string address, string subject, string body)
+        private static void SendEmail(string[] address, string subject, string body)
         {
+            if (address.Length == 0)
+                return;
             MailMessage msg = new MailMessage();
-            msg.To.Add(address);
-            //msg.CC.Add("ktarbet@usbr.gov");
+
+            foreach (var item in address)
+            {
+                msg.To.Add(item);   
+            }
+           
             msg.From = new MailAddress(ConfigurationManager.AppSettings["email_reply"]);
             //msg.From = new MailAddress(WindowsUtility.GetShortUserName() + "@" + WindowsUtility.GetMachineName());
             msg.Subject = subject;
