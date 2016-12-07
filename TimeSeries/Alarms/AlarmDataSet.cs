@@ -1,5 +1,6 @@
 ﻿using Reclamation.Core;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Net.Mail;
@@ -74,7 +75,15 @@ namespace Reclamation.TimeSeries.Alarms
         {
             string sql = "select email from alarm_recipient where list='" + list + "' order by call_order";
             var tbl = m_server.Table("alarm_recipient", sql);
-            return DataTableUtility.Strings(tbl, "", "email");
+            var a = DataTableUtility.Strings(tbl, "", "email");
+            var rval = new List<string>();
+
+            for (int i = 0; i < a.Length; i++)
+            {
+               if( a[i].Trim() != "")
+                   rval.Add(a[i].Trim());
+            }
+            return rval.ToArray();
         }
 
 
@@ -164,14 +173,15 @@ namespace Reclamation.TimeSeries.Alarms
         /// <param name="s"></param>
         internal void Check(Series s)
         {
-            var alarm = GetAlarmDefinition(s.SiteID, s.Parameter);
+            Logger.WriteLine("Check for alarms " + s.SiteID + " " + s.Parameter);
+            var alarm = GetAlarmDefinition(s.SiteID.ToLower(), s.Parameter.ToLower());
             // is alarm defined
             if (alarm.Rows.Count == 0)
                 return;
             if (alarm.Rows.Count > 1)
                 throw new Exception("bad... alarm_definition constraint not working (siteid,parameter)");
 
-
+            Logger.WriteLine("found alarm definition " + s.SiteID + " " + s.Parameter);
             AlarmDataSet.alarm_definitionRow row = alarm[0];
             // check alarm_condition for each value
 
@@ -188,7 +198,8 @@ namespace Reclamation.TimeSeries.Alarms
                         {
                             if (!p.IsMissing && p.Value > c.Value)
                             {
-                                Console.WriteLine("Alarm above found");
+                                Logger.WriteLine("alarm_condition: "+row.alarm_condition);
+                                Logger.WriteLine("Alarm above found: "+p.Value);
                                 CreateAlarm(row, p);
                                 return;
                             }
@@ -304,7 +315,15 @@ namespace Reclamation.TimeSeries.Alarms
             var body = "Alarm condition at site" + alarm.siteid + "   parameter = " + alarm.parameter;
 
             var emails = GetEmailList(alarm.list);
+             if( emails.Length == 0)
+             {
+                 Logger.WriteLine("subject: " + subject);
+                 Logger.WriteLine("body: " + body);
+             }
+             else
+             {
             SendEmail(emails, subject, body);
+             }
 
 
         }
