@@ -314,6 +314,7 @@ namespace Reclamation.TimeSeries.Graphing
             series1.Symbol.IsVisible = false;
             series1.Color =  Default.GetSeriesColor(pane.CurveList.Count);
             series1.Line.Width = Default.GetSeriesWidth(pane.CurveList.Count);
+            series1.Line.IsAntiAlias = true;
             return series1;
         }
 
