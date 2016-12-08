@@ -71,9 +71,7 @@ namespace Reclamation.TimeSeries.Graphing
 
         private void SetPaneVisible(bool visible)
         {
-            if (!visible)
-                pane.Title.Text = "";
-
+            pane.Title.IsVisible = visible;
             pane.Legend.IsVisible = visible;
             pane.XAxis.IsVisible = visible;
             pane.YAxis.IsVisible = visible;
@@ -148,7 +146,7 @@ namespace Reclamation.TimeSeries.Graphing
             }
 
             SetPaneVisible(true);
-            FormatBottomAxisStandard(multiYear);
+            FormatBottomAxisDate(multiYear);
             FormatYAxisStandard();
             LabelYaxis(list);
             RefreshChart(chart1);
@@ -177,10 +175,10 @@ namespace Reclamation.TimeSeries.Graphing
                 myCurve.Symbol.IsVisible = false;
                 myCurve.Line.Width = Default.GetSeriesWidth(pane.CurveList.Count);
             }
+            pane.Title.Text = title + "\n" + subTitle;
             pane.XAxis.Title.Text = xAxisTitle;
            
-            pane.XAxis.Type = AxisType.Linear;
-            
+            FormatBottomAxisNumeric();
             pane.XAxis.Scale.Format = "";
             pane.XAxis.Scale.MajorStep = 5;
            
@@ -212,7 +210,7 @@ namespace Reclamation.TimeSeries.Graphing
             {
                 FillTimeSeries(list[i], chart1.GraphPane.CurveList[i]);
             }
-            FormatBottomAxisStandard(false);
+            FormatBottomAxisDate(false);
             FormatYAxisStandard();
             SetPaneVisible(true);
             LabelYaxis(list);
@@ -256,7 +254,7 @@ namespace Reclamation.TimeSeries.Graphing
                 ax.Scale.FormatAuto = true;
         }
 
-        private void FormatBottomAxisStandard(bool multiYear)
+        private void FormatBottomAxisDate(bool multiYear)
         {
             pane.XAxis.Title.IsVisible = false;
             pane.XAxis.Type = AxisType.Date;
@@ -277,7 +275,7 @@ namespace Reclamation.TimeSeries.Graphing
             }
         }
 
-        private void FormatBottomAxisCorrelation()
+        private void FormatBottomAxisNumeric()
         {
             pane.XAxis.Title.IsVisible = true;
             pane.XAxis.Type = AxisType.Linear;
@@ -304,7 +302,7 @@ namespace Reclamation.TimeSeries.Graphing
             FillCorrelation(s1, s2, series1);
             pane.CurveList.Add(series1);
 
-            FormatBottomAxisCorrelation();
+            FormatBottomAxisNumeric();
             FormatYAxisStandard();
             SetPaneVisible(true);
 
