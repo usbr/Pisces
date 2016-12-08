@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using Reclamation.Core;
-using System.Configuration;
 using ZedGraph;
 using System.Drawing;
 
@@ -24,7 +21,11 @@ namespace Reclamation.TimeSeries.Graphing
             chart1 = chart;
             pane = chart1.GraphPane;
             pane.Border.IsVisible = false;
-            pane.IsFontsScaled = false;
+            
+            // set fonts
+            ApplyFontDefaults();
+            
+            // set scale
             pane.YAxis.Scale.MinGrace = 0;
             pane.YAxis.Scale.MaxGrace = 0;
             pane.XAxis.Scale.MinGrace = 0;
@@ -39,9 +40,39 @@ namespace Reclamation.TimeSeries.Graphing
             chart1.MouseUpEvent += chart1_MouseUpEvent;
         }
 
+        private void ApplyFontDefaults()
+        {
+            pane.IsFontsScaled = false;
+
+            var fontSpecs = new List<FontSpec>
+                {
+                    pane.XAxis.Scale.FontSpec,
+                    pane.YAxis.Scale.FontSpec,
+                    pane.Y2Axis.Scale.FontSpec,
+                    pane.Title.FontSpec,
+                    pane.Legend.FontSpec
+                };
+
+            foreach (var item in fontSpecs)
+            {
+                SetDefaultFontSpec(item);
+            }
+
+            // set title to different color
+            pane.Title.FontSpec.FontColor = Color.DarkSlateBlue;
+        }
+
+        private void SetDefaultFontSpec(FontSpec fontSpec)
+        {
+            fontSpec.Family = "Verdana";
+            fontSpec.Size = 11f;
+            fontSpec.IsBold = false;
+        }
+
         private void SetPaneVisible(bool visible)
         {
-            pane.Title.Text = "";
+            if (!visible)
+                pane.Title.Text = "";
 
             pane.Legend.IsVisible = visible;
             pane.XAxis.IsVisible = visible;
@@ -195,10 +226,10 @@ namespace Reclamation.TimeSeries.Graphing
             pane.YAxis.MinorTic.IsInside = false;
             pane.YAxis.Scale.MinAuto = true;
             pane.YAxis.Scale.MaxAuto = true;
-            pane.YAxis.Title.FontSpec.IsBold = false;
-            pane.Y2Axis.Title.FontSpec.IsBold = false;
             pane.YAxis.Scale.MajorStepAuto = true;
             pane.YAxis.Scale.MinorStepAuto = true;
+            SetDefaultFontSpec(pane.YAxis.Title.FontSpec);
+            SetDefaultFontSpec(pane.Y2Axis.Title.FontSpec);
             GuessLinearScaleFormat(pane.YAxis);
         }
 
@@ -249,7 +280,6 @@ namespace Reclamation.TimeSeries.Graphing
         private void FormatBottomAxisCorrelation()
         {
             pane.XAxis.Title.IsVisible = true;
-            pane.XAxis.Title.FontSpec.IsBold = false;
             pane.XAxis.Type = AxisType.Linear;
             pane.XAxis.MajorTic.IsBetweenLabels = true;
             pane.XAxis.MajorTic.IsInside = false;
@@ -257,6 +287,7 @@ namespace Reclamation.TimeSeries.Graphing
             pane.XAxis.Scale.MajorStepAuto = true;
             pane.XAxis.Scale.MinorStepAuto = true;
             pane.XAxis.Scale.FormatAuto = true;
+            SetDefaultFontSpec(pane.XAxis.Title.FontSpec);
             GuessLinearScaleFormat(pane.XAxis);
         }
 
@@ -288,15 +319,14 @@ namespace Reclamation.TimeSeries.Graphing
         {
             Clear(undoZoom);
 
-            chart1.Text = title + "\n" + subTitle;
+            pane.Title.Text = title + "\n" + subTitle;
             LineItem series = new LineItem("");
             for (int i = 0; i < list.Count; i++)
             {
                series = CreateSeries(list.Text.Text[i]);
                 //string units = list[i].Units;
-               pane.CurveList.Add(series);    
+               pane.CurveList.Add(series);
             }
-            
         }
 
         internal void Clear( )

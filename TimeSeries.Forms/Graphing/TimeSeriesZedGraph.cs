@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Reclamation.TimeSeries.Graphing
@@ -137,7 +132,7 @@ namespace Reclamation.TimeSeries.Graphing
 
         private void toolStripButtonPrint_Click(object sender, EventArgs e)
         {
-            chart1.DoPrintPreview();
+            chart1.DoPrint();
         }
 
         private void toolStripButtonUndoZoom_Click(object sender, EventArgs e)
