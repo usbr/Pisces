@@ -169,12 +169,16 @@ namespace Reclamation.TimeSeries.Alarms
             }
             else
             {// run remote
-                var tokens = File.ReadAllLines(@"c:\utils\linux\dectalk.txt");
-                SshClient ssh = new SshClient("dectalk",tokens[0],tokens[1]);
-                ssh.Connect();
-                var cmd = ssh.RunCommand(exe +" "+args);
-                Console.WriteLine(cmd.Result);
-                return cmd.Result.Split('\n');
+                Login l = new Login();
+                if (l.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    SshClient ssh = new SshClient("dectalk", l.Username, l.Password);
+                    ssh.Connect();
+                    var cmd = ssh.RunCommand(exe + " " + args);
+                    Console.WriteLine(cmd.Result);
+                    return cmd.Result.Split('\n');
+                }
+                return new string[] { };
             }
         }
 
