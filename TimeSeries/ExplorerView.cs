@@ -36,6 +36,12 @@ namespace Reclamation.TimeSeries
 
         }
 
+        bool m_monthlySummaryMultiYear = true;
+        public bool MonthlySummaryMultiYear 
+        {
+            set { m_monthlySummaryMultiYear = value; } 
+        }
+
         public void Clear()
         {
             Console.WriteLine();

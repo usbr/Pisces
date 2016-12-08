@@ -10,6 +10,7 @@ namespace Reclamation.TimeSeries.Graphing
         void Draw(bool undoZoom);
         double MissingDataValue { get; set; }
         bool MultiLeftAxis { get; set; }
+        bool MonthlySummaryMultiYear { get; set; }
         Reclamation.TimeSeries.SeriesList Series { get; set; }
         string SubTitle { get; set; }
         string Title { get; set; }

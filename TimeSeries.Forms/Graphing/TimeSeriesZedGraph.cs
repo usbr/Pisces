@@ -31,10 +31,7 @@ namespace Reclamation.TimeSeries.Graphing
         public SeriesList Series
         {
             get { return this.seriesList; }
-            set
-            {
-                this.seriesList = value;
-            }
+            set { this.seriesList = value; }
         }
 
 
@@ -62,10 +59,7 @@ namespace Reclamation.TimeSeries.Graphing
             switch (analysisType)
             {
                 case AnalysisType.TimeSeries:
-
                     loader.DrawTimeSeries(seriesList, title, subTitle, undoZoom, m_multiLeftAxis);
-
-
                     break;
                 case AnalysisType.Exceedance:
                     loader.DrawSorted(seriesList, title, subTitle, "Percent Exceedance");
@@ -81,16 +75,12 @@ namespace Reclamation.TimeSeries.Graphing
                     break;
                 case AnalysisType.Correlation:
                     if (seriesList.Count == 2)
-                    {
                         loader.DrawCorrelation(seriesList[0], seriesList[1], title, subTitle);
-                    }
                     else
-                    {
                         loader.Clear();
-                    }
                     break;
                 case AnalysisType.MonthlySummary:
-                    loader.DrawTimeSeries(seriesList, title, subTitle, undoZoom, m_multiLeftAxis);
+                    loader.DrawTimeSeries(seriesList, title, subTitle, undoZoom, m_multiLeftAxis, m_monthlySummaryMultiYear);
                     break;
                 case AnalysisType.MovingAverage:
                     loader.DrawTimeSeries(seriesList, title, subTitle, undoZoom);
@@ -116,6 +106,13 @@ namespace Reclamation.TimeSeries.Graphing
             set { m_multiLeftAxis = value; }
         }
 
+        bool m_monthlySummaryMultiYear = true;
+        public bool MonthlySummaryMultiYear 
+        {
+            get { return m_monthlySummaryMultiYear; }
+            set { m_monthlySummaryMultiYear = value; }
+        }
+
 
         public void Add(Series s)
         {
@@ -124,26 +121,13 @@ namespace Reclamation.TimeSeries.Graphing
 
         public string SubTitle
         {
-            get
-            {
-                return this.subTitle;
-            }
-            set
-            {
-                this.subTitle = value;
-            }
+            get { return this.subTitle; }
+            set { this.subTitle = value; }
         }
         public string Title
         {
-            get
-            {
-                return this.title;
-            }
-            set
-            {
-                this.title = value;
-
-            }
+            get { return this.title; }
+            set { this.title = value; }
         }
 
         private void toolStripButtonSave_Click(object sender, EventArgs e)

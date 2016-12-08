@@ -12,6 +12,7 @@ namespace Reclamation.TimeSeries
        bool MultipleYAxis { set; }
         DataTable DataTable { set; get;}
         AnalysisType AnalysisType { set;}
+        bool MonthlySummaryMultiYear { set; }
         List<string> Messages { get; set;}
         void Draw();
         bool UndoZoom { set; }

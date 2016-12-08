@@ -22,14 +22,14 @@ namespace Reclamation.TimeSeries.Graphing
         }
 
         public void DrawTimeSeries(SeriesList list, string title, string subTitle,
-            bool undoZoom,bool multiLeftAxis=false)
+            bool undoZoom,bool multiLeftAxis=false,bool multiYear=true)
         {
             CreateSeries(list, title, subTitle,undoZoom,multiLeftAxis);
             for (int i = 0; i < list.Count; i++)
 			{
 			 FillTimeSeries(list[i],chart1[i]);
 			}
-            FormatBottomAxisStandard();
+            FormatBottomAxisStandard(multiYear);
             chart1.Refresh();
         }
 
@@ -51,21 +51,24 @@ namespace Reclamation.TimeSeries.Graphing
             {
                 FillTimeSeries(list[i], chart1[i]);
             }
-            FormatBottomAxisWaterYearStyle();
+            FormatBottomAxisStandard(false);
             chart1.Refresh();
         }
 
-        private void FormatBottomAxisStandard()
+        private void FormatBottomAxisStandard(bool multiYear)
         {
-            chart1.Axes.Bottom.Labels.DateTimeFormat = "";// Oct 1
-            chart1.Axes.Bottom.Labels.ExactDateTime = true;
-            chart1.Axes.Bottom.Increment = 0;
-        }
-        private void FormatBottomAxisWaterYearStyle()
-        {
-            chart1.Axes.Bottom.Labels.DateTimeFormat = "MMM d";// Oct 1
-            chart1.Axes.Bottom.Labels.ExactDateTime = true;
-            chart1.Axes.Bottom.Increment = Steema.TeeChart.Utils.GetDateTimeStep(Steema.TeeChart.DateTimeSteps.OneMonth);
+            if (multiYear)
+            {
+                chart1.Axes.Bottom.Labels.DateTimeFormat = "";// Oct 1
+                chart1.Axes.Bottom.Labels.ExactDateTime = true;
+                chart1.Axes.Bottom.Increment = 0;
+            }
+            else
+            {
+                chart1.Axes.Bottom.Labels.DateTimeFormat = "MMM d";// Oct 1
+                chart1.Axes.Bottom.Labels.ExactDateTime = true;
+                chart1.Axes.Bottom.Increment = Steema.TeeChart.Utils.GetDateTimeStep(Steema.TeeChart.DateTimeSteps.OneMonth);
+            }
         }
 
         internal void DrawCorrelation(Series s1, Series s2, string title, string subTitle)

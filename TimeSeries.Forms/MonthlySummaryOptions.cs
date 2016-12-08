@@ -21,9 +21,7 @@ namespace Reclamation.TimeSeries.Forms
         public override void ReadFromSettings(PiscesSettings settings)
         {
             base.ReadFromSettings(settings);
-            this.radioButtonMultiYear.Checked = settings.MultiYearMonthlyAggregate;
-            //this.radioButton12Values.Checked = !this.radioButtonMultiYear.Checked;
-            //radioButtionMultiYear.Checked = settings.
+            radioButtonMultiYear.Checked = settings.MultiYearMonthlyAggregate;
             statisiticalMethodOptions1.StatisticalMethods = settings.StatisticalMethods;
 
 

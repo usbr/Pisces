@@ -29,7 +29,12 @@ namespace Reclamation.TimeSeries
             set { m_thirtyYearAverage = value; }
         }
 
-        public bool MultiYearMonthlyAggregate = true;
+        private bool m_multiYearMonthlyAggregate;
+        public bool MultiYearMonthlyAggregate
+        {
+            get { return m_multiYearMonthlyAggregate; }
+            set { m_multiYearMonthlyAggregate = value; }
+        }
 
         private TimeSeriesDatabase m_db;
 
@@ -266,6 +271,7 @@ namespace Reclamation.TimeSeries
             m_thirtyYearAverage = false;
             m_selectedSeries = new Series[] { };
             m_analysisList = new AnalysisCollection(this);
+            m_multiYearMonthlyAggregate = true;
 //            HasTraces = false;
             _monthDayRange = new MonthDayRange(10, 1, 9, 30);
             this.StatisticalMethods = StatisticalMethods.None;
@@ -390,6 +396,7 @@ namespace Reclamation.TimeSeries
 
             View.Messages.Clear();
             View.AnalysisType = SelectedAnalysisType;
+            View.MonthlySummaryMultiYear = this.MultiYearMonthlyAggregate;
 
             View.UndoZoom = this.UndoZoom;
             Logger.WriteLine(SelectedAnalysisType + ".Run()");

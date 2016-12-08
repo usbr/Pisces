@@ -112,7 +112,6 @@ namespace Reclamation.TimeSeries.Graphing
             set { this.analysisType = value;}
         }
 
-
         public event EventHandler AfterEditGraph;
 
         private void toolStripButtonEditGraph_Click(object sender, EventArgs e)
@@ -147,6 +146,13 @@ namespace Reclamation.TimeSeries.Graphing
             set { m_multiLeftAxis = value; }
         }
 
+        bool m_monthlySummaryMultiYear = false;
+
+        public bool MonthlySummaryMultiYear
+        {
+            get { return m_monthlySummaryMultiYear; }
+            set { m_monthlySummaryMultiYear = value; }
+        }
 
         public void Draw(bool undoZoom)
         {
@@ -158,16 +164,12 @@ namespace Reclamation.TimeSeries.Graphing
             switch (analysisType)
             {
                 case AnalysisType.TimeSeries:
-
                     loader.DrawTimeSeries(seriesList, title, subTitle,undoZoom,m_multiLeftAxis);
                     for (int i = 0; i < tChart1.Series.Count; i++)
                     {
                         toolStripComboBoxDragPoints.Items.Add(tChart1[i].ToString());  
                     }
-                    
                     toolStripComboBoxDragPoints.Enabled = !seriesList.ReadOnly;
-                    
-
                     break;
                 case AnalysisType.Exceedance:
                     loader.DrawSorted(seriesList, title, subTitle,"Percent Exceedance");
@@ -183,16 +185,12 @@ namespace Reclamation.TimeSeries.Graphing
                     break;
                 case AnalysisType.Correlation:
                     if (seriesList.Count == 2)
-                    {
                         loader.DrawCorrelation(seriesList[0], seriesList[1], title, subTitle);
-                    }
                     else
-                    {
                         loader.Clear();
-                    }
                     break;
                 case AnalysisType.MonthlySummary :
-                    loader.DrawTimeSeries(seriesList, title, subTitle,undoZoom,m_multiLeftAxis);
+                    loader.DrawTimeSeries(seriesList, title, subTitle,undoZoom,m_multiLeftAxis,m_monthlySummaryMultiYear);
                     break;
                 case AnalysisType.MovingAverage :
                     loader.DrawTimeSeries(seriesList, title, subTitle,undoZoom);
@@ -209,15 +207,12 @@ namespace Reclamation.TimeSeries.Graphing
         private void tChart1_ClickSeries(object sender, Steema.TeeChart.Styles.Series s, int valueIndex, MouseEventArgs e)
         {
             int idx = this.tChart1.Series.IndexOf(s);
-           // MessageBox.Show(s.Title);
             Reclamation.Core.Logger.WriteLine(s.Title);
         }
 
         private void toolStripButtonUndoZoom_Click(object sender, EventArgs e)
         {
-            //this.tChart1.Zoom.Undo();
-            this.tChart1.Zoom.Undo();//.getZoom().undo();
-            //this.tChart1.Zoom.ZoomPercent(99);
+            this.tChart1.Zoom.Undo();
         }
 
         private void toolStripButtonZoomOut_Click(object sender, EventArgs e)

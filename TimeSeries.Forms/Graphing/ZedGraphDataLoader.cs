@@ -15,7 +15,6 @@ namespace Reclamation.TimeSeries.Graphing
     {
         private ZedGraphControl chart1;
         private GraphPane pane;
-        private float defaultLineWidth = 2;
         private float defaultSymbolSize = 2;
         private System.Drawing.Point mouseUpLoc;
         private System.Drawing.Point mouseDownLoc;
@@ -100,7 +99,7 @@ namespace Reclamation.TimeSeries.Graphing
         }
 
         public void DrawTimeSeries(SeriesList list, string title, string subTitle,
-            bool undoZoom,bool multiLeftAxis=false)
+            bool undoZoom,bool multiLeftAxis=false,bool multiYear=true)
         {
             Clear();
 
@@ -118,7 +117,7 @@ namespace Reclamation.TimeSeries.Graphing
             }
 
             SetPaneVisible(true);
-            FormatBottomAxisStandard();
+            FormatBottomAxisStandard(multiYear);
             FormatYAxisStandard();
             LabelYaxis(list);
             RefreshChart(chart1);
@@ -145,7 +144,7 @@ namespace Reclamation.TimeSeries.Graphing
                 LineItem myCurve = pane.AddCurve(list[i].Appearance.LegendText,
                     pairs, color);
                 myCurve.Symbol.IsVisible = false;
-                myCurve.Line.Width = defaultLineWidth;
+                myCurve.Line.Width = Default.GetSeriesWidth(pane.CurveList.Count);
             }
             pane.XAxis.Title.Text = xAxisTitle;
            
@@ -182,10 +181,10 @@ namespace Reclamation.TimeSeries.Graphing
             {
                 FillTimeSeries(list[i], chart1.GraphPane.CurveList[i]);
             }
-            FormatBottomAxisStandard();
+            FormatBottomAxisStandard(false);
             FormatYAxisStandard();
-            pane.XAxis.Scale.Format = "MMM d";
             SetPaneVisible(true);
+            LabelYaxis(list);
             RefreshChart(chart1);
         }
 
@@ -196,61 +195,74 @@ namespace Reclamation.TimeSeries.Graphing
             pane.YAxis.MinorTic.IsInside = false;
             pane.YAxis.Scale.MinAuto = true;
             pane.YAxis.Scale.MaxAuto = true;
-            
-            double xmin,xmax,ymin,ymax;
-            double ymaxx = Double.NaN;
+            pane.YAxis.Title.FontSpec.IsBold = false;
+            pane.Y2Axis.Title.FontSpec.IsBold = false;
+            pane.YAxis.Scale.MajorStepAuto = true;
+            pane.YAxis.Scale.MinorStepAuto = true;
+            GuessLinearScaleFormat(pane.YAxis);
+        }
+
+        private void GuessLinearScaleFormat(Axis ax)
+        {
+            double xmin, xmax, ymin, ymax;
+            double max = Double.NaN;
             foreach (CurveItem item in pane.CurveList)
             {
                 item.GetRange(out xmin, out xmax, out ymin, out ymax, false, false, pane);
-                
-                if (ymax > ymaxx || Double.IsNaN(ymaxx))
-                    ymaxx = ymax;
+
+                if (ax is YAxis || ax is Y2Axis)
+                    if (ymax > max || Double.IsNaN(max))
+                        max = ymax;
+
+                if (ax is XAxis)
+                    if (xmax > max || Double.IsNaN(max))
+                        max = xmax;
             }
-            GuessYAxisMajorStep(ymaxx);
 
-            if (ymaxx > 1000)
-                pane.YAxis.Scale.Format = "#,#";
+            if (max > 1000)
+                ax.Scale.Format = "#,#";
             else
-                pane.YAxis.Scale.FormatAuto = true;
+                ax.Scale.FormatAuto = true;
         }
 
-        private void GuessYAxisMajorStep(double max)
+        private void FormatBottomAxisStandard(bool multiYear)
         {
-            if (max <= 3)
-                pane.YAxis.Scale.MajorStep = 0.1;
-            else if (max <= 10)
-                pane.YAxis.Scale.MajorStep = 0.5;
-            else if (max <= 30)
-                pane.YAxis.Scale.MajorStep = 1;
-            else if (max <= 100)
-                pane.YAxis.Scale.MajorStep = 10;
-            else if (max <= 300)
-                pane.YAxis.Scale.MajorStep = 25;
-            else if (max <= 1000)
-                pane.YAxis.Scale.MajorStep = 50;
-            else if (max <= 5000)
-                pane.YAxis.Scale.MajorStep = 100;
-            else if (max <= 10000)
-                pane.YAxis.Scale.MajorStep = 250;
-            else if (max <= 50000)
-                pane.YAxis.Scale.MajorStep = 1000;
-            else
-                pane.YAxis.Scale.MajorStepAuto = true;
-        }
-
-        private void FormatBottomAxisStandard()
-        {
-            pane.XAxis.Title.Text = "Date";
+            pane.XAxis.Title.IsVisible = false;
             pane.XAxis.Type = AxisType.Date;
             pane.XAxis.MajorTic.IsBetweenLabels = true;
             pane.XAxis.MajorTic.IsInside = false;
             pane.XAxis.MinorTic.IsInside = false;
+            pane.XAxis.Scale.MajorStepAuto = true;
+            pane.XAxis.Scale.MinorStepAuto = true;
+
+            if (multiYear)
+            {
+                pane.XAxis.Scale.FormatAuto = true;
+            }
+            else
+            {
+                pane.XAxis.Scale.Format = "MMM d";
+                pane.XAxis.Scale.MajorStep = 1;
+            }
+        }
+
+        private void FormatBottomAxisCorrelation()
+        {
+            pane.XAxis.Title.IsVisible = true;
+            pane.XAxis.Title.FontSpec.IsBold = false;
+            pane.XAxis.Type = AxisType.Linear;
+            pane.XAxis.MajorTic.IsBetweenLabels = true;
+            pane.XAxis.MajorTic.IsInside = false;
+            pane.XAxis.MinorTic.IsInside = false;
+            pane.XAxis.Scale.MajorStepAuto = true;
+            pane.XAxis.Scale.MinorStepAuto = true;
+            pane.XAxis.Scale.FormatAuto = true;
+            GuessLinearScaleFormat(pane.XAxis);
         }
 
         internal void DrawCorrelation(Series s1, Series s2, string title, string subTitle)
         {
             Clear();
-            pane.XAxis.Type = AxisType.Linear;
 
             pane.Title.Text = title + "\n" + subTitle;
             pane.XAxis.Title.Text = s1.Units + " " + s1.Appearance.LegendText;
@@ -260,12 +272,14 @@ namespace Reclamation.TimeSeries.Graphing
 
             FillCorrelation(s1, s2, series1);
             pane.CurveList.Add(series1);
-            pane.XAxis.Scale.Format = "#,#";
-            pane.XAxis.Scale.MajorStepAuto = true;
 
+            FormatBottomAxisCorrelation();
+            FormatYAxisStandard();
             SetPaneVisible(true);
+
             RefreshChart(chart1);
         }
+
         /// <summary>
         /// Creates basic graph with empty series
         /// </summary>
@@ -285,20 +299,19 @@ namespace Reclamation.TimeSeries.Graphing
             
         }
 
-
-
         internal void Clear( )
         {
             Clear(true);
         }
 
-        internal void Clear(bool undoZoom )
+        internal void Clear(bool undoZoom)
         {
             if (undoZoom)
                 chart1.ZoomOutAll(pane);
 
             SetPaneVisible(false);
             pane.CurveList.Clear();
+            pane.GraphObjList.Clear();
             RefreshChart(chart1);
         }
 
@@ -383,7 +396,7 @@ namespace Reclamation.TimeSeries.Graphing
                         Point pt2 = s2[idx];
                         if (!pt2.IsMissing)
                         {
-                            series1.AddPoint(pt.Value, pt.Value);
+                            series1.AddPoint(pt.Value, pt2.Value);
                         }
                     }
                 }

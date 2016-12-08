@@ -99,7 +99,10 @@ namespace Reclamation.TimeSeries.Graphing
             set { this.timeSeriesGraph1.AnalysisType = value; }
         }
 
-
+        public bool MonthlySummaryMultiYear
+        {
+            set { this.timeSeriesGraph1.MonthlySummaryMultiYear = value; }
+        }
 
         public void Draw()
         {
