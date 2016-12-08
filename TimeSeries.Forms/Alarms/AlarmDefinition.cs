@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Reclamation.TimeSeries.Alarms;
+using Reclamation.Core;
 
 namespace Reclamation.TimeSeries.Forms.Alarms
 {
@@ -81,9 +82,14 @@ namespace Reclamation.TimeSeries.Forms.Alarms
              = (AlarmDataSet.alarm_definitionRow)currentDataRowView.Row;
 
          var numbers = m_ds.GetPhoneNumbers(comboBoxTestList.Text);
-         
-           Asterisk.Call(alarm.siteid, alarm.parameter, 
-                textBoxTest.Text, numbers);
+
+              var login = new Login();
+              if (login.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+              {
+
+                  Asterisk.Call(alarm.siteid, alarm.parameter,
+                       textBoxTest.Text, numbers,login.Username,login.Password);
+              }
 
         }
     }

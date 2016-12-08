@@ -36,12 +36,17 @@ namespace Reclamation.TimeSeries.Alarms
             }
         }
 
+       static string s_username="";
+       static string s_password="";
         /// <summary>
         /// originates calls on asterisk with a variable extension on the context 
         /// hydromet_groups
         /// </summary>
-        public static void Call(string siteId, string parameter, string value,string[] phoneNumbers)
+        public static void Call(string siteId, string parameter, string value,string[] phoneNumbers,
+            string username="", string password="")
         {
+            s_username = username;
+            s_password = password;
             stopwatch1 = new Stopwatch();
             stopwatch1.Restart();
 
@@ -159,8 +164,8 @@ namespace Reclamation.TimeSeries.Alarms
             }
         }
 
-       
-       //todo run command line function
+
+
         private static string[] RunExecutable(string exe, string args)
         {
             if (LinuxUtility.IsLinux())
@@ -169,16 +174,12 @@ namespace Reclamation.TimeSeries.Alarms
             }
             else
             {// run remote
-                Login l = new Login();
-                if (l.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    SshClient ssh = new SshClient("dectalk", l.Username, l.Password);
-                    ssh.Connect();
-                    var cmd = ssh.RunCommand(exe + " " + args);
-                    Console.WriteLine(cmd.Result);
-                    return cmd.Result.Split('\n');
-                }
-                return new string[] { };
+
+                SshClient ssh = new SshClient("dectalk", s_username, s_password);
+                ssh.Connect();
+                var cmd = ssh.RunCommand(exe + " " + args);
+                Console.WriteLine(cmd.Result);
+                return cmd.Result.Split('\n');
             }
         }
 
