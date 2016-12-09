@@ -73,6 +73,9 @@ _TeamCity*
 # DotCover is a Code Coverage Tool
 *.dotCover
 
+# Rider is JetBrains IDE
+*.idea
+
 # NCrunch
 *.ncrunch*
 .*crunch*.local.xml
