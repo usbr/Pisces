@@ -357,7 +357,11 @@ namespace Reclamation.Core
                         else
                         {
                             Type t = rval.Columns[c].DataType;
-                            newRow[c] = GetCellValue(cell, t);
+                            var o = GetCellValue(cell, t);
+                            if (o == null)
+                                newRow[c] = DBNull.Value;
+                            else
+                                newRow[c] = o;
                         }
                     }
                 }
@@ -491,7 +495,15 @@ namespace Reclamation.Core
 
                 if( cell.CellType == CellType.String)
                 {// convert from String
-                    return Convert.ToDateTime(cell.StringCellValue);
+                    DateTime tmpDate;
+                    if (DateTime.TryParse(cell.StringCellValue,out tmpDate))
+                    {
+                        return tmpDate;
+                    }
+                    else
+                    {
+                        return null;
+                    }
                 }
                 return cell.DateCellValue;
             }

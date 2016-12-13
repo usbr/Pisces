@@ -436,7 +436,7 @@ namespace Reclamation.Core
                     }
                     else
                     {
-                        string webFile = "http://www.usbr.gov/pn/hydromet/configurationdata/" + filename;
+                        string webFile = "https://www.usbr.gov/pn/hydromet/configurationdata/" + filename;
                         Logger.WriteLine("Copying from " + webFile);
                         Web.GetFile(webFile, rval);
                     }

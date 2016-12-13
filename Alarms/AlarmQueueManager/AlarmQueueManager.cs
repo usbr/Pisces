@@ -3,6 +3,7 @@ using System.Threading;
 using Reclamation.TimeSeries.Alarms;
 using Reclamation.TimeSeries;
 using Reclamation.Core;
+using System.Configuration;
 namespace AlarmQueueManager
 {
     /// <summary>
@@ -70,7 +71,8 @@ namespace AlarmQueueManager
             InstanceUtility.TouchProcessFile();
 
             var alarmQueue = DB.GetNewAlarms();
-            
+            string user = ConfigurationManager.AppSettings["pbx_username"];
+            string pass = ConfigurationManager.AppSettings["pbx_password"];
 
             Logger.WriteLine("found "+alarmQueue.Rows.Count+" new alarms in the queue");
             
@@ -81,7 +83,8 @@ namespace AlarmQueueManager
 
                    string[] numbers = DB.GetPhoneNumbers(alarm.list);
                     //string[] numbers = new string[] { "5272", "5272" };
-                    Asterisk.Call(alarm.siteid, alarm.parameter, alarm.value.ToString("F2"), numbers);
+                    Asterisk.Call(alarm.siteid, alarm.parameter, alarm.value.ToString("F2"),
+                        numbers,user,pass);
                     Thread.Sleep(2000);
                     string prevLog = "";
                     do

@@ -115,7 +115,7 @@ namespace Reclamation.TimeSeries.Alarms
                 exe = "/usr/sbin/asterisk";
 
             Logger.WriteLine("running asterisk '" + args + "'");
-            return RunExecutable(exe, "-x \""+args+"\"");
+            return RunRemoteExecutable(exe, "-x \""+args+"\"");
             
         }
 
@@ -166,21 +166,15 @@ namespace Reclamation.TimeSeries.Alarms
 
 
 
-        private static string[] RunExecutable(string exe, string args)
+        private static string[] RunRemoteExecutable(string exe, string args)
         {
-            if (LinuxUtility.IsLinux())
-            {
-                return RunLocal(exe, args);
-            }
-            else
-            {// run remote
 
                 SshClient ssh = new SshClient("dectalk", s_username, s_password);
+            //    var pkf = new PrivateKeyFile("C:key.key");
                 ssh.Connect();
                 var cmd = ssh.RunCommand(exe + " " + args);
                 Console.WriteLine(cmd.Result);
                 return cmd.Result.Split('\n');
-            }
         }
 
         private static string[] RunLocal(string exe, string args)

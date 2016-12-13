@@ -86,6 +86,7 @@ Source:  "t:\PN6200\Hydromet\ConfigurationData\yak\*.*";   DestDir: "{app}\yak";
 Source:  "t:\PN6200\Hydromet\ConfigurationData\site.csv";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\daily_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "t:\PN6200\Hydromet\ConfigurationData\instant_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\site1.csv";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "t:\PN6200\Hydromet\ConfigurationData\reclamationcgi.csv";   DestDir: "{app}";   Flags: ignoreversion
 
