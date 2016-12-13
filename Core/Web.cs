@@ -129,6 +129,7 @@ namespace Reclamation.Core
 
         public static void GetFile(string url, string outputFilename, string username, string password)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             request.UserAgent = UserAgent();
             if (username != "" && password != "")

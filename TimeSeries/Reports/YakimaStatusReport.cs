@@ -15,7 +15,7 @@ namespace Reclamation.TimeSeries.Reports
         }
 
         string[] resList = { "kee", "kac", "cle", "bum", "rim", "clr" };
-        string[] major_qc = { "ktcw", "rzcw", "tiew", "rscw", "sncw" };
+        string[] major_qc = { "ktcw", "rozw", "tiew", "rscw", "sncw" };
         string[] trib_qc = { "ktcw", "sncw", "rscw", "tiew", "rozw"};
         string[] others_above_parker = { "wesw", "nscw" };
         double[] resCapacity ={157800,239000,436900,33970,198000,-1};
@@ -107,9 +107,11 @@ namespace Reclamation.TimeSeries.Reports
                  var t2a = new DateTime(year2, 9, 30);
 
                  double avgPct = MultiYearAvg(t1,t1a, t2a);
-                 
-            rval = rval +"Storage is " + avgPct.ToString("F2") + "% of average (" + year1
-                 + ", " +year2 + ").";
+
+
+                 rval = rval + "\nStorage is " + avgPct.ToString("F1") + "% of average (" + year1
+                      + ", " + year2 + ")."
+                      + "\r\n---------------------";
              }
 
             return rval;

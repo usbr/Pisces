@@ -1,4 +1,4 @@
-﻿       dd-MMM-yyyy  HH:mm:ss    US BUREAU OF RECLAMATION
+﻿dd-MMM-yyyy  HH:mm:ss    US BUREAU OF RECLAMATION
                               YAKIMA PROJECT
                           SYSTEM STATUS AT HH:mm
 
@@ -17,7 +17,7 @@ TOTALS                %total_af   1065400. %total_pct  %total_in  %total_q
 IRRIGATION DIVERSIONS                    RIVER FLOWS
 ---------------------    CFS             -----------                  CFS
 Kittitas            %ktcw_qc             Yakima River at Easton    %easw_q 
-Roza                %rzcw_qc             Teanaway River at Forks   %tnaw_q
+Roza                %rozw_qc             Teanaway River at Forks   %tnaw_q
 Yakima-Tieton       %tiew_qc             Yakima River near Horlick %yrww_q
 Wapato              %rscw_qc             Yakima River near Umtanum %umtw_q
 Sunnyside           %sncw_qc             Yakima River blw Roza Dam %rbdw_q
@@ -37,3 +37,4 @@ Roza at Headworks   %rzcw_qc
 Chandler            %chcw_qc  
 
 UNREGULATED TRIBUTARY & RETURN FLOW ABOVE PARKER       %trib_parw CFS
+
