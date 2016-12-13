@@ -277,6 +277,7 @@
     <Compile Include="InstanceUtility.cs" />
     <Compile Include="SimpleFtp.cs" />
     <Compile Include="Tests\TestCredentialsFile.cs" />
+    <Compile Include="Tests\TestHttps.cs" />
     <Compile Include="Tests\TestNpoiExcel.cs" />
     <Compile Include="PostgreSQL.cs" />
     <Compile Include="DataGridSelection.cs" />
