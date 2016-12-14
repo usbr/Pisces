@@ -15,6 +15,8 @@
       <xs:element name="getCentralTendencyPeakData" type="tns:getCentralTendencyPeakData" />
       <xs:element name="getCentralTendencyPeakDataResponse" type="tns:getCentralTendencyPeakDataResponse" />
       <xs:element name="getData" type="tns:getData" />
+      <xs:element name="getDataInsertedOrUpdatedSince" type="tns:getDataInsertedOrUpdatedSince" />
+      <xs:element name="getDataInsertedOrUpdatedSinceResponse" type="tns:getDataInsertedOrUpdatedSinceResponse" />
       <xs:element name="getDataResponse" type="tns:getDataResponse" />
       <xs:element name="getElement" type="tns:getElement" />
       <xs:element name="getElementResponse" type="tns:getElementResponse" />
@@ -49,6 +51,8 @@
       <xs:element name="getHourlyData" type="tns:getHourlyData" />
       <xs:element name="getHourlyDataResponse" type="tns:getHourlyDataResponse" />
       <xs:element name="getInstantaneousData" type="tns:getInstantaneousData" />
+      <xs:element name="getInstantaneousDataInsertedOrUpdatedSince" type="tns:getInstantaneousDataInsertedOrUpdatedSince" />
+      <xs:element name="getInstantaneousDataInsertedOrUpdatedSinceResponse" type="tns:getInstantaneousDataInsertedOrUpdatedSinceResponse" />
       <xs:element name="getInstantaneousDataResponse" type="tns:getInstantaneousDataResponse" />
       <xs:element name="getPeakData" type="tns:getPeakData" />
       <xs:element name="getPeakDataResponse" type="tns:getPeakDataResponse" />
@@ -628,6 +632,45 @@
           <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:stationElement" />
         </xs:sequence>
       </xs:complexType>
+      <xs:complexType name="getDataInsertedOrUpdatedSince">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="stationTriplets" type="xs:string" />
+          <xs:element name="elementCd" type="xs:string" />
+          <xs:element name="ordinal" type="xs:int" />
+          <xs:element minOccurs="0" name="heightDepth" type="tns:heightDepth" />
+          <xs:element name="duration" type="tns:duration" />
+          <xs:element name="getFlags" type="xs:boolean" />
+          <xs:element name="beginDate" type="xs:string" />
+          <xs:element name="endDate" type="xs:string" />
+          <xs:element minOccurs="0" name="insertOrUpdateBeginDate" type="xs:string" />
+          <xs:element minOccurs="0" name="alwaysReturnDailyFeb29" type="xs:boolean" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getDataInsertedOrUpdatedSinceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:insertedOrUpdatedData" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="insertedOrUpdatedData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="beginDate" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="dataContentList" nillable="true" type="tns:insertedOrUpdatedDataContent" />
+          <xs:element minOccurs="0" name="duration" type="tns:duration" />
+          <xs:element minOccurs="0" name="elementCd" type="xs:string" />
+          <xs:element minOccurs="0" name="endDate" type="xs:string" />
+          <xs:element minOccurs="0" name="stationTriplet" type="xs:string" />
+          <xs:element name="timezoneOffset" type="xs:int" />
+          <xs:element minOccurs="0" name="unitCd" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="insertedOrUpdatedDataContent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="collectionDate" type="xs:string" />
+          <xs:element minOccurs="0" name="flag" type="xs:string" />
+          <xs:element minOccurs="0" name="timestamp" type="xs:string" />
+          <xs:element minOccurs="0" name="value" type="xs:decimal" />
+        </xs:sequence>
+      </xs:complexType>
       <xs:complexType name="getAveragesData">
         <xs:sequence>
           <xs:element maxOccurs="unbounded" name="stationTriplets" type="xs:string" />
@@ -872,6 +915,24 @@
           <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:averagesPeakData" />
         </xs:sequence>
       </xs:complexType>
+      <xs:complexType name="getInstantaneousDataInsertedOrUpdatedSince">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="stationTriplets" type="xs:string" />
+          <xs:element name="elementCd" type="xs:string" />
+          <xs:element name="ordinal" type="xs:int" />
+          <xs:element minOccurs="0" name="heightDepth" type="tns:heightDepth" />
+          <xs:element name="beginDate" type="xs:string" />
+          <xs:element name="endDate" type="xs:string" />
+          <xs:element minOccurs="0" name="insertOrUpdateBeginDate" type="xs:string" />
+          <xs:element name="filter" type="tns:instantaneousDataFilter" />
+          <xs:element name="unitSystem" type="tns:unitSystem" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getInstantaneousDataInsertedOrUpdatedSinceResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:instantaneousData" />
+        </xs:sequence>
+      </xs:complexType>
       <xs:complexType name="getStationDataAssuredFlags">
         <xs:sequence>
           <xs:element maxOccurs="unbounded" name="stationTriplets" type="xs:string" />
@@ -1006,6 +1067,9 @@
   <wsdl:message name="getForecastPeriodAverages">
     <wsdl:part name="parameters" element="tns:getForecastPeriodAverages" />
   </wsdl:message>
+  <wsdl:message name="getDataInsertedOrUpdatedSince">
+    <wsdl:part name="parameters" element="tns:getDataInsertedOrUpdatedSince" />
+  </wsdl:message>
   <wsdl:message name="getForecastResponse">
     <wsdl:part name="parameters" element="tns:getForecastResponse" />
   </wsdl:message>
@@ -1071,6 +1135,9 @@
   </wsdl:message>
   <wsdl:message name="getReservoirMetadata">
     <wsdl:part name="parameters" element="tns:getReservoirMetadata" />
+  </wsdl:message>
+  <wsdl:message name="getDataInsertedOrUpdatedSinceResponse">
+    <wsdl:part name="parameters" element="tns:getDataInsertedOrUpdatedSinceResponse" />
   </wsdl:message>
   <wsdl:message name="getElementsResponse">
     <wsdl:part name="parameters" element="tns:getElementsResponse" />
@@ -1144,6 +1211,9 @@
   <wsdl:message name="getDataResponse">
     <wsdl:part name="parameters" element="tns:getDataResponse" />
   </wsdl:message>
+  <wsdl:message name="getInstantaneousDataInsertedOrUpdatedSinceResponse">
+    <wsdl:part name="parameters" element="tns:getInstantaneousDataInsertedOrUpdatedSinceResponse" />
+  </wsdl:message>
   <wsdl:message name="getForecastsByPubDate">
     <wsdl:part name="parameters" element="tns:getForecastsByPubDate" />
   </wsdl:message>
@@ -1161,6 +1231,9 @@
   </wsdl:message>
   <wsdl:message name="getAveragesPeakResponse">
     <wsdl:part name="parameters" element="tns:getAveragesPeakResponse" />
+  </wsdl:message>
+  <wsdl:message name="getInstantaneousDataInsertedOrUpdatedSince">
+    <wsdl:part name="parameters" element="tns:getInstantaneousDataInsertedOrUpdatedSince" />
   </wsdl:message>
   <wsdl:message name="getForecastsByPubDateResponse">
     <wsdl:part name="parameters" element="tns:getForecastsByPubDateResponse" />
@@ -1244,6 +1317,10 @@
       <wsdl:input name="getStationElements" message="tns:getStationElements" />
       <wsdl:output name="getStationElementsResponse" message="tns:getStationElementsResponse" />
     </wsdl:operation>
+    <wsdl:operation name="getDataInsertedOrUpdatedSince">
+      <wsdl:input name="getDataInsertedOrUpdatedSince" message="tns:getDataInsertedOrUpdatedSince" />
+      <wsdl:output name="getDataInsertedOrUpdatedSinceResponse" message="tns:getDataInsertedOrUpdatedSinceResponse" />
+    </wsdl:operation>
     <wsdl:operation name="getAveragesData">
       <wsdl:input name="getAveragesData" message="tns:getAveragesData" />
       <wsdl:output name="getAveragesDataResponse" message="tns:getAveragesDataResponse" />
@@ -1299,6 +1376,10 @@
     <wsdl:operation name="getAveragesPeak">
       <wsdl:input name="getAveragesPeak" message="tns:getAveragesPeak" />
       <wsdl:output name="getAveragesPeakResponse" message="tns:getAveragesPeakResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getInstantaneousDataInsertedOrUpdatedSince">
+      <wsdl:input name="getInstantaneousDataInsertedOrUpdatedSince" message="tns:getInstantaneousDataInsertedOrUpdatedSince" />
+      <wsdl:output name="getInstantaneousDataInsertedOrUpdatedSinceResponse" message="tns:getInstantaneousDataInsertedOrUpdatedSinceResponse" />
     </wsdl:operation>
     <wsdl:operation name="getStationDataAssuredFlags">
       <wsdl:input name="getStationDataAssuredFlags" message="tns:getStationDataAssuredFlags" />
@@ -1477,6 +1558,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getDataInsertedOrUpdatedSince">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getDataInsertedOrUpdatedSince">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getDataInsertedOrUpdatedSinceResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getAveragesData">
       <soap:operation soapAction="" style="document" />
       <wsdl:input name="getAveragesData">
@@ -1603,6 +1693,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="getInstantaneousDataInsertedOrUpdatedSince">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="getInstantaneousDataInsertedOrUpdatedSince">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getInstantaneousDataInsertedOrUpdatedSinceResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="getStationDataAssuredFlags">
       <soap:operation soapAction="" style="document" />
       <wsdl:input name="getStationDataAssuredFlags">
@@ -1633,7 +1732,7 @@
   </wsdl:binding>
   <wsdl:service name="AwdbWebService">
     <wsdl:port name="AwdbWebServiceImplPort" binding="tns:AwdbWebServiceSoapBinding">
-      <soap:address location="http://wcc.sc.egov.usda.gov/awdbWebService/services" />
+      <soap:address location="https://wcc.sc.egov.usda.gov/awdbWebService/services" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

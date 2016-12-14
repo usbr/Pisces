@@ -38,7 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ImapX, Version=2.0.0.18, Culture=neutral, PublicKeyToken=5992873d65130d1f, processorArchitecture=MSIL">
-      <HintPath>..\packages\ImapX.2.0.0.18\lib\net40\ImapX.dll</HintPath>
+      <HintPath>..\packages\ImapX.2.0.0.18\lib\net452\ImapX.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

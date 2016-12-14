@@ -70,7 +70,7 @@
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <UseVSHostingProcess>true</UseVSHostingProcess>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -542,7 +542,7 @@
     <None Include="ScenarioManagement\ScenarioDataSet.xss">
       <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
     </None>
-    <None Include="Service References\Nrcs\AwdbWebService.wsdl" />
+    <None Include="Service References\Nrcs\AwdbWebService1.wsdl" />
     <None Include="Service References\Nrcs\Reclamation.TimeSeries.Nrcs.averagesData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -592,6 +592,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\Nrcs\Reclamation.TimeSeries.Nrcs.hourlyData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Nrcs\Reclamation.TimeSeries.Nrcs.insertedOrUpdatedData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\Nrcs\Reclamation.TimeSeries.Nrcs.instantaneousData.datasource">
@@ -884,10 +887,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\x86\SQLite.Interop.dll">
-      <Link>SQLite.Interop.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Nrcs\NWCC_Web_Report_Scripting.txt" />
     <Content Include="Reports\YakimaStatusReport.txt" />
     <Content Include="Reports\YakimaStatusTemplate.txt">

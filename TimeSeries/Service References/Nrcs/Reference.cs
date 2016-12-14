@@ -127,6 +127,12 @@ namespace Reclamation.TimeSeries.Nrcs {
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        Reclamation.TimeSeries.Nrcs.getDataInsertedOrUpdatedSinceResponse getDataInsertedOrUpdatedSince(Reclamation.TimeSeries.Nrcs.getDataInsertedOrUpdatedSince request);
+        
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         Reclamation.TimeSeries.Nrcs.getAveragesDataResponse getAveragesData(Reclamation.TimeSeries.Nrcs.getAveragesData request);
         
         // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
@@ -206,6 +212,12 @@ namespace Reclamation.TimeSeries.Nrcs {
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
         Reclamation.TimeSeries.Nrcs.getAveragesPeakResponse getAveragesPeak(Reclamation.TimeSeries.Nrcs.getAveragesPeak request);
+        
+        // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        Reclamation.TimeSeries.Nrcs.getInstantaneousDataInsertedOrUpdatedSinceResponse getInstantaneousDataInsertedOrUpdatedSince(Reclamation.TimeSeries.Nrcs.getInstantaneousDataInsertedOrUpdatedSince request);
         
         // CODEGEN: Parameter 'return' requires additional schema information that cannot be captured using the parameter mode. The specific attribute is 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
@@ -3335,6 +3347,238 @@ namespace Reclamation.TimeSeries.Nrcs {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService")]
+    public partial class insertedOrUpdatedDataContent : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string collectionDateField;
+        
+        private string flagField;
+        
+        private string timestampField;
+        
+        private decimal valueField;
+        
+        private bool valueFieldSpecified;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public string collectionDate {
+            get {
+                return this.collectionDateField;
+            }
+            set {
+                this.collectionDateField = value;
+                this.RaisePropertyChanged("collectionDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public string flag {
+            get {
+                return this.flagField;
+            }
+            set {
+                this.flagField = value;
+                this.RaisePropertyChanged("flag");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public string timestamp {
+            get {
+                return this.timestampField;
+            }
+            set {
+                this.timestampField = value;
+                this.RaisePropertyChanged("timestamp");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public decimal value {
+            get {
+                return this.valueField;
+            }
+            set {
+                this.valueField = value;
+                this.RaisePropertyChanged("value");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool valueSpecified {
+            get {
+                return this.valueFieldSpecified;
+            }
+            set {
+                this.valueFieldSpecified = value;
+                this.RaisePropertyChanged("valueSpecified");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1085.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService")]
+    public partial class insertedOrUpdatedData : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string beginDateField;
+        
+        private insertedOrUpdatedDataContent[] dataContentListField;
+        
+        private duration durationField;
+        
+        private bool durationFieldSpecified;
+        
+        private string elementCdField;
+        
+        private string endDateField;
+        
+        private string stationTripletField;
+        
+        private int timezoneOffsetField;
+        
+        private string unitCdField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public string beginDate {
+            get {
+                return this.beginDateField;
+            }
+            set {
+                this.beginDateField = value;
+                this.RaisePropertyChanged("beginDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("dataContentList", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true, Order=1)]
+        public insertedOrUpdatedDataContent[] dataContentList {
+            get {
+                return this.dataContentListField;
+            }
+            set {
+                this.dataContentListField = value;
+                this.RaisePropertyChanged("dataContentList");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public duration duration {
+            get {
+                return this.durationField;
+            }
+            set {
+                this.durationField = value;
+                this.RaisePropertyChanged("duration");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool durationSpecified {
+            get {
+                return this.durationFieldSpecified;
+            }
+            set {
+                this.durationFieldSpecified = value;
+                this.RaisePropertyChanged("durationSpecified");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public string elementCd {
+            get {
+                return this.elementCdField;
+            }
+            set {
+                this.elementCdField = value;
+                this.RaisePropertyChanged("elementCd");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public string endDate {
+            get {
+                return this.endDateField;
+            }
+            set {
+                this.endDateField = value;
+                this.RaisePropertyChanged("endDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
+        public string stationTriplet {
+            get {
+                return this.stationTripletField;
+            }
+            set {
+                this.stationTripletField = value;
+                this.RaisePropertyChanged("stationTriplet");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
+        public int timezoneOffset {
+            get {
+                return this.timezoneOffsetField;
+            }
+            set {
+                this.timezoneOffsetField = value;
+                this.RaisePropertyChanged("timezoneOffset");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
+        public string unitCd {
+            get {
+                return this.unitCdField;
+            }
+            set {
+                this.unitCdField = value;
+                this.RaisePropertyChanged("unitCd");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1085.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService")]
     public partial class diagnosticStackTraceElement : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string classNameField;
@@ -5915,6 +6159,87 @@ namespace Reclamation.TimeSeries.Nrcs {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="getDataInsertedOrUpdatedSince", WrapperNamespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", IsWrapped=true)]
+    public partial class getDataInsertedOrUpdatedSince {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("stationTriplets", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string[] stationTriplets;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string elementCd;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int ordinal;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Reclamation.TimeSeries.Nrcs.heightDepth heightDepth;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Reclamation.TimeSeries.Nrcs.duration duration;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool getFlags;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=6)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string beginDate;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=7)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string endDate;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=8)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string insertOrUpdateBeginDate;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=9)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public bool alwaysReturnDailyFeb29;
+        
+        public getDataInsertedOrUpdatedSince() {
+        }
+        
+        public getDataInsertedOrUpdatedSince(string[] stationTriplets, string elementCd, int ordinal, Reclamation.TimeSeries.Nrcs.heightDepth heightDepth, Reclamation.TimeSeries.Nrcs.duration duration, bool getFlags, string beginDate, string endDate, string insertOrUpdateBeginDate, bool alwaysReturnDailyFeb29) {
+            this.stationTriplets = stationTriplets;
+            this.elementCd = elementCd;
+            this.ordinal = ordinal;
+            this.heightDepth = heightDepth;
+            this.duration = duration;
+            this.getFlags = getFlags;
+            this.beginDate = beginDate;
+            this.endDate = endDate;
+            this.insertOrUpdateBeginDate = insertOrUpdateBeginDate;
+            this.alwaysReturnDailyFeb29 = alwaysReturnDailyFeb29;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="getDataInsertedOrUpdatedSinceResponse", WrapperNamespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", IsWrapped=true)]
+    public partial class getDataInsertedOrUpdatedSinceResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Reclamation.TimeSeries.Nrcs.insertedOrUpdatedData[] @return;
+        
+        public getDataInsertedOrUpdatedSinceResponse() {
+        }
+        
+        public getDataInsertedOrUpdatedSinceResponse(Reclamation.TimeSeries.Nrcs.insertedOrUpdatedData[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="getAveragesData", WrapperNamespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", IsWrapped=true)]
     public partial class getAveragesData {
         
@@ -6674,6 +6999,82 @@ namespace Reclamation.TimeSeries.Nrcs {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="getInstantaneousDataInsertedOrUpdatedSince", WrapperNamespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", IsWrapped=true)]
+    public partial class getInstantaneousDataInsertedOrUpdatedSince {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("stationTriplets", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string[] stationTriplets;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=1)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string elementCd;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=2)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public int ordinal;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=3)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Reclamation.TimeSeries.Nrcs.heightDepth heightDepth;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=4)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string beginDate;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=5)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string endDate;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=6)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public string insertOrUpdateBeginDate;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=7)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Reclamation.TimeSeries.Nrcs.instantaneousDataFilter filter;
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=8)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Reclamation.TimeSeries.Nrcs.unitSystem unitSystem;
+        
+        public getInstantaneousDataInsertedOrUpdatedSince() {
+        }
+        
+        public getInstantaneousDataInsertedOrUpdatedSince(string[] stationTriplets, string elementCd, int ordinal, Reclamation.TimeSeries.Nrcs.heightDepth heightDepth, string beginDate, string endDate, string insertOrUpdateBeginDate, Reclamation.TimeSeries.Nrcs.instantaneousDataFilter filter, Reclamation.TimeSeries.Nrcs.unitSystem unitSystem) {
+            this.stationTriplets = stationTriplets;
+            this.elementCd = elementCd;
+            this.ordinal = ordinal;
+            this.heightDepth = heightDepth;
+            this.beginDate = beginDate;
+            this.endDate = endDate;
+            this.insertOrUpdateBeginDate = insertOrUpdateBeginDate;
+            this.filter = filter;
+            this.unitSystem = unitSystem;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="getInstantaneousDataInsertedOrUpdatedSinceResponse", WrapperNamespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", IsWrapped=true)]
+    public partial class getInstantaneousDataInsertedOrUpdatedSinceResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public Reclamation.TimeSeries.Nrcs.instantaneousData[] @return;
+        
+        public getInstantaneousDataInsertedOrUpdatedSinceResponse() {
+        }
+        
+        public getInstantaneousDataInsertedOrUpdatedSinceResponse(Reclamation.TimeSeries.Nrcs.instantaneousData[] @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="getStationDataAssuredFlags", WrapperNamespace="http://www.wcc.nrcs.usda.gov/ns/awdbWebService", IsWrapped=true)]
     public partial class getStationDataAssuredFlags {
         
@@ -7123,6 +7524,27 @@ namespace Reclamation.TimeSeries.Nrcs {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Reclamation.TimeSeries.Nrcs.getDataInsertedOrUpdatedSinceResponse Reclamation.TimeSeries.Nrcs.AwdbWebService.getDataInsertedOrUpdatedSince(Reclamation.TimeSeries.Nrcs.getDataInsertedOrUpdatedSince request) {
+            return base.Channel.getDataInsertedOrUpdatedSince(request);
+        }
+        
+        public Reclamation.TimeSeries.Nrcs.insertedOrUpdatedData[] getDataInsertedOrUpdatedSince(string[] stationTriplets, string elementCd, int ordinal, Reclamation.TimeSeries.Nrcs.heightDepth heightDepth, Reclamation.TimeSeries.Nrcs.duration duration, bool getFlags, string beginDate, string endDate, string insertOrUpdateBeginDate, bool alwaysReturnDailyFeb29) {
+            Reclamation.TimeSeries.Nrcs.getDataInsertedOrUpdatedSince inValue = new Reclamation.TimeSeries.Nrcs.getDataInsertedOrUpdatedSince();
+            inValue.stationTriplets = stationTriplets;
+            inValue.elementCd = elementCd;
+            inValue.ordinal = ordinal;
+            inValue.heightDepth = heightDepth;
+            inValue.duration = duration;
+            inValue.getFlags = getFlags;
+            inValue.beginDate = beginDate;
+            inValue.endDate = endDate;
+            inValue.insertOrUpdateBeginDate = insertOrUpdateBeginDate;
+            inValue.alwaysReturnDailyFeb29 = alwaysReturnDailyFeb29;
+            Reclamation.TimeSeries.Nrcs.getDataInsertedOrUpdatedSinceResponse retVal = ((Reclamation.TimeSeries.Nrcs.AwdbWebService)(this)).getDataInsertedOrUpdatedSince(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         Reclamation.TimeSeries.Nrcs.getAveragesDataResponse Reclamation.TimeSeries.Nrcs.AwdbWebService.getAveragesData(Reclamation.TimeSeries.Nrcs.getAveragesData request) {
             return base.Channel.getAveragesData(request);
         }
@@ -7334,6 +7756,26 @@ namespace Reclamation.TimeSeries.Nrcs {
             inValue.duration = duration;
             inValue.getFlags = getFlags;
             Reclamation.TimeSeries.Nrcs.getAveragesPeakResponse retVal = ((Reclamation.TimeSeries.Nrcs.AwdbWebService)(this)).getAveragesPeak(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Reclamation.TimeSeries.Nrcs.getInstantaneousDataInsertedOrUpdatedSinceResponse Reclamation.TimeSeries.Nrcs.AwdbWebService.getInstantaneousDataInsertedOrUpdatedSince(Reclamation.TimeSeries.Nrcs.getInstantaneousDataInsertedOrUpdatedSince request) {
+            return base.Channel.getInstantaneousDataInsertedOrUpdatedSince(request);
+        }
+        
+        public Reclamation.TimeSeries.Nrcs.instantaneousData[] getInstantaneousDataInsertedOrUpdatedSince(string[] stationTriplets, string elementCd, int ordinal, Reclamation.TimeSeries.Nrcs.heightDepth heightDepth, string beginDate, string endDate, string insertOrUpdateBeginDate, Reclamation.TimeSeries.Nrcs.instantaneousDataFilter filter, Reclamation.TimeSeries.Nrcs.unitSystem unitSystem) {
+            Reclamation.TimeSeries.Nrcs.getInstantaneousDataInsertedOrUpdatedSince inValue = new Reclamation.TimeSeries.Nrcs.getInstantaneousDataInsertedOrUpdatedSince();
+            inValue.stationTriplets = stationTriplets;
+            inValue.elementCd = elementCd;
+            inValue.ordinal = ordinal;
+            inValue.heightDepth = heightDepth;
+            inValue.beginDate = beginDate;
+            inValue.endDate = endDate;
+            inValue.insertOrUpdateBeginDate = insertOrUpdateBeginDate;
+            inValue.filter = filter;
+            inValue.unitSystem = unitSystem;
+            Reclamation.TimeSeries.Nrcs.getInstantaneousDataInsertedOrUpdatedSinceResponse retVal = ((Reclamation.TimeSeries.Nrcs.AwdbWebService)(this)).getInstantaneousDataInsertedOrUpdatedSince(inValue);
             return retVal.@return;
         }
         

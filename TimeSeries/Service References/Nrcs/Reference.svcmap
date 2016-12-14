@@ -21,7 +21,7 @@
     <MetadataSource Address="http://wcc.sc.egov.usda.gov/awdbWebService/services?WSDL" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="AwdbWebService.wsdl" MetadataType="Wsdl" ID="34c7152a-59f6-4103-ac16-08b52c35b38d" SourceId="1" SourceUrl="http://wcc.sc.egov.usda.gov/awdbWebService/services?WSDL" />
+    <MetadataFile FileName="AwdbWebService1.wsdl" MetadataType="Wsdl" ID="e57a9ba4-d423-44fa-810a-a9dfa636898f" SourceId="1" SourceUrl="https://wcc.sc.egov.usda.gov/awdbWebService/services?WSDL" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
