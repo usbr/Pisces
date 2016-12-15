@@ -58,7 +58,7 @@ namespace Reclamation.TimeSeries.Nrcs
 
     /// <summary>
     /// Read Daily snotel , or SnowCourse data from NRCS web service
-    /// http:///wcc.sc.egov.usda.gov/awdbWebService/webservice/testwebservice.jsf
+    /// https:///wcc.sc.egov.usda.gov/awdbWebService/webservice/testwebservice.jsf
     /// </summary>
     public class SnotelSeries:Series
     {
