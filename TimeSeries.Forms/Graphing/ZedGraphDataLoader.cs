@@ -15,15 +15,13 @@ namespace Reclamation.TimeSeries.Graphing
         private float defaultSymbolSize = 2;
         private System.Drawing.Point mouseUpLoc;
         private System.Drawing.Point mouseDownLoc;
+        private Single _dpiFactor = 1f;
 
         public ZedGraphDataLoader(ZedGraphControl chart)
         {
             chart1 = chart;
             pane = chart1.GraphPane;
             pane.Border.IsVisible = false;
-            
-            // set fonts
-            ApplyFontDefaults();
             
             // set scale
             pane.YAxis.Scale.MinGrace = 0;
@@ -38,6 +36,14 @@ namespace Reclamation.TimeSeries.Graphing
             chart1.ZoomEvent += chart1_ZoomEvent;
             chart1.MouseDownEvent += chart1_MouseDownEvent;
             chart1.MouseUpEvent += chart1_MouseUpEvent;
+
+            using (Graphics g = chart1.CreateGraphics())
+            {
+                _dpiFactor = Convert.ToSingle(g.DpiX / 96.0);
+            }
+
+            // set fonts
+            ApplyFontDefaults();
         }
 
         private void ApplyFontDefaults()
@@ -65,7 +71,7 @@ namespace Reclamation.TimeSeries.Graphing
         private void SetDefaultFontSpec(FontSpec fontSpec)
         {
             fontSpec.Family = "Verdana";
-            fontSpec.Size = 11f;
+            fontSpec.Size = 11f * _dpiFactor;
             fontSpec.IsBold = false;
         }
 
