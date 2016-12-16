@@ -3,11 +3,12 @@ sudo: false
 language: csharp
 install:
 - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+- nuget restore Pisces.sln
 script:
-- cp /usr/lib/nuget/NuGet.exe ./.nuget/NuGet.exe
-- cp /usr/lib/nuget/NuGet.Core.dll ./.nuget/
-- export EnableNuGetPackageRestore=true
-- xbuild Pisces.sln /p:PostBuildEvent="" 
+#- cp /usr/lib/nuget/NuGet.exe ./.nuget/NuGet.exe
+#- cp /usr/lib/nuget/NuGet.Core.dll ./.nuget/
+#- export EnableNuGetPackageRestore=true
+- xbuild /p:Configuration=Debug Pisces.sln /p:PostBuildEvent="" 
 #- mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TimeSeries/bin/Debug/Reclamation.TimeSeries.dll
 notifications:
   email:
