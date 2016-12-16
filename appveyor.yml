@@ -14,7 +14,7 @@ before_build:
   - cmd: nuget restore
 
 configuration: Debug
-platform: x86
+platform: Any CPU
 
 build:
   project: Pisces.sln
