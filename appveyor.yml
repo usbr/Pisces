@@ -4,14 +4,14 @@ branches:
   only:
     - master
 
-#init:
-#  - mkdir c:\temp
+init:
+  - mkdir c:\temp
 
 install:
   - cmd: appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
   
 before_build:
-  - cmd: nuget restore -verbosity detailed
+  - cmd: nuget restore
 
 configuration: Debug
 platform: Any CPU
