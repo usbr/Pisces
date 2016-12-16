@@ -4,9 +4,8 @@ language: csharp
 install:
 - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
-- wget http://nuget.org/nuget.exe
-- cp nuget.exe ./.nuget/NuGet.exe
-- chmod a+x ./.nuget/NuGet.exe
+- cp /usr/lib/nuget/NuGet.exe ./.nuget/NuGet.exe
+- cp /usr/lib/nuget/NuGet.Core.dll ./.nuget/
 - export EnableNuGetPackageRestore=true
 - xbuild Pisces.sln /p:PostBuildEvent="" 
 #- mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TimeSeries/bin/Debug/Reclamation.TimeSeries.dll
