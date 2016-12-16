@@ -1,0 +1,32 @@
+version: 1.0.{build}
+image: Visual Studio 2013
+init:
+- cmd: mkdir c:\temp
+before_build:
+- cmd: >-
+    appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+build:
+  project: Pisces.sln
+  nuget restore
+  verbosity: minimal
+test:
+  assemblies:
+  - Reclamation.Core.dll
+  - Reclamation.TimeSeries.dll
+  - HydrometServer.exe
+  - RiverwareDMI.exe
+  categories:
+    except:
+    - DatabaseServer
+    - Internal
+notifications:
+- provider: Email
+  to:
+  - ktarbet@usbr.gov
+  - jrocha@usbr.gov
+  - blounsbury@usbr.gov
+  - rherrera@usbr.gov
+  subject: Windows Build -- With Tests
+  on_build_success: false
+  on_build_failure: true
+  on_build_status_changed: false
