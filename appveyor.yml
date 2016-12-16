@@ -1,12 +1,17 @@
 version: 1.0.{build}
-image: Visual Studio 2013
 
-init:
-  - mkdir c:\temp
+branches:
+  only:
+    - master
+
+#init:
+#  - mkdir c:\temp
 
 install:
-  - appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
-  - nuget.exe restore Pisces.sln
+  - cmd: appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+  
+before_build:
+  - cmd: nuget restore -verbosity detailed
 
 configuration: Debug
 platform: Any CPU
