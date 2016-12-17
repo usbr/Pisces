@@ -32,9 +32,9 @@ END DATA
         public void SiteDescription()
         {
             Logger.EnableLogger();
-            string d = HydrometInfoUtility.LookupSiteDescription("AFTY");
+            string d = HydrometInfoUtility.LookupSiteDescription("ACAO");
             Console.WriteLine(d);
-            Assert.AreEqual("Afton Wyoming Weather Station", d);
+            Assert.AreEqual("Ashland Creek Mouth, near Ashland", d);
         }
 
         [Test]
