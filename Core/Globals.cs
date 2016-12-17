@@ -32,20 +32,21 @@ namespace Reclamation.Core
             }
         }
 
+        static string s_cfg = "";
         public static string CfgDataPath
         {
             get
             {
-                if (s_testData != "")
-                    return s_testData;
+                if (s_cfg != "")
+                    return s_cfg;
 
                 string dir = GetPathAbovePisces();
                 dir = Path.Combine(dir, "Hydromet");
                 dir = Path.Combine(dir, "cfg");
                 Console.WriteLine(dir);
 
-                s_testData = dir;
-                return s_testData;
+                s_cfg = dir;
+                return s_cfg;
             }
         }
 
