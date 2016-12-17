@@ -21,28 +21,58 @@ namespace Reclamation.Core
             {
                 if (s_testData != "")
                     return s_testData;
-//asmList[6].CodeBase
-//file:///C:/Users/KTarbet/Documents/project/Pisces/Core/bin/x86/Debug/Reclamation.Core.DLL
-                //Reclamation.Core, Version=2.0.0.10, Culture=neutral, PublicKeyToken=null
-              var asmList = AppDomain.CurrentDomain.GetAssemblies();
-                foreach (Assembly item in asmList)
-                {
-                    if (item.FullName.IndexOf("Reclamation.Core") == 0)
-                    {
-                        Uri u = new Uri(item.CodeBase);
-                        var dir = u.AbsolutePath.Replace("%20"," ");
-                        int idx = dir.ToLower().LastIndexOf("pisces/");
-                        if (idx > 0)
-                            dir = dir.Substring(0, idx+6); // include 'pisces'
-                        dir = Path.Combine(dir, "PiscesTestData");
-                        dir = Path.Combine(dir, "data");
-                        Console.WriteLine(dir);
-                        s_testData = dir;
-                        break;
-                    }
-                }
+
+                string dir = GetPathAbovePisces();
+                dir = Path.Combine(dir, "PiscesTestData");
+                dir = Path.Combine(dir, "data");
+                Console.WriteLine(dir);
+
+                s_testData = dir;
                 return s_testData;
             }
+        }
+
+        public static string CfgDataPath
+        {
+            get
+            {
+                if (s_testData != "")
+                    return s_testData;
+
+                string dir = GetPathAbovePisces();
+                dir = Path.Combine(dir, "Hydromet");
+                dir = Path.Combine(dir, "cfg");
+                Console.WriteLine(dir);
+
+                s_testData = dir;
+                return s_testData;
+            }
+        }
+
+
+
+        private static string GetPathAbovePisces()
+        {
+            string rval = "";
+            //asmList[6].CodeBase
+            //file:///C:/Users/KTarbet/Documents/project/Pisces/Core/bin/x86/Debug/Reclamation.Core.DLL
+            //Reclamation.Core, Version=2.0.0.10, Culture=neutral, PublicKeyToken=null
+            var asmList = AppDomain.CurrentDomain.GetAssemblies();
+            foreach (Assembly item in asmList)
+            {
+                if (item.FullName.IndexOf("Reclamation.Core") == 0)
+                {
+                    Uri u = new Uri(item.CodeBase);
+                    var dir = u.AbsolutePath.Replace("%20", " ");
+                    int idx = dir.ToLower().LastIndexOf("pisces/");
+                    if (idx > 0)
+                        dir = dir.Substring(0, idx + 6); // include 'pisces'
+                    
+                    rval = dir;
+                    break;
+                }
+            }
+            return rval;
         }
 
 

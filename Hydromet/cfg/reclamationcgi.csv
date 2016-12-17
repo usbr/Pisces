@@ -1,0 +1,31 @@
+Server,TimeInterval,Network,CGI
+GreatPlains,Irregular,recnet,http://gphyd1.bor.doi.net/gp-bin/webdaycsv.exe
+GreatPlains,Daily,recnet,http://gphyd1.bor.doi.net/gp-bin/webarccsv.exe
+GreatPlains,Monthly,recnet,no monthly url for gp region
+GreatPlains,Irregular,www,https://www.usbr.gov/gp-bin/webdaycsv.pl
+GreatPlains,Daily,www,https://www.usbr.gov/gp-bin/webarccsv.pl
+GreatPlains,Monthly,www,no monthly url for gp region
+PN,Irregular,recnet,http://pnhyd0.pn.usbr.gov/~dataaccess/webdaycsv.com
+PN,Daily,recnet,http://pnhyd0.pn.usbr.gov/~dataaccess/webarccsv.com
+PN,Monthly,recnet,http://pnhyd0.pn.usbr.gov/~dataaccess/webmpollcsv.com
+PN,Irregular,www,https://www.usbr.gov/pn-bin/webdaycsv.pl
+PN,Daily,www,https://www.usbr.gov/pn-bin/webarccsv.pl
+PN,Monthly,www,https://www.usbr.gov/pn-bin/monthly.pl
+Yakima,Irregular,recnet,http://yakhyd.yak.pn.usbr.gov/~dataaccess/webdaycsv.com
+Yakima,Daily,recnet,http://yakhyd.yak.pn.usbr.gov/~dataaccess/webarccsv.com
+Yakima,Monthly,recnet,http://yakhyd.yak.pn.usbr.gov/~dataaccess/webmpollcsv.com
+Yakima,Irregular,www,https://www.usbr.gov/pn-bin/yak/webdaycsv.pl
+Yakima,Daily,www,https://www.usbr.gov/pn-bin/yak/webarccsv.pl
+Yakima,Monthly,www,no monthly url for external
+PNLinux,Daily,recnet,http://lrgs1.pn.usbr.gov/pn-bin/daily
+PNLinux,Irregular,recnet,http://lrgs1.pn.usbr.gov/pn-bin/instant
+PNLinux,Daily,www,http://lrgs1.pn.usbr.gov/pn-bin/daily
+PNLinux,Irregular,www,http://lrgs1.pn.usbr.gov/pn-bin/instant
+LCHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+LCHDB,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+LCHDB2,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+LCHDB2,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+UCHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+UCHDB,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+UCHDB2,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+UCHDB2,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com

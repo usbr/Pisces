@@ -81,22 +81,22 @@ Source:  "..\Rwis.Sync\bin\Debug\Rwis.Sync.exe.config";   DestDir: "{app}";   Fl
 Source:  "C:\Program Files (x86)\Common Files\Devart\dotConnect\5.00\Net2\Common\Devart.Data.Oracle.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "C:\Program Files (x86)\Common Files\Devart\dotConnect\5.00\Net2\Common\Devart.Data.dll";   DestDir: "{app}";   Flags: ignoreversion
 
-Source:  "..\..\hydromet\cfg\gp\*.*";   DestDir: "{app}\gp";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\yak\*.*";   DestDir: "{app}\yak";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\site.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\daily_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\instant_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\monthly_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\reclamationcgi.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\group.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\cc.dat";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\nwcc_inventory.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\snotel_site_list2.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\boise_arc.dat";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\owrd_station_list.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\mpoll.cbt";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\..\hydromet\cfg\mpoll_inventory.txt";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\gp\*.*";   DestDir: "{app}\gp";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\yak\*.*";   DestDir: "{app}\yak";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\site.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\daily_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\instant_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\monthly_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\reclamationcgi.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\group.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\cc.dat";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\nwcc_inventory.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\snotel_site_list2.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\boise_arc.dat";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\owrd_station_list.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\mpoll.cbt";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\Hydromet\cfg\mpoll_inventory.txt";   DestDir: "{app}";   Flags: ignoreversion
 
 ; Modsim
 Source:  ".\bin\debug\alglibnet2.dll";   DestDir: "{app}";   Flags: ignoreversion

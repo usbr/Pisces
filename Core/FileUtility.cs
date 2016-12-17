@@ -406,8 +406,8 @@ namespace Reclamation.Core
             /// <summary>
             /// Gets the full path to a file using the following preference order:
             /// 1) executable path 
-            /// 2) Gloabal path Globals.MetaDataPath (network drive)
-            /// 3) web site (or temporary directory copy)
+            /// 2) Globals.LocalConfigurationDataPath  (config file) 
+            /// 3) path to ../Hydromet/cfg/ (useful for Unit tests)
             /// </summary>
             /// <param name="filename"></param>
             /// <returns></returns>
@@ -429,17 +429,13 @@ namespace Reclamation.Core
                 if ( !File.Exists(rval))
                 {
 
-                    rval = Path.Combine(FileUtility.GetTempPath(), filename);
-                    if (File.Exists(rval) && FileUtility.IsFileNewEnough(rval))
-                    {
-                        Logger.WriteLine("using temporary directory copy of file");
-                    }
-                    else
-                    {
-                        string webFile = "https://www.usbr.gov/pn/hydromet/configurationdata/" + filename;
-                        Logger.WriteLine("Copying from " + webFile);
-                        Web.GetFile(webFile, rval);
-                    }
+                   rval = Path.Combine(Globals.CfgDataPath,filename);
+
+                   if (File.Exists(rval))
+                   {
+                       Logger.WriteLine("using config directory copy of file");
+                   }
+                    
                 }
                 if (!File.Exists(rval))
                 {
