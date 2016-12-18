@@ -791,7 +791,7 @@ namespace Reclamation.TimeSeries.Hydromet
 
             if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
             {
-                url = "http://www.usbr.gov/gp-bin/expandrtf.pl?site=pali&pcode=q&form=col";
+                url = "https://www.usbr.gov/gp-bin/expandrtf.pl?site=pali&pcode=q&form=col";
                 url = url.Replace("site=pali", "site=" + cbtt.Trim());
                 url = url.Replace("pcode=q", "pcode=" + pcode.Trim());
             }
@@ -799,7 +799,7 @@ namespace Reclamation.TimeSeries.Hydromet
             {
                 url = "http://lrgs1.pn.usbr.gov/rating_tables/"+ratingName+".csv";
                 if( !NetworkUtility.Intranet)
-                    url = "http://www.usbr.gov/pn/hydromet/configurationdata/rating_tables/" + ratingName + ".csv";
+                    url = "https://www.usbr.gov/pn/hydromet/configurationdata/rating_tables/" + ratingName + ".csv";
 
                 var tmp = FileUtility.GetTempFileName(".csv");
                 Web.GetFile(url, tmp);
@@ -810,7 +810,7 @@ namespace Reclamation.TimeSeries.Hydromet
             }
             else if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.Yakima)
             {            // yakima ?
-                url = "http://www.usbr.gov/pn-bin/yak/expandrtf.pl?site=kee&pcode=af&form=col";
+                url = "https://www.usbr.gov/pn-bin/yak/expandrtf.pl?site=kee&pcode=af&form=col";
                 url = url.Replace("site=kee", "site=" + cbtt.Trim());
                 url = url.Replace("pcode=af", "pcode=" + pcode.Trim());
             }

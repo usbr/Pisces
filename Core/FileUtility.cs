@@ -405,38 +405,35 @@ namespace Reclamation.Core
             }
             /// <summary>
             /// Gets the full path to a file using the following preference order:
-            /// 1) executable path 
-            /// 2) Globals.LocalConfigurationDataPath  (config file) 
-            /// 3) path to ../Hydromet/cfg/ (useful for Unit tests)
+            /// 1) exe path
+            /// 2) exe/cfg path 
+            /// 3) Globals.LocalConfigurationDataPath  (set in app.config) 
             /// </summary>
             /// <param name="filename"></param>
             /// <returns></returns>
             public static string GetFileReference(string filename)
             {
-                string rval = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename);
+                
+                string rval = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),"cfg", filename);
+                if (File.Exists(rval))
+                {
+                    Logger.WriteLine("Using local file in cfg " + rval);
+                    return rval;
+                }
+
+                rval = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename);
                 if (File.Exists(rval))
                 {
                     Logger.WriteLine("Using local file " + rval);
                     return rval;
                 }
 
-
                 rval = Path.Combine(Globals.LocalConfigurationDataPath, filename);
                 Logger.WriteLine("Requesting file '" + rval + "'");
 
 
                 Logger.WriteLine("File Exists  = " + File.Exists(rval));
-                if ( !File.Exists(rval))
-                {
-
-                   rval = Path.Combine(Globals.CfgDataPath,filename);
-
-                   if (File.Exists(rval))
-                   {
-                       Logger.WriteLine("using config directory copy of file");
-                   }
-                    
-                }
+                
                 if (!File.Exists(rval))
                 {
                     Logger.WriteLine("Warning: could not find " + filename);

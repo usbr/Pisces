@@ -12,7 +12,7 @@ namespace Pisces.NunitTests.SeriesTypes
     public class TestHydromet
     {
         /*
-         * http://www.usbr.gov/pn-bin/webarccsv.pl?parameter=AGA%20AF,AGA%20QD,AGA%20QJ,ANTO%20QD,ANTO%20QJ&syer=2001&smnth=1&sdy=5&eyer=2001&emnth=1&edy=12&format=2
+         * https://www.usbr.gov/pn-bin/webarccsv.pl?parameter=AGA%20AF,AGA%20QD,AGA%20QJ,ANTO%20QD,ANTO%20QJ&syer=2001&smnth=1&sdy=5&eyer=2001&emnth=1&edy=12&format=2
 BEGIN DATA
 DATE      ,    AGA AF  ,    AGA QD  ,    AGA QJ  ,   ANTO QD  ,   ANTO QJ  
 01/05/2001,     1203.12,        0.00,MISSING     ,NO RECORD   ,NO RECORD   

@@ -16,7 +16,7 @@ using Reclamation.TimeSeries.Reports;
 namespace PiscesWebServices.CGI
 {
     /// <summary>
-    /// http://www.usbr.gov/pn-bin/wyreport.pl?site=ABEI&parameter=PP&start=2016&end=2016
+    /// https://www.usbr.gov/pn-bin/wyreport.pl?site=ABEI&parameter=PP&start=2016&end=2016
     /// 
     /// </summary>
     public partial class WaterYearReport

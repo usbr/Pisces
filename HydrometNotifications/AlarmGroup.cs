@@ -141,7 +141,7 @@ namespace HydrometNotifications
             if (ProcessCount > 0 && sendEmail)
             {
 
-                emailMessageBody += "\n\n <a href=\"http://www.usbr.gov/pn/hydromet/disclaimer.html\">provisional data disclaimer</a>";
+                emailMessageBody += "\n\n <a href=\"https://www.usbr.gov/pn/hydromet/disclaimer.html\">provisional data disclaimer</a>";
                 SendEmailNotice(AlarmDataSet.EmailAddresses(group_name),  group_name, emailMessageBody,txtMessageBody);
             }
             // phone ??

@@ -35,10 +35,10 @@ namespace PiscesWebServices
 @"" +
 @"" +
 @"<!-- Styles -->" +
-@"<link rel=""stylesheet"" href=""http://www.usbr.gov/css/main.min.css"" />" +
+@"<link rel=""stylesheet"" href=""https://www.usbr.gov/css/main.min.css"" />" +
 @"" +
 @"<!-- Modernizr -->" +
-@"<script src=""http://www.usbr.gov/js/lib/modernizr.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/lib/modernizr.js""></script>" +
 @"" +
 @"" +
 @" " +
@@ -51,14 +51,14 @@ namespace PiscesWebServices
 @"<div class=""Header"" id=""top"" role=""banner"">" +
 @"<div class=""Header-wrap container"">" +
 @"<!-- Logo -->" +
-@"<a class=""Header-logo"" title=""Reclamation Home""><img src=""http://www.usbr.gov/img/logo-white.png"" alt=""U.S. Bureau of Reclamation: Managing Water in the West""></a> " +
+@"<a class=""Header-logo"" title=""Reclamation Home""><img src=""https://www.usbr.gov/img/logo-white.png"" alt=""U.S. Bureau of Reclamation: Managing Water in the West""></a> " +
 @"</div><!-- end container -->" +
 @"</div><!-- end Header -->" +
 @"" +
 @"" +
 @"<div class=""Main"" id=""Main"" role=""main"" style=""background-image: url('images/bg-banner.jpg')"">" +
 @"<!-- Additional wrapper for bottom background image " +
-@"<div class=""Main-wrap"" style=""background-image: url('http://www.usbr.gov/img/bg-footer.jpg')"">" +
+@"<div class=""Main-wrap"" style=""background-image: url('https://www.usbr.gov/img/bg-footer.jpg')"">" +
 @"        -->" +
 @"		" +
 @"<div class=""Main-content container"">" +
@@ -100,7 +100,7 @@ namespace PiscesWebServices
 @"<br>" +
 @"<br>" +
 @"<!-- Logo -->" +
-@"<a class=""Footer-logo""><img src=""http://www.usbr.gov/img/seal-white.png"" alt=""U.S. Department of the Interior-Bureau of Reclamation""></a>" +
+@"<a class=""Footer-logo""><img src=""https://www.usbr.gov/img/seal-white.png"" alt=""U.S. Department of the Interior-Bureau of Reclamation""></a>" +
 @"" +
 @"</div>" +
 @"</div>" +
@@ -108,28 +108,28 @@ namespace PiscesWebServices
 @" <!-- #EndLibraryItem --></div>" +
 @"" +
 @"<!-- jQuery -->" +
-@"<script src=""http://www.usbr.gov/js/lib/jquery.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/lib/jquery.js""></script>" +
 @"" +
 @"" +
 @"<!-- Outlines -->" +
-@"<script src=""http://www.usbr.gov/js/components/outlines.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/outlines.js""></script>" +
 @"" +
 @"<!-- Mobile Navigation -->" +
-@"<script src=""http://www.usbr.gov/js/components/navigation.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/navigation.js""></script>" +
 @"" +
 @"<!-- Responsive Tabs -->" +
-@"<script src=""http://www.usbr.gov/js/lib/responsive-tabs.js""></script>" +
-@"<script src=""http://www.usbr.gov/js/components/tabs.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/lib/responsive-tabs.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/tabs.js""></script>" +
 @"" +
 @"<!-- Explore Accordion -->" +
-@"<script src=""http://www.usbr.gov/js/components/explore.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/explore.js""></script>" +
 @"" +
 @"<!-- Carousel -->" +
-@"<script src=""http://www.usbr.gov/js/lib/carousel.js""></script>" +
-@"<script src=""http://www.usbr.gov/js/components/carousel.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/lib/carousel.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/carousel.js""></script>" +
 @"" +
 @"<!-- Left Navigation -->" +
-@"<script src=""http://www.usbr.gov/js/components/left-nav.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/left-nav.js""></script>" +
 @"" +
 @"</body>" +
 @"</html>";
@@ -208,7 +208,7 @@ namespace PiscesWebServices
 @"<br>" +
 @"<br>" +
 @"<!-- Logo -->" +
-@"<a class=""Footer-logo""><img src=""http://www.usbr.gov/img/seal-white.png"" alt=""U.S. Department of the Interior-Bureau of Reclamation""></a>" +
+@"<a class=""Footer-logo""><img src=""https://www.usbr.gov/img/seal-white.png"" alt=""U.S. Department of the Interior-Bureau of Reclamation""></a>" +
 @"" +
 @"</div>" +
 @"</div>" +
@@ -216,8 +216,8 @@ namespace PiscesWebServices
 @" <!-- #EndLibraryItem --></div>" +
 @"" +
 @"<!-- jQuery -->" +
-@"<script src=""http://www.usbr.gov/js/lib/jquery.js""></script>" +
-@"<script src=""http://www.usbr.gov/js/lib/jquery.js""></script>" + 
+@"<script src=""https://www.usbr.gov/js/lib/jquery.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/lib/jquery.js""></script>" + 
 @"<link href=""http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"" rel=""stylesheet"" type=""text/css""/>" +
 @"<script type=""text/javascript"" src=""http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js""></script>" +
 @"<script src=""http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js""></script>" +
@@ -244,24 +244,24 @@ namespace PiscesWebServices
 @"});" +
 @"</script>" +
 @"<!-- Outlines -->" +
-@"<script src=""http://www.usbr.gov/js/components/outlines.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/outlines.js""></script>" +
 @"" +
 @"<!-- Mobile Navigation -->" +
-@"<script src=""http://www.usbr.gov/js/components/navigation.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/navigation.js""></script>" +
 @"" +
 @"<!-- Responsive Tabs -->" +
-@"<script src=""http://www.usbr.gov/js/lib/responsive-tabs.js""></script>" +
-@"<script src=""http://www.usbr.gov/js/components/tabs.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/lib/responsive-tabs.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/tabs.js""></script>" +
 @"" +
 @"<!-- Explore Accordion -->" +
-@"<script src=""http://www.usbr.gov/js/components/explore.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/explore.js""></script>" +
 @"" +
 @"<!-- Carousel -->" +
-@"<script src=""http://www.usbr.gov/js/lib/carousel.js""></script>" +
-@"<script src=""http://www.usbr.gov/js/components/carousel.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/lib/carousel.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/carousel.js""></script>" +
 @"" +
 @"<!-- Left Navigation -->" +
-@"<script src=""http://www.usbr.gov/js/components/left-nav.js""></script>" +
+@"<script src=""https://www.usbr.gov/js/components/left-nav.js""></script>" +
 @"" +
 @"</body>" +
 @"</html>";

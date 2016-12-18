@@ -44,7 +44,7 @@ namespace Reclamation.Core
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(490, 335);
             this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "http://www.usbr.gov\n\n\nfile://\'c:/temp/docuemnts nad\'\n\nc:\\temp";
+            this.richTextBox1.Text = "https://www.usbr.gov\n\n\nfile://\'c:/temp/docuemnts nad\'\n\nc:\\temp";
             this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
             this.richTextBox1.Click += new System.EventHandler(this.richTextBox1_Click);
             // 

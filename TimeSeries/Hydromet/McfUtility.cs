@@ -36,14 +36,14 @@ namespace Reclamation.TimeSeries.Hydromet
         /// </summary>
         /// <param name="svr"></param>
         /// <returns></returns>
-        public static McfDataSet GetDataSetFromCsvFiles(string path)
+        public static McfDataSet GetDataSetFromCsvFiles( )
         {
             Performance p = new Performance();
             var ds = new McfDataSet();
           //  ds.EnforceConstraints = false;
             foreach (var item in tableNames)
             {
-                string fn = Path.Combine(path, item + ".csv"); 
+                var fn = FileUtility.GetFileReference(item + ".csv");
                 if (!File.Exists(fn))
                 {
                     Logger.WriteLine("Error: file missing '" + fn + "'");

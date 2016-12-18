@@ -376,11 +376,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Private.config">
-      <Link>Private.config</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="App.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>

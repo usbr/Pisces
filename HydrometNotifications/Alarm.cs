@@ -101,19 +101,19 @@ namespace HydrometNotifications
 
             if (m_row.database == "i") // instant
             {
-                emailMessage += "<a href=\"http://www.usbr.gov/pn/hydromet/instant_graph.html?cbtt=" + m_row.cbtt + "&pcode="
+                emailMessage += "<a href=\"https://www.usbr.gov/pn/hydromet/instant_graph.html?cbtt=" + m_row.cbtt + "&pcode="
                     + m_row.pcode + "&t2=" +this.t.ToString("yyyyMMdd")+"\">graph</a>";
             }
 
             else if (m_row.database == "d") // daily
             {
-                emailMessage += "<a href=\"http://www.usbr.gov/pn/hydromet/daily_graph.html?cbtt=" + m_row.cbtt + "&pcode="
+                emailMessage += "<a href=\"https://www.usbr.gov/pn/hydromet/daily_graph.html?cbtt=" + m_row.cbtt + "&pcode="
                     + m_row.pcode + "&t2=" + this.t.ToString("yyyyMMdd") + "\">graph</a>";
 
             }
             else // default...
             {
-                 emailMessage += "\nhttp://www.usbr.gov/pn-bin/rtgraph.pl?sta=" + m_row.cbtt + "&parm=" + m_row.pcode;
+                 emailMessage += "\nhttps://www.usbr.gov/pn-bin/rtgraph.pl?sta=" + m_row.cbtt + "&parm=" + m_row.pcode;
             }
 
             emailMessage += Details;

@@ -22,7 +22,7 @@ namespace PiscesWebServices.CGI
 
             var rval = query;
 
-            //http://www.usbr.gov/pn-bin/webarccsv.pl?station=cedc&pcode=mx&pcode=mn&back=10&format=2
+            //https://www.usbr.gov/pn-bin/webarccsv.pl?station=cedc&pcode=mx&pcode=mn&back=10&format=2
             //station=boii&year=2016&month=4&day=21&year=2016&month=4&day=21&pcode=OB&pcode=OBX&pcode=OBN&pcode=TU
 
             if (query.IndexOf("station=") >= 0 && query.IndexOf("pcode") >= 0)

@@ -74,6 +74,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Hydromet\cfg\reclamationcgi.csv">
+      <Link>reclamationcgi.csv</Link>
+    </None>
     <None Include="App.config" />
     <None Include="MySQLApp.config">
       <SubType>Designer</SubType>
@@ -85,9 +88,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="parametercatalog.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="reclamationcgi.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

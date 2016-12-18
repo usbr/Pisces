@@ -62,7 +62,7 @@ namespace Reclamation.TimeSeries
 
         /// <summary>
         /// Reference Evapotranspiration (in/day)(1982 Kimberly-Penman equation
-        /// http://www.usbr.gov/pn/agrimet/aginfo/AgriMet%20Kimberly%20Penman%20Equation.pdf
+        /// https://www.usbr.gov/pn/agrimet/aginfo/AgriMet%20Kimberly%20Penman%20Equation.pdf
         /// </summary>
         /// <param name="mm">mean daily air temperature degress F</param>
         /// <param name="mn">minimum daily air temperature degress F</param>

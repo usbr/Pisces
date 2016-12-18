@@ -9,7 +9,7 @@
 // feb 17, 2009  -- allow quality (diagnostic query)
 // jan 3, 2011 -- added print_hourly option
 // feb 6, 2012 -- cma support day3a.c API, so we can depricate day3a.exe 
-// http://www.usbr.gov/pn-bin/webdaycsv.pl?station=jck&year=2010&month=1&day=1&year=2010&month=1&day=5&pcode=fb&pcode=af
+// https://www.usbr.gov/pn-bin/webdaycsv.pl?station=jck&year=2010&month=1&day=1&year=2010&month=1&day=5&pcode=fb&pcode=af
 // Apr 3, 2012 -- cma Added back option ...back=[number of hours] max is 192
 // June 14, 2012 -- K.Tarbet support back with day3a API
 // formats  &format=n
@@ -251,7 +251,7 @@ void get_day3_request(char* cb, struct datetime *startdate,
          
 	 iHours = 0;
          
-	 //http://www.usbr.gov/pn-bin/webdaycsv.pl?station=jck&year=2010&month=1&day=1&year=2010&month=1&day=5&pcode=fb&pcode=af
+	 //https://www.usbr.gov/pn-bin/webdaycsv.pl?station=jck&year=2010&month=1&day=1&year=2010&month=1&day=5&pcode=fb&pcode=af
 
 	
 	 if (strstr(cb,"back"))  

@@ -38,7 +38,7 @@ namespace PiscesWebServices.Tests
         [Test]
         public void CGI_StationFormat()
         {
-        //http://www.usbr.gov/pn-bin/webdaycsv.pl?station=cedc&pcode=ob&pcode=obx&back=10&format=2
+        //https://www.usbr.gov/pn-bin/webdaycsv.pl?station=cedc&pcode=ob&pcode=obx&back=10&format=2
             string payload = "station=cedc&pcode=ob&pcode=obx&back=10&format=2";
             RunTest(payload, TimeInterval.Irregular);
         }
@@ -129,10 +129,10 @@ namespace PiscesWebServices.Tests
 
             var fnhyd0 = FileUtility.GetTempFileName(".txt");
             Console.WriteLine("vms temp file:" + fnhyd0);
-            string url = "http://www.usbr.gov/pn-bin/webarccsv.pl?";
+            string url = "https://www.usbr.gov/pn-bin/webarccsv.pl?";
 
             if( interval == TimeInterval.Irregular || interval == TimeInterval.Hourly)
-                url = "http://www.usbr.gov/pn-bin/webdaycsv.pl?";
+                url = "https://www.usbr.gov/pn-bin/webdaycsv.pl?";
             Web.GetFile(url + payload, fnhyd0);
 
           var tf2 = new TextFile(fnhyd0);

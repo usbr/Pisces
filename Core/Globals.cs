@@ -22,7 +22,7 @@ namespace Reclamation.Core
                 if (s_testData != "")
                     return s_testData;
 
-                string dir = GetPathAbovePisces();
+                string dir = GetPathAbove("pisces");
                 dir = Path.Combine(dir, "PiscesTestData");
                 dir = Path.Combine(dir, "data");
                 Console.WriteLine(dir);
@@ -32,27 +32,8 @@ namespace Reclamation.Core
             }
         }
 
-        static string s_cfg = "";
-        public static string CfgDataPath
-        {
-            get
-            {
-                if (s_cfg != "")
-                    return s_cfg;
 
-                string dir = GetPathAbovePisces();
-                dir = Path.Combine(dir, "Hydromet");
-                dir = Path.Combine(dir, "cfg");
-                Console.WriteLine(dir);
-
-                s_cfg = dir;
-                return s_cfg;
-            }
-        }
-
-
-
-        private static string GetPathAbovePisces()
+        private static string GetPathAbove(string part)
         {
             string rval = "";
             //asmList[6].CodeBase
@@ -65,7 +46,7 @@ namespace Reclamation.Core
                 {
                     Uri u = new Uri(item.CodeBase);
                     var dir = u.AbsolutePath.Replace("%20", " ");
-                    int idx = dir.ToLower().LastIndexOf("pisces/");
+                    int idx = dir.ToLower().LastIndexOf(part+"/");
                     if (idx > 0)
                         dir = dir.Substring(0, idx + 6); // include 'pisces'
                     

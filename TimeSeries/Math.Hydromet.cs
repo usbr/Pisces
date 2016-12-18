@@ -185,7 +185,7 @@ namespace Reclamation.TimeSeries
 
         /// <summary>
         /// CipolettiWeir
-        /// http://www.usbr.gov/pmts/hydraulics_lab/pubs/wmm/chap07_12.html
+        /// https://www.usbr.gov/pmts/hydraulics_lab/pubs/wmm/chap07_12.html
         /// </summary>
         /// <param name="head"></param>
         /// <param name="length"></param>
@@ -202,7 +202,7 @@ namespace Reclamation.TimeSeries
 
         /// <summary>
         /// Standard Contracted Rectangular Weir Equation
-        /// http://www.usbr.gov/pmts/hydraulics_lab/pubs/wmm/
+        /// https://www.usbr.gov/pmts/hydraulics_lab/pubs/wmm/
         /// </summary>
         /// <param name="head"></param>
         /// <param name="length"></param>

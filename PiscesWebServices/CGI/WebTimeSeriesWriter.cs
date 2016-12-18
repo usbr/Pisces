@@ -16,18 +16,18 @@ namespace PiscesWebServices.CGI
     /// <summary>
     ///  returns results from web query to timeseries data in pisces.
 
-    /// "http://www.usbr.gov/pn-bin/instant.pl?list=boii ob,boii obx&start=2016-04-15&end=2016-04-20"
-    /// "http://www.usbr.gov/pn-bin/instant.pl?list=bewo ob,bewo pc&start=2016-04-15&end=2016-04-20&format=zrxp"
-    /// "http://lrgs1/pn-bin/daily?list=jck fb, amf fb&start=2016-04-15&end=2016-04-20"
-    /// "http://www.usbr.gov/pn-bin/daily?site=luc&start=2016-04-01&end=2016-04-20"
+    /// "https://www.usbr.gov/pn-bin/instant.pl?list=boii ob,boii obx&start=2016-04-15&end=2016-04-20"
+    /// "https://www.usbr.gov/pn-bin/instant.pl?list=bewo ob,bewo pc&start=2016-04-15&end=2016-04-20&format=zrxp"
+    /// "https://lrgs1/pn-bin/daily?list=jck fb, amf fb&start=2016-04-15&end=2016-04-20"
+    /// "https://www.usbr.gov/pn-bin/daily?site=luc&start=2016-04-01&end=2016-04-20"
     /// options :  
     ///      back=12  (12 hours for instant, 12 days for daily)
     ///      print_hourly=true (print hourly data)
     /// 
     /// Legacy Test Samples
-    /// http://www.usbr.gov/pn-bin/instant.pl?station=ABEI&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBM&pcode=TU&print_hourly=1
-    /// http://www.usbr.gov/pn-bin/instant.pl?station=BOII&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBN&pcode=TU
-    /// http://www.usbr.gov/pn-bin/instant.pl?station=ABEI&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBM&pcode=OBN&pcode=TUX&print_hourly=true
+    /// https://www.usbr.gov/pn-bin/instant.pl?station=ABEI&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBM&pcode=TU&print_hourly=1
+    /// https://www.usbr.gov/pn-bin/instant.pl?station=BOII&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBN&pcode=TU
+    /// https://www.usbr.gov/pn-bin/instant.pl?station=ABEI&year=2016&month=1&day=1&year=2016&month=1&day=1&pcode=OB&pcode=OBX&pcode=OBM&pcode=OBN&pcode=TUX&print_hourly=true
     /// </summary>
     public partial class WebTimeSeriesWriter
     {
