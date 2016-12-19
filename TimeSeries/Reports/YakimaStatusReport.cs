@@ -100,7 +100,7 @@ namespace Reclamation.TimeSeries.Reports
 
              rval = ReplaceSymbol(rval, "%trib_parw", above_parker);
 
-             rval = rval + "\nOPERATIONAL COMMENTS:  ";
+             rval = rval + "\r\nOPERATIONAL COMMENTS:  ";
              if (year1 > 0 && year2 > 0)
              {
                  var t1a = new DateTime(year1 - 1, 10, 1);
@@ -109,7 +109,7 @@ namespace Reclamation.TimeSeries.Reports
                  double avgPct = MultiYearAvg(t1,t1a, t2a);
 
 
-                 rval = rval + "\nStorage is " + avgPct.ToString("F1") + "% of average (" + year1
+                 rval = rval + " Storage is " + avgPct.ToString("F1") + "% of average (" + year1
                       + ", " + year2 + ")."
                       + "\r\n---------------------";
              }
