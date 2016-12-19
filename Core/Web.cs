@@ -15,9 +15,9 @@ namespace Reclamation.Core
 
         static Web()
         {
-//#if !__MonoCS__
+#if !__MonoCS__
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
-//#endif
+#endif
         }
 
         private static string UserAgent()
