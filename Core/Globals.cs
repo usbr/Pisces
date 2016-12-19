@@ -63,8 +63,9 @@ namespace Reclamation.Core
                 {
                     Uri u = new Uri(item.CodeBase);
                     var dir = u.AbsolutePath.Replace("%20", " ");
-                    int idx = dir.LastIndexOf(part+"/");
-                    if (idx > 0)
+                    int idx = dir.LastIndexOf(part + Path.AltDirectorySeparatorChar);
+                    int idx2 = dir.LastIndexOf(part.ToLower() + Path.AltDirectorySeparatorChar);
+                    if (idx > 0 || idx2 > 0)
                         dir = dir.Substring(0, idx + 6); // include 'pisces'
                     
                     rval = dir;
