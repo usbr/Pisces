@@ -23,7 +23,8 @@ namespace Reclamation.Core
                 if (s_testData != "")
                     return s_testData;
 
-                string dir = Path.Combine(GetPathAbove("Pisces"), "PiscesTestData", "data");
+                string dir = GetPathAbove("Pisces");
+                dir = Path.Combine(dir, "PiscesTestData", "data");
                 Console.WriteLine(dir);
 
                 s_testData = dir;
@@ -41,7 +42,8 @@ namespace Reclamation.Core
                 if (s_cfgData != "")
                     return s_cfgData;
 
-                string dir = Path.Combine(GetPathAbove("Pisces"), "Hydromet", "cfg");
+                string dir = GetPathAbove("Pisces");
+                dir = Path.Combine("Hydromet", "cfg");
                 Console.WriteLine(dir);
 
                 s_cfgData = dir;
