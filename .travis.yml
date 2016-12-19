@@ -16,8 +16,8 @@ install:
   
 script:
   - xbuild /p:Configuration=Debug /p:Platform="Any CPU" Pisces.sln /p:PostBuildEvent=""
-  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe Core/bin/Debug/Reclamation.Core.dll /exclude:DatabaseServer
-  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe TimeSeries/bin/Debug/Reclamation.TimeSeries.dll /exclude:DatabaseServer,Internal
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Core/bin/Debug/Reclamation.Core.dll -exclude DatabaseServer
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TimeSeries/bin/Debug/Reclamation.TimeSeries.dll -exclude DatabaseServer,Internal
 
 notifications:
   email:
