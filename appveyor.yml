@@ -19,6 +19,7 @@ platform: x86
 build:
   project: Pisces.sln
   verbosity: minimal
+  
 test:
   assemblies:
   - Reclamation.Core.dll
@@ -29,6 +30,7 @@ test:
     except:
     - DatabaseServer
     - Internal
+    
 notifications:
 - provider: Email
   to:

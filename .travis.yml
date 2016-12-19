@@ -1,15 +1,24 @@
 ## Travis CI Integration
 sudo: false
 language: csharp
+
+branches:
+  only:
+  - master
+  
 before_install:
-- mkdir -p .nuget
-- wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+  - mkdir -p .nuget
+  - wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+  
 install:
-- mono .nuget/nuget.exe install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
-- mono .nuget/nuget.exe restore Pisces.sln
+  - mono .nuget/nuget.exe install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+  - mono .nuget/nuget.exe restore Pisces.sln
+  
 script:
-- xbuild /p:Configuration=Debug /p:Platform="Any CPU" Pisces.sln /p:PostBuildEvent="" 
-#- mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TimeSeries/bin/Debug/Reclamation.TimeSeries.dll
+  - xbuild /p:Configuration=Debug /p:Platform="Any CPU" Pisces.sln /p:PostBuildEvent=""
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Core/bin/Debug/Reclamation.Core.dll /exclude:DatabaseServer
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TimeSeries/bin/Debug/Reclamation.TimeSeries.dll /exclude:DatabaseServer,Internal
+
 notifications:
   email:
     recipients:
