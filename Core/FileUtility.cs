@@ -407,24 +407,31 @@ namespace Reclamation.Core
             /// Gets the full path to a file using the following preference order:
             /// 1) exe path
             /// 2) exe/cfg path 
+            /// 3) Globals.CfgDataPath (pisces/hydromet/cfg)
             /// 3) Globals.LocalConfigurationDataPath  (set in app.config) 
             /// </summary>
             /// <param name="filename"></param>
             /// <returns></returns>
             public static string GetFileReference(string filename)
             {
-                
-                string rval = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath),"cfg", filename);
+                string rval = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename);
+                if (File.Exists(rval))
+                {
+                    Logger.WriteLine("Using local file " + rval);
+                    return rval;
+                }
+
+                rval = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "cfg", filename);
                 if (File.Exists(rval))
                 {
                     Logger.WriteLine("Using local file in cfg " + rval);
                     return rval;
                 }
 
-                rval = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename);
+                rval = Path.Combine(Globals.CfgDataPath, filename);
                 if (File.Exists(rval))
                 {
-                    Logger.WriteLine("Using local file " + rval);
+                    Logger.WriteLine("Using local file in cfg " + rval);
                     return rval;
                 }
 
