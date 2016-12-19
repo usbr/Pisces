@@ -13,8 +13,8 @@ namespace Pisces.NunitTests.SeriesTypes
 
         public void Basic()
         {
-            string fn = Path.Combine( Globals.TestDataPath,"RiverWare");
-            fn = Path.Combine(fn,"20120403_SHARP_MRM_Forecast-Mar-50pct.xlsx");
+            string fn = Path.Combine(TestData.DataPath, "RiverWare");
+            fn = Path.Combine(fn, "20120403_SHARP_MRM_Forecast-Mar-50pct.xlsx");
             UrgwomSeries s = new UrgwomSeries(fn, "Run0","Heron.Storage");
             s.Read();
         }

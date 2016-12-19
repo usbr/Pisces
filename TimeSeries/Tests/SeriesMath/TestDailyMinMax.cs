@@ -2,6 +2,7 @@
 using Reclamation.TimeSeries;
 using DateTime = System.DateTime;
 using Reclamation.TimeSeries.Excel;
+using System.IO;
 
 namespace Pisces.NunitTests.SeriesMath
 {
@@ -59,7 +60,7 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void MaxMin()
         {
-            string fn = TestData.DataPath + "\\temp example 7 day max.xls";
+            string fn = Path.Combine(TestData.DataPath, "temp example 7 day max.xls");
             var s = new ExcelDataReaderSeries(fn, "457373", "C", "D");
             s.Read();
 

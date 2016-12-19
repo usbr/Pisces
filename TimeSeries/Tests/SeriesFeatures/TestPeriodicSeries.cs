@@ -6,6 +6,7 @@ using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.Excel;
 using Math = Reclamation.TimeSeries.Math;
 using Reclamation.Core;
+using System.IO;
 
 namespace Pisces.NunitTests.SeriesFeatures
 {
@@ -17,7 +18,7 @@ namespace Pisces.NunitTests.SeriesFeatures
         public void PeriodicSeriesCalendar()
         {
 
-            string fn = TestData.DataPath + "\\Periodic.xlsx";
+            string fn = Path.Combine(TestData.DataPath, "Periodic.xlsx");
             //var xls = new SpreadsheetGearExcel(fn);
             var wb = ExcelUtility.GetWorkbookReference(fn);
             var tbl = wb.Tables["Heise"]; //xls.GetTimeSeriesTable("Heise");
@@ -42,7 +43,7 @@ namespace Pisces.NunitTests.SeriesFeatures
         public void PeriodicSeriesBeginInNovember()
         {
 
-            string fn = TestData.DataPath + "\\Periodic.xlsx";
+            string fn = Path.Combine(TestData.DataPath, "Periodic.xlsx");
             var xls = ExcelUtility.GetWorkbookReference(fn);
 
             //var tbl = xls.GetTimeSeriesTable("BeginInNovember");

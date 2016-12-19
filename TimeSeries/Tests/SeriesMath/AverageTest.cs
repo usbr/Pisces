@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Reclamation.TimeSeries;
 using Math = Reclamation.TimeSeries.Math;
 using Reclamation.TimeSeries.Excel;
+using System.IO;
 
 namespace Pisces.NunitTests.SeriesMath
 {
@@ -152,7 +153,7 @@ units:feet
     [Test]
     public void SevenDay()
     {
-        string fn = TestData.DataPath + "\\sevendayavg.xls";
+        string fn = Path.Combine(TestData.DataPath, "sevendayavg.xls");
         var s = new ExcelDataReaderSeries(fn, "Sheet1", "A", "B");
         s.Read();
         Assert.AreEqual(2738, s.Count);
@@ -169,7 +170,7 @@ units:feet
     [Test]
     public void WeeklyAverageFromInstant()
     {
-        string fn = TestData.DataPath + @"\El686_2004InstantaniousStage.csv";
+        string fn = Path.Combine(TestData.DataPath, "El686_2004InstantaniousStage.csv");
         TextSeries s = new TextSeries(fn);
         Weekly(s);
     }
@@ -178,7 +179,7 @@ units:feet
     [Test]
     public void WeeklyAverageFromDaily()
     {
-        string fn = TestData.DataPath + @"\El686_2004DailyAverageStage.csv";
+        string fn = Path.Combine(TestData.DataPath, "El686_2004DailyAverageStage.csv");
         TextSeries s = new TextSeries(fn);
 
         Weekly(s);
@@ -210,7 +211,7 @@ units:feet
     [Test]
     public void PartialDay()
     {
-        string fn = TestData.DataPath+"\\wilson.xls";
+        string fn = Path.Combine(TestData.DataPath, "wilson.xls");
         var s = new ExcelDataReaderSeries(fn, "wilson", "A", "B");
         s.Read();
 

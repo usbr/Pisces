@@ -7,6 +7,7 @@ using Reclamation.TimeSeries;
 using Reclamation;
 using Math = Reclamation.TimeSeries.Math;
 using Reclamation.Core;
+using System.IO;
 
 namespace Pisces.NunitTests.SeriesMath
 {
@@ -45,7 +46,7 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void AnnualSumJanuaryThroughJuly()
         {
-            string fn = TestData.DataPath + "\\heii_qd.csv";
+            string fn = Path.Combine(TestData.DataPath, "heii_qd.csv");
 
             TextSeries ts = new TextSeries(fn);
             ts.Read();
@@ -225,7 +226,7 @@ namespace Pisces.NunitTests.SeriesMath
 
             Point.MissingValueFlag = -999.0;
 
-            string fn = TestData.DataPath + @"\rire hydromet daily.txt";
+            string fn = Path.Combine(TestData.DataPath, "rire hydromet daily.txt");
             TextSeries ts = new TextSeries(fn);
             ts.Read();
 
@@ -349,7 +350,7 @@ namespace Pisces.NunitTests.SeriesMath
         public void Vol_AF_HEII()
         {
             //heii_quAF.csv
-            string fn = TestData.DataPath + @"\heii_quAF.csv";
+            string fn = Path.Combine(TestData.DataPath, "heii_quAF.csv");
             TextSeries ts = new TextSeries(fn);
             ts.Read();
 

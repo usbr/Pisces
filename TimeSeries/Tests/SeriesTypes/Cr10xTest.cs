@@ -75,7 +75,7 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void AshlandCreek()
         {
-            string dataPath = GetDataPath();
+            string dataPath = Path.Combine(TestData.DataPath, "Cr10x");
             //Series s = new Cr10xSeries(dataPath, "filename=ASH_CRK.DAT;interval=24;ColumnNumber=5");
             Series s = new Cr10xSeries(Path.Combine(dataPath, "ASH_CRK.dat"), 24, 5);
 
@@ -91,18 +91,6 @@ namespace Pisces.NunitTests.SeriesTypes
             Assert.AreEqual(12.41, s2.Lookup(t), "june 4 2005 creek_cfs");
             //
 
-        }
-
-        private static string GetDataPath()
-        {
-           return TestData.DataPath + "\\Cr10x";
-            //string path = AssemblyUtility.GetAssemblyPath("Reclamation.TimeSeries");
-            //Console.WriteLine(path);
-            //path = System.IO.Directory.GetParent(path).Parent.Parent.FullName;
-            //path = Path.Combine(path, "HydrometPisces");
-            //string dataPath = path + "\\Rogue Data Logger";
-            //Console.WriteLine(dataPath);
-            //return dataPath;
         }
 
     }

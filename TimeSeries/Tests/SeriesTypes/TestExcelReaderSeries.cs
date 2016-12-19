@@ -35,8 +35,8 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void SimpleRead()
         {
-            string filename = TestData.DataPath + "\\SpecificationTestData.xls";
-            Assert.IsTrue(System.IO.File.Exists(filename),"missing file "+ filename);
+            string filename = Path.Combine(TestData.DataPath, "SpecificationTestData.xls");
+            Assert.IsTrue(File.Exists(filename),"missing file "+ filename);
             var s = new ExcelDataReaderSeries(filename, "Sheet1", "Date", "JulianDay");
             s.Read();
             for (int i = 0; i < s.Messages.Count; i++)
@@ -52,8 +52,8 @@ namespace Pisces.NunitTests.SeriesTypes
        public void LargeRead()
        {
            Performance perf = new Performance();
-           string filename = TestData.DataPath+@"\UnregulationUpperSnake.xls";
-           Assert.IsTrue(System.IO.File.Exists(filename), "missing file " + filename);
+           string filename = Path.Combine(TestData.DataPath, "UnregulationUpperSnake.xls");
+           Assert.IsTrue(File.Exists(filename), "missing file " + filename);
            ExcelDataReaderSeries s = new ExcelDataReaderSeries(filename, "data", "Date", "HEII QD");
            s.Read();
            for (int i = 0; i < s.Messages.Count; i++)
@@ -68,8 +68,8 @@ namespace Pisces.NunitTests.SeriesTypes
        [Test]
        public void ReadOneYearFiltering()
        {
-           string filename = TestData.DataPath+ @"\UnregulationUpperSnake.xls";
-           Assert.IsTrue(System.IO.File.Exists(filename), "missing file " + filename);
+           string filename = Path.Combine(TestData.DataPath, "UnregulationUpperSnake.xls");
+           Assert.IsTrue(File.Exists(filename), "missing file " + filename);
            var s = new ExcelDataReaderSeries(filename, "data", "Date", "HEII QD");
            s.Read(DateTime.Parse("2005-01-01"), DateTime.Parse("2005-12-31"));
            for (int i = 0; i < s.Messages.Count; i++)

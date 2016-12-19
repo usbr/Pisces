@@ -14,7 +14,7 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void SnapShotObject()
         {
-            var s = new RiverWareSeries(TestData.DataPath + "\\RiverWare\\SnapShotObj.rdf","", "Wolf Gage_Gage Outflow",-1,true);
+            var s = new RiverWareSeries(Path.Combine(TestData.DataPath, "RiverWare", "SnapShotObj.rdf"), "", "Wolf Gage_Gage Outflow", -1, true);
 
             s.Read();
 
@@ -28,7 +28,7 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void RDF()
         {
-            var s = new RiverWareSeries(TestData.DataPath + "\\RiverWare\\regular.rdf", "DIVERSION KRD Irrigation", "Diversion", -1,false);
+            var s = new RiverWareSeries(Path.Combine(TestData.DataPath, "RiverWare", "regular.rdf"), "DIVERSION KRD Irrigation", "Diversion", -1, false);
             s.Read();
             Assert.AreEqual(8035, s.Count,"wrong number of time steps");
 
@@ -56,8 +56,8 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void MMS()
         {
-            var s = new RiverWareSeries(TestData.DataPath + "\\RiverWare\\MMSTracesOutputWY05JunRun.rdf", "TWSA PARW_Data", "Daily TWSA", 10,false);
-            var parw = new RiverWareSeries(TestData.DataPath + "\\RiverWare\\MMSTracesOutputWY05JunRun.rdf", "PARW", "MMS PRMS Unregulated Flow", 51,false);
+            var s = new RiverWareSeries(Path.Combine(TestData.DataPath, "RiverWare", "MMSTracesOutputWY05JunRun.rdf"), "TWSA PARW_Data", "Daily TWSA", 10, false);
+            var parw = new RiverWareSeries(Path.Combine(TestData.DataPath, "RiverWare", "MMSTracesOutputWY05JunRun.rdf"), "PARW", "MMS PRMS Unregulated Flow", 51, false);
 
             Assert.AreEqual("cfs", parw.Units); // units before Read
             Assert.AreEqual("acre-ft", s.Units);
@@ -78,7 +78,7 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void LowerColoradoTraces()
         {
-            string fn1 = TestData.DataPath + "\\RiverWare\\LowerColoradoTraces.rdf";
+            string fn1 = Path.Combine(TestData.DataPath, "RiverWare", "LowerColoradoTraces.rdf");
             var s1 = new RiverWareSeries(fn1, "Powell", "Outflow", 1,false);
             var s2 = new RiverWareSeries(fn1, "Powell", "Outflow", 100,false);
 
@@ -93,8 +93,8 @@ namespace Pisces.NunitTests.SeriesTypes
         public void UpperSnakeTraces()
         {
 
-            string fn1 = TestData.DataPath + "\\RiverWare\\UpperSnakeTraces.rdf";
-            string fn2 = TestData.DataPath + "\\RiverWare\\UpperSnakeTraces.rdf";
+            string fn1 = Path.Combine(TestData.DataPath, "RiverWare", "UpperSnakeTraces.rdf");
+            string fn2 = Path.Combine(TestData.DataPath, "RiverWare", "UpperSnakeTraces.rdf");
 
             var s1 = new RiverWareSeries(fn1, "Jackson", "Inflow", 1,false);
             var s2 = new RiverWareSeries(fn2, "Jackson", "Inflow", 15,false);
@@ -119,7 +119,7 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void Albuquerque()
         {
-            string fn = TestData.DataPath + "\\RiverWare\\MRG-ESA-Output\\"+"BOtargetsNoContFlow-50pct.rdf";
+            string fn = Path.Combine(TestData.DataPath, "RiverWare", "MRG-ESA-Output", "BOtargetsNoContFlow-50pct.rdf");
             var s = new RiverWareSeries(fn, "Heron^Albuquerque", "Storage", -1, false);
             s.Read();
 

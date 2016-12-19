@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using Reclamation.TimeSeries;
+using System.IO;
 
 namespace Pisces.NunitTests.SeriesFeatures
 {
@@ -206,7 +207,7 @@ namespace Pisces.NunitTests.SeriesFeatures
       //2005-02-02 06:53:52.331,98.4335632324219
       //2005-02-04 09:24:53.233,98.4335632324219
 
-      string fn = TestData.DataPath+"\\el68d_export.csv";
+        string fn = Path.Combine(TestData.DataPath, "el68d_export.csv");
       TextSeries s =new TextSeries(fn);
       s.Read();
       Assert.AreEqual(s.Count,1145,"Test Data has been modified....expected 1145 records. found "+s.Count);
@@ -229,7 +230,7 @@ namespace Pisces.NunitTests.SeriesFeatures
     [Test]
     public void DeepCopy()
     {
-      string fn = TestData.DataPath+"\\el68d_export.csv";
+        string fn = Path.Combine(TestData.DataPath, "el68d_export.csv");
       TextSeries s =new TextSeries(fn);
       s.Read();
       s.Name = "First";

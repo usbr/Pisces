@@ -20,7 +20,7 @@ namespace Reclamation.TimeSeries
         {
             get
             {
-                TextSeries s = new TextSeries(DataPath + @"\SpecificationTestData.csv");
+                TextSeries s = new TextSeries(Path.Combine(DataPath, "SpecificationTestData.csv"));
                     //"Sheet1", "Date", "MonthValue");
                 return s;
             }
@@ -43,8 +43,7 @@ namespace Reclamation.TimeSeries
         {
             if (rootDir == null)
             {
-                rootDir = Path.Combine(Path.Combine(rootDir, ".."), "..");
-                rootDir = Path.Combine(rootDir, "tests");
+                rootDir = Path.Combine(Path.Combine(rootDir, ".."), "..", "tests");
             }
 
             return rootDir;
@@ -64,7 +63,7 @@ namespace Reclamation.TimeSeries
         {
             get
             {
-                Series s = new TextSeries(DataPath + "\\" + "SouthForkOfBoiseNearFeatherville.txt");
+                Series s = new TextSeries(Path.Combine(DataPath, "SouthForkOfBoiseNearFeatherville.txt"));
                 s.Read();
                 s.Units = "cfs";
                 s.Name = "BRFI_QD";
@@ -76,7 +75,7 @@ namespace Reclamation.TimeSeries
     {
       get 
       {
-        Series s = new TextSeries(DataPath+"\\"+"site68_onefullday.txt");
+          Series s = new TextSeries(Path.Combine(DataPath, "site68_onefullday.txt"));
         s.Read();
         s.Units = "feet";
         s.Name="site68uslev";
@@ -88,7 +87,7 @@ namespace Reclamation.TimeSeries
     {
       get 
       {
-        Series s = new TextSeries(DataPath+"\\"+"site68_LindCouleeWasteWay1DailyAverage.csv");
+          Series s = new TextSeries(Path.Combine(DataPath, "site68_LindCouleeWasteWay1DailyAverage.csv"));
         s.Read();
         s.Units = "feet";
         s.Name="site68uslev";
@@ -101,7 +100,7 @@ namespace Reclamation.TimeSeries
     {
       get 
       {
-        Series s = new TextSeries(DataPath+"\\"+"site68_LindCouleeWasteWay1Stage.csv");
+          Series s = new TextSeries(Path.Combine(DataPath, "site68_LindCouleeWasteWay1Stage.csv"));
         s.Read();
         s.Units = "feet";
         s.Name="site68uslev";
@@ -113,7 +112,7 @@ namespace Reclamation.TimeSeries
     {
       get 
       {
-       Series s = new TextSeries(DataPath+"\\"+"El686_2004DailyAverageStage.csv");
+          Series s = new TextSeries(Path.Combine(DataPath, "El686_2004DailyAverageStage.csv"));
         s.Read();
         s.Units = "feet";
         s.Name="EL68D ";
@@ -134,8 +133,8 @@ namespace Reclamation.TimeSeries
 
        * */
       get 
-      { 
-          var fn = DataPath + "\\banks.csv";
+      {
+          var fn = Path.Combine(DataPath, "banks.csv");
           TextSeries s = new TextSeries(fn);
           s.Read();
           Console.WriteLine(s.Count);
@@ -228,7 +227,7 @@ namespace Reclamation.TimeSeries
         {
             get
             {
-                Series s = new TextSeries(DataPath + "\\" + "EntiatRiver.txt");
+                Series s = new TextSeries(Path.Combine(DataPath, "EntiatRiver.txt"));
                 s.Read();
                 s.Units = "cfs";
                 s.Name = "Entiat River near Entiat WA";
@@ -242,7 +241,7 @@ namespace Reclamation.TimeSeries
         {
             get
             {
-                Series s = new TextSeries(DataPath + "\\" + "EntiatRiver24points.txt");
+                Series s = new TextSeries(Path.Combine(DataPath, "EntiatRiver24points.txt"));
                 s.Read();
                 s.Units = "cfs";
                 s.Name = "Entiat River near Entiat WA";

@@ -88,8 +88,7 @@ namespace Pisces.NunitTests.SeriesMath
            Series s = new Series();
            s.Add(DateTime.Now.Date, 1281.95);
 
-           var path = Path.Combine(Globals.TestDataPath, "rating_tables");
-           path = Path.Combine(path, "gcl_af.txt");
+           var path = Path.Combine(Globals.TestDataPath, "rating_tables", "gcl_af.txt");
            var af = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path);
 
 

@@ -4,6 +4,7 @@ using System.Text;
 using NUnit.Framework;
 using Reclamation.TimeSeries;
 using Reclamation.Core;
+using System.IO;
 
 namespace Pisces.NunitTests.SeriesMath
 {
@@ -22,7 +23,7 @@ namespace Pisces.NunitTests.SeriesMath
         public void AprilAverageHrsi()
         {
 
-            Series s = new TextSeries(TestData.DataPath + "\\hrsiDailyModsim.csv");
+            Series s = new TextSeries(Path.Combine(TestData.DataPath, "hrsiDailyModsim.csv"));
             s.Read();
             Assert.AreEqual(5418, s.Count,"reading file");
 

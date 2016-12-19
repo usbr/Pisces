@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using Reclamation.TimeSeries;
+using System.IO;
 
 namespace Pisces.NunitTests.SeriesFeatures
 {
@@ -16,7 +17,7 @@ namespace Pisces.NunitTests.SeriesFeatures
             int[] months = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12 };
 
             string path = TestData.DataPath + "\\";
-            string fn1 = path + "LuckyPeakWaterLevel.txt";
+            string fn1 = Path.Combine(TestData.DataPath, "LuckyPeakWaterLevel.txt");
             Console.WriteLine("reading " + fn1);
             TextSeries s = new TextSeries(fn1);
             s.Read();

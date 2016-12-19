@@ -52,7 +52,7 @@ namespace Pisces.NunitTests.SeriesMath
             var db = new TimeSeriesDatabase(svr,false );
 
             var c = new CalculationSeries("rir_q");
-            var path = Path.Combine(Globals.TestDataPath, "rating_tables");
+            var path = Path.Combine(TestData.DataPath, "rating_tables");
             path = Path.Combine(path, "rir_q.txt");
 
             c.Expression = "FileLookupInterpolate2D(rir_fb, rir_ra, \"" + path + "\")" +

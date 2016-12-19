@@ -15,7 +15,7 @@ namespace Reclamation.Core.Tests
         [Test]
         public void XLSX()
         {
-            var fn = Globals.TestDataPath + "\\CalculationTests.xlsx";
+            var fn = Path.Combine(Globals.TestDataPath, "CalculationTests.xlsx");
             Console.WriteLine(fn);
             var tbl = ExcelUtility.Read(fn, 0);
             Console.WriteLine(tbl.Rows.Count);

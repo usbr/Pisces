@@ -2,6 +2,7 @@
 using Reclamation.TimeSeries;
 using DateTime = System.DateTime;
 using Reclamation.TimeSeries.Excel;
+using System.IO;
 
 
 namespace Pisces.NunitTests.SeriesMath
@@ -59,7 +60,7 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void EstimateDaily()
         {
-            string fn = TestData.DataPath + "\\EstimateDailyFromMonthly.xlsx";
+            string fn = Path.Combine(TestData.DataPath, "EstimateDailyFromMonthly.xlsx");
             var daily = new ExcelDataReaderSeries(fn, "daily", "Date", "Value");
             daily.Read();
 

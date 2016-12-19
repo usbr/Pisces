@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Reclamation.TimeSeries;
 using Math = Reclamation.TimeSeries.Math;
 using Reclamation.Core;
+using System.IO;
 namespace Pisces.NunitTests.SeriesMath
 {
     [TestFixture]
@@ -35,7 +36,7 @@ namespace Pisces.NunitTests.SeriesMath
 
 
             // again with exceedance method.
-            Series s3 = new TextSeries(TestData.DataPath + "\\" + "SouthForkOfBoiseNearFeatherville.txt");
+            Series s3 = new TextSeries(Path.Combine(TestData.DataPath, "SouthForkOfBoiseNearFeatherville.txt"));
 
             Series e2 = s3.Exceedance(TimeSeriesDatabase.MinDateTime, TimeSeriesDatabase.MaxDateTime,
                 new MonthDayRange(7, 1, 7, 31), RankType.Weibul);

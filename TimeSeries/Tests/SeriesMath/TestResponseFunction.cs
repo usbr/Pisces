@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Reclamation.TimeSeries;
 using Math = Reclamation.TimeSeries.Math;
 using Reclamation.TimeSeries.Excel;
+using System.IO;
 namespace Pisces.NunitTests.SeriesMath
 {
     /// <summary>
@@ -22,7 +23,7 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void TestMethod1()
         {
-            string fn = TestData.DataPath + @"\SimpleResponseFunction.xls";
+            string fn = Path.Combine(TestData.DataPath, "SimpleResponseFunction.xls");
 
             var diversion = new ExcelDataReaderSeries(fn, "Sheet1", "Date", "Input");
             diversion.Read();

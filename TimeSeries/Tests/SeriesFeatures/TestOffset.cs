@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework;
 //using TimeSeries.Tests;
 using Reclamation.TimeSeries;
+using System.IO;
 namespace Pisces.NunitTests.SeriesFeatures
 {
 	/// <summary>
@@ -17,7 +18,7 @@ namespace Pisces.NunitTests.SeriesFeatures
     [Test]
     public void OffsetAfterDeletion()
     {
-      string fn = TestData.DataPath+"\\el68d_export.csv";
+        string fn = Path.Combine(TestData.DataPath, "el68d_export.csv");
       TextSeries s =new TextSeries(fn);
       s.Read();
       int count = s.Count;

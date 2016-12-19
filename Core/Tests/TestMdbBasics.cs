@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using Reclamation.Core;
 using System.Data;
+using System.IO;
 
 namespace Reclamation.Core.Tests
 {
@@ -17,7 +18,7 @@ namespace Reclamation.Core.Tests
         [Test]
         public void TestTable()
         {
-            string mdbFilename = Globals.TestDataPath    + "\\Water Quality Testing.mdb";
+            string mdbFilename = Path.Combine(Globals.TestDataPath, "Water Quality Testing.mdb");
             AccessDB a = new AccessDB(mdbFilename);
 
            DataTable tbl =  a.Table("Water");

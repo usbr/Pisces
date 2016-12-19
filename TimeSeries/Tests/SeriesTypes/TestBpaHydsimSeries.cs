@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.IO;
+using NUnit.Framework;
 using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.BpaHydsim;
 
@@ -13,8 +14,8 @@ namespace Pisces.NunitTests.SeriesTypes
             string plantName = "BRNLEE";
             string dataType = "QOUT";
 
-            string fnMdb = TestData.DataPath + "\\BpaHydsim\\Supp_A1F450.mdb";
-            string fnCsv = TestData.DataPath + "\\BpaHydsim\\BRNLEE_QOUT.csv";
+            string fnMdb = Path.Combine(TestData.DataPath, "BpaHydsim", "Supp_A1F450.mdb");
+            string fnCsv = Path.Combine(TestData.DataPath, "BpaHydsim", "BRNLEE_QOUT.csv");
             
             BpaHydsimSeriesAccess sMdb = new BpaHydsimSeriesAccess(fnMdb, plantName, dataType);
             sMdb.Read();
@@ -34,8 +35,8 @@ namespace Pisces.NunitTests.SeriesTypes
             string plantName = "BRNLEE";
             string dataType = "ENDSTO";
 
-            string fnMdb = TestData.DataPath + "\\BpaHydsim\\Supp_A1F450.mdb";
-            string fnCsv = TestData.DataPath + "\\BpaHydsim\\BRNLEE_ENDSTO.csv";
+            string fnMdb = Path.Combine(TestData.DataPath, "BpaHydsim", "Supp_A1F450.mdb");
+            string fnCsv = Path.Combine(TestData.DataPath, "BpaHydsim", "BRNLEE_ENDSTO.csv");
 
             BpaHydsimSeriesAccess sMdb = new BpaHydsimSeriesAccess(fnMdb, plantName, dataType);
             sMdb.Read();

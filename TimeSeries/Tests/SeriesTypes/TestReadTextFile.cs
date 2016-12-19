@@ -18,7 +18,7 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void DailyIntervalDetection()
         {
-            string fn = TestData.DataPath + @"\El686_2004DailyAverageStage.csv";
+            string fn = Path.Combine(TestData.DataPath, "El686_2004DailyAverageStage.csv");
             TextSeries s = new TextSeries(fn);
             s.Read();
             Assert.AreEqual(TimeInterval.Daily, s.TimeInterval);
@@ -34,7 +34,7 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void StevensLogger()
         {
-            string fn = TestData.DataPath + "\\StevensLogger.txt";
+            string fn = Path.Combine(TestData.DataPath, "StevensLogger.txt");
             TextSeries s = new TextSeries(fn);
             s.Read();
 
@@ -51,10 +51,9 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void BelowDeadwoodDam()
         {
-            string path = TestData.DataPath + "\\";
-            string fn1 = path + "below Deadwood Dam.csv";
-            Console.WriteLine("reading " + fn1);
-            TextSeries s = new TextSeries(fn1);
+            string fn = Path.Combine(TestData.DataPath, "below Deadwood Dam.csv");
+            Console.WriteLine("reading " + fn);
+            TextSeries s = new TextSeries(fn);
             s.Read();
             Console.WriteLine("skipped the following\n" + s.Messages.ToString());
             //s.WriteToConsole();
@@ -65,10 +64,9 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void mmDDyy()
         {
-            string path = TestData.DataPath + "\\";
-            string fn1 = path + "mmddyy.csv";
-            Console.WriteLine("reading " + fn1);
-            TextSeries s = new TextSeries(fn1);
+            string fn = Path.Combine(TestData.DataPath, "mmddyy.csv");
+            Console.WriteLine("reading " + fn);
+            TextSeries s = new TextSeries(fn);
             s.Read();
             Console.WriteLine("skipped the following\n" + s.Messages.ToString());
             s.WriteToConsole();
@@ -79,10 +77,9 @@ namespace Pisces.NunitTests.SeriesTypes
         [Test]
         public void ExcelCSV()
         {
-            string path = TestData.DataPath + "\\";
-            string fn1 = path + "mmddyyyyhhmmAMPM.txt";
-            Console.WriteLine("reading " + fn1);
-            TextSeries s = new TextSeries(fn1);
+            string fn = Path.Combine(TestData.DataPath, "mmddyyyyhhmmAMPM.txt");
+            Console.WriteLine("reading " + fn);
+            TextSeries s = new TextSeries(fn);
             s.Read();
             Console.WriteLine("skipped the following\n" + s.Messages.ToString());
 
@@ -92,9 +89,7 @@ namespace Pisces.NunitTests.SeriesTypes
     [Test]
     public void TextFileHydromet()
     {
-      
-      string path = TestData.DataPath+"\\";
-      string fn1 = path + "LuckyPeakWaterLevel.txt";
+      string fn1 = Path.Combine(TestData.DataPath, "LuckyPeakWaterLevel.txt");
       Console.WriteLine("reading "+ fn1);
       TextSeries s = new TextSeries(fn1);
       s.Read();
@@ -105,7 +100,6 @@ namespace Pisces.NunitTests.SeriesTypes
 
       // save to text file..
       string fn = Path.GetTempFileName();
-      //fn = TestData.OutputPath+"\\"+fn;
       s.WriteCsv(fn);
 
       TextSeries s1 = new TextSeries(fn);
@@ -122,7 +116,7 @@ namespace Pisces.NunitTests.SeriesTypes
     [Test]
     public void TextFileDigitizedChart()
     {
-      string fn = TestData.DataPath +"\\el68d_DigitizedChart.txt";
+        string fn = Path.Combine(TestData.DataPath, "el68d_DigitizedChart.txt");
       TextSeries s = new TextSeries(fn);
       s.Read();
       //s.Save(TestData.DataPath +"\\el68d_DigitizedChart2.txt");
@@ -141,14 +135,14 @@ namespace Pisces.NunitTests.SeriesTypes
     [Test]
     public void csv_yyyymmdd()
     {// comma separated
-      string fn = TestData.DataPath +"\\csv_yyyymmdd.txt";
+        string fn = Path.Combine(TestData.DataPath, "csv_yyyymmdd.txt");
       yyyymmdd(fn);
     }
 
     [Test]
     public void space_yyyymmdd()
     {// space separated
-      string fn = TestData.DataPath +"\\space_yyyymmdd.txt";
+        string fn = Path.Combine(TestData.DataPath, "space_yyyymmdd.txt");
       yyyymmdd(fn);
     }
 
@@ -181,13 +175,13 @@ namespace Pisces.NunitTests.SeriesTypes
     [Test]
     public void Csv_mmddyyyy()
     {// comma separated
-      string fn = TestData.DataPath +"\\csv_mmddyyyy.txt";
+        string fn = Path.Combine(TestData.DataPath, "csv_mmddyyyy.txt");
       mmddyyyy(fn);
     }
     [Test]
     public void space_mmddyyyy()
     {// space separated.
-      string fn = TestData.DataPath +"\\space_mmddyyyy.txt";
+        string fn = Path.Combine(TestData.DataPath, "space_mmddyyyy.txt");
       mmddyyyy(fn);
     }
    

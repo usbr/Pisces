@@ -25,7 +25,7 @@ namespace Pisces.NunitTests.Import
         [Test]
         public void ImportDirectory()
         {
-          var dir = Path.Combine(TestData.DataPath,"Scenarios","dir_import");
+            var dir = Path.Combine(TestData.DataPath, "Scenarios", "dir_import");
           var tmp = @"c:\temp\import_dir.pdb";
           if (File.Exists(tmp))
               File.Delete(tmp);

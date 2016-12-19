@@ -2,6 +2,7 @@ using System;
 using NUnit.Framework;
 using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.Excel;
+using System.IO;
 
 namespace Pisces.NunitTests.SeriesMath
 {
@@ -17,7 +18,7 @@ namespace Pisces.NunitTests.SeriesMath
        [Test]
        public void SevenDayMovingInstantSparse()
        {
-           string fn = TestData.DataPath + "\\temp example 7 day max.xls";
+           string fn = Path.Combine(TestData.DataPath, "temp example 7 day max.xls");
            var s = new ExcelDataReaderSeries(fn, "sparse", "C", "D");
            s.Read();
            Series s2 = Reclamation.TimeSeries.Math.SevenDADMAX(s);
@@ -34,7 +35,7 @@ namespace Pisces.NunitTests.SeriesMath
        [Test]
        public void SevenDayMovingInstant()
        {
-           string fn = TestData.DataPath + "\\temp example 7 day max.xls";
+           string fn = Path.Combine(TestData.DataPath, "temp example 7 day max.xls");
            var s = new ExcelDataReaderSeries(fn, "457373", "C", "D");
            s.Read();
 
@@ -54,7 +55,7 @@ namespace Pisces.NunitTests.SeriesMath
        [Test]
        public void SevenDayMovingDaily()
        {
-         string fn = TestData.DataPath + "\\SpecificationTestData.xls";
+           string fn = Path.Combine(TestData.DataPath, "SpecificationTestData.xls");
          Series s = new ExcelDataReaderSeries(fn, "Sheet1", "Date", "JulianDay");
          Series expected = new ExcelDataReaderSeries(fn, "Sheet1", "Date", "SevenDayMovingAverage");
 

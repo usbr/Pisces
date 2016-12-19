@@ -131,7 +131,7 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void InterpolateWithStyle()
         {
-            string zipFile = Path.Combine(Globals.TestDataPath, "UofIDisaggregationTest.zip");
+            string zipFile = Path.Combine(TestData.DataPath, "UofIDisaggregationTest.zip");
             var path = FileUtility.GetTempFileName(".pdb");
             ZipFile.UnzipFile(zipFile, path);
 
