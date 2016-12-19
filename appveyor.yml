@@ -37,7 +37,6 @@ notifications:
   - ktarbet@usbr.gov
   - jrocha@usbr.gov
   - blounsbury@usbr.gov
-  - rherrera@usbr.gov
   subject: Windows Build -- With Tests
   on_build_success: false
   on_build_failure: true
