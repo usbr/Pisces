@@ -23,8 +23,7 @@ namespace Reclamation.Core
                 if (s_testData != "")
                     return s_testData;
 
-                string dir = GetPathAbove("Pisces");
-                dir = Path.Combine(dir, "PiscesTestData", "data");
+                string dir = Path.Combine(GetPathAbove("Pisces"), "PiscesTestData", "data");
                 Console.WriteLine(dir);
 
                 s_testData = dir;
@@ -42,8 +41,7 @@ namespace Reclamation.Core
                 if (s_cfgData != "")
                     return s_cfgData;
 
-                string dir = GetPathAbove("Pisces");
-                dir = Path.Combine(dir, "Hydromet", "cfg");
+                string dir = Path.Combine(GetPathAbove("Pisces"), "Hydromet", "cfg");
                 Console.WriteLine(dir);
 
                 s_cfgData = dir;
@@ -65,7 +63,7 @@ namespace Reclamation.Core
                 {
                     Uri u = new Uri(item.CodeBase);
                     var dir = u.AbsolutePath.Replace("%20", " ");
-                    int idx = dir.ToLower().LastIndexOf(part+"/");
+                    int idx = dir.LastIndexOf(part+"/");
                     if (idx > 0)
                         dir = dir.Substring(0, idx + 6); // include 'pisces'
                     
