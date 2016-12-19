@@ -12,14 +12,14 @@ namespace Reclamation.Core.Tests
     public class TestDbaseIV
     {
 
-        [Test]
+        [Test, Category("Windows")]
         public void Test()
         {
             string fn = Path.Combine(Globals.TestDataPath, "a.dbf");
             var tbl = DbaseIV.Read(fn);
             Console.WriteLine(tbl.Rows.Count);
         }
-        [Test]
+        [Test, Category("Windows")]
         public void TestLongFileName()
         {
             string fn = Path.Combine(Globals.TestDataPath, "streamreaches.dbf");
