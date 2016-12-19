@@ -10,7 +10,8 @@ namespace Reclamation.Core
 
     public static class Globals
     {
-        private static string s_testData="";
+        private static string s_testData = "";
+        private static string s_cfgData = "";
 
         /// <summary>
         /// Returns Test data path, in the source code tree.
@@ -29,6 +30,26 @@ namespace Reclamation.Core
 
                 s_testData = dir;
                 return s_testData;
+            }
+        }
+
+        /// <summary>
+        /// Returns cfg data path, in the source code tree.
+        /// </summary>
+        public static string CfgDataPath
+        {
+            get
+            {
+                if (s_cfgData != "")
+                    return s_cfgData;
+
+                string dir = GetPathAbove("pisces");
+                dir = Path.Combine(dir, "Hydromet");
+                dir = Path.Combine(dir, "cfg");
+                Console.WriteLine(dir);
+
+                s_cfgData = dir;
+                return s_cfgData;
             }
         }
 
