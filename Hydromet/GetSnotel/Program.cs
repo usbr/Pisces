@@ -29,9 +29,9 @@ namespace GetSnotel
         {
 
 
-            ServicePointManager.ServerCertificateValidationCallback += (o, certificate, chain, errors) => true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-            System.Security.Cryptography.AesCryptoServiceProvider b = new System.Security.Cryptography.AesCryptoServiceProvider();
+            //ServicePointManager.ServerCertificateValidationCallback += (o, certificate, chain, errors) => true;
+            //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+           // System.Security.Cryptography.AesCryptoServiceProvider b = new System.Security.Cryptography.AesCryptoServiceProvider();
 
             string outputFileName = "";
             bool appendToFile = false; // for output file.
