@@ -63,12 +63,11 @@ namespace Reclamation.Core
                 {
                     Uri u = new Uri(item.CodeBase);
                     var dir = u.AbsolutePath.Replace("%20", " ");
-                    int idx = dir.LastIndexOf(part + "/");
-                    int idx2 = dir.LastIndexOf(part.ToLower() + "/");
-                    if (idx > 0 || idx2 > 0)
-                        dir = dir.Substring(0, idx + 6); // include 'pisces'
+                    int idx = dir.ToLower().LastIndexOf(part.ToLower() + "/");
+                    if (idx > 0)
+                        dir = dir.Substring(0, idx + part.Length); // include 'pisces'
                     
-                    rval = dir;
+                    rval = Path.GetFullPath(dir);
                     break;
                 }
             }
