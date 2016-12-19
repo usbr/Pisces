@@ -3,6 +3,7 @@ using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.Excel;
 using Reclamation.TimeSeries.Parser;
 using System;
+using System.IO;
 using DateTime = System.DateTime;
 
 namespace Reclamation.TimeSeries.Parser.Tests
@@ -113,7 +114,7 @@ namespace Reclamation.TimeSeries.Parser.Tests
         public void ConvertToCelcius()
         {
 
-            var fn = TestData.DataPath + "\\CalculationTests.xlsx";
+            var fn = Path.Combine(TestData.DataPath, "CalculationTests.xlsx");
             Series s = new ExcelDataReaderSeries(fn, "ConvertToCelcius", "Date", "value");
             s.Units = "degrees C";
             s.Name = "series1";
@@ -135,7 +136,7 @@ namespace Reclamation.TimeSeries.Parser.Tests
         [Test]
         public void UnregulatedFlow()
         {
-            var fn = TestData.DataPath +"\\CalculationTests.xlsx";
+            var fn = Path.Combine(TestData.DataPath, "CalculationTests.xlsx");
 
             Series af = new ExcelDataReaderSeries(fn, "jck_qu", "Date", "jck af");
             Series qd = new ExcelDataReaderSeries(fn, "jck_qu", "Date", "jck qd");
