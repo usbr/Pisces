@@ -13,14 +13,16 @@ namespace Reclamation.TimeSeries.Parser.Tests
     [TestFixture]
     class TestParserWithDatabase
     {
-        TimeSeriesDatabase db;
+        string _fn;
+        TimeSeriesDatabase _db;
+        SQLiteServer _svr;
         public TestParserWithDatabase()
         {
-           string fn = FileUtility.GetTempFileName(".pdb");
-           SQLiteServer.CreateNewDatabase(fn);
-           var svr = new SQLiteServer(fn);
-
-           db = new TimeSeriesDatabase(svr,false);
+           _fn = FileUtility.GetTempFileName(".pdb");
+           SQLiteServer.CreateNewDatabase(_fn);
+           _svr = new SQLiteServer(_fn);
+            
+           _db = new TimeSeriesDatabase(_svr,false);
         }
 
 
@@ -79,12 +81,13 @@ namespace Reclamation.TimeSeries.Parser.Tests
         [Test]
         public void Constant()
         {
+            _svr.CreateDataBase(_fn);
 
             CalculationSeries c = new CalculationSeries();
             c.TimeInterval = TimeInterval.Daily;
             c.Name = "constant_series";
             c.Expression = "15.0";
-            db.AddSeries(c);
+            _db.AddSeries(c);
 
             DateTime t1 = new DateTime(2014, 10, 1);
             DateTime t2 = new DateTime(2014,10,5);
@@ -98,12 +101,13 @@ namespace Reclamation.TimeSeries.Parser.Tests
         [Test]
         public void ConstantInteger()
         {
+            _svr.CreateDataBase(_fn);
 
             CalculationSeries c = new CalculationSeries();
             c.TimeInterval = TimeInterval.Daily;
             c.Name = "constant_series";
             c.Expression = "14";
-            db.AddSeries(c);
+            _db.AddSeries(c);
 
             DateTime t1 = new DateTime(2014, 10, 1);
             DateTime t2 = new DateTime(2014, 10, 5);
@@ -137,6 +141,8 @@ namespace Reclamation.TimeSeries.Parser.Tests
         [Test]
         public void FunctionNames()
         {
+            _svr.CreateDataBase(_fn);
+
           ParserFunction f;
           string subExpr = "";
           bool ok = ParserUtility.TryGetFunctionCall("Merge(series1,'series 2')+'Series 5'",out subExpr, out f);
@@ -163,9 +169,9 @@ namespace Reclamation.TimeSeries.Parser.Tests
           c.TimeInterval = TimeInterval.Daily;
           c.Name = "merged"; 
           c.Expression = "Merge(observed, estimated)";
-          db.AddSeries(observed);
-          db.AddSeries(estimated);
-          db.AddSeries(c);
+          _db.AddSeries(observed);
+          _db.AddSeries(estimated);
+          _db.AddSeries(c);
 
           c.Calculate();
 
@@ -179,6 +185,8 @@ namespace Reclamation.TimeSeries.Parser.Tests
         [Test]
         public void MathInDatabase()
         {
+            _svr.CreateDataBase(_fn);
+
             Series one = new Series();
             one.Name = "o";
             one.Add(DateTime.Parse("2001-01-01"), 1);
@@ -193,9 +201,9 @@ namespace Reclamation.TimeSeries.Parser.Tests
             CalculationSeries onePlusTwo = new CalculationSeries();
             onePlusTwo.Name = "one+two"; // this name will match 'one%' in SQL
             onePlusTwo.Expression = "o+two";
-            db.AddSeries(one);
-            db.AddSeries(two);
-            db.AddSeries(onePlusTwo);
+            _db.AddSeries(one);
+            _db.AddSeries(two);
+            _db.AddSeries(onePlusTwo);
 
             onePlusTwo.Calculate();
             Assert.AreEqual(2, onePlusTwo.Count);
@@ -204,8 +212,11 @@ namespace Reclamation.TimeSeries.Parser.Tests
             onePlusTwo.WriteToConsole();
         }
 
+        [Test]
         public void SpaceInVariableName()
         {
+            _svr.CreateDataBase(_fn);
+
             Series one = new Series();
             one.Name = "o";
             one.Add(DateTime.Parse("2001-01-01"), 1);
@@ -214,11 +225,13 @@ namespace Reclamation.TimeSeries.Parser.Tests
 
             SeriesExpressionParser.Debug = true;
             one.Name = "jck af"; // put a space in the name
-            db.AddSeries(one);
+            _db.AddSeries(one);
 
             CalculationSeries onePlusTwo = new CalculationSeries();
             onePlusTwo.Name = "space_in_expression"; 
-            onePlusTwo.Expression = "'jck af'+two"; // using single quotes '
+            onePlusTwo.Expression = "'jck af'+2"; // using single quotes '
+            _db.AddSeries(onePlusTwo);
+
             onePlusTwo.Calculate();
             Assert.AreEqual(2, onePlusTwo.Count);
             Assert.AreEqual(3, onePlusTwo[0].Value);
