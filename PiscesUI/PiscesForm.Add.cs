@@ -475,7 +475,7 @@ namespace Reclamation.TimeSeries.Forms
 
             dlg.Text = "Select Hydsim Output Files";
             dlg.Dialog.DefaultExt = ".mdb";
-            dlg.Dialog.Filter = "BPA Hydsim Access *.mdb|*.mdb|All Files|*.*";
+            dlg.Dialog.Filter = "BPA Hydsim Access (*.mdb, *.accdb)|*.mdb;*.accdb|All Files|*.*";
             dlg.Dialog.Title = "Open BPA Hydsim Access File";
             
             try
