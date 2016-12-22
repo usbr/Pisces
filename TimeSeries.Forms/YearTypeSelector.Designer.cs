@@ -63,16 +63,16 @@ namespace Reclamation.TimeSeries.Forms
             // 
             // groupBox2
             // 
+            this.groupBox2.AutoSize = true;
             this.groupBox2.Controls.Add(this.labelDebug);
             this.groupBox2.Controls.Add(this.labelEndingCustomMonth);
             this.groupBox2.Controls.Add(this.radioButtonCustom);
             this.groupBox2.Controls.Add(this.comboBox1);
             this.groupBox2.Controls.Add(this.radioButtonCalendarYear);
             this.groupBox2.Controls.Add(this.radioButtonWaterYear);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(295, 100);
+            this.groupBox2.Size = new System.Drawing.Size(295, 113);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "what type of year?";
@@ -141,6 +141,7 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

@@ -67,7 +67,6 @@ namespace  Reclamation.TimeSeries.Forms
             this.jul,
             this.aug,
             this.sep});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
@@ -76,7 +75,7 @@ namespace  Reclamation.TimeSeries.Forms
             this.dataGridView1.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridView1.ShowEditingIcon = false;
-            this.dataGridView1.Size = new System.Drawing.Size(301, 58);
+            this.dataGridView1.Size = new System.Drawing.Size(322, 32);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseDown);
             this.dataGridView1.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.dataGridView1_PreviewKeyDown);
@@ -160,7 +159,7 @@ namespace  Reclamation.TimeSeries.Forms
             this.AutoSize = true;
             this.Controls.Add(this.dataGridView1);
             this.Name = "MonthRangePicker";
-            this.Size = new System.Drawing.Size(301, 58);
+            this.Size = new System.Drawing.Size(325, 35);
             this.VisibleChanged += new System.EventHandler(this.MonthRangePicker_VisibleChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

@@ -44,7 +44,6 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBox1.Controls.Add(this.radioButtonAnnualMax);
             this.groupBox1.Controls.Add(this.radioButtonSum);
             this.groupBox1.Controls.Add(this.radioButtonNone);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(157, 152);
