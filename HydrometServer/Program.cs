@@ -86,13 +86,7 @@ namespace HydrometServer
                 }
 
 
-
-            // setup connection to Database
-            if (args.Contains("create-database"))
-            {
-                if (CreatePostgresDatabase(args))
-                    return;
-            }
+           
             var db = TimeSeriesDatabase.InitDatabase(args);
 
             if (cli != "")
@@ -263,7 +257,7 @@ namespace HydrometServer
             p.WriteOptionDescriptions(Console.Out);
 
 
-            Console.WriteLine(@"--database=c:\data\mydata.pdb|192.168.50.111:timeseries ");
+            Console.WriteLine(@"--sqlite=c:\data\mydata.pdb");
             Console.WriteLine("--import[=searchPattern]   [--computeDependencies] [--computeDailyOnMidnight]");
             Console.WriteLine("            imports (and processes) data in incoming directory");
             Console.WriteLine("            supports DMS3, and LoggerNet files");
@@ -294,9 +288,6 @@ namespace HydrometServer
             Console.WriteLine("           imports hydromet (vms) daily data default ( t1-100 days)");
             Console.WriteLine("--import-hydromet-monthly");
             Console.WriteLine("           imports hydromet monthly data ( last 5 years)");
-
-            Console.WriteLine("--create-database=timeseries");
-            Console.WriteLine("          creates a new database");
             Console.WriteLine("--import-rating-tables=site_list.csv  [--generateNewTables]");
             Console.WriteLine("          updates usgs,idahopower, and owrd rating tables");
             Console.WriteLine("--update-daily=HydrometDailySeries");
@@ -305,32 +296,9 @@ namespace HydrometServer
             Console.WriteLine("--run-crop-charts=2016   --run-crop-charts (defaults to current calendar year)");
             Console.WriteLine("        runs crop charts");
 
-            // --update-daily=HydrometDailySeries --t1=lastyear
-            // --update-daily=HDBDailySeries  --t2=yesterday
         }
         
         
-        private static bool CreatePostgresDatabase(Arguments args)
-        {
-            if (args.Contains("create-database"))
-            {
-                var settings = ConfigurationManager.AppSettings;
-                var dbname = settings["PostgresDatabase"];
-                var owner = settings["PostgresTableOwner"];
-
-                dbname = args["create-database"];
-                Console.WriteLine("Creating Database:" + dbname);
-                var pgSvr = PostgreSQL.GetPostgresServer("postgres") as PostgreSQL;
-
-                pgSvr.CreateDatabase(dbname, owner);
-                pgSvr = PostgreSQL.GetPostgresServer(dbname) as PostgreSQL;
-                pgSvr.CreateSchema(owner, owner);
-                pgSvr.SetSearchPath(dbname, owner);
-                return true;
-            }
-            return false;
-        }
-
 
         static string[] s_quality_parameters = new string[] { 
             "parity","power","msglen","lenerr","timeerr","batvolt","bay","demod",

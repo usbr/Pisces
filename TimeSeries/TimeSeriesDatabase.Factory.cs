@@ -16,21 +16,11 @@ namespace Reclamation.TimeSeries
         public static TimeSeriesDatabase InitDatabase(Arguments args, bool readOnly=false)
         {
 
-            if (args.Contains("database"))
+            if (args.Contains("sqlite"))
             {
-                if (File.Exists(args["database"]))
-                {
-                    SQLiteServer svr = new SQLiteServer(args["database"]);
-                    var db = new TimeSeriesDatabase(svr, LookupOption.TableName,readOnly);
-                    return db;
-                }
-
-                int idx = args["database"].IndexOf(":");
-                if (idx > 0)
-                {// postgresql
-
-                }
-                throw new NotImplementedException("Please use app.config file");
+                SQLiteServer svr = new SQLiteServer(args["sqlite"]);
+                var db = new TimeSeriesDatabase(svr, LookupOption.TableName,readOnly);
+                return db;
             }
             else if (ConfigurationManager.AppSettings["PostgresDatabase"] != null)
             {// use config file (postgresql is default)
