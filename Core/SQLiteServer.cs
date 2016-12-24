@@ -367,35 +367,36 @@ namespace Reclamation.Core
             Logger.WriteLine("Saving " + dataTable.TableName);
             DataSet myDataSet = new DataSet();
             myDataSet.Tables.Add(dataTable.TableName);
-
-            SQLiteConnection conn = new SQLiteConnection(ConnectionString);
-            SQLiteCommand myAccessCommand = new SQLiteCommand(sql, conn);
-            SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myAccessCommand);
-            SQLiteCommandBuilder karlCB = new SQLiteCommandBuilder(myDataAdapter);
-
-            this.lastSqlCommand = sql;
-            SqlCommands.Add(sql);
             int recordCount = 0;
-            //baseline     Saved 1000 records in 6.938seconds 
-            // transaction Saved 1000 records in 0.052seconds
 
-            //baseline Saved 50000 records in 1.659seconds
-            //(use Insert only) Saved 50000 records in 1.194seconds
-            
-            try
+            using ( SQLiteConnection conn = new SQLiteConnection(ConnectionString))
+            using ( SQLiteCommand myAccessCommand = new SQLiteCommand(sql, conn))
+            using ( SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myAccessCommand))
+            using ( SQLiteCommandBuilder karlCB = new SQLiteCommandBuilder(myDataAdapter))
             {
-                conn.Open();
-                var dbTrans =  conn.BeginTransaction();
-                myDataAdapter.Fill(myDataSet, dataTable.TableName);
-                recordCount = myDataAdapter.Update(dataTable);
-                dbTrans.Commit();
-            }
-            finally
-            {
-                if (conn != null)
-                    conn.Close();
-            }
+                this.lastSqlCommand = sql;
+                SqlCommands.Add(sql);
+                
+                //baseline     Saved 1000 records in 6.938seconds 
+                // transaction Saved 1000 records in 0.052seconds
 
+                //baseline Saved 50000 records in 1.659seconds
+                //(use Insert only) Saved 50000 records in 1.194seconds
+
+                try
+                {
+                    conn.Open();
+                    var dbTrans = conn.BeginTransaction();
+                    myDataAdapter.Fill(myDataSet, dataTable.TableName);
+                    recordCount = myDataAdapter.Update(dataTable);
+                    dbTrans.Commit();
+                }
+                finally
+                {
+                    if (conn != null)
+                        conn.Close();
+                }
+            }
             Logger.WriteLine("Saved "+recordCount+" records in " + perf.ElapsedSeconds + "seconds");
             return recordCount;
         }
