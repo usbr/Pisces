@@ -21,8 +21,8 @@ namespace Reclamation.TimeSeries.Graphing
         {
             chart1 = chart;
             pane = chart1.GraphPane;
-            pane.Border.IsVisible = false;
-            
+            pane.Chart.Border.IsVisible = false;
+
             // set scale
             pane.YAxis.Scale.MinGrace = 0;
             pane.YAxis.Scale.MaxGrace = 0;
