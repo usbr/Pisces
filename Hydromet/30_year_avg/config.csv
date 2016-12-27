@@ -1,0 +1,280 @@
+group,station,daily_pcode,title,ylabel
+Boise Payette,plei,qd,"Payette River near Letha, ID",Discharge - cfs
+Boise Payette,emm,qd,"Payette River near Emmett, ID",Discharge - cfs
+Boise Payette,sqwi,qd,"Squaw Creek at Sweet, ID",Discharge - cfs
+Boise Payette,etsi,qj,Black Canyon SS Canal nr Emmett,Canal Discharge - cfs
+Boise Payette,etni,qj,Black Canyon NS Canal nr Emmett,Canal Discharge - cfs
+Boise Payette,csci,qd,"North Fork Payette River at Cascade, ID",Discharge - cfs
+Boise Payette,dedi,qd,"Deadwood River below Deadwood Dam, ID",Discharge - cfs
+Boise Payette,prli,qd,"South Fork Payette River at Lowman, ID",Discharge - cfs
+Boise Payette,mfpi,qd,"Middle Fork Payette River at Crouch, ID",Discharge - cfs
+Boise Payette,brfi,qd,S Fork Boise River near Featherville,Discharge - cfs
+Boise Payette,andi,qd,S Fork Boise River at Anderson Ranch,Discharge - cfs
+Boise Payette,btsi,qd,Boise River near Twin Springs,Discharge - cfs
+Boise Payette,luc,qd,Boise River below Lucky Peak Dam,Discharge - cfs
+Boise Payette,bsei,qj,New York Canal,Canal Discharge - cfs
+Boise Payette,bigi,qd,Boise River at Glenwood Bridge,Discharge - cfs
+Boise Payette,bomi,qd,Boise River near Middleton,Discharge - cfs
+Boise Payette,hrsi,qd,Payette River near Horseshoe Bend,Discharge - cfs
+Boise Payette,pabi,qd,"North Fork Payette River nr Banks, ID",Discharge -cfs
+Boise Payette,prpi,qd,Payette River near Payette,Discharge - cfs
+Boise Payette,pari,qd,Boise River near Parma,Discharge - cfs
+Boise Payette,mcii,gd,Mann Creek bel Adams Cr abv Reservoir,Gauge Height - feet
+Boise Payette,csc,af,Lake Cascade,Reservoir Storage - acre-feet
+Boise Payette,csc,fb,Lake Cascade,Reservoir Elevation - feet
+Boise Payette,luc,af,Lucky Peak Lake,Reservoir Storage - acre-feet
+Boise Payette,luc,fb,Lucky Peak Lake,Reservoir Elevation - feet
+Boise Payette,ark,af,Arrowrock Reservoir,Reservoir Storage - acre-feet
+Boise Payette,and,af,Anderson Ranch Reservoir,Reservoir Storage - acre-feet
+Boise Payette,low,af,Lake Lowell,Reservoir Storage - acre-feet
+Boise Payette,low,fb,Lake Lowell,Reservoir Elevation - feet
+Boise Payette,ded,af,Deadwood Reservoir,Reservoir Storage - acre-feet
+Boise Payette,man,af,Mann Creek Reservoir,Reservoir Storage - acre-feet
+Eastern Oregon,beuo,qd,North Fork Mahleur River at Beulah,Discharge - cfs
+Eastern Oregon,hcdi,qd,Snake River at Hells Canyon Dam,Discharge - cfs
+Eastern Oregon,mabo,qd,N.F. Malheur River above Beulah Res,Discharge - cfs
+Eastern Oregon,mado,qd,Malheur River near Drewsey,Discharge - cfs
+Eastern Oregon,owy,qd,"Lake Owyhee near Nyssa, Or",Discharge - cfs
+Eastern Oregon,phl,qd,Powder River nr Sumpter (bel Mason Dam),Discharge - cfs
+Eastern Oregon,prho,qd,Powder R. at Hudspeth Lane,Discharge - cfs
+Eastern Oregon,pwdo,qd,"Powder River at Baker, OR",Discharge - cfs
+Eastern Oregon,romo,qd,Owyhee River near Rome,Discharge - cfs
+Eastern Oregon,thf,qd,Powder River below Thief Valley Dam,Discharge - cfs
+Eastern Oregon,npdo,qd,Powder River abv Thief Valley Res,Discharge - cfs
+Eastern Oregon,prro,qd,"Powder River nr Richland, OR",Discharge - cfs
+Eastern Oregon,uny,qd,"Burnt River near Hereford, OR",Discharge - cfs
+Eastern Oregon,valo,qd,Malheur River below Nevada Dam nr Vale,Discharge - cfs
+Eastern Oregon,malo,qd,"Malheur River at 36th St nr Ontario, OR",Discharge - cfs
+Eastern Oregon,snyi,qd,"Snake River at Nyssa, OR",Discharge - cfs
+Eastern Oregon,waro,qd,Malheur Riv blw WS Rsvr nr Riverside,Discharge - cfs
+Eastern Oregon,swai,qd,"Snake River near Murphy, ID",Discharge - cfs
+Eastern Oregon,weii,qd,"Snake River at Weiser, ID",Discharge - cfs
+Eastern Oregon,owy,af,Lake Owyhee,Reservoir Storage - acre-feet
+Eastern Oregon,war,af,Warm Springs Reservoir,Reservoir Storage - acre-feet
+Eastern Oregon,beu,af,Beulah Reservoir,Reservoir Storage - acre-feet
+Eastern Oregon,bul,af,Bully Creek Reservoir,Reservoir Storage - acre-feet
+Eastern Oregon,uny,af,Unity Reservoir,Reservoir Storage - acre-feet
+Eastern Oregon,phl,af,Phillips Lake,Reservoir Storage - acre-feet
+Eastern Oregon,thf,af,Thief Vally Reservoir,Reservoir Storage - acre-feet
+Upper Snake,alpy,qd,Snake Riv above Res. near Alpine,Discharge - cfs
+Upper Snake,amfi,qd,"Snake River at Neeley, ID",Discharge - cfs
+Upper Snake,bfti,qd,Snake River near Blackfoot,Discharge - cfs
+Upper Snake,flgy,qd,Snake River near Flagg Ranch,Discharge - cfs
+Upper Snake,grey,qd,Greys River abv Res nr Alpine,Discharge - cfs
+Upper Snake,heii,qd,Snake River near Heise,Discharge - cfs
+Upper Snake,heni,qd,Henrys Fork near Lake,Discharge - cfs
+Upper Snake,hfai,qd,Henrys Fork near Ashton,Discharge - cfs
+Upper Snake,isl,qd,Island Park Dam & Res on Henrys Fork,Discharge - cfs
+Upper Snake,isli,qd,Henrys Fork near Island Park,Discharge - cfs
+Upper Snake,jck,qd,"Jackson Lake, Snake River nr Moran",Discharge - cfs
+Upper Snake,jksy,qd,Snake River blw Flat Crk nr Jackson,Discharge - cfs
+Upper Snake,mili,qt,Snake River at Milner (total release),Discharge - cfs
+Upper Snake,mini,qd,"Snake River near Minidoka, ID",Discharge - cfs
+Upper Snake,pali,qd,Snake River near Irwin,Discharge - cfs
+Upper Snake,rexi,qd,Henrys Fork near Rexburg,Discharge - cfs
+Upper Snake,riri,qd,Willow Creek below Ririe Dam,Discharge - cfs
+Upper Snake,saly,qd,"Salt River abv Res. near Etna, WY",Discharge - cfs
+Upper Snake,teai,qd,Teton River near St. Anthony,Discharge - cfs
+Upper Snake,lori,qd,Snake River at Lorenzo,Discharge - cfs
+Upper Snake,sifi,qd,Snake River near Idaho Falls,Discharge - cfs
+Upper Snake,shyi,qd,Snake River near Shelley,Discharge - cfs
+Upper Snake,snai,qd,Snake River at Blackfoot,Discharge - cfs
+Upper Snake,lwoi,qd,Little Wood Riv abv High Five Cr,Discharge - cfs
+Upper Snake,wodi,qd,Little Wood River nr Carey,Discharge - cfs
+Upper Snake,grs,af,Grassy Lake Reservoir,Reservoir Storage - acre-feet
+Upper Snake,isl,af,Island Park Reservoir,Reservoir Storage - acre-feet
+Upper Snake,hen,af,Henrys Lake,Reservoir Storage - acre-feet
+Upper Snake,mil,af,Milner Reservoir,Reservoir Storage - acre-feet
+Upper Snake,min,af,Lake Walcott,Reservoir Storage - acre-feet
+Upper Snake,amf,af,American Falls Reservoir,Reservoir Storage - acre-feet
+Upper Snake,rir,af,Ririe Lake,Reservoir Storage - acre-feet
+Upper Snake,pal,af,Palisades Reservoir,Reservoir Storage - acre-feet
+Upper Snake,jck,af,Jackson Lake,Reservoir Storage - acre-feet
+Upper Snake,wod,af,Little Wood Reservoir,Reservoir Storage - acre-feet
+Deschutes,beno,qd,Deschutes River at Benham Falls,Discharge - cfs
+Deschutes,crso,qd,Crooked River at Smith Rocks,Discharge - cfs
+Deschutes,crao,qd,Deschutes Rvr below Crane Prairie Res,Discharge - cfs
+Deschutes,creo,qd,Crescent Creek at Crescent Lake,Discharge - cfs
+Deschutes,crpo,qd,Crooked R above Prineville Res,Discharge - cfs
+Deschutes,debo,qd,Deschutes River below Bend,Discharge - cfs
+Deschutes,lapo,qd,"Little Deschutes River near Lapine, OR",Discharge - cfs
+Deschutes,ocho,qd,Ochoco Creek below Ochoco Reservoir,Discharge - cfs
+Deschutes,mlco,qd,"Mill Creek nr. Prineville, Or",Discharge - cfs
+Deschutes,ocro,qd,Ochoco Cr. above Ochoco Reservoir,Discharge - cfs
+Deschutes,crco,qj,Crooked R Feed Canal nr. Prineville,Discharge - cfs
+Deschutes,prvo,qd,Crooked River near Prineville,Discharge - cfs
+Deschutes,wico,qd,Deschutes River below Wickiup Reservoir,Discharge - cfs
+Deschutes,croo,qd,Crooked Riv bel Opal Springs nr Culver,Discharge - cfs
+Deschutes,croo,qd7,7-Day Avg Crooked R bel Opal Springs,Discharge - cfs
+Deschutes,culver,qd7,7-Day Avg CULO and CROO,Discharge - cfs
+Deschutes,culo,qd,Deschutes River below Culver,Discharge - cfs
+Deschutes,wicews,qd,WICEWS,Discharge - cfs
+Deschutes,cra,af,Crane Prairie Reservoir,Reservoir Storage - acre-feet
+Deschutes,wic,af,Wickiup Reservoir,Reservoir Storage - acre-feet
+Deschutes,cre,af,Crescent Lake,Reservoir Storage - acre-feet
+Deschutes,prv,af,Prineville Reservoir,Reservoir Storage - acre-feet
+Deschutes,och,af,Ochoco Reservoir,Reservoir Storage - acre-feet
+Deschutes,hay,af,Haystack Reservoir,Reservoir Storage - acre-feet
+LOID,sol,af,Soldiers Meadow Reservoir,Reservoir Storage - acre-feet
+LOID,rsa,af,Reservoir A,Reservoir Storage - acre-feet
+LOID,rsa,qd,Reservoir A,Discharge - cfs
+LOID,swci,qj,Sweetwater Canal near Headworks,Discharge - cfs
+LOID,swbi,qd,"Sweetwater Ck blw Diversion nr Waha,ID",Discharge -cfs
+LOID,swti,qd,Sweetwater Ck at Mouth,Discharge - cfs
+LOID,wbci,qd,"Webb Creek near Sweetwater, ID",Discharge - cfs
+LOID,wcbi,qd,"Webb Creek below Diversion, ID",Discharge - cfs
+LOID,wafi,qj,"Lake Waha Feeder Canal, ID",Discharge - cfs
+LOID,wah,qj,"Lake Waha, ID",Pump Discharge - cfs
+LOID,wah,fb,"Lake Waha, ID",Elevation - feet
+Rogue,aga,af,Agate Reservoir,Reservoir Storage - acre-feet
+Rogue,emi,af,Emigrant Lake,Reservoir Storage - acre-feet
+Rogue,fis,af,Fish Lake,Reservoir Storage - acre-feet
+Rogue,for,af,Fourmile Lake,Reservoir Storage - acre-feet
+Rogue,hpd,af,Howard Prairie Lake,Reservoir Storage - acre-feet
+Rogue,hya,af,Hyatt Lake,Reservoir Storage - acre-feet
+Rogue,aga,qd,Agate Reservoir,Discharge - cfs
+Rogue,appo,qd,Applegate River near Copper (USACE),Discharge - cfs
+Rogue,app,af,Applegate Reservoir (USACE),Reservoir Storage - acre-feet
+Rogue,lbco,gd,"Little Butte Cr. nr. Lakecreek, OR",
+Rogue,apro,gd,Applegate Rvr nr Applegate (USACE),
+Rogue,agno,gd,"Rogue River near Agness, OR",
+Rogue,baso,qd,Bear Creek below Ashland Creek,Discharge - cfs
+Rogue,baso,qd7,7-Day Bear Creek below Ashland Creek,Discharge - cfs
+Rogue,eglo,qd,Rogue Rvr at Dodge Bridge (USACE),Discharge - cfs
+Rogue,emi,qd,Emigrant Lake,Discharge - cfs
+Rogue,emi,qd7,7-Day Avg Emigrant Lake,Discharge - cfs
+Rogue,for,qj,Fourmile Lake,Canal Discharge - cfs
+Rogue,fsho,qd,Little Butte Cr below Fish Lake,Discharge - cfs
+Rogue,gilo,qd7,"7-Day S. Fk Little Butte Cr. Gilkey, OR",Discharge - cfs
+Rogue,grao,qd,Rogue Rvr at Grants Pass (USACE),Discharge - cfs
+Rogue,los,qd,Rogue R at Lost Creek Dam (USACE),Discharge - cfs
+Rogue,los,af,Lost Creek Reservoir (USACE),Reservoir Storage - acre-feet
+Rogue,mfdo,qd,Bear Creek at Medford OR,Discharge - cfs
+Rogue,mfdo,qd7,7-Day Avg Bear Creek at Medford OR,Discharge - cfs
+Rogue,rygo,qd,Rogue River at Raygold (USACE),Discharge - cfs
+Rogue,bcmo,qd,Bear Creek near Mouth,Discharge - cfs
+Rogue,bcto,qd,Bear Creek near Talent,Discharge - cfs
+Rogue,bcto,qd7,7-Day Avg Bear Creek near Talent,Discharge - cfs
+Rogue,bcao,qd,Bear Creek above Ashland,Discharge - cfs
+Rogue,gspo,qd,Green Springs Powerplant,Discharge - cfs
+Rogue,egso,qd,Emigrant Creek above Green Springs PP,Discharge - cfs
+Rogue,epto,qd,Antelope Creek near Eagle Point,Discharge - cfs
+Rogue,rioo,qd,Antelope Creek above Rio Canyon,Discharge - cfs
+Rogue,anto,qd,Antelope Creek at Dam,Discharge - cfs
+Rogue,lbco,qd,Little Butte Creek at Lakecreek,Discharge - cfs
+Rogue,sflo,qd,South Fork Little Butte Creek at Mouth,Discharge - cfs
+Rogue,nflo,qd,North Fork Little Butte Creek at 140,Discharge - cfs
+Rogue,gilo,qd,South Fork Little Butte Creek at Gilkey,Discharge - cfs
+Rogue,lbeo,qd,Little Butte Creek below Eagle Point,Discharge - cfs
+Rogue,hya,qd,Keene Creek below Hyatt Dam,Discharge - cfs
+Umatilla,cls,af,"Cold Springs Reservoir, OR",Reservoir Storage - acre-feet
+Umatilla,mck,af,"McKay Reservoir, OR",Reservoir Storage - acre-feet
+Umatilla,wcro,qd,Wildhorse Creek near Pendleton WCRO,Discharge - cfs
+Umatilla,pdto,qd,Umatilla River at Pendleton PDTO,Discharge - cfs
+Umatilla,myko,qd,McKay Creek near Pilot Rock MYKO,Discharge - cfs
+Umatilla,mcko,qd,McKay Creek near Pendleton MCKO,Discharge - cfs
+Umatilla,biro,qd,Birch Creek near Reith BIRO,Discharge - cfs
+Umatilla,yoko,qd,Umatilla River at Yokum YOKO,Discharge - cfs
+Umatilla,umuo,qd,Umatilla River below Feed Canal UMUO,Discharge - cfs
+Umatilla,umdo,qd,Umatilla River below Dillon Div. UMDO,Discharge - cfs
+Umatilla,ummo,qd,Umatilla River below Maxwell Div. UMMO,Discharge - cfs
+Umatilla,mafo,qj,Maxwell Diversion MAFO,Canal Discharge - cfs
+Umatilla,umto,qd,Umatilla River at Hermiston W.W. UMTO,Discharge - cfs
+Umatilla,umao,qd,Umatilla River at Umatilla UMAO,Discharge - cfs
+Umatilla,furo,qj,Furnish Canal near Echo FURO,Canal Discharge - cfs
+Umatilla,fceo,qj,Feed Canal near Echo FCEO,Canal Discharge - cfs
+Umatilla,weso,qj,Westland Canal near Echo WESO,Canal Discharge - cfs
+Umatilla,alno,qj,Allen Canal near Echo ALNO,Canal Discharge - cfs
+Umatilla,dleo,qj,Dillon Canal near Stanfield DLEO,Canal Discharge - cfs
+Umatilla,maxo,qj,Maxwell Canal near Hermiston MAXO,Canal Discharge - cfs
+Umatilla,weio,qj,West Extension Canal near Umatilla WEIO,Canal Discharge -cfs
+Umatilla,weuo,qj,West Extension Canal near Hdwrks WEUO,Canal Discharge - cfs
+Umatilla,wepo,qj,WEID Exchange Pump nr Hermiston WEPO,Canal Discharge - cfs
+Umatilla,fcso,qj,Feed Canal near Hermiston FCSO,Canal Discharge - cfs
+Umatilla,csao,qj,Cold Springs A-Line Canal CSAO,Canal Discharge - cfs
+Umatilla,csro,qj,Cold Springs Rechrg Canal nr Hermiston,Canal Discharge - cfs
+Umatilla,sbeo,qj,Columbia Exchange Canal nr Hermiston,Canal Discharge - cfs
+Tualatin,sco,af,Scoggins Dam & Henry Hagg Lake,Reservoir Storage - acre-feet
+Tualatin,scoo,qd,Scoggins Cr. below H. Hagg Lake,Discharge - cfs
+Tualatin,sclo,qd,Scoggins Cr. above H. Hagg Lake,Discharge - cfs
+Tualatin,gsto,qd,Tualatin River at Gaston,Discharge - cfs
+Tualatin,frmo,qd,Tualatin River at Farmington,Discharge - cfs
+Tualatin,lefo,qd,Tualatin River below Lee Falls (OWRD),Discharge - cfs
+Tualatin,dllo,qd,Tualatin River near Dilley (USACE),Discharge - cfs
+Tualatin,wslo,qd,Tualatin River at West Linn (USACE),Discharge - cfs
+Elwha,elww,gd,"Elwha R. at McDonald Bridge, WA",River Stage - feet
+Elwha,elww,qd,"Elwha R. at McDonald Bridge, WA",Discharge - cfs
+Elwha,eld,fb,Elwha Dam nr Port Angeles,Reservoir Elevation - feet
+Elwha,gli,fb,Glines Canyon Dam nr Port Angeles,Reservoir Elevation - feet
+Columbia Water Quality,fdrw,yr,FDR Lake at Grand Coulee Dam,Gas Saturation - Percent
+Columbia Water Quality,fdrw,nt,FDR Lake at Grand Coulee Dam,Total Dissolved Gas - mmHg
+Columbia Water Quality,fdrw,wy,FDR Lake at Grand Coulee Dam,Water Temperature - Degrees C
+Columbia Water Quality,fdrw,bh,FDR Lake at Grand Coulee Dam,Barometric Pressure - mmHg
+Columbia Water Quality,cibw,yr,Columbia River at Intern. Boundary,Gas Saturation - Percent
+Columbia Water Quality,cibw,nt,Columbia River at Intern. Boundary,Total Dissolved Gas - mmHg
+Columbia Water Quality,cibw,wy,Columbia River at Intern. Boundary,Water Temperature - Degrees C
+Columbia Water Quality,cibw,bh,Columbia River at Intern. Boundary,Barometric Pressure - mmHg
+Columbia Water Quality,cibw,gd,Columbia River at Intern. Boundary,Stage - Feet
+Columbia Water Quality,gcgw,yr,Columbia Riv at Barry bel Grand Coulee,Gas Saturation - Percent
+Columbia Water Quality,gcgw,nt,Columbia Riv at Barry bel Grand Coulee,Total Dissolved Gas - mmHg
+Columbia Water Quality,gcgw,wy,Columbia Riv at Barry bel Grand Coulee,Water Temperature - Degrees C
+Columbia Water Quality,gcgw,bh,Columbia Riv at Barry bel Grand Coulee,Barometric Pressure - mmHg
+Columbia Water Quality,hghm,yr,SF Flathead nr Columbia Falls,Gas Saturation - Percent
+Columbia Water Quality,hghm,nt,SF Flathead nr Columbia Falls,Total Dissolved Gas - mmHg
+Columbia Water Quality,hghm,bh,SF Flathead nr Columbia Falls,Barometric Pressure - mmHg
+Columbia Water Quality,hghm,gd,SF Flathead nr Columbia Falls,River Stage - feet
+Columbia Water Quality,hghm,qd,SF Flathead nr Columbia Falls,Discharge - cfs
+Columbia Water Quality,hghm,wy,SF Flathead nr Columbia Falls,Water Temp - Degrees C
+Columbia Water Quality,hghm,wz,SF Flathead nr Columbia Falls,Water Temp - Degrees F (USGS)
+ESA,gcl,qd,Grand Coulee Dam,Discharge - cfs
+ESA,gcl,qs,Grand Coulee Dam,Spill (cubic ft/sec)
+ESA,gcl,fb,Grand Coulee Dam,Reservoir Elevation - feet
+ESA,bnk,fb,Banks Lake,Reservoir Elevation - feet
+ESA,bnk,qp,Banks Lake Pumped Inflow,Cubic Feet per Second
+ESA,brn,fb,Brownlee Reservoir (IPCO),Reservoir Elevation - feet
+ESA,hopi,fb,Lake Pend Orielle,Elevation - feet
+ESA,fcfm,qd,North Fork Flathead River,Discharge - cfs
+ESA,cfmm,qd,Flathead River at Columbia Falls,Discharge - cfs
+ESA,cfmm,gd,Flathead River at Columbia Falls,Gauge Height - feet
+ESA,hgh,qd,Hungry Horse Reservoir,Discharge - cfs
+ESA,ker,fb,Flathead Lake,Elevation - feet
+ESA,hgh,fb,Hungry Horse Reservoir,Reservoir Elevation - feet
+ESA,tncm,qd,S Fork Flathead River nr Twincreek,Discharge - cfs
+ESA,wgcm,qd,Middle Fk Flathead Riv nr West Glacier,Discharge - cfs
+ESA,kerm,qd,Flathead River at Polson below Kerr,Discharge - cfs
+ESA,alf,qd,Pend Orielle Riv bel Albeni Falls,Discharge - cfs
+ESA,prd,qd,Columbia below Priest Rapids Dam (COE),Discharge - cfs
+ESA,mcn,qd,Columbia below McNary Dam,Discharge - cfs
+ESA,jda,qd,Columbia below John Day Dam,Discharge - cfs
+ESA,bon,qd,Columbia below Bonneville Dam,Discharge - cfs
+ESA,tda,qd,Columbia below The Dalles Dam,Discharge - cfs
+ESA,lwg,qd,Snake River bel Lower Granite Dam (COE),Discharge - cfs
+Totals,boisys3,af,Boise River AND+ARK+LUC,System Storage - acre-feet
+Totals,paysys,af,Payette River PAY+DED,System Storage - acre-feet
+Totals,yaksys,af,Yakima River 5 Reservoirs,System Storage - acre-feet
+Totals,snasys,af,JCK+PAL+RIR+GRS+ISL+AMF+MIN,System Storage - acre-feet
+Yakima,bum,af,Bumping Reservoir,Reservoir Storage (acre-feet)
+Yakima,cle,af,Cle Elum Reservoir,Reservoir Storage (acre-feet)
+Yakima,kac,af,Kachess Reservoir,Reservoir Storage (acre-feet)
+Yakima,kee,af,Keechelus Reservoir,Reservoir Storage (acre-feet)
+Yakima,rim,af,Rimrock Reservoir,Reservoir Storage (acre-feet)
+Yakima,amrw,qd,American River near Nile,Stream Flow (cubic ft/sec)
+Yakima,bum,qd,Bumping Reservoir,Stream Flow (cubic ft/sec)
+Yakima,cle,qd,Cle Elum Reservoir,Stream Flow (cubic ft/sec)
+Yakima,easw,qd,Yakima River near Easton,Stream Flow (cubic ft/sec)
+Yakima,kac,qd,Kachess Reservoir,Stream Flow (cubic ft/sec)
+Yakima,kee,qd,Keechelus Reservoir,Stream Flow (cubic ft/sec)
+Yakima,kiow,qd,Yakima River near Kiona,Stream Flow (cubic ft/sec)
+Yakima,lnrw,qd,Little Naches River near Nile,Stream Flow (cubic ft/sec)
+Yakima,nacw,qd,Naches River near Naches,Stream Flow (cubic ft/sec)
+Yakima,parw,qd,Yakima River near Parker,Stream Flow (cubic ft/sec)
+Yakima,rbdw,qd,Yakima River below Roza Dam,Stream Flow (cubic ft/sec)
+Yakima,rim,qd,Rimrock Reservoir,Stream Flow (cubic ft/sec)
+Yakima,teaw,qd,Teanaway River below Lambert Road,Stream Flow (cubic ft/sec)
+Yakima,ticw,qd,Tieton Rvr nr Tieton Canal Headworks,Stream Flow (cubic ft/sec)
+Yakima,tnaw,qd,Teanaway River at Forks near Cle Elum,Stream Flow (cubic ft/sec)
+Yakima,umtw,qd,Yakima River near Umtanum,Stream Flow (cubic ft/sec)
+Yakima,yrpw,qd,Yakima River near Prosser,Stream Flow (cubic ft/sec)
+Yakima,yrtw,qd,Yakima River at Terrace Heights Bridge,Stream Flow (cubic ft/sec)
+Yakima,yrww,qd,"Yakima River near Horlick, Wa",Stream Flow (cubic ft/sec)
+Yakima,yumw,qd,Yakima River at Cle Elum,Stream Flow (cubic ft/sec)
