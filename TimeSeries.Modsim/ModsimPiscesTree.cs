@@ -566,14 +566,14 @@ namespace Reclamation.TimeSeries.Modsim
 
             if (isFolder)
             {
-                row.IsFolder = true;
+                row.IsFolder = 1;
                 row.Name = displayName;
                 row.TableName = "";
             }
             else
             {
                 ModsimSeries s = new ModsimSeries(mi, modsimName, timeSeriesName);
-                row.IsFolder = false;
+                row.IsFolder = 0;
                 row.ConnectionString = ConnectionStringUtility.MakeFileNameRelative(s.ConnectionString, s_db.DataSource);
                 row.iconname = "Modsim";
                 row.Provider = s.Provider;

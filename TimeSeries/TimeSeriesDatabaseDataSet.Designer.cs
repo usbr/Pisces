@@ -827,7 +827,7 @@ namespace Reclamation.TimeSeries {
             public SeriesCatalogRow AddSeriesCatalogRow(
                         int id, 
                         int ParentID, 
-                        bool IsFolder, 
+                        short IsFolder, 
                         int SortOrder, 
                         string iconname, 
                         string Name, 
@@ -840,7 +840,7 @@ namespace Reclamation.TimeSeries {
                         string ConnectionString, 
                         string Expression, 
                         string Notes, 
-                        bool enabled) {
+                        short enabled) {
                 SeriesCatalogRow rowSeriesCatalogRow = ((SeriesCatalogRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -913,7 +913,7 @@ namespace Reclamation.TimeSeries {
                 base.Columns.Add(this.columnid);
                 this.columnParentID = new global::System.Data.DataColumn("ParentID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnParentID);
-                this.columnIsFolder = new global::System.Data.DataColumn("IsFolder", typeof(bool), null, global::System.Data.MappingType.Element);
+                this.columnIsFolder = new global::System.Data.DataColumn("IsFolder", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsFolder);
                 this.columnSortOrder = new global::System.Data.DataColumn("SortOrder", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSortOrder);
@@ -939,7 +939,7 @@ namespace Reclamation.TimeSeries {
                 base.Columns.Add(this.columnExpression);
                 this.columnNotes = new global::System.Data.DataColumn("Notes", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNotes);
-                this.columnenabled = new global::System.Data.DataColumn("enabled", typeof(bool), null, global::System.Data.MappingType.Element);
+                this.columnenabled = new global::System.Data.DataColumn("enabled", typeof(short), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnenabled);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
@@ -948,7 +948,7 @@ namespace Reclamation.TimeSeries {
                 this.columnParentID.AllowDBNull = false;
                 this.columnParentID.DefaultValue = ((int)(0));
                 this.columnIsFolder.AllowDBNull = false;
-                this.columnIsFolder.DefaultValue = ((bool)(false));
+                this.columnIsFolder.DefaultValue = ((short)(0));
                 this.columnSortOrder.AllowDBNull = false;
                 this.columnSortOrder.DefaultValue = ((int)(1));
                 this.columniconname.AllowDBNull = false;
@@ -985,7 +985,7 @@ namespace Reclamation.TimeSeries {
                 this.columnNotes.DefaultValue = ((string)(""));
                 this.columnNotes.MaxLength = 2046;
                 this.columnenabled.AllowDBNull = false;
-                this.columnenabled.DefaultValue = ((bool)(true));
+                this.columnenabled.DefaultValue = ((short)(0));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4052,9 +4052,9 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsFolder {
+            public short IsFolder {
                 get {
-                    return ((bool)(this[this.tableSeriesCatalog.IsFolderColumn]));
+                    return ((short)(this[this.tableSeriesCatalog.IsFolderColumn]));
                 }
                 set {
                     this[this.tableSeriesCatalog.IsFolderColumn] = value;
@@ -4195,9 +4195,9 @@ namespace Reclamation.TimeSeries {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool enabled {
+            public short enabled {
                 get {
-                    return ((bool)(this[this.tableSeriesCatalog.enabledColumn]));
+                    return ((short)(this[this.tableSeriesCatalog.enabledColumn]));
                 }
                 set {
                     this[this.tableSeriesCatalog.enabledColumn] = value;

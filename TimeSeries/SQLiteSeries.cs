@@ -109,7 +109,7 @@ insert into seriescatalog (id,parentid,name,units,tablename)
                 newRow.ParentID = folderID;
                 newRow.Provider = "SQLiteSeries";
                 newRow.ConnectionString = cs;
-                newRow.IsFolder = false;
+                newRow.IsFolder = 0;
                 newRow.TableName =  var_name;
                 newRow.Units = row["units"].ToString();
                 newRow.Name = var_name;

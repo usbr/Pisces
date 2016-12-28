@@ -269,8 +269,8 @@ namespace Reclamation.TimeSeries
                 if (tableName == "")
                     tableName = "ts_" + Guid.NewGuid();
 
-                var rval = AddSeriesCatalogRow(id, parentID, false, 0, s.Source, s.Name, s.SiteID, s.Units,
-                    s.TimeInterval.ToString(), s.Parameter, tableName, s.Provider, s.ConnectionString, s.Expression, s.Notes, true);
+                var rval = AddSeriesCatalogRow(id, parentID, 0, 0, s.Source, s.Name, s.SiteID, s.Units,
+                    s.TimeInterval.ToString(), s.Parameter, tableName, s.Provider, s.ConnectionString, s.Expression, s.Notes, 1);
                 return rval;
             }
 
@@ -306,11 +306,11 @@ namespace Reclamation.TimeSeries
 
 
                 int id = NextID();
-                var r = AddSeriesCatalogRow(id, folderID, false, 100,
+                var r = AddSeriesCatalogRow(id, folderID, 0, 100,
                 "rating",
                 m.version,
                 m.siteid, "", "Instant", "", "", "BasicRating", "id=" + m.id, "",
-                "", true);
+                "", 1);
 
                 return r.id;
             }
@@ -324,18 +324,18 @@ namespace Reclamation.TimeSeries
 
 
                 int id = NextID();
-                var r = AddSeriesCatalogRow(id, folderID, false, 100,
+                var r = AddSeriesCatalogRow(id, folderID, 0, 100,
                 "measurement",
                 m.date_measured.ToString(Hydrography.MeasurementDateFormat), //" ("+m.stage.ToString("F2")+","+m.discharge.ToString("F2")+")" ,
                 m.siteid, "", "Instant", "", "", "BasicMeasurement", "id=" + m.id, "",
-                "", true);
+                "", 1);
 
                 return r.id;
             }
 
             public int AddFolder(string folderName, int id, int parentID)
             {
-                AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "", false);
+                AddSeriesCatalogRow(id, parentID, 1, 0, "", folderName, "", "", "", "", "", "", "", "", "", 0);
                 return id;
             }
             public int AddFolder(string folderName, int parentID = -1)
@@ -343,7 +343,7 @@ namespace Reclamation.TimeSeries
                 int id = NextID();
                 if (parentID == -1)
                     parentID = id;
-                AddSeriesCatalogRow(id, parentID, true, 0, "", folderName, "", "", "", "", "", "", "", "", "", false);
+                AddSeriesCatalogRow(id, parentID, 1, 0, "", folderName, "", "", "", "", "", "", "", "", "", 0);
                 return id;
             }
 
@@ -463,8 +463,8 @@ namespace Reclamation.TimeSeries
                     Console.WriteLine("Warning table:'" + tableName + "' allready exists");
 
                 int rval = NextID();
-                AddSeriesCatalogRow(rval, parentid, false, 1, iconName, siteID + "_" + pcode, siteID, units, "Irregular",
-                 pcode, tableName, provider, "", expression, "", true);
+                AddSeriesCatalogRow(rval, parentid, 0, 1, iconName, siteID + "_" + pcode, siteID, units, "Irregular",
+                 pcode, tableName, provider, "", expression, "", 1);
                 return rval;
             }
 

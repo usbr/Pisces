@@ -71,8 +71,8 @@ namespace Reclamation.TimeSeries.BpaHydsim
             string sheetName = plantName + " " + dataType;
             string cs = "FileName=" + m_mdbFileName + ";PlantName=" + plantName + ";DataType=" + dataType; // connection string
             cs = ConnectionStringUtility.MakeFileNameRelative(cs, m_databasePath);
-            seriesCatalog.AddSeriesCatalogRow(ID++, parentID, false, ID, "BpaHydsimSeriesAccess", name, sheetName, units,
-                        TimeInterval.Monthly.ToString(), "Parameter", "", "BpaHydsimSeriesAccess", cs, "", "",true);
+            seriesCatalog.AddSeriesCatalogRow(ID++, parentID, 0, ID, "BpaHydsimSeriesAccess", name, sheetName, units,
+                        TimeInterval.Monthly.ToString(), "Parameter", "", "BpaHydsimSeriesAccess", cs, "", "",1);
         }
 
         private void CreateSeries(AccessDB mdb, string plantName, string dataType, int parentID)
@@ -102,8 +102,8 @@ namespace Reclamation.TimeSeries.BpaHydsim
             string sheetName = plantName + " " + dataType;
             string cs = "FileName=" + m_mdbFileName + ";PlantName=" + plantName + ";DataType=" + dataType; // connection string
             cs = ConnectionStringUtility.MakeFileNameRelative(cs, m_databasePath);
-            seriesCatalog.AddSeriesCatalogRow(ID++, parentID, false, ID, "BpaHydsimSeriesAccess", name, sheetName, units, 
-                        TimeInterval.Monthly.ToString(), "Parameter", "",  "BpaHydsimSeriesAccess", cs, "", "",true);
+            seriesCatalog.AddSeriesCatalogRow(ID++, parentID, 0, ID, "BpaHydsimSeriesAccess", name, sheetName, units, 
+                        TimeInterval.Monthly.ToString(), "Parameter", "",  "BpaHydsimSeriesAccess", cs, "", "",1);
                                     
         }
 

@@ -233,8 +233,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 provider = "CalculationSeries";
                 iconName = "sum";
             }
-            m_seriesCatalog.AddSeriesCatalogRow(m_seriesCatalog.NextID(), 0, false, 1, iconName, siteID + "_" + pcode, siteID, units, "Daily",
-             pcode, "daily_" + siteID + "_" + pcode, provider, "", expression, "", true);
+            m_seriesCatalog.AddSeriesCatalogRow(m_seriesCatalog.NextID(), 0, 0, 1, iconName, siteID + "_" + pcode, siteID, units, "Daily",
+             pcode, "daily_" + siteID + "_" + pcode, provider, "", expression, "", 1);
         }
 
         TimeSeriesDatabaseDataSet.sitecatalogDataTable m_siteCatalog;

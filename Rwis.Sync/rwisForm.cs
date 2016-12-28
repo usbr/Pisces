@@ -650,7 +650,7 @@ namespace Rwis.Sync
                 showMessage("Adding metadata fields to RWIS DB...");
                 nr.id = sck.NextID();
                 nr.ParentID = Convert.ToInt32(parentid);
-                nr.IsFolder = false;
+                nr.IsFolder = 0;
                 nr.SortOrder = Convert.ToInt32(sortOrder);
                 nr.iconname = iconname;
                 nr.Name = name;
@@ -663,7 +663,7 @@ namespace Rwis.Sync
                 nr.ConnectionString = connectionstring;
                 nr.Expression = "";
                 nr.Notes = "";
-                nr.enabled = true;
+                nr.enabled = 1;
                 sck.AddSeriesCatalogRow(nr);
                 db.Server.SaveTable(sck);
                 showMessage("Downloading data from regional DB...");
@@ -779,7 +779,7 @@ namespace Rwis.Sync
                         showMessage("Adding metadata fields to RWIS DB...");
                         nr.id = sck.NextID();
                         nr.ParentID = Convert.ToInt32(parentid);
-                        nr.IsFolder = false;
+                        nr.IsFolder = 0;
                         nr.SortOrder = Convert.ToInt32(sortOrder);
                         nr.iconname = iconname;
                         nr.Name = name;
@@ -792,7 +792,7 @@ namespace Rwis.Sync
                         nr.ConnectionString = connectionstring;
                         nr.Expression = "";
                         nr.Notes = "";
-                        nr.enabled = true;
+                        nr.enabled = 1;
                         sck.AddSeriesCatalogRow(nr);
                         db.Server.SaveTable(sck);
 

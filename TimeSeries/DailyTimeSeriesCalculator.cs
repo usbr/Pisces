@@ -50,7 +50,7 @@ namespace Reclamation.TimeSeries
             var sorted = td.Sort();
             foreach (var s in sorted)
             {
-                if (!s.Enabled)
+                if (s.Enabled == 0)
                 {
                     Console.WriteLine("Skipping disabled calculation: "+s.Name);
                     continue; // calculations turned off

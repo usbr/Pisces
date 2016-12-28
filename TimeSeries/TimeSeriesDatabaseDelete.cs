@@ -41,7 +41,7 @@ namespace Reclamation.TimeSeries
 
             //SeriesCatalogRow sr = new SeriesCatalogRow(row);
 
-            if (sr.IsFolder)
+            if (sr.IsFolder ==1)
             {
                 DataRow[] children = catalog.Select("ParentID = " + id);
                 for (int i = 0; i < children.Length; i++)

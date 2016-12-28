@@ -60,7 +60,7 @@ namespace Reclamation.TimeSeries
             foreach (var sr in sc)
             {
                 var s = GetSeries(sr) as CalculationSeries;
-                if( s.Enabled )
+                if( s.Enabled == 1)
                   list1.Add(s);
             }
             return list1;
@@ -191,7 +191,7 @@ namespace Reclamation.TimeSeries
         public PiscesObject CreateObject(SeriesCatalogRow sr)
         {
             PiscesObject rval = null;
-            if (sr.IsFolder)
+            if (sr.IsFolder == 1)
             {
                 rval = new PiscesFolder(db, sr);
             }

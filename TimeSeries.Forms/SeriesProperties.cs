@@ -60,7 +60,7 @@ namespace Reclamation.TimeSeries.Forms
             textBoxProvider.Text = m_series.Provider;
             textBoxNotes.Text = m_series.Notes;
             textBoxExpression.Text = m_series.Expression;
-            checkBoxActive.Checked = m_series.Enabled;
+            checkBoxActive.Checked = m_series.Enabled == 1;
 
             textBoxSource.Text = m_series.Source;
             if (m_series.Table == null)
@@ -137,7 +137,7 @@ namespace Reclamation.TimeSeries.Forms
             m_series.Notes = this.textBoxNotes.Text;
             m_series.Expression = this.textBoxExpression.Text;
             m_series.ConnectionString = this.textBoxConnectString.Text;
-            m_series.Enabled = this.checkBoxActive.Checked;
+            m_series.Enabled = (short)(this.checkBoxActive.Checked ? 1 : 0);
             m_series.TimeInterval = TimeSeriesDatabase.TimeIntervalFromString(this.comboBoxTimeInterval.Text);
             //m_series.Alias = this.textBoxAlias.Text;
             if (tblSeriesProperties != null && m_series.TimeSeriesDatabase != null)

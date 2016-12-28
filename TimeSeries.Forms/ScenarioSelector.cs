@@ -41,7 +41,7 @@ namespace Reclamation.TimeSeries.Forms
             this.comboBoxSelectedSeries.Items.Add("Run Index");
             foreach (var s in seriesList)
             {
-                if (s.IsFolder == false)
+                if (s.IsFolder == 0)
                 {
                     var parentName = seriesList.GetParent(s);
                     this.comboBoxSelectedSeries.Items.Add(parentName["Name"] + "." + s.Name + "." + s.id);

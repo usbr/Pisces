@@ -109,7 +109,8 @@ Alan
       /// <param name="database"></param>
       /// <param name="userName"></param>
       /// <returns></returns>
-    public static string CreateADConnectionString(string server, string database, string userName = "", string keyFile = "postgresql_key.txt")
+    public static string CreateADConnectionString(string server, string database, 
+        string userName = "", string keyFile = "postgresql_key.txt")
     {
         if (database.IndexOf(";") >= 0)
             throw new Exception("invalid database name "+database);

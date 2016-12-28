@@ -250,9 +250,9 @@ namespace Reclamation.TimeSeries.Forms
             for (int i = 0; i < treeView1.SelectedNodes.Count; i++)
             {
                  SeriesCatalogRow si = treeView1.SelectedNodes[i].Tag as SeriesCatalogRow;
-                if(t == SelectionTypes.Series && !si.IsFolder)
+                if(t == SelectionTypes.Series && si.IsFolder == 0)
                 rval.Add(si.id);
-                if (t == SelectionTypes.Folder && si.IsFolder)
+                if (t == SelectionTypes.Folder && si.IsFolder == 1)
                     rval.Add(si.id);
             }
             return rval.ToArray();

@@ -64,11 +64,11 @@ namespace Rwis.Initialize
                 // Populate DB sitecatalog
                 foreach (DataRow row in serCatCSV.Rows)
                 {
-                    serCat.AddSeriesCatalogRow(Convert.ToInt32(row["A_ID"]), Convert.ToInt32(row["parentid"]), Convert.ToBoolean(Convert.ToInt32(row["isfolder"])),
+                    serCat.AddSeriesCatalogRow(Convert.ToInt32(row["A_ID"]), Convert.ToInt32(row["parentid"]), Convert.ToInt16(row["isfolder"]),
                         Convert.ToInt32(row["sortorder"]), row["iconname"].ToString(), row["name"].ToString(), row["siteid"].ToString(),
                         row["units"].ToString(), row["timeinterval"].ToString(), row["parameter"].ToString(),
                         row["tablename"].ToString(), row["provider"].ToString(), row["connectionstring"].ToString(),
-                        row["expression"].ToString(), row["notes"].ToString(), Convert.ToBoolean(Convert.ToInt32(row["enabled"].ToString())));
+                        row["expression"].ToString(), row["notes"].ToString(), Convert.ToInt16(row["enabled"].ToString()));
                 }
                 // Save Table
                 svr.SaveTable(serCat);

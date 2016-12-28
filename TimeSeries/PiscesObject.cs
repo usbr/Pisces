@@ -182,7 +182,7 @@ namespace Reclamation.TimeSeries
             get { return row.Expression; }
             set { row.Expression = value; }
         }
-        public bool Enabled
+        public short Enabled
         {
             get { return row.enabled; }
             set { this.row.enabled = value; }
@@ -198,7 +198,7 @@ namespace Reclamation.TimeSeries
             set { this.row.Notes = value; }
         }
 
-        public bool IsFolder
+        public short IsFolder
         {
             get { return row.IsFolder; }
             set { row.IsFolder = value; }

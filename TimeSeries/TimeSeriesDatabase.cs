@@ -581,7 +581,7 @@ namespace Reclamation.TimeSeries
             int parentID = parent.ID;
             SeriesCatalogRow si = GetNewSeriesRow();
             si.ParentID = parentID;
-            si.IsFolder = true;
+            si.IsFolder = 1;
             if (name.Trim() == "")
                 si.Name = GetUniqueFolderName("New Folder");
             else
@@ -658,7 +658,7 @@ namespace Reclamation.TimeSeries
                  }
                  else
                  {
-                     sc.AddSeriesCatalogRow(id, parentID, false, id, item.iconname, item.Name, item.siteid, item.Units,
+                     sc.AddSeriesCatalogRow(id, parentID, 0, id, item.iconname, item.Name, item.siteid, item.Units,
                              item.TimeInterval, item.Parameter, item.TableName, item.Provider, item.ConnectionString, item.Expression, item.Notes, item.enabled);
                      series_properties.AddseriespropertiesRow(series_properties.NextID(), id, "program", program);
                  }
@@ -1153,7 +1153,7 @@ namespace Reclamation.TimeSeries
             var tbl = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
             var rval = tbl.NewSeriesCatalogRow();
             rval.id = NextSDI();
-            rval.enabled = true;
+            rval.enabled = 1;
             tbl.Rows.Add(rval);
             return rval;
         }
@@ -1599,7 +1599,7 @@ namespace Reclamation.TimeSeries
 
         private void SaveStandaloneSeries(SeriesCatalogRow row)
         {
-            if (!row.IsFolder)
+            if (row.IsFolder == 0)
             {
                 if (!m_server.TableExists(row.TableName)) // table name is blank for MODSIM
                 {
@@ -1627,7 +1627,7 @@ namespace Reclamation.TimeSeries
             Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.ScenarioRow sRow,
             bool scenarios)
         {
-            if (!row.IsFolder)
+            if (row.IsFolder == 0)
             {
                 if (!m_server.TableExists(row.TableName + sRow.Name)) // table name is blank for MODSIM
                 {
@@ -1831,7 +1831,7 @@ UNION ALL
 
                 var folderID = sc.GetOrCreateFolder(path);
                 
-                if (!row.IsFolder)
+                if (row.IsFolder == 0)
                 {// add series
                     var s = db.Factory.GetSeries(row.id);
                     var sr = sc.AddSeriesCatalogRow(s, sc.NextID(), folderID, s.Table.TableName);
