@@ -92,7 +92,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             {
                 try
                 {
-                    string url = "https://staging.waterservices.usgs.gov/nwis/site/?format=rdb&sites=" + textBoxSiteNumber.Text.Trim();
+                    string url = "https://waterservices.usgs.gov/nwis/site/?format=rdb&sites=" + textBoxSiteNumber.Text.Trim();
 
                     var data = Reclamation.Core.Web.GetPage(url);
                     UsgsRDBFile rdb = new UsgsRDBFile(data);

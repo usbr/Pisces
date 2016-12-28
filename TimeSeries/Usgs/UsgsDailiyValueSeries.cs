@@ -72,7 +72,7 @@ namespace Reclamation.TimeSeries.Usgs
             {
                 //string url = "http://waterdata.usgs.gov/nwis/dv?site_no=13154500&begin_date=&end_date=&format=rdb&date_format=YYYY-MM-DD";
 
-                string url = "https://staging.waterservices.usgs.gov/nwis/dv/?format=rdb&sites=13236500&startDT=1900-10-01&endDT=2013-12-30";
+                string url = "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=13236500&startDT=1900-10-01&endDT=2013-12-30";
                 url = url.Replace("sites=13236500", "sites=" + SiteID);
                 DateTime n = DateTime.Now;
                 url = url.Replace("endDT=2013-12-30", "endDT=" + n.Year + "-" + n.Month + "-" + n.Day);
@@ -104,7 +104,7 @@ namespace Reclamation.TimeSeries.Usgs
             else
             {
                 //string url = "http://nwis.waterdata.usgs.gov/nwis/dv?site_no=13154500&begin_date=&end_date=&format=rdb&date_format=YYYY-MM-DD";
-                string url = "https://staging.waterservices.usgs.gov/nwis/dv/?format=rdb&sites=13236500&startDT=1900-10-01&endDT=2013-12-30";
+                string url = "https://waterservices.usgs.gov/nwis/dv/?format=rdb&sites=13236500&startDT=1900-10-01&endDT=2013-12-30";
 
                 url = url.Replace("sites=13236500", "sites=" + SiteID);
                 url = url.Replace("startDT=1900-10-01", "startDT=" + t1.ToString("yyyy-MM-dd") );
