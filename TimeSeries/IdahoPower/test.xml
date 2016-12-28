@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Station Station_ID="13289702" Station_Name="Brownlee Res Info" xmlns="getStreamDataWS">
+  <DataType TYPE="HCOut" TypeDesc="Hells Canyon Outflow" UNITS="cfs">
+    <Reading Date="2013-01-28 00:00:00.0" PERIOD="D" Value="12557.10"/>
+    <Reading Date="2013-01-29 00:00:00.0" PERIOD="D" Value="11541.40"/>
+    <Reading Date="2013-01-30 00:00:00.0" PERIOD="D" Value="10423.20"/>
+    <Reading Date="2013-01-31 00:00:00.0" PERIOD="D" Value="10968.90"/>
+    <Reading Date="2013-02-01 00:00:00.0" PERIOD="D" Value="12156.60"/>
+    <Reading Date="2013-02-02 00:00:00.0" PERIOD="D" Value="13639.90"/>
+    <Reading Date="2013-02-03 00:00:00.0" PERIOD="D" Value="11873.60"/>
+  </DataType>
+  <DataType TYPE="HW" TypeDesc="Reservoir Elevation" UNITS="ft">
+    <Reading Date="2013-01-28 00:00:00.0" PERIOD="D" Value="2060.43"/>
+    <Reading Date="2013-01-29 00:00:00.0" PERIOD="D" Value="2061.07"/>
+    <Reading Date="2013-01-30 00:00:00.0" PERIOD="D" Value="2061.82"/>
+    <Reading Date="2013-01-31 00:00:00.0" PERIOD="D" Value="2062.60"/>
+    <Reading Date="2013-02-01 00:00:00.0" PERIOD="D" Value="2062.98"/>
+    <Reading Date="2013-02-02 00:00:00.0" PERIOD="D" Value="2062.99"/>
+    <Reading Date="2013-02-03 00:00:00.0" PERIOD="D" Value="2063.43"/>
+  </DataType>
+  <DataType TYPE="Q3in" TypeDesc="3 day avg Inflow" UNITS="cfs">
+    <Reading Date="2013-01-28 00:00:00.0" PERIOD="D" Value="12930.30"/>
+    <Reading Date="2013-01-29 00:00:00.0" PERIOD="D" Value="13879.70"/>
+    <Reading Date="2013-01-30 00:00:00.0" PERIOD="D" Value="14709.00"/>
+    <Reading Date="2013-01-31 00:00:00.0" PERIOD="D" Value="14842.00"/>
+    <Reading Date="2013-02-01 00:00:00.0" PERIOD="D" Value="14923.70"/>
+    <Reading Date="2013-02-02 00:00:00.0" PERIOD="D" Value="14566.70"/>
+    <Reading Date="2013-02-03 00:00:00.0" PERIOD="D" Value="14229.30"/>
+  </DataType>
+  <DataType TYPE="Qin" TypeDesc="1 day avg Inflow" UNITS="cfs">
+    <Reading Date="2013-01-28 00:00:00.0" PERIOD="D" Value="14605.00"/>
+    <Reading Date="2013-01-29 00:00:00.0" PERIOD="D" Value="14419.00"/>
+    <Reading Date="2013-01-30 00:00:00.0" PERIOD="D" Value="15103.00"/>
+    <Reading Date="2013-01-31 00:00:00.0" PERIOD="D" Value="15004.00"/>
+    <Reading Date="2013-02-01 00:00:00.0" PERIOD="D" Value="14664.00"/>
+    <Reading Date="2013-02-02 00:00:00.0" PERIOD="D" Value="14032.00"/>
+    <Reading Date="2013-02-03 00:00:00.0" PERIOD="D" Value="13992.00"/>
+  </DataType>
+</Station>

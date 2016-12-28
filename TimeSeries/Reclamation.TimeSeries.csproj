@@ -335,6 +335,7 @@
     <Compile Include="Estimation\Regression.cs" />
     <Compile Include="FileImporter.cs" />
     <Compile Include="HDB\HDBSeries.cs" />
+    <Compile Include="IdahoPower\Program.cs" />
     <Compile Include="Import\BulkImportExcelControlFile.cs" />
     <Compile Include="Import\DirectoryScanner.cs" />
     <Compile Include="Import\BulkImportDirectory.cs" />
@@ -895,6 +896,7 @@
       <Link>x86\SQLite.Interop.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="IdahoPower\test.xml" />
     <Content Include="Nrcs\NWCC_Web_Report_Scripting.txt" />
     <Content Include="Reports\YakimaStatusReport.txt" />
     <Content Include="Reports\YakimaStatusTemplate.txt">
