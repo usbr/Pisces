@@ -52,7 +52,11 @@ namespace Pisces
                 }
                 else
                 {// open default database
-                    fileName = Path.Combine(FileUtility.GetExecutableDirectory(), "tsdatabase.pdb");
+                    string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    if (string.IsNullOrEmpty(path))
+                        path = Path.Combine(FileUtility.GetExecutableDirectory());
+
+                    fileName = Path.Combine(path, "tsdatabase.pdb");
                 }
 
                 if (!File.Exists(fileName))
