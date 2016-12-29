@@ -21,7 +21,8 @@ namespace Reclamation.TimeSeries
         {
             catalog = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
             row = catalog.NewSeriesCatalogRow();
-            row.id = -1; 
+            row.id = -1;
+            row.enabled = 1;
             // Catalog.Rows.Add(row);
             // Console.WriteLine("PiscesObject()");
         }
