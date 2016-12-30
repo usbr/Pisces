@@ -6,6 +6,8 @@ using Reclamation.Core;
 using Reclamation.TimeSeries.Forms;
 using Reclamation.TimeSeries.Hydromet;
 using Reclamation.TimeSeries.Excel;
+using System.Security.AccessControl;
+using System.Collections.Generic;
 namespace Pisces
 {
     public class PiscesMain
@@ -52,13 +54,24 @@ namespace Pisces
                 }
                 else
                 {// open default database
-                    string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    if (string.IsNullOrEmpty(path))
-                        path = Path.Combine(FileUtility.GetExecutableDirectory());
 
-                    fileName = Path.Combine(path, "tsdatabase.pdb");
+                    var paths = new List<string>() 
+                    {
+                        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                        FileUtility.GetLocalApplicationPath(),
+                        FileUtility.GetTempPath()
+                    };
+
+                    foreach (var item in paths)
+                    {
+                        if (HasWriteAccessToFolder(item))
+                        {
+                            fileName = Path.Combine(item, "tsdatabase.pdb");
+                            break;
+                        }
+                    }
                 }
-
+                
                 if (!File.Exists(fileName))
                 {
                     SQLiteServer.CreateNewDatabase(fileName);
@@ -104,7 +117,22 @@ namespace Pisces
              }
         }
 
-
+        /* taken from here: http://stackoverflow.com/q/1410127/2333687 */
+        private static bool HasWriteAccessToFolder(string folderPath)
+        {
+            try
+            {
+                // Attempt to get a list of security permissions from the folder. 
+                // This will raise an exception if the path is read only or do 
+                // not have access to view the permissions or path is null.
+                DirectorySecurity ds = Directory.GetAccessControl(folderPath);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
         static void explorerForm1_FormClosed(object sender, FormClosedEventArgs e)
         {
