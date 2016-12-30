@@ -40,7 +40,7 @@ namespace Rwis.Sync
 
             if (args.Contains("test-web"))
             {
-                var data = Reclamation.Core.Web.GetPage("http://www.usbr.gov");
+                var data = Reclamation.Core.Web.GetPage("https://www.usbr.gov");
                 foreach (var item in data)
                 {
                     Console.WriteLine(item);
@@ -54,11 +54,23 @@ namespace Rwis.Sync
                 return;
             }
 
-
             Performance perf = new Performance();
-
-            
             var db = TimeSeriesDatabase.InitDatabase(args);
+
+            if (args.Contains("update-sitecatalog"))
+            {
+                var csvFileName = args["update-sitecatalog"];
+                if( !File.Exists(csvFileName))
+                {
+                    Console.WriteLine("Cannot open file "+csvFileName);
+                    return;
+                }
+                UpdateSiteCatalog(db, csvFileName);
+
+                return;
+            }
+
+
             DateTime t1, t2;
             SetupDates(args, out t1, out t2);
 
@@ -113,6 +125,60 @@ namespace Rwis.Sync
             perf.Report("RWIS Sync: finished ");
         }
 
+
+        /// <summary>
+        /// update or insert new records in sitecatlog
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="csvFileName">input csv sitecatalog</param>
+        private static void UpdateSiteCatalog(TimeSeriesDatabase db, string csvFileName)
+        {
+            var scRWIS = db.GetSiteCatalog();
+            var scLocal = new CsvFile(csvFileName, CsvFile.FieldTypes.AllText);
+
+            for (int i = 0; i < scLocal.Rows.Count; i++)
+            {
+                var localRow = scLocal.Rows[i];
+                var siteID = localRow["siteid"].ToString();
+                //check for existing record
+                var rwisRows = scRWIS.Select("siteid='" + siteID + "'");
+                if( rwisRows.Length == 1)
+                {// update
+                    Console.WriteLine("updating record: " + siteID);
+                    var rwisRow = rwisRows[0];
+                    for (int c = 0; c < scRWIS.Columns.Count; c++)
+                    {
+                        var cn = scRWIS.Columns[c].ColumnName; 
+                        if (cn == "siteid")
+                            continue;
+                        if ( cn == "vertical_accuracy") // float
+                        {
+                            double x = 0;
+                            double.TryParse(localRow[cn].ToString(), out x);
+                            rwisRow[cn] = x;
+                            continue;
+                        }
+                        rwisRow[cn] = localRow[cn];
+                    }
+                }
+                else
+                {// insert
+                    Console.WriteLine("new record: "+siteID);
+                    double vertical_accuracy = 0;
+                    
+                    double.TryParse(localRow["vertical_accuracy"].ToString(),out vertical_accuracy);
+
+                    scRWIS.AddsitecatalogRow(localRow["siteid"].ToString(), localRow["description"].ToString(), localRow["state"].ToString(),
+                        localRow["latitude"].ToString(), localRow["longitude"].ToString(), localRow["elevation"].ToString(), localRow["timezone"].ToString(),
+                        localRow["install"].ToString(), localRow["horizontal_datum"].ToString(), localRow["vertical_datum"].ToString(),
+                        vertical_accuracy, localRow["elevation_method"].ToString(), localRow["tz_offset"].ToString(),
+                        localRow["active_flag"].ToString(), localRow["type"].ToString(), localRow["responsibility"].ToString(), localRow["agency_region"].ToString());
+                }
+            }
+
+            db.Server.SaveTable(scRWIS);
+        }
+
         static void SiteInventory(Arguments args, TimeSeriesDatabase db)
         {
             var site = args["siteinventory"].ToString().ToLower();
@@ -161,6 +227,8 @@ namespace Rwis.Sync
             Console.WriteLine("      prints inventory of series for site [X] in database");
             Console.WriteLine("--error-log=errors.txt");
             Console.WriteLine("      file to log error messages");
+            Console.WriteLine(@"--update-sitecatalog=c:\temp\sitecatalog.csv");
+            Console.WriteLine("      update or insert new records in sitecatalog table");
             Console.WriteLine("--detail-log=detail.txt");
             Console.WriteLine("      file to log error messages");
             Console.WriteLine("--t1=[X]");
