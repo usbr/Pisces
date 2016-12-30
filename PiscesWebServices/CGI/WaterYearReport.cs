@@ -16,8 +16,7 @@ using Reclamation.TimeSeries.Reports;
 namespace PiscesWebServices.CGI
 {
     /// <summary>
-    /// https://www.usbr.gov/pn-bin/wyreport.pl?site=ABEI&parameter=PP&start=2016&end=2016
-    /// 
+    /// wyreport?site=ABEI&parameter=PP&start=2016&end=2016
     /// </summary>
     public partial class WaterYearReport
     {
@@ -56,7 +55,7 @@ namespace PiscesWebServices.CGI
                 parameter = collection["parameter"];
             }
 
-            var s = new HydrometDailySeries(siteID, parameter);
+            var s = new HydrometDailySeries(siteID, parameter, HydrometHost.PNLinux);
             var startYear = r.StartDate.Year;
             var endYear = r.EndDate.Year;
             DateTime t1 = r.StartDate;

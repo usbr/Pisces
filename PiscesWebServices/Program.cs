@@ -18,6 +18,7 @@ namespace PiscesWebServices
         /// Examples:
         /// 
         /// --cgi=sites --propertyFilter=program:agrimet --json_required_properties=json_extra
+        /// --cgi=instant
         /// </summary>
         /// <param name="args"></param>
         public static void Main(string[] args)
@@ -34,7 +35,7 @@ namespace PiscesWebServices
             var sqLiteDatabaseFileName = "";
 
             p.Add("server", x => selfHost = true);
-            p.Add("cgi=", "required cgi to execute cgi=sites or cgi=series", x => cgi = x);
+            p.Add("cgi=", "required cgi to execute cgi=sites|series|instant|daily|wyreport", x => cgi = x);
             p.Add("json_property_stubs=", "comma separated list of properties (i.e. 'region,url,') to created empty stubs if neeed ",
                               x => json_property_stubs = x);
             p.Add("site-type=", "filter agrimet sites", x => siteType = BasicDBServer.SafeSqlLikeClauseLiteral(x));
