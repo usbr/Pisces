@@ -615,7 +615,7 @@ namespace Reclamation.TimeSeries
         /// <param name="Install"></param>
         public void AddSiteWithTemplate(PiscesFolder parent, 
             TimeSeriesDatabaseDataSet.SeriesCatalogDataTable template, string SiteName, string SiteID, 
-            string state,string elevation, string Lat, string Lon, string TimeZone, string Install, string program)            
+            string state,double elevation, double Lat, double Lon, string TimeZone, string Install, string program)            
         {
           
             var siteCatalog = GetSiteCatalog();

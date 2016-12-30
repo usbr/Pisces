@@ -254,9 +254,9 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 if (m_siteRow != null)
                 {
                     this.textBoxdescription.Text = m_siteRow.description;
-                    this.textBoxElevation.Text = m_siteRow.elevation;
-                    this.textBoxlatitude.Text = m_siteRow.latitude;
-                    this.textBoxlongitude.Text = m_siteRow.longitude;
+                    this.textBoxElevation.Text = m_siteRow.elevation.ToString();
+                    this.textBoxlatitude.Text = m_siteRow.latitude.ToString();
+                    this.textBoxlongitude.Text = m_siteRow.longitude.ToString();
                     this.textBoxInstall.Text = m_siteRow.install;
                     this.textBoxTimezone.Text = m_siteRow.timezone;
                     this.textBoxState.Text = m_siteRow.state;
