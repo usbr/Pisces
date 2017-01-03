@@ -25,7 +25,7 @@ namespace Reclamation.TimeSeries
             CreateParameterCatalogTable();
             CreateSeriesPropertiesTable();
 
-            if (m_settings.GetDBVersion() == 3)
+            if (m_settings.GetDBVersion() >= 3)
             {
                 CreateAlarmGroups();
                 CreateMeasurementTable();
