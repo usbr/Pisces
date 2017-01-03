@@ -67,7 +67,51 @@ namespace Reclamation.TimeSeries
             }
         }
 
+        private void UpgradeToV4()
+        {
+            if (m_settings.GetDBVersion() >= 4)
+                return;
 
+            DataTable oldCatalog = m_server.Table("sitecatalog", "Select * from sitecatalog");
+
+            // delete old site catalog...
+            m_server.RunSqlCommand("drop table sitecatalog");
+
+            // Create new Tables
+            CreateTablesWithSQL();
+
+            var sc = this.GetSiteCatalog();
+
+            for (int i = 0; i < oldCatalog.Rows.Count; i++)
+            {
+                var newRow = sc.NewRow();
+
+                foreach (DataColumn item in sc.Columns)
+                {
+                    var c = item.ColumnName;
+
+                    if (oldCatalog.Columns.IndexOf(c) < 0)
+                        continue;
+
+                    double val = double.NaN;
+                    switch (c)
+                    {
+                        case "latitude":
+                        case "longitude":
+                        case "elevation":
+                            double.TryParse(oldCatalog.Rows[i][c].ToString(), out val);
+                            newRow[c] = val;
+                            break;
+                        default:
+                            newRow[c] = oldCatalog.Rows[i][c];
+                            break;
+                    }
+                }
+
+                sc.Rows.Add(newRow);
+            }
+            m_server.SaveTable(sc);
+        }
 
     }
 }

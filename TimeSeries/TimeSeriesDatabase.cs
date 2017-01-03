@@ -207,6 +207,12 @@ namespace Reclamation.TimeSeries
                 UpgradeV1ToV2();
             }
 
+            if (m_server.TableExists("sitecatalog"))
+            {
+                InitSettings();
+                UpgradeToV4();
+            }
+
             if (!ReadOnly)
             {
                 CreateTablesWithSQL();

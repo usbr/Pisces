@@ -162,7 +162,7 @@ namespace Reclamation.TimeSeries
             if (!m_server.TableExists("sitecatalog"))
             {
                 /*CREATE TABLE sitecatalog ( siteid   nvarchar(256)  not null primary key,  description  nvarchar(1024)  not null default '',  state  nvarchar(30)  not null default '',
-  latitude  nvarchar(30)  not null default '',  longitude  nvarchar(30)  not null default '',  elevation  nvarchar(30)  not null default '',
+  latitude  float  default 0,  longitude  float  default 0,  elevation  float  default 0,
   timezone  nvarchar(30)  not null default '',  install  nvarchar(30)  not null default '' , horizontal_datum nvarchar(30)  not null default '',
  vertical_datum nvarchar(30)  not null default '', vertical_accuracy float not null default 0, elevation_method nvarchar(100)  not null default '',
  tz_offset nvarchar(10)  not null default '', active_flag nvarchar(1) not null default 'T', type nvarchar(100) not null default '', responsibility nvarchar(30) not null default ''  );
@@ -172,9 +172,9 @@ namespace Reclamation.TimeSeries
                 + "( siteid  " + m_server.PortableCharacterType(255) + " not null primary key, "  
                 + " description " + m_server.PortableCharacterType(1024) + " not null default '', "  
                 + " state " + m_server.PortableCharacterType(30) + " not null default '', "
-                + " latitude " + m_server.PortableCharacterType(30) + " not null default '', "
-                + " longitude " + m_server.PortableCharacterType(30) + " not null default '', "
-                + " elevation " + m_server.PortableCharacterType(30) + " not null default '', "
+                + " latitude float default 0, "
+                + " longitude float default 0, "
+                + " elevation float default 0, "
                 + " timezone " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " install " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " horizontal_datum " + m_server.PortableCharacterType(30) + "  not null default '',"
@@ -268,7 +268,7 @@ namespace Reclamation.TimeSeries
                 ExecuteCreateTable(m_server, sql);
 
                 
-                sql = "insert INTO piscesinfo values ('FileVersion', '3')";
+                sql = "insert INTO piscesinfo values ('FileVersion', '4')";
                 m_server.RunSqlCommand(sql);
             }
 
