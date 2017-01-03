@@ -62,12 +62,9 @@ namespace Reclamation.TimeSeries
             foreach (var s in importSeries)
             {
                 m_db.Quality.SetFlags(s); // to do, log/email flaged data
-                string alarmCfg = ConfigurationManager.AppSettings["ProcessAlarms"];
-                 if(!String.IsNullOrEmpty(alarmCfg) && alarmCfg == "true")
-                {
-                    m_db.Alarms.Check(s); // check for alarms; send email make phone calls
-                }
-                var folderNames = new string[]{}; // TO DO //hydromet/cbtt default.
+                ProcessAlarms(s);
+                 var folderNames = SetupDefaultFolders(s);
+
                 m_db.ImportSeriesUsingTableName(s,folderNames , m_saveOption);
                 routingList.Add(s);
                 if (computeDependencies)
@@ -85,6 +82,38 @@ namespace Reclamation.TimeSeries
                 PerformDailyComputations(importSeries, calculationQueue, routingList); 
             }
             RouteData(importTag, routingList);
+        }
+
+        private void ProcessAlarms(Series s)
+        {
+            string alarmCfg = ConfigurationManager.AppSettings["ProcessAlarms"];
+            if (!String.IsNullOrEmpty(alarmCfg) && alarmCfg == "true")
+            {
+                m_db.Alarms.Check(s); // check for alarms; send email make phone calls
+            }
+        }
+
+        private static string[] SetupDefaultFolders(Series s)
+        {
+            var folderNames = new string[] { };
+
+            string piscesFolder = ConfigurationManager.AppSettings["piscesFolder"];
+                 if(!String.IsNullOrEmpty(piscesFolder) )
+                 {
+                     var path = new List<string>();
+                     path.Add(piscesFolder);
+                     if (s.SiteID.Trim() != "")
+                         path.Add(s.SiteID);
+                     if (s.TimeInterval == TimeInterval.Irregular)
+                         path.Add("instant");
+                     else
+                         path.Add(s.TimeInterval.ToString().ToLower());
+
+                     folderNames = path.ToArray();
+                 }
+                     
+            
+            return folderNames;
         }
 
         /// <summary>

@@ -1675,10 +1675,7 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// Import Series s into the database.
         /// Series s is saved to the tablename defined in the Series s.DataTable.TableName
-        /// the table will be created if necessary. Properties such as units will be used
-        /// when creating a new series
-        /// Computes data dependent on the imported data
-        /// Returns List of computed data.
+        /// the table will be created if necessary. 
         /// </summary>
         public void ImportSeriesUsingTableName(Series s, string[] folderNames ,DatabaseSaveOptions saveOption = DatabaseSaveOptions.UpdateExisting)
         {
@@ -1692,17 +1689,15 @@ namespace Reclamation.TimeSeries
                 //sr = GetNewSeriesRow();
                 Logger.WriteLine("table: " + s.Table.TableName + " does not exist in the catalog");
                 TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
-                if (folderNames.Length == 0)
+                PiscesFolder folder = RootFolder;
+                if (folderNames.Length == 0 && tn.interval != "")
                 {
-                    if (tn.interval != "")
-                        folderNames = new string[] { tn.interval };
+                   folder = GetOrCreateFolder(new string[] { tn.interval });
                 }
-
-                PiscesFolder folder = null;
-                if (folderNames.Length > 0)
-                    folder = GetOrCreateFolder(folderNames);
                 else
-                    folder = RootFolder;
+                {
+                    folder = GetOrCreateFolder(folderNames);
+                }
 
                 sr = GetNewSeriesRow();
                 sr.TimeInterval = tn.GetTimeInterval().ToString();
