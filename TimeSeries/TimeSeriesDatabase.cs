@@ -1696,7 +1696,7 @@ namespace Reclamation.TimeSeries
                 }
                 else
                 {
-                    folder = GetOrCreateFolder(folderNames);
+                    folder = GetOrCreateFolder(RootFolder,folderNames);
                 }
 
                 sr = GetNewSeriesRow();
