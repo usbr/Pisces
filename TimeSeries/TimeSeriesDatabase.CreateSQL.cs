@@ -78,7 +78,7 @@ namespace Reclamation.TimeSeries
                         + " phone    " + m_server.PortableCharacterType(20) + " not null default '', "
                         + " name    " + m_server.PortableCharacterType(20) + " not null default '', "
                         + " email    " + m_server.PortableCharacterType(20) + " not null default '' ) ";
-                m_server.RunSqlCommand(sql);
+                ExecuteCreateTable(m_server,sql);
             }
         }
 

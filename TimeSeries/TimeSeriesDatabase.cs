@@ -210,7 +210,7 @@ namespace Reclamation.TimeSeries
             if (m_server.TableExists("sitecatalog"))
             {
                 InitSettings();
-                UpgradeToV4();
+               // UpgradeToV4();
             }
 
             if (!ReadOnly)
