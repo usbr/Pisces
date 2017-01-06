@@ -315,7 +315,7 @@ namespace Reclamation.Core
         //Saves DataTable in database
         public override int SaveTable(DataTable dataTable)
         {
-            string sql = "select  * from " + dataTable.TableName + " where 2=1";
+            string sql = "select  * from " + PortableTableName( dataTable.TableName) + " where 2=1";
             return SaveTable(dataTable, sql);
 
         }
@@ -600,6 +600,18 @@ namespace Reclamation.Core
         public override void Vacuum()
         {
           var i = RunSqlCommandNonTransaction("vacuum");
+        }
+
+
+        public override string PortableTableName(string tableName)
+        {
+            var rval = tableName;
+            if (tableName.Trim().IndexOf(" ") >= 0
+               || tableName.Trim().IndexOf("-") >= 0)
+            {
+                rval = "[" + tableName + "]";
+            }
+            return rval;
         }
     }
 }

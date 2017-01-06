@@ -729,7 +729,7 @@ namespace Reclamation.TimeSeries
 
             if (dates.Length > 0)
             {
-                var sql = "Delete from " + table.TableName + " Where datetime in "
+                var sql = "Delete from " + m_server.PortableTableName( table.TableName) + " Where datetime in "
                 + " ( " + String.Join(",", dates) + " )";
                 int i = m_server.RunSqlCommand(sql);
                 Logger.WriteLine("Deleted " + i + " old records");

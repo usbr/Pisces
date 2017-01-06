@@ -163,7 +163,7 @@ namespace Reclamation.Core
       try
       {
         tableName = this.comboBoxTableNames.Text;
-         table = m_server.Table(tableName);
+         table = m_server.Table( m_server.PortableTableName( tableName));
         this.dataGrid1.DataSource=table;
         this.dataGrid1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
         //this.dataGrid1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
