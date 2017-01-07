@@ -355,6 +355,10 @@
       <Link>cfg\yak\yakima_ratingtables.xls</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="..\PiscesTestData\data\bulk-import-template.xlsx">
+      <Link>sample-data\bulk-import-template.xlsx</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

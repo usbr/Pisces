@@ -22,7 +22,7 @@ using Reclamation.TimeSeries.Forms.Alarms;
 namespace Reclamation.TimeSeries.Forms
 {
     /// <summary>
-    /// ExplorerForm displays a Tree containing time series data on
+    /// PiscesForm displays a Tree containing time series data on
     /// the left. the right displays a graph and table based on user interface 
     /// settings such as the selections in the tree.
     /// </summary>

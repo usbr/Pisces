@@ -10,6 +10,10 @@ using Reclamation.TimeSeries.RatingTables;
 
 namespace Reclamation.TimeSeries.Graphing
 {
+
+    /// <summary>
+    /// View with graph and table tabs
+    /// </summary>
     public partial class GraphExplorerView : UserControl, IExplorerView 
     {
         private List<string> messages;

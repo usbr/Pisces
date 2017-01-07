@@ -15,7 +15,6 @@ namespace Pisces
 
         static PiscesForm piscesForm1;
         static PiscesSettings explorer;
-        static TimeSeriesDatabase db;
 
         /// <summary>
         /// Try to open database in the following order:
@@ -35,69 +34,18 @@ namespace Pisces
 #endif
              try
             {
-                string fileName = "";
-                if (args.Length == 1)
-                {
-                    fileName = args[0];
-                    if (!File.Exists(fileName))
-                    {
-                        MessageBox.Show("Could not open file '" + fileName + "'");
-                        return;
-                    }
-                }
-                
-                else if (UserPreference.Lookup("fileName") != ""
-                    && File.Exists(UserPreference.Lookup("fileName")) 
-                    && Path.GetExtension(UserPreference.Lookup("fileName")) != ".sdf")
-                {
-                    fileName = UserPreference.Lookup("fileName");
-                }
-                else
-                {// open default database
-
-                    var paths = new List<string>() 
-                    {
-                        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-                        FileUtility.GetLocalApplicationPath(),
-                        FileUtility.GetTempPath()
-                    };
-
-                    foreach (var item in paths)
-                    {
-                        if (HasWriteAccessToFolder(item))
-                        {
-                            fileName = Path.Combine(item, "tsdatabase.pdb");
-                            break;
-                        }
-                    }
-                }
-                
-                if (!File.Exists(fileName))
-                {
-                    SQLiteServer.CreateNewDatabase(fileName);
-                }
+                string fileName = GetFileName(args);
 
                 HydrometInfoUtility.SetDefaultHydrometServer();
-
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.ThreadExit += new EventHandler(Application_ThreadExit);
                 Application.ApplicationExit += new EventHandler(Application_ApplicationExit);
-                //Application.Idle += new EventHandler(Application_Idle);
-                //Application.ThreadException += new System.Threading.ThreadExceptionEventHandler(Application_ThreadException);
-
                 
                 explorer = new PiscesSettings(new ExplorerView());
-                // explorer.Database
-                
                 explorer.Open(fileName);
-                 db = explorer.Database;
-
                 piscesForm1 = new PiscesForm(explorer);
-
-
-                
 
                 piscesForm1.FormClosed += new FormClosedEventHandler(explorerForm1_FormClosed);
                 //Pisces2 p2 = new Pisces2(explorer);
@@ -115,6 +63,47 @@ namespace Pisces
              {
                  MessageBox.Show(exc.ToString());
              }
+        }
+
+        private static string GetFileName(string[] args)
+        {
+            string fileName = "";
+            if (args.Length == 1)
+            {
+                fileName = args[0];
+            }
+
+            else if (UserPreference.Lookup("fileName") != ""
+                && File.Exists(UserPreference.Lookup("fileName"))
+                && Path.GetExtension(UserPreference.Lookup("fileName")) != ".sdf")
+            {
+                fileName = UserPreference.Lookup("fileName");
+            }
+            else
+            {// open default database
+
+                var paths = new List<string>() 
+                    {
+                        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                        FileUtility.GetLocalApplicationPath(),
+                        FileUtility.GetTempPath()
+                    };
+
+                foreach (var item in paths)
+                {
+                    if (HasWriteAccessToFolder(item))
+                    {
+                        fileName = Path.Combine(item, "tsdatabase.pdb");
+                        break;
+                    }
+                }
+            }
+
+            if (!File.Exists(fileName))
+            {
+                SQLiteServer.CreateNewDatabase(fileName);
+            }
+            return fileName;
         }
 
         /* taken from here: http://stackoverflow.com/q/1410127/2333687 */
