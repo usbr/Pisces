@@ -1535,32 +1535,8 @@ namespace Reclamation.TimeSeries
         }
 
 
-        public event EventHandler<TimeSeriesDatabaseSettingsEventArgs> OnReadSettingsFromDatabase;
-
-        public void ReadSettingsFromDatabase(TimeWindow w)
-        {
-
-            if( OnReadSettingsFromDatabase != null)
-            {
-                OnReadSettingsFromDatabase(this, new TimeSeriesDatabaseSettingsEventArgs(m_settings,w));
-            }
-        }
-
-        
 
         public bool AutoRefresh = true; // refresh when tree selection changes.
-
-        public event EventHandler<TimeSeriesDatabaseSettingsEventArgs> OnSaveSettingsToDatabase;
-
-        public void SaveSettingsToDatabase(TimeWindow w)
-        {
-
-            if (OnSaveSettingsToDatabase != null)
-            {
-                OnSaveSettingsToDatabase(this, new TimeSeriesDatabaseSettingsEventArgs(m_settings, w));
-            }
-
-        }
 
 
         /// <summary>

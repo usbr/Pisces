@@ -676,7 +676,6 @@
     <Compile Include="Urgsim\UrgsimReferenceSeries.cs" />
     <Compile Include="Urgsim\UrgsimSeries.cs" />
     <Compile Include="Urgsim\UrgsimUtilitycs.cs" />
-    <Compile Include="TimeSeriesDatabaseSettingsEventArgs.cs" />
     <Compile Include="RiverWare\ImportRiverWare.cs">
       <SubType>Form</SubType>
     </Compile>

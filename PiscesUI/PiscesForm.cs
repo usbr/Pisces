@@ -75,6 +75,7 @@ namespace Reclamation.TimeSeries.Forms
 
             engine1 = new PiscesEngine(graphView1,fileName);
 
+            ReadSettingsFromDatabase();
             SetView(graphView1);
 
             tree1 = new PiscesTree(new TimeSeriesTreeModel( engine1.Database));
@@ -178,12 +179,11 @@ namespace Reclamation.TimeSeries.Forms
 
         void DatabaseChanged()
         {
-            DB.OnReadSettingsFromDatabase += DB_OnReadSettingsFromDatabase;
-            DB.OnSaveSettingsToDatabase += DB_OnSaveSettingsToDatabase;
             tree1.SetModel(new TimeSeriesTreeModel ( engine1.Database));
 
             this.Text = engine1.Database.DataSource + " - Pisces";
 
+            ReadSettingsFromDatabase();
             this.engine1.View = graphView1;
             displayOptionsDialog1 = new DisplayOptionsDialog(engine1);
             SetupScenarioSelector();
@@ -195,9 +195,11 @@ namespace Reclamation.TimeSeries.Forms
             engine1.Run();
         }
 
-        private void DB_OnSaveSettingsToDatabase(object sender, TimeSeriesDatabaseSettingsEventArgs e)
+        private void SaveSettingsToDatabase()
         {
-            var m_settings = e.Settings;
+
+            var m_settings = engine1.Settings;
+
             m_settings.Set("HydrometWebCaching", HydrometInfoUtility.WebCaching);
             m_settings.Set("HydrometAutoUpdate", HydrometInfoUtility.AutoUpdate);
             m_settings.Set("HydrometIncludeFlaggedData", HydrometInstantSeries.KeepFlaggedData);
@@ -206,7 +208,7 @@ namespace Reclamation.TimeSeries.Forms
             m_settings.Set("UsgsAutoUpdate", Reclamation.TimeSeries.Usgs.Utility.AutoUpdate);
             m_settings.Set("ModsimDisplayFlowInCfs", Reclamation.TimeSeries.Modsim.ModsimSeries.DisplayFlowInCfs);
 
-            var w = e.Window;
+            var w = engine1.TimeWindow;
             m_settings.Set("FromToDatesT1", w.FromToDatesT1);
             m_settings.Set("FromToDatesT2", w.FromToDatesT2);
             m_settings.Set("FromDateToTodayT1", w.FromDateToTodayT1);
@@ -220,9 +222,9 @@ namespace Reclamation.TimeSeries.Forms
 
         }
 
-        private void DB_OnReadSettingsFromDatabase(object sender, TimeSeriesDatabaseSettingsEventArgs e)
+        private void ReadSettingsFromDatabase()
         {
-            var m_settings = e.Settings;
+            var m_settings = DB.Settings;
             HydrometInfoUtility.WebCaching = m_settings.ReadBoolean("HydrometWebCaching", false);
             HydrometInfoUtility.AutoUpdate = m_settings.ReadBoolean("HydrometAutoUpdate", false);
             HydrometInstantSeries.KeepFlaggedData = m_settings.ReadBoolean("HydrometIncludeFlaggedData", false);
@@ -233,7 +235,7 @@ namespace Reclamation.TimeSeries.Forms
             Reclamation.TimeSeries.Modsim.ModsimSeries.DisplayFlowInCfs = m_settings.ReadBoolean("ModsimDisplayFlowInCfs", false);
             //SpreadsheetGearSeries.AutoUpdate = m_settings.ReadBoolean("ExcelAutoUpdate", true);
 
-            var w = e.Window;
+            var w = engine1.TimeWindow;
             w.FromToDatesT1 = m_settings.ReadDateTime("FromToDatesT1", w.FromToDatesT1);
             w.FromToDatesT2 = m_settings.ReadDateTime("FromToDatesT2", w.FromToDatesT2);
             w.FromDateToTodayT1 = m_settings.ReadDateTime("FromDateToTodayT1", w.FromDateToTodayT1);
@@ -520,8 +522,9 @@ namespace Reclamation.TimeSeries.Forms
         {
             if (displayOptionsDialog1.ShowDialog() == DialogResult.OK)
             {
+                SaveSettingsToDatabase();
                 if (DB.AutoRefresh)
-                    DrawBasedOnTreeSelection(); //tree1_Selected(this, new EventArgs());
+                    DrawBasedOnTreeSelection();  
                 else
                     ClearDisplay();
             }
@@ -986,7 +989,7 @@ namespace Reclamation.TimeSeries.Forms
                 SpreadsheetGearSeries.AutoUpdate = o.ExcelAutoUpdate;
 #endif
                 DB.AutoRefresh = o.AutoRefresh;
-                DB.SaveSettingsToDatabase(engine1.TimeWindow);
+                SaveSettingsToDatabase();
                // DB.Scenario = o.ScenarioNames;
             }
             Enabling();

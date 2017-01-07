@@ -38,6 +38,11 @@ namespace Reclamation.TimeSeries
 
         private TimeSeriesDatabase m_db;
 
+        public PiscesSettings Settings
+        {
+            get { return m_db.Settings; }
+           // set { m_settings = value; }
+        }
         
 
         /// <summary>
@@ -50,10 +55,11 @@ namespace Reclamation.TimeSeries
             Open(fileName);
         }
 
-        public void SaveSettings()
+        public void SaveSettings1()
         {
             // save time window settings
-            m_db.SaveSettingsToDatabase(TimeWindow);
+            //m_db.Settings.Save();
+            //m_db.SaveSettingsToDatabase(TimeWindow);
         }
 
         public void Open(string path)
@@ -62,11 +68,10 @@ namespace Reclamation.TimeSeries
             Connect(svr);
         }
 
-        public void Connect(BasicDBServer svr)
+        private void Connect(BasicDBServer svr)
         {
             m_db = new TimeSeriesDatabase(svr,false);
             Defaults(m_db);
-            m_db.ReadSettingsFromDatabase(TimeWindow);
         }
 
         public void ConnectToServer(string server, string database,  DatabaseType t, string password="")

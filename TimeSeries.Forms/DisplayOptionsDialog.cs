@@ -82,7 +82,6 @@ namespace Reclamation.TimeSeries.Forms
         private void buttonOK_Click(object sender, EventArgs e)
         {
             analysisList[this.listBox1.SelectedIndex].ExplorerSettings.WriteToSettings(explorer1);
-            explorer1.SaveSettings();
         }
 
         private void linkLabelPropertyGrid_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
