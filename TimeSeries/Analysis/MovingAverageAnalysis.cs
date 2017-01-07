@@ -7,7 +7,7 @@ namespace Reclamation.TimeSeries.Analysis
 {
     public class MovingAverageAnalysis : BaseAnalysis
     {
-        public MovingAverageAnalysis(PiscesSettings explorer)
+        public MovingAverageAnalysis(PiscesEngine explorer)
             : base(explorer)
         {
             m_analysisType = AnalysisType.MovingAverage;

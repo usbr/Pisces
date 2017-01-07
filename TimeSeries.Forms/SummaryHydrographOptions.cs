@@ -39,7 +39,7 @@ namespace Reclamation.TimeSeries.Forms
 
         #region IExplorerSettingsView Members
 
-        public void WriteToSettings(PiscesSettings settings)
+        public void WriteToSettings(PiscesEngine settings)
         {
             settings.SelectedAnalysisType = AnalysisType.SummaryHydrograph;
             settings.TimeWindow = timeWindowOptions1.TimeWindow;
@@ -54,7 +54,7 @@ namespace Reclamation.TimeSeries.Forms
             settings.BeginningMonth = this.yearTypeSelector1.BeginningMonth;
         }
 
-        public void ReadFromSettings(PiscesSettings settings)
+        public void ReadFromSettings(PiscesEngine settings)
         {
             this.checkBoxAverage.Checked = settings.PlotAvg;
             this.checkBoxMaximum.Checked = settings.PlotMax;

@@ -7,7 +7,7 @@ namespace Reclamation.TimeSeries.Analysis
 {
     public class WaterYearsAnalysis : BaseAnalysis
     {
-        public WaterYearsAnalysis(PiscesSettings explorer) : base(explorer)
+        public WaterYearsAnalysis(PiscesEngine explorer) : base(explorer)
         {
             m_analysisType = AnalysisType.WaterYears;
             m_name = "Water Years";

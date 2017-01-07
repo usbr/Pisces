@@ -13,9 +13,9 @@ namespace Reclamation.TimeSeries.Analysis
     {
 
 
-        private PiscesSettings m_explorer;
+        private PiscesEngine m_explorer;
 
-        protected PiscesSettings Explorer
+        protected PiscesEngine Explorer
         {
             get { return m_explorer; }
             set { m_explorer = value; }
@@ -33,7 +33,7 @@ namespace Reclamation.TimeSeries.Analysis
         
         protected AnalysisType m_analysisType;
 
-        protected BaseAnalysis(PiscesSettings explorer)
+        protected BaseAnalysis(PiscesEngine explorer)
         {
             m_explorer = explorer;
             view = explorer.View;

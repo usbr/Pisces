@@ -28,19 +28,18 @@ namespace Reclamation.TimeSeries.Forms
     /// </summary>
     public partial class PiscesForm : Form
     {
-        private PiscesSettings explorer1;
+        private PiscesEngine engine1;
         private DisplayOptionsDialog displayOptionsDialog1;
         private IScenarioSelector scenarioChooser1;
         private PluginManager m_pluginManager;
 
-        public PiscesForm(PiscesSettings explorer)
+        public PiscesForm(string fileName)
         {
-             m_pluginManager = new PluginManager();
+            m_pluginManager = new PluginManager();
             m_pluginManager.LoadPlugins();// loads assemblies into memory.
-            
 
-            this.explorer1 = explorer;
-            InitializePisces();
+            InitializeComponent();
+            InitializePisces(fileName);
             m_pluginManager.RegisterPlugins(this.contextMenuStripTree.Items["AddMenu"]);
             m_pluginManager.PluginClick += m_pluginManager_PluginClick;
             Enabling();
@@ -60,11 +59,9 @@ namespace Reclamation.TimeSeries.Forms
         GraphExplorerView graphView1;
         PiscesTree tree1;
 
-        private void InitializePisces()
+        private void InitializePisces(string fileName)
         {
-
-            InitializeComponent();
-
+            
             Logger.OnLogEvent += new StatusEventHandler(Logger_OnLogEvent);
 
             UserControl uc=null;
@@ -76,10 +73,11 @@ namespace Reclamation.TimeSeries.Forms
 
             graphView1 = new GraphExplorerView(uc as ITimeSeriesGraph);
 
+            engine1 = new PiscesEngine(graphView1,fileName);
 
             SetView(graphView1);
 
-            tree1 = new PiscesTree(new TimeSeriesTreeModel( explorer1.Database));
+            tree1 = new PiscesTree(new TimeSeriesTreeModel( engine1.Database));
             tree1.FilterChanged += tree1_FilterChanged;
             tree1.ContextMenuStrip = this.contextMenuStripTree;
             tree1.Parent = this.splitContainer1.Panel1;
@@ -89,8 +87,8 @@ namespace Reclamation.TimeSeries.Forms
             tree1.Delete += new EventHandler<EventArgs>(tree1_Delete);
             tree1.TreeNodeParentChanged += new EventHandler<ParentChangedEventArgs>(tree1_TreeNodeParentChanged);
             tree1.TreeNodeSortChanged += new EventHandler<SortChangedEventArgs>(tree1_TreeNodeSortChanged);
-            explorer1.View = graphView1;
-            explorer1.OnProgress += new ProgressEventHandler(explorer_OnProgress);
+            engine1.View = graphView1;
+            engine1.OnProgress += new ProgressEventHandler(explorer_OnProgress);
 
             DataMenu.DropDown = contextMenuStripTree;
 
@@ -110,7 +108,7 @@ namespace Reclamation.TimeSeries.Forms
             control.Visible = true;
             toolStripStatusMessage.Spring = true;
             toolStripStatusMessage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            explorer1.View = control as IExplorerView;
+            engine1.View = control as IExplorerView;
         }
 
         delegate void SetStatusTextCallback(object sender, StatusEventArgs e);
@@ -156,7 +154,7 @@ namespace Reclamation.TimeSeries.Forms
         {
             get
             {
-                return explorer1.Database;
+                return engine1.Database;
             }
         }
 
@@ -182,19 +180,19 @@ namespace Reclamation.TimeSeries.Forms
         {
             DB.OnReadSettingsFromDatabase += DB_OnReadSettingsFromDatabase;
             DB.OnSaveSettingsToDatabase += DB_OnSaveSettingsToDatabase;
-            tree1.SetModel(new TimeSeriesTreeModel ( explorer1.Database));
+            tree1.SetModel(new TimeSeriesTreeModel ( engine1.Database));
 
-            this.Text = explorer1.Database.DataSource + " - Pisces";
+            this.Text = engine1.Database.DataSource + " - Pisces";
 
-            this.explorer1.View = graphView1;
-            displayOptionsDialog1 = new DisplayOptionsDialog(explorer1);
+            this.engine1.View = graphView1;
+            displayOptionsDialog1 = new DisplayOptionsDialog(engine1);
             SetupScenarioSelector();
 
-            explorer1.SelectedSeries = new Series[] { };
+            engine1.SelectedSeries = new Series[] { };
 
-            explorer1.View.SeriesList.Clear();
-            explorer1.View.Clear();
-            explorer1.Run();
+            engine1.View.SeriesList.Clear();
+            engine1.View.Clear();
+            engine1.Run();
         }
 
         private void DB_OnSaveSettingsToDatabase(object sender, TimeSeriesDatabaseSettingsEventArgs e)
@@ -289,7 +287,7 @@ namespace Reclamation.TimeSeries.Forms
 
         void scenarioChooser1_OnCustomizeScenarioTable(object sender, ScenarioTableEventArgs ea)
         {
-            explorer1.CustomizeScenarioTable(ea);
+            engine1.CustomizeScenarioTable(ea);
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -331,8 +329,8 @@ namespace Reclamation.TimeSeries.Forms
         {
             try
             {
-                if( explorer1.View != null)
-                     explorer1.View.Draw();
+                if( engine1.View != null)
+                     engine1.View.Draw();
             }
             catch (Exception ex)
             {
@@ -345,9 +343,9 @@ namespace Reclamation.TimeSeries.Forms
                 Cursor = Cursors.Default;
                 toolStripProgressBar1.Visible = false;
                 string msg = "ok";
-                if (explorer1.SelectedSeries.Length == 1)
+                if (engine1.SelectedSeries.Length == 1)
                 {
-                    var s = explorer1.SelectedSeries[0];
+                    var s = engine1.SelectedSeries[0];
                      msg = s.Name;
                      if (s is CalculationSeries)
                          msg += " = " + s.Expression;
@@ -443,13 +441,13 @@ namespace Reclamation.TimeSeries.Forms
 
             else
             {
-                if ( !(explorer1.View is GraphExplorerView) || explorer1.View == null)
+                if ( !(engine1.View is GraphExplorerView) || engine1.View == null)
                 { // need to switch back to timeseries views
                     SetView(graphView1);
                 }
-                explorer1.SelectedSeries = tree1.GetSelectedSeries();
+                engine1.SelectedSeries = tree1.GetSelectedSeries();
 
-                if (explorer1.SelectedSeries.Length == 0)
+                if (engine1.SelectedSeries.Length == 0)
                 {
                     ClearDisplay();
                     toolStripProgressBar1.Visible = false;
@@ -457,10 +455,10 @@ namespace Reclamation.TimeSeries.Forms
                     return;
                 }
 
-                explorer1.SubtractFromBaseline = scenarioChooser1.SubtractFromBaseline;
-                explorer1.IncludeBaseline = scenarioChooser1.IncludeBaseline;
-                explorer1.IncludeSelected = scenarioChooser1.IncludeSelected;
-                explorer1.MergeSelected = scenarioChooser1.MergeSelected;
+                engine1.SubtractFromBaseline = scenarioChooser1.SubtractFromBaseline;
+                engine1.IncludeBaseline = scenarioChooser1.IncludeBaseline;
+                engine1.IncludeSelected = scenarioChooser1.IncludeSelected;
+                engine1.MergeSelected = scenarioChooser1.MergeSelected;
                 backgroundWorker1.RunWorkerAsync();
 
             }
@@ -476,8 +474,8 @@ namespace Reclamation.TimeSeries.Forms
             try
             {
 #endif
-              if( explorer1.View != null)
-                  explorer1.Run();
+              if( engine1.View != null)
+                  engine1.Run();
 #if (CATCH_EXCEPTION)
 
             }
@@ -528,7 +526,7 @@ namespace Reclamation.TimeSeries.Forms
                     ClearDisplay();
             }
 
-            this.menuOptions.Text = "Analysis:" + explorer1.SelectedTimeSeriesAnalysis.Name;
+            this.menuOptions.Text = "Analysis:" + engine1.SelectedTimeSeriesAnalysis.Name;
         }
 
         
@@ -756,7 +754,7 @@ namespace Reclamation.TimeSeries.Forms
             fd.Filter = "Pisces database (*.pdb)|*.pdb";
             if (fd.ShowDialog() == DialogResult.OK)
             {
-                explorer1.Open(fd.FileName,true);
+                engine1.Open(fd.FileName);
                 DatabaseChanged();
                 UserPreference.Save("fileName", fd.FileName);
             }
@@ -773,7 +771,7 @@ namespace Reclamation.TimeSeries.Forms
                 fd.Filter = "Pisces database (*.pdb)|*.pdb";
                 if (fd.ShowDialog() == DialogResult.OK)
                 {
-                    explorer1.Open(fd.FileName);
+                    engine1.Open(fd.FileName);
                     DatabaseChanged();
                 }
                 UserPreference.Save("fileName", fd.FileName);
@@ -797,7 +795,7 @@ namespace Reclamation.TimeSeries.Forms
 
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    explorer1.ConnectToServer(dlg.ServerName, dlg.DatabaseName,dlg.DatabaseType, dlg.Password);
+                    engine1.ConnectToServer(dlg.ServerName, dlg.DatabaseName,dlg.DatabaseType, dlg.Password);
                     DatabaseChanged();
                 }
             }
@@ -988,7 +986,7 @@ namespace Reclamation.TimeSeries.Forms
                 SpreadsheetGearSeries.AutoUpdate = o.ExcelAutoUpdate;
 #endif
                 DB.AutoRefresh = o.AutoRefresh;
-                DB.SaveSettingsToDatabase(explorer1.TimeWindow);
+                DB.SaveSettingsToDatabase(engine1.TimeWindow);
                // DB.Scenario = o.ScenarioNames;
             }
             Enabling();

@@ -7,7 +7,7 @@ namespace Reclamation.TimeSeries.Analysis
 {
     public class TraceAnalysis : BaseAnalysis
     {
-        public TraceAnalysis(PiscesSettings explorer):base(explorer)
+        public TraceAnalysis(PiscesEngine explorer):base(explorer)
         {
             m_analysisType = AnalysisType.TraceAnalysis;
             m_name = "Trace Analysis";

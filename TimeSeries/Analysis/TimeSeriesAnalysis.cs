@@ -12,7 +12,7 @@ namespace Reclamation.TimeSeries.Analysis
     public class TimeSeriesAnalysis:BaseAnalysis
     {
 
-        public TimeSeriesAnalysis(PiscesSettings explorer):base(explorer)
+        public TimeSeriesAnalysis(PiscesEngine explorer):base(explorer)
         {
             m_analysisType = AnalysisType.TimeSeries;
             Explorer = explorer;

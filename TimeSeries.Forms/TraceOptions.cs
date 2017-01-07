@@ -21,7 +21,7 @@ namespace Reclamation.TimeSeries.Forms
 
         #region IExplorerSettingsView Members
 
-        public void WriteToSettings(PiscesSettings settings)
+        public void WriteToSettings(PiscesEngine settings)
         {
             settings.SelectedAnalysisType = AnalysisType.TraceAnalysis;
             settings.ExceedanceLevels = exceedanceLevelPicker1.ExceedanceLevels;
@@ -42,7 +42,7 @@ namespace Reclamation.TimeSeries.Forms
             settings.MonthDayRange = this.rangePicker1.MonthDayRange;
         }
 
-        public void ReadFromSettings(PiscesSettings settings)
+        public void ReadFromSettings(PiscesEngine settings)
         {
             this.checkBoxPlotTrace.Checked = settings.AlsoPlotTrace;
             this.comboBoxSelectedTrace.Text = settings.PlotTrace.ToString();

@@ -33,7 +33,7 @@ namespace Reclamation.TimeSeries.Forms
 
         #region IExplorerSettingsView Members
 
-        public void WriteToSettings(PiscesSettings settings)
+        public void WriteToSettings(PiscesEngine settings)
         {
             settings.ThirtyYearAverage = this.checkBox30Year.Checked;
             settings.SelectedAnalysisType = AnalysisType.WaterYears;
@@ -41,7 +41,7 @@ namespace Reclamation.TimeSeries.Forms
             settings.BeginningMonth = yearTypeSelector1.BeginningMonth;
         }
 
-        public void ReadFromSettings(PiscesSettings settings)
+        public void ReadFromSettings(PiscesEngine settings)
         {
             yearTypeSelector1.BeginningMonth = settings.BeginningMonth;
             checkBox30Year.Checked = settings.ThirtyYearAverage;

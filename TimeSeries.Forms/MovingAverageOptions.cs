@@ -16,7 +16,7 @@ namespace Reclamation.TimeSeries.Forms
             InitializeComponent();
         }
 
-        public void WriteToSettings(PiscesSettings settings)
+        public void WriteToSettings(PiscesEngine settings)
         {
             settings.SelectedAnalysisType = AnalysisType.MovingAverage;
             settings.TimeWindow = timeWindowOptions1.TimeWindow;
@@ -25,7 +25,7 @@ namespace Reclamation.TimeSeries.Forms
             settings.PlotRaw =checkBoxRawData.Checked;
         }
 
-        public void ReadFromSettings(PiscesSettings settings)
+        public void ReadFromSettings(PiscesEngine settings)
         {
             timeWindowOptions1.TimeWindow = settings.TimeWindow;
             //this.timeWindowOptions1.AllowFullPeriodOfRecord = settings.AllowFullPeriodOfRecord;

@@ -9,7 +9,7 @@ namespace Reclamation.TimeSeries.Analysis
     public class CorrelationAnalysis:BaseAnalysis 
     {
 
-        public CorrelationAnalysis(PiscesSettings explorer):base(explorer)
+        public CorrelationAnalysis(PiscesEngine explorer):base(explorer)
         {
             m_analysisType = AnalysisType.Correlation;
             m_name = "Correlation";

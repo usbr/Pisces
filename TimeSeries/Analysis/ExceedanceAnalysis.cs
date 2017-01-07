@@ -7,7 +7,7 @@ namespace Reclamation.TimeSeries.Analysis
 {
     public class ExceedanceAnalysis : BaseAnalysis
     {
-        public ExceedanceAnalysis(PiscesSettings explorer)
+        public ExceedanceAnalysis(PiscesEngine explorer)
             : base(explorer)
         {
             m_analysisType = AnalysisType.Exceedance;

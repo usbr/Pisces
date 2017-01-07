@@ -18,7 +18,7 @@ namespace Reclamation.TimeSeries.Forms
         }
 
 
-        public override void ReadFromSettings(PiscesSettings settings)
+        public override void ReadFromSettings(PiscesEngine settings)
         {
             base.ReadFromSettings(settings);
             radioButtonMultiYear.Checked = settings.MultiYearMonthlyAggregate;
@@ -27,7 +27,7 @@ namespace Reclamation.TimeSeries.Forms
 
         }
 
-        public override void WriteToSettings(PiscesSettings settings)
+        public override void WriteToSettings(PiscesEngine settings)
         {
             base.WriteToSettings(settings);
             settings.StatisticalMethods = statisiticalMethodOptions1.StatisticalMethods;

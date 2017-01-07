@@ -14,7 +14,6 @@ namespace Pisces
     {
 
         static PiscesForm piscesForm1;
-        static PiscesSettings explorer;
 
         /// <summary>
         /// Try to open database in the following order:
@@ -43,20 +42,14 @@ namespace Pisces
                 Application.ThreadExit += new EventHandler(Application_ThreadExit);
                 Application.ApplicationExit += new EventHandler(Application_ApplicationExit);
                 
-                explorer = new PiscesSettings(new ExplorerView());
-                explorer.Open(fileName);
-                piscesForm1 = new PiscesForm(explorer);
+               
+                piscesForm1 = new PiscesForm(fileName);
 
                 piscesForm1.FormClosed += new FormClosedEventHandler(explorerForm1_FormClosed);
-                //Pisces2 p2 = new Pisces2(explorer);
-                //p2.FormClosed += new FormClosedEventHandler(explorerForm1_FormClosed);
 
                 Application.Run(piscesForm1);
-                explorer.Database.SaveSettingsToDatabase(explorer.TimeWindow);
-                //db.SaveSettingsToDatabase(explorer.TimeWindow);
 
                 PostgreSQL.ClearAllPools();
-
                 FileUtility.CleanTempPath();
             }
              catch (Exception exc)

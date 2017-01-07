@@ -7,7 +7,7 @@ namespace Reclamation.TimeSeries.Analysis
 {
     public class SummaryHydrographAnalysis : BaseAnalysis 
     {
-        public SummaryHydrographAnalysis(PiscesSettings explorer):base(explorer)
+        public SummaryHydrographAnalysis(PiscesEngine explorer):base(explorer)
         {
             m_analysisType = AnalysisType.SummaryHydrograph;
             m_name = "Summary Hydrograph";

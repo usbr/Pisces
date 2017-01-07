@@ -15,10 +15,10 @@ namespace Reclamation.TimeSeries
     };
 
     /// <summary>
-    /// Explorer performs analysis and displays results 
+    /// PiscesEngine performs analysis and displays results 
     /// to IExplorerView
     /// </summary>
-    public class PiscesSettings
+    public class PiscesEngine
     {
 
         private bool m_thirtyYearAverage;
@@ -44,14 +44,10 @@ namespace Reclamation.TimeSeries
         /// Creates an Explorer
         /// </summary>
         /// <param name="view"></param>
-        public PiscesSettings(IExplorerView view)
+        public PiscesEngine(IExplorerView view,string fileName)
         {
-
             this.m_view = view;
-           
-            //Defaults(m_db);
-            // read TimeWindow settings.
-           // m_db.ReadSettingsFromDatabase(TimeWindow);
+            Open(fileName);
         }
 
         public void SaveSettings()
@@ -60,17 +56,9 @@ namespace Reclamation.TimeSeries
             m_db.SaveSettingsToDatabase(TimeWindow);
         }
 
-        public void Open(string path, bool create=false)
+        public void Open(string path)
         {
-             // PostgreSQL, s
-             // SQLiteServer
-            BasicDBServer svr=null;
-
-            if (create)
-                SQLiteServer.CreateNewDatabase(path);
-
-            svr = new SQLiteServer(path);
-
+            var svr = new SQLiteServer(path);
             Connect(svr);
         }
 

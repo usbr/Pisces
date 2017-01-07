@@ -6,7 +6,7 @@ namespace Reclamation.TimeSeries
 {
     public interface IExplorerSettings
     {
-        void WriteToSettings(PiscesSettings settings);
-        void ReadFromSettings(PiscesSettings settings);
+        void WriteToSettings(PiscesEngine settings);
+        void ReadFromSettings(PiscesEngine settings);
     }
 }

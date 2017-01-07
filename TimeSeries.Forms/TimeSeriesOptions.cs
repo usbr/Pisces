@@ -25,7 +25,7 @@ namespace Reclamation.TimeSeries.Forms
             Enabling();
         }
 
-        public virtual void WriteToSettings(PiscesSettings settings)
+        public virtual void WriteToSettings(PiscesEngine settings)
         {
             settings.SelectedAnalysisType = analysisType;
             settings.TimeWindow = timeWindowOptions1.TimeWindow;
@@ -34,7 +34,7 @@ namespace Reclamation.TimeSeries.Forms
             settings.BeginningMonth = yearTypeSelector1.BeginningMonth;
 
         }
-        public virtual void ReadFromSettings(PiscesSettings settings)
+        public virtual void ReadFromSettings(PiscesEngine settings)
         {
             timeWindowOptions1.TimeWindow = settings.TimeWindow;
             //this.timeWindowOptions1.AllowFullPeriodOfRecord = settings.AllowFullPeriodOfRecord;

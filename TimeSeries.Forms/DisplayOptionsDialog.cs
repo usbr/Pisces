@@ -12,14 +12,14 @@ namespace Reclamation.TimeSeries.Forms
 {
     public partial class DisplayOptionsDialog : Form, IExplorerSettings
     {
-        PiscesSettings explorer1;
+        PiscesEngine explorer1;
         
        // List<Control> userCtrls;
        // List<IExplorerSettings> settingsViews;
         Control activeControl;
         Analysis.AnalysisCollection analysisList;
 
-        public DisplayOptionsDialog(PiscesSettings explorer)
+        public DisplayOptionsDialog(PiscesEngine explorer)
         {
 
             InitializeComponent();
@@ -51,12 +51,12 @@ namespace Reclamation.TimeSeries.Forms
         }
 
 
-        public void WriteToSettings(PiscesSettings settings)
+        public void WriteToSettings(PiscesEngine settings)
         {
             analysisList[this.listBox1.SelectedIndex].ExplorerSettings.WriteToSettings(settings);
         }
 
-        public void ReadFromSettings(PiscesSettings settings)
+        public void ReadFromSettings(PiscesEngine settings)
         {
          analysisList[this.listBox1.SelectedIndex].ExplorerSettings.ReadFromSettings(settings);
          //explorer1.SaveSettings();

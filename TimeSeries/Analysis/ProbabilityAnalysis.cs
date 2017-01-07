@@ -7,7 +7,7 @@ namespace Reclamation.TimeSeries.Analysis
 {
     public class ProbabilityAnalysis : BaseAnalysis
     {
-        public ProbabilityAnalysis(PiscesSettings explorer)
+        public ProbabilityAnalysis(PiscesEngine explorer)
             : base(explorer)
         {
             m_analysisType = AnalysisType.Probability;

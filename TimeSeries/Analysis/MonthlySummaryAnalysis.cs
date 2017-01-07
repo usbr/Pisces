@@ -13,7 +13,7 @@ namespace Reclamation.TimeSeries.Analysis
         /// displays the min,max,mean, and count for each month.
         /// </summary>
         /// <param name="explorer"></param>
-        public MonthlySummaryAnalysis(PiscesSettings explorer)
+        public MonthlySummaryAnalysis(PiscesEngine explorer)
             : base(explorer)
         {
             m_analysisType = AnalysisType.MonthlySummary;

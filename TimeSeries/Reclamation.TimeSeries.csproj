@@ -789,7 +789,7 @@
     <None Include="packages.config" />
     <None Include="Parser\HerbertSchildtExample.cs" />
     <Compile Include="TimeSeriesDatabase.cs" />
-    <Compile Include="PiscesSettings.cs" />
+    <Compile Include="PiscesEngine.cs" />
     <Compile Include="SeriesListText.cs" />
     <Compile Include="SeriesRange.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
