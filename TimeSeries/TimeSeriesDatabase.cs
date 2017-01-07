@@ -68,7 +68,7 @@ namespace Reclamation.TimeSeries
     public partial class TimeSeriesDatabase
     {
         BasicDBServer m_server;
-        TimeSeriesDatabaseSettings m_settings;
+        PiscesSettings m_settings;
         SeriesExpressionParser m_parser;
         Quality m_quality;
         bool m_readOnly;
@@ -93,7 +93,7 @@ namespace Reclamation.TimeSeries
             get { return m_parser; }
             set { m_parser = value; }
         }
-        public TimeSeriesDatabaseSettings Settings
+        public PiscesSettings Settings
         {
             get { return m_settings; }
             // set { m_settings = value; }
@@ -266,7 +266,7 @@ namespace Reclamation.TimeSeries
 
         private void InitSettings()
         {
-            m_settings = new TimeSeriesDatabaseSettings(m_server);
+            m_settings = new PiscesSettings(m_server);
         }
 
         public TimeSeriesDatabaseDataSet.sitecatalogDataTable GetSiteCatalog()

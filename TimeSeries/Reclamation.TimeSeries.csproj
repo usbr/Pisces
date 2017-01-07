@@ -719,7 +719,7 @@
       <DependentUpon>TimeSeriesDatabaseDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="TimeSeriesDatabaseDelete.cs" />
-    <Compile Include="TimeSeriesDatabaseSettings.cs" />
+    <Compile Include="PiscesSettings.cs" />
     <Compile Include="TimeSeriesDatabase.Tree.cs" />
     <Compile Include="PiscesFolder.cs" />
     <Compile Include="PiscesObject.cs" />

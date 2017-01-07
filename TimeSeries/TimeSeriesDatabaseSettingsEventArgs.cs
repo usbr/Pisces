@@ -8,9 +8,9 @@ namespace Reclamation.TimeSeries
     public class TimeSeriesDatabaseSettingsEventArgs:EventArgs
     {
         public TimeWindow Window { get; set; }
-        public TimeSeriesDatabaseSettings Settings { get; set; }
+        public PiscesSettings Settings { get; set; }
 
-        public TimeSeriesDatabaseSettingsEventArgs(TimeSeriesDatabaseSettings settings, TimeWindow window)
+        public TimeSeriesDatabaseSettingsEventArgs(PiscesSettings settings, TimeWindow window)
         {
             this.Window = window;
             this.Settings = settings;
