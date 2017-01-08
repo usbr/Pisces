@@ -19,8 +19,8 @@ Yakima,Daily,www,https://www.usbr.gov/pn-bin/yak/webarccsv.pl
 Yakima,Monthly,www,no monthly url for external
 PNLinux,Daily,recnet,http://lrgs1.pn.usbr.gov/pn-bin/daily
 PNLinux,Irregular,recnet,http://lrgs1.pn.usbr.gov/pn-bin/instant
-PNLinux,Daily,www,http://lrgs1.pn.usbr.gov/pn-bin/daily
-PNLinux,Irregular,www,http://lrgs1.pn.usbr.gov/pn-bin/instant
+PNLinux,Daily,www,https://www.usbr.gov/pn-bin/daily.pl
+PNLinux,Irregular,www,https://www.usbr.gov/pn-bin/instant.pl
 LCHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
 LCHDB,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
 LCHDB2,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com

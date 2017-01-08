@@ -286,7 +286,7 @@ namespace Reclamation.TimeSeries.Reports
 
         public double GetValue(string cbtt, string pcode, DateTime t)
         {
-            var s = new HydrometInstantSeries(cbtt, pcode);
+            var s = new HydrometInstantSeries(cbtt, pcode,HydrometHost.Yakima);
             //DateTime th = new DateTime(t.Year, t.Month, t.Day, hour, 0, 0);
             s.Read(t,t);
             

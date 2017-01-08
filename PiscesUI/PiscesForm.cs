@@ -3,18 +3,11 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Reclamation.Core;
-using System.Configuration;
-using Reclamation.TimeSeries.Excel;
-using Reclamation.TimeSeries.Forms.Calculations;
 using Reclamation.TimeSeries.Graphing;
-using Pisces;
 using Reclamation.TimeSeries.Parser;
-using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.Hydromet;
-using System.IO;
 using Reclamation.TimeSeries.Forms.RatingTables;
 using Reclamation.TimeSeries.Forms.Graphing;
-using Rwis.Sync;
 using System.Collections.Generic;
 using Reclamation.TimeSeries.RatingTables;
 using Reclamation.TimeSeries.Forms.Alarms;
@@ -216,8 +209,9 @@ namespace Reclamation.TimeSeries.Forms
             m_settings.Set("TimeWindowType", w.WindowType.ToString());
 
             m_settings.Set("AutoRefresh", DB.AutoRefresh);
-
-            //  m_settings.Set("ExcelAutoUpdate", SpreadsheetGearSeries.AutoUpdate);
+            #if !PISCES_OPEN
+             m_settings.Set("ExcelAutoUpdate", SpreadsheetGearSeries.AutoUpdate);
+#endif
             m_settings.Save();
 
         }
@@ -538,6 +532,7 @@ namespace Reclamation.TimeSeries.Forms
         private void ExplorerForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             GlobalSettings.Save();
+            SaveSettingsToDatabase();
         }
 
 

@@ -41,26 +41,15 @@ namespace Reclamation.TimeSeries
         public PiscesSettings Settings
         {
             get { return m_db.Settings; }
-           // set { m_settings = value; }
         }
         
 
-        /// <summary>
-        /// Creates an Explorer
-        /// </summary>
-        /// <param name="view"></param>
         public PiscesEngine(IExplorerView view,string fileName)
         {
             this.m_view = view;
             Open(fileName);
         }
 
-        public void SaveSettings1()
-        {
-            // save time window settings
-            //m_db.Settings.Save();
-            //m_db.SaveSettingsToDatabase(TimeWindow);
-        }
 
         public void Open(string path)
         {

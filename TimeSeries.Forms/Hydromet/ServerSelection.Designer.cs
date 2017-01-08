@@ -33,28 +33,27 @@
             this.radioButtonGP = new System.Windows.Forms.RadioButton();
             this.radioButtonYakHydromet = new System.Windows.Forms.RadioButton();
             this.radioButtonPnHydromet = new System.Windows.Forms.RadioButton();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.radioButtonBoiseLinux);
-            this.groupBox1.Controls.Add(this.radioButtonGP);
-            this.groupBox1.Controls.Add(this.radioButtonYakHydromet);
-            this.groupBox1.Controls.Add(this.radioButtonPnHydromet);
+            this.groupBox1.Controls.Add(this.flowLayoutPanel1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(188, 143);
+            this.groupBox1.Size = new System.Drawing.Size(158, 116);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "time series data source";
             // 
             // radioButtonBoiseLinux
             // 
-            this.radioButtonBoiseLinux.Location = new System.Drawing.Point(12, 104);
+            this.radioButtonBoiseLinux.Location = new System.Drawing.Point(2, 74);
             this.radioButtonBoiseLinux.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonBoiseLinux.Name = "radioButtonBoiseLinux";
             this.radioButtonBoiseLinux.Size = new System.Drawing.Size(136, 20);
@@ -64,7 +63,7 @@
             // 
             // radioButtonGP
             // 
-            this.radioButtonGP.Location = new System.Drawing.Point(12, 80);
+            this.radioButtonGP.Location = new System.Drawing.Point(2, 50);
             this.radioButtonGP.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonGP.Name = "radioButtonGP";
             this.radioButtonGP.Size = new System.Drawing.Size(112, 20);
@@ -74,7 +73,7 @@
             // 
             // radioButtonYakHydromet
             // 
-            this.radioButtonYakHydromet.Location = new System.Drawing.Point(12, 57);
+            this.radioButtonYakHydromet.Location = new System.Drawing.Point(2, 26);
             this.radioButtonYakHydromet.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonYakHydromet.Name = "radioButtonYakHydromet";
             this.radioButtonYakHydromet.Size = new System.Drawing.Size(112, 20);
@@ -84,13 +83,25 @@
             // 
             // radioButtonPnHydromet
             // 
-            this.radioButtonPnHydromet.Location = new System.Drawing.Point(12, 32);
+            this.radioButtonPnHydromet.Location = new System.Drawing.Point(2, 2);
             this.radioButtonPnHydromet.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonPnHydromet.Name = "radioButtonPnHydromet";
             this.radioButtonPnHydromet.Size = new System.Drawing.Size(152, 20);
             this.radioButtonPnHydromet.TabIndex = 0;
             this.radioButtonPnHydromet.Text = "Boise Hydromet";
             this.radioButtonPnHydromet.CheckedChanged += new System.EventHandler(this.serverChanged);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.radioButtonPnHydromet);
+            this.flowLayoutPanel1.Controls.Add(this.radioButtonYakHydromet);
+            this.flowLayoutPanel1.Controls.Add(this.radioButtonGP);
+            this.flowLayoutPanel1.Controls.Add(this.radioButtonBoiseLinux);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(2, 15);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(154, 99);
+            this.flowLayoutPanel1.TabIndex = 6;
             // 
             // ServerSelection
             // 
@@ -99,8 +110,9 @@
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ServerSelection";
-            this.Size = new System.Drawing.Size(188, 143);
+            this.Size = new System.Drawing.Size(158, 116);
             this.groupBox1.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -112,5 +124,6 @@
         private System.Windows.Forms.RadioButton radioButtonGP;
         private System.Windows.Forms.RadioButton radioButtonYakHydromet;
         private System.Windows.Forms.RadioButton radioButtonPnHydromet;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

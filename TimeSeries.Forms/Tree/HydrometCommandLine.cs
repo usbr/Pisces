@@ -20,7 +20,6 @@ namespace HydrometPisces
         public HydrometCommandLine()
         {
             InitializeComponent();
-            comboBoxServer.SelectedIndex = 0;
             ReadHistory();
         }
 
@@ -34,18 +33,6 @@ namespace HydrometPisces
             }
         }
 
-        private HydrometHost Server
-        {
-            get
-            {
-                if (comboBoxServer.SelectedIndex == 0)
-                    return HydrometHost.PN;
-                if (comboBoxServer.SelectedIndex == 1)
-                    return HydrometHost.Yakima;
-
-                return HydrometHost.GreatPlains;
-            }
-    }
 
        
         public Series[] SelectedSeries
@@ -54,8 +41,8 @@ namespace HydrometPisces
             {
                 string query = HydrometInfoUtility.ExpandQuery(this.textBox1.Text.Trim(), TimeInterval.Daily);
                 CommandLine cmd = new CommandLine(query, TimeInterval.Daily);
-
-                var rval = cmd.CreateSeries(Server).ToArray();
+                  var svr = HydrometInfoUtility.HydrometServerFromPreferences();
+                var rval = cmd.CreateSeries(svr).ToArray();
 
                 if (rval.Length > 0)
                 {

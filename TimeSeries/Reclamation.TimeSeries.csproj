@@ -336,7 +336,7 @@
     <Compile Include="FileImporter.cs" />
     <Compile Include="HDB\HDBSeries.cs" />
     <Compile Include="IdahoPower\Program.cs" />
-    <Compile Include="Import\BulkImportExcelControlFile.cs" />
+    <Compile Include="Import\BulkImport.cs" />
     <Compile Include="Import\DirectoryScanner.cs" />
     <Compile Include="Import\BulkImportDirectory.cs" />
     <Compile Include="RatingTables\BasicRating.cs" />

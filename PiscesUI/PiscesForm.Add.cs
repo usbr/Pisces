@@ -1083,7 +1083,7 @@ namespace Reclamation.TimeSeries.Forms
                 DB.SuspendTreeUpdates();
                 if (openExcelDialog.ShowDialog() == DialogResult.OK)
                 {
-                    BulkImportExcelControlFile.Import(DB, openExcelDialog.FileName);
+                    BulkImport.Import(DB, openExcelDialog.FileName);
                     DatabaseChanged();
                 }
             }
