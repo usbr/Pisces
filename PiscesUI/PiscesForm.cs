@@ -210,7 +210,7 @@ namespace Reclamation.TimeSeries.Forms
 
             m_settings.Set("AutoRefresh", DB.AutoRefresh);
             #if !PISCES_OPEN
-             m_settings.Set("ExcelAutoUpdate", SpreadsheetGearSeries.AutoUpdate);
+             m_settings.Set("ExcelAutoUpdate", Reclamation.TimeSeries.Excel.SpreadsheetGearSeries.AutoUpdate);
 #endif
             m_settings.Save();
 
@@ -958,7 +958,7 @@ namespace Reclamation.TimeSeries.Forms
            // o.ScenarioNames = DB.Scenario;
             o.ModsimDisplayFlowInCfs = Modsim.ModsimSeries.DisplayFlowInCfs;
 #if !PISCES_OPEN
-            o.ExcelAutoUpdate = SpreadsheetGearSeries.AutoUpdate;
+            o.ExcelAutoUpdate = Reclamation.TimeSeries.Excel.SpreadsheetGearSeries.AutoUpdate;
 #endif
             o.AutoRefresh = DB.AutoRefresh;
             o.HydrometVariableResolver = DB.Settings.ReadBoolean("HydrometVariableResolver", false);
@@ -981,7 +981,7 @@ namespace Reclamation.TimeSeries.Forms
                 Usgs.Utility.AutoUpdate = o.UsgsDailyAutoUpdate;
                 Modsim.ModsimSeries.DisplayFlowInCfs = o.ModsimDisplayFlowInCfs;
                 #if !PISCES_OPEN
-                SpreadsheetGearSeries.AutoUpdate = o.ExcelAutoUpdate;
+                Reclamation.TimeSeries.Excel.SpreadsheetGearSeries.AutoUpdate = o.ExcelAutoUpdate;
 #endif
                 DB.AutoRefresh = o.AutoRefresh;
                 SaveSettingsToDatabase();
