@@ -103,7 +103,7 @@ namespace Reclamation.TimeSeries
                      var path = new List<string>();
                      path.Add(piscesFolder);
                      if (s.SiteID.Trim() != "")
-                         path.Add(s.SiteID);
+                         path.Add(s.SiteID.ToLower().Trim());
                      if (s.TimeInterval == TimeInterval.Irregular)
                          path.Add("instant");
                      else
