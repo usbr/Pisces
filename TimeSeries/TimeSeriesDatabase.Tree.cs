@@ -194,6 +194,12 @@ namespace Reclamation.TimeSeries
             m_SeriesCatalog = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
             m_server.FillTable(m_SeriesCatalog); // get all rows.
 
+            if( Filter.Trim() == "")
+            {
+                m_prevFilter = Filter;
+                return m_SeriesCatalog;
+            }
+
             var newColumn = new DataColumn("keep", typeof(System.Boolean));
             newColumn.DefaultValue = false;
             m_SeriesCatalog.Columns.Add(newColumn);
@@ -255,6 +261,11 @@ namespace Reclamation.TimeSeries
         {
             var row = tbl.FindByid(id);
 
+            if( row == null)
+            {
+                Logger.WriteLine("Row does not exist.  It may have been deleted.");
+                return;
+            }
             row["keep"] = true;
 
             if (row.ParentID != row.id) // skip root level folders where parentid=id
