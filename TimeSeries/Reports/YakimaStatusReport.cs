@@ -179,8 +179,12 @@ namespace Reclamation.TimeSeries.Reports
             var s = HydrometDailySeries.GetMultiYearAverage("sys", "af",
                 HydrometHost.Yakima, t1, t2);
             
+            int y=2001;
+            if (t.Month >= 10)
+                y = 2000;
+            DateTime t2000 = new DateTime(y, t.Month, t.Day);
+            
 
-            DateTime t2000 = new DateTime(2000, t.Month, t.Day);
             int idx = s.IndexOf(t2000.Date);
 
             if (idx >= 0 && !s[idx].IsMissing)
