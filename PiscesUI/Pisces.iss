@@ -32,6 +32,9 @@ PrivilegesRequired=lowest
 
 SetupIconFile=".\images\Fish_icon_3.ico"
 
+;clear previously installed files
+[InstallDelete]
+Type: filesandordirs; Name: "{app}"
 
 
 [Languages]
