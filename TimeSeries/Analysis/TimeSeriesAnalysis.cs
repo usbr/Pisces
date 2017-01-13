@@ -35,7 +35,20 @@ namespace Reclamation.TimeSeries.Analysis
                 list.Add(s);
             }
 
-            view.SeriesList = list;
+            SeriesList myList = list;
+            if (Explorer.StatisticalMethods != StatisticalMethods.None)
+            {
+                myList = list.AggregateAndSubset(Explorer.StatisticalMethods,
+                    Explorer.MonthDayRange, Explorer.BeginningMonth);
+            }
+
+            Logger.WriteLine("Drawing Graph");
+
+            if (myList.Count == 1 && myList[0].TimeInterval == TimeInterval.Monthly)
+            {
+                myList.DateFormat = "MMM-yyyy";
+            }
+            view.SeriesList = myList;
             string title = list.Text.TitleText();
             if (Explorer.SubtractFromBaseline)
                 title = "Subtract Reference \n" + title;

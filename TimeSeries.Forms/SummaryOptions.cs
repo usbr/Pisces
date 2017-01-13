@@ -24,32 +24,30 @@ namespace Reclamation.TimeSeries.Forms
 
                 if (this.radioButtonNone.Checked)
                     return StatisticalMethods.None;
-
-                if (this.radioButtonAnnualMax.Checked)
-                        return StatisticalMethods.Max;
-
-                if (this.radioButtonAnnualMin.Checked)
-                            return StatisticalMethods.Min;
-
-                if (this.radioButtonSum.Checked)
-                            return StatisticalMethods.Sum;
-
-                        if (this.radioButtonAverage.Checked)
-                            return StatisticalMethods.Average;
-
-            throw new NotImplementedException("internal error, invalid Aggregate selection");
+                else if (this.radioButtonAnnualMax.Checked)
+                    return StatisticalMethods.Max;
+                else if (this.radioButtonAnnualMin.Checked)
+                    return StatisticalMethods.Min;
+                else if (this.radioButtonSum.Checked)
+                    return StatisticalMethods.Sum;
+                else if (this.radioButtonAverage.Checked)
+                    return StatisticalMethods.Average;
+                else
+                    throw new NotImplementedException("internal error, invalid Aggregate selection");
 
             }
             set {
 
-                if( value == StatisticalMethods.None)
-                        this.radioButtonNone.Checked = true;
-                else if( value == StatisticalMethods.Max)
-                        this.radioButtonAnnualMax.Checked = true;
-                    else if (value == StatisticalMethods.Min)
-                        this.radioButtonAnnualMin.Checked = true;
-                    else if (value == StatisticalMethods.Sum)
-                        this.radioButtonSum.Checked = true;
+                if (value == StatisticalMethods.None)
+                    this.radioButtonNone.Checked = true;
+                else if (value == StatisticalMethods.Max)
+                    this.radioButtonAnnualMax.Checked = true;
+                else if (value == StatisticalMethods.Min)
+                    this.radioButtonAnnualMin.Checked = true;
+                else if (value == StatisticalMethods.Sum)
+                    this.radioButtonSum.Checked = true;
+                else if (value == StatisticalMethods.Average)
+                    this.radioButtonAverage.Checked = true;
                
 
             }
