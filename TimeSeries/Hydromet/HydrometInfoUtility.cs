@@ -930,46 +930,45 @@ namespace Reclamation.TimeSeries.Hydromet
                         s_mpollInventory.Columns.Add("cbtt");
                         s_mpollInventory.Columns.Add("pcode");
                         s_mpollInventory.Columns.Add("years");
-                        //added two more columns
                         s_mpollInventory.Columns.Add("descr");
                         s_mpollInventory.Columns.Add("units");
 
                         string cbtt = "";
                         string pcode = "";
                         DataRow newRow = s_mpollInventory.NewRow();
+                        string pattern = @"^\s(?<cbtt>[A-Z0-9]{1,12}|\s{10,15})\s+(?<pcode>[A-Z0-9]{1,10}|\s{8,10})\s+(?<years>([0-9]{4}-[0-9]{4})\s{2})+";
+                        Regex re = new Regex(pattern, RegexOptions.Multiline);
                         for (int i = 0; i < tf.Length; i++)
                         {
                             string line = tf[i];
-
-                            if (line.IndexOf("   Station     Parm Code    Years")>=0)
+                            if (line.IndexOf("-----") >= 0 || line.Trim() == "")
                                 continue;
-                            if( line.IndexOf(" ------------")>=0)
+                            if (line.IndexOf("Parm Code") >= 0)
                                 continue;
-
-                            if (line.Trim().Length < 27)
-                                continue;
-
-                            var test = line.Substring(0, 14).Trim();
-                            if (test.Length > 0)
+                            var m  =re.Match(line);
+                            if (!m.Success)
                             {
-                                cbtt = test;
+                                Console.WriteLine("skipping "+line);
+                                continue;
+                            }
+                            
+                            if (m.Groups["cbtt"].Value.Trim() != "")
+                            {
+                                cbtt = m.Groups["cbtt"].Value.Trim();
                             }
 
-                            test = line.Substring(14, 11).Trim();
-                            if (test != "")
-                            {
-                                pcode = test;
-                            }
-
-                          
-
-                            var years = line.Substring(26).Trim();
-
-                              if (test == "" )//append years wrapped on multiple lines.
+                            var years = m.Groups["years"].Value.Trim();
+                            if (m.Groups["pcode"].Value.Trim() == "")
                             {
                                 newRow["years"] = newRow["years"].ToString() + " " + years;
                                 continue;
                             }
+                            else
+                            {
+                                pcode = m.Groups["pcode"].Value.Trim();
+                            }
+
+                            
 
 
                            newRow = s_mpollInventory.NewRow();
@@ -985,6 +984,7 @@ namespace Reclamation.TimeSeries.Hydromet
                                 {
                                     descr = Monthlykey.Rows[j]["descr"].ToString();
                                     units = Monthlykey.Rows[j]["units"].ToString();
+                                    break;
                                 }
                             }
                             newRow["descr"] = descr;

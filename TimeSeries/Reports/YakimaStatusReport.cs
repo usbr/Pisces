@@ -204,11 +204,15 @@ namespace Reclamation.TimeSeries.Reports
         }
         private string[] DataSubset(string pcode)
         {
-            var query = from a in yakima_data
-                        where a.IndexOf(" " + pcode) > 0
-                        select a;
-            var rval =  query.ToArray();
-            return rval;
+            var rval = new List<string>();
+            for (int i = 0; i < yakima_data.Length; i++)
+            {
+                var tokens = yakima_data[i].Split(new char[]{' '},StringSplitOptions.RemoveEmptyEntries);
+                if (tokens.Length == 2)
+                    if (tokens[1].Trim() == pcode)
+                        rval.Add(yakima_data[i]);
+            }
+            return rval.ToArray();
         }
 
         private string ProcessParameter(string txt, DateTime t,
