@@ -259,99 +259,99 @@
       <DependentUpon>ScenarioSelectorUrgwom.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="..\Hydromet\cfg\boise_arc.dat">
+    <None Include="..\Applications\cfg\boise_arc.dat">
       <Link>cfg\boise_arc.dat</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\CC.DAT">
+    <None Include="..\Applications\cfg\CC.DAT">
       <Link>cfg\CC.DAT</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\daily_pcode.csv">
+    <None Include="..\Applications\cfg\daily_pcode.csv">
       <Link>cfg\daily_pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\gp\arc_inv.dat">
+    <None Include="..\Applications\cfg\gp\arc_inv.dat">
       <Link>cfg\gp\arc_inv.dat</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\gp\billings_arc.dat">
+    <None Include="..\Applications\cfg\gp\billings_arc.dat">
       <Link>cfg\gp\billings_arc.dat</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\gp\goes.csv">
+    <None Include="..\Applications\cfg\gp\goes.csv">
       <Link>cfg\gp\goes.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\gp\group.csv">
+    <None Include="..\Applications\cfg\gp\group.csv">
       <Link>cfg\gp\group.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\gp\pcode.csv">
+    <None Include="..\Applications\cfg\gp\pcode.csv">
       <Link>cfg\gp\pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\gp\ratingtables.xls">
+    <None Include="..\Applications\cfg\gp\ratingtables.xls">
       <Link>cfg\gp\ratingtables.xls</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\gp\site.csv">
+    <None Include="..\Applications\cfg\gp\site.csv">
       <Link>cfg\gp\site.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\group.csv">
+    <None Include="..\Applications\cfg\group.csv">
       <Link>cfg\group.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\instant_pcode.csv">
+    <None Include="..\Applications\cfg\instant_pcode.csv">
       <Link>cfg\instant_pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\monthly_pcode.csv">
+    <None Include="..\Applications\cfg\monthly_pcode.csv">
       <Link>cfg\monthly_pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\mpoll.cbt">
+    <None Include="..\Applications\cfg\mpoll.cbt">
       <Link>cfg\mpoll.cbt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\nwcc_inventory.csv">
+    <None Include="..\Applications\cfg\nwcc_inventory.csv">
       <Link>cfg\nwcc_inventory.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\owrd_station_list.csv">
+    <None Include="..\Applications\cfg\owrd_station_list.csv">
       <Link>cfg\owrd_station_list.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\pcode.csv">
+    <None Include="..\Applications\cfg\pcode.csv">
       <Link>cfg\pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\reclamationcgi.csv">
+    <None Include="..\Applications\cfg\reclamationcgi.csv">
       <Link>cfg\reclamationcgi.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\site.csv">
+    <None Include="..\Applications\cfg\site.csv">
       <Link>cfg\site.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\snotel_site_list2.csv">
+    <None Include="..\Applications\cfg\snotel_site_list2.csv">
       <Link>cfg\snotel_site_list2.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\yak\goes.csv">
+    <None Include="..\Applications\cfg\yak\goes.csv">
       <Link>cfg\yak\goes.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\yak\pcode.csv">
+    <None Include="..\Applications\cfg\yak\pcode.csv">
       <Link>cfg\yak\pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\yak\site.csv">
+    <None Include="..\Applications\cfg\yak\site.csv">
       <Link>cfg\yak\site.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Hydromet\cfg\yak\yakima_ratingtables.xls">
+    <None Include="..\Applications\cfg\yak\yakima_ratingtables.xls">
       <Link>cfg\yak\yakima_ratingtables.xls</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -380,7 +380,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Hydromet\cfg\mpoll_inventory.txt">
+    <Content Include="..\Applications\cfg\mpoll_inventory.txt">
       <Link>cfg\mpoll_inventory.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

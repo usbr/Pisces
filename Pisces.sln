@@ -30,9 +30,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RiverwareDMI", "RiverWareDM
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{461202B2-A773-45DD-A2BC-E3AB5E70D88E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetSnotel", "Hydromet\GetSnotel\GetSnotel.csproj", "{C69867AF-0F8C-470D-82F9-7C678083C5E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetSnotel", "Applications\GetSnotel\GetSnotel.csproj", "{C69867AF-0F8C-470D-82F9-7C678083C5E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportUsgs", "Hydromet\ImportUSGS\ImportUsgs.csproj", "{8300960D-26B3-453D-AE72-D0267F035E20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportUsgs", "Applications\ImportUSGS\ImportUsgs.csproj", "{8300960D-26B3-453D-AE72-D0267F035E20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RogueBiOpCheck", "Applications\RogueBiOpCheck\RogueBiOpCheck.csproj", "{D427C920-62C7-41D3-BCE1-27E315C2D122}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -456,6 +458,36 @@ Global
 		{8300960D-26B3-453D-AE72-D0267F035E20}.WatchDog|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8300960D-26B3-453D-AE72-D0267F035E20}.WatchDog|Mixed Platforms.Build.0 = Release|Any CPU
 		{8300960D-26B3-453D-AE72-D0267F035E20}.WatchDog|x86.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Forecasting|Any CPU.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Forecasting|Any CPU.Build.0 = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Forecasting|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Forecasting|Mixed Platforms.Build.0 = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Forecasting|x86.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.pisces|Any CPU.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.pisces|Any CPU.Build.0 = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.pisces|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.pisces|Mixed Platforms.Build.0 = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.pisces|x86.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.poet|Any CPU.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.poet|Any CPU.Build.0 = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.poet|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.poet|Mixed Platforms.Build.0 = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.poet|x86.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Release|x86.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.WatchDog|Any CPU.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.WatchDog|Any CPU.Build.0 = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.WatchDog|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.WatchDog|Mixed Platforms.Build.0 = Release|Any CPU
+		{D427C920-62C7-41D3-BCE1-27E315C2D122}.WatchDog|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -464,5 +496,6 @@ Global
 		{AAB62A5F-54CA-4115-92FE-91D54B9E932A} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 		{C69867AF-0F8C-470D-82F9-7C678083C5E1} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 		{8300960D-26B3-453D-AE72-D0267F035E20} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
+		{D427C920-62C7-41D3-BCE1-27E315C2D122} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 	EndGlobalSection
 EndGlobal
