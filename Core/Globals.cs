@@ -41,7 +41,7 @@ namespace Reclamation.Core
                 if (s_cfgData != "")
                     return s_cfgData;
 
-                string dir = Path.Combine(GetPathAbove("Pisces"), "Hydromet", "cfg");
+                string dir = Path.Combine(GetPathAbove("Pisces"), "Applications", "cfg");
                 Console.WriteLine(dir);
 
                 s_cfgData = dir;
