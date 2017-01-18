@@ -12,8 +12,6 @@ namespace RogueBiOpCheck
 {
     class Program
     {
-        private static string roguePath = Directory.GetCurrentDirectory();
-
         static void Main(string[] args)
         {
             if (args.Length != 2)
@@ -207,11 +205,11 @@ namespace RogueBiOpCheck
             PiscesFolder rFldr)
         {
             Console.Write(CBTT + "_" + PCODE + ", ");
-            Series s = new HydrometInstantSeries(CBTT, PCODE);
-            s.Read(t1, t2);
-            s.Name = CBTT + "_" + PCODE + "15min";
-            pDB.AddSeries(s, rFldr);
-            return s;
+            Series rval = new HydrometInstantSeries(CBTT, PCODE);
+            rval.Read(t1, t2);
+            rval.Name = CBTT + "_" + PCODE + "15min";
+            pDB.AddSeries(rval, rFldr);
+            return rval;
         }
 
         // Does the conversion from an instant series to an hourly series.
@@ -219,17 +217,17 @@ namespace RogueBiOpCheck
         {
             Console.Write(sName + ", ");
             // Hourly averaging
-            Series s3 = Reclamation.TimeSeries.Math.Average(sIn, TimeInterval.Hourly);
-            s3.Provider = "Series";
-            s3.Name = sName;
-            pDB.AddSeries(s3, dFldr);
-            return s3;
+            Series rval = Reclamation.TimeSeries.Math.Average(sIn, TimeInterval.Hourly);
+            rval.Provider = "Series";
+            rval.Name = sName;
+            pDB.AddSeries(rval, dFldr);
+            return rval;
         }
 
         // Clears a violation if the series that is being checked has a missing value for the previous and current time-step
         private static Series CheckSourceSeries(Series sourceS, Series checkS)
         {
-            Series checkNewS = checkS.Clone();
+            Series rval = checkS.Clone();
             for (int i = 1; i < checkS.Count(); i++)
             {
                 DateTime tprev = checkS[i - 1].DateTime;
@@ -251,16 +249,16 @@ namespace RogueBiOpCheck
                     }
 
                     if (checkVal1 < 0.0 || checkVal2 < 0.0)
-                        checkNewS.Add(t, 0.0);
+                        rval.Add(t, 0.0);
                     else
-                        checkNewS.Add(checkS[t]);
+                        rval.Add(checkS[t]);
                 }
                 else
                 { 
-                    checkNewS.Add(checkS[t]); 
+                    rval.Add(checkS[t]); 
                 }
             }
-            return checkNewS;
+            return rval;
         }
 
         // Checks hourly GILO flow against hourly SLBO and DICO canal flows
@@ -340,9 +338,9 @@ namespace RogueBiOpCheck
         // Check GILO GH ramping rate against SLBO and DICO flows
         private static Series CheckGILOGageRampingRate(Series GILOgh, Series SLBO, Series DICO)
         {
-            Series sOut = new Series();
-            sOut.Name = "GILO_HourlyGageHeightRampingCheck";
-            sOut.Provider = "Series";
+            Series rval = new Series();
+            rval.Name = "GILO_HourlyGageHeightRampingCheck";
+            rval.Provider = "Series";
 
             for (int i = 0; i < GILOgh.Count - 1; i++)
             {
@@ -398,13 +396,13 @@ namespace RogueBiOpCheck
                     if (ghDiff < -1.0) // Check if GH dropped by more than 1"
                     {
                         if (projQDiff > maxQDiff) // GH dropped by >1", check if change in project flows caused it.
-                            sOut.Add(t2, -99.99); // Change in flow > allowable, assign -99.
+                            rval.Add(t2, -99.99); // Change in flow > allowable, assign -99.
                         else
-                            sOut.Add(t2, -50.00); // Change in flow < allowable, assign -50.
+                            rval.Add(t2, -50.00); // Change in flow < allowable, assign -50.
                     }
                     else // GH didn't drop by more than 1". Assign 0.0
                     { 
-                        sOut.Add(t2, 0.00); 
+                        rval.Add(t2, 0.00); 
                     }
                 }
                 // All other months have a threshold of 2"
@@ -413,24 +411,24 @@ namespace RogueBiOpCheck
                     if (ghDiff < -2.0) // Check if GH dropped by more than 2"
                     {
                         if (projQDiff > 2.0 * maxQDiff)
-                            sOut.Add(t2, -99.99);
+                            rval.Add(t2, -99.99);
                         else
-                            sOut.Add(t2, -50.00);
+                            rval.Add(t2, -50.00);
                     }
                     else
                     { 
-                        sOut.Add(t2, 0.00); 
+                        rval.Add(t2, 0.00); 
                     }
                 }
 
             }
-            return sOut;
+            return rval;
         }
 
         // Check BASO flow against TALO flow increase
         private static Series CheckBASODownRampingRate(Series BASO, Series TALO)
         {
-            Series sOut = new Series();
+            Series rval = new Series();
 
             for (int i = 0; i < BASO.Count - 1; i++)
             {
@@ -452,23 +450,23 @@ namespace RogueBiOpCheck
                 // Check diversion canal flow change against allowable threshold based on stream flow
                 // Assign -99 if diversion increase violates threshold and 0.0 if not in violation
                 if ((BASOjthQ < 20.0) && rampQ > 5.0)
-                    sOut.Add(t2Temp, -99.99);
+                    rval.Add(t2Temp, -99.99);
                 else if ((BASOjthQ >= 20.0 && BASOjthQ < 70.0) && rampQ > 10.0)
-                    sOut.Add(t2Temp, -99.99);
+                    rval.Add(t2Temp, -99.99);
                 else if ((BASOjthQ >= 70.0) && rampQ > 20.0)
-                    sOut.Add(t2Temp, -99.99);
+                    rval.Add(t2Temp, -99.99);
                 else
-                    sOut.Add(t2Temp, 0.0);
+                    rval.Add(t2Temp, 0.0);
             }
-            sOut.Name = "BASO_HourlyDownRampingCheck";
-            sOut.Provider = "Series";
-            return sOut;
+            rval.Name = "BASO_HourlyDownRampingCheck";
+            rval.Provider = "Series";
+            return rval;
         }
 
         // Check BCTO flow against PHXO flow increase
         private static Series CheckBCTODownRampingRate(Series BCTO, Series PHXO)
         {
-            Series sOut = new Series();
+            Series rval = new Series();
 
             for (int i = 0; i < BCTO.Count - 1; i++)
             {
@@ -490,17 +488,17 @@ namespace RogueBiOpCheck
                 // Check diversion canal flow change against allowable threshold based on stream flow
                 // Assign -99 if diversion increase violates threshold and 0.0 if not in violation
                 if ((BCTOjthQ < 20.0) && rampQ > 5.0)
-                    sOut.Add(t2Temp, -99.99);
+                    rval.Add(t2Temp, -99.99);
                 else if ((BCTOjthQ >= 20.0 && BCTOjthQ < 80.0) && rampQ > 10.0)
-                    sOut.Add(t2Temp, -99.99);
+                    rval.Add(t2Temp, -99.99);
                 else if ((BCTOjthQ >= 80.0) && rampQ > 20.0)
-                    sOut.Add(t2Temp, -99.99);
+                    rval.Add(t2Temp, -99.99);
                 else
-                    sOut.Add(t2Temp, 0.0);
+                    rval.Add(t2Temp, 0.0);
             }
-            sOut.Name = "BCTO_HourlyDownRampingCheck";
-            sOut.Provider = "Series";
-            return sOut;
+            rval.Name = "BCTO_HourlyDownRampingCheck";
+            rval.Provider = "Series";
+            return rval;
         }
 
         private static bool IsIrrigationSeason(DateTime t)
@@ -515,7 +513,7 @@ namespace RogueBiOpCheck
         // Check EMI outflow increase ramping rate
         private static Series CheckEMIUpRampingRate(Series emiQ)
         {
-            Series sOut = new Series();
+            Series rval = new Series();
 
             for (int i = 0; i < emiQ.Count - 1; i++)
             {
@@ -529,32 +527,32 @@ namespace RogueBiOpCheck
                     // Check previous hour's flow and the flow increase against the allowable increase threshold
                     // Assign -99 if in violation and 0.0 if not in violation
                     if ((ithQ >= 2.0 && ithQ <= 6.0) && rampQ > 8.0)
-                        sOut.Add(emiQ[i + 1].DateTime, -99.99);
+                        rval.Add(emiQ[i + 1].DateTime, -99.99);
                     else if ((ithQ > 6.0 && ithQ <= 20.0) && rampQ > 10.0)
-                        sOut.Add(emiQ[i + 1].DateTime, -99.99);
+                        rval.Add(emiQ[i + 1].DateTime, -99.99);
                     else if ((ithQ > 20.0 && ithQ <= 40.0) && rampQ > 15.0)
-                        sOut.Add(emiQ[i + 1].DateTime, -99.99);
+                        rval.Add(emiQ[i + 1].DateTime, -99.99);
                     else if ((ithQ > 40.0 && ithQ <= 100.0) && rampQ > 20.0)
-                        sOut.Add(emiQ[i + 1].DateTime, -99.99);
+                        rval.Add(emiQ[i + 1].DateTime, -99.99);
                     else if ((ithQ > 100.0) && rampQ > 30.0)
-                        sOut.Add(emiQ[i + 1].DateTime, -99.99);
+                        rval.Add(emiQ[i + 1].DateTime, -99.99);
                     else
-                        sOut.Add(emiQ[i + 1].DateTime, 0.0);
+                        rval.Add(emiQ[i + 1].DateTime, 0.0);
                 }
                 else 
                 { 
-                    sOut.Add(emiQ[i + 1].DateTime, 0.0); 
+                    rval.Add(emiQ[i + 1].DateTime, 0.0); 
                 }
             }
-            sOut.Name = "EMI_HourlyUpRampingCheck";
-            sOut.Provider = "Series";
-            return sOut;
+            rval.Name = "EMI_HourlyUpRampingCheck";
+            rval.Provider = "Series";
+            return rval;
         }
 
         // Check EMI daily outflow decrease ramping rate
         private static Series CheckEMIDailyDownRampingRate(Series emiQ)
         {
-            Series sOut = new Series();
+            Series rval = new Series();
             Series dailyAvg = Reclamation.TimeSeries.Math.Average(emiQ, TimeInterval.Daily);
 
             for (int i = 0; i < dailyAvg.Count - 1; i++)
@@ -563,19 +561,19 @@ namespace RogueBiOpCheck
                 double jthQ = dailyAvg[i + 1].Value;
 
                 if ((ithQ > 10.0) && (jthQ < 0.5 * ithQ))
-                    sOut.Add(dailyAvg[i + 1].DateTime, -99.99);
+                    rval.Add(dailyAvg[i + 1].DateTime, -99.99);
                 else
-                    sOut.Add(dailyAvg[i + 1].DateTime, 0.0);
+                    rval.Add(dailyAvg[i + 1].DateTime, 0.0);
             }
-            sOut.Name = "EMI_DailyDownRampingCheck";
-            sOut.Provider = "Series";
-            return sOut;
+            rval.Name = "EMI_DailyDownRampingCheck";
+            rval.Provider = "Series";
+            return rval;
         }
 
         // Check EMI hourly outflow decrease ramping rate
         private static Series CheckEMIHourlyDownRampingRate(Series emiQ)
         {
-            Series sOut = new Series();
+            Series rval = new Series();
 
             for (int i = 0; i < emiQ.Count - 1; i++)
             {
@@ -584,13 +582,13 @@ namespace RogueBiOpCheck
                 double rampQ = jthQ - ithQ;
 
                 if ((ithQ <= 10.0) && (rampQ < -5.0))
-                    sOut.Add(emiQ[i + 1].DateTime, -99.99);
+                    rval.Add(emiQ[i + 1].DateTime, -99.99);
                 else
-                    sOut.Add(emiQ[i + 1].DateTime, 0.0);
+                    rval.Add(emiQ[i + 1].DateTime, 0.0);
             }
-            sOut.Name = "EMI_HourlyDownRampingCheck";
-            sOut.Provider = "Series";
-            return sOut;
+            rval.Name = "EMI_HourlyDownRampingCheck";
+            rval.Provider = "Series";
+            return rval;
         }
 
         // Interpolates a middle point between two points
@@ -666,9 +664,9 @@ namespace RogueBiOpCheck
         // Check ANTO GH ramping rate against ANTO canal flows
         private static Series CheckANTOGageRampingRate(Series antoGH, Series antoQC)
         {
-            Series sOut = new Series();
-            sOut.Name = "ANTO_HourlyGageHeightRampingCheck";
-            sOut.Provider = "Series";
+            Series rval = new Series();
+            rval.Name = "ANTO_HourlyGageHeightRampingCheck";
+            rval.Provider = "Series";
 
             for (int i = 0; i < antoGH.Count - 1; i++)
             {
@@ -732,14 +730,14 @@ namespace RogueBiOpCheck
                     if (ghDiff < -1.0) // Check if GH dropped by more than 1"
                     {
                         if (projQDiff > maxQDiff) // GH dropped by >1", check if change in project flows caused it.
-                            sOut.Add(t2, -99.99); // Change in flow > allowable, assign -99.
+                            rval.Add(t2, -99.99); // Change in flow > allowable, assign -99.
                         else
-                            sOut.Add(t2, -50.00); // Change in flow < allowable, assign -50.
+                            rval.Add(t2, -50.00); // Change in flow < allowable, assign -50.
                     }
                     else 
                     {
                         // GH didn't drop by more than 1". Assign 0.0
-                        sOut.Add(t2, 0.00); 
+                        rval.Add(t2, 0.00); 
                     }
                 }
                 // All other months have a threshold of 2"
@@ -748,18 +746,18 @@ namespace RogueBiOpCheck
                     if (ghDiff < -2.0) // Check if GH dropped by more than 2"
                     {
                         if (projQDiff > 2.0 * maxQDiff)
-                            sOut.Add(t2, -99.99);
+                            rval.Add(t2, -99.99);
                         else
-                            sOut.Add(t2, -50.00);
+                            rval.Add(t2, -50.00);
                     }
                     else
                     { 
-                        sOut.Add(t2, 0.00); 
+                        rval.Add(t2, 0.00); 
                     }
                 }
 
             }
-            return sOut;
+            return rval;
         }
     }
 }
