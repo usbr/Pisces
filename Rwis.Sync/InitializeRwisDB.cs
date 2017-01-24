@@ -47,7 +47,7 @@ namespace Rwis.Initialize
                 foreach (DataRow row in steCatCSV.Rows)
                 {
                     steCat.AddsitecatalogRow(row["siteid"].ToString(), row["description"].ToString(), row["state"].ToString(),
-                        Convert.ToDouble(row["latitude"]), Convert.ToDouble(row["longitude"]), Convert.ToDouble(row["elevation"]), row["timezone"].ToString(),
+                        row["latitude"].ToString(), row["longitude"].ToString(), row["elevation"].ToString(), row["timezone"].ToString(),
                         row["install"].ToString(), row["horizontal_datum"].ToString(), row["vertical_datum"].ToString(),
                         Convert.ToDouble(row["vertical_accuracy"]), row["elevation_method"].ToString(), row["tz_offset"].ToString(),
                         row["active_flag"].ToString(), row["type"].ToString(), row["responsibility"].ToString(), row["agency_region"].ToString());

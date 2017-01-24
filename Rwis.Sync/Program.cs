@@ -165,17 +165,11 @@ namespace Rwis.Sync
                 {// insert
                     Console.WriteLine("new record: "+siteID);
                     double vertical_accuracy = 0;
-                    double latitude = 0;
-                    double longitude = 0;
-                    double elevation = 0;
                     
                     double.TryParse(localRow["vertical_accuracy"].ToString(),out vertical_accuracy);
-                    double.TryParse(localRow["latitude"].ToString(), out latitude);
-                    double.TryParse(localRow["longitude"].ToString(), out longitude);
-                    double.TryParse(localRow["elevation"].ToString(), out elevation);
 
                     scRWIS.AddsitecatalogRow(localRow["siteid"].ToString(), localRow["description"].ToString(), localRow["state"].ToString(),
-                        latitude, longitude, elevation, localRow["timezone"].ToString(),
+                        localRow["latitude"].ToString(), localRow["longitude"].ToString(), localRow["elevation"].ToString(), localRow["timezone"].ToString(),
                         localRow["install"].ToString(), localRow["horizontal_datum"].ToString(), localRow["vertical_datum"].ToString(),
                         vertical_accuracy, localRow["elevation_method"].ToString(), localRow["tz_offset"].ToString(),
                         localRow["active_flag"].ToString(), localRow["type"].ToString(), localRow["responsibility"].ToString(), localRow["agency_region"].ToString());
