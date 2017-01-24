@@ -126,7 +126,7 @@ namespace Reclamation.TimeSeries
             {
                 string sql = "Create Table alarm_definition "
                 + "( id  int not null primary key, "
-                + " enabled smallint not null default 0, "
+                + " enabled boolean not null default false, "
                 + " list " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "

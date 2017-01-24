@@ -895,6 +895,7 @@
       <Link>x86\SQLite.Interop.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Alarms\func_odbc.conf" />
     <Content Include="IdahoPower\test.xml" />
     <Content Include="Nrcs\NWCC_Web_Report_Scripting.txt" />
     <Content Include="Reports\YakimaStatusReport.txt" />
