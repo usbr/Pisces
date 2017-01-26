@@ -22,7 +22,7 @@ namespace Reclamation.TimeSeries.Forms
             InitializeComponent();
             m_db = db;
             ReloadGrid();
-            LoadSeriesList();
+           
             LoadMonthList();
             SetSortMetricColumnVisibility(tabControl1);
         }
@@ -158,7 +158,8 @@ namespace Reclamation.TimeSeries.Forms
 
         private void ScenarioSelector_Load(object sender, EventArgs e)
         {
-            //Console.WriteLine("hi");
+            if( comboBoxSelectedSeries.Items.Count ==0)
+               LoadSeriesList();
         }
 
         private void ScenarioSelector_FormClosing(object sender, FormClosingEventArgs e)
