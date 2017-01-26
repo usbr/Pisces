@@ -31,7 +31,7 @@ namespace Pisces.NunitTests.Database
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("palisades");
             ds.alarm_definition.Addalarm_definitionRow(true, "palisades",
-                "pal", "fb", "above 5520", "", 10);
+                "pal", "fb", "above 5520", "");
             ds.SaveTable(ds.alarm_definition);
             ds.alarm_recipient.Addalarm_recipientRow("palisades", 4,
                 "5272", "office", "hydromet@usbr.gov");
@@ -62,7 +62,7 @@ namespace Pisces.NunitTests.Database
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("lucky");
             ds.alarm_definition.Addalarm_definitionRow(true, "lucky",
-                "luc", "fb", "below 5525", "", 10);
+                "luc", "fb", "below 5525", "");
             ds.SaveTable(ds.alarm_definition);
             ds.alarm_recipient.Addalarm_recipientRow("lucky", 4,
                 "5272", "office", "hydromet@usbr.gov");
@@ -90,7 +90,7 @@ namespace Pisces.NunitTests.Database
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("cre");
             ds.alarm_definition.Addalarm_definitionRow(true, "cre",
-                "cre", "fb", "dropping 1", "", 10);
+                "cre", "fb", "dropping 1", "");
             ds.SaveTable(ds.alarm_definition);
             ds.alarm_recipient.Addalarm_recipientRow("cre", 4,
                 "5272", "office", "hydromet@usbr.gov");
@@ -117,7 +117,7 @@ namespace Pisces.NunitTests.Database
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("emi");
             ds.alarm_definition.Addalarm_definitionRow(true, "emi",
-                "emi", "fb", "rising 1", "", 10);
+                "emi", "fb", "rising 1", "");
             ds.SaveTable(ds.alarm_definition);
             ds.alarm_recipient.Addalarm_recipientRow("emi", 4,
                 "5272", "office", "hydromet@usbr.gov");
@@ -146,7 +146,7 @@ namespace Pisces.NunitTests.Database
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("uny");
             ds.alarm_definition.Addalarm_definitionRow(true, "uny",
-                "uny", "pc", "above 300 or rising 1", "", 10);
+                "uny", "pc", "above 300 or rising 1", "");
             ds.SaveTable(ds.alarm_definition);
             ds.alarm_recipient.Addalarm_recipientRow("uny", 4,
                 "5272", "office", "hydromet@usbr.gov");

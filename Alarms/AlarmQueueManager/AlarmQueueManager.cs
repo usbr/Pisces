@@ -7,25 +7,17 @@ using System.Configuration;
 namespace AlarmQueueManager
 {
     /// <summary>
-    /// Manage a queue of alarms and when to originate a call
-    /// runs every minute from a cron job to check for alarms.
+    /// AlarmQueueManager wateches a queue of alarms.
+    /// the queue is a database table alarm_phone_queue
+    /// runs every minute from a cron job
+    /// processes alarms with status of 'new' or 'unconfirmed'
     /// 
-    /// Overview
-    /// 
-    ///  check alarm_queue for status = 'new' or 'unconfirmed'
-    ///  process 'new' alarms first by priority
-    ///  
-    ///   send the list of phone numbers to asterisk
-    ///   monitor status
-    ///      if confirmed
-    ///         update status and confirmed_by
-    ///         exit
-    ///      if error 
-    ///         send error email to administrator
-    ///         exit
-    ///      if unconfirmed for 15 minutes
-    ///         exit
-    /// 
+    ///   0) verify asterisk is not busy with alarm_phone_queue.id 
+    ///   1) update alarm_phone_queue.current_phone_index
+    ///         current_phone_index is incremented +1
+    ///         or back to zero when all phones have been called
+    ///   2) create asterisk call file
+    ///   3) copy call file to asterisk server
     /// 
     /// </summary>
     class AlarmQueueManager
@@ -73,6 +65,11 @@ namespace AlarmQueueManager
             var alarmQueue = DB.GetNewAlarms();
             string user = ConfigurationManager.AppSettings["pbx_username"];
             string pass = ConfigurationManager.AppSettings["pbx_password"];
+            string cid = ConfigurationManager.AppSettings["pbx_callerid"];
+            string sip = ConfigurationManager.AppSettings["pbx_channel_prefix"];
+            string context = ConfigurationManager.AppSettings["pbx_context"];
+            string extension = ConfigurationManager.AppSettings["pbx_extension"];
+            string priority = ConfigurationManager.AppSettings["pbx_priority"];
 
             Logger.WriteLine("found "+alarmQueue.Rows.Count+" new alarms in the queue");
             
@@ -81,49 +78,63 @@ namespace AlarmQueueManager
                 var alarm = alarmQueue[i];
                 LogDetails(alarm);
 
-                   string[] numbers = DB.GetPhoneNumbers(alarm.list);
-                    //string[] numbers = new string[] { "5272", "5272" };
-                    Asterisk.Call(alarm.siteid, alarm.parameter, alarm.value.ToString("F2"),
-                        numbers,user,pass);
-                    Thread.Sleep(2000);
-                    string prevLog = "";
-                    do
-                    {
-                        InstanceUtility.TouchProcessFile();
-                        Thread.Sleep(2000);
-                        UpdatePiscesStatus(alarm);
+                string[] numbers = DB.GetPhoneNumbers(alarm.list);
 
-                        if( Asterisk.Log != prevLog)
-                        {
-                            prevLog = Asterisk.Log;
-                            Logger.WriteLine(" Asterisk: " + Asterisk.LogTime + " : " + Asterisk.Log);
-                        }
+                int minutesBeforeNextPhone = 5;
+                if( DB.CurrentActivity(alarm.id, minutesBeforeNextPhone)) // any activity in last x minutes.
+                {
+                    Logger.WriteLine("waiting on id = "+alarm.id+ " it has activity in the last "+minutesBeforeNextPhone+ " minutes");
+                    continue;
+                }
 
-                        DB.SaveTable(alarmQueue);
+                alarm.current_list_index = UpdateCurrentPhoneIndex(alarm, numbers);
 
-                        if (Asterisk.ActiveChannels == 0)
-                        {
-                            UpdatePiscesStatus(alarm);
-                            break; // someone hungup or other loss of connection
-                        }
+                DB.SaveTable(alarmQueue);
 
-                        if( Asterisk.MinutesElapsed >=15)
-                        {
-                            UpdatePiscesStatus(alarm);
-                            break;
-                        }
-                        
-                    } while (Asterisk.Status == "unconfirmed");
+                var c = CreateCallFile(cid, sip, context, extension, priority, alarm, numbers);
+
+                Asterisk.OriginateFromCallFile(c);
+
             }
         }
 
-        private static void UpdatePiscesStatus(AlarmDataSet.alarm_phone_queueRow alarm)
+        private static AsteriskCallFile CreateCallFile(string cid, string sip, string context, string extension, string priority, AlarmDataSet.alarm_phone_queueRow alarm, string[] numbers)
         {
-
-            alarm.status = Asterisk.Status;
-            alarm.status_time = Asterisk.StatusTime;
-            alarm.confirmed_by = Asterisk.ConfirmedBy;
+            var c = new AsteriskCallFile(sip + numbers[alarm.current_list_index],
+                context, extension, priority);
+            c.AddCallerID(cid);
+            c.AddVariable("siteid", alarm.siteid);
+            c.AddVariable("parameter", alarm.parameter);
+            c.AddVariable("value", alarm.value.ToString());
+            c.AddVariable("id", alarm.id.ToString());
+            return c;
         }
+
+
+        /// <summary>
+        /// current_list_index is initilized to -1 in database.
+        /// increment or rollback to zero 
+        /// </summary>
+        /// <param name="alarm"></param>
+        /// <param name="numbers"></param>
+        /// <returns></returns>
+        private static int UpdateCurrentPhoneIndex(AlarmDataSet.alarm_phone_queueRow alarm, string[] numbers)
+        {
+            if (numbers.Length == 0)
+                throw new Exception("Error: no phone numbers... list is empty");
+            
+            int rval = alarm.current_list_index + 1;
+
+            if (alarm.current_list_index < 0
+                || alarm.current_list_index >= numbers.Length)
+            {
+                rval = 0;
+            }
+
+            return rval;
+        }
+
+        
 
         private void LogDetails(AlarmDataSet.alarm_phone_queueRow alarm)
         {

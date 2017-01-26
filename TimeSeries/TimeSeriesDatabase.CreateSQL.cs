@@ -55,7 +55,6 @@ namespace Reclamation.TimeSeries
         }
 
 
-
         private void CreateAlarmGroups()
         {
 
@@ -97,7 +96,7 @@ namespace Reclamation.TimeSeries
                 + " status_time " + m_server.PortableDateTimeType() + " not null , "
                 + " confirmed_by " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " event_time " + m_server.PortableDateTimeType() + " not null  ,"
-                + " priority int not null default 10 "
+                + " current_list_index int not null default -1 "
                 + " )";
                 ExecuteCreateTable(m_server, sql);
             }
@@ -131,8 +130,7 @@ namespace Reclamation.TimeSeries
                 + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " alarm_condition " + m_server.PortableCharacterType(256) + " not null default '', "
-                + " clear_condition " + m_server.PortableCharacterType(256) + " not null default '', "
-                + " priority int not null default 10 "
+                + " clear_condition " + m_server.PortableCharacterType(256) + " not null default '' "
                 + " , unique(siteid,parameter) )";
                 ExecuteCreateTable(m_server, sql);
             }

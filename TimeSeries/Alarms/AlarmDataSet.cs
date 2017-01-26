@@ -293,7 +293,7 @@ namespace Reclamation.TimeSeries.Alarms
             row.status_time = DateTime.Now;
             row.confirmed_by = "";
             row.event_time = pt.DateTime;
-            row.priority = alarm.priority;
+            row.current_list_index = 0;
             tbl.Rows.Add(row);
             m_server.SaveTable(tbl);
         }
@@ -383,6 +383,25 @@ namespace Reclamation.TimeSeries.Alarms
         }
 
 
+        /// <summary>
+        /// determines if there is any asterisk activity
+        /// within in a specified number of minutes.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="minutes"></param>
+        /// <returns></returns>
+        public bool CurrentActivity(int id, int minutes)
+        { // look in alarm_log table and check for recent activity
+            var alarm_log = new AlarmDataSet.alarm_logDataTable();
+
+            DateTime t = DateTime.Now.AddMinutes(-minutes);
+            var sql = "select * from alarm_log where datetime >= "
+                 + m_server.PortableDateString(t, TimeSeriesDatabase.dateTimeFormat);
+
+            m_server.FillTable(alarm_log, sql);
+
+            return alarm_log.Rows.Count > 0;
+        }
 
     }
 }

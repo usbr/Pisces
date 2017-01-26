@@ -21,71 +21,34 @@ namespace Reclamation.TimeSeries.Alarms
       ///  asterisk -x "database del hydromet status"
       ///  asterisk -x "dialplan reload"
       ///  </summary>
-   public static class Asterisk
+   public class Asterisk
     {
 
-       private static Stopwatch stopwatch1;
-
-        public static int MinutesElapsed
+        string m_username="";
+        string m_password="";
+       /// <summary>
+       /// Constructor to connect to remote linux server (with asterisk installed)
+       /// </summary>
+       /// <param name="username"></param>
+       /// <param name="password"></param>
+        public Asterisk(string username, string password)
         {
-            get
-            {
-                var a = stopwatch1.ElapsedMilliseconds;
-
-                return (int)a / 1000 / 60; 
-            }
+            m_username = username;
+            m_password = password;
         }
-
-       static string s_username="";
-       static string s_password="";
-        /// <summary>
-        /// originates calls on asterisk with a variable extension on the context 
-        /// hydromet_groups
-        /// </summary>
-        public static void Call(string siteId, string parameter, string value,string[] phoneNumbers,
-            string username="", string password="")
-        {
-            s_username = username;
-            s_password = password;
-            stopwatch1 = new Stopwatch();
-            stopwatch1.Restart();
-
-            HangupAllChannels(); // make sure phone is clear.
-
-            Logger.WriteLine("Making Asterisk call");
-            
-            Clear("hydromet");
-
-            Set("hydromet", "siteid", siteId);
-            Set("hydromet", "parameter", parameter);
-            Set("hydromet", "value", value);
-//            Set("hydromet", "sound_file", siteId + "_" + parameter);
-
-            for (int i = 1; i <= phoneNumbers.Length; i++)
-            {
-                Set("hydromet", "phone"+i, phoneNumbers[i-1]);    
-            }
-            
-
-            //;asterisk -rx "channel originate local/main@hydromet extension "            
-            string cmd = "channel originate local/main@hydromet extension" ;
-            RunAsteriskCommand(cmd);
-
-        }
-        static void Clear(string family)
+         void Clear(string family)
         {
             var args = "database deltree "+family;
             var output = RunAsteriskCommand(args);
         }
 
-
-        static void Set(string family, string key, string value)
+         void Set(string family, string key, string value)
         {
             var args = "database put " + family + " " + key + " " + value +"";
             var output  =RunAsteriskCommand(args);
         }
 
-        private static string Get(string family="", string key="")
+        private  string Get(string family="", string key="")
         {
             var output = RunAsteriskCommand("database show " + family + " " + key + "");
             for (int i = 0; i < output.Length; i++)
@@ -100,15 +63,19 @@ namespace Reclamation.TimeSeries.Alarms
             return "";
         }
 
-
 //       channel request hangup all
-       static void HangupAllChannels()
+        void HangupAllChannels()
         {
             RunAsteriskCommand("channel request hangup all");
         }
 
 
-        static string[] RunAsteriskCommand(string args)
+       /// <summary>
+       /// string cmd = "channel originate local/main@hydromet extension" ;
+       /// </summary>
+       /// <param name="args"></param>
+       /// <returns></returns>
+         string[] RunAsteriskCommand(string args)
         {
             var exe = ConfigurationManager.AppSettings["asterisk_executable"];
             if (exe == null || exe == "")
@@ -116,60 +83,13 @@ namespace Reclamation.TimeSeries.Alarms
 
             Logger.WriteLine("running asterisk '" + args + "'");
             return RunRemoteExecutable(exe, "-x \""+args+"\"");
-            
-        }
-
-        public static string ConfirmedBy { 
-            get{
-                return Get("hydromet", "confirmed_by");
-            }
-        }
-
-       /// <summary>
-       /// latest log message
-       /// </summary>
-        public static string Log
-        {
-            get
-            {
-                return Get("hydromet", "log");
-            }
-        }
-        public static string LogTime
-        {
-            get
-            {
-                return Get("hydromet", "log_time");
-            }
-        }
-
-        /// <summary>
-        /// checks asterisk DB for variables to determine the status 
-        /// </summary>
-        public static string Status
-        {
-            get
-            {
-                return Get("hydromet", "status");
-            }
-        }
-
-        public static DateTime StatusTime
-        {
-            get
-            {
-                var x = Get("hydromet", "status_time");
-                Console.WriteLine(x);
-                return DateTime.Parse(x);
-            }
         }
 
 
-
-        private static string[] RunRemoteExecutable(string exe, string args)
+        private  string[] RunRemoteExecutable(string exe, string args)
         {
 
-                SshClient ssh = new SshClient("dectalk", s_username, s_password);
+                SshClient ssh = new SshClient("dectalk", m_username, m_password);
             //    var pkf = new PrivateKeyFile("C:key.key");
                 ssh.Connect();
                 var cmd = ssh.RunCommand(exe + " " + args);
@@ -177,7 +97,7 @@ namespace Reclamation.TimeSeries.Alarms
                 return cmd.Result.Split('\n');
         }
 
-        private static string[] RunLocal(string exe, string args)
+        private  string[] RunLocal(string exe, string args)
         {
             Logger.WriteLine("running :" + exe + " " + args);
             Process myProcess = new Process();
@@ -200,7 +120,7 @@ namespace Reclamation.TimeSeries.Alarms
             return rval;
         }
 
-         public static int ActiveChannels
+         public int ActiveChannels
         {
             get
             {
@@ -219,9 +139,7 @@ namespace Reclamation.TimeSeries.Alarms
             }
         }
 
-
-
-         static string GetAllVariables()
+         string GetAllVariables()
         {
             Logger.WriteLine("GetAllVariable()");
             string[] output = RunAsteriskCommand("database show " );
@@ -229,8 +147,13 @@ namespace Reclamation.TimeSeries.Alarms
         }
 
 
-
-
-      
+       /// <summary>
+       /// copies call file
+       /// </summary>
+       /// <param name="c"></param>
+         public void OriginateFromCallFile(AsteriskCallFile c)
+         {
+          
+         }
     }
 }

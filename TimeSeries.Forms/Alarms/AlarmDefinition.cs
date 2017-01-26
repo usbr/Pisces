@@ -87,8 +87,8 @@ namespace Reclamation.TimeSeries.Forms.Alarms
               if (login.ShowDialog() == System.Windows.Forms.DialogResult.OK)
               {
 
-                  Asterisk.Call(alarm.siteid, alarm.parameter,
-                       textBoxTest.Text, numbers,login.Username,login.Password);
+                  //Asterisk.Call(alarm.siteid, alarm.parameter,
+                    //   textBoxTest.Text, numbers,login.Username,login.Password);
               }
 
         }

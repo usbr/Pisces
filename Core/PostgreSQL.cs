@@ -17,7 +17,6 @@ namespace Reclamation.Core
   /// </summary>
   public class PostgreSQL:BasicDBServer
   {
-    public static string DateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
     /// <summary>
     /// last command that was sent to server.
     /// </summary>
