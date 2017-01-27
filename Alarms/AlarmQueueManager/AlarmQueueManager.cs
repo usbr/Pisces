@@ -65,12 +65,7 @@ namespace AlarmQueueManager
             var alarmQueue = DB.GetNewAlarms();
             string user = ConfigurationManager.AppSettings["pbx_username"];
             string pass = ConfigurationManager.AppSettings["pbx_password"];
-            string cid = ConfigurationManager.AppSettings["pbx_callerid"];
-            string sip = ConfigurationManager.AppSettings["pbx_channel_prefix"];
-            string context = ConfigurationManager.AppSettings["pbx_context"];
-            string extension = ConfigurationManager.AppSettings["pbx_extension"];
-            string priority = ConfigurationManager.AppSettings["pbx_priority"];
-
+        
             Logger.WriteLine("found "+alarmQueue.Rows.Count+" new alarms in the queue");
             
             for (int i = 0; i < alarmQueue.Count; i++)
@@ -91,24 +86,19 @@ namespace AlarmQueueManager
 
                 DB.SaveTable(alarmQueue);
 
-                var c = CreateCallFile(cid, sip, context, extension, priority, alarm, numbers);
+                var c = new AsteriskCallFile( numbers[alarm.current_list_index]);
+                c.AddVariable("siteid", alarm.siteid);
+                c.AddVariable("parameter", alarm.parameter);
+                c.AddVariable("value", alarm.value.ToString());
+                c.AddVariable("id", alarm.id.ToString());
 
-                Asterisk.OriginateFromCallFile(c);
+                Asterisk a = new Asterisk(user, pass);
+                a.OriginateFromCallFile(c);
 
             }
         }
 
-        private static AsteriskCallFile CreateCallFile(string cid, string sip, string context, string extension, string priority, AlarmDataSet.alarm_phone_queueRow alarm, string[] numbers)
-        {
-            var c = new AsteriskCallFile(sip + numbers[alarm.current_list_index],
-                context, extension, priority);
-            c.AddCallerID(cid);
-            c.AddVariable("siteid", alarm.siteid);
-            c.AddVariable("parameter", alarm.parameter);
-            c.AddVariable("value", alarm.value.ToString());
-            c.AddVariable("id", alarm.id.ToString());
-            return c;
-        }
+        
 
 
         /// <summary>

@@ -8,19 +8,20 @@ using System.Text;
 using System.Windows.Forms;
 using Reclamation.TimeSeries.Alarms;
 using Reclamation.Core;
+using System.Configuration;
 
 namespace Reclamation.TimeSeries.Forms.Alarms
 {
-    public partial class AlarmDefinition : UserControl
+    public partial class AlarmDefinitionUI : UserControl
     {
         AlarmDataSet m_ds;
         AlarmDataSet.alarm_definitionDataTable alarm_definition;
 
-        public AlarmDefinition()
+        public AlarmDefinitionUI()
         {
             InitializeComponent();
         }
-        public AlarmDefinition(AlarmDataSet ds)
+        public AlarmDefinitionUI(AlarmDataSet ds)
         {
             InitializeComponent();
             m_ds = ds;
@@ -60,36 +61,23 @@ namespace Reclamation.TimeSeries.Forms.Alarms
         private void RefreshUi()
         {
             Enabling();
-            this.comboBoxTestList.DataSource= m_ds.GetList();
-            comboBoxTestList.DisplayMember = "list"; 
-
         }
+
 
         private void Enabling()
         {
             var sr = dataGridView1.SelectedRows;
-
             this.buttonTest.Enabled = sr.Count == 1;
-            this.textBoxTest.Enabled = sr.Count == 1;
-            this.comboBoxTestList.Enabled = sr.Count == 1;
+            this.textBoxValue.Enabled = sr.Count == 1;
         }
 
         private void buttonTest_Click(object sender, EventArgs e)
         {
            
          DataRowView currentDataRowView = (DataRowView)dataGridView1.CurrentRow.DataBoundItem;
-         AlarmDataSet.alarm_definitionRow alarm
-             = (AlarmDataSet.alarm_definitionRow)currentDataRowView.Row;
+         var alarm = (AlarmDataSet.alarm_definitionRow)currentDataRowView.Row;
 
-         var numbers = m_ds.GetPhoneNumbers(comboBoxTestList.Text);
-
-              var login = new Login();
-              if (login.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-              {
-
-                  //Asterisk.Call(alarm.siteid, alarm.parameter,
-                    //   textBoxTest.Text, numbers,login.Username,login.Password);
-              }
+          m_ds.CreateAlarm(alarm,new Point(DateTime.Now,Convert.ToDouble(textBoxValue.Text)));
 
         }
     }

@@ -50,6 +50,7 @@ namespace Reclamation.TimeSeries.Alarms
             return tbl;
         }
 
+
         /// <summary>
         /// Gets a list of alarms in priority order for processing
         /// only alarms with status (new, or unconfirmed)
@@ -58,7 +59,7 @@ namespace Reclamation.TimeSeries.Alarms
         public alarm_phone_queueDataTable GetNewAlarms()
         {
             AlarmDataSet.alarm_phone_queueDataTable tbl = new alarm_phone_queueDataTable();
-            string sql = "select * from alarm_phone_queue where status='new' or status = 'unconfirmed' order by priority";
+            string sql = "select * from alarm_phone_queue where status='new' or status = 'unconfirmed'";
             m_server.FillTable(tbl, sql);
             return tbl;
         }
@@ -269,7 +270,7 @@ namespace Reclamation.TimeSeries.Alarms
         /// </summary>
         /// <param name="alarm"></param>
         /// <param name="Alarmvalue"></param>
-        private void CreateAlarm(AlarmDataSet.alarm_definitionRow alarm,
+        public void CreateAlarm(AlarmDataSet.alarm_definitionRow alarm,
                              Point pt)
         {
             var tbl = GetAlarmQueue(alarm.siteid, alarm.parameter);
@@ -293,7 +294,7 @@ namespace Reclamation.TimeSeries.Alarms
             row.status_time = DateTime.Now;
             row.confirmed_by = "";
             row.event_time = pt.DateTime;
-            row.current_list_index = 0;
+            row.current_list_index = -1;// queue manager will increment ++
             tbl.Rows.Add(row);
             m_server.SaveTable(tbl);
         }

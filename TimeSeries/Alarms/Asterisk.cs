@@ -88,8 +88,8 @@ namespace Reclamation.TimeSeries.Alarms
 
         private  string[] RunRemoteExecutable(string exe, string args)
         {
-
-                SshClient ssh = new SshClient("dectalk", m_username, m_password);
+            var host = ConfigurationManager.AppSettings["pbx_server"];
+                SshClient ssh = new SshClient(host, m_username, m_password);
             //    var pkf = new PrivateKeyFile("C:key.key");
                 ssh.Connect();
                 var cmd = ssh.RunCommand(exe + " " + args);
@@ -148,12 +148,21 @@ namespace Reclamation.TimeSeries.Alarms
 
 
        /// <summary>
-       /// copies call file
+       /// copies call file to asterisk /var/spool/asterisk/outgoing/
        /// </summary>
        /// <param name="c"></param>
          public void OriginateFromCallFile(AsteriskCallFile c)
          {
-          
+             var src = c.SaveToTempFile();
+             var host = ConfigurationManager.AppSettings["pbx_server"];
+             var dest = "root@"+host+":/var/spool/asterisk/outgoing/"+Path.GetFileName(src);
+
+             var args = src+" "+dest;
+
+             Process.Start(@"c:\utils\pscp.exe ",args);
          }
+
+
+
     }
 }
