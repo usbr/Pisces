@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Threading;
 using Reclamation.TimeSeries.Alarms;
-using Reclamation.TimeSeries;
 using Reclamation.Core;
 using System.Configuration;
 namespace AlarmQueueManager
@@ -23,7 +21,6 @@ namespace AlarmQueueManager
     class AlarmQueueManager
     {
 
-        AlarmDataSet m_alarmDS;
 
         static void Main(string[] args)
         {
@@ -66,7 +63,7 @@ namespace AlarmQueueManager
             string user = ConfigurationManager.AppSettings["pbx_username"];
             string pass = ConfigurationManager.AppSettings["pbx_password"];
         
-            Logger.WriteLine("found "+alarmQueue.Rows.Count+" new alarms in the queue");
+            Logger.WriteLine("found "+alarmQueue.Rows.Count+" unconfirmed alarms in the queue");
             
             for (int i = 0; i < alarmQueue.Count; i++)
             {
@@ -116,9 +113,9 @@ namespace AlarmQueueManager
             int rval = alarm.current_list_index + 1;
 
             if (alarm.current_list_index < 0
-                || alarm.current_list_index >= numbers.Length)
+                || rval >= numbers.Length)
             {
-                rval = 0;
+                rval = 0; // start back at beginning.
             }
 
             return rval;
