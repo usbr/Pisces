@@ -81,16 +81,18 @@ namespace AlarmQueueManager
 
                 alarm.current_list_index = UpdateCurrentPhoneIndex(alarm, numbers);
 
-                DB.SaveTable(alarmQueue);
+                
 
                 var c = new AsteriskCallFile( numbers[alarm.current_list_index]);
                 c.AddVariable("siteid", alarm.siteid);
                 c.AddVariable("parameter", alarm.parameter);
                 c.AddVariable("value", alarm.value.ToString());
                 c.AddVariable("id", alarm.id.ToString());
+                c.AddVariable("phone", numbers[alarm.current_list_index]);
 
                 Asterisk a = new Asterisk(user, pass);
                 a.OriginateFromCallFile(c);
+                DB.SaveTable(alarmQueue);
 
             }
         }

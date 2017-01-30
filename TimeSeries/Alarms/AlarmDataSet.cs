@@ -397,7 +397,8 @@ namespace Reclamation.TimeSeries.Alarms
 
             DateTime t = DateTime.Now.AddMinutes(-minutes);
             var sql = "select * from alarm_log where datetime >= "
-                 + m_server.PortableDateString(t, TimeSeriesDatabase.dateTimeFormat);
+                 + m_server.PortableDateString(t, TimeSeriesDatabase.dateTimeFormat)
+                 + " and alarm_phone_queue_id = " + id; 
 
             m_server.FillTable(alarm_log, sql);
 
