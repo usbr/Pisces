@@ -2,10 +2,12 @@
 using Reclamation.TimeSeries.Alarms;
 using Reclamation.Core;
 using System.Configuration;
+using System.IO;
+using System.Diagnostics;
 namespace AlarmQueueManager
 {
     /// <summary>
-    /// AlarmQueueManager wateches a queue of alarms.
+    /// AlarmQueueManager watches a queue of alarms.
     /// the queue is a database table alarm_phone_queue
     /// runs every minute from a cron job
     /// processes alarms with status of 'new' or 'unconfirmed'
@@ -13,7 +15,7 @@ namespace AlarmQueueManager
     ///   0) verify asterisk is not busy with alarm_phone_queue.id 
     ///   1) update alarm_phone_queue.current_phone_index
     ///         current_phone_index is incremented +1
-    ///         or back to zero when all phones have been called
+    ///         or back to zero (to start over)
     ///   2) create asterisk call file
     ///   3) copy call file to asterisk server
     /// 
@@ -60,8 +62,6 @@ namespace AlarmQueueManager
             InstanceUtility.TouchProcessFile();
 
             var alarmQueue = DB.GetNewAlarms();
-            string user = ConfigurationManager.AppSettings["pbx_username"];
-            string pass = ConfigurationManager.AppSettings["pbx_password"];
         
             Logger.WriteLine("found "+alarmQueue.Rows.Count+" unconfirmed alarms in the queue");
             
@@ -90,13 +90,31 @@ namespace AlarmQueueManager
                 c.AddVariable("id", alarm.id.ToString());
                 c.AddVariable("phone", numbers[alarm.current_list_index]);
 
-                Asterisk a = new Asterisk(user, pass);
-                a.OriginateFromCallFile(c);
+                SendCallFile(c);
                 DB.SaveTable(alarmQueue);
 
             }
         }
 
+
+
+        void SendCallFile(AsteriskCallFile c)
+        {
+          //C:\TEMP>pscp  -i c:\mykey.ppk -v temp3.call hydromet@pbx:/var/spool/asterisk/outgoing/
+
+            var src = c.SaveToTempFile();
+            var host = ConfigurationManager.AppSettings["pbx_server"];
+            var user = ConfigurationManager.AppSettings["pbx_username"];
+            var scp = ConfigurationManager.AppSettings["scp"];
+            var key = ConfigurationManager.AppSettings["pbx_ssh_key"];
+          
+
+            var dest = user+"@" + host + ":/var/spool/asterisk/outgoing/";
+
+            var args = "-i "+key +" "+ src + " " + dest;
+
+           Process.Start(scp, args);
+        }
         
 
 
