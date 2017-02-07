@@ -18,6 +18,10 @@ namespace Reclamation.Core
         public TextFileCredentials(string filename)
         {
             m_fileName = filename;
+            if( !File.Exists(filename))
+            {
+                File.Create(filename).Dispose();
+            }
             
             tf = new TextFile(m_fileName);
         }
@@ -28,11 +32,12 @@ namespace Reclamation.Core
             if( idx <0)
             {
                 tf.Add(server);
-                tf.Add(Protect(password));
+                //tf.Add( Protect(password));
+                tf.Add(StringCipher.Encrypt(password,""));
             }
             else
             {
-                tf.FileData[idx+1] = Protect(password);
+                tf.FileData[idx + 1] = StringCipher.Encrypt(password,"");
             }
             tf.SaveAs(tf.FileName);
         }
@@ -48,61 +53,9 @@ namespace Reclamation.Core
             if(idx < 0)
             return "";
 
-            return Unprotect(tf.FileData[idx + 1]);
+            return StringCipher.Decrypt(tf.FileData[idx + 1],"");
         }
 
-
-
-        static byte[] entropy = new byte[] { 19, 2, 12 };
-
-        /// <summary>
-        /// http://www.thomaslevesque.com/2013/05/21/an-easy-and-secure-way-to-store-a-password-using-data-protection-api/
-        /// </summary>
-        /// <param name="clearText"></param>
-        /// <param name="scope"></param>
-        /// <returns></returns>
-            public static string Protect(
-                string clearText,
-                DataProtectionScope scope = DataProtectionScope.CurrentUser)
-            {
-                if (clearText == null)
-                    throw new ArgumentNullException("clearText");
-                byte[] clearBytes =  GetBytes(clearText);
-                byte[] encryptedBytes = ProtectedData.Protect(clearBytes, entropy, scope);
-                return String.Join(",", encryptedBytes.Select(p => p.ToString()).ToArray());
-            }
-
-            static byte[] GetBytes(string str)
-            {
-                byte[] bytes = new byte[str.Length * sizeof(char)];
-                System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
-                return bytes;
-            }
-
-            public static string Unprotect(
-                string encryptedText,
-                DataProtectionScope scope = DataProtectionScope.CurrentUser)
-            {
-                byte[] encryptedBytes = GetBytesFromCSV(encryptedText); 
-                byte[] clearBytes = ProtectedData.Unprotect(encryptedBytes,entropy, scope);
-                return GetString(clearBytes);
-            }
-            static string GetString(byte[] bytes)
-            {
-                char[] chars = new char[bytes.Length / sizeof(char)];
-                System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
-                return new string(chars);
-            }
-            static byte[] GetBytesFromCSV(string str)
-            {
-                var tokens = str.Split(',');
-                byte[] bytes = new byte[tokens.Length];
-                for (int i = 0; i < tokens.Length; i++)
-                {
-                    bytes[i] =  Convert.ToByte(tokens[i]);
-                }
-                return bytes;
-            }
 
     }
 }

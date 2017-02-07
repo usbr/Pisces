@@ -351,28 +351,7 @@ namespace Reclamation.Core
         {
            
         }
-        protected static string GetWindowsUserName()
-        {
-            //Environment.UserDomainName //  DOMAIN
-            //WindowsIdentity.GetCurrent().Name // DOMAIN\user
-
-            Logger.WriteLine("Environment.UserDomainName " + Environment.UserDomainName);
-            Logger.WriteLine("WindowsIdentity.GetCurrent().Name " + WindowsIdentity.GetCurrent().Name);
-
-            //string windowsUser = WindowsIdentity.GetCurrent().Name.Split('\\')[1];
-
-
-            if (Environment.UserDomainName != WindowsIdentity.GetCurrent().Name.Split('\\')[0])
-            {
-                throw new Exception("invalid login: 1");
-            }
-
-            if (Environment.MachineName == Environment.UserDomainName)
-            {
-                throw new Exception("invalid login: 2");
-            }
-            return Environment.UserName.ToLower();
-        }
+        
 
 
         /// <summary>

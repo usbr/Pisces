@@ -7,7 +7,7 @@ namespace Reclamation.Core
 {
     /// <summary>
     /// UserPreference class reads and writes basic user prefrences to
-    /// the a named after product and version in the GetTempPath()/>
+    /// the a named after product and version in the UserAppDataPath/>
     /// </summary>
     public class UserPreference
     {

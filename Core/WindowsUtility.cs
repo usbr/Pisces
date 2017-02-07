@@ -18,8 +18,8 @@ namespace Reclamation.Core
 
             var idx = s.IndexOf("\\");
             if (idx >= 0)
-                return s.Substring(idx + 1);
-            return s;
+                return s.Substring(idx + 1).ToLower();
+            return s.ToLower();
         }
 
         public static string GetMachineName()

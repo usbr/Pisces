@@ -31,7 +31,7 @@ namespace PiscesWebServices
 
           var features = new List<Feature>();
           FeatureCollection fc = new FeatureCollection(features);
-          var filter = "";
+          var filter = "1=1";
             if( siteType != "")
                 filter = "type = '"+siteType+"'";
           var sites = db.GetSiteCatalog(filter:filter);
