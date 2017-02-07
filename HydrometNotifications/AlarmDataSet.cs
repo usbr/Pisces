@@ -87,18 +87,7 @@ namespace HydrometNotifications
         {
             get
             {
-                    if (LinuxUtility.IsLinux())
-                    {
-                        string server = ConfigurationManager.AppSettings["PostgresServer"];
-                        string user = ConfigurationManager.AppSettings["PostgresUser"];
-                        string cs = "Server=" + server + ";Database=hydromet;User id=" + user + ";";
-                        return new PostgreSQL(cs);
-                    }
-                    else
-                    {
-                        string cs = PostgreSQL.CreateADConnectionString(ConfigurationManager.AppSettings["PostgresServer"], "hydromet");
-                        return new PostgreSQL(cs);
-                    }
+                return PostgreSQL.GetPostgresServer("hydromet",password:"aa");
             }
         }
 

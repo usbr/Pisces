@@ -20,13 +20,12 @@ namespace Reclamation.Core
     /// <summary>
     /// last command that was sent to server.
     /// </summary>
-    protected string lastSqlCeCommand;
+    protected string lastSqlCommand;
    // string lastMessage = "";
 
       /// <summary>
-    /// Creates a BasicDBServer object with connection string details defined
-    /// by a config file on Linux, or using AD on Windows.
-    /// PostgresServer and PostgresUser  may be defined in the config file
+      /// Creates a BasicDBServer object.
+      /// empty parameters userName and databaseName can be set in Config file
       /// </summary>
       /// <param name="databaseName"></param>
       /// <returns></returns>
@@ -404,7 +403,7 @@ namespace Reclamation.Core
       }
 
 
-      this.lastSqlCeCommand = sql;
+      this.lastSqlCommand = sql;
       SqlCommands.Add(sql);
       myAccessConn.Open();
       int recordCount = 0;
@@ -479,7 +478,7 @@ namespace Reclamation.Core
       var myDataAdapter = new NpgsqlDataAdapter(myAccessCommand);
       myDataAdapter.AcceptChangesDuringFill = AcceptChangesDuringFill;
       //Console.WriteLine(sql);
-      this.lastSqlCeCommand = sql;
+      this.lastSqlCommand = sql;
       SqlCommands.Add(sql);
       DataSet myDataSet = new DataSet();
       try
@@ -519,7 +518,7 @@ namespace Reclamation.Core
         var myDataAdapter = new NpgsqlDataAdapter(myAccessCommand);
 
         //Console.WriteLine(sql);
-        this.lastSqlCeCommand = sql;
+        this.lastSqlCommand = sql;
         SqlCommands.Add(sql);
         try
         {
@@ -613,7 +612,7 @@ namespace Reclamation.Core
         if (useTransaction)
             myTrans.Commit();
         //Logger.WriteLine(rval + " rows affected");
-        this.lastSqlCeCommand = sql;
+        this.lastSqlCommand = sql;
         SqlCommands.Add(sql);
       }
       catch(Exception e)
