@@ -38,7 +38,7 @@ namespace Reclamation.Core
 
         if( databaseName == "")
         {
-            databaseName = ConfigurationManager.AppSettings["TimeSeriesDatabaseName"];
+            databaseName = ConfigurationManager.AppSettings["PostgresDatabase"];
         }
 
         if (LinuxUtility.IsLinux())
@@ -55,9 +55,25 @@ namespace Reclamation.Core
             }
         }
            
-            string cs = "Server=" + server + ";Database=" + databaseName + ";User id=" + userName + ";";
-        if( password.Length>0)
-        cs+="password="+password+";";
+        string cs = "Server=" + server + ";Database=" + databaseName + ";User id=" + userName + ";";
+
+        
+        if( password == "")
+        { //check config file for password
+            password = ConfigurationManager.AppSettings["PostgresPassword"];
+
+            if (password == null)
+                password = "";
+
+            if (File.Exists(password)) // might be file with password
+                password = File.ReadAllText(password);
+        }
+
+        if (password.Length > 0)
+        {
+            cs += "password=" + password + ";";
+        }
+
 
         var msg = cs;
         if (password.Length > 0)

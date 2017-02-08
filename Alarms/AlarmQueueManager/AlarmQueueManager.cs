@@ -22,46 +22,39 @@ namespace AlarmQueueManager
     /// </summary>
     class AlarmQueueManager
     {
-
-
         static void Main(string[] args)
         {
-            Logger.EnableLogger();
-            
-
-            if (InstanceUtility.IsAnotherInstanceRunning())
-            {
-                Console.WriteLine("Exiting: Another instance is running ");
-                return;
-            }
-
             try
             {
+                Logger.EnableLogger();
                 Logger.WriteLine("Starting AlarmQueueManager");
-                InstanceUtility.CreateProcessIdFile();
-                var aq = new AlarmQueueManager();
+                var userName = ConfigurationManager.AppSettings["PostgresUser"];
+
+                var svr = PostgreSQL.GetPostgresServer(userName: userName);
+                var aq = new AlarmQueueManager(svr);
                 Logger.WriteLine("Processing Alarms");
                 aq.ProcessAlarms();
-
             }
-            finally
+            catch (Exception e)  
             {
-                InstanceUtility.DeleteProcessIdFile();
+                Logger.WriteLine(e.Message);
             }
-
         }
 
 
-        public AlarmQueueManager()
+        BasicDBServer m_server;
+        AlarmDataSet alarmDS;
+        public AlarmQueueManager(BasicDBServer server)
         {
+            m_server = server;
+            alarmDS = AlarmDataSet.CreateInstance(server);
         }
 
 
         public void ProcessAlarms()
         {
-            InstanceUtility.TouchProcessFile();
 
-            var alarmQueue = DB.GetNewAlarms();
+            var alarmQueue = alarmDS.GetNewAlarms();
         
             Logger.WriteLine("found "+alarmQueue.Rows.Count+" unconfirmed alarms in the queue");
             
@@ -70,18 +63,16 @@ namespace AlarmQueueManager
                 var alarm = alarmQueue[i];
                 LogDetails(alarm);
 
-                string[] numbers = DB.GetPhoneNumbers(alarm.list);
+                string[] numbers = alarmDS.GetPhoneNumbers(alarm.list);
 
                 int minutesBeforeNextPhone = 5;
-                if( DB.CurrentActivity(alarm.id, minutesBeforeNextPhone)) // any activity in last x minutes.
+                if (alarmDS.CurrentActivity(alarm.id, minutesBeforeNextPhone)) // any activity in last x minutes.
                 {
                     Logger.WriteLine("waiting on id = "+alarm.id+ " it has activity in the last "+minutesBeforeNextPhone+ " minutes");
                     continue;
                 }
 
                 alarm.current_list_index = UpdateCurrentPhoneIndex(alarm, numbers);
-
-                
 
                 var c = new AsteriskCallFile( numbers[alarm.current_list_index]);
                 c.AddVariable("siteid", alarm.siteid);
@@ -91,7 +82,7 @@ namespace AlarmQueueManager
                 c.AddVariable("phone", numbers[alarm.current_list_index]);
 
                 SendCallFile(c);
-                DB.SaveTable(alarmQueue);
+                alarmDS.SaveTable(alarmQueue);
 
             }
         }
@@ -150,19 +141,6 @@ namespace AlarmQueueManager
             {
                 Logger.WriteLine(tbl.Columns[c].ColumnName + ": " + alarm[c].ToString());
             }
-
         }
-
-        
-        public AlarmDataSet DB
-        {
-            get
-            {
-                return AlarmDataSet.CreateInstance();
-            }
-        }
-
-        
-        
     }
 }
