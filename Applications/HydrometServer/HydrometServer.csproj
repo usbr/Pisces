@@ -113,11 +113,11 @@
     <Compile Include="Tests\TestRatingTableDependency.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Pisces\Core\Reclamation.Core.csproj">
+    <ProjectReference Include="..\..\Core\Reclamation.Core.csproj">
       <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
       <Name>Reclamation.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Pisces\TimeSeries\Reclamation.TimeSeries.csproj">
+    <ProjectReference Include="..\..\TimeSeries\Reclamation.TimeSeries.csproj">
       <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
       <Name>Reclamation.TimeSeries</Name>
     </ProjectReference>
@@ -189,4 +189,3 @@
   </Target>
   -->
 </Project>
-

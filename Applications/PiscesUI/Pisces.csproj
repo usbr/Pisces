@@ -170,7 +170,7 @@
   <ItemGroup>
     <Reference Include="Aga.Controls, Version=1.7.0.1, Culture=neutral, PublicKeyToken=fcc90fbf924463a3, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ThirdParty\Aga.Controls.dll</HintPath>
+      <HintPath>..\..\ThirdParty\Aga.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Devart.Data, Version=5.0.392.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
       <SpecificVersion>False</SpecificVersion>
@@ -211,7 +211,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\AssemblyVersion.cs">
+    <Compile Include="..\..\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
     <Compile Include="FormTeeChartLicense.cs" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
@@ -259,103 +259,103 @@
       <DependentUpon>ScenarioSelectorUrgwom.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="..\Applications\cfg\boise_arc.dat">
+    <None Include="..\cfg\boise_arc.dat">
       <Link>cfg\boise_arc.dat</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\CC.DAT">
+    <None Include="..\cfg\CC.DAT">
       <Link>cfg\CC.DAT</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\daily_pcode.csv">
+    <None Include="..\cfg\daily_pcode.csv">
       <Link>cfg\daily_pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\gp\arc_inv.dat">
+    <None Include="..\cfg\gp\arc_inv.dat">
       <Link>cfg\gp\arc_inv.dat</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\gp\billings_arc.dat">
+    <None Include="..\cfg\gp\billings_arc.dat">
       <Link>cfg\gp\billings_arc.dat</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\gp\goes.csv">
+    <None Include="..\cfg\gp\goes.csv">
       <Link>cfg\gp\goes.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\gp\group.csv">
+    <None Include="..\cfg\gp\group.csv">
       <Link>cfg\gp\group.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\gp\pcode.csv">
+    <None Include="..\cfg\gp\pcode.csv">
       <Link>cfg\gp\pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\gp\ratingtables.xls">
+    <None Include="..\cfg\gp\ratingtables.xls">
       <Link>cfg\gp\ratingtables.xls</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\gp\site.csv">
+    <None Include="..\cfg\gp\site.csv">
       <Link>cfg\gp\site.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\group.csv">
+    <None Include="..\cfg\group.csv">
       <Link>cfg\group.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\instant_pcode.csv">
+    <None Include="..\cfg\instant_pcode.csv">
       <Link>cfg\instant_pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\monthly_pcode.csv">
+    <None Include="..\cfg\monthly_pcode.csv">
       <Link>cfg\monthly_pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\mpoll.cbt">
+    <None Include="..\cfg\mpoll.cbt">
       <Link>cfg\mpoll.cbt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\nwcc_inventory.csv">
+    <None Include="..\cfg\nwcc_inventory.csv">
       <Link>cfg\nwcc_inventory.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\owrd_station_list.csv">
+    <None Include="..\cfg\owrd_station_list.csv">
       <Link>cfg\owrd_station_list.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\pcode.csv">
+    <None Include="..\cfg\pcode.csv">
       <Link>cfg\pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\reclamationcgi.csv">
+    <None Include="..\cfg\reclamationcgi.csv">
       <Link>cfg\reclamationcgi.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\site.csv">
+    <None Include="..\cfg\site.csv">
       <Link>cfg\site.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\snotel_site_list2.csv">
+    <None Include="..\cfg\snotel_site_list2.csv">
       <Link>cfg\snotel_site_list2.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\yak\goes.csv">
+    <None Include="..\cfg\yak\goes.csv">
       <Link>cfg\yak\goes.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\yak\pcode.csv">
+    <None Include="..\cfg\yak\pcode.csv">
       <Link>cfg\yak\pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\yak\site.csv">
+    <None Include="..\cfg\yak\site.csv">
       <Link>cfg\yak\site.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Applications\cfg\yak\yakima_ratingtables.xls">
+    <None Include="..\cfg\yak\yakima_ratingtables.xls">
       <Link>cfg\yak\yakima_ratingtables.xls</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\PiscesTestData\data\bulk-import-template.xlsx">
+    <None Include="..\..\PiscesTestData\data\bulk-import-template.xlsx">
       <Link>sample-data\bulk-import-template.xlsx</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -380,19 +380,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Applications\cfg\mpoll_inventory.txt">
+    <Content Include="..\cfg\mpoll_inventory.txt">
       <Link>cfg\mpoll_inventory.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ThirdParty\DSSUTL.EXE">
+    <Content Include="..\..\ThirdParty\DSSUTL.EXE">
       <Link>DSSUTL.EXE</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ThirdParty\x64\SQLite.Interop.dll">
+    <Content Include="..\..\ThirdParty\x64\SQLite.Interop.dll">
       <Link>x64\SQLite.Interop.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\ThirdParty\x86\SQLite.Interop.dll">
+    <Content Include="..\..\ThirdParty\x86\SQLite.Interop.dll">
       <Link>x86\SQLite.Interop.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -448,19 +448,19 @@
       <Project>{b60964f8-8699-4638-9460-68262e4d37a3}</Project>
       <Name>HdbPoet</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core\Reclamation.Core.csproj">
-      <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
-      <Name>Reclamation.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Rwis.Sync\Rwis.Sync.csproj">
       <Project>{d2b37530-5d24-4772-8480-325920744643}</Project>
       <Name>Rwis.Sync</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeSeries.ArmyCorps\Reclamation.TimeSeries.ArmyCorps.csproj">
+    <ProjectReference Include="..\..\Core\Reclamation.Core.csproj">
+      <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
+      <Name>Reclamation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries.ArmyCorps\Reclamation.TimeSeries.ArmyCorps.csproj">
       <Project>{859fb4f4-b299-4b36-9955-e16c05e36158}</Project>
       <Name>Reclamation.TimeSeries.ArmyCorps</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
+    <ProjectReference Include="..\..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
       <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>
       <Name>Reclamation.TimeSeries.Forms</Name>
     </ProjectReference>
@@ -472,11 +472,11 @@
       <Project>{862135B0-793A-4F06-B731-26C61B3AD068}</Project>
       <Name>Reclamation.TimeSeries.Graphing</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeSeries.Modsim\Reclamation.TimeSeries.Modsim.csproj">
+    <ProjectReference Include="..\..\TimeSeries.Modsim\Reclamation.TimeSeries.Modsim.csproj">
       <Project>{dba88baf-7cd3-4d67-9777-d843987caeec}</Project>
       <Name>Reclamation.TimeSeries.Modsim</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeSeries\Reclamation.TimeSeries.csproj">
+    <ProjectReference Include="..\..\TimeSeries\Reclamation.TimeSeries.csproj">
       <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
       <Name>Reclamation.TimeSeries</Name>
     </ProjectReference>
