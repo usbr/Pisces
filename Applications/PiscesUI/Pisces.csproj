@@ -464,11 +464,11 @@
       <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>
       <Name>Reclamation.TimeSeries.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
+    <ProjectReference Include="..\..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
       <Project>{37b543f5-03a5-479e-b20c-7b4acc53d16a}</Project>
       <Name>Reclamation.TimeSeries.Excel</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
+    <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
       <Project>{862135B0-793A-4F06-B731-26C61B3AD068}</Project>
       <Name>Reclamation.TimeSeries.Graphing</Name>
     </ProjectReference>
