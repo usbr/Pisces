@@ -455,15 +455,6 @@
     <Compile Include="Hydromet\Operations\HghRuleCurve.cs" />
     <Compile Include="Hydromet\HydrometDailySeries.cs" />
     <Compile Include="Hydromet\HydrometDataCache.cs" />
-    <Compile Include="Hydromet\HydrometDataSet.cs">
-      <DependentUpon>HydrometDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Hydromet\HydrometDataSet.Designer.cs">
-      <DependentUpon>HydrometDataSet.xsd</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Hydromet\HydrometDataUtility.cs" />
     <Compile Include="Hydromet\HydrometInfoUtility.cs" />
     <Compile Include="Hydromet\HydrometInstantSeries.cs" />
@@ -772,17 +763,6 @@
     </None>
     <None Include="Hydromet\Operations\FcPlotDataSet.xss">
       <DependentUpon>FcPlotDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Hydromet\HydrometDataSet.xsc">
-      <DependentUpon>HydrometDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Hydromet\HydrometDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>HydrometDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Hydromet\HydrometDataSet.xss">
-      <DependentUpon>HydrometDataSet.xsd</DependentUpon>
     </None>
     <None Include="Hydromet\MPAVG.FOR" />
     <None Include="packages.config" />

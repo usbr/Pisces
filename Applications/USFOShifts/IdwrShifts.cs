@@ -247,16 +247,17 @@ namespace USFOShifts
         private static void InsertShiftToPostgres(string cbtt, string pcode, double shift, string dateMeasured, 
             double? discharge, double? gh)
         {
+            var svr = PostgreSQL.GetPostgresServer("timeseries");
             //enter shift to shift db
-            var ds = new HydrometDataSet();
-            ds.DataSetName = "hydromet";
-            
-            ds.insertshift(cbtt.ToUpper().Trim(), pcode.ToUpper().Trim(),
-                Convert.ToDateTime(dateMeasured), discharge,
-                gh, shift, "Shift Entered by USFOShifts Program", DateTime.Now);
+
+            //string sql = "insert into ";
+
+            //ds.insertshift(cbtt.ToUpper().Trim(), pcode.ToUpper().Trim(),
+            //    Convert.ToDateTime(dateMeasured), discharge,
+            //    gh, shift, "Shift Entered by USFOShifts Program", DateTime.Now);
 
             //enter shift to pisces db
-            var svr = PostgreSQL.GetPostgresServer("timeseries");
+           
             TimeSeriesName tn = new TimeSeriesName(cbtt.ToLower() + "_" + pcode.ToLower(), "instant");
             TimeSeriesDatabaseDataSet.seriespropertiesDataTable.Set("shift", shift.ToString(), tn, svr);
             return;

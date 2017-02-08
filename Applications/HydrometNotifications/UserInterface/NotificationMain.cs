@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Reclamation.Core;
 
 namespace HydrometNotifications.UserInterface
 {
@@ -23,6 +24,11 @@ namespace HydrometNotifications.UserInterface
 
         private void ReadGroups()
         {
+            var pw = UserPreference.Lookup("timeseries_database_password");
+            pw = StringCipher.Decrypt(pw, "");
+
+            var svr = PostgreSQL.GetPostgresServer("hydromet", password:pw);
+            HydrometNotifications.AlarmDataSet.DB = svr;
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource =
              HydrometNotifications.AlarmDataSet.GetGroups();
