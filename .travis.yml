@@ -5,6 +5,7 @@ language: csharp
 branches:
   only:
   - master
+  - v3
   
 before_install:
   - mkdir -p .nuget
