@@ -55,6 +55,10 @@ namespace Reclamation.TimeSeries.Forms
             dbList.CopyTo(items, 0);
             this.comboBox1.Items.Clear();
             comboBox1.Items.AddRange(items);
+
+            var s = UserPreference.Lookup("SelectedDatabaseServer");
+            comboBox1.SelectedItem = s;
+            comboBox1_SelectionChangeCommitted(comboBox1, EventArgs.Empty);
         }
 
         public string ServerName
@@ -116,6 +120,7 @@ namespace Reclamation.TimeSeries.Forms
             }
 
             credentials.Save(comboBox1.Text.Trim(), textBoxPassword.Text);
+            UserPreference.Save("SelectedDatabaseServer", comboBox1.Text.Trim());
         }
 
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
