@@ -12,6 +12,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
     public partial class AddSite : Form
     {
         TimeSeriesDatabase m_db;
+        DataTable properties = new DataTable("properties");
         public AddSite()
         {
             InitializeComponent();
@@ -33,7 +34,17 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
            this.comboBox1.ValueMember = "siteid";
            comboBox1.SelectedValue = "boii";
            m_seriesCatalog = new TimeSeriesDatabaseDataSet.SeriesCatalogDataTable();
+
+
+         
+           properties.Columns.Add("name");
+           properties.Columns.Add("value");
+           properties.Rows.Add("program", "khydromet");
+           properties.Rows.Add("basin", "klamath");
+
+           dataGridViewProperties.DataSource = properties;
             
+
         }
 
         TimeSeriesDatabaseDataSet.SeriesCatalogDataTable m_seriesCatalog;
@@ -56,14 +67,10 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             get { return this.textBoxdescription.Text; }
         }
 
-        public string Program
+        public DataTable Program
         {
             get {
-                if (radioButtonAgriMet.Checked)
-                    return "agrimet";
-                if( radioButtonHydromet.Checked )
-                    return "hydromet";
-                return "";
+                return properties;
             }
         }
 
@@ -158,33 +165,52 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 labelError.Text = "a siteid must be entered";
                 return;
             }
+              bool daily = checkBoxDaily.Checked;
+
             labelError.Text = "";
             if (this.checkBoxQ.Checked)
             {
                 AddInstantRow(siteID, "feet", "gh");
                 AddInstantRow(siteID, "cfs", "q","FileRatingTable(%site%_gh,\"%site%.csv\")");
                 AddInstantRow(siteID, "feet", "hj", "FileRatingTable(%site%_gh,\"%site%_shift.csv\")");
-
-             //   AddDailyRow(siteID, "cfs", "qd", "DailyAverage(instant_%site%_q,10)");
-              //  AddDailyRow(siteID, "cfs", "gd", "DailyAverage(instant_%site%_gh,10)");
-               // AddDailyRow(siteID, "feet", "hj", "DailyAverage(instant_%site%_hj,10)");
+                if (daily)
+                {
+                    AddDailyRow(siteID, "cfs", "qd", "DailyAverage(instant_%site%_q,10)");
+                    AddDailyRow(siteID, "cfs", "gd", "DailyAverage(instant_%site%_gh,10)");
+                    AddDailyRow(siteID, "feet", "hj", "DailyAverage(instant_%site%_hj,10)");
+                }
             }
             if (this.checkBoxCanal.Checked)
             {
                 AddInstantRow(siteID, "feet", "ch");
                 AddInstantRow(siteID, "cfs", "qc", "FileRatingTable(%site%_ch,\"%site%.csv\")");
                 AddInstantRow(siteID, "feet", "hh", "FileRatingTable(%site%_ch,\"%site%_shift.csv\")");
-
-                //   AddDailyRow(siteID, "cfs", "qd", "DailyAverage(instant_%site%_q,10)");
-                //  AddDailyRow(siteID, "cfs", "gd", "DailyAverage(instant_%site%_gh,10)");
-                // AddDailyRow(siteID, "feet", "hj", "DailyAverage(instant_%site%_hj,10)");
+                if (daily)
+                {
+                    AddDailyRow(siteID, "cfs", "qd", "DailyAverage(instant_%site%_q,10)");
+                    AddDailyRow(siteID, "cfs", "gd", "DailyAverage(instant_%site%_gh,10)");
+                    AddDailyRow(siteID, "feet", "hj", "DailyAverage(instant_%site%_hj,10)");
+                }
             }
             if (this.checkBoxWaterTemp.Checked)
             {
                 AddInstantRow(siteID, "degF", "wf");
-                // AddDailyRow(siteID, "degF", "wi", "DailyMin(instant_%site%_wf,10)");
-                // AddDailyRow(siteID, "degF", "wk", "DailyMax(instant_%site%_wf,10)");
-                // AddDailyRow(siteID, "degF", "wz", "DailyAverage(instant_%site%_wf,10)");
+                if (daily)
+                {
+                    AddDailyRow(siteID, "degF", "wi", "DailyMin(instant_%site%_wf,10)");
+                    AddDailyRow(siteID, "degF", "wk", "DailyMax(instant_%site%_wf,10)");
+                    AddDailyRow(siteID, "degF", "wz", "DailyAverage(instant_%site%_wf,10)");
+                }
+            }
+            if (this.checkBoxWaterTempC.Checked)
+            {
+                AddInstantRow(siteID, "degC", "wc");
+                if (daily)
+                {
+                    AddDailyRow(siteID, "degF", "wm", "DailyMin(instant_%site%_wc,10)");
+                    AddDailyRow(siteID, "degF", "wn", "DailyMax(instant_%site%_wc,10)");
+                    AddDailyRow(siteID, "degF", "wy", "DailyAverage(instant_%site%_wc,10)");
+                }
             }
 
             if (this.checkBoxGenericWeir.Checked)
@@ -206,6 +232,11 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             {
                 AddInstantRow(siteID, "feet", "fb");
                 AddInstantRow(siteID, "feet", "af", "FileRatingTable(%site%_fb,\"%site%.csv\")");
+            }
+
+            if( this.checkBoxCustom.Checked)
+            {
+                AddInstantRow(siteID,textBoxCustomUnits.Text.Trim(), textBoxCustom.Text.Trim());
             }
 
             //if( this.checkBoxQuality.Checked)
@@ -263,6 +294,11 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 }
 
             }
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
 
         }
 

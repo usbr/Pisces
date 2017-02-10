@@ -295,7 +295,7 @@ namespace Reclamation.TimeSeries.Forms
             this.addSite.Image = ((System.Drawing.Image)(resources.GetObject("addSite.Image")));
             this.addSite.Name = "addSite";
             this.addSite.Size = new System.Drawing.Size(320, 26);
-            this.addSite.Text = "Site";
+            this.addSite.Text = "Site...";
             this.addSite.Click += new System.EventHandler(this.newSite);
             // 
             // toolStripSeparator6

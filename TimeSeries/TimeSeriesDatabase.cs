@@ -621,7 +621,7 @@ namespace Reclamation.TimeSeries
         /// <param name="Install"></param>
         public void AddSiteWithTemplate(PiscesFolder parent, 
             TimeSeriesDatabaseDataSet.SeriesCatalogDataTable template, string SiteName, string SiteID, 
-            string state,double elevation, double Lat, double Lon, string TimeZone, string Install, string program)            
+            string state,double elevation, double Lat, double Lon, string TimeZone, string Install, DataTable program)            
         {
           
             var siteCatalog = GetSiteCatalog();
@@ -666,7 +666,13 @@ namespace Reclamation.TimeSeries
                  {
                      sc.AddSeriesCatalogRow(id, parentID, 0, id, item.iconname, item.Name, item.siteid, item.Units,
                              item.TimeInterval, item.Parameter, item.TableName, item.Provider, item.ConnectionString, item.Expression, item.Notes, item.enabled);
-                     series_properties.AddseriespropertiesRow(series_properties.NextID(), id, "program", program);
+
+                     foreach (DataRow r in program.Rows)
+	                 {
+                         series_properties.AddseriespropertiesRow(series_properties.NextID(), id,
+                             r["name"].ToString(), r["value"].ToString());
+                     }
+                     
                  }
 
                 
