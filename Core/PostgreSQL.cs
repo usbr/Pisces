@@ -319,7 +319,9 @@ namespace Reclamation.Core
                 conn.Close();
         }
 
-        Logger.WriteLine("Saved " + recordCount + " records in " + perf.ElapsedSeconds + "seconds","ui");
+        string msg = "Saved " + recordCount + " records ["+dataTable.TableName+"] " + perf.ElapsedSeconds + "seconds";
+        Logger.WriteLine(msg,"ui");
+        Console.WriteLine(msg);
         if (SqlCommands.Count > 5000)
         {
             SqlCommands.Clear();
