@@ -141,7 +141,7 @@ namespace Reclamation.TimeSeries.Alarms
             m_server.SaveTable(tbl);
         }
 
-        public AlarmDataSet.alarm_phone_queueDataTable GetAlarmQueue(string siteid, string parameter)
+        public AlarmDataSet.alarm_phone_queueDataTable GetActiveAlarmQueue(string siteid, string parameter)
         {
             var tbl = new AlarmDataSet.alarm_phone_queueDataTable();
             string sql = "select * from alarm_phone_queue ";
@@ -183,6 +183,7 @@ namespace Reclamation.TimeSeries.Alarms
                 throw new Exception("bad... alarm_definition constraint not working (siteid,parameter)");
 
             Logger.WriteLine("found alarm definition " + s.SiteID + " " + s.Parameter);
+
             AlarmDataSet.alarm_definitionRow row = alarm[0];
             // check alarm_condition for each value
 
@@ -273,7 +274,7 @@ namespace Reclamation.TimeSeries.Alarms
         public void CreateAlarm(AlarmDataSet.alarm_definitionRow alarm,
                              Point pt)
         {
-            var tbl = GetAlarmQueue(alarm.siteid, alarm.parameter);
+            var tbl = GetActiveAlarmQueue(alarm.siteid, alarm.parameter);
 
             if (tbl.Rows.Count == 1)
             {
