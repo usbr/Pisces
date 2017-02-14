@@ -319,7 +319,7 @@ namespace Reclamation.Core
                 conn.Close();
         }
 
-        string msg = "Saved " + recordCount + " records ["+dataTable.TableName+"] " + perf.ElapsedSeconds + "seconds";
+        string msg = "Saved " + recordCount + " records ["+dataTable.TableName+"] " + perf.ElapsedSeconds.ToString("F3") + " seconds";
         Logger.WriteLine(msg,"ui");
         Console.WriteLine(msg);
         if (SqlCommands.Count > 5000)

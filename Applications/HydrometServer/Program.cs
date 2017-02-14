@@ -30,7 +30,9 @@ namespace HydrometServer
             var p = new OptionSet();
 
             var cli = "";
+            var processAlarms = "";
             p.Add("cli=", "interface --cli=instant|daily|monthly", x => cli = x);
+            p.Add("processAlarms=", " --processAlarms", x => processAlarms = x);
 
             try
             {
@@ -99,6 +101,24 @@ namespace HydrometServer
                     HydrometServer.CommandLine.PiscesCommandLine cmd = new CommandLine.PiscesCommandLine(db,interval);
                     cmd.PiscesPrompt();
 
+                return;
+            }
+
+
+            if( processAlarms != "")
+            {
+                try
+                {
+                    Logger.EnableLogger();
+                    Logger.WriteLine("Checking for new or unconfirmed Alarms ");
+                    var aq = new ProcessAlarms(db);
+                    Logger.WriteLine("Processing Alarms");
+                    aq.MakePhoneCalls();
+                }
+                catch (Exception e)
+                {
+                    Logger.WriteLine(e.Message);
+                }
                 return;
             }
 

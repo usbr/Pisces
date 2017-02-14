@@ -97,6 +97,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProcessAlarms.cs" />
     <Compile Include="ApplicationTrustPolicy.cs" />
     <Compile Include="CommandLine\PiscesCommandLine.cs" />
     <Compile Include="CommandLine\CommandLineInput.cs" />
@@ -138,14 +139,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\PiscesTestData\data\decodes\decodes_dms3.txt">
-      <Link>Tests\decodes_dms3.txt</Link>
-    </Content>
-    <Content Include="..\PiscesTestData\data\decodes\decodes_lapo.txt">
-      <Link>Tests\decodes_lapo.txt</Link>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
@@ -179,6 +172,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\PiscesTestData\data\decodes\decodes_dms3.txt">
+      <Link>Tests\decodes_dms3.txt</Link>
+    </Content>
+    <Content Include="..\..\PiscesTestData\data\decodes\decodes_lapo.txt">
+      <Link>Tests\decodes_lapo.txt</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

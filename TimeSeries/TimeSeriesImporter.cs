@@ -44,7 +44,7 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// Imports time series data,
         /// 1) set flags
-        /// 2) active alarms (TO DO)
+        /// 2) active alarms  
         /// 3) compute dependent data (same interval)
         /// 4) compute daily data when encountering midnight values
         /// </summary>
@@ -70,6 +70,11 @@ namespace Reclamation.TimeSeries
                 if (computeDependencies)
                 {
                     var z = ComputeDependenciesSameInterval(s);
+                    foreach (var cs in z)
+                    {
+                        ProcessAlarms(cs);    
+                    }
+                    
                     routingList.AddRange(z);
                 }
                 if (computeDailyDependencies && NeedDailyCalc(s))
@@ -86,10 +91,18 @@ namespace Reclamation.TimeSeries
 
         private void ProcessAlarms(Series s)
         {
-            string alarmCfg = ConfigurationManager.AppSettings["ProcessAlarms"];
-            if (!String.IsNullOrEmpty(alarmCfg) && alarmCfg == "true")
+            try
             {
-                m_db.Alarms.Check(s); // check for alarms; send email make phone calls
+                string alarmCfg = ConfigurationManager.AppSettings["ProcessAlarms"];
+                if (!String.IsNullOrEmpty(alarmCfg) && alarmCfg == "true")
+                {
+                    m_db.Alarms.Check(s); // check for alarms; send email make phone calls
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.WriteLine("Error processing alarm ", e);
+                Console.WriteLine(e.Message);
             }
         }
 
