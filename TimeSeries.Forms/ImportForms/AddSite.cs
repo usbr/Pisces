@@ -228,7 +228,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 if (daily)
                 {
                     AddDailyRow(SiteID, "ft", "gj", "DailyAverage(instant_%site%_ch)");
-                    AddDailyRow(SiteID, "ft", "qj", "DailyAverage(instant_%site%_qc)");
+                    AddDailyRow(SiteID, "cfs", "qj", "DailyAverage(instant_%site%_qc)");
                 }
 
                 //AddInstantRow(siteID, "feet", "hh", "");
@@ -238,7 +238,13 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             if (this.checkBoxReservoir.Checked)
             {
                 AddInstantRow(siteID, "feet", "fb");
-                AddInstantRow(siteID, "feet", "af", "FileRatingTable(%site%_fb,\"%site%.csv\")");
+                AddInstantRow(siteID, "acre-feet", "af", "FileRatingTable(%site%_fb,\"%site%.csv\")");
+
+                if( daily)
+                {
+                    AddDailyRow(SiteID, "ft", "fb", "DailyMidnight(instant_%site%_fb)");
+                    AddDailyRow(SiteID, "acre-feet", "af", "DailyMidnight(instant_%site%_af)");
+                }
             }
 
             if( this.checkBoxCustom.Checked)
