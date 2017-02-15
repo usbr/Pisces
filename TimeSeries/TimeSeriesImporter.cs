@@ -56,7 +56,9 @@ namespace Reclamation.TimeSeries
             bool computeDailyDependencies = false,
             string importTag="data")
         {
+            Performance p = new Performance();
             var calculationQueue = new List<CalculationSeries>();
+            int calculationCount = 0;
             var routingList = new SeriesList();
 
             foreach (var s in importSeries)
@@ -70,6 +72,7 @@ namespace Reclamation.TimeSeries
                 if (computeDependencies)
                 {
                     var z = ComputeDependenciesSameInterval(s);
+                    calculationCount += z.Count;
                     foreach (var cs in z)
                     {
                         ProcessAlarms(cs);    
@@ -87,6 +90,12 @@ namespace Reclamation.TimeSeries
                 PerformDailyComputations(importSeries, calculationQueue, routingList); 
             }
             RouteData(importTag, routingList);
+            // imported 234 series with 12 dependent calculations, and 4 daily calculations in 12.3 s
+            Console.WriteLine("imported " + importSeries.Count
+                + " series with " + calculationCount + " dependent calculations and " + calculationQueue.Count + " daily calculations ");
+            
+            calculationCount += importSeries.Count + calculationQueue.Count;
+            Console.WriteLine("elapsed time = "+p.ElapsedSeconds.ToString("F2")+ " s  "+ (calculationCount/p.ElapsedSeconds).ToString("F2")+" records/second" );
         }
 
         private void ProcessAlarms(Series s)

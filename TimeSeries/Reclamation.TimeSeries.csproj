@@ -310,6 +310,7 @@
     <Compile Include="Alarms\AlarmCondition.cs" />
     <Compile Include="Alarms\AlarmRegex.cs" />
     <Compile Include="Alarms\AsteriskCallFile.cs" />
+    <Compile Include="Alarms\ProcessAlarms.cs" />
     <Compile Include="Analysis\AnalysisCollection.cs" />
     <Compile Include="Analysis\BaseAnalysis.cs" />
     <Compile Include="Analysis\TraceAnalysis.cs" />

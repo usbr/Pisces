@@ -34,12 +34,16 @@
             this.buttonTest = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Controls.Add(this.buttonRefresh);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.textBoxValue);
             this.panel1.Controls.Add(this.buttonTest);
@@ -47,7 +51,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(484, 74);
+            this.panel1.Size = new System.Drawing.Size(562, 74);
             this.panel1.TabIndex = 2;
             // 
             // label1
@@ -94,10 +98,30 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 74);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(484, 301);
+            this.dataGridView1.Size = new System.Drawing.Size(562, 325);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dataGridView1_RowStateChanged);
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Location = new System.Drawing.Point(19, 45);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
+            this.buttonRefresh.TabIndex = 10;
+            this.buttonRefresh.Text = "refresh";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(305, 16);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(240, 52);
+            this.textBox1.TabIndex = 11;
+            this.textBox1.Text = "example alarm definitions:\r\nabove 3057.00\r\nbelow 2.2\r\n";
             // 
             // AlarmDefinitionUI
             // 
@@ -106,7 +130,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
             this.Name = "AlarmDefinitionUI";
-            this.Size = new System.Drawing.Size(484, 375);
+            this.Size = new System.Drawing.Size(562, 399);
             this.Load += new System.EventHandler(this.AlarmDefinition_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -123,5 +147,7 @@
         private System.Windows.Forms.Button buttonTest;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxValue;
+        private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

@@ -19,8 +19,7 @@ namespace Reclamation.TimeSeries.AgriMet
         /// </summary>
         public static void RunCropCharts()
         {
-            int id = DB.RunSqlCommand("select run_cropcharts()");
-
+          DB.RunSqlCommand("select run_cropcharts()");
         }
 
 

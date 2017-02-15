@@ -176,18 +176,15 @@ namespace Reclamation.TimeSeries.Alarms
         {
             Logger.WriteLine("Check for alarms " + s.SiteID + " " + s.Parameter);
             var alarm = GetAlarmDefinition(s.SiteID.ToLower(), s.Parameter.ToLower());
-            // is alarm defined
-            if (alarm.Rows.Count == 0)
-                return;
-            if (alarm.Rows.Count > 1)
-                throw new Exception("bad... alarm_definition constraint not working (siteid,parameter)");
+
+            if (alarm == null)
+                return;// no alarm defined
 
             Logger.WriteLine("found alarm definition " + s.SiteID + " " + s.Parameter);
 
-            AlarmDataSet.alarm_definitionRow row = alarm[0];
             // check alarm_condition for each value
 
-            AlarmRegex alarmEx = new AlarmRegex(row.alarm_condition);
+            AlarmRegex alarmEx = new AlarmRegex(alarm.alarm_condition);
 
             if (alarmEx.IsMatch())
             {
@@ -200,9 +197,9 @@ namespace Reclamation.TimeSeries.Alarms
                         {
                             if (!p.IsMissing && p.Value > c.Value)
                             {
-                                Logger.WriteLine("alarm_condition: "+row.alarm_condition);
+                                Logger.WriteLine("alarm_condition: " + alarm.alarm_condition);
                                 Logger.WriteLine("Alarm above found: "+p.Value);
-                                CreateAlarm(row, p);
+                                CreateAlarm(alarm, p);
                                 return;
                             }
                         }
@@ -216,7 +213,7 @@ namespace Reclamation.TimeSeries.Alarms
                             if (!p.IsMissing && p.Value < c.Value)
                             {
                                 Console.WriteLine("Alarm below found");
-                                CreateAlarm(row, p);
+                                CreateAlarm(alarm, p);
                                 return;
                             }
                         }
@@ -234,7 +231,7 @@ namespace Reclamation.TimeSeries.Alarms
                             | (num_c - num_d) > c.Value)
                         {
                             Console.WriteLine("Alarm dropping found");
-                            CreateAlarm(row, s[0]);
+                            CreateAlarm(alarm, s[0]);
                             return;
                         }
                     }
@@ -251,7 +248,7 @@ namespace Reclamation.TimeSeries.Alarms
                             | (num_d - num_c) > c.Value)
                         {
                             Console.WriteLine("Alarm dropping found");
-                            CreateAlarm(row, s[0]);
+                            CreateAlarm(alarm, s[0]);
                             return;
                         }
                     }
@@ -314,11 +311,13 @@ namespace Reclamation.TimeSeries.Alarms
                 parameterName = t.Rows[0][0].ToString();
 
             var subject = "Alarm Condition at" + siteDescription + " " + alarm.siteid;
+            subject += "  " + parameterName;
             var body = "Alarm condition at site" + alarm.siteid + "   parameter = " + alarm.parameter;
 
             var emails = GetEmailList(alarm.list);
              if( emails.Length == 0)
              {
+                 Logger.WriteLine("no emails");
                  Logger.WriteLine("subject: " + subject);
                  Logger.WriteLine("body: " + body);
              }
@@ -369,18 +368,36 @@ namespace Reclamation.TimeSeries.Alarms
             alarm_definition.idColumn.AutoIncrementSeed = m_server.NextID("alarm_definition", "id");
             return alarm_definition;
         }
-        public alarm_definitionDataTable GetAlarmDefinition(string siteid, string parameter)
+
+        // cachine alarm def (41 records/s )
+        static alarm_definitionDataTable s_alarmdef;
+
+
+        /// <summary>
+        /// Returns alarm Definition row or null if definition does not exists
+        /// </summary>
+        /// <returns></returns>
+        public alarm_definitionRow GetAlarmDefinition(string siteid, string parameter)
         {
             var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
+            if( s_alarmdef == null ) 
+            {
+                s_alarmdef = GetAlarmDefinition();
+            }
 
             siteid = PostgreSQL.SafeSqlLikeClauseLiteral(siteid);
             parameter = SqlServer.SafeSqlLikeClauseLiteral(parameter);
-            var sql = "select * from alarm_definition where siteid='" + siteid + "'"
-                    + " and parameter ='" + parameter + "'";
-            m_server.FillTable(alarm_definition, sql);
+            var sql = "siteid='" + siteid + "' and parameter ='" + parameter + "'";
 
-            alarm_definition.idColumn.AutoIncrementSeed = m_server.NextID("alarm_definition", "id");
-            return alarm_definition;
+            var rows = s_alarmdef.Select(sql);
+
+            if (rows.Length == 0)
+                return null;
+
+            var rval = s_alarmdef.Newalarm_definitionRow();
+
+            rval.ItemArray = rows[0].ItemArray;
+            return rval;
 
         }
 
@@ -406,6 +423,19 @@ namespace Reclamation.TimeSeries.Alarms
             return alarm_log.Rows.Count > 0;
         }
 
+
+        public AlarmDataSet.alarm_logDataTable GetLog(int minutes)
+        {
+            var alarm_log = new AlarmDataSet.alarm_logDataTable();
+
+            DateTime t = DateTime.Now.AddMinutes(-minutes);
+            var sql = "select * from alarm_log where datetime >= "
+                 + m_server.PortableDateString(t, TimeSeriesDatabase.dateTimeFormat);
+
+            m_server.FillTable(alarm_log, sql);
+
+            return alarm_log;
+        }
     }
 }
 

@@ -1400,7 +1400,7 @@ namespace Reclamation.TimeSeries.Alarms {
                 this.columnenabled.AllowDBNull = false;
                 this.columnenabled.DefaultValue = ((bool)(true));
                 this.columnlist.AllowDBNull = false;
-                this.columnlist.DefaultValue = ((string)("a"));
+                this.columnlist.DefaultValue = ((string)("test"));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

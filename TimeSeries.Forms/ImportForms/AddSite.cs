@@ -224,6 +224,13 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             {
                 AddInstantRow(siteID, "feet", "ch");
                 AddInstantRow(siteID, "cfs", "qc", "RectangularContractedWeir("+siteID+"_ch, mcf_scale)");
+
+                if (daily)
+                {
+                    AddDailyRow(SiteID, "ft", "gj", "DailyAverage(instant_%site%_ch)");
+                    AddDailyRow(SiteID, "ft", "qj", "DailyAverage(instant_%site%_qc)");
+                }
+
                 //AddInstantRow(siteID, "feet", "hh", "");
 
             }

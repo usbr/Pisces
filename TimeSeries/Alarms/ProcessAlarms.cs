@@ -5,7 +5,7 @@ using System.Configuration;
 using System.IO;
 using System.Diagnostics;
 using Reclamation.TimeSeries;
-namespace HydrometServer
+namespace Reclamation.TimeSeries.Alarms
 {
     /// <summary>
     /// ProcessAlarms watches a queue of alarms.
@@ -47,6 +47,12 @@ namespace HydrometServer
 
                 string[] numbers = alarmDS.GetPhoneNumbers(alarm.list);
 
+                if( numbers.Length == 0)
+                {
+                    Console.WriteLine("Error: no phone numbers defined ");;
+                    continue;
+                }
+
                 int minutesBeforeNextPhone = 5;
                 if (alarmDS.CurrentActivity(alarm.id, minutesBeforeNextPhone)) // any activity in last x minutes.
                 {
@@ -86,6 +92,7 @@ namespace HydrometServer
 
             var args = "-i "+key +" "+ src + " " + dest;
 
+            Logger.WriteLine(scp + " " + args);
            Process.Start(scp, args);
         }
         

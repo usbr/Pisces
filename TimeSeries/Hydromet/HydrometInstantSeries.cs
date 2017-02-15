@@ -336,7 +336,7 @@ END DATA
             bool oldFile = File.Exists(filename);
 
             StreamWriter output = new StreamWriter(filename,append);
-            Console.WriteLine("Writing "+cbtt+"/"+pcode+" to "+filename+" "+s.Count+" records" );
+            //Console.WriteLine("Writing "+cbtt+"/"+pcode+" to "+filename+" "+s.Count+" records" );
             if (!oldFile)
             {
                 output.WriteLine("yyyyMMMdd hhmm cbtt     PC        NewValue   OldValue   Flag User:" + user);

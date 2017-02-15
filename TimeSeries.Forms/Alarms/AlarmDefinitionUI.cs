@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Reclamation.TimeSeries.Alarms;
 using Reclamation.Core;
 using System.Configuration;
+using DgvFilterPopup;
 
 namespace Reclamation.TimeSeries.Forms.Alarms
 {
@@ -28,13 +29,31 @@ namespace Reclamation.TimeSeries.Forms.Alarms
             //RefreshDefinition();
         }
 
-        
+        DgvFilterManager filterManager = new DgvFilterManager();
         private void RefreshDefinition() 
         {
+            filterManager = null;
+            filterManager = new DgvFilterManager();
+
             alarm_definition = m_ds.GetAlarmDefinition();
 
             dataGridView1.DataSource = alarm_definition;
            dataGridView1.Columns["id"].Visible = false;
+
+           DataGridViewComboBoxColumn c = new DataGridViewComboBoxColumn();
+            
+           c.DataSource = alarm_definition;
+           c.Name = alarm_definition.listColumn.ColumnName;
+           c.ValueMember = "list";
+           c.DisplayMember = "list";
+
+           c.DataSource = m_ds.GetList();
+           c.DataPropertyName = "list";
+           dataGridView1.Columns["list"].Visible = false;
+           dataGridView1.Columns.Insert(1, c);
+
+           filterManager.DataGridView = dataGridView1;
+
         }
 
 
@@ -79,6 +98,11 @@ namespace Reclamation.TimeSeries.Forms.Alarms
 
           m_ds.CreateAlarm(alarm,new Point(DateTime.Now,Convert.ToDouble(textBoxValue.Text)));
 
+        }
+
+        private void buttonRefresh_Click(object sender, EventArgs e)
+        {
+            RefreshDefinition();
         }
     }
 }

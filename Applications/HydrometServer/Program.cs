@@ -30,9 +30,9 @@ namespace HydrometServer
             var p = new OptionSet();
 
             var cli = "";
-            var processAlarms = "";
+            int processAlarms = 0;
             p.Add("cli=", "interface --cli=instant|daily|monthly", x => cli = x);
-            p.Add("processAlarms=", " --processAlarms", x => processAlarms = x);
+            p.Add("processAlarms",  x => processAlarms++ );
 
             try
             {
@@ -40,7 +40,8 @@ namespace HydrometServer
             }
             catch (OptionException e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("Error: "+e.Message);
+                return;
             }
             if (argList.Length == 0)
             {
@@ -105,7 +106,7 @@ namespace HydrometServer
             }
 
 
-            if( processAlarms != "")
+            if( processAlarms >0)
             {
                 try
                 {

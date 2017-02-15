@@ -42,6 +42,11 @@ namespace Reclamation.TimeSeries.Forms.Alarms
             AlarmDefinitionUI def = new AlarmDefinitionUI(ds);
             this.tabPageAlarmDef.Controls.Add(def);
             def.Dock = DockStyle.Fill;
+
+            AlarmLog log = new AlarmLog(ds);
+            this.tabPageLog.Controls.Add(log);
+            log.Dock = DockStyle.Fill;
+
         }
     }
 }
