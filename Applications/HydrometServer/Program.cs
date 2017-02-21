@@ -10,6 +10,7 @@ using System.IO;
 using System.Windows.Forms;
 using Mono.Options;
 using Reclamation.TimeSeries.AgriMet;
+using Reclamation.TimeSeries.Alarms;
 
 namespace HydrometServer
 {   

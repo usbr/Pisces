@@ -21,7 +21,7 @@ namespace Reclamation.TimeSeries.Alarms
     ///   3) copy call file to asterisk server
     /// 
     /// </summary>
-    class ProcessAlarms
+    public class ProcessAlarms
     {
 
         BasicDBServer m_server;

@@ -31,13 +31,12 @@ namespace Reclamation.TimeSeries.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PiscesForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSplitButtonRefresh = new System.Windows.Forms.ToolStripSplitButton();
-            this.contextMenuStripTree = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripTree = new System.Windows.Forms.ContextMenuStrip();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuUpdate = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,10 +127,10 @@ namespace Reclamation.TimeSeries.Forms
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.openAccessDialog = new System.Windows.Forms.OpenFileDialog();
             this.openRdfFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip();
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer1 = new System.Windows.Forms.Timer();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
