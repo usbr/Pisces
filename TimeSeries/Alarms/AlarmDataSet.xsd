@@ -37,6 +37,7 @@
               <xs:element name="confirmed_by" msprop:Generator_ColumnVarNameInTable="columnconfirmed_by" msprop:Generator_ColumnPropNameInRow="confirmed_by" msprop:Generator_ColumnPropNameInTable="confirmed_byColumn" msprop:Generator_UserColumnName="confirmed_by" type="xs:string" default="" />
               <xs:element name="event_time" msprop:Generator_ColumnVarNameInTable="columnevent_time" msprop:Generator_ColumnPropNameInRow="event_time" msprop:Generator_ColumnPropNameInTable="event_timeColumn" msprop:Generator_UserColumnName="event_time" type="xs:dateTime" />
               <xs:element name="current_list_index" msprop:Generator_ColumnVarNameInTable="columncurrent_list_index" msprop:Generator_ColumnPropNameInRow="current_list_index" msprop:Generator_ColumnPropNameInTable="current_list_indexColumn" msprop:Generator_UserColumnName="current_list_index" type="xs:int" default="1" />
+              <xs:element name="cleared" msprop:Generator_ColumnVarNameInTable="columncleared" msprop:Generator_ColumnPropNameInRow="cleared" msprop:Generator_ColumnPropNameInTable="clearedColumn" msprop:Generator_UserColumnName="cleared" type="xs:boolean" default="false" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

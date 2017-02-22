@@ -298,6 +298,7 @@ namespace Reclamation.TimeSeries.Alarms
             row.confirmed_by = "";
             row.event_time = pt.DateTime;
             row.current_list_index = -1;// queue manager will increment ++
+            row.cleared = false;
             tbl.Rows.Add(row);
             m_server.SaveTable(tbl);
         }

@@ -812,6 +812,8 @@ namespace Reclamation.TimeSeries.Alarms {
             
             private global::System.Data.DataColumn columncurrent_list_index;
             
+            private global::System.Data.DataColumn columncleared;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public alarm_phone_queueDataTable() {
@@ -927,6 +929,14 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn clearedColumn {
+                get {
+                    return this.columncleared;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -962,7 +972,7 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public alarm_phone_queueRow Addalarm_phone_queueRow(string list, string siteid, string parameter, double value, string status, System.DateTime status_time, string confirmed_by, System.DateTime event_time, int current_list_index) {
+            public alarm_phone_queueRow Addalarm_phone_queueRow(string list, string siteid, string parameter, double value, string status, System.DateTime status_time, string confirmed_by, System.DateTime event_time, int current_list_index, bool cleared) {
                 alarm_phone_queueRow rowalarm_phone_queueRow = ((alarm_phone_queueRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -974,7 +984,8 @@ namespace Reclamation.TimeSeries.Alarms {
                         status_time,
                         confirmed_by,
                         event_time,
-                        current_list_index};
+                        current_list_index,
+                        cleared};
                 rowalarm_phone_queueRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowalarm_phone_queueRow);
                 return rowalarm_phone_queueRow;
@@ -1014,6 +1025,7 @@ namespace Reclamation.TimeSeries.Alarms {
                 this.columnconfirmed_by = base.Columns["confirmed_by"];
                 this.columnevent_time = base.Columns["event_time"];
                 this.columncurrent_list_index = base.Columns["current_list_index"];
+                this.columncleared = base.Columns["cleared"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1039,6 +1051,8 @@ namespace Reclamation.TimeSeries.Alarms {
                 base.Columns.Add(this.columnevent_time);
                 this.columncurrent_list_index = new global::System.Data.DataColumn("current_list_index", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columncurrent_list_index);
+                this.columncleared = new global::System.Data.DataColumn("cleared", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columncleared);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AutoIncrement = true;
@@ -1055,6 +1069,8 @@ namespace Reclamation.TimeSeries.Alarms {
                 this.columnevent_time.AllowDBNull = false;
                 this.columncurrent_list_index.AllowDBNull = false;
                 this.columncurrent_list_index.DefaultValue = ((int)(1));
+                this.columncleared.AllowDBNull = false;
+                this.columncleared.DefaultValue = ((bool)(false));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2568,6 +2584,17 @@ namespace Reclamation.TimeSeries.Alarms {
                 }
                 set {
                     this[this.tablealarm_phone_queue.current_list_indexColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool cleared {
+                get {
+                    return ((bool)(this[this.tablealarm_phone_queue.clearedColumn]));
+                }
+                set {
+                    this[this.tablealarm_phone_queue.clearedColumn] = value;
                 }
             }
             
