@@ -22,6 +22,8 @@ namespace Reclamation.TimeSeries.Alarms
 
         public static AlarmDataSet CreateInstance(BasicDBServer server = null)
         {
+            if( server != null)
+            Logger.WriteLine("AlarmDataSet.CreateInstance("+server.Name+")");
             AlarmDataSet rval;
             if (server == null)
             { // create from config files.
@@ -178,7 +180,10 @@ namespace Reclamation.TimeSeries.Alarms
             var alarm = GetAlarmDefinition(s.SiteID.ToLower(), s.Parameter.ToLower());
 
             if (alarm == null)
+            {
+                Logger.WriteLine("no alarm defined.");
                 return;// no alarm defined
+            }
 
             Logger.WriteLine("found alarm definition " + s.SiteID + " " + s.Parameter);
 
@@ -370,7 +375,7 @@ namespace Reclamation.TimeSeries.Alarms
         }
 
         // cachine alarm def (41 records/s )
-        static alarm_definitionDataTable s_alarmdef;
+        //static alarm_definitionDataTable s_alarmdef;
 
 
         /// <summary>
@@ -380,24 +385,20 @@ namespace Reclamation.TimeSeries.Alarms
         public alarm_definitionRow GetAlarmDefinition(string siteid, string parameter)
         {
             var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
-            if( s_alarmdef == null ) 
+
+            siteid = BasicDBServer.SafeSqlLikeClauseLiteral(siteid);
+            parameter = BasicDBServer.SafeSqlLikeClauseLiteral(parameter);
+            var sql = "select * from alarm_definition where siteid='" + siteid + "' and parameter ='" + parameter + "'";
+            Logger.WriteLine(sql);
+           m_server.FillTable(alarm_definition, sql);
+
+            if (alarm_definition.Rows.Count == 0)
             {
-                s_alarmdef = GetAlarmDefinition();
+                Logger.WriteLine("no rows found");
+                return null;
             }
 
-            siteid = PostgreSQL.SafeSqlLikeClauseLiteral(siteid);
-            parameter = SqlServer.SafeSqlLikeClauseLiteral(parameter);
-            var sql = "siteid='" + siteid + "' and parameter ='" + parameter + "'";
-
-            var rows = s_alarmdef.Select(sql);
-
-            if (rows.Length == 0)
-                return null;
-
-            var rval = s_alarmdef.Newalarm_definitionRow();
-
-            rval.ItemArray = rows[0].ItemArray;
-            return rval;
+            return (alarm_definitionRow)alarm_definition.Rows[0];
 
         }
 
@@ -435,6 +436,11 @@ namespace Reclamation.TimeSeries.Alarms
             m_server.FillTable(alarm_log, sql);
 
             return alarm_log;
+        }
+
+        internal int NextID(string tableName, string columnName)
+        {
+            return m_server.NextID(tableName, columnName);
         }
     }
 }

@@ -34,6 +34,7 @@ namespace Reclamation.TimeSeries
                 CreateAlarmDef();
                 CreateAlarmPhoneQueue();
                 CreateAlarmScripts();
+                CreateAlarmLog();
             }
 
         }
@@ -118,6 +119,18 @@ namespace Reclamation.TimeSeries
 
         }
 
+        private void CreateAlarmLog()
+        {
+
+            if (!m_server.TableExists("alarm_log"))
+            {
+                string sql = "Create Table alarm_log "
+                + "( datetime  datetime not null primary key, "
+                + " message " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " alarm_phone_queue_id int not null default 0 )";
+                ExecuteCreateTable(m_server, sql);
+            }
+        }
         private void CreateAlarmDef()
         {
 

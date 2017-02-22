@@ -15,24 +15,37 @@ namespace Pisces.NunitTests.Database
     [TestFixture]
     public class TestAlarms
     {
-        SQLiteServer svr;
-        TimeSeriesDatabase db;
         public TestAlarms()
         {
+            
+        }
+
+
+        private static TimeSeriesDatabase GetDatabase()
+        {
             var fn = FileUtility.GetTempFileName(".pdb");
-            this.svr = new SQLiteServer(fn);
-            this.db = new TimeSeriesDatabase(svr);
+            var svr = new SQLiteServer(fn);
+            var db = new TimeSeriesDatabase(svr);
+            
+            Logger.EnableLogger();
+            Console.WriteLine("Created Database: "+fn);
+            return db;
         }
 
         [Test]
         public void DatabaseAboveAlarmTest()
         {
+            var db = GetDatabase();
             // create database with alarm def
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("palisades");
             ds.alarm_definition.Addalarm_definitionRow(true, "palisades",
                 "pal", "fb", "above 5520", "");
             ds.SaveTable(ds.alarm_definition);
+
+            var test = db.Server.Table("alarm_definition");
+            Console.WriteLine("alarm_definition has "+test.Rows.Count+" rows");
+
             ds.alarm_recipient.Addalarm_recipientRow("palisades", 4,
                 "5272", "office", "hydromet@usbr.gov");
             ds.SaveTable(ds.alarm_recipient);
@@ -44,29 +57,23 @@ namespace Pisces.NunitTests.Database
             s.Parameter = "fb";
             s.SiteID = "pal";
             s.Read();
+            Console.WriteLine("pal/fb series count = "+s.Count);
             Assert.IsTrue(s.Count > 500);
 
             ds.Check(s);
 
-            var queue = ds.GetAlarmQueue();
-            string sql = "list = 'palisades' AND siteid = 'pal' "
-                + "AND parameter = 'fb' AND status = 'new'";
-            Assert.IsTrue(queue.Select(sql).Length == 1);
-
+            var queue = ds.GetActiveAlarmQueue("pal", "fb");
+            Console.WriteLine(DataTableOutput.ToJson(queue));
+            Assert.AreEqual(1, queue.Rows.Count);
         }
 
 
         [Test]
         public void Below()
         {
+            var db = GetDatabase();
             var ds = db.Alarms;
-            ds.AddNewAlarmGroup("lucky");
-            ds.alarm_definition.Addalarm_definitionRow(true, "lucky",
-                "luc", "fb", "below 5525", "");
-            ds.SaveTable(ds.alarm_definition);
-            ds.alarm_recipient.Addalarm_recipientRow("lucky", 4,
-                "5272", "office", "hydromet@usbr.gov");
-            ds.SaveTable(ds.alarm_recipient);
+            SetupAlarm(ds,"lucky","luc","fb", "below 5525");
 
             Series s = new Series();
             s.Parameter = "fb";
@@ -78,15 +85,34 @@ namespace Pisces.NunitTests.Database
 
             ds.Check(s);
 
-            var queue = ds.GetAlarmQueue();
-            string sql = "list = 'lucky' AND siteid = 'luc' "
-                + "AND parameter = 'fb' AND status = 'new'";
-            Assert.IsTrue(queue.Select(sql).Length == 1);
+            var queue = ds.GetActiveAlarmQueue("luc", "fb");
+            Assert.AreEqual(1, queue.Rows.Count);
 
+        }
+
+        private static void SetupAlarm(AlarmDataSet ds, string group,
+            string cbtt, string pcode, string def)
+        {
+            ds.AddNewAlarmGroup(group);
+            var row = ds.alarm_definition.Newalarm_definitionRow();
+            row.enabled = true;
+            row.list = group;
+            row.siteid = cbtt;
+            row.parameter = pcode;
+            row.alarm_condition = def;
+            row.clear_condition = "";
+            row.id = ds.NextID("alarm_definition", "id");
+            ds.alarm_definition.Addalarm_definitionRow(row);
+            ds.SaveTable(ds.alarm_definition);
+            ds.alarm_recipient.Addalarm_recipientRow(group, 4,
+                "5272", "office", "hydromet@usbr.gov");
+            ds.SaveTable(ds.alarm_recipient);
         }
         [Test]
         public void Dropping()
         {
+            var db = GetDatabase();
+
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("cre");
             ds.alarm_definition.Addalarm_definitionRow(true, "cre",
@@ -114,6 +140,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void Rising()
         {
+            var db = GetDatabase();
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("emi");
             ds.alarm_definition.Addalarm_definitionRow(true, "emi",
@@ -143,6 +170,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void AboveOrRising()
         {
+            var db = GetDatabase();
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("uny");
             ds.alarm_definition.Addalarm_definitionRow(true, "uny",

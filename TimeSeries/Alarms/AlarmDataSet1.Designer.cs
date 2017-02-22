@@ -648,7 +648,7 @@ namespace Reclamation.TimeSeries.Alarms {
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AutoIncrement = true;
-                this.columnid.AutoIncrementSeed = -1;
+                this.columnid.AutoIncrementSeed = 1;
                 this.columnid.AllowDBNull = false;
                 this.columnid.Unique = true;
                 this.columnlist.AllowDBNull = false;
@@ -962,10 +962,10 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public alarm_phone_queueRow Addalarm_phone_queueRow(int id, string list, string siteid, string parameter, double value, string status, System.DateTime status_time, string confirmed_by, System.DateTime event_time, int current_list_index) {
+            public alarm_phone_queueRow Addalarm_phone_queueRow(string list, string siteid, string parameter, double value, string status, System.DateTime status_time, string confirmed_by, System.DateTime event_time, int current_list_index) {
                 alarm_phone_queueRow rowalarm_phone_queueRow = ((alarm_phone_queueRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        id,
+                        null,
                         list,
                         siteid,
                         parameter,
@@ -1041,6 +1041,8 @@ namespace Reclamation.TimeSeries.Alarms {
                 base.Columns.Add(this.columncurrent_list_index);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
+                this.columnid.AutoIncrement = true;
+                this.columnid.AutoIncrementSeed = 1;
                 this.columnid.AllowDBNull = false;
                 this.columnid.Unique = true;
                 this.columnlist.AllowDBNull = false;
