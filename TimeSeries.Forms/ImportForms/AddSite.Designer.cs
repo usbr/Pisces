@@ -44,6 +44,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.dataGridViewProperties = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxWaterTempC = new System.Windows.Forms.CheckBox();
+            this.textBoxCustomUnits = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.checkBoxDaily = new System.Windows.Forms.CheckBox();
             this.textBoxCustom = new System.Windows.Forms.TextBox();
             this.checkBoxCustom = new System.Windows.Forms.CheckBox();
@@ -73,9 +76,8 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label11 = new System.Windows.Forms.Label();
-            this.textBoxCustomUnits = new System.Windows.Forms.TextBox();
-            this.checkBoxWaterTempC = new System.Windows.Forms.CheckBox();
+            this.checkBoxPrecip = new System.Windows.Forms.CheckBox();
+            this.checkBoxAirTemp = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -168,7 +170,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(658, 429);
+            this.tabControl1.Size = new System.Drawing.Size(679, 446);
             this.tabControl1.TabIndex = 8;
             // 
             // tabPage1
@@ -179,7 +181,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage1.Size = new System.Drawing.Size(650, 403);
+            this.tabPage1.Size = new System.Drawing.Size(671, 420);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "new site";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -188,11 +190,11 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(2, 208);
+            this.dataGridView1.Location = new System.Drawing.Point(2, 251);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(646, 193);
+            this.dataGridView1.Size = new System.Drawing.Size(667, 167);
             this.dataGridView1.TabIndex = 4;
             // 
             // panel1
@@ -212,7 +214,7 @@
             this.panel1.Location = new System.Drawing.Point(2, 2);
             this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(646, 206);
+            this.panel1.Size = new System.Drawing.Size(667, 249);
             this.panel1.TabIndex = 5;
             // 
             // label10
@@ -235,6 +237,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxAirTemp);
+            this.groupBox1.Controls.Add(this.checkBoxPrecip);
             this.groupBox1.Controls.Add(this.checkBoxWaterTempC);
             this.groupBox1.Controls.Add(this.textBoxCustomUnits);
             this.groupBox1.Controls.Add(this.label11);
@@ -253,17 +257,46 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(358, 174);
+            this.groupBox1.Size = new System.Drawing.Size(358, 217);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // checkBoxWaterTempC
+            // 
+            this.checkBoxWaterTempC.AutoSize = true;
+            this.checkBoxWaterTempC.Location = new System.Drawing.Point(6, 43);
+            this.checkBoxWaterTempC.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxWaterTempC.Name = "checkBoxWaterTempC";
+            this.checkBoxWaterTempC.Size = new System.Drawing.Size(106, 17);
+            this.checkBoxWaterTempC.TabIndex = 24;
+            this.checkBoxWaterTempC.Text = "water temp degC";
+            this.checkBoxWaterTempC.UseVisualStyleBackColor = true;
+            // 
+            // textBoxCustomUnits
+            // 
+            this.textBoxCustomUnits.Location = new System.Drawing.Point(182, 179);
+            this.textBoxCustomUnits.Name = "textBoxCustomUnits";
+            this.textBoxCustomUnits.Size = new System.Drawing.Size(46, 20);
+            this.textBoxCustomUnits.TabIndex = 23;
+            this.textBoxCustomUnits.Text = "feet";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(145, 179);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "units:";
             // 
             // checkBoxDaily
             // 
             this.checkBoxDaily.AutoSize = true;
             this.checkBoxDaily.Checked = true;
             this.checkBoxDaily.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxDaily.Location = new System.Drawing.Point(207, 53);
+            this.checkBoxDaily.Location = new System.Drawing.Point(207, 86);
             this.checkBoxDaily.Name = "checkBoxDaily";
             this.checkBoxDaily.Size = new System.Drawing.Size(143, 17);
             this.checkBoxDaily.TabIndex = 13;
@@ -272,7 +305,7 @@
             // 
             // textBoxCustom
             // 
-            this.textBoxCustom.Location = new System.Drawing.Point(70, 140);
+            this.textBoxCustom.Location = new System.Drawing.Point(70, 179);
             this.textBoxCustom.Name = "textBoxCustom";
             this.textBoxCustom.Size = new System.Drawing.Size(67, 20);
             this.textBoxCustom.TabIndex = 22;
@@ -281,7 +314,7 @@
             // checkBoxCustom
             // 
             this.checkBoxCustom.AutoSize = true;
-            this.checkBoxCustom.Location = new System.Drawing.Point(6, 145);
+            this.checkBoxCustom.Location = new System.Drawing.Point(6, 179);
             this.checkBoxCustom.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxCustom.Name = "checkBoxCustom";
             this.checkBoxCustom.Size = new System.Drawing.Size(63, 17);
@@ -293,7 +326,7 @@
             // checkBoxReservoir
             // 
             this.checkBoxReservoir.AutoSize = true;
-            this.checkBoxReservoir.Location = new System.Drawing.Point(6, 77);
+            this.checkBoxReservoir.Location = new System.Drawing.Point(6, 110);
             this.checkBoxReservoir.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxReservoir.Name = "checkBoxReservoir";
             this.checkBoxReservoir.Size = new System.Drawing.Size(109, 17);
@@ -304,7 +337,7 @@
             // checkBoxCanal
             // 
             this.checkBoxCanal.AutoSize = true;
-            this.checkBoxCanal.Location = new System.Drawing.Point(6, 60);
+            this.checkBoxCanal.Location = new System.Drawing.Point(6, 93);
             this.checkBoxCanal.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxCanal.Name = "checkBoxCanal";
             this.checkBoxCanal.Size = new System.Drawing.Size(131, 17);
@@ -315,7 +348,7 @@
             // checkBoxGenericWeir
             // 
             this.checkBoxGenericWeir.AutoSize = true;
-            this.checkBoxGenericWeir.Location = new System.Drawing.Point(6, 128);
+            this.checkBoxGenericWeir.Location = new System.Drawing.Point(6, 161);
             this.checkBoxGenericWeir.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxGenericWeir.Name = "checkBoxGenericWeir";
             this.checkBoxGenericWeir.Size = new System.Drawing.Size(213, 17);
@@ -327,7 +360,7 @@
             // checkBoxRectWeir
             // 
             this.checkBoxRectWeir.AutoSize = true;
-            this.checkBoxRectWeir.Location = new System.Drawing.Point(6, 111);
+            this.checkBoxRectWeir.Location = new System.Drawing.Point(6, 144);
             this.checkBoxRectWeir.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxRectWeir.Name = "checkBoxRectWeir";
             this.checkBoxRectWeir.Size = new System.Drawing.Size(222, 17);
@@ -339,7 +372,7 @@
             // checkBoxQuality
             // 
             this.checkBoxQuality.AutoSize = true;
-            this.checkBoxQuality.Location = new System.Drawing.Point(6, 94);
+            this.checkBoxQuality.Location = new System.Drawing.Point(6, 127);
             this.checkBoxQuality.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxQuality.Name = "checkBoxQuality";
             this.checkBoxQuality.Size = new System.Drawing.Size(182, 17);
@@ -521,17 +554,17 @@
             this.panel2.Controls.Add(this.buttonCancel);
             this.panel2.Controls.Add(this.buttonOK);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 429);
+            this.panel2.Location = new System.Drawing.Point(0, 446);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(658, 69);
+            this.panel2.Size = new System.Drawing.Size(679, 69);
             this.panel2.TabIndex = 9;
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(573, 37);
+            this.buttonCancel.Location = new System.Drawing.Point(594, 37);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -542,41 +575,34 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(573, 9);
+            this.buttonOK.Location = new System.Drawing.Point(594, 9);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 6;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             // 
-            // label11
+            // checkBoxPrecip
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(145, 144);
-            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 13);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "units:";
+            this.checkBoxPrecip.AutoSize = true;
+            this.checkBoxPrecip.Location = new System.Drawing.Point(6, 77);
+            this.checkBoxPrecip.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxPrecip.Name = "checkBoxPrecip";
+            this.checkBoxPrecip.Size = new System.Drawing.Size(66, 17);
+            this.checkBoxPrecip.TabIndex = 25;
+            this.checkBoxPrecip.Text = "precip in";
+            this.checkBoxPrecip.UseVisualStyleBackColor = true;
             // 
-            // textBoxCustomUnits
+            // checkBoxAirTemp
             // 
-            this.textBoxCustomUnits.Location = new System.Drawing.Point(182, 143);
-            this.textBoxCustomUnits.Name = "textBoxCustomUnits";
-            this.textBoxCustomUnits.Size = new System.Drawing.Size(46, 20);
-            this.textBoxCustomUnits.TabIndex = 23;
-            this.textBoxCustomUnits.Text = "feet";
-            // 
-            // checkBoxWaterTempC
-            // 
-            this.checkBoxWaterTempC.AutoSize = true;
-            this.checkBoxWaterTempC.Location = new System.Drawing.Point(6, 43);
-            this.checkBoxWaterTempC.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxWaterTempC.Name = "checkBoxWaterTempC";
-            this.checkBoxWaterTempC.Size = new System.Drawing.Size(106, 17);
-            this.checkBoxWaterTempC.TabIndex = 24;
-            this.checkBoxWaterTempC.Text = "water temp degC";
-            this.checkBoxWaterTempC.UseVisualStyleBackColor = true;
+            this.checkBoxAirTemp.AutoSize = true;
+            this.checkBoxAirTemp.Location = new System.Drawing.Point(6, 60);
+            this.checkBoxAirTemp.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxAirTemp.Name = "checkBoxAirTemp";
+            this.checkBoxAirTemp.Size = new System.Drawing.Size(90, 17);
+            this.checkBoxAirTemp.TabIndex = 26;
+            this.checkBoxAirTemp.Text = "air temp degF";
+            this.checkBoxAirTemp.UseVisualStyleBackColor = true;
             // 
             // AddSite
             // 
@@ -584,7 +610,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(658, 498);
+            this.ClientSize = new System.Drawing.Size(679, 515);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel2);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -654,5 +680,7 @@
         private System.Windows.Forms.TextBox textBoxCustomUnits;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.CheckBox checkBoxWaterTempC;
+        private System.Windows.Forms.CheckBox checkBoxAirTemp;
+        private System.Windows.Forms.CheckBox checkBoxPrecip;
     }
 }

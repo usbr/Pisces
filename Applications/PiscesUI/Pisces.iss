@@ -21,7 +21,7 @@ AlwaysShowDirOnReadyPage=yes
 AlwaysShowGroupOnReadyPage=yes
 
 
-LicenseFile=..\license.md
+LicenseFile=..\..\license.md
 
 DefaultDirName={sd}\Pisces2
 DefaultGroupName=Pisces
@@ -48,7 +48,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source:  ".\bin\debug\Pisces.exe";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\plugins.txt";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\Pisces.exe.config";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\private.config";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\..\private.config";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\images\*";   DestDir: "{app}\images";   Flags: ignoreversion
 Source:  ".\bin\debug\Aga.Controls.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\ICSharpCode.SharpZipLib.dll";   DestDir: "{app}";   Flags: ignoreversion
@@ -84,22 +84,22 @@ Source:  "..\Rwis.Sync\bin\Debug\Rwis.Sync.exe.config";   DestDir: "{app}";   Fl
 Source:  "C:\Program Files (x86)\Common Files\Devart\dotConnect\5.00\Net2\Common\Devart.Data.Oracle.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "C:\Program Files (x86)\Common Files\Devart\dotConnect\5.00\Net2\Common\Devart.Data.dll";   DestDir: "{app}";   Flags: ignoreversion
 
-Source:  "..\Applications\cfg\gp\*.*";   DestDir: "{app}\gp";   Flags: ignoreversion
-Source:  "..\Applications\cfg\yak\*.*";   DestDir: "{app}\yak";   Flags: ignoreversion
-Source:  "..\Applications\cfg\site.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\daily_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\instant_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\monthly_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\reclamationcgi.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\group.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\cc.dat";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\nwcc_inventory.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\snotel_site_list2.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\boise_arc.dat";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\owrd_station_list.csv";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\mpoll.cbt";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "..\Applications\cfg\mpoll_inventory.txt";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\gp\*.*";   DestDir: "{app}\gp";   Flags: ignoreversion
+Source:  "..\cfg\yak\*.*";   DestDir: "{app}\yak";   Flags: ignoreversion
+Source:  "..\cfg\site.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\daily_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\instant_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\monthly_pcode.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\reclamationcgi.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\group.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\cc.dat";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\nwcc_inventory.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\snotel_site_list2.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\boise_arc.dat";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\owrd_station_list.csv";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\mpoll.cbt";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "..\cfg\mpoll_inventory.txt";   DestDir: "{app}";   Flags: ignoreversion
 
 ; Modsim
 Source:  ".\bin\debug\alglibnet2.dll";   DestDir: "{app}";   Flags: ignoreversion
@@ -109,10 +109,10 @@ Source:  ".\bin\debug\A2CM.dll";   DestDir: "{app}";   Flags: ignoreversion
 ;
 ; Sample Data and templates
 ;
-Source:  "..\PiscesTestData\data\el68d_export.csv";   DestDir: "{app}\sample-data";   Flags: ignoreversion
-Source:  "..\PiscesTestData\data\wateryear.xls";   DestDir: "{app}\sample-data";   Flags: ignoreversion
-Source:  "..\PiscesTestData\data\bulk-import-template.xlsx";   DestDir: "{app}\sample-data";   Flags: ignoreversion
-Source:  "..\PiscesTestData\data\ac_flow.xls";   DestDir: "{app}\sample-data";   Flags: ignoreversion                                              
+Source:  "..\..\PiscesTestData\data\el68d_export.csv";   DestDir: "{app}\sample-data";   Flags: ignoreversion
+Source:  "..\..\PiscesTestData\data\wateryear.xls";   DestDir: "{app}\sample-data";   Flags: ignoreversion
+Source:  "..\..\PiscesTestData\data\bulk-import-template.xlsx";   DestDir: "{app}\sample-data";   Flags: ignoreversion
+Source:  "..\..\PiscesTestData\data\ac_flow.xls";   DestDir: "{app}\sample-data";   Flags: ignoreversion                                              
 
 ;Source:  ".\pisces\sample data\SnakeRiverFlow.xls";   DestDir: "{app}\sample data";   Flags: ignoreversion
 ;Source:  ".\pisces\sample data\SnakeRiverTemperature.txt";   DestDir: "{app}\sample data";   Flags: ignoreversion

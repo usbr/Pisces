@@ -39,8 +39,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
          
            properties.Columns.Add("name");
            properties.Columns.Add("value");
-           properties.Rows.Add("program", "khydromet");
-           properties.Rows.Add("basin", "klamath");
+           properties.Rows.Add("program", "hydromet");
+           properties.Rows.Add("basin", "");
 
            dataGridViewProperties.DataSource = properties;
             
@@ -202,6 +202,32 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                     AddDailyRow(siteID, "degF", "wz", "DailyAverage(instant_%site%_wf,10)");
                 }
             }
+
+            if( this.checkBoxAirTemp.Checked)
+            {
+                AddInstantRow(siteID, "degF", "ob");
+                if (daily)
+                {
+                    AddDailyRow(siteID, "degF", "mn", "DailyMin(instant_%site%_ob,10)");
+                    AddDailyRow(siteID, "degF", "mm", "DailyMax(instant_%site%_ob,10)");
+                    AddDailyRow(siteID, "degF", "mx", "DailyAverage(instant_%site%_ob,10)");
+                }
+            }
+
+            if (this.checkBoxPrecip.Checked)
+            {
+                AddInstantRow(siteID, "in", "pc");
+                if (daily)
+                {
+                    AddDailyRow(siteID, "in", "pc", "DailyMidnight(instant_%site%_pc)");
+                    AddDailyRow(siteID, "in", "pp", "daily_%site%_pc-daily_%site%_pc[t-1]");
+                    AddDailyRow(siteID, "in", "pu", "DailyWaterYearRunningTotal(daily_%site%_pp,daily_%site%_pu)");
+                }
+            }
+
+
+
+
             if (this.checkBoxWaterTempC.Checked)
             {
                 AddInstantRow(siteID, "degC", "wc");
