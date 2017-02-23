@@ -12,7 +12,7 @@ AppVerName={#AppName} {#AppVerStr}
 UninstallDisplayName={#AppName} {#AppVerStr}
 VersionInfoVersion={#AppVerStr}
 VersionInfoTextVersion={#AppVerStr}
-OutputBaseFilename=Pisces2-setup
+OutputBaseFilename=Pisces3-setup
 ;show dialogs even if previous install found
 DisableWelcomePage=no
 DisableDirPage=no
@@ -23,7 +23,7 @@ AlwaysShowGroupOnReadyPage=yes
 
 LicenseFile=..\..\license.md
 
-DefaultDirName={sd}\Pisces2
+DefaultDirName={sd}\Pisces3
 DefaultGroupName=Pisces
 
 Compression=lzma

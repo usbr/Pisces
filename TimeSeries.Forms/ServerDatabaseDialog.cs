@@ -57,6 +57,7 @@ namespace Reclamation.TimeSeries.Forms
             comboBox1.Items.AddRange(items);
 
             var s = UserPreference.Lookup("SelectedDatabaseServer");
+            
             comboBox1.SelectedItem = s;
             comboBox1_SelectionChangeCommitted(comboBox1, EventArgs.Empty);
         }
@@ -126,7 +127,7 @@ namespace Reclamation.TimeSeries.Forms
         private void comboBox1_SelectionChangeCommitted(object sender, EventArgs e)
         {
             var cb = sender as ComboBox;
-            if (cb == null)
+            if (cb == null || cb.SelectedItem == null)
             {
                 return;
             }
