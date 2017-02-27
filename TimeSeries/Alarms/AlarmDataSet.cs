@@ -143,12 +143,18 @@ namespace Reclamation.TimeSeries.Alarms
             m_server.SaveTable(tbl);
         }
 
+        /// <summary>
+        /// Gets list of active alarms.
+        /// </summary>
+        /// <param name="siteid"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
         public AlarmDataSet.alarm_phone_queueDataTable GetActiveAlarmQueue(string siteid, string parameter)
         {
             var tbl = new AlarmDataSet.alarm_phone_queueDataTable();
             string sql = "select * from alarm_phone_queue ";
             sql += " where siteid = '" + siteid + "' and parameter = '" + parameter + "' ";
-            sql += " and status in ('new', 'unconfirmed')";
+            sql += " and status in ('new', 'unconfirmed') and active=true";
 
             m_server.FillTable(tbl, sql);
 
@@ -172,6 +178,7 @@ namespace Reclamation.TimeSeries.Alarms
         }
         /// <summary>
         /// Check each point in the series for an alarm
+        /// If there is an alarm condition add entry to alarm_phone_queue
         /// </summary>
         /// <param name="s"></param>
         internal void Check(Series s)
@@ -298,7 +305,7 @@ namespace Reclamation.TimeSeries.Alarms
             row.confirmed_by = "";
             row.event_time = pt.DateTime;
             row.current_list_index = -1;// queue manager will increment ++
-            row.cleared = false;
+            row.active = true;
             tbl.Rows.Add(row);
             m_server.SaveTable(tbl);
         }
@@ -323,7 +330,7 @@ namespace Reclamation.TimeSeries.Alarms
             var emails = GetEmailList(alarm.list);
              if( emails.Length == 0)
              {
-                 Logger.WriteLine("no emails");
+                 Logger.WriteLine("no emails found for list='"+alarm.list+"'");
                  Logger.WriteLine("subject: " + subject);
                  Logger.WriteLine("body: " + body);
              }
@@ -348,7 +355,7 @@ namespace Reclamation.TimeSeries.Alarms
                 reply = ConfigurationManager.AppSettings["email_reply"];
             if (reply == "")
             {
-                Console.WriteLine("");
+                Console.WriteLine("Error: email_reply not defined in config file");
                 return;
             }
             msg.From = new MailAddress(reply);

@@ -98,7 +98,7 @@ namespace Reclamation.TimeSeries
                 + " confirmed_by " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " event_time " + m_server.PortableDateTimeType() + " not null  ,"
                 + " current_list_index int not null default -1 ,"
-                + " cleared boolean not null default false "
+                + " active boolean not null default true "
                 + " )";
                 ExecuteCreateTable(m_server, sql);
             }
