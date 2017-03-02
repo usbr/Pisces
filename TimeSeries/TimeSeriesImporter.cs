@@ -64,7 +64,7 @@ namespace Reclamation.TimeSeries
             foreach (var s in importSeries)
             {
                 m_db.Quality.SetFlags(s); // to do, log/email flaged data
-                ProcessAlarms(s);
+                CheckForAlarms(s);
                  var folderNames = SetupDefaultFolders(s);
 
                 m_db.ImportSeriesUsingTableName(s,folderNames , m_saveOption);
@@ -75,7 +75,7 @@ namespace Reclamation.TimeSeries
                     calculationCount += z.Count;
                     foreach (var cs in z)
                     {
-                        ProcessAlarms(cs);    
+                        CheckForAlarms(cs);    
                     }
                     
                     routingList.AddRange(z);
@@ -98,7 +98,7 @@ namespace Reclamation.TimeSeries
             Console.WriteLine("elapsed time = "+p.ElapsedSeconds.ToString("F2")+ " s  "+ (calculationCount/p.ElapsedSeconds).ToString("F2")+" records/second" );
         }
 
-        private void ProcessAlarms(Series s)
+        private void CheckForAlarms(Series s)
         {
             try
             {

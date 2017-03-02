@@ -8,12 +8,12 @@ using Reclamation.TimeSeries;
 namespace Reclamation.TimeSeries.Alarms
 {
     /// <summary>
-    /// ProcessAlarms watches a queue of alarms.
-    /// the queue is a database table alarm_phone_queue
-    /// runs every minute from a cron job
-    /// processes alarms with status of 'new' or 'unconfirmed'
+    /// runs via  HydrometServer.exe --processAlarms
     /// 
-    ///   0) verify asterisk is not busy with alarm_phone_queue.id 
+    /// processes the alarms in alarm_phone_queue table.
+    /// 
+    /// 
+    ///   0) verify asterisk is not busy with alarm_log and alarm_phone_queue.id 
     ///   1) update alarm_phone_queue.current_phone_index
     ///         current_phone_index is incremented +1
     ///         or back to zero (to start over)
@@ -36,7 +36,7 @@ namespace Reclamation.TimeSeries.Alarms
         public void MakePhoneCalls()
         {
 
-            var alarmQueue = alarmDS.GetNewAlarms();
+            var alarmQueue = alarmDS.GetUnconfirmedAlarms();
         
             Logger.WriteLine("found "+alarmQueue.Rows.Count+" unconfirmed alarms in the queue");
             

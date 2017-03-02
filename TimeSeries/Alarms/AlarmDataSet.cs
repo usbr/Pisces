@@ -54,11 +54,10 @@ namespace Reclamation.TimeSeries.Alarms
 
 
         /// <summary>
-        /// Gets a list of alarms in priority order for processing
-        /// only alarms with status (new, or unconfirmed)
+        /// Gets a list of alarms that need to be procesed.
         /// </summary>
         /// <returns></returns>
-        public alarm_phone_queueDataTable GetNewAlarms()
+        public alarm_phone_queueDataTable GetUnconfirmedAlarms()
         {
             AlarmDataSet.alarm_phone_queueDataTable tbl = new alarm_phone_queueDataTable();
             string sql = "select * from alarm_phone_queue where status='new' or status = 'unconfirmed'";
@@ -194,8 +193,6 @@ namespace Reclamation.TimeSeries.Alarms
 
             Logger.WriteLine("found alarm definition " + s.SiteID + " " + s.Parameter);
 
-            // check alarm_condition for each value
-
             AlarmRegex alarmEx = new AlarmRegex(alarm.alarm_condition);
 
             if (alarmEx.IsMatch())
@@ -274,12 +271,13 @@ namespace Reclamation.TimeSeries.Alarms
 
         }
 
+        
         /// <summary>
-        /// make phone calls and send emails
-        // 
+        ///  Check for alarm condition. If an alarm condition is found
+        ///  create an entry in the alarm_phone_queue.
         /// </summary>
         /// <param name="alarm"></param>
-        /// <param name="Alarmvalue"></param>
+        /// <param name="pt"></param>
         public void CreateAlarm(AlarmDataSet.alarm_definitionRow alarm,
                              Point pt)
         {
