@@ -1,5 +1,4 @@
-﻿using Reclamation.TimeSeries;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -15,8 +14,8 @@ namespace HydrometServer.CommandLine
         /// <summary>
         /// data table print method
         /// </summary>
-        /// <param name="dataTable"></param>
-        public static void Print(DataTable dataTable, int columnsPerSection)
+        /// <param name="table"></param>
+        public static void Print(DataTable table, int columnsPerSection)
         {
             //Make a fuction that loops through the tbl until it has finished printing 
             //TODO write set number of columns at a time (amf for size)
@@ -24,21 +23,20 @@ namespace HydrometServer.CommandLine
             //formatted decimal values
 
             int startIndex = 1;
-            int endIndex = startIndex + columnsPerSection - 1;
-
+            int endIndex = Math.Min(startIndex + columnsPerSection - 1, table.Columns.Count - 1);
 
             do
             {
-                formattedTable(dataTable, startIndex, endIndex);
+                formattedTable(table, startIndex, endIndex);
                 startIndex = endIndex + 1;
                 endIndex = startIndex + columnsPerSection - 1;
-                if (endIndex >= dataTable.Columns.Count)
+                if (endIndex >= table.Columns.Count)
                 {
-                    endIndex = dataTable.Columns.Count - 1;
+                    endIndex = table.Columns.Count - 1;
                 }
 
             }
-            while (startIndex < dataTable.Columns.Count);
+            while (startIndex < table.Columns.Count);
 
           
        

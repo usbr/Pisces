@@ -7,7 +7,7 @@ using Reclamation.TimeSeries;
 
 namespace HydrometServer.CommandLine
 {
-    enum Command { Get, Date, Exit ,Help};
+    enum Command { Get,GetQ, Date, Exit ,Help};
     /// <summary>
     /// CommandLineInput represents single line of user input
     /// </summary>
@@ -42,7 +42,7 @@ namespace HydrometServer.CommandLine
             }
         }
 
-        string pattern = @"^(?<cmd>help|exit|ex|get|g|date|date)(?<separator1>/|\s+|\=)?(?<parm1>[\,a-z0-9]+)?"
+        string pattern = @"^(?<cmd>help|exit|ex|get|g|gq|getq|date)(?<separator1>/|\s+|\=)(?<parm1>[\,a-z0-9]+)?"
                       +@"(?<separator2>/|\s+)?(?<parm2>[\,a-z0-1]+)?";
         string input = "";
         string sites= "";
@@ -107,6 +107,8 @@ namespace HydrometServer.CommandLine
 
         public void Read(string cmd)
         {
+            pcodes = "";
+            sites = "";
             input = cmd.ToLower();
             match = Regex.Match(input, pattern);
             m_valid = match.Success;
@@ -115,10 +117,14 @@ namespace HydrometServer.CommandLine
             {
                 if (Value("cmd") == "ex" || Value("cmd") == "exit")
                     m_command = Command.Exit;
-                else if (Value("cmd") == "get" || Value("cmd") == "g")
+                else if (Value("cmd") == "get" || Value("cmd") == "g"
+                    || Value("cmd") == "getq" || Value("cmd") == "gq" )
                 {
                     m_command = CommandLine.Command.Get;
-                   
+
+                    if (Value("cmd") == "getq" || Value("cmd") == "gq")
+                        m_command = CommandLine.Command.GetQ;
+
                     if (Value("separator1") == "/")
                     {//   g/ob   (get parameter, use existing cbtt)
                         pcodes = Value("parm1");

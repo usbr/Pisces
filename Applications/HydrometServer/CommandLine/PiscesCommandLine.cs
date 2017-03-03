@@ -38,7 +38,7 @@ namespace HydrometServer.CommandLine
                 input.Read(s);
 
                 if (input.Parameters.Length == 0 && input.SiteList.Length ==1) // get all parameters in database
-                    input.Parameters = GetAllParametersForSiteID(input.SiteList[0],m_interval);
+                    input.Parameters = GetAllParametersForSiteID(input.SiteList[0], m_interval, input.Command== Command.GetQ);
 
 
                 if (!input.Valid)
@@ -55,7 +55,7 @@ namespace HydrometServer.CommandLine
                     Help();
                 }
 
-                if (input.Command == Command.Get)
+                if (input.Command == Command.Get || input.Command == Command.GetQ)
                 {
                     if (input.SiteList.Length == 0)
                     {
@@ -72,21 +72,39 @@ namespace HydrometServer.CommandLine
             } while (true);
         }
 
+
+        private static string[] QualityParameters = new string[] { "batvolt","bv","parity", "power", "msglen", "lenerr", "timeerr" };
+
+        private static bool IsQuality(string pcode)
+        {
+            return Array.IndexOf(QualityParameters,pcode.ToLower()) >=0;
+        }
+
         /// <summary>
         /// Gets all parameters for a site ID
         /// </summary>
         /// <param name="siteId"></param>
         /// <param name="m_interval"></param>
         /// <returns></returns>
-        private string[] GetAllParametersForSiteID(string siteId, TimeInterval m_interval)
+        private string[] GetAllParametersForSiteID(string siteId, TimeInterval m_interval, bool quality=false)
         {
             string filter = "timeinterval = '" + m_interval.ToString() + "' and siteid = '"+siteId+"'";
             var sc = m_db.GetSeriesCatalog(filter , "", "order by parameter");
 
+            
             var rval = new List<string>();
             foreach (var item in sc)
             {
-                rval.Add(item.Parameter);
+                if (quality)
+                {
+                    if (IsQuality(item.Parameter))
+                        rval.Add(item.Parameter);
+                }
+                else
+                    if (!IsQuality(item.Parameter))
+                    {
+                        rval.Add(item.Parameter);
+                    }
             }
             return rval.ToArray();
         }
@@ -153,7 +171,7 @@ namespace HydrometServer.CommandLine
         {
             var table = list.ToDataTable(false);
            
-            TablePrinter.Print(table, 3);
+            TablePrinter.Print(table, 4);
         }
 
         /// <summary>
@@ -207,6 +225,7 @@ namespace HydrometServer.CommandLine
             Console.WriteLine("Examples:");
             Console.WriteLine("Get/ob jck   # gets Jackson Lake (jck) air temperature (ob)");
             Console.WriteLine("g jck        # get all parameters for site JCK");
+            Console.WriteLine("gq jck        # get all quality parameters for site JCK");
             Console.WriteLine("interval=daily|instant|monthly # set time interval default is instant");
             Console.WriteLine("Help         # show this screen");
 

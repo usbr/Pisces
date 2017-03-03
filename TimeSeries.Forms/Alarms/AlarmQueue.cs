@@ -28,6 +28,7 @@ namespace Reclamation.TimeSeries.Forms.Alarms
         private void Init()
         {
             this.dataGridView1.DataSource = m_ds.GetAlarmQueue(this.checkBoxAllAlarms.Checked);
+            this.dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void button1_Click(object sender, EventArgs e)

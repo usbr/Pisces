@@ -24,7 +24,7 @@ namespace HydrometServer
     {
         static void Main(string[] argList)
         {
-            Console.Write("HydrometServer " + Application.ProductVersion +"\n compiled: " + AssemblyUtility.CreationDate()+"\n");
+            Console.Write("HydrometServer " + Application.ProductVersion +" compiled: " + AssemblyUtility.CreationDate()+"\n");
             Console.WriteLine("System Time ="+DateTime.Now);
 
             Arguments args = new Arguments(argList);

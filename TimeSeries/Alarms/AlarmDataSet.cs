@@ -153,7 +153,7 @@ namespace Reclamation.TimeSeries.Alarms
             var tbl = new AlarmDataSet.alarm_phone_queueDataTable();
             string sql = "select * from alarm_phone_queue ";
             sql += " where siteid = '" + siteid + "' and parameter = '" + parameter + "' ";
-            sql += " and status in ('new', 'unconfirmed') and active=true";
+            sql += " and active=true";
 
             m_server.FillTable(tbl, sql);
 
@@ -167,7 +167,7 @@ namespace Reclamation.TimeSeries.Alarms
 
             if (!everything)
             {
-                sql += " where status in ('new', 'unconfirmed')";
+                sql += " where active=true";
             }
 
             m_server.FillTable(tbl, sql);
