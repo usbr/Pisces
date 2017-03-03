@@ -1761,8 +1761,9 @@ namespace Reclamation.TimeSeries
 
         public void Inventory()
         {
+            int tableCount = m_server.TableNames().Count();
             Console.WriteLine("Inventory of Database "+m_server.Name);
-            Console.WriteLine("Tables in Database:"+m_server.TableNames().Count());
+            Console.WriteLine("Tables in Database:"+tableCount);
 
             Console.WriteLine("Instant Series:"+GetSeriesCatalog("timeinterval = 'Irregular'").Count());
             Console.WriteLine("Daily Series:" + GetSeriesCatalog("timeinterval = 'Daily'").Count());
@@ -1770,6 +1771,11 @@ namespace Reclamation.TimeSeries
             Console.WriteLine("Series in SeriesCatalog: "+GetSeriesCatalog().Count());
             Console.WriteLine("Sites in SiteCatalog: " + GetSiteCatalog().Count());
             Console.WriteLine("");
+
+            var s = new Series("table_count"); ;
+            s.Add(DateTime.Now, tableCount);
+            ImportSeriesUsingTableName(s, new string[] { "system" });
+
 
         }
 

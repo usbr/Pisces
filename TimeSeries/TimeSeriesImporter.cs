@@ -93,9 +93,14 @@ namespace Reclamation.TimeSeries
             // imported 234 series with 12 dependent calculations, and 4 daily calculations in 12.3 s
             Console.WriteLine("imported " + importSeries.Count
                 + " series with " + calculationCount + " dependent calculations and " + calculationQueue.Count + " daily calculations ");
-            
             calculationCount += importSeries.Count + calculationQueue.Count;
-            Console.WriteLine("elapsed time = "+p.ElapsedSeconds.ToString("F2")+ " s  "+ (calculationCount/p.ElapsedSeconds).ToString("F2")+" records/second" );
+            double speed = calculationCount / p.ElapsedSeconds;
+            Console.WriteLine("elapsed time = "+p.ElapsedSeconds.ToString("F2")+ " s  "+ (speed).ToString("F2")+" records/second" );
+
+            var speedSeries = new Series("import_speed"); ;
+
+            speedSeries.Add(DateTime.Now, speed);
+            m_db.ImportSeriesUsingTableName(speedSeries, new string[] { "system" }, m_saveOption);
         }
 
         private void CheckForAlarms(Series s)
