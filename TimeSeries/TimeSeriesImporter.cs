@@ -99,7 +99,7 @@ namespace Reclamation.TimeSeries
 
             var speedSeries = new Series("import_speed"); ;
 
-            speedSeries.Add(DateTime.Now, speed);
+            speedSeries.Add(DateTime.Now, speed,"# "+calculationCount+" series");
             m_db.ImportSeriesUsingTableName(speedSeries, new string[] { "system" }, m_saveOption);
         }
 
