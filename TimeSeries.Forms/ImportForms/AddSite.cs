@@ -187,9 +187,9 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 AddInstantRow(siteID, "feet", "hh", "FileRatingTable(%site%_ch,\"%site%_shift.csv\")");
                 if (daily)
                 {
-                    AddDailyRow(siteID, "cfs", "qd", "DailyAverage(instant_%site%_q,10)");
-                    AddDailyRow(siteID, "cfs", "gd", "DailyAverage(instant_%site%_gh,10)");
-                    AddDailyRow(siteID, "feet", "hj", "DailyAverage(instant_%site%_hj,10)");
+                    AddDailyRow(siteID, "cfs", "qj", "DailyAverage(instant_%site%_qc,10)");
+                    AddDailyRow(siteID, "cfs", "gj", "DailyAverage(instant_%site%_ch,10)");
+                    AddDailyRow(siteID, "feet", "hh", "DailyAverage(instant_%site%_hh,10)");
                 }
             }
             if (this.checkBoxWaterTemp.Checked)

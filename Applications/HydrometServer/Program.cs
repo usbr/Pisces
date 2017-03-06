@@ -359,6 +359,9 @@ namespace HydrometServer
             int block = 1;
             foreach (string query in GetBlockOfQueries(db,TimeInterval.Daily,filter,propertyFilter))
             {
+                if (query == "")
+                    continue;
+
                 var table = HydrometDataUtility.ArchiveTable(HydrometHost.PN, query, t1, t2, 0);
                 Console.WriteLine("Block " + block + " has " + table.Rows.Count + " rows ");
                 Console.WriteLine(query);
