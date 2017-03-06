@@ -584,6 +584,8 @@ namespace Reclamation.TimeSeries.Forms
                 }
             }
 
+            sortMenu.Enabled = folderSelected && singleSelection;
+
             bool canAddStuff = (CurrentFolder != null);
 
             AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
@@ -1161,6 +1163,24 @@ namespace Reclamation.TimeSeries.Forms
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private void sortMenu_Click(object sender, EventArgs e)
+        {
+
+            var parent = DB.GetOrCreateFolder(tree1.SelectedFolder.Name);
+
+            var sc = DB.GetSeriesCatalog("parentid = " + parent.ID + " and isfolder = 1 ", "", " order by name");
+            int sortOrder = 10;
+            for (int i = 0; i < sc.Rows.Count; i++)
+            {
+                if (sc[i].siteid == "")
+                    sc[i].siteid = sc[i].Name; // fix... siteid might be handy on a folder
+                sc[i].SortOrder = sortOrder;
+                sortOrder += 10;
+            }
+            DB.Server.SaveTable(sc);
+            DatabaseChanged();
         }
 
         
