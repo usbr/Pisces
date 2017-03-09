@@ -144,17 +144,19 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
         private void SetupDataGridView()
         {
-            this.dataGridView1.DataSource = null;
-            this.dataGridView1.DataSource = m_seriesCatalog;
-            this.dataGridView1.Columns["id"].Visible = false;
-            this.dataGridView1.Columns["parentid"].Visible = false;
-            this.dataGridView1.Columns["isfolder"].Visible = false;
-            this.dataGridView1.Columns["sortorder"].Visible = false;
-            this.dataGridView1.Columns["iconname"].Visible = false;
-            this.dataGridView1.Columns["Units"].Visible = false;
-            this.dataGridView1.Columns["connectionstring"].Visible = false;
-            this.dataGridView1.Columns["notes"].Visible = false;
-            this.dataGridView1.Columns["enabled"].Visible = false;
+            this.dataGridViewSeries.DataSource = null;
+            this.dataGridViewSeries.DataSource = m_seriesCatalog;
+            this.dataGridViewSeries.Columns["id"].Visible = false;
+            this.dataGridViewSeries.Columns["parentid"].Visible = false;
+            this.dataGridViewSeries.Columns["isfolder"].Visible = false;
+            this.dataGridViewSeries.Columns["sortorder"].Visible = false;
+            this.dataGridViewSeries.Columns["iconname"].Visible = false;
+            this.dataGridViewSeries.Columns["Units"].Visible = false;
+            this.dataGridViewSeries.Columns["connectionstring"].Visible = false;
+            this.dataGridViewSeries.Columns["notes"].Visible = false;
+            this.dataGridViewSeries.Columns["enabled"].Visible = false;
+
+            dataGridViewSeries.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private void buttonIndividuals_Click(object sender, EventArgs e)
@@ -233,8 +235,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 AddInstantRow(siteID, "degC", "wc");
                 if (daily)
                 {
-                    AddDailyRow(siteID, "degF", "wm", "DailyMin(instant_%site%_wc,10)");
-                    AddDailyRow(siteID, "degF", "wn", "DailyMax(instant_%site%_wc,10)");
+                    AddDailyRow(siteID, "degF", "wm", "DailyMax(instant_%site%_wc,10)");
+                    AddDailyRow(siteID, "degF", "wn", "DailyMin(instant_%site%_wc,10)");
                     AddDailyRow(siteID, "degF", "wy", "DailyAverage(instant_%site%_wc,10)");
                 }
             }

@@ -42,7 +42,7 @@ namespace HydrometServer.CommandLine
             }
         }
 
-        string pattern = @"^(?<cmd>help|exit|ex|get|g|gq|getq|date)(?<separator1>/|\s+|\=)(?<parm1>[\,a-z0-9]+)?"
+        string pattern = @"^(?<cmd>help|exit|ex|get|g|gq|getq|date)(?<separator1>/|\s+|\=)?(?<parm1>[\,a-z0-9]+)?"
                       +@"(?<separator2>/|\s+)?(?<parm2>[\,a-z0-1]+)?";
         string input = "";
         string sites= "";

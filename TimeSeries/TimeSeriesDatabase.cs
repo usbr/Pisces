@@ -440,9 +440,13 @@ namespace Reclamation.TimeSeries
         internal bool SeriesExists(int sdi)
         {
             string sql = "select id from seriescatalog where id = " + sdi;
-            return Server.Table("sitecatalog", sql).Rows.Count > 0;
+            return Server.Table("tbl", sql).Rows.Count > 0;
         }
-
+        internal bool SeriesExists(string tablename)
+        {
+            string sql = "select id from seriescatalog where tablename = '" + tablename+"'";
+            return Server.Table("tbl", sql).Rows.Count > 0;
+        }
         internal bool FolderExists(string name, int parentID)
         {
             string sql = "select id from seriescatalog where parentid = " + parentID

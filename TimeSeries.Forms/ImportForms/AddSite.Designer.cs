@@ -39,11 +39,13 @@
             this.textBoxlongitude = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewSeries = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
             this.dataGridViewProperties = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxAirTemp = new System.Windows.Forms.CheckBox();
+            this.checkBoxPrecip = new System.Windows.Forms.CheckBox();
             this.checkBoxWaterTempC = new System.Windows.Forms.CheckBox();
             this.textBoxCustomUnits = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -76,11 +78,9 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBoxPrecip = new System.Windows.Forms.CheckBox();
-            this.checkBoxAirTemp = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSeries)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProperties)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -175,7 +175,7 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.dataGridViewSeries);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(2);
@@ -186,16 +186,16 @@
             this.tabPage1.Text = "new site";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // dataGridViewSeries
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(2, 251);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(667, 167);
-            this.dataGridView1.TabIndex = 4;
+            this.dataGridViewSeries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewSeries.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewSeries.Location = new System.Drawing.Point(2, 251);
+            this.dataGridViewSeries.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridViewSeries.Name = "dataGridViewSeries";
+            this.dataGridViewSeries.RowTemplate.Height = 24;
+            this.dataGridViewSeries.Size = new System.Drawing.Size(667, 167);
+            this.dataGridViewSeries.TabIndex = 4;
             // 
             // panel1
             // 
@@ -261,6 +261,28 @@
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // checkBoxAirTemp
+            // 
+            this.checkBoxAirTemp.AutoSize = true;
+            this.checkBoxAirTemp.Location = new System.Drawing.Point(6, 60);
+            this.checkBoxAirTemp.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxAirTemp.Name = "checkBoxAirTemp";
+            this.checkBoxAirTemp.Size = new System.Drawing.Size(90, 17);
+            this.checkBoxAirTemp.TabIndex = 26;
+            this.checkBoxAirTemp.Text = "air temp degF";
+            this.checkBoxAirTemp.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxPrecip
+            // 
+            this.checkBoxPrecip.AutoSize = true;
+            this.checkBoxPrecip.Location = new System.Drawing.Point(6, 77);
+            this.checkBoxPrecip.Margin = new System.Windows.Forms.Padding(2);
+            this.checkBoxPrecip.Name = "checkBoxPrecip";
+            this.checkBoxPrecip.Size = new System.Drawing.Size(66, 17);
+            this.checkBoxPrecip.TabIndex = 25;
+            this.checkBoxPrecip.Text = "precip in";
+            this.checkBoxPrecip.UseVisualStyleBackColor = true;
             // 
             // checkBoxWaterTempC
             // 
@@ -472,7 +494,7 @@
             this.tabPage2.Margin = new System.Windows.Forms.Padding(2);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPage2.Size = new System.Drawing.Size(650, 403);
+            this.tabPage2.Size = new System.Drawing.Size(671, 420);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "advanced";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -582,28 +604,6 @@
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             // 
-            // checkBoxPrecip
-            // 
-            this.checkBoxPrecip.AutoSize = true;
-            this.checkBoxPrecip.Location = new System.Drawing.Point(6, 77);
-            this.checkBoxPrecip.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxPrecip.Name = "checkBoxPrecip";
-            this.checkBoxPrecip.Size = new System.Drawing.Size(66, 17);
-            this.checkBoxPrecip.TabIndex = 25;
-            this.checkBoxPrecip.Text = "precip in";
-            this.checkBoxPrecip.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxAirTemp
-            // 
-            this.checkBoxAirTemp.AutoSize = true;
-            this.checkBoxAirTemp.Location = new System.Drawing.Point(6, 60);
-            this.checkBoxAirTemp.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBoxAirTemp.Name = "checkBoxAirTemp";
-            this.checkBoxAirTemp.Size = new System.Drawing.Size(90, 17);
-            this.checkBoxAirTemp.TabIndex = 26;
-            this.checkBoxAirTemp.Text = "air temp degF";
-            this.checkBoxAirTemp.UseVisualStyleBackColor = true;
-            // 
             // AddSite
             // 
             this.AcceptButton = this.buttonOK;
@@ -618,7 +618,7 @@
             this.Text = "AddSite";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSeries)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProperties)).EndInit();
@@ -650,7 +650,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxElevation;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridViewSeries;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button buttonCancel;

@@ -230,6 +230,8 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// Return range of dates to compute daily data.
         /// prevent computing Daily data for Today.
+        /// does the data range cross midnight?
+        /// is data coming in from yesterday.
         /// </summary>
         /// <param name="inputSeriesList"></param>
         /// <returns></returns>
@@ -240,7 +242,7 @@ namespace Reclamation.TimeSeries
            var todayMidnight = today.Date;     // 8-17  12:00 am
            tr = new TimeRange(t1, t2);
 
-           if (t2 < todayMidnight)
+           if (t2 <= todayMidnight)
                return true;
 
 

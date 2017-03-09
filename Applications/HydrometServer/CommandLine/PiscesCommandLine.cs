@@ -40,6 +40,8 @@ namespace HydrometServer.CommandLine
                 if (input.Parameters.Length == 0 && input.SiteList.Length ==1) // get all parameters in database
                     input.Parameters = GetAllParametersForSiteID(input.SiteList[0], m_interval, input.Command== Command.GetQ);
 
+                if (input.Command == Command.Exit)
+                    break;
 
                 if (!input.Valid)
                 {
@@ -47,8 +49,7 @@ namespace HydrometServer.CommandLine
                     continue;
                 }
 
-                if (input.Command == Command.Exit)
-                    break;
+               
 
                 if (input.Command == Command.Help)
                 {
