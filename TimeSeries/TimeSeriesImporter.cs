@@ -237,19 +237,31 @@ namespace Reclamation.TimeSeries
         /// <returns></returns>
         internal static bool TryGetDailyTimeRange(SeriesList inputSeriesList, out TimeRange tr, DateTime today)
         {
-           var t1 = inputSeriesList.MinDateTime.Date; // 8-16 12:00 am
-           var t2 = inputSeriesList.MaxDateTime;      // 8-17  12:00 am
-           var todayMidnight = today.Date;     // 8-17  12:00 am
-           tr = new TimeRange(t1, t2);
+            DateTime t1, t2;
 
-           if (t2 <= todayMidnight)
+           t1 = inputSeriesList.MinDateTime; // 8-16 12:00 am
+           t2 = inputSeriesList.MaxDateTime;      // 8-17  12:00 am
+           var todayMidnight = today.Date;     // 8-17  12:00 am
+            var yesterday = today.AddDays(-1).Date;
+           tr = new TimeRange(t1.Date, t2);
+
+            // exactly midnight only (no -range) use yesterday
+            if(t1 == todayMidnight
+                && t2 == todayMidnight)
+            {
+                tr = new TimeRange(yesterday, yesterday);
+                return true;
+            }
+
+           if (t2 < todayMidnight) // yesterday (or eailer data)
                return true;
 
 
+            //  data spanning across midnight 
             if(t1 < todayMidnight &&  t2 >= todayMidnight  )
             {
                 t2=todayMidnight.AddDays(-1);
-                tr = new TimeRange(t1, t2);
+                tr = new TimeRange(t1.Date, t2);
                 return true;
             }
 

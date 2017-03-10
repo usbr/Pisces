@@ -5,6 +5,10 @@ using System.Text;
 
 namespace Reclamation.TimeSeries
 {
+    /// <summary>
+    /// Range of DateTime ( start,end) 
+    /// where end snaps to the end of the day.
+    /// </summary>
     public class TimeRange
     {
         private List<TimeRange> rval = null;

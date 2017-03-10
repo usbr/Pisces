@@ -13,6 +13,31 @@ namespace Pisces.NunitTests.DateMath
     public class TestDailyCalcRange
     {
 
+        /// <summary>
+        /// A range with just one point (at midnight)
+        /// triggers calculations the day before.
+        /// </summary>
+        [Test]
+        public void MidnightSinglePointRange()
+        {
+            Series s = new Series();
+            DateTime t = DateTime.Parse("2017-03-10");
+            s.Add(t, 12.0);
+
+            SeriesList list = new SeriesList();
+            list.Add(s);
+
+            TimeRange tr;
+            bool b = TimeSeriesImporter.TryGetDailyTimeRange(list, out tr, t);
+
+            Assert.IsTrue(b);
+
+            Assert.IsTrue(tr.StartDate == t.AddDays(-1));
+            Assert.IsTrue(tr.EndDate == t.AddDays(-1).EndOfDay());
+
+
+        }
+
         [Test]
         public void MALI_DailyAverageMidnight()
         {
