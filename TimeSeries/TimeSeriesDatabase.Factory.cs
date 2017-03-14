@@ -26,7 +26,10 @@ namespace Reclamation.TimeSeries
             {// use config file (postgresql is default)
                 Logger.WriteLine("using postgresql");
                 var dbname = ConfigurationManager.AppSettings["PostgresDatabase"];
-                var svr = PostgreSQL.GetPostgresServer(dbname);
+                var user = ConfigurationManager.AppSettings["PostgresUser"];
+                if( user == null)
+                    user = "";
+                var svr = PostgreSQL.GetPostgresServer(dbname,userName:user);
                 var db = new TimeSeriesDatabase(svr, LookupOption.TableName,readOnly);
                 db.Parser.RecursiveCalculations = false;
                 Logger.WriteLine("database initilized..");

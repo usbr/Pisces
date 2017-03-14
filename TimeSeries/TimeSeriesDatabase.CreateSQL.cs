@@ -73,7 +73,7 @@ namespace Reclamation.TimeSeries
             {
                 string sql = "create table alarm_recipient ("
                         + " id int not null primary key, "
-                        + " list    " + m_server.PortableCharacterType(20) + " not null default '', "
+                        + " list    " + m_server.PortableCharacterType(256) + " not null default '', "
                         + " call_order int not null default 0,"
                         + " phone    " + m_server.PortableCharacterType(20) + " not null default '', "
                         + " name    " + m_server.PortableCharacterType(20) + " not null default '', "

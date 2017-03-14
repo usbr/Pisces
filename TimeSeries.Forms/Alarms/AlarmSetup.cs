@@ -33,7 +33,7 @@ namespace Reclamation.TimeSeries.Forms.Alarms
         private void Init(string label = "")
         {
             dgvList.DataSource = m_ds.GetList();
-
+            dgvList.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             if (label != "")
             {
                 for (int i = 0; i < dgvList.Rows.Count; i++)

@@ -155,7 +155,7 @@ namespace Reclamation.TimeSeries
                     return new Point(pt.DateTime, Point.MissingValueFlag);
 
                 if (pt.Value < MinXValue())
-                { // if last value on table computes zero, then extrapolate a zero.
+                { // if first value in table computes zero, then extrapolate a zero.
                     if (System.Math.Abs(MinYValue()) < 0.01)
                         return new Point(pt.DateTime, 0, PointFlag.Edited); 
 

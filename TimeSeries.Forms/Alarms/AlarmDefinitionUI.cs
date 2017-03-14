@@ -40,6 +40,7 @@ namespace Reclamation.TimeSeries.Forms.Alarms
             dataGridView1.DataSource = alarm_definition;
            dataGridView1.Columns["id"].Visible = false;
 
+
            DataGridViewComboBoxColumn c = new DataGridViewComboBoxColumn();
             
            c.DataSource = alarm_definition;
@@ -53,6 +54,8 @@ namespace Reclamation.TimeSeries.Forms.Alarms
            dataGridView1.Columns.Insert(1, c);
 
            filterManager.DataGridView = dataGridView1;
+
+           dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
         }
 

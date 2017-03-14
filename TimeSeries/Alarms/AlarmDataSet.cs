@@ -70,7 +70,8 @@ namespace Reclamation.TimeSeries.Alarms
         {
             string sql = "select phone from alarm_recipient where list='" + list + "' order by call_order";
             var tbl = m_server.Table("alarm_recipient", sql);
-            return DataTableUtility.Strings(tbl, "", "phone");
+            var a= DataTableUtility.Strings(tbl, "", "phone");
+            return RemoveEmptyStrings(a);
         }
 
         public string[] GetEmailList(string list)
@@ -78,12 +79,17 @@ namespace Reclamation.TimeSeries.Alarms
             string sql = "select email from alarm_recipient where list='" + list + "' order by call_order";
             var tbl = m_server.Table("alarm_recipient", sql);
             var a = DataTableUtility.Strings(tbl, "", "email");
+            return RemoveEmptyStrings(a);
+        }
+
+        private static string[] RemoveEmptyStrings(string[] a)
+        {
             var rval = new List<string>();
 
             for (int i = 0; i < a.Length; i++)
             {
-               if( a[i].Trim() != "")
-                   rval.Add(a[i].Trim());
+                if (a[i].Trim() != "")
+                    rval.Add(a[i].Trim());
             }
             return rval.ToArray();
         }
@@ -108,6 +114,7 @@ namespace Reclamation.TimeSeries.Alarms
             m_server.FillTable(tbl, "select * from alarm_recipient where list = '" + label + "' order by call_order");
             tbl.idColumn.AutoIncrementSeed = m_server.NextID("alarm_recipient", "id");
             tbl.listColumn.DefaultValue = label;
+
             return tbl;
         }
 

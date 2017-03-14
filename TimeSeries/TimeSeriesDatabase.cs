@@ -168,6 +168,9 @@ namespace Reclamation.TimeSeries
             ReadOnly = readOnly;
             InitDatabaseSettings(server);
             InitWithLookup(server, lookup);
+            if (Settings.ReadBoolean("VerboseLogging", false))
+                Logger.EnableLogger();
+
         }
 
 

@@ -654,7 +654,7 @@ namespace Reclamation.TimeSeries.Alarms {
                 this.columnlist.AllowDBNull = false;
                 this.columncall_order.DefaultValue = ((int)(0));
                 this.columnphone.AllowDBNull = false;
-                this.columnphone.DefaultValue = ((string)(" "));
+                this.columnphone.DefaultValue = ((string)(""));
                 this.columnname.AllowDBNull = false;
                 this.columnname.DefaultValue = ((string)(" "));
                 this.columnemail.AllowDBNull = false;
