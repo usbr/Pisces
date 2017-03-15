@@ -414,6 +414,7 @@
     <Compile Include="Tests\Database\TestAlarms.cs" />
     <Compile Include="Tests\Database\TestSiteInfo.cs" />
     <Compile Include="Tests\DateMath\TestDailyCalcRange.cs" />
+    <Compile Include="Tests\Import\TestUsgsRating.cs" />
     <Compile Include="Tests\Import\TestBulkImport.cs" />
     <Compile Include="Tests\Scenarios\TestScenarios.cs" />
     <Compile Include="Tests\DateMath\TestTimeRange.cs" />

@@ -328,9 +328,11 @@ namespace Reclamation.TimeSeries.Alarms
             if (t.Rows.Count > 0)
                 parameterName = t.Rows[0][0].ToString();
 
-            var subject = "Alarm Condition at" + siteDescription + " " + alarm.siteid;
+            var subject = "Alarm Condition at " + siteDescription + " " + alarm.siteid.ToUpper();
             subject += "  " + parameterName;
-            var body = "Alarm condition at site" + alarm.siteid + "   parameter = " + alarm.parameter;
+            var body = "alarm conditon: "+ alarm.alarm_condition;
+            body += "\n"+ pt.ToString();
+            body += "\n\n" + subject;
 
             var emails = GetEmailList(alarm.list);
              if( emails.Length == 0)

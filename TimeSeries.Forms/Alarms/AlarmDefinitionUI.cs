@@ -36,8 +36,8 @@ namespace Reclamation.TimeSeries.Forms.Alarms
             filterManager = new DgvFilterManager();
 
             alarm_definition = m_ds.GetAlarmDefinition();
-
-            dataGridView1.DataSource = alarm_definition;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+           dataGridView1.DataSource = alarm_definition;
            dataGridView1.Columns["id"].Visible = false;
 
 

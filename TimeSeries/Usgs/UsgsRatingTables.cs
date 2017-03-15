@@ -64,7 +64,7 @@ namespace Reclamation.TimeSeries.Usgs
         /// This method generates the HJ and Q tables
         /// </summary>
         /// <param name="station"></param>
-        private void CreateShiftAndFlowTables(TextFile rdbFile)
+        internal void CreateShiftAndFlowTables(TextFile rdbFile)
         {
             var tempFile = Path.GetTempFileName();
             rdbFile.SaveAs(tempFile);

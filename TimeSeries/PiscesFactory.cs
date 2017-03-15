@@ -39,9 +39,7 @@ namespace Reclamation.TimeSeries
         }
 
         /// <summary>
-        ///  GetCalculationSeries returns a list of CalculationSeries
-        ///  sorted by dependencies so calculations can procede in the 
-        ///  proper order.
+        ///  returns a list of CalculationSeries
         /// </summary>
         /// <param name="interval"></param>
         /// <param name="filter">supplement for the SQL where clause</param>

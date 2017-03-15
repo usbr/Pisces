@@ -49,7 +49,7 @@ namespace Reclamation.TimeSeries.Alarms
 
                 if( numbers.Length == 0)
                 {
-                    Console.WriteLine("Error: no phone numbers defined ");;
+                    Console.WriteLine("Warning: no phone numbers defined ");;
                     continue;
                 }
 
