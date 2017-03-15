@@ -37,7 +37,7 @@ namespace Reclamation.TimeSeries.Usgs
             this.idNumber = idNumber;
 
             // Get and assign RDB file from the web
-            string nwisURL = "http://waterdata.usgs.gov/nwisweb/get_ratings?site_no=XXXXXXXX&file_type=exsa";
+            string nwisURL = "https://waterdata.usgs.gov/nwisweb/get_ratings?site_no=XXXXXXXX&file_type=exsa";
             downloadURL = nwisURL.Replace("XXXXXXXX", idNumber);
             var newData = Web.GetPage(nwisURL.Replace("XXXXXXXX", idNumber));
             if (newData.Count() == 0)
@@ -115,7 +115,7 @@ namespace Reclamation.TimeSeries.Usgs
                 coeffRow["offset"] = 0.0;
                 coeffTable.Rows.Add(coeffRow);
             }
-            else if (offsetIdx.Count == 1)
+            else if (offsetIdx.Count == 1 || breakptIdx.Count == 0)
             {
                 var coeffRow = coeffTable.NewRow();
                 coeffRow["breakpoint"] = -999999999.99;

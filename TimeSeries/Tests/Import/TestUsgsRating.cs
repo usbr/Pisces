@@ -19,7 +19,12 @@ namespace Pisces.NunitTests.Import
             TextFile tf = new TextFile(fn);
             usgs.CreateShiftAndFlowTables(tf);
         }
-  
 
-	}
+        [Test]
+        public void TestRatingFromWeb()
+        {
+            var usgs = new UsgsRatingTable("13206000");
+            usgs.CreateShiftAndFlowTablesFromWeb();
+        }
+    }
 }
