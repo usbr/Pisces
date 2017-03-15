@@ -7,14 +7,12 @@ using System.Text;
 namespace Reclamation.TimeSeries
 {
     /// <summary>
-    /// TimeSeriesDependency determines order of calculations and 
-    /// other dependencies for CalculationSeries
+    /// TimeSeriesDependency determines dependencies 
+    /// and order of dependent calculations 
     /// </summary>
     public class TimeSeriesDependency
     {
         List<CalculationSeries> list;
-
-        
 
         public TimeSeriesDependency(List<CalculationSeries> list)
         {

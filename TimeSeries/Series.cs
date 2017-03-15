@@ -8,6 +8,7 @@ using Reclamation.Core;
 using System.Collections.Generic;
 using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow;
 using System.Text.RegularExpressions;
+using System.Configuration;
 
 namespace Reclamation.TimeSeries
 {
@@ -607,7 +608,7 @@ namespace Reclamation.TimeSeries
                  
                     s.Provider = "Series"; // drop conection to hydromet
 
-                    db.ImportSeriesUsingTableName(s,new string[]{ s.Cbtt});
+                    db.ImportSeriesUsingTableName(s);
 
                 }
             }
@@ -2137,6 +2138,26 @@ namespace Reclamation.TimeSeries
                 }
             }
             return t1a;
+        }
+
+        public string[] DefaultFolders()
+        {
+            var path = new List<string>();
+
+            string piscesFolder = ConfigurationManager.AppSettings["piscesFolder"];
+            if (!String.IsNullOrEmpty(piscesFolder))
+            {
+                path.Add(piscesFolder);
+            }
+
+                if (this.SiteID.Trim() != "")
+                    path.Add(this.SiteID.ToLower().Trim());
+                if (this.TimeInterval == TimeInterval.Irregular)
+                    path.Add("instant");
+                else
+                    path.Add(this.TimeInterval.ToString().ToLower());
+
+            return path.ToArray();
         }
     }
 }

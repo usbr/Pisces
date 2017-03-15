@@ -1666,7 +1666,7 @@ namespace Reclamation.TimeSeries
         /// Series s is saved to the tablename defined in the Series s.DataTable.TableName
         /// the table will be created if necessary. 
         /// </summary>
-        public void ImportSeriesUsingTableName(Series s, string[] folderNames ,DatabaseSaveOptions saveOption = DatabaseSaveOptions.UpdateExisting)
+        public void ImportSeriesUsingTableName(Series s, DatabaseSaveOptions saveOption = DatabaseSaveOptions.UpdateExisting)
         {
             Logger.WriteLine("ImportSeriesUsingTableName: '" + s.Table.TableName+"'");
             FixInvalidTableName(s);
@@ -1679,13 +1679,14 @@ namespace Reclamation.TimeSeries
                 Logger.WriteLine("table: " + s.Table.TableName + " does not exist in the catalog");
                 TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
                 PiscesFolder folder = RootFolder;
-                if (folderNames.Length == 0 && tn.interval != "")
+                var folders = s.DefaultFolders();
+                if (folders.Length == 0 && tn.interval != "")
                 {
                    folder = GetOrCreateFolder(new string[] { tn.interval });
                 }
                 else
                 {
-                    folder = GetOrCreateFolder(RootFolder,folderNames);
+                    folder = GetOrCreateFolder(RootFolder, folders);
                 }
 
                 sr = GetNewSeriesRow();
@@ -1781,7 +1782,8 @@ namespace Reclamation.TimeSeries
 
             var s = new Series("table_count"); ;
             s.Add(DateTime.Now, tableCount);
-            ImportSeriesUsingTableName(s, new string[] { "system" });
+            s.SiteID = "system";
+            ImportSeriesUsingTableName(s);
 
 
         }

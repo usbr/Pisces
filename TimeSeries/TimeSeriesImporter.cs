@@ -54,10 +54,27 @@ namespace Reclamation.TimeSeries
         public void Import(SeriesList importSeries,
             bool computeDependencies = false,
             bool computeDailyDependencies = false,
-            string importTag="data")
+            string importTag = "data")
+        {
+            var list = ImportInstant(importSeries, computeDependencies, importTag);
+
+            if (computeDailyDependencies)
+            {
+                DailyCalculations(list, importTag);
+            }
+        }
+
+
+        /// <summary>
+        /// Imports list of series
+        /// </summary>
+        /// <param name="importSeries"></param>
+        /// <param name="computeDependencies"></param>
+        /// <param name="importTag"></param>
+        /// <returns>list of series including dependent calculations</returns>
+        private SeriesList ImportInstant(SeriesList importSeries, bool computeDependencies, string importTag)
         {
             Performance p = new Performance();
-            var calculationQueue = new List<CalculationSeries>();
             int calculationCount = 0;
             var routingList = new SeriesList();
 
@@ -65,9 +82,7 @@ namespace Reclamation.TimeSeries
             {
                 m_db.Quality.SetFlags(s); // to do, log/email flaged data
                 CheckForAlarms(s);
-                 var folderNames = SetupDefaultFolders(s);
-
-                m_db.ImportSeriesUsingTableName(s,folderNames , m_saveOption);
+                m_db.ImportSeriesUsingTableName(s, m_saveOption);
                 routingList.Add(s);
                 if (computeDependencies)
                 {
@@ -75,32 +90,55 @@ namespace Reclamation.TimeSeries
                     calculationCount += z.Count;
                     foreach (var cs in z)
                     {
-                        CheckForAlarms(cs);    
+                        CheckForAlarms(cs);
                     }
-                    
                     routingList.AddRange(z);
                 }
-                if (computeDailyDependencies && NeedDailyCalc(s))
-                {  // daily calcs that depend on instant
-                    GetDailyDependentCalculations(s, calculationQueue);
-                }
             }
-            if (calculationQueue.Count >0)
-            {
-                PerformDailyComputations(importSeries, calculationQueue, routingList); 
-            }
+            
             RouteData(importTag, routingList);
-            // imported 234 series with 12 dependent calculations, and 4 daily calculations in 12.3 s
-            Console.WriteLine("imported " + importSeries.Count
-                + " series with " + calculationCount + " dependent calculations and " + calculationQueue.Count + " daily calculations ");
-            calculationCount += importSeries.Count + calculationQueue.Count;
-            double speed = calculationCount / p.ElapsedSeconds;
-            Console.WriteLine("elapsed time = "+p.ElapsedSeconds.ToString("F2")+ " s  "+ (speed).ToString("F2")+" records/second" );
+            Stats(importSeries.Count, p.ElapsedSeconds, calculationCount,"instant");
+            return routingList;
+        }
+
+        private void Stats(int importCount ,double s, int calculationCount, string interval)
+        {
+            if (importCount <= 0 && calculationCount <= 0)
+                return;
+            Console.WriteLine("imported " + importCount
+                + " series with " + calculationCount + " dependent calculations");
+            calculationCount += importCount;
+            double speed = calculationCount / s;
+            Console.WriteLine("elapsed time = " + s.ToString("F2") + " s  " + (speed).ToString("F2") + " records/s");
 
             var speedSeries = new Series("import_speed"); ;
 
-            speedSeries.Add(DateTime.Now, speed,"# "+calculationCount+" series");
-            m_db.ImportSeriesUsingTableName(speedSeries, new string[] { "system" }, m_saveOption);
+            speedSeries.Add(DateTime.Now, speed, "# " + calculationCount + " series ("+interval+")");
+            speedSeries.SiteID = "system";
+            m_db.ImportSeriesUsingTableName(speedSeries, m_saveOption);
+        }
+
+
+        private void DailyCalculations(SeriesList importSeries, string importTag)
+        {
+            Performance p = new Performance();
+            var dailyCalculationQueue = new List<CalculationSeries>();
+            var routingList = new SeriesList();
+
+            foreach (var s in importSeries)
+            {
+                if ( NeedDailyCalc(s))
+                {  // daily calcs that depend on instant
+                    AddDailyDependentCalculations(s, dailyCalculationQueue);
+                }
+            }
+            if (dailyCalculationQueue.Count > 0)
+            {
+                PerformDailyComputations(importSeries, dailyCalculationQueue, routingList);
+            }
+            RouteData(importTag, routingList);
+
+            Stats(0, p.ElapsedSeconds, dailyCalculationQueue.Count, "daily");
         }
 
         private void CheckForAlarms(Series s)
@@ -120,28 +158,7 @@ namespace Reclamation.TimeSeries
             }
         }
 
-        private static string[] SetupDefaultFolders(Series s)
-        {
-            var folderNames = new string[] { };
-
-            string piscesFolder = ConfigurationManager.AppSettings["piscesFolder"];
-                 if(!String.IsNullOrEmpty(piscesFolder) )
-                 {
-                     var path = new List<string>();
-                     path.Add(piscesFolder);
-                     if (s.SiteID.Trim() != "")
-                         path.Add(s.SiteID.ToLower().Trim());
-                     if (s.TimeInterval == TimeInterval.Irregular)
-                         path.Add("instant");
-                     else
-                         path.Add(s.TimeInterval.ToString().ToLower());
-
-                     folderNames = path.ToArray();
-                 }
-                     
-            
-            return folderNames;
-        }
+        
 
         /// <summary>
         ///  Daily caluclations are needed if 
@@ -287,7 +304,7 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
-        private void GetDailyDependentCalculations(Series s,List<CalculationSeries> calculationQueue)
+        private void AddDailyDependentCalculations(Series s,List<CalculationSeries> calculationQueue)
         {
             if (s.Count == 0)
                 return;

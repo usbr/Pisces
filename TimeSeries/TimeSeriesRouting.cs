@@ -109,17 +109,17 @@ namespace Reclamation.TimeSeries
                 
                 var tmpFileName = FileUtility.GetTempFileName(".txt");
                 File.Delete(tmpFileName);
-                Console.WriteLine("writing " + list.Count + " series ");
-                Console.WriteLine("temp file:"+tmpFileName);
+                Logger.WriteLine("writing " + list.Count + " series ");
+                Logger.WriteLine("temp file:" + tmpFileName);
                 Performance p = new Performance();
                 foreach (var s in list)
                 {
                   HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), tmpFileName,true);
                 }
-                Console.WriteLine("finished saving in "+p.ElapsedSeconds+ " seconds");
-                Console.WriteLine("Moving: "+tmpFileName);
+                Logger.WriteLine("finished saving in " + p.ElapsedSeconds + " seconds");
+                Logger.WriteLine("Moving: " + tmpFileName);
                 var fileName = GetOutgoingFileName("instant", name, "all");
-                Console.WriteLine("To: " + fileName);
+                Logger.WriteLine("To: " + fileName);
                 File.Move(tmpFileName, fileName);
 
             }
