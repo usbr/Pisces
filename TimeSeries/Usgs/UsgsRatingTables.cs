@@ -57,9 +57,9 @@ namespace Reclamation.TimeSeries.Usgs
         public void CreateShiftAndFlowTablesFromWeb()
         { CreateShiftAndFlowTables(this.webRdbTable); }
 
-        public void CreateShiftAndFlowTablesFromFile()
-        { CreateShiftAndFlowTables(this.fileRdbTable); }
-
+       // public void CreateShiftAndFlowTablesFromFile()
+       // { CreateShiftAndFlowTables(this.fileRdbTable); }
+    //
         /// <summary>
         /// This method generates the HJ and Q tables
         /// </summary>
@@ -77,6 +77,34 @@ namespace Reclamation.TimeSeries.Usgs
             // Generate HJ Table by defining stage-shift pairs within a C# DataTable
             var hjTable = CreateHJTable(rdbFileString);
             // Define Logarithmic coefficient pairs in a C# DataTable
+            var coeffTable = CoefficientTable(rdbItems, breakptIdx, offsetIdx);
+            // Generate Q DataTable
+            var qTable = new DataTable();
+            qTable.Columns.Add(new DataColumn("Stage", typeof(double)));
+            qTable.Columns.Add(new DataColumn("Flow", typeof(double)));
+            qTable.Columns.Add(new DataColumn("A-Coeff", typeof(double)));
+            qTable.Columns.Add(new DataColumn("B-Coeff", typeof(double)));
+            foreach (var item in skelPtIdx)
+            {
+                var qRow = qTable.NewRow();
+                double ghVal = Convert.ToDouble(rdbItems[item - 3]);
+                double shiftVal = Convert.ToDouble(rdbItems[item - 2]);
+                double stageVal = ghVal + shiftVal;
+                qRow["Stage"] = stageVal;
+                qRow["Flow"] = Convert.ToDouble(rdbItems[item - 1]);
+                DataRow[] coeffMatch = coeffTable.Select("[breakpoint] <= '" + stageVal + "'");
+                qRow["A-Coeff"] = coeffMatch[coeffMatch.Count() - 1][1];
+                qRow["B-Coeff"] = 0.0;
+                qTable.Rows.Add(qRow);
+            }
+            if (qTable.Rows.Count < 1)
+            { throw new Exception("No skeletal points found for station: " + this.stationName); }
+            this.hjTable = hjTable;
+            this.qTable = qTable;
+        }
+
+        private static DataTable CoefficientTable(List<string> rdbItems, List<int> breakptIdx, List<int> offsetIdx)
+        {
             var coeffTable = new DataTable();
             coeffTable.Columns.Add(new DataColumn("breakpoint", typeof(double)));
             coeffTable.Columns.Add(new DataColumn("offset", typeof(double)));
@@ -107,29 +135,7 @@ namespace Reclamation.TimeSeries.Usgs
                     coeffTable.Rows.Add(coeffRow);
                 }
             }
-            // Generate Q DataTable
-            var qTable = new DataTable();
-            qTable.Columns.Add(new DataColumn("Stage", typeof(double)));
-            qTable.Columns.Add(new DataColumn("Flow", typeof(double)));
-            qTable.Columns.Add(new DataColumn("A-Coeff", typeof(double)));
-            qTable.Columns.Add(new DataColumn("B-Coeff", typeof(double)));
-            foreach (var item in skelPtIdx)
-            {
-                var qRow = qTable.NewRow();
-                double ghVal = Convert.ToDouble(rdbItems[item - 3]);
-                double shiftVal = Convert.ToDouble(rdbItems[item - 2]);
-                double stageVal = ghVal + shiftVal;
-                qRow["Stage"] = stageVal;
-                qRow["Flow"] = Convert.ToDouble(rdbItems[item - 1]);
-                DataRow[] coeffMatch = coeffTable.Select("[breakpoint] <= '" + stageVal + "'");
-                qRow["A-Coeff"] = coeffMatch[coeffMatch.Count() - 1][1];
-                qRow["B-Coeff"] = 0.0;
-                qTable.Rows.Add(qRow);
-            }
-            if (qTable.Rows.Count < 1)
-            { throw new Exception("No skeletal points found for station: " + this.stationName); }
-            this.hjTable = hjTable;
-            this.qTable = qTable;
+            return coeffTable;
         }
 
         private DataTable CreateHJTable(string rdbFileString)
@@ -195,8 +201,8 @@ namespace Reclamation.TimeSeries.Usgs
         public void CreateFullRatingTableFromWeb()
         { CreateFullRatingTable(this.webRdbTable); }
 
-        public void CreateFullRatingTableFromFile()
-        { CreateFullRatingTable(this.fileRdbTable); }
+       // public void CreateFullRatingTableFromFile()
+       // { CreateFullRatingTable(this.fileRdbTable); }
 
         /// <summary>
         /// This method generates the full table from the RDB file
