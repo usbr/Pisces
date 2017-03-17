@@ -218,28 +218,21 @@ namespace Reclamation.TimeSeries
                 Console.WriteLine(" time range indicates don't perform calculation.");
                 Console.WriteLine(" Current Time:" + DateTime.Now.ToString());
                 Console.WriteLine(" Default time range :" + tr.StartDate.ToString() + " " + tr.EndDate.ToString());
+                return;
             }
 
             var sortedCalculations = td.Sort();
             foreach (CalculationSeries cs in sortedCalculations)
             {
                 Console.Write(">>> " + cs.Table.TableName + ": " + cs.Expression);
-                if (validRange)
+                cs.Calculate(tr.StartDate, tr.EndDate);
+                if (cs.Count > 0)
                 {
-                    cs.Calculate(tr.StartDate, tr.EndDate);
-                    if (cs.Count > 0)
-                    {
-                        routingList.Add(cs);
-                        if (cs.CountMissing() > 0)
-
-                            Console.WriteLine(" Missing " + cs.CountMissing() + " records");
-                        else
-                            Console.WriteLine(" OK");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Skipping because there is not a valid time range.");
+                    routingList.Add(cs);
+                    if (cs.CountMissing() > 0)
+                        Console.WriteLine(" Missing " + cs.CountMissing() + " records");
+                    else
+                        Console.WriteLine(" OK");
                 }
             }
         }
