@@ -122,16 +122,10 @@ namespace Reclamation.TimeSeries
         private void DailyCalculations(SeriesList importSeries, string importTag)
         {
             Performance p = new Performance();
-            var dailyCalculationQueue = new List<CalculationSeries>();
+            var dailyCalculationQueue = AddDailyDependentCalculations(importSeries);
             var routingList = new SeriesList();
 
-            foreach (var s in importSeries)
-            {
-                if ( NeedDailyCalc(s))
-                {  // daily calcs that depend on instant
-                    AddDailyDependentCalculations(s, dailyCalculationQueue);
-                }
-            }
+            
             if (dailyCalculationQueue.Count > 0)
             {
                 PerformDailyComputations(importSeries, dailyCalculationQueue, routingList);
@@ -297,16 +291,23 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
-        private void AddDailyDependentCalculations(Series s,List<CalculationSeries> calculationQueue)
+        private List<CalculationSeries> AddDailyDependentCalculations(SeriesList list)
         {
-            if (s.Count == 0)
-                return;
-             var x = GetDailyDependents(s.Table.TableName);
-             foreach (var item in x)
-             {
-                 if (!calculationQueue.Any(a => a.Table.TableName == item.Table.TableName))
-                     calculationQueue.Add(item);
-             }
+            var rval = new List<CalculationSeries>();
+            foreach (var s in list)
+            {
+                if (NeedDailyCalc(s) && s.Count > 0)
+                {  // daily calcs that depend on instant
+                    var x = GetDailyDependents(s.Table.TableName);
+                    foreach (var item in x)
+                    {
+                        if (!rval.Any(a => a.Table.TableName == item.Table.TableName))
+                            rval.Add(item);
+                    }
+                }
+            }
+            
+          return rval;
         }
 
         /// <summary>
@@ -358,7 +359,7 @@ namespace Reclamation.TimeSeries
                 {
                     var rawCalcList = m_db.Factory.GetCalculationSeries(timeInterval, "", "");
                     Logger.WriteLine("Info: GetDependentCalculations, found " + rawCalcList.Count
-                           + " caluclation series");
+                           + " calculation series");
                     m_instantDependencies = new TimeSeriesDependency(rawCalcList);
                 }
                 return m_instantDependencies.LookupCalculations(tableName, timeInterval);
