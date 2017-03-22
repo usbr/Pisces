@@ -361,6 +361,19 @@ namespace Reclamation.Core
         {
             
         }
+
+        /// <summary>
+        /// Used when composing where clause
+        /// default is 'True' or 'False'
+        /// override if you need '0' or '1' (sqlite)
+        /// 
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public virtual string PortableWhereBool(bool p)
+        {
+            return p.ToString();
+        }
     }
 
 

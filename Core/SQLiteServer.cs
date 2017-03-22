@@ -613,5 +613,10 @@ namespace Reclamation.Core
             }
             return rval;
         }
+
+        public override string PortableWhereBool(bool p)
+        {
+          return p ? "1" : "0";
+        }
     }
 }

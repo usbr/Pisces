@@ -21,8 +21,8 @@ namespace Pisces.NunitTests.SeriesMath
         TimeSeriesDatabase db;
         public TestMidnightCalculation()
         {
-            FileUtility.CleanTempPath();
-            string fn = FileUtility.GetTempFileName(".pdb");
+           // FileUtility.CleanTempPath();
+            string fn = FileUtility.GetTempFileName(".pdb-wrdo");
             Console.WriteLine(fn);
             var svr = new SQLiteServer(fn);
             db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName,false);

@@ -122,7 +122,7 @@ namespace Reclamation.TimeSeries
         private void DailyCalculations(SeriesList importSeries, string importTag)
         {
             Performance p = new Performance();
-            var dailyCalculationQueue = AddDailyDependentCalculations(importSeries);
+            var dailyCalculationQueue = GetDailyDependentCalculations(importSeries);
             var routingList = new SeriesList();
 
             
@@ -275,12 +275,17 @@ namespace Reclamation.TimeSeries
         private SeriesList ComputeDependenciesSameInterval(Series s)
         {
             SeriesList rval = new SeriesList();
-            var calcList = GetDependentCalculations(s.Table.TableName, s.TimeInterval);
+            var calcList = GetDependentsRecursive(s.Table.TableName, s.TimeInterval);
+            //var calcList = GetDependentCalculations(s.Table.TableName, s.TimeInterval);
             if (calcList.Count > 0)
                 Logger.WriteLine("Found " + calcList.Count + " " + s.TimeInterval + " calculations to update ");
 
             // TO DO:  sort calc list and perform in proper order.
-            foreach (var item in calcList)
+
+            TimeSeriesDependency d = new TimeSeriesDependency(calcList);
+            var sorted = d.Sort();
+
+            foreach (var item in sorted)
             {
                 var cs = item as CalculationSeries;
                 cs.Calculate(s.MinDateTime, s.MaxDateTime);
@@ -291,16 +296,16 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
-        private List<CalculationSeries> AddDailyDependentCalculations(SeriesList list)
+        private List<CalculationSeries> GetDailyDependentCalculations(SeriesList list)
         {
             var rval = new List<CalculationSeries>();
             foreach (var s in list)
             {
-                if (NeedDailyCalc(s) && s.Count > 0)
+                if (NeedDailyCalc(s) )
                 {  // daily calcs that depend on instant
-                    var x = GetDailyDependents(s.Table.TableName);
+                    var x = GetDependentsRecursive(s.Table.TableName, TimeInterval.Daily);
                     foreach (var item in x)
-                    {
+                    { // prevent duplicates
                         if (!rval.Any(a => a.Table.TableName == item.Table.TableName))
                             rval.Add(item);
                     }
@@ -311,24 +316,24 @@ namespace Reclamation.TimeSeries
         }
 
         /// <summary>
-        /// gets daily dependents for this series (tablename)
+        /// gets dependents for this series (tablename)
         /// </summary>
         /// <param name="tableName"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        private List<CalculationSeries> GetDailyDependents(string tableName)
+        private List<CalculationSeries> GetDependentsRecursive(string tableName, TimeInterval interval)
         {
             var rval = new List<CalculationSeries>();
             TimeSeriesName tn = new TimeSeriesName(tableName);
-            var calcList = GetDependentCalculations(tableName, TimeInterval.Daily);
+            var calcList = GetDependentCalculations(tableName, interval);
             //if (calcList.Count > 0)
             //  Logger.WriteLine("Found " + calcList.Count + " daily calculations to update ref:"+tableName);
             foreach (var item in calcList)
             {
                 if (!rval.Any(a => a.Table.TableName == item.Table.TableName))
                       rval.Add(item);
-                // check for daily that depends on daily.
-                var x = GetDailyDependents(item.Table.TableName);
+                // check recursive
+                var x = GetDependentsRecursive(item.Table.TableName,interval);
 
                 foreach (var d in x)
                 {
