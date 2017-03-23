@@ -32,7 +32,7 @@
     <NuGetPackageImportStamp>98a610cf</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Pisces.NunitTests.SeriesMath.TestImportInstantDependency</StartupObject>
+    <StartupObject>HydrometServer.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
