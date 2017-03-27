@@ -15,7 +15,7 @@ namespace Reclamation.Core.Tests
           
         }
 
-        [Test, Category("Windows")]
+        [Test, Category("DatabaseFile")]
         public void TestTable()
         {
             string mdbFilename = Path.Combine(Globals.TestDataPath, "Water Quality Testing.mdb");
