@@ -70,6 +70,9 @@ namespace Reclamation.TimeSeries
         /// <returns></returns>
         public CalculationSeries[] Sort()
         {
+            if (list.Count == 0)
+                return new CalculationSeries[] { };
+
             Logger.WriteLine("List before Sorting...");
             foreach (var item in list)
             {
@@ -80,13 +83,14 @@ namespace Reclamation.TimeSeries
             
             var rval = TSort(list, BuildDependencies);
 
-            Console.WriteLine("============  --- Begin Sorted  ---   ================");
+            Console.WriteLine("Sorted Calculations");
+            int i = 1;
             foreach (var item in rval)
             {
-                Console.WriteLine(item.Name + " = '" + item.Expression + "'");
+                Console.WriteLine(i+": "+item.Name + " = '" + item.Expression + "'");
+                i++;
             }
 
-            Console.WriteLine("============  ---  End - Sorted  ---   ================");
 
             return rval.ToArray();
         }
@@ -106,7 +110,7 @@ namespace Reclamation.TimeSeries
 
             foreach (var item in source)
             {
-                Console.WriteLine((item as CalculationSeries).Name);
+                //Console.WriteLine((item as CalculationSeries).Name);
                 Visit(item, visited, sorted, dependencies);
             }
 

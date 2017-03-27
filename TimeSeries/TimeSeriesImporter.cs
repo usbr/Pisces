@@ -280,7 +280,6 @@ namespace Reclamation.TimeSeries
             if (calcList.Count > 0)
                 Logger.WriteLine("Found " + calcList.Count + " " + s.TimeInterval + " calculations to update ");
 
-            // TO DO:  sort calc list and perform in proper order.
 
             TimeSeriesDependency d = new TimeSeriesDependency(calcList);
             var sorted = d.Sort();
