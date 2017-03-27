@@ -1156,6 +1156,7 @@ namespace Reclamation.TimeSeries.Forms
             try
             {
                 AlarmManagerMain am = new AlarmManagerMain(DB.Server);
+                am.Size = new System.Drawing.Size(600, 400);
                 am.ShowDialog();
             }
             catch (Exception ex)

@@ -11,6 +11,20 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <ProjectGuid>{37B543F5-03A5-479E-B20C-7B4ACC53D16A}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>Reclamation.TimeSeries.Excel</RootNamespace>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Aga.Controls">
       <HintPath>..\ThirdParty\Aga.Controls.dll</HintPath>
@@ -84,7 +98,9 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
