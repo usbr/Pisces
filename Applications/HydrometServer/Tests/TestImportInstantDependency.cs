@@ -61,10 +61,10 @@ namespace Pisces.NunitTests.SeriesMath
             var dir = FileUtility.GetTempPath();
 
             File.Copy(Path.Combine(decodes,"instant_aga.txt"),
-                Path.Combine(dir, "instant_aga.txt"));
+                Path.Combine(dir, "instant_aga.txt"),true);
 
             File.Copy(Path.Combine(decodes, "instant_aga_midnight.txt"),
-                Path.Combine(dir, "instant_aga_midnight.txt"));
+                Path.Combine(dir, "instant_aga_midnight.txt"),true);
 
             var rt = Path.Combine(Globals.TestDataPath, "rating_tables");
 
