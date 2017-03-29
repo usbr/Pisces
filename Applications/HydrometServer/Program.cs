@@ -113,9 +113,9 @@ namespace HydrometServer
                 {
                     Logger.EnableLogger();
                     Logger.WriteLine("Checking for new or unconfirmed Alarms ");
-                    var aq = new ProcessAlarms(db);
+                    var aq = new AlarmManager(db);
                     Logger.WriteLine("Processing Alarms");
-                    aq.MakePhoneCalls();
+                    aq.ProcessAlarms();
                 }
                 catch (Exception e)
                 {

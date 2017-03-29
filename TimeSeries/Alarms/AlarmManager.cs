@@ -21,19 +21,19 @@ namespace Reclamation.TimeSeries.Alarms
     ///   3) copy call file to asterisk server
     /// 
     /// </summary>
-    public class ProcessAlarms
+    public class AlarmManager
     {
 
         BasicDBServer m_server;
         AlarmDataSet alarmDS;
-        public ProcessAlarms(TimeSeriesDatabase db)
+        public AlarmManager(TimeSeriesDatabase db)
         {
             m_server = db.Server; ;
             alarmDS = AlarmDataSet.CreateInstance(db.Server);
         }
 
 
-        public void MakePhoneCalls()
+        public void ProcessAlarms()
         {
 
             var alarmQueue = alarmDS.GetUnconfirmedAlarms();

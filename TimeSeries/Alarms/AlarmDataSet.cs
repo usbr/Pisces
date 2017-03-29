@@ -60,7 +60,7 @@ namespace Reclamation.TimeSeries.Alarms
         public alarm_phone_queueDataTable GetUnconfirmedAlarms()
         {
             AlarmDataSet.alarm_phone_queueDataTable tbl = new alarm_phone_queueDataTable();
-            string sql = "select * from alarm_phone_queue where status='new' or status = 'unconfirmed'";
+            string sql = "select * from alarm_phone_queue where (status='new' or status = 'unconfirmed') and active ="+m_server.PortableWhereBool(true);
             m_server.FillTable(tbl, sql);
             return tbl;
         }
