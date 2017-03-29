@@ -270,7 +270,8 @@ namespace Reclamation.TimeSeries.Forms
                 s.Table.TableName = a.TableName;
                 s.Units = a.Units;
                 s.TimeInterval = a.TimeInterval;
-                DB.AddSeries(s, CurrentFolder);    
+                DB.AddSeries(s, CurrentFolder);
+                DatabaseChanged();
             }
             
         }
