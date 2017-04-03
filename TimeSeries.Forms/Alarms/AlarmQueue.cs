@@ -47,6 +47,7 @@ namespace Reclamation.TimeSeries.Forms.Alarms
         private void buttonSave_Click(object sender, EventArgs e)
         {
             m_ds.SaveTable(tbl);
+            Init();
         }
 
 

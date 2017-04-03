@@ -339,9 +339,9 @@ namespace Reclamation.TimeSeries.Alarms
 
             var subject = "Alarm Condition at " + siteDescription + " " + alarm.siteid.ToUpper();
             subject += "  " + parameterName;
-            var body = "alarm conditon: "+ alarm.alarm_condition;
-            body += "\n"+ pt.ToString();
-            body += "\n\n" + subject;
+            var body = "alarm condition: "+ alarm.alarm_condition;
+            body += "\n<br/>"+ pt.ToString();
+            body += "\n<br/>\n<br/>" + subject;
 
             var emails = GetEmailList(alarm.list);
              if( emails.Length == 0)
@@ -392,7 +392,7 @@ namespace Reclamation.TimeSeries.Alarms
         public alarm_definitionDataTable GetAlarmDefinition()
         {
             var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
-            var sql = "select * from alarm_definition ";
+            var sql = "select * from alarm_definition order by siteid";
             m_server.FillTable(alarm_definition, sql);
             alarm_definition.idColumn.AutoIncrementSeed = m_server.NextID("alarm_definition", "id");
             return alarm_definition;
