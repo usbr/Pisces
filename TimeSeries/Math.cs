@@ -849,9 +849,7 @@ namespace Reclamation.TimeSeries
                 Point newPoint;
                 Point ptA = a[i];
                 int idx = b.IndexOf(ptA.DateTime);
-                if (
-                   idx >= 0 && (!ptA.IsMissing)
-                  )
+                if ( idx >= 0 && (!ptA.IsMissing) )
                 {
                     Point ptB = b[idx];
                     if (ptB.IsMissing)
@@ -862,7 +860,7 @@ namespace Reclamation.TimeSeries
                     {
                         if (division)
                         {
-                            if( ptA.Value == 0)
+                            if( ptB.Value == 0)
                                 newPoint = new Point(ptA.DateTime, Point.MissingValueFlag, PointFlag.Missing);
                             else
                             newPoint = new Point(ptA.DateTime, ptA.Value / ptB.Value, PointFlag.Computed);
