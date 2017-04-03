@@ -199,10 +199,8 @@ namespace Reclamation.TimeSeries.Alarms
                 return;// no alarm defined
             }
 
-            foreach (var item in alarm_definition.Rows)
+            foreach (var item in alarm.Rows) 
             {
-
-
                 Check(s, (AlarmDataSet.alarm_definitionRow)item);    
             }
             

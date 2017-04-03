@@ -405,7 +405,13 @@ END DATA
 
             for (int i = 1; i < tf.Length; i++) // skip first row (header)
 			{
+                if( tf[i].Length <59)
+                {
+                    Console.WriteLine("Skipping invalid line: "+tf[i]);
+                    continue;
+                }
                 var strDate = tf[i].Substring(0,14);
+
                 DateTime t;
                 if (!DateTime.TryParseExact(strDate, "yyyyMMMdd HHmm", new CultureInfo("en-US"), System.Globalization.DateTimeStyles.None, out t))
                 {
