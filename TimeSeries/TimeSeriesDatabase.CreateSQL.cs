@@ -89,6 +89,7 @@ namespace Reclamation.TimeSeries
             {
                 string sql = "Create Table alarm_phone_queue "
                 + "( id  int not null primary key, "
+                +"  alarm_definition_id int not null default -1,"
                 + " list " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "
@@ -145,7 +146,7 @@ namespace Reclamation.TimeSeries
                 + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " alarm_condition " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " clear_condition " + m_server.PortableCharacterType(256) + " not null default '' "
-                + " , unique(siteid,parameter) )";
+                + " )";
                 ExecuteCreateTable(m_server, sql);
             }
         }

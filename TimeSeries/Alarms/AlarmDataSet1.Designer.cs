@@ -794,6 +794,8 @@ namespace Reclamation.TimeSeries.Alarms {
             
             private global::System.Data.DataColumn columnid;
             
+            private global::System.Data.DataColumn columnalarm_definition_id;
+            
             private global::System.Data.DataColumn columnlist;
             
             private global::System.Data.DataColumn columnsiteid;
@@ -852,6 +854,14 @@ namespace Reclamation.TimeSeries.Alarms {
             public global::System.Data.DataColumn idColumn {
                 get {
                     return this.columnid;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn alarm_definition_idColumn {
+                get {
+                    return this.columnalarm_definition_id;
                 }
             }
             
@@ -972,10 +982,11 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public alarm_phone_queueRow Addalarm_phone_queueRow(string list, string siteid, string parameter, double value, string status, System.DateTime status_time, string confirmed_by, System.DateTime event_time, int current_list_index, bool active) {
+            public alarm_phone_queueRow Addalarm_phone_queueRow(int alarm_definition_id, string list, string siteid, string parameter, double value, string status, System.DateTime status_time, string confirmed_by, System.DateTime event_time, int current_list_index, bool active) {
                 alarm_phone_queueRow rowalarm_phone_queueRow = ((alarm_phone_queueRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
+                        alarm_definition_id,
                         list,
                         siteid,
                         parameter,
@@ -1016,6 +1027,7 @@ namespace Reclamation.TimeSeries.Alarms {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnid = base.Columns["id"];
+                this.columnalarm_definition_id = base.Columns["alarm_definition_id"];
                 this.columnlist = base.Columns["list"];
                 this.columnsiteid = base.Columns["siteid"];
                 this.columnparameter = base.Columns["parameter"];
@@ -1033,6 +1045,8 @@ namespace Reclamation.TimeSeries.Alarms {
             private void InitClass() {
                 this.columnid = new global::System.Data.DataColumn("id", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnid);
+                this.columnalarm_definition_id = new global::System.Data.DataColumn("alarm_definition_id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnalarm_definition_id);
                 this.columnlist = new global::System.Data.DataColumn("list", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnlist);
                 this.columnsiteid = new global::System.Data.DataColumn("siteid", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1059,6 +1073,7 @@ namespace Reclamation.TimeSeries.Alarms {
                 this.columnid.AutoIncrementSeed = 1;
                 this.columnid.AllowDBNull = false;
                 this.columnid.Unique = true;
+                this.columnalarm_definition_id.DefaultValue = ((int)(-1));
                 this.columnlist.AllowDBNull = false;
                 this.columnsiteid.AllowDBNull = false;
                 this.columnparameter.AllowDBNull = false;
@@ -2485,6 +2500,23 @@ namespace Reclamation.TimeSeries.Alarms {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int alarm_definition_id {
+                get {
+                    try {
+                        return ((int)(this[this.tablealarm_phone_queue.alarm_definition_idColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'alarm_definition_id\' in table \'alarm_phone_queue\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tablealarm_phone_queue.alarm_definition_idColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string list {
                 get {
                     return ((string)(this[this.tablealarm_phone_queue.listColumn]));
@@ -2596,6 +2628,18 @@ namespace Reclamation.TimeSeries.Alarms {
                 set {
                     this[this.tablealarm_phone_queue.activeColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isalarm_definition_idNull() {
+                return this.IsNull(this.tablealarm_phone_queue.alarm_definition_idColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setalarm_definition_idNull() {
+                this[this.tablealarm_phone_queue.alarm_definition_idColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

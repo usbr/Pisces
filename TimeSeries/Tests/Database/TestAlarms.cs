@@ -39,8 +39,8 @@ namespace Pisces.NunitTests.Database
             // create database with alarm def
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("palisades");
-            ds.alarm_definition.Addalarm_definitionRow(true, "palisades",
-                "pal", "fb", "above 5520", "");
+            var def_id = ds.alarm_definition.Addalarm_definitionRow(true, "palisades",
+                "pal", "fb", "above 5520", "").id;
             ds.SaveTable(ds.alarm_definition);
 
             var test = db.Server.Table("alarm_definition");
@@ -62,7 +62,7 @@ namespace Pisces.NunitTests.Database
 
             ds.Check(s);
 
-            var queue = ds.GetActiveAlarmQueue("pal", "fb");
+            var queue = ds.GetAlarmQueue(def_id);//"pal", "fb");
             Console.WriteLine(DataTableOutput.ToJson(queue));
             Assert.AreEqual(1, queue.Rows.Count);
         }
@@ -73,7 +73,7 @@ namespace Pisces.NunitTests.Database
         {
             var db = GetDatabase();
             var ds = db.Alarms;
-            SetupAlarm(ds,"lucky","luc","fb", "below 5525");
+            int id = SetupAlarm(ds,"lucky","luc","fb", "below 5525");
 
             Series s = new Series();
             s.Parameter = "fb";
@@ -85,12 +85,12 @@ namespace Pisces.NunitTests.Database
 
             ds.Check(s);
 
-            var queue = ds.GetActiveAlarmQueue("luc", "fb");
+            var queue = ds.GetAlarmQueue(id);//"luc", "fb");
             Assert.AreEqual(1, queue.Rows.Count);
 
         }
 
-        private static void SetupAlarm(AlarmDataSet ds, string group,
+        private static int SetupAlarm(AlarmDataSet ds, string group,
             string cbtt, string pcode, string def)
         {
             ds.AddNewAlarmGroup(group);
@@ -107,6 +107,7 @@ namespace Pisces.NunitTests.Database
             ds.alarm_recipient.Addalarm_recipientRow(group, 4,
                 "5272", "office", "hydromet@usbr.gov");
             ds.SaveTable(ds.alarm_recipient);
+            return row.id;
         }
         [Test]
         public void Dropping()
@@ -167,16 +168,30 @@ namespace Pisces.NunitTests.Database
         }
 
 
+
+        /// <summary>
+        /// Include two alarms with the same cbtt/pcode
+        /// but with different callout lists
+        /// </summary>
         [Test]
         public void AboveOrRising()
         {
             var db = GetDatabase();
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("uny");
+            ds.AddNewAlarmGroup("test");
+
             ds.alarm_definition.Addalarm_definitionRow(true, "uny",
                 "uny", "pc", "above 300 or rising 1", "");
+            ds.alarm_definition.Addalarm_definitionRow(true,"test",
+                "uny", "pc", "above 400", "");
+
+
             ds.SaveTable(ds.alarm_definition);
+
             ds.alarm_recipient.Addalarm_recipientRow("uny", 4,
+                "5272", "office", "hydromet@usbr.gov");
+            ds.alarm_recipient.Addalarm_recipientRow("test", 5,
                 "5272", "office", "hydromet@usbr.gov");
             ds.SaveTable(ds.alarm_recipient);
 
@@ -193,9 +208,43 @@ namespace Pisces.NunitTests.Database
 
 
             var queue = ds.GetAlarmQueue();
-            string sql = "list = 'uny' AND siteid = 'uny' "
+            string sql = "siteid = 'uny' "
                 + "AND parameter = 'pc' AND status = 'new'";
-            Assert.IsTrue(queue.Select(sql).Length == 1);
+            Assert.AreEqual(2,queue.Select(sql).Length);
+        }
+
+        [Test]
+        public void AlarmDisabled()
+        {
+            var db = GetDatabase();
+            var ds = db.Alarms;
+            ds.AddNewAlarmGroup("karl");
+            var r = ds.alarm_definition.Addalarm_definitionRow(false, "karl",
+                "karl", "stress", "above 5520", "");
+            Console.WriteLine(r.id);
+            ds.SaveTable(ds.alarm_definition);
+
+            var test = db.Server.Table("alarm_definition");
+            Console.WriteLine("alarm_definition has " + test.Rows.Count + " rows");
+
+            ds.alarm_recipient.Addalarm_recipientRow("karl", 4,
+                "5272", "office", "hydromet@usbr.gov");
+            ds.SaveTable(ds.alarm_recipient);
+
+            String file = Path.Combine(TestData.DataPath, "alarms", "pal_fb.csv");
+            TextSeries s = new TextSeries(file);
+            //TO DO .. read flags
+
+            s.Parameter = "stress";
+            s.SiteID = "karl";
+            s.Read();
+            Console.WriteLine("karl/stress series count = " + s.Count);
+            Assert.IsTrue(s.Count > 500);
+
+            ds.Check(s);
+
+            var queue = ds.GetAlarmQueue(r.id);//"karl", "stress");
+            Assert.AreEqual(0, queue.Rows.Count);
         }
 
     }

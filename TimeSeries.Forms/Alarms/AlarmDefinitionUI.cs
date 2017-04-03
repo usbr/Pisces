@@ -38,7 +38,7 @@ namespace Reclamation.TimeSeries.Forms.Alarms
             alarm_definition = m_ds.GetAlarmDefinition();
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
            dataGridView1.DataSource = alarm_definition;
-           dataGridView1.Columns["id"].Visible = false;
+           dataGridView1.Columns["id"].ReadOnly = true;//.Visible = false;
 
 
            DataGridViewComboBoxColumn c = new DataGridViewComboBoxColumn();

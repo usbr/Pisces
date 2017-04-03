@@ -155,12 +155,13 @@ namespace Reclamation.TimeSeries.Alarms
         /// <param name="siteid"></param>
         /// <param name="parameter"></param>
         /// <returns></returns>
-        public AlarmDataSet.alarm_phone_queueDataTable GetActiveAlarmQueue(string siteid, string parameter)
+        public AlarmDataSet.alarm_phone_queueDataTable GetAlarmQueue(int alarm_definition_id)
         {
             var tbl = new AlarmDataSet.alarm_phone_queueDataTable();
             string sql = "select * from alarm_phone_queue ";
-            sql += " where siteid = '" + siteid + "' and parameter = '" + parameter + "' ";
-            sql += " and active="+m_server.PortableWhereBool(true);
+            sql += " where alarm_definition_id = " + alarm_definition_id;
+            sql += " and active=" + m_server.PortableWhereBool(true);
+                
 
             m_server.FillTable(tbl, sql);
 
@@ -190,14 +191,28 @@ namespace Reclamation.TimeSeries.Alarms
         internal void Check(Series s)
         {
             Logger.WriteLine("Check for alarms " + s.SiteID + " " + s.Parameter);
-            var alarm = GetAlarmDefinition(s.SiteID.ToLower(), s.Parameter.ToLower());
+            var alarm = GetActiveAlarmDefinition(s.SiteID.ToLower(), s.Parameter.ToLower());
 
-            if (alarm == null)
+            if (alarm.Rows.Count == 0)
             {
-                Logger.WriteLine("no alarm defined.");
+                Logger.WriteLine("no alarms defined." + s.SiteID + "/" + s.Parameter);
                 return;// no alarm defined
             }
 
+            foreach (var item in alarm_definition.Rows)
+            {
+
+
+                Check(s, (AlarmDataSet.alarm_definitionRow)item);    
+            }
+            
+
+            // TO DO  clear alarms if clear_condition
+
+        }
+
+        private void Check(Series s, alarm_definitionRow alarm)
+        {
             Logger.WriteLine("found alarm definition " + s.SiteID + " " + s.Parameter);
 
             AlarmRegex alarmEx = new AlarmRegex(alarm.alarm_condition);
@@ -214,7 +229,7 @@ namespace Reclamation.TimeSeries.Alarms
                             if (!p.IsMissing && p.Value > c.Value)
                             {
                                 Logger.WriteLine("alarm_condition: " + alarm.alarm_condition);
-                                Logger.WriteLine("Alarm above found: "+p.Value);
+                                Logger.WriteLine("Alarm above found: " + p.Value);
                                 CreateAlarm(alarm, p);
                                 return;
                             }
@@ -271,11 +286,6 @@ namespace Reclamation.TimeSeries.Alarms
                 }
 
             }
-
-            // TO DO  clear alarms if clear_condition
-
-
-
         }
 
         
@@ -288,7 +298,7 @@ namespace Reclamation.TimeSeries.Alarms
         public void CreateAlarm(AlarmDataSet.alarm_definitionRow alarm,
                              Point pt)
         {
-            var tbl = GetActiveAlarmQueue(alarm.siteid, alarm.parameter);
+            var tbl = GetAlarmQueue(alarm.id);
 
             if (tbl.Rows.Count == 1)
             {
@@ -302,6 +312,7 @@ namespace Reclamation.TimeSeries.Alarms
             var row = tbl.Newalarm_phone_queueRow();
             row.id = m_server.NextID("alarm_phone_queue", "id");
             row.list = alarm.list;
+            row.alarm_definition_id = alarm.id;
             row.siteid = alarm.siteid;
             row.parameter = alarm.parameter;
             row.value = pt.Value;
@@ -394,27 +405,21 @@ namespace Reclamation.TimeSeries.Alarms
 
 
         /// <summary>
-        /// Returns alarm Definition row or null if definition does not exists
+        /// Returns a Table of enabled alarm definitions
         /// </summary>
         /// <returns></returns>
-        public alarm_definitionRow GetAlarmDefinition(string siteid, string parameter)
+        public AlarmDataSet.alarm_definitionDataTable GetActiveAlarmDefinition(string siteid, string parameter)
         {
             var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
 
             siteid = BasicDBServer.SafeSqlLikeClauseLiteral(siteid);
             parameter = BasicDBServer.SafeSqlLikeClauseLiteral(parameter);
-            var sql = "select * from alarm_definition where siteid='" + siteid + "' and parameter ='" + parameter + "'";
+            var sql = "select * from alarm_definition where siteid='" + siteid + "' and parameter ='" + parameter + "'"
+            +" and  enabled = " + m_server.PortableWhereBool(true);
             Logger.WriteLine(sql);
            m_server.FillTable(alarm_definition, sql);
 
-            if (alarm_definition.Rows.Count == 0)
-            {
-                Logger.WriteLine("no rows found");
-                return null;
-            }
-
-            return (alarm_definitionRow)alarm_definition.Rows[0];
-
+            return alarm_definition;
         }
 
 

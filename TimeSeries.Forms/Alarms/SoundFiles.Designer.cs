@@ -38,6 +38,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonSave = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.buttonPreview = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -45,6 +46,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonPreview);
             this.panel1.Controls.Add(this.checkBoxParameter);
             this.panel1.Controls.Add(this.checkBoxSite);
             this.panel1.Controls.Add(this.textBox1);
@@ -100,7 +102,7 @@
             // 
             // buttonGenerate
             // 
-            this.buttonGenerate.Location = new System.Drawing.Point(31, 211);
+            this.buttonGenerate.Location = new System.Drawing.Point(31, 234);
             this.buttonGenerate.Name = "buttonGenerate";
             this.buttonGenerate.Size = new System.Drawing.Size(75, 23);
             this.buttonGenerate.TabIndex = 0;
@@ -136,6 +138,16 @@
             this.dataGridView1.Size = new System.Drawing.Size(400, 421);
             this.dataGridView1.TabIndex = 2;
             // 
+            // buttonPreview
+            // 
+            this.buttonPreview.Location = new System.Drawing.Point(31, 205);
+            this.buttonPreview.Name = "buttonPreview";
+            this.buttonPreview.Size = new System.Drawing.Size(75, 23);
+            this.buttonPreview.TabIndex = 5;
+            this.buttonPreview.Text = "preview";
+            this.buttonPreview.UseVisualStyleBackColor = true;
+            this.buttonPreview.Click += new System.EventHandler(this.buttonPreview_Click);
+            // 
             // SoundFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -164,5 +176,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button buttonPreview;
     }
 }

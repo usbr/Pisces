@@ -7,6 +7,8 @@ using Reclamation.TimeSeries.Alarms;
 using System.Speech.Synthesis;
 using System.Speech.AudioFormat;
 using System.IO;
+using System.Data;
+using System.Diagnostics;
 #endif 
 
 
@@ -15,6 +17,8 @@ namespace Reclamation.TimeSeries.Forms.Alarms
     public partial class SoundFiles : UserControl
     {
         AlarmDataSet.alarm_scriptsDataTable tbl = new AlarmDataSet.alarm_scriptsDataTable();
+        AlarmDataSet.alarm_scriptsDataTable tblPreview = new AlarmDataSet.alarm_scriptsDataTable();
+        bool preview = false; // getnerate script instead of *.wav files
 
         public SoundFiles()
         {
@@ -52,10 +56,14 @@ namespace Reclamation.TimeSeries.Forms.Alarms
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog dlg = new FolderBrowserDialog();
-
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var dir = "";
+            if ( !preview )
             {
-                var dir = dlg.SelectedPath;
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    dir = dlg.SelectedPath;
+                else
+                    return;
+            }
                 GenerateSounds(dir, tbl);
                 // id, text, filename
                 
@@ -85,6 +93,15 @@ namespace Reclamation.TimeSeries.Forms.Alarms
                     }
                     GenerateSounds(dir, scripts);
                 }
+            
+
+            if( preview)
+            {
+                tblPreview.Columns.Remove("id");
+                var s = DataTableOutput.ToHTML(tblPreview);
+                var fn  =FileUtility.GetTempFileName(".html");
+                File.WriteAllText(fn, s);
+                System.Diagnostics.Process.Start(fn);
             }
         }
 
@@ -98,17 +115,37 @@ namespace Reclamation.TimeSeries.Forms.Alarms
             {
                 foreach (var r in scripts)
                 {
-                    synth.Rate = -3;
-                    string outputWavFileName = Path.Combine(dir, r.filename);
-                    Console.WriteLine(outputWavFileName);
-                    synth.SetOutputToWaveFile(outputWavFileName, 
-                      new SpeechAudioFormatInfo(8000, AudioBitsPerSample.Sixteen, AudioChannel.Mono));
-                    PromptBuilder builder = new PromptBuilder();
-                    builder.AppendText(r.text);
-                    synth.Speak(builder);
+
+                    if (preview)
+                    {// generate html table
+                        tblPreview.Addalarm_scriptsRow(r.text, r.filename);
+                    }
+                    else
+                    {
+                        synth.Rate = -3;
+                        string outputWavFileName = Path.Combine(dir, r.filename);
+                        Console.WriteLine(outputWavFileName);
+                        synth.SetOutputToWaveFile(outputWavFileName,
+                          new SpeechAudioFormatInfo(8000, AudioBitsPerSample.Sixteen, AudioChannel.Mono));
+                        PromptBuilder builder = new PromptBuilder();
+                        builder.AppendText(r.text);
+                        synth.Speak(builder);
+                    }
                 }
             }
 #endif
+        }
+
+        
+        private void buttonPreview_Click(object sender, EventArgs e)
+        {
+            preview = true;
+
+            tblPreview.Clear();
+            tblPreview.AcceptChanges();
+
+            buttonGenerate_Click(sender, EventArgs.Empty);
+            preview = false;
         }
         
     }
