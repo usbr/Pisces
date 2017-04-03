@@ -754,6 +754,7 @@ namespace Reclamation.TimeSeries.Forms
             fd.Filter = "Pisces database (*.pdb)|*.pdb";
             if (fd.ShowDialog() == DialogResult.OK)
             {
+                SQLiteServer.CreateNewDatabase(fd.FileName);
                 engine1.Open(fd.FileName);
                 DatabaseChanged();
                 UserPreference.Save("fileName", fd.FileName);
