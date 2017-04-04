@@ -190,7 +190,7 @@ namespace Reclamation.TimeSeries
         /// <param name="head"></param>
         /// <param name="length"></param>
         /// <returns></returns>
-        [FunctionAttribute("CipolettiWeir equation 3.367*lenght*h^1.5", "CipolettiWeir(head,length)")]
+        [FunctionAttribute("CipolettiWeir equation 3.367*length*h^1.5", "CipolettiWeir(head,length)")]
         public static Series CipolettiWeir(Series head, double length)
         {
             var s = new Series();

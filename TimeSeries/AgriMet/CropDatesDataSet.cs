@@ -38,13 +38,17 @@ namespace Reclamation.TimeSeries.AgriMet
             return cropDir;
         }
 
-       
 
-        private static BasicDBServer DB
+        static BasicDBServer s_server;
+        public static BasicDBServer DB
         {
             get
             {
-                return PostgreSQL.GetPostgresServer("agrimet","","agrimet");
+                return s_server;
+            }
+            set
+            {
+                s_server = value;
             }
         }
 

@@ -1761,7 +1761,7 @@ namespace Reclamation.TimeSeries
 
         [FunctionAttribute("returns a series composed of thenvalue or elseValues ",
          "If(series, ifValue, elseValue)")]
-        public static Series If(Series series, double thenVale, double elseValue )
+        public static Series If(Series series, double thenValue, double elseValue )
         {
             Series rval = series.Copy();
             for (int i = 0; i < rval.Count; i++)
@@ -1774,7 +1774,7 @@ namespace Reclamation.TimeSeries
                 }
                 else if (pt.Value > 0)
                 {
-                    pt.Value = thenVale;
+                    pt.Value = thenValue;
                 }
                 else
                 {
