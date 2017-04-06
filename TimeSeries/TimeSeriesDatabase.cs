@@ -1091,6 +1091,7 @@ namespace Reclamation.TimeSeries
         {
             Logger.WriteLine("Table " + tableName + " does not exist");
             CreateSeriesTable(tableName, true);
+            m_tableNames.Clear();
         }
         DataTable tbl = m_server.Table(tableName, sql);
         return tbl;

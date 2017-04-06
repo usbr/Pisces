@@ -397,7 +397,11 @@ namespace Reclamation.Core
                         conn.Close();
                 }
             }
-            Logger.WriteLine("Saved "+recordCount+" records in " + perf.ElapsedSeconds + "seconds");
+	     string msg = "[" + dataTable.TableName + "] " + recordCount;
+           Logger.WriteLine(msg,"ui");
+           Console.WriteLine(msg);
+	  
+            
             return recordCount;
         }
 
