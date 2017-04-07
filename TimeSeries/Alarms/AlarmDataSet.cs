@@ -224,7 +224,7 @@ namespace Reclamation.TimeSeries.Alarms
                     {
                         foreach (Point p in s)
                         {
-                            if (!p.IsMissing && p.Value > c.Value)
+                            if (!p.FlaggedBad && !p.IsMissing && p.Value > c.Value)
                             {
                                 Logger.WriteLine("alarm_condition: " + alarm.alarm_condition);
                                 Logger.WriteLine("Alarm above found: " + p.Value);
@@ -239,7 +239,7 @@ namespace Reclamation.TimeSeries.Alarms
 
                         foreach (Point p in s)
                         {
-                            if (!p.IsMissing && p.Value < c.Value)
+                            if (!p.FlaggedBad && !p.IsMissing && p.Value < c.Value)
                             {
                                 Console.WriteLine("Alarm below found");
                                 CreateAlarm(alarm, p);
@@ -250,6 +250,8 @@ namespace Reclamation.TimeSeries.Alarms
 
                     if (c.Condition == AlarmType.Dropping)
                     {
+                        // TO DO.. fix assumption of 4 values...
+                        // check for flags.
                         double num_a = s[0].Value;
                         double num_b = s[1].Value;
                         double num_c = s[2].Value;
@@ -267,6 +269,8 @@ namespace Reclamation.TimeSeries.Alarms
 
                     if (c.Condition == AlarmType.Rising)
                     {
+                        // TO DO.. fix assumption of 4 values...
+                        // check for flags.
                         double num_a = s[0].Value;
                         double num_b = s[1].Value;
                         double num_c = s[2].Value;
