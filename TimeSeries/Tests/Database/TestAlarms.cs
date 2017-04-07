@@ -247,5 +247,27 @@ namespace Pisces.NunitTests.Database
             Assert.AreEqual(0, queue.Rows.Count);
         }
 
+
+        [Test]
+        public void FlaggedDataShouldNotAlarm()
+        {
+            var db = GetDatabase();
+            var ds = db.Alarms;
+            int id = SetupAlarm(ds, "flagged", "karl", "bp", "above 12");
+
+            Series s = new Series();
+            s.Parameter = "bp";
+            s.SiteID = "karl";
+            s.Add(DateTime.Parse("2016-11-21 02:00"), 5520.12,"+");
+            s.Add(DateTime.Parse("2016-11-21 02:15"), 5520.12, "+");
+            s.Add(DateTime.Parse("2016-11-21 02:30"), 5520.12, "-");
+            s.Add(DateTime.Parse("2016-11-21 02:45"), 5520.12, "m");
+
+            ds.Check(s);
+
+            var queue = ds.GetAlarmQueue(id); 
+            Assert.AreEqual(0, queue.Rows.Count);
+        }
+
     }
 }
