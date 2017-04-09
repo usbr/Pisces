@@ -21,8 +21,9 @@ namespace Reclamation.TimeSeries
 
         public int GetDBVersion()
         {
-            DataTable tbl = m_server.Table("version", "Select value from piscesinfo where name = 'FileVersion'");
-            return Convert.ToInt32(tbl.Rows[0][0]);
+
+      //      DataTable tbl = m_server.Table("version", "Select value from piscesinfo where name = 'FileVersion'");
+            return Convert.ToInt32(Get("FileVersion", "3"));
         }
 
 

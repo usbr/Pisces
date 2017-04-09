@@ -236,7 +236,6 @@ namespace Reclamation.TimeSeries.Alarms
 
                     if (c.Condition == AlarmType.Below)
                     {
-
                         foreach (Point p in s)
                         {
                             if (!p.FlaggedBad && !p.IsMissing && p.Value < c.Value)

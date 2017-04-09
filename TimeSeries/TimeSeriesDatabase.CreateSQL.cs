@@ -127,7 +127,7 @@ namespace Reclamation.TimeSeries
             if (!m_server.TableExists("alarm_log"))
             {
                 string sql = "Create Table alarm_log "
-                + "( datetime  datetime not null primary key, "
+                + "( datetime "  + m_server.PortableDateTimeType() +" not null primary key, "
                 + " message " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " alarm_phone_queue_id int not null default 0 )";
                 ExecuteCreateTable(m_server, sql);
