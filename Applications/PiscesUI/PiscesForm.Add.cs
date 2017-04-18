@@ -254,7 +254,8 @@ namespace Reclamation.TimeSeries.Forms
                 if( p.Calculate)
                         s.Calculate(); // save again
                 // refresh.
-                DB.RefreshFolder(CurrentFolder);
+                //DB.RefreshFolder(CurrentFolder);
+                DatabaseChanged(); ;
                 
             }
         }

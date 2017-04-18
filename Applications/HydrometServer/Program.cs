@@ -83,8 +83,11 @@ namespace HydrometServer
                     if (str_yr != "")
                         year = Convert.ToInt32(str_yr);
 
+                    var server = PostgreSQL.GetPostgresServer("agrimet", "", "agrimet");
+                    CropDatesDataSet.DB = server;
                     string dir = CropDatesDataSet.GetCropOutputDirectory(year);
                     Logger.WriteLine("output dir = " + dir);
+                   
                     CropChartGenerator.CreateCropReports(year, dir, HydrometHost.PNLinux);
                     return;
                 }
