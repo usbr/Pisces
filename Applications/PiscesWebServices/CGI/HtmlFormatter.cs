@@ -1,4 +1,5 @@
-﻿using Reclamation.TimeSeries;
+﻿using Reclamation.Core;
+using Reclamation.TimeSeries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,13 @@ namespace PiscesWebServices.CGI
     class HtmlFormatter: Formatter
     {
         bool m_printHeader = true;
-        public HtmlFormatter(TimeInterval interval, bool printFlags, bool printHeader)
+        bool m_printDescriptions;
+        public HtmlFormatter(TimeInterval interval, bool printFlags,
+            bool printHeader, bool printDescriptions)
              : base(interval, printFlags)
          {
              m_printHeader = printHeader;
+             m_printDescriptions = printDescriptions;
          }
 
          public override void WriteLine(string s)
@@ -67,6 +71,22 @@ namespace PiscesWebServices.CGI
          }
         public override void WriteSeriesHeader(SeriesList list)
         {
+            if( m_printDescriptions)
+            {
+                WriteLine("<a href=\"http://www.usbr.gov/pn/hydromet/disclaimer.html\">Provisional Data - Subject to Change</a></h5><br />");
+
+                // LRS FB = Clear Lake Dam, CA - Reservoir Elevation - Feet
+                // LRS FB2 = Clear Lake Dam, CA - Forebay Elevation below fish screens - Feet
+                foreach (var s in list)
+	            {
+                    Logger.WriteLine(s.Name+" count = "+s.Count);
+                    var str = s.SiteID + " " + s.Parameter + " = "
+                     + s.SiteDescription() + " "
+                     + s.ParameterDescription() + "<br/>";
+                    WriteLine(str);
+                }
+
+            }
             WriteLine("<table  border=1>");
 
             if (m_printHeader)

@@ -19,7 +19,7 @@ namespace PiscesWebServices.CGI
     /// "https://www.usbr.gov/pn-bin/instant.pl?list=boii ob,boii obx&start=2016-04-15&end=2016-04-20"
     /// "https://www.usbr.gov/pn-bin/instant.pl?list=bewo ob,bewo pc&start=2016-04-15&end=2016-04-20&format=zrxp"
     /// "https://lrgs1/pn-bin/daily?list=jck fb, amf fb&start=2016-04-15&end=2016-04-20"
-    /// "https://www.usbr.gov/pn-bin/daily?site=luc&start=2016-04-01&end=2016-04-20"
+    /// "https://www.usbr.gov/pn-bin/daily.pl?site=luc&start=2016-04-01&end=2016-04-20"
     /// options :  
     ///      back=12  (12 hours for instant, 12 days for daily)
     ///      print_hourly=true (print hourly data)
@@ -54,8 +54,6 @@ namespace PiscesWebServices.CGI
             this.db = db;
             m_query = query;
             InitFormatter(interval);
-
-
         }
 
         private void InitFormatter(TimeInterval interval)
@@ -64,6 +62,7 @@ namespace PiscesWebServices.CGI
             {
                 m_query = HydrometWebUtility.GetQuery();
             }
+         
             Logger.WriteLine("Raw query: = '" + m_query + "'");
 
             if (m_query == "")
@@ -124,7 +123,12 @@ namespace PiscesWebServices.CGI
             }
             else if (format == "html")
             {
-                m_formatter = new HtmlFormatter(interval, m_printFlags, printHeader);
+                bool printDescription = false;
+                if (m_collection.AllKeys.Contains("description"))
+                {
+                    printDescription = m_collection["description"] == "true";
+                }
+                m_formatter = new HtmlFormatter(interval, m_printFlags, printHeader,printDescription);
             }
 
             else
@@ -165,8 +169,6 @@ namespace PiscesWebServices.CGI
             }
             finally
             {
-                //HydrometWebUtility.PrintHydrometTrailer();
-
                 if (sw != null)
                     sw.Close();
 
@@ -362,7 +364,7 @@ namespace PiscesWebServices.CGI
         private SeriesList CreateSeriesList()
         {
             var interval = m_formatter.Interval;
-            TimeSeriesName[] names = GetTimeSeriesName(m_collection, interval);
+            TimeSeriesName[] names = GetTimeSeriesName(m_collection, interval,db);
 
             var tableNames = (from n in names select n.GetTableName()).ToArray();
 
@@ -374,6 +376,7 @@ namespace PiscesWebServices.CGI
                 Series s = new Series();
 
                 s.TimeInterval = interval;
+                Logger.WriteLine("tablename: "+tn.GetTableName());
                 if (sc.Select("tablename = '" + tn.GetTableName() + "'").Length == 1)
                 {
                     s = db.GetSeriesFromTableName(tn.GetTableName());
@@ -384,64 +387,12 @@ namespace PiscesWebServices.CGI
             return sList;
         }
 
-        ///// <summary>
-        ///// Print DataTable composed of tablename,datetime,value[,flag]
-        ///// with columns for each tablename
-        ///// </summary>
-        ///// <param name="list"></param>
-        ///// <param name="table"></param>
-        //private static void PrintDataTable(SeriesList list, DataTable table,
-        //    Formatter fmt, TimeInterval interval)
-        //{
-        //    var t0 = "";
 
-        //    if (table.Rows.Count > 0)
-        //        t0 = fmt.FormatDate(table.Rows[0][1]);
-
-        //    var vals = new string[list.Count];
-        //    var flags = new string[list.Count];
-        //    var dict = new Dictionary<string, int>();
-        //    for (int i = 0; i < list.Count; i++)
-        //    {
-        //        dict.Add(list[i].Table.TableName, i);
-        //    }
-
-        //    string t = "";
-        //    bool printThisRow = false;
-        //    for (int i = 0; i < table.Rows.Count; i++)
-        //    {
-        //        var row = table.Rows[i];
-
-        //        t = fmt.FormatDate(row[1]);
-
-        //        if (t != t0)
-        //        {
-        //            if (printThisRow)
-        //                fmt.PrintRow(t0, vals, flags);
-        //            vals = new string[list.Count];
-        //            flags = new string[list.Count];
-        //            t0 = t;
-        //        }
-
-        //        vals[dict[row[0].ToString()]] = fmt.FormatNumber(row[2]);
-        //        flags[dict[row[0].ToString()]] = fmt.FormatFlag(row[3]);
-
-        //        DateTime date = Convert.ToDateTime(row[1]);
-        //        bool topOfHour = date.Minute == 0;
-        //        printThisRow = fmt.HourlyOnly == false || (fmt.HourlyOnly && topOfHour);
-
-        //    }
-        //    if (printThisRow)
-        //        fmt.PrintRow(t, vals, flags);
-        //}
-
-
-        private static TimeSeriesName[] GetTimeSeriesName(NameValueCollection query, TimeInterval interval)
+        private static TimeSeriesName[] GetTimeSeriesName(NameValueCollection query, TimeInterval interval,TimeSeriesDatabase db)
         {
             List<TimeSeriesName> rval = new List<TimeSeriesName>();
 
-            //add support for the auto generated parameter list
-            //if the sites list is just the site return a list of all parameters in the table
+            
 
             var sites = HydrometWebUtility.GetParameter(query, "list");
 
@@ -458,7 +409,18 @@ namespace PiscesWebServices.CGI
                     TimeSeriesName tn = new TimeSeriesName(tokens[0] + "_" + tokens[1], interval);
                     rval.Add(tn);
                 }
+                else if( tokens.Length ==1 )
+                {//just the site return a list of all parameters
+                    var parms = db.GetParameters(tokens[0].Trim(), interval,false);
+                    for (int i = 0; i < parms.Length; i++)
+                    {
+                        TimeSeriesName tn = new TimeSeriesName(tokens[0] + "_" + parms[i], interval);
+                        rval.Add(tn);
+                    }
+
+                }
             }
+           
             return rval.ToArray();
         }
 

@@ -27,7 +27,7 @@ namespace PiscesWebServices.CGI
 
             if (query.IndexOf("station=") >= 0 && query.IndexOf("pcode") >= 0)
             {
-                rval = LegacyStationQuery(query, interval);
+                rval = QueryTranslationAndFilter(query, interval);
             }
             else if( query.IndexOf("parameter") >=0 )
             {
@@ -39,7 +39,7 @@ namespace PiscesWebServices.CGI
 
         }
 
-        private static string LegacyStationQuery(string query, TimeInterval interval)
+        private static string QueryTranslationAndFilter(string query, TimeInterval interval)
         {
             string rval = "";
             var c = HttpUtility.ParseQueryString(query);
@@ -94,6 +94,9 @@ namespace PiscesWebServices.CGI
 
             if (c.AllKeys.Contains("flags"))
                 rval += "&flags=" + c["flags"];
+
+            if (c.AllKeys.Contains("description"))
+                rval += "&description=" + c["description"];
 
 
             return rval.ToLower();

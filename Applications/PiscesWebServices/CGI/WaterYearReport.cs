@@ -73,35 +73,20 @@ namespace PiscesWebServices.CGI
 
         private string GetHeader(int year, string siteID, string parameter)
         {
-            string siteDescription = GetSiteDescription(siteID);
-            string parameterDescription = GetParameterDescription(parameter, TimeInterval.Daily);
+            string siteDescription = db.GetSiteDescription(siteID);
+            string parameterDescription = db.GetParameterDescription(parameter, TimeInterval.Daily);
 
             return "<thead align=\"center\"><tr><td colspan=\"13\"><b>Station  "+ siteDescription +"<br />" +
                     parameterDescription + "<br />" +
                     "Report for Water Year " + year + "<br />"+
-                    "Bureau of Reclamation AgriMet System<br /></b>"+
+                    "Bureau of Reclamation Hydromet/AgriMet System<br /></b>"+
                     "Provisional Data, Subject to Change</thead>";
 
         }
 
-        private string GetSiteDescription(string siteID)
-        {
-             var sc = db.GetSiteCatalog("siteid = '" + siteID.ToLower() + "'");
-             if (sc.Count != 0)
-                 return siteID + ", " + sc[0].description;
-             return "";
-        }
+        
 
-        private string GetParameterDescription(string parameterCode, TimeInterval interval)
-        {
-            string whereClause = "id = '"+parameterCode.ToLower() + "'"
-                 + " and  timeinterval = '" + interval.ToString()+"'";
-
-            var pc = db.GetParameterCatalog(whereClause);
-            if (pc.Count != 0)
-                return pc[0].name + ", " + pc[0].units;
-            return "";
-        }
+       
 
 
         private static TimeRange GetDateRange(NameValueCollection collection)

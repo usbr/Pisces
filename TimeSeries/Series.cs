@@ -73,6 +73,22 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
+        public string ParameterDescription()
+        {
+          if( m_db != null)
+          {
+              return m_db.GetParameterDescription(this.Parameter, this.TimeInterval);
+          }
+            return "";
+        }
+        public string SiteDescription()
+        {
+            if (m_db != null)
+            {
+              return  m_db.GetSiteDescription(this.SiteID);
+            }
+            return "";
+        }
 
         private string m_scenarioName = "";
 

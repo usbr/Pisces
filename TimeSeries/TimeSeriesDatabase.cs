@@ -296,12 +296,67 @@ namespace Reclamation.TimeSeries
                 + filter +"   order by id");
             return tbl;
         }
+
+        public string GetParameterDescription(string parameterCode, TimeInterval interval)
+        {
+            string whereClause = "id = '" + parameterCode.ToLower() + "'"
+                 + " and  timeinterval = '" + interval.ToString() + "'";
+
+            var pc = GetParameterCatalog(whereClause);
+            if (pc.Count != 0)
+                return pc[0].name + ", " + pc[0].units;
+            return "";
+        }
+
+        public string GetSiteDescription(string siteID)
+        {
+            var sc = GetSiteCatalog("siteid = '" + siteID.ToLower() + "'");
+            if (sc.Count != 0)
+                return  sc[0].description;
+            return "";
+        }
         public TimeSeriesDatabaseDataSet.parametercatalogDataTable GetParameterCatalog()
         {
             var tbl = new TimeSeriesDatabaseDataSet.parametercatalogDataTable();
             m_server.FillTable(tbl, "select * from parametercatalog order by id");
             return tbl;
         }
+
+        /// <summary>
+        /// Gets a list of parameter identifiers
+        /// </summary>
+        /// <param name="siteid"></param>
+        /// <param name="interval"></param>
+        /// <param name="quality">set to trure to return quality info. i.e. battery voltage</param>
+        /// <returns></returns>
+        public string[] GetParameters(string siteid, TimeInterval interval, bool quality=false)
+        {
+            string sql = "Select parameter from seriescatalog where siteid = '" + siteid + "' and isfolder = 0 and timeinterval='"+interval.ToString()+"'";
+            var tbl = m_server.Table("a", sql);
+
+            List<string> rval = new List<string>();
+
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                string p = tbl.Rows[i][0].ToString();
+                if (p.Trim() == "")
+                    continue;
+                bool isQuality =  QualityParameters.Contains(p.ToLower());
+                if( isQuality )
+                {
+                  if( quality)
+                      rval.Add(p); 
+                }
+                else
+                {
+                    rval.Add(p);
+                }
+            }
+
+            return rval.ToArray();
+
+        }
+
 
         public TimeSeriesDatabaseDataSet.sitepropertiesDataTable GetSiteProperties()
         {
@@ -612,7 +667,7 @@ namespace Reclamation.TimeSeries
         }
 
 
-        static string[] QualityParameters = new string[] { "PARITY", "POWER", "MSGLEN", "LENERR", "TIMEERR" };
+        static string[] QualityParameters = new string[] { "parity", "power", "msglen", "lenerr", "timeerr","batvolt","bv","battery" };
 
         /// <summary>
         /// Adds new site using template subset of a SeriesCatalog
@@ -658,7 +713,7 @@ namespace Reclamation.TimeSeries
                 if (item.TimeInterval == "Irregular")
                     parentID = instant.ID;
 
-                if (QualityParameters.Contains(item.Parameter.ToUpper()))
+                if (QualityParameters.Contains(item.Parameter.ToLower()))
                 {
                     parentID = quality.ID;
                 }
