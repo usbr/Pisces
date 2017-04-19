@@ -308,6 +308,54 @@ namespace Reclamation.TimeSeries
             return "";
         }
 
+        /// <summary>
+        /// Returns a string showing what years have data for a series
+        /// </summary>
+        /// <param name="siteID"></param>
+        /// <param name="parameter"></param>
+        /// <param name="interval"></param>
+        /// <returns></returns>
+        public string GetPeriodOfRecord(string siteID, string parameter, TimeInterval interval)
+        {
+            var tn = TimeSeriesName.GetTableName("", interval, siteID, parameter);
+            var sql = "select   EXTRACT(YEAR FROM datetime) from " + tn + " "
+                    + " group by EXTRACT(YEAR FROM datetime) order by 1";
+            var tbl = m_server.Table("por", sql);
+            if (tbl.Rows.Count == 0)
+                return "";
+
+            List<int> numbers = new List<int>();
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                int y = Convert.ToInt32(tbl.Rows[i][0]);
+                numbers.Add(y);
+            }
+
+            //https://codereview.stackexchange.com/questions/90072/compact-a-comma-delimited-number-list-into-ranges
+            List<string> items = numbers
+              .Select((n, i) => new { number = n, group = n - i })
+              .GroupBy(n => n.group)
+              .Select(g =>
+                g.Count() >= 3 ?
+                  g.First().number + "-" + g.Last().number
+                :
+                  String.Join(", ", g.Select(x => x.number))
+              )
+              .ToList();
+
+            var rval = String.Join(", ", items);
+
+            return rval;
+
+        }     
+
+
+        /// <summary>
+        /// Returns siteid and longer description
+        /// such as: AMF - American Falls Reservoir at American Falls, ID 
+        /// </summary>
+        /// <param name="siteID"></param>
+        /// <returns></returns>
         public string GetSiteDescription(string siteID)
         {
             var sc = GetSiteCatalog("siteid = '" + siteID.ToLower() + "'");

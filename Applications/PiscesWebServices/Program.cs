@@ -35,7 +35,7 @@ namespace PiscesWebServices
             var sqLiteDatabaseFileName = "";
 
             p.Add("server", x => selfHost = true);
-            p.Add("cgi=", "required cgi to execute cgi=sites|series|instant|daily|wyreport", x => cgi = x);
+            p.Add("cgi=", "required cgi to execute cgi=sites|series|instant|daily|wyreport|inventory", x => cgi = x);
             p.Add("json_property_stubs=", "comma separated list of properties (i.e. 'region,url,') to created empty stubs if neeed ",
                               x => json_property_stubs = x);
             p.Add("site-type=", "filter agrimet sites", x => siteType = BasicDBServer.SafeSqlLikeClauseLiteral(x));
@@ -97,8 +97,16 @@ namespace PiscesWebServices
 
             if (cgi == "inventory")
             {
-                Console.Write("Content-Type: text/html\n\n");
-                db.Inventory();
+                try
+                {
+                    InventoryReport r = new InventoryReport(db, payload);
+                    r.Run();
+                }
+                catch (Exception e)
+                {
+                    Logger.WriteLine(e.Message);
+                }
+                
             }
             else if (cgi == "sites")
             {

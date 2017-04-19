@@ -55,6 +55,8 @@ namespace PiscesWebServices.CGI
                 parameter = collection["parameter"];
             }
 
+            Validation(siteID, parameter);
+
             var s = new HydrometDailySeries(siteID, parameter, HydrometHost.PNLinux);
             var startYear = r.StartDate.Year;
             var endYear = r.EndDate.Year;
@@ -69,6 +71,18 @@ namespace PiscesWebServices.CGI
                     Console.WriteLine(html);
                     t1 = t1.AddMonths(12);
                 }
+        }
+
+        private void Validation(string siteID, string parameter)
+        {
+            if( parameter == "" || Regex.IsMatch(parameter,"[^_a-z0-1A-Z]"))
+            {
+                StopWithError("invalid parameter ");
+            }
+            if (siteID == "" || Regex.IsMatch(siteID, "[^_a-z0-1A-Z]"))
+            {
+                StopWithError("invalid parameter ");
+            }
         }
 
         private string GetHeader(int year, string siteID, string parameter)

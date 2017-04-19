@@ -42,7 +42,7 @@ namespace Reclamation.Core
                     return s_cfgData;
 
                 string dir = Path.Combine(GetPathAbove("Pisces"), "Applications", "cfg");
-                Console.WriteLine(dir);
+                Logger.WriteLine(dir);
 
                 s_cfgData = dir;
                 return s_cfgData;
