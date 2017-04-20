@@ -46,6 +46,9 @@ namespace Reclamation.TimeSeries
        
         public void Calculate()
         {
+            if( m_db != null)
+                m_db.Truncate(this.ID);
+
             Calculate(TimeSeriesDatabase.MinDateTime, TimeSeriesDatabase.MaxDateTime);
         }
 

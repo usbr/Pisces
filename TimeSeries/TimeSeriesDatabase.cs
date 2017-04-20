@@ -1010,7 +1010,7 @@ namespace Reclamation.TimeSeries
         /// truncate all time series data in database
         /// </summary>
         /// <param name="sdi"></param>
-        private void Truncate(int sdi)
+        internal void Truncate(int sdi)
         {
             SeriesCatalogRow si = GetSeriesRow(sdi);
             if (m_server.TableExists(si.TableName))
