@@ -315,8 +315,11 @@ namespace Reclamation.TimeSeries
         /// <param name="parameter"></param>
         /// <param name="interval"></param>
         /// <returns></returns>
-        public string GetPeriodOfRecord(string siteID, string parameter, TimeInterval interval)
+        public string GetPeriodOfRecord(string siteID, string parameter, TimeInterval interval,
+            out int minYear, out int maxYear)
         {
+            minYear = DateTime.Now.Year;
+            maxYear = minYear;
             var tn = TimeSeriesName.GetTableName("", interval, siteID, parameter);
             var sql = "select   EXTRACT(YEAR FROM datetime) from " + tn + " "
                     + " group by EXTRACT(YEAR FROM datetime) order by 1";
@@ -327,7 +330,20 @@ namespace Reclamation.TimeSeries
             List<int> numbers = new List<int>();
             for (int i = 0; i < tbl.Rows.Count; i++)
             {
+                
                 int y = Convert.ToInt32(tbl.Rows[i][0]);
+
+                if (i == 0)
+                {
+                    minYear = y;
+                    maxYear = y;
+                }
+
+                if (y < minYear)
+                    minYear = y;
+                if (y > maxYear)
+                    maxYear = y;
+
                 numbers.Add(y);
             }
 

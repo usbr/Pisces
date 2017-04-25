@@ -88,6 +88,7 @@
     <Compile Include="CGI\WaterYearReport.cs" />
     <Compile Include="CGI\WebTimeSeriesWriter.Legacy.cs" />
     <Compile Include="DyGraphWriter.cs" />
+    <Compile Include="HtmlElement.cs" />
     <Compile Include="SiteCsvTable.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="HomePage.cs" />

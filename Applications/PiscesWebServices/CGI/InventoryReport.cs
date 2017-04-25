@@ -98,14 +98,29 @@ namespace PiscesWebServices.CGI
             WriteLine("<!DOCTYPE html>");
             WriteLine("<html>");
 
+            
+
             DataTable tbl = new DataTable();
             tbl.Columns.Add("parameter");
             tbl.Columns.Add("available records");
             tbl.Columns.Add("description");
+            int firstYear = DateTime.Now.Year;
+            int minYr=0, maxYr=0;
+            int min=0, max=0;
 
             for (int i = 0; i < parms.Length; i++)
             {
-                string por = db.GetPeriodOfRecord(siteID, parms[i], interval);
+                string por = db.GetPeriodOfRecord(siteID, parms[i], interval,out minYr,out maxYr);
+                if( i == 0)
+                {
+                   min = minYr;
+                   max = maxYr;
+                }
+                if (minYr < min)
+                    min = minYr;
+                if (maxYr > max)
+                    max = maxYr;
+
                 //Console.WriteLine("por = "+por);
                 if (ui)
                 {
@@ -116,9 +131,51 @@ namespace PiscesWebServices.CGI
                     tbl.Rows.Add(parms[i], db.GetParameterDescription(parms[i], interval), por);
             }
 
+            if (ui)
+            {
+                WriteLine("<form name=\"Form\" action=\"/pn-bin/daily.pl\" method=\"get\" >");
+                WriteLine("<input name=station type=\"hidden\" value=\"" + siteID + "\">");
+                WriteLine("<input name=format type=\"hidden\" value=\"html\">");
+
+                WriteTimeSelector(siteID, min,max);
+                
+            }
             var s = DataTableOutput.ToHTML(tbl,false,desc);
             WriteLine(s);
+
+            WriteLine("<p><input type=\"submit\" value=\"Retrieve Daily Data\">");
+
+            if( ui)
+              WriteLine("</form>");
             //WriteLine("<\\html>");
+        }
+
+        private void WriteTimeSelector(string siteID, int firstYear,int lastYear)
+        {
+            DateTime now = DateTime.Now.Date.AddDays(-30);
+        WriteLine("<p>Start:");
+        WriteLine("&nbsp;&nbsp;&nbsp;&nbsp;Year:");
+        WriteLine(HtmlElement.SelectIntRange("year",firstYear,lastYear,now.Year));
+
+        WriteLine("</select>&nbsp;&nbsp;&nbsp;Month:");
+        WriteLine(HtmlElement.SelectMonth("month",now.Month));
+
+        WriteLine("&nbsp;&nbsp;&nbsp;Day:");
+        WriteLine(HtmlElement.SelectIntRange("day",1,31,now.Day));
+
+
+        now = DateTime.Now.Date.AddDays(-1);
+
+       WriteLine("<p>End:");
+       WriteLine("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Year:");
+       WriteLine(HtmlElement.SelectIntRange("year",firstYear,lastYear,now.Year));
+
+       WriteLine("&nbsp;&nbsp;&nbsp;Month:");
+       WriteLine(HtmlElement.SelectMonth("month",now.Month));
+
+      WriteLine("&nbsp;&nbsp;&nbsp;Day:");
+      WriteLine(HtmlElement.SelectIntRange("day",1,31,now.Day));
+      
         }
 
         private void WriteLine(string s)
