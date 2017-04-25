@@ -1879,8 +1879,16 @@ namespace Reclamation.TimeSeries
                 return t.AddDays(1);
             if (TimeInterval == TimeInterval.Monthly)
             {
-             t = t.AddMonths(1);
-             return new DateTime(t.Year, t.Month, 1);//DateTime.DaysInMonth(t.Year, t.Month));
+                if (t.Day == DateTime.DaysInMonth(t.Year, t.Month))
+                {// assume series is end of month, return end of month date
+                    t = t.AddMonths(1);
+                    return new DateTime(t.Year, t.Month, DateTime.DaysInMonth(t.Year, t.Month));
+                }
+                else
+                {
+                    t = t.AddMonths(1);
+                    return new DateTime(t.Year, t.Month, 1);
+                }
             }
             if (TimeInterval == TimeSeries.TimeInterval.Hourly)
                return  t.AddHours(1);
