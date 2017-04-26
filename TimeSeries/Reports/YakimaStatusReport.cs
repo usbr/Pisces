@@ -39,7 +39,7 @@ namespace Reclamation.TimeSeries.Reports
             string rval = GetTemplate();
             //13-OCT-2016  09:12:35
             var fmt = "dd-MMM-yyyy  HH:mm:ss";
-            rval = rval.Replace(fmt, t.ToString(fmt));
+            rval = rval.Replace(fmt, DateTime.Now.ToString(fmt));
             rval = rval.Replace("HH:mm", t.ToString("HH:mm"));
 
 
