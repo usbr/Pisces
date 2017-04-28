@@ -15,10 +15,16 @@ using Reclamation.TimeSeries.Alarms;
 namespace HydrometServer
 {   
     /// <summary>
+    /// HydrometServer is a command line tool with many feature to
+    /// manage a time series database.
+    /// 
     /// HydrometServer processes incoming data and
     /// stores it in a SQL database. Values are flagged 
     /// are based on high and low limits, alarms (email/phone calls)
-    /// are made, and computations are performed.  
+    /// are made, and computations are performed. 
+    /// 
+    /// HydrometServer has features to perform daily,monthly, or 15-minute data calclations,
+    /// import rating tables, and calculate crop water use
     /// </summary>
     class Program
     {

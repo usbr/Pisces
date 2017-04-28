@@ -38,9 +38,9 @@ namespace Reclamation.TimeSeries.Reports
         {
             string rval = GetTemplate();
             //13-OCT-2016  09:12:35
-            var fmt = "dd-MMM-yyyy  HH:mm:ss";
-            rval = rval.Replace(fmt, DateTime.Now.ToString(fmt));
-            rval = rval.Replace("HH:mm", t.ToString("HH:mm"));
+            
+            var fmt = "HH:mm, dddd, dd-MMM-yyyy";
+            rval = rval.Replace(fmt, t.ToString(fmt));
 
 
             res_af = Array.ConvertAll(res_af,x => x=double.MinValue);
@@ -113,6 +113,12 @@ namespace Reclamation.TimeSeries.Reports
                       + ", " + year2 + ")."
                       + "\r\n---------------------";
              }
+
+
+             
+             fmt = "dd-MMM-yyyy  HH:mm:ss";
+             rval += "\r\n\r\n(STATUS Updated - "+fmt+")";
+             rval = rval.Replace(fmt, DateTime.Now.ToString(fmt));
 
             return rval;
 

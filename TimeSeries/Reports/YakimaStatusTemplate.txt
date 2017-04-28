@@ -1,6 +1,6 @@
-﻿dd-MMM-yyyy  HH:mm:ss    US BUREAU OF RECLAMATION
+﻿                          US BUREAU OF RECLAMATION
                               YAKIMA PROJECT
-                          SYSTEM STATUS AT HH:mm
+                SYSTEM STATUS AT HH:mm, dddd, dd-MMM-yyyy 
 
             FOREBAY                TOTAL     PERCENT   RESERVOIR RESERVOIR
 RESERVOIR  ELEVATION   CONTENT    CAPACITY   CAPACITY     INFLOW  RELEASES
@@ -37,4 +37,5 @@ Roza at Headworks   %rzcw_qc
 Chandler            %chcw_qc  
 
 UNREGULATED TRIBUTARY & RETURN FLOW ABOVE PARKER       %trib_parw CFS
+
 
