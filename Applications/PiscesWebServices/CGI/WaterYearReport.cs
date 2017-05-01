@@ -16,7 +16,7 @@ using Reclamation.TimeSeries.Reports;
 namespace PiscesWebServices.CGI
 {
     /// <summary>
-    /// wyreport?site=ABEI&parameter=PP&start=2016&end=2016
+    /// wyreport?site=ABEI&parameter=PP&start=2016[&end=2016]
     /// </summary>
     public partial class WaterYearReport
     {
@@ -105,12 +105,16 @@ namespace PiscesWebServices.CGI
 
         private static TimeRange GetDateRange(NameValueCollection collection)
         {
-            var start = "";
+            var start = DateTime.Now.Date.Year.ToString();
+
+            if (DateTime.Now.Date.Month >= 10)
+                start = (DateTime.Now.Date.Year - 1).ToString();
+
             if (collection.AllKeys.Contains("start"))
             {
                 start = collection["start"];
             }
-            var end = "";
+            var end = start;
             if (collection.AllKeys.Contains("end"))
             {
                 end = collection["end"];
