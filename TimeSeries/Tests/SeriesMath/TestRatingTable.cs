@@ -116,7 +116,15 @@ namespace Pisces.NunitTests.SeriesMath
            Assert.AreEqual(8,q.Count);
            for (int i = 0; i < q.Count; i++)
            {
+
+               if( double.IsNaN( qc[i]))
+               {
+                   Assert.IsTrue(q[i].IsMissing == true);
+               }
+               else
+               {
                Assert.AreEqual(qc[i], q[i].Value, 0.01);
+               }
            }
            
            q.WriteToConsole();
