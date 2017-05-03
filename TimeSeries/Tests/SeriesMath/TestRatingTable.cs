@@ -96,5 +96,33 @@ namespace Pisces.NunitTests.SeriesMath
            Assert.AreEqual(4543763, x, .01);
        }
 
+
+       [Test]
+       public void FileRatingTableInterpolate()
+       {
+            Series s = new Series();
+           DateTime t = new DateTime(2017,5,3);
+           var ch = new double[]{1.5, 1.55,1.6 ,1.65,4  ,5.6,5.9,10};
+           var qc = new double[]{double.NaN, double.NaN , 10.0,10.5,87.0,213.0,double.NaN,double.NaN};
+           for (int i = 0; i < ch.Length; i++)
+			{
+			 s.Add(t,ch[i]);
+             t= t.AddHours(1);
+			}
+
+           var path = Path.Combine(Globals.TestDataPath, "rating_tables", "lvno.csv");
+           var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path,true);
+
+           Assert.AreEqual(8,q.Count);
+           for (int i = 0; i < q.Count; i++)
+           {
+               Assert.AreEqual(qc[i], q[i].Value, 0.01);
+           }
+           
+           q.WriteToConsole();
+       }
+
+
+
     }
 }
