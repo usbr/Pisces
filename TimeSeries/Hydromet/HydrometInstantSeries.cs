@@ -462,17 +462,6 @@ END DATA
             return rval;
         }
 
-        //public void Read(int hoursBack)
-        //{
-        //    var query = ConfigurationManager.AppSettings["BoiseInstantCGI"];
-        //    query += "?parameter="+cbtt+" "+pcode+"&back=2&format=2";
-        //    query = query.Replace("back=2", "back=" + hoursBack);
-
-        //    string[] data = Web.GetPage(query, Hydromet.WebCaching);
-        //    Read(data);
-
-        //    Messages.Add(query);
-        //    Messages.Add("Returned " + Count + " records ");
-        //}
+        
     }
 }

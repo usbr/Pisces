@@ -164,7 +164,7 @@ namespace Reclamation.TimeSeries.Hydromet
     UserPreference.Lookup("HydrometServer"));
             return svr;
         }
-        private static HydrometHost HydrometServerFromString(string server)
+        public static HydrometHost HydrometServerFromString(string server)
         {
             if (server == HydrometHost.PN.ToString()) return HydrometHost.PN;
             if (server == HydrometHost.Yakima.ToString()) return HydrometHost.Yakima;

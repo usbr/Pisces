@@ -159,7 +159,7 @@ namespace HydrometNotifications
         }
          static Series GetInstantSeries(string cbtt, string pcode,DateTime t, int hours_back)
         {
-            Series s = new HydrometInstantSeries(cbtt, pcode);
+            Series s = new HydrometInstantSeries(cbtt, pcode, Utility.GetHydrometServer());
             var t1 = t.AddHours(-hours_back);
             s.Read(t1, t);
             // Hydromet web query doesn't have hour resolution.  we must clean that ourselves.
@@ -172,13 +172,14 @@ namespace HydrometNotifications
 
          static HydrometDailySeries GetDailySeries(string cbtt, string pcode,DateTime t,int hours_back)
         {
-            var s = new HydrometDailySeries(cbtt, pcode);
+            var s = new HydrometDailySeries(cbtt, pcode,Utility.GetHydrometServer());
             var t2 = t.Date; //.AddDays(-1); // hydromet daily data begins yesterday
             var t1 = t2.AddHours(-hours_back).Date;
             s.Read(t1, t2);
             return s;
         }
 
+       
        
     }
 }

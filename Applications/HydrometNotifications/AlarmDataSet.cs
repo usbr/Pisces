@@ -75,9 +75,12 @@ namespace HydrometNotifications
             DateTime t2 = DateTime.Now;
            // HydrometInstantSeries.KeepFlaggedData = true;
 
+
+            HydrometHost h = Utility.GetHydrometServer();
+
             var cache = new HydrometDataCache();
             cache.Add(String.Join(",", cbttPcodes).Split(','), t1, t2,
-                HydrometHost.PN, Reclamation.TimeSeries.TimeInterval.Irregular, hours_back);
+                h, Reclamation.TimeSeries.TimeInterval.Irregular, hours_back);
 
             HydrometInstantSeries.Cache = cache;
             Console.WriteLine(cbttPcodes);

@@ -76,6 +76,7 @@
     <Compile Include="UserInterface\NotificationMain.Designer.cs">
       <DependentUpon>NotificationMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AlarmDataSet.xsc">

@@ -21,6 +21,9 @@ namespace HydrometNotifications
 
             Performance perf = new Performance();
 
+            var svr = PostgreSQL.GetPostgresServer("hydromet");
+
+            AlarmDataSet.DB = svr;
             var alarms = new AlarmGroup(args[0]);
 
             DateTime t = DateTime.Now;
