@@ -217,75 +217,79 @@ namespace Reclamation.TimeSeries.Alarms
 
             if (alarmEx.IsMatch())
             {
-
-                foreach (var c in alarmEx.AlarmConditions())
+                var c = alarmEx.GetAlarmCondition();
+                if (c.Condition == AlarmType.Above)
                 {
-                    if (c.Condition == AlarmType.Above)
-                    {
-                        foreach (Point p in s)
-                        {
-                            if (!p.FlaggedBad && !p.IsMissing && p.Value > c.Value)
-                            {
-                                Logger.WriteLine("alarm_condition: " + alarm.alarm_condition);
-                                Logger.WriteLine("Alarm above found: " + p.Value);
-                                CreateAlarm(alarm, p);
-                                return;
-                            }
-                        }
-                    }
-
+                    CheckForAboveAlarm(s, alarm, c);
+                }
+                else
                     if (c.Condition == AlarmType.Below)
                     {
-                        foreach (Point p in s)
-                        {
-                            if (!p.FlaggedBad && !p.IsMissing && p.Value < c.Value)
-                            {
-                                Console.WriteLine("Alarm below found");
-                                CreateAlarm(alarm, p);
-                                return;
-                            }
-                        }
+                        CheckForBelowAlarm(s, alarm, c);
                     }
-
-                    if (c.Condition == AlarmType.Dropping)
-                    {
-                        // TO DO.. fix assumption of 4 values...
-                        // check for flags.
-                        double num_a = s[0].Value;
-                        double num_b = s[1].Value;
-                        double num_c = s[2].Value;
-                        double num_d = s[3].Value;
-
-                        if ((num_a - num_b) > c.Value
-                            | (num_b - num_c) > c.Value
-                            | (num_c - num_d) > c.Value)
+                    else
+                        if (c.Condition == AlarmType.Dropping
+                            || c.Condition == AlarmType.Rising)
                         {
-                            Console.WriteLine("Alarm dropping found");
-                            CreateAlarm(alarm, s[0]);
-                            return;
+                            // TO DO pull in previous data
+                            CheckForRateOfChangeAlarm(s, alarm, c);
                         }
-                    }
+            }
+        }
 
+        private void CheckForRateOfChangeAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        {
+            Logger.WriteLine("Checking Rate of Change: " + c.Condition + " " + c.Value);
+            for (int i = 1; i < s.Count; i++)
+            {
+                var pt = s[i];
+                var prev = s[i - 1];
+
+                if (!pt.IsMissing && !pt.FlaggedBad
+                    & !prev.IsMissing && !prev.FlaggedBad)
+                {
+                    double hrs = pt.DateTime.Subtract(prev.DateTime).TotalHours;
+                    double change = 0;
                     if (c.Condition == AlarmType.Rising)
-                    {
-                        // TO DO.. fix assumption of 4 values...
-                        // check for flags.
-                        double num_a = s[0].Value;
-                        double num_b = s[1].Value;
-                        double num_c = s[2].Value;
-                        double num_d = s[3].Value;
+                        change = (pt.Value - prev.Value) / hrs; ;
+                    if( c.Condition == AlarmType.Dropping)
+                        change = (prev.Value - pt.Value) / hrs;
 
-                        if ((num_b - num_a) > c.Value
-                            | (num_c - num_b) > c.Value
-                            | (num_d - num_c) > c.Value)
-                        {
-                            Console.WriteLine("Alarm dropping found");
-                            CreateAlarm(alarm, s[0]);
-                            return;
-                        }
+                    Logger.WriteLine(pt.ToString()+ " Change per hour: "+change.ToString("F2"));
+                    if (change > c.Value)
+                    {
+                        Console.WriteLine("Alarm "+c.Condition);
+                        CreateAlarm(alarm, pt);
+                        break;
                     }
                 }
+            }
+        }
 
+        private void CheckForAboveAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        {
+            foreach (Point p in s)
+            {
+                if (!p.FlaggedBad && !p.IsMissing && p.Value > c.Value)
+                {
+                    Logger.WriteLine("alarm_condition: " + alarm.alarm_condition);
+                    Logger.WriteLine("Alarm above found: " + p.Value);
+                    CreateAlarm(alarm, p);
+                    break;
+                }
+            }
+        }
+
+        private void CheckForBelowAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        {
+            foreach (Point p in s)
+            {
+                if (!p.FlaggedBad && !p.IsMissing && p.Value < c.Value)
+                {
+                    Console.WriteLine("Alarm below found");
+                    CreateAlarm(alarm, p);
+                    break;
+                }
             }
         }
 

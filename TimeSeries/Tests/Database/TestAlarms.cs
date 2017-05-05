@@ -138,6 +138,51 @@ namespace Pisces.NunitTests.Database
                 + "AND parameter = 'fb' AND status = 'new'";
             Assert.IsTrue(queue.Select(sql).Length == 1);
         }
+
+
+        /// <summary>
+        /// Data is dropping , detected by comparing new data
+        /// to data allready in the database.
+        /// </summary>
+        [Test]
+        public void DroppingBetweenTransmissions()
+        {
+            var db = GetDatabase();
+
+            var ds = db.Alarms;
+            ds.AddNewAlarmGroup("wicews");
+            ds.alarm_definition.Addalarm_definitionRow(true, "wicews",
+                "wicews", "gh", "dropping 0.25", "");
+            ds.SaveTable(ds.alarm_definition);
+            ds.alarm_recipient.Addalarm_recipientRow("wicews",1,
+                "5272", "office", "hydromet@usbr.gov");
+            ds.SaveTable(ds.alarm_recipient);
+
+            Series s = new Series();
+            s.Parameter = "gh";
+            s.SiteID = "wicews";
+            s.Name = "wices_gh";
+            s.Add(DateTime.Parse("2016-11-21 02:00"), 1.34);
+            s.Add(DateTime.Parse("2016-11-21 02:15"), 1.33);
+            s.Add(DateTime.Parse("2016-11-21 02:30"), 1.33);
+            s.Add(DateTime.Parse("2016-11-21 02:45"), 1.34);
+                    
+            // (1.34 - 1.27) *4 = 0.28 feet / hour
+
+            s.Add(DateTime.Parse("2016-11-21 03:00"), 1.27);
+            db.AddSeries(s);
+            
+
+
+            ds.Check(s);
+
+            var queue = ds.GetAlarmQueue();
+            string sql = "list = 'wicews' AND siteid = 'wicews' "
+                + "AND parameter = 'gh' AND status = 'new'";
+            Assert.IsTrue(queue.Select(sql).Length == 1);
+        }
+
+
         [Test]
         public void Rising()
         {

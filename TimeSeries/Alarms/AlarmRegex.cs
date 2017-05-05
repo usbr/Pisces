@@ -21,28 +21,27 @@ namespace Reclamation.TimeSeries.Alarms
             return re.IsMatch(m_condition);
         }
 
-        internal AlarmCondition[] AlarmConditions()
+        internal AlarmCondition GetAlarmCondition()
         {
-            var rval = new List<AlarmCondition>();
             var mc = re.Matches(m_condition);
             for (int i = 0; i < mc.Count; i++)
             {
                 var g = mc[i].Groups;
                 if (g["condition"].Value == "above")
-                    rval.Add(new AlarmCondition(AlarmType.Above,
-                             Convert.ToDouble(g["val"].Value)));
+                    return new AlarmCondition(AlarmType.Above,
+                             Convert.ToDouble(g["val"].Value));
                 if (g["condition"].Value == "below")
-                    rval.Add(new AlarmCondition(AlarmType.Below,
-                             Convert.ToDouble(g["val"].Value)));
+                    return new AlarmCondition(AlarmType.Below,
+                             Convert.ToDouble(g["val"].Value));
                 if (g["condition"].Value == "rising")
-                    rval.Add(new AlarmCondition(AlarmType.Rising,
-                             Convert.ToDouble(g["val"].Value)));
+                    return new AlarmCondition(AlarmType.Rising,
+                             Convert.ToDouble(g["val"].Value));
                 if (g["condition"].Value == "dropping")
-                    rval.Add(new AlarmCondition(AlarmType.Dropping,
-                             Convert.ToDouble(g["val"].Value)));
+                    return new AlarmCondition(AlarmType.Dropping,
+                             Convert.ToDouble(g["val"].Value));
             }
 
-            return rval.ToArray();
+            return null;
         }
 
     }
