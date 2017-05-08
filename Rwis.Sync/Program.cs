@@ -115,6 +115,38 @@ namespace Rwis.Sync
                     { Console.WriteLine(e.Message); }
                 }
             }
+            if (args.Contains("datacheck"))
+            {
+                var checkType = args["datacheck"].ToString();
+                string sql = "";
+                if (checkType.ToLower() == "all")
+                {
+                    sql = "provider IN ('HydrometDailySeries','HDBSeries','ShefSeries')";
+                }
+                else if (checkType.Length == 2)
+                {
+                    sql = "SUBSTRING(tablename,1,2) = '" + db.Server.SafeSqlLiteral(args["datacheck"]).ToLower() + "'";
+                }
+                else
+                {
+                    sql = "provider = '" + db.Server.SafeSqlLiteral(args["datacheck"]) + "'";
+                }
+                var checkList = db.GetSeriesCatalog(sql);
+                Console.WriteLine("Checking  " + checkList.Count + " Series ");
+                foreach (var item in checkList)
+                {
+                    try
+                    {
+                        Console.Write(item.Name.Substring(0, System.Math.Min(30, item.Name.Length)) + "... ");
+                        var s = db.GetSeries(item.id);
+                        s.Read(t1, t2);
+                        var sMissing = s.CountMissing();
+                        Console.WriteLine("Missing " + sMissing + " values");
+                    }
+                    catch (Exception e)
+                    { Console.WriteLine(e.Message); }
+                }
+            }
             db.Server.Cleanup();
 
             Console.WriteLine("RWIS Sync.exe:  Completed " + DateTime.Now.ToString() + "\n");
@@ -241,6 +273,12 @@ namespace Rwis.Sync
             Console.WriteLine("                 or a valid date in YYYY-MM-DD format");
             Console.WriteLine("--update=[Z] t1=[X] t2=[Y]");
             Console.WriteLine("      Updates data and series properties given a period range");
+            Console.WriteLine("      with [Z] as all, HydrometDailySeries, HDBSeries, ShefSeries, ");
+            Console.WriteLine("                  or region code PN, GP, LC, UC, or MP");
+            Console.WriteLine("      with [X] as a valid date in YYYY-MM-DD format and [X] < [Y]");
+            Console.WriteLine("      with [Y] as a valid date in YYYY-MM-DD format and [X] < [Y]");
+            Console.WriteLine("--datacheck=[Z] t1=[X] t2=[Y]");
+            Console.WriteLine("      Checks for missing data given a period range");
             Console.WriteLine("      with [Z] as all, HydrometDailySeries, HDBSeries, ShefSeries, ");
             Console.WriteLine("                  or region code PN, GP, LC, UC, or MP");
             Console.WriteLine("      with [X] as a valid date in YYYY-MM-DD format and [X] < [Y]");
