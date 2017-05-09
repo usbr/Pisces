@@ -37,7 +37,7 @@ namespace Reclamation.TimeSeries.Usgs
             this.idNumber = idNumber;
 
             // Get and assign RDB file from the web
-            string nwisURL = "http://waterdata.usgs.gov/nwisweb/get_ratings?site_no=XXXXXXXX&file_type=exsa";
+            string nwisURL = "https://waterdata.usgs.gov/nwisweb/get_ratings?site_no=XXXXXXXX&file_type=exsa";
             downloadURL = nwisURL.Replace("XXXXXXXX", idNumber);
             var newData = Web.GetPage(nwisURL.Replace("XXXXXXXX", idNumber));
             if (newData.Count() == 0)
@@ -57,14 +57,14 @@ namespace Reclamation.TimeSeries.Usgs
         public void CreateShiftAndFlowTablesFromWeb()
         { CreateShiftAndFlowTables(this.webRdbTable); }
 
-        public void CreateShiftAndFlowTablesFromFile()
-        { CreateShiftAndFlowTables(this.fileRdbTable); }
-
+       // public void CreateShiftAndFlowTablesFromFile()
+       // { CreateShiftAndFlowTables(this.fileRdbTable); }
+    //
         /// <summary>
         /// This method generates the HJ and Q tables
         /// </summary>
         /// <param name="station"></param>
-        private void CreateShiftAndFlowTables(TextFile rdbFile)
+        internal void CreateShiftAndFlowTables(TextFile rdbFile)
         {
             var tempFile = Path.GetTempFileName();
             rdbFile.SaveAs(tempFile);
@@ -77,36 +77,7 @@ namespace Reclamation.TimeSeries.Usgs
             // Generate HJ Table by defining stage-shift pairs within a C# DataTable
             var hjTable = CreateHJTable(rdbFileString);
             // Define Logarithmic coefficient pairs in a C# DataTable
-            var coeffTable = new DataTable();
-            coeffTable.Columns.Add(new DataColumn("breakpoint", typeof(double)));
-            coeffTable.Columns.Add(new DataColumn("offset", typeof(double)));
-            if (offsetIdx.Count == 0) // no breakpoint and coefficient data
-            {
-                var coeffRow = coeffTable.NewRow();
-                coeffRow["breakpoint"] = -999999999.99;
-                coeffRow["offset"] = 0.0;
-                coeffTable.Rows.Add(coeffRow);
-            }
-            else if (offsetIdx.Count == 1)
-            {
-                var coeffRow = coeffTable.NewRow();
-                coeffRow["breakpoint"] = -999999999.99;
-                coeffRow["offset"] = Convert.ToDouble(rdbItems[offsetIdx[0]].Split('=')[1].ToString().Replace("\"", ""));
-                coeffTable.Rows.Add(coeffRow);
-            }
-            else
-            {
-                for (int i = 0; i < offsetIdx.Count; i++)
-                {
-                    var coeffRow = coeffTable.NewRow();
-                    if (i == 0)
-                    { coeffRow["breakpoint"] = -999999999.99; }
-                    else
-                    { coeffRow["breakpoint"] = Convert.ToDouble(rdbItems[breakptIdx[i - 1]].Split('=')[1].ToString().Replace("\"", "")); }
-                    coeffRow["offset"] = Convert.ToDouble(rdbItems[offsetIdx[i]].Split('=')[1].ToString().Replace("\"", ""));
-                    coeffTable.Rows.Add(coeffRow);
-                }
-            }
+            var coeffTable = CoefficientTable(rdbItems, breakptIdx, offsetIdx);
             // Generate Q DataTable
             var qTable = new DataTable();
             qTable.Columns.Add(new DataColumn("Stage", typeof(double)));
@@ -130,6 +101,41 @@ namespace Reclamation.TimeSeries.Usgs
             { throw new Exception("No skeletal points found for station: " + this.stationName); }
             this.hjTable = hjTable;
             this.qTable = qTable;
+        }
+
+        private static DataTable CoefficientTable(List<string> rdbItems, List<int> breakptIdx, List<int> offsetIdx)
+        {
+            var coeffTable = new DataTable();
+            coeffTable.Columns.Add(new DataColumn("breakpoint", typeof(double)));
+            coeffTable.Columns.Add(new DataColumn("offset", typeof(double)));
+            if (offsetIdx.Count == 0) // no breakpoint and coefficient data
+            {
+                var coeffRow = coeffTable.NewRow();
+                coeffRow["breakpoint"] = -999999999.99;
+                coeffRow["offset"] = 0.0;
+                coeffTable.Rows.Add(coeffRow);
+            }
+            else if (offsetIdx.Count == 1 || breakptIdx.Count == 0)
+            {
+                var coeffRow = coeffTable.NewRow();
+                coeffRow["breakpoint"] = -999999999.99;
+                coeffRow["offset"] = Convert.ToDouble(rdbItems[offsetIdx[0]].Split('=')[1].ToString().Replace("\"", ""));
+                coeffTable.Rows.Add(coeffRow);
+            }
+            else
+            {
+                for (int i = 0; i < offsetIdx.Count; i++)
+                {
+                    var coeffRow = coeffTable.NewRow();
+                    if (i == 0)
+                    { coeffRow["breakpoint"] = -999999999.99; }
+                    else
+                    { coeffRow["breakpoint"] = Convert.ToDouble(rdbItems[breakptIdx[i - 1]].Split('=')[1].ToString().Replace("\"", "")); }
+                    coeffRow["offset"] = Convert.ToDouble(rdbItems[offsetIdx[i]].Split('=')[1].ToString().Replace("\"", ""));
+                    coeffTable.Rows.Add(coeffRow);
+                }
+            }
+            return coeffTable;
         }
 
         private DataTable CreateHJTable(string rdbFileString)
@@ -195,8 +201,8 @@ namespace Reclamation.TimeSeries.Usgs
         public void CreateFullRatingTableFromWeb()
         { CreateFullRatingTable(this.webRdbTable); }
 
-        public void CreateFullRatingTableFromFile()
-        { CreateFullRatingTable(this.fileRdbTable); }
+       // public void CreateFullRatingTableFromFile()
+       // { CreateFullRatingTable(this.fileRdbTable); }
 
         /// <summary>
         /// This method generates the full table from the RDB file

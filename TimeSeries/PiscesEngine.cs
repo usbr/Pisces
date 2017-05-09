@@ -65,12 +65,11 @@ namespace Reclamation.TimeSeries
 
         public void ConnectToServer(string server, string database,  DatabaseType t, string password="")
         {
-            string cs = ""; // connection string
             BasicDBServer svr = null;
+            string user = WindowsUtility.GetShortUserName();
             if (t == DatabaseType.PostgreSql)
             {
-                cs = PostgreSQL.CreateADConnectionString(server, database);
-                svr = new PostgreSQL(cs);
+                svr = PostgreSQL.GetPostgresServer(database, server, user,password);
             }
             if (t == DatabaseType.SqlServer)
             {

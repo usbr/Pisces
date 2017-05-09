@@ -20,7 +20,7 @@ namespace Reclamation.TimeSeries.Hec
 
             FileInfo fi = new FileInfo(filename);
             Name = path.B + " " + path.C + " " + path.E + " " + path.F;
-            SiteName = path.B;
+            SiteID = path.B;
             this.ConnectionString = "FileName=" + filename
                + ";LastWriteTime=" + fi.LastWriteTime.ToString(DateTimeFormatInstantaneous)
                + ";DssPath="+dssPath;
@@ -76,7 +76,7 @@ namespace Reclamation.TimeSeries.Hec
             rval.Name = this.Name;
             rval.Appearance.LegendText = scenario.Name + " " + Name;
 
-            rval.SiteName = this.SiteName;
+            rval.SiteID = this.SiteID;
             rval.TimeInterval = this.TimeInterval;
             return rval;
         }

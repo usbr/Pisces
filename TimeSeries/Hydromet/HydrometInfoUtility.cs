@@ -38,7 +38,7 @@ namespace Reclamation.TimeSeries.Hydromet
         }
 
 
-        private static string[] GetParameters(string cbtt, TimeInterval interval)
+        private static string[] GetParameters(string cbtt, TimeInterval interval,TimeSeriesDatabase db)
         {
             var rval = new string[] { };
 
@@ -58,23 +58,23 @@ namespace Reclamation.TimeSeries.Hydromet
                     rval = MpollParameters(cbtt);
                 }
 
-            if (rval.Length == 0)
+            if (rval.Length == 0 && db != null)
             {
-                return GetParametersFromPostgres(cbtt,interval);
+                return GetParametersFromPostgres(cbtt,interval,db);
             }
             
             return rval;
 
         }
 
-        private static string[] GetParametersFromPostgres(string cbtt, TimeInterval interval)
+        private static string[] GetParametersFromPostgres(string cbtt, TimeInterval interval,TimeSeriesDatabase db)
         {
             var rval = new List<string>();
-            var svr = PostgreSQL.GetPostgresServer();
-            TimeSeriesDatabase p = new TimeSeriesDatabase(svr,false);
+            var svr = db.Server;
+            //TimeSeriesDatabase p = new TimeSeriesDatabase(svr,false);
             var sql = " lower(siteid) = '"+ svr.SafeSqlLiteral(cbtt.ToLower())+"' and TimeInterval = '"+interval.ToString()+"'";
 
-            var sc = p.GetSeriesCatalog(sql);
+            var sc = db.GetSeriesCatalog(sql);
             foreach (var item in sc)
             {
                 TimeSeriesName tn = new TimeSeriesName(item.TableName);
@@ -97,7 +97,7 @@ namespace Reclamation.TimeSeries.Hydromet
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public static string ExpandQuery(string query,TimeInterval db)
+        public static string ExpandQuery(string query,TimeInterval interval,TimeSeriesDatabase db=null)
         {
             var rval = new List<string>();
 
@@ -113,7 +113,7 @@ namespace Reclamation.TimeSeries.Hydromet
 
             if (CbttOnly(query))
             {
-                string[] pcodes = GetParameters(query, db);
+                string[] pcodes = GetParameters(query, interval,db);
                 if (pcodes.Length > 0)
                 {
                     query = query + " " + String.Join(",", pcodes);
@@ -164,7 +164,7 @@ namespace Reclamation.TimeSeries.Hydromet
     UserPreference.Lookup("HydrometServer"));
             return svr;
         }
-        private static HydrometHost HydrometServerFromString(string server)
+        public static HydrometHost HydrometServerFromString(string server)
         {
             if (server == HydrometHost.PN.ToString()) return HydrometHost.PN;
             if (server == HydrometHost.Yakima.ToString()) return HydrometHost.Yakima;

@@ -8,6 +8,7 @@ using Reclamation.Core;
 using System.Collections.Generic;
 using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow;
 using System.Text.RegularExpressions;
+using System.Configuration;
 
 namespace Reclamation.TimeSeries
 {
@@ -72,6 +73,22 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
+        public string ParameterDescription()
+        {
+          if( m_db != null)
+          {
+              return m_db.GetParameterDescription(this.Parameter, this.TimeInterval);
+          }
+            return "";
+        }
+        public string SiteDescription()
+        {
+            if (m_db != null)
+            {
+              return  m_db.GetSiteDescription(this.SiteID);
+            }
+            return "";
+        }
 
         private string m_scenarioName = "";
 
@@ -607,7 +624,7 @@ namespace Reclamation.TimeSeries
                  
                     s.Provider = "Series"; // drop conection to hydromet
 
-                    db.ImportSeriesUsingTableName(s,new string[]{ s.Cbtt});
+                    db.ImportSeriesUsingTableName(s);
 
                 }
             }
@@ -1862,8 +1879,16 @@ namespace Reclamation.TimeSeries
                 return t.AddDays(1);
             if (TimeInterval == TimeInterval.Monthly)
             {
-             t = t.AddMonths(1);
-             return new DateTime(t.Year, t.Month, 1);//DateTime.DaysInMonth(t.Year, t.Month));
+                if (t.Day == DateTime.DaysInMonth(t.Year, t.Month))
+                {// assume series is end of month, return end of month date
+                    t = t.AddMonths(1);
+                    return new DateTime(t.Year, t.Month, DateTime.DaysInMonth(t.Year, t.Month));
+                }
+                else
+                {
+                    t = t.AddMonths(1);
+                    return new DateTime(t.Year, t.Month, 1);
+                }
             }
             if (TimeInterval == TimeSeries.TimeInterval.Hourly)
                return  t.AddHours(1);
@@ -2137,6 +2162,26 @@ namespace Reclamation.TimeSeries
                 }
             }
             return t1a;
+        }
+
+        public string[] DefaultFolders()
+        {
+            var path = new List<string>();
+
+            string piscesFolder = ConfigurationManager.AppSettings["piscesFolder"];
+            if (!String.IsNullOrEmpty(piscesFolder))
+            {
+                path.Add(piscesFolder);
+            }
+
+                if (this.SiteID.Trim() != "")
+                    path.Add(this.SiteID.ToLower().Trim());
+                if (this.TimeInterval == TimeInterval.Irregular)
+                    path.Add("instant");
+                else
+                    path.Add(this.TimeInterval.ToString().ToLower());
+
+            return path.ToArray();
         }
     }
 }

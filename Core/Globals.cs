@@ -42,7 +42,7 @@ namespace Reclamation.Core
                     return s_cfgData;
 
                 string dir = Path.Combine(GetPathAbove("Pisces"), "Applications", "cfg");
-                Console.WriteLine(dir);
+                Logger.WriteLine(dir);
 
                 s_cfgData = dir;
                 return s_cfgData;
@@ -87,17 +87,28 @@ namespace Reclamation.Core
                     return "";
                 }
 
-                if (!Directory.Exists(s))
-                {
-                    var s2 = ConfigurationManager.AppSettings["LocalConfigurationDataPath2"];
-                    if (s2 != "" && s2 != null)
-                        s = s2;
-                }
                 return s;
 
             }
         }
 
+        public static string LocalConfigurationDataPath2
+        {
+
+            get
+            {
+
+                var s = ConfigurationManager.AppSettings["LocalConfigurationDataPath2"];
+                if (s == null || s == "")
+                {
+                    Logger.WriteLine("LocalConfigurationDataPath2 is not defined in the config file");
+                    return "";
+                }
+
+                return s;
+
+            }
+        }
        
        
     }

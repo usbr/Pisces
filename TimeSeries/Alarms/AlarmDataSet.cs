@@ -22,6 +22,8 @@ namespace Reclamation.TimeSeries.Alarms
 
         public static AlarmDataSet CreateInstance(BasicDBServer server = null)
         {
+            if( server != null)
+            Logger.WriteLine("AlarmDataSet.CreateInstance("+server.Name+")");
             AlarmDataSet rval;
             if (server == null)
             { // create from config files.
@@ -50,15 +52,15 @@ namespace Reclamation.TimeSeries.Alarms
             return tbl;
         }
 
+
         /// <summary>
-        /// Gets a list of alarms in priority order for processing
-        /// only alarms with status (new, or unconfirmed)
+        /// Gets a list of alarms that need to be procesed.
         /// </summary>
         /// <returns></returns>
-        public alarm_phone_queueDataTable GetNewAlarms()
+        public alarm_phone_queueDataTable GetUnconfirmedAlarms()
         {
             AlarmDataSet.alarm_phone_queueDataTable tbl = new alarm_phone_queueDataTable();
-            string sql = "select * from alarm_phone_queue where status='new' or status = 'unconfirmed' order by priority";
+            string sql = "select * from alarm_phone_queue where (status='new' or status = 'unconfirmed') and active ="+m_server.PortableWhereBool(true);
             m_server.FillTable(tbl, sql);
             return tbl;
         }
@@ -68,7 +70,8 @@ namespace Reclamation.TimeSeries.Alarms
         {
             string sql = "select phone from alarm_recipient where list='" + list + "' order by call_order";
             var tbl = m_server.Table("alarm_recipient", sql);
-            return DataTableUtility.Strings(tbl, "", "phone");
+            var a= DataTableUtility.Strings(tbl, "", "phone");
+            return RemoveEmptyStrings(a);
         }
 
         public string[] GetEmailList(string list)
@@ -76,12 +79,17 @@ namespace Reclamation.TimeSeries.Alarms
             string sql = "select email from alarm_recipient where list='" + list + "' order by call_order";
             var tbl = m_server.Table("alarm_recipient", sql);
             var a = DataTableUtility.Strings(tbl, "", "email");
+            return RemoveEmptyStrings(a);
+        }
+
+        private static string[] RemoveEmptyStrings(string[] a)
+        {
             var rval = new List<string>();
 
             for (int i = 0; i < a.Length; i++)
             {
-               if( a[i].Trim() != "")
-                   rval.Add(a[i].Trim());
+                if (a[i].Trim() != "")
+                    rval.Add(a[i].Trim());
             }
             return rval.ToArray();
         }
@@ -106,6 +114,7 @@ namespace Reclamation.TimeSeries.Alarms
             m_server.FillTable(tbl, "select * from alarm_recipient where list = '" + label + "' order by call_order");
             tbl.idColumn.AutoIncrementSeed = m_server.NextID("alarm_recipient", "id");
             tbl.listColumn.DefaultValue = label;
+
             return tbl;
         }
 
@@ -140,12 +149,19 @@ namespace Reclamation.TimeSeries.Alarms
             m_server.SaveTable(tbl);
         }
 
-        public AlarmDataSet.alarm_phone_queueDataTable GetAlarmQueue(string siteid, string parameter)
+        /// <summary>
+        /// Gets list of active alarms.
+        /// </summary>
+        /// <param name="siteid"></param>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
+        public AlarmDataSet.alarm_phone_queueDataTable GetAlarmQueue(int alarm_definition_id)
         {
             var tbl = new AlarmDataSet.alarm_phone_queueDataTable();
             string sql = "select * from alarm_phone_queue ";
-            sql += " where siteid = '" + siteid + "' and parameter = '" + parameter + "' ";
-            sql += " and status in ('new', 'unconfirmed')";
+            sql += " where alarm_definition_id = " + alarm_definition_id;
+            sql += " and active=" + m_server.PortableWhereBool(true);
+                
 
             m_server.FillTable(tbl, sql);
 
@@ -159,7 +175,7 @@ namespace Reclamation.TimeSeries.Alarms
 
             if (!everything)
             {
-                sql += " where status in ('new', 'unconfirmed')";
+                sql += " where active="+m_server.PortableWhereBool(true);
             }
 
             m_server.FillTable(tbl, sql);
@@ -169,110 +185,125 @@ namespace Reclamation.TimeSeries.Alarms
         }
         /// <summary>
         /// Check each point in the series for an alarm
+        /// If there is an alarm condition add entry to alarm_phone_queue
         /// </summary>
         /// <param name="s"></param>
         internal void Check(Series s)
         {
             Logger.WriteLine("Check for alarms " + s.SiteID + " " + s.Parameter);
-            var alarm = GetAlarmDefinition(s.SiteID.ToLower(), s.Parameter.ToLower());
-            // is alarm defined
+            var alarm = GetActiveAlarmDefinition(s.SiteID.ToLower(), s.Parameter.ToLower());
+
             if (alarm.Rows.Count == 0)
-                return;
-            if (alarm.Rows.Count > 1)
-                throw new Exception("bad... alarm_definition constraint not working (siteid,parameter)");
-
-            Logger.WriteLine("found alarm definition " + s.SiteID + " " + s.Parameter);
-            AlarmDataSet.alarm_definitionRow row = alarm[0];
-            // check alarm_condition for each value
-
-            AlarmRegex alarmEx = new AlarmRegex(row.alarm_condition);
-
-            if (alarmEx.IsMatch())
             {
-
-                foreach (var c in alarmEx.AlarmConditions())
-                {
-                    if (c.Condition == AlarmType.Above)
-                    {
-                        foreach (Point p in s)
-                        {
-                            if (!p.IsMissing && p.Value > c.Value)
-                            {
-                                Logger.WriteLine("alarm_condition: "+row.alarm_condition);
-                                Logger.WriteLine("Alarm above found: "+p.Value);
-                                CreateAlarm(row, p);
-                                return;
-                            }
-                        }
-                    }
-
-                    if (c.Condition == AlarmType.Below)
-                    {
-
-                        foreach (Point p in s)
-                        {
-                            if (!p.IsMissing && p.Value < c.Value)
-                            {
-                                Console.WriteLine("Alarm below found");
-                                CreateAlarm(row, p);
-                                return;
-                            }
-                        }
-                    }
-
-                    if (c.Condition == AlarmType.Dropping)
-                    {
-                        double num_a = s[0].Value;
-                        double num_b = s[1].Value;
-                        double num_c = s[2].Value;
-                        double num_d = s[3].Value;
-
-                        if ((num_a - num_b) > c.Value
-                            | (num_b - num_c) > c.Value
-                            | (num_c - num_d) > c.Value)
-                        {
-                            Console.WriteLine("Alarm dropping found");
-                            CreateAlarm(row, s[0]);
-                            return;
-                        }
-                    }
-
-                    if (c.Condition == AlarmType.Rising)
-                    {
-                        double num_a = s[0].Value;
-                        double num_b = s[1].Value;
-                        double num_c = s[2].Value;
-                        double num_d = s[3].Value;
-
-                        if ((num_b - num_a) > c.Value
-                            | (num_c - num_b) > c.Value
-                            | (num_d - num_c) > c.Value)
-                        {
-                            Console.WriteLine("Alarm dropping found");
-                            CreateAlarm(row, s[0]);
-                            return;
-                        }
-                    }
-                }
-
+                Logger.WriteLine("no alarms defined." + s.SiteID + "/" + s.Parameter);
+                return;// no alarm defined
             }
+
+            foreach (var item in alarm.Rows) 
+            {
+                Check(s, (AlarmDataSet.alarm_definitionRow)item);    
+            }
+            
 
             // TO DO  clear alarms if clear_condition
 
-
-
         }
 
+        private void Check(Series s, alarm_definitionRow alarm)
+        {
+            Logger.WriteLine("found alarm definition " + s.SiteID + " " + s.Parameter);
+
+            AlarmRegex alarmEx = new AlarmRegex(alarm.alarm_condition);
+
+            if (alarmEx.IsMatch())
+            {
+                var c = alarmEx.GetAlarmCondition();
+                if (c.Condition == AlarmType.Above)
+                {
+                    CheckForAboveAlarm(s, alarm, c);
+                }
+                else
+                    if (c.Condition == AlarmType.Below)
+                    {
+                        CheckForBelowAlarm(s, alarm, c);
+                    }
+                    else
+                        if (c.Condition == AlarmType.Dropping
+                            || c.Condition == AlarmType.Rising)
+                        {
+                            // TO DO pull in previous data
+                            CheckForRateOfChangeAlarm(s, alarm, c);
+                        }
+            }
+        }
+
+        private void CheckForRateOfChangeAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        {
+            Logger.WriteLine("Checking Rate of Change: " + c.Condition + " " + c.Value);
+            for (int i = 1; i < s.Count; i++)
+            {
+                var pt = s[i];
+                var prev = s[i - 1];
+
+                if (!pt.IsMissing && !pt.FlaggedBad
+                    & !prev.IsMissing && !prev.FlaggedBad)
+                {
+                    double hrs = pt.DateTime.Subtract(prev.DateTime).TotalHours;
+                    double change = 0;
+                    if (c.Condition == AlarmType.Rising)
+                        change = (pt.Value - prev.Value) / hrs; ;
+                    if( c.Condition == AlarmType.Dropping)
+                        change = (prev.Value - pt.Value) / hrs;
+
+                    Logger.WriteLine(pt.ToString()+ " Change per hour: "+change.ToString("F2"));
+                    if (change > c.Value)
+                    {
+                        Console.WriteLine("Alarm "+c.Condition);
+                        CreateAlarm(alarm, pt);
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void CheckForAboveAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        {
+            foreach (Point p in s)
+            {
+                if (!p.FlaggedBad && !p.IsMissing && p.Value > c.Value)
+                {
+                    Logger.WriteLine("alarm_condition: " + alarm.alarm_condition);
+                    Logger.WriteLine("Alarm above found: " + p.Value);
+                    CreateAlarm(alarm, p);
+                    break;
+                }
+            }
+        }
+
+        private void CheckForBelowAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        {
+            foreach (Point p in s)
+            {
+                if (!p.FlaggedBad && !p.IsMissing && p.Value < c.Value)
+                {
+                    Console.WriteLine("Alarm below found");
+                    CreateAlarm(alarm, p);
+                    break;
+                }
+            }
+        }
+
+        
         /// <summary>
-        /// make phone calls and send emails
-        // 
+        ///  Check for alarm condition. If an alarm condition is found
+        ///  create an entry in the alarm_phone_queue.
         /// </summary>
         /// <param name="alarm"></param>
-        /// <param name="Alarmvalue"></param>
-        private void CreateAlarm(AlarmDataSet.alarm_definitionRow alarm,
+        /// <param name="pt"></param>
+        public void CreateAlarm(AlarmDataSet.alarm_definitionRow alarm,
                              Point pt)
         {
-            var tbl = GetAlarmQueue(alarm.siteid, alarm.parameter);
+            var tbl = GetAlarmQueue(alarm.id);
 
             if (tbl.Rows.Count == 1)
             {
@@ -286,6 +317,7 @@ namespace Reclamation.TimeSeries.Alarms
             var row = tbl.Newalarm_phone_queueRow();
             row.id = m_server.NextID("alarm_phone_queue", "id");
             row.list = alarm.list;
+            row.alarm_definition_id = alarm.id;
             row.siteid = alarm.siteid;
             row.parameter = alarm.parameter;
             row.value = pt.Value;
@@ -293,7 +325,8 @@ namespace Reclamation.TimeSeries.Alarms
             row.status_time = DateTime.Now;
             row.confirmed_by = "";
             row.event_time = pt.DateTime;
-            row.priority = alarm.priority;
+            row.current_list_index = -1;// queue manager will increment ++
+            row.active = true;
             tbl.Rows.Add(row);
             m_server.SaveTable(tbl);
         }
@@ -311,12 +344,16 @@ namespace Reclamation.TimeSeries.Alarms
             if (t.Rows.Count > 0)
                 parameterName = t.Rows[0][0].ToString();
 
-            var subject = "Alarm Condition at" + siteDescription + " " + alarm.siteid;
-            var body = "Alarm condition at site" + alarm.siteid + "   parameter = " + alarm.parameter;
+            var subject = "Alarm Condition at " + siteDescription + " " + alarm.siteid.ToUpper();
+            subject += "  " + parameterName;
+            var body = "alarm condition: "+ alarm.alarm_condition;
+            body += "\n<br/>"+ pt.ToString();
+            body += "\n<br/>\n<br/>" + subject;
 
             var emails = GetEmailList(alarm.list);
              if( emails.Length == 0)
              {
+                 Logger.WriteLine("no emails found for list='"+alarm.list+"'");
                  Logger.WriteLine("subject: " + subject);
                  Logger.WriteLine("body: " + body);
              }
@@ -341,7 +378,7 @@ namespace Reclamation.TimeSeries.Alarms
                 reply = ConfigurationManager.AppSettings["email_reply"];
             if (reply == "")
             {
-                Console.WriteLine("");
+                Console.WriteLine("Error: email_reply not defined in config file");
                 return;
             }
             msg.From = new MailAddress(reply);
@@ -362,28 +399,74 @@ namespace Reclamation.TimeSeries.Alarms
         public alarm_definitionDataTable GetAlarmDefinition()
         {
             var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
-            var sql = "select * from alarm_definition ";
+            var sql = "select * from alarm_definition order by siteid";
             m_server.FillTable(alarm_definition, sql);
             alarm_definition.idColumn.AutoIncrementSeed = m_server.NextID("alarm_definition", "id");
             return alarm_definition;
         }
-        public alarm_definitionDataTable GetAlarmDefinition(string siteid, string parameter)
+
+        // cachine alarm def (41 records/s )
+        //static alarm_definitionDataTable s_alarmdef;
+
+
+        /// <summary>
+        /// Returns a Table of enabled alarm definitions
+        /// </summary>
+        /// <returns></returns>
+        public AlarmDataSet.alarm_definitionDataTable GetActiveAlarmDefinition(string siteid, string parameter)
         {
             var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
 
-            siteid = PostgreSQL.SafeSqlLikeClauseLiteral(siteid);
-            parameter = SqlServer.SafeSqlLikeClauseLiteral(parameter);
-            var sql = "select * from alarm_definition where siteid='" + siteid + "'"
-                    + " and parameter ='" + parameter + "'";
-            m_server.FillTable(alarm_definition, sql);
+            siteid = BasicDBServer.SafeSqlLikeClauseLiteral(siteid);
+            parameter = BasicDBServer.SafeSqlLikeClauseLiteral(parameter);
+            var sql = "select * from alarm_definition where siteid='" + siteid + "' and parameter ='" + parameter + "'"
+            +" and  enabled = " + m_server.PortableWhereBool(true);
+            Logger.WriteLine(sql);
+           m_server.FillTable(alarm_definition, sql);
 
-            alarm_definition.idColumn.AutoIncrementSeed = m_server.NextID("alarm_definition", "id");
             return alarm_definition;
-
         }
 
 
+        /// <summary>
+        /// determines if there is any asterisk activity
+        /// within in a specified number of minutes.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="minutes"></param>
+        /// <returns></returns>
+        public bool CurrentActivity(int id, int minutes)
+        { // look in alarm_log table and check for recent activity
+            var alarm_log = new AlarmDataSet.alarm_logDataTable();
 
+            DateTime t = DateTime.Now.AddMinutes(-minutes);
+            var sql = "select * from alarm_log where datetime >= "
+                 + m_server.PortableDateString(t, TimeSeriesDatabase.dateTimeFormat)
+                 + " and alarm_phone_queue_id = " + id; 
+
+            m_server.FillTable(alarm_log, sql);
+
+            return alarm_log.Rows.Count > 0;
+        }
+
+
+        public AlarmDataSet.alarm_logDataTable GetLog(int minutes)
+        {
+            var alarm_log = new AlarmDataSet.alarm_logDataTable();
+
+            DateTime t = DateTime.Now.AddMinutes(-minutes);
+            var sql = "select * from alarm_log where datetime >= "
+                 + m_server.PortableDateString(t, TimeSeriesDatabase.dateTimeFormat);
+
+            m_server.FillTable(alarm_log, sql);
+
+            return alarm_log;
+        }
+
+        internal int NextID(string tableName, string columnName)
+        {
+            return m_server.NextID(tableName, columnName);
+        }
     }
 }
 

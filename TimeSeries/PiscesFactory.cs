@@ -39,9 +39,7 @@ namespace Reclamation.TimeSeries
         }
 
         /// <summary>
-        ///  GetCalculationSeries returns a list of CalculationSeries
-        ///  sorted by dependencies so calculations can procede in the 
-        ///  proper order.
+        ///  returns a list of CalculationSeries
         /// </summary>
         /// <param name="interval"></param>
         /// <param name="filter">supplement for the SQL where clause</param>
@@ -84,9 +82,7 @@ namespace Reclamation.TimeSeries
 
         public Series GetSeries(TimeSeriesDatabaseDataSet.SeriesCatalogRow sr)
         {
-            if (db.Settings.ReadBoolean("VerboseLogging", false))
-                Logger.EnableLogger();
-
+         
             Series s = null;// = new Series(sr, db);
             int sdi = sr.id;
             try

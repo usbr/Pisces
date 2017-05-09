@@ -438,6 +438,20 @@ namespace Reclamation.Core
                 rval = Path.Combine(Globals.LocalConfigurationDataPath, filename);
                 Logger.WriteLine("Requesting file '" + rval + "'");
 
+                if (File.Exists(rval))
+                {
+                    Logger.WriteLine("found file in LocalConfigurationDataPath " + rval);
+                    return rval;
+                }
+                rval = Path.Combine(Globals.LocalConfigurationDataPath2, filename);
+                Logger.WriteLine("Requesting file '" + rval + "'");
+
+                if (File.Exists(rval))
+                {
+                    Logger.WriteLine("found file in LocalConfigurationDataPath2 " + rval);
+                    return rval;
+                }
+
 
                 Logger.WriteLine("File Exists  = " + File.Exists(rval));
                 

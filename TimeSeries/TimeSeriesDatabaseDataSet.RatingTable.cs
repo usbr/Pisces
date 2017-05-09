@@ -19,7 +19,7 @@ namespace Reclamation.TimeSeries
             /// <param name="s"></param>
             /// <param name="fileName">rating table filename</param>
             /// <returns></returns>
-            public static Series ComputeSeries(Series s, string fileName)
+            public static Series ComputeSeries(Series s, string fileName, bool interpolate=false)
             {
                 var rval = new Series();
                 var fn = fileName;
@@ -39,8 +39,16 @@ namespace Reclamation.TimeSeries
 
                 var rt = new RatingTableDataTable();
                 rt.ReadFile(fn);
-                rval = rt.Lookup(s);
-                rval.TimeInterval = s.TimeInterval;
+
+                if (interpolate)
+                {
+                    rval =rt.Lookup(s,true);
+                }
+                else
+                {
+                    rval = rt.Lookup(s);
+                    rval.TimeInterval = s.TimeInterval;
+                }
                 return rval;
             }
 
@@ -93,13 +101,20 @@ namespace Reclamation.TimeSeries
             /// </summary>
             /// <param name="s"></param>
             /// <returns></returns>
-            public Series Lookup(Series s)
+            public Series Lookup(Series s, bool interpolate=false)
             {
                 Series rval = new Series();
 
                 foreach (var pt in s)
                 {
-                    rval.Add(Lookup(pt));
+                    if (interpolate)
+                    {
+                        rval.Add(Interpolate(pt));
+                    }
+                    else
+                    {
+                        rval.Add(Lookup(pt));
+                    }
                 }
 
                 return rval;
@@ -124,21 +139,24 @@ namespace Reclamation.TimeSeries
                 return Math.Interpolate(this, val, this.columnx.ColumnName, this.columny.ColumnName);
             }
 
-            public double Interpolate(double val)
+             Point Interpolate(Point pt)
             {
-                if (val > MaxXValue())
-                    return Point.MissingValueFlag;
+                if (pt.IsMissing)
+                    return new Point(pt.DateTime, Point.MissingValueFlag);
 
-                if (val < MinXValue())
-                { // if last value on table computes zero, then extrapolate a zero.
+                if (pt.Value > MaxXValue())
+                    return new Point(pt.DateTime, Point.MissingValueFlag);
+
+                if (pt.Value < MinXValue())
+                { // if first value in table computes zero, then extrapolate a zero.
                     if (System.Math.Abs(MinYValue()) < 0.01)
-                        return 0;
+                        return new Point(pt.DateTime, 0, PointFlag.Edited);
 
-                    return Point.MissingValueFlag;
+                    return new Point(pt.DateTime, Point.MissingValueFlag);
                 }
 
-
-               return Math.Interpolate(this, val, this.columnx.ColumnName, this.columny.ColumnName);
+               var d = Math.Interpolate(this, pt.Value, this.columnx.ColumnName, this.columny.ColumnName);
+               return new Point(pt.DateTime, d);
             }
             /// <summary>
             /// Lookup value in RatingTable
@@ -155,7 +173,7 @@ namespace Reclamation.TimeSeries
                     return new Point(pt.DateTime, Point.MissingValueFlag);
 
                 if (pt.Value < MinXValue())
-                { // if last value on table computes zero, then extrapolate a zero.
+                { // if first value in table computes zero, then extrapolate a zero.
                     if (System.Math.Abs(MinYValue()) < 0.01)
                         return new Point(pt.DateTime, 0, PointFlag.Edited); 
 

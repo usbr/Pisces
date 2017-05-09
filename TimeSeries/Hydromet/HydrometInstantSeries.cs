@@ -336,7 +336,7 @@ END DATA
             bool oldFile = File.Exists(filename);
 
             StreamWriter output = new StreamWriter(filename,append);
-            Console.WriteLine("Writing "+cbtt+"/"+pcode+" to "+filename+" "+s.Count+" records" );
+            //Console.WriteLine("Writing "+cbtt+"/"+pcode+" to "+filename+" "+s.Count+" records" );
             if (!oldFile)
             {
                 output.WriteLine("yyyyMMMdd hhmm cbtt     PC        NewValue   OldValue   Flag User:" + user);
@@ -405,7 +405,13 @@ END DATA
 
             for (int i = 1; i < tf.Length; i++) // skip first row (header)
 			{
+                if( tf[i].Length <59)
+                {
+                    Console.WriteLine("Skipping invalid line: "+tf[i]);
+                    continue;
+                }
                 var strDate = tf[i].Substring(0,14);
+
                 DateTime t;
                 if (!DateTime.TryParseExact(strDate, "yyyyMMMdd HHmm", new CultureInfo("en-US"), System.Globalization.DateTimeStyles.None, out t))
                 {
@@ -456,17 +462,6 @@ END DATA
             return rval;
         }
 
-        //public void Read(int hoursBack)
-        //{
-        //    var query = ConfigurationManager.AppSettings["BoiseInstantCGI"];
-        //    query += "?parameter="+cbtt+" "+pcode+"&back=2&format=2";
-        //    query = query.Replace("back=2", "back=" + hoursBack);
-
-        //    string[] data = Web.GetPage(query, Hydromet.WebCaching);
-        //    Read(data);
-
-        //    Messages.Add(query);
-        //    Messages.Add("Returned " + Count + " records ");
-        //}
+        
     }
 }

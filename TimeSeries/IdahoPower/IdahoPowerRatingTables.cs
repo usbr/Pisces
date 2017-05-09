@@ -84,19 +84,41 @@ namespace Reclamation.TimeSeries.IdahoPower
             fullRatingTable.Columns.Add(new DataColumn("Flow", typeof(double)));
             for (int i = dataRow; i < ratingRows + dataRow; i++)
             {
-                var row = rdbFile[i].Split(',');
-                var ratingStage = Convert.ToDouble(row[0].ToString());
-                var ratingFlow = Convert.ToDouble(row[1].ToString());
-                var shiftedStage = Convert.ToDouble(row[2].ToString());
-                var shiftedFlow = Convert.ToDouble(row[3].ToString());
+                var row = rdbFile[i].Split(new char[]{','},StringSplitOptions.RemoveEmptyEntries);
+
+                if( row.Length < 4)
+                {
+                    Console.WriteLine("Warning skipping incomplete entry (expected four values: Stage,Discharge,ShiftStage,ShiftDischarge) ");
+                    Console.WriteLine(rdbFile[i]);
+                    continue;
+                }
+                var ratingStage = ConvertToDouble(row[0].ToString());
+                var ratingFlow = ConvertToDouble(row[1].ToString());
+                var shiftedStage = ConvertToDouble(row[2].ToString());
+                var shiftedFlow = ConvertToDouble(row[3].ToString());
 
                 var newRow = fullRatingTable.NewRow();
                 newRow["Stage"] = ratingStage;
-                newRow["Shift"] = Convert.ToDouble((shiftedStage - ratingStage).ToString("F03"));
+                newRow["Shift"] = ConvertToDouble((shiftedStage - ratingStage).ToString("F03"));
                 newRow["Flow"] = shiftedFlow;
                 fullRatingTable.Rows.Add(newRow);
             }
             this.fullRatingTable = fullRatingTable;
+        }
+
+        private static double ConvertToDouble(string s)
+        {
+            double rval=0;
+            if( double.TryParse(s,out rval))
+            {
+                return rval;
+            }
+            else
+            {
+                Console.WriteLine("Error converting '"+s+"' to a number");
+                return Convert.ToDouble(s);
+            }
+
         }
     }
 }

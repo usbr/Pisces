@@ -188,18 +188,19 @@ namespace Reclamation.TimeSeries.Hydromet
 					else
 					{
 						//Console.WriteLine("str = "+strValue);
-						double val;
+                        double val = -999;
 						
 							int index = strValue.IndexOf(".");
-							string str = strValue.Substring(0,index+3);
-							if(hasFlag){
+                            string str = strValue;
 							
+							if(hasFlag && index >=0){
+							    str = strValue.Substring(0,index+3);
 								if(strValue.Length>str.Length)
 									flag = strValue.Substring(str.Length,1);
 								else
 									flag = " ";
 							}
-                            val = -999;
+                            
                             if (!double.TryParse(str, out val))
                             {
                                 Logger.WriteLine("Error converting " + str + " to a number ");

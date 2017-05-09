@@ -7,37 +7,38 @@ using Reclamation;
 using Reclamation.TimeSeries.Hydromet;
 using Reclamation.Riverware;
 using Reclamation.Core;
+using Reclamation.TimeSeries;
+
 namespace Reclamation.RiverwareDmi
 {
     public class Program
     {
         public static void Main(string[] args)
-
         {
             try
             {
-            int debugLevel = 0;
+                int debugLevel = 0;
 
-            Arguments arguments = new Arguments(args);
+                Arguments arguments = new Arguments(args);
 
-            if (arguments.Contains("udebuglevel"))
-            {
-                debugLevel = Convert.ToInt32(arguments["udebuglevel"]);
-            }
+                if (arguments.Contains("udebuglevel"))
+                {
+                    debugLevel = Convert.ToInt32(arguments["udebuglevel"]);
+                }
 
-            if (debugLevel > 0)
-            {
-                if (System.Windows.Forms.MessageBox.Show(
-                    String.Join(" \n", args), "Diagnostic info",System.Windows.Forms.MessageBoxButtons.OKCancel)
-                       == System.Windows.Forms.DialogResult.Cancel)
-                    return;
-            }
+                if (debugLevel > 0)
+                {
+                    if (System.Windows.Forms.MessageBox.Show(
+                        String.Join(" \n", args), "Diagnostic info", System.Windows.Forms.MessageBoxButtons.OKCancel)
+                           == System.Windows.Forms.DialogResult.Cancel)
+                        return;
+                }
 
-            
 
+                string controlFilename = args[0];
                 DateTime t1 = DateTime.Parse(args[2]);
                 DateTime t2 = DateTime.Parse(args[4]);
-                string controlFilename = args[0];
+
 
                 ProcessArguments(debugLevel, arguments, t1, t2, controlFilename);
 

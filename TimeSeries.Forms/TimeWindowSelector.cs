@@ -34,9 +34,9 @@ namespace Reclamation.TimeSeries.Forms
         {
             get
             {
-                timeWindow1.FromToDatesT1 = this.dateTimePicker1.Value;
-                timeWindow1.FromToDatesT2 = this.dateTimePicker2.Value;
-                timeWindow1.FromDateToTodayT1 = this.dateTimePicker3.Value;
+                timeWindow1.FromToDatesT1 = this.dateTimePicker1.Value.StartOfDay();
+                timeWindow1.FromToDatesT2 = this.dateTimePicker2.Value.EndOfDay();
+                timeWindow1.FromDateToTodayT1 = this.dateTimePicker3.Value.StartOfDay();
                 timeWindow1.NumDaysFromToday = this.numericUpDown1.Value;
 
                 if (this.radioButtonFullPeriodOfRecord.Checked)

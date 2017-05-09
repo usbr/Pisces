@@ -397,7 +397,52 @@ namespace Reclamation.Core
                         conn.Close();
                 }
             }
-            Logger.WriteLine("Saved "+recordCount+" records in " + perf.ElapsedSeconds + "seconds");
+	     string msg = "[" + dataTable.TableName + "] " + recordCount;
+           Logger.WriteLine(msg,"ui");
+           Console.WriteLine(msg);
+	  
+            
+            return recordCount;
+        }
+
+        public int SaveTable(DataTable[] dataTable)
+        {
+            Performance perf = new Performance();
+            DataSet myDataSet = new DataSet();
+            
+            int recordCount = 0;
+
+            using (SQLiteConnection conn = new SQLiteConnection(ConnectionString))
+            using (SQLiteCommand myAccessCommand = new SQLiteCommand() )
+            using (SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myAccessCommand))
+            using (SQLiteCommandBuilder karlCB = new SQLiteCommandBuilder(myDataAdapter))
+            {
+
+                try
+                {
+                    conn.Open();
+                    
+                    var dbTrans = conn.BeginTransaction();
+
+                    for (int i = 0; i < dataTable.Length; i++)
+                    {
+                        var tn = dataTable[i].TableName;
+                        myDataSet.Tables.Add(tn);
+                        string sql = "select  * from " + PortableTableName(tn) + " where 2=1";
+                        myDataAdapter.SelectCommand = new SQLiteCommand(sql,conn);
+                        myDataAdapter.Fill(myDataSet, tn);
+                        recordCount = myDataAdapter.Update(dataTable[i]);
+                        myDataSet.Tables.Remove(tn);
+                    }
+                    dbTrans.Commit();
+                }
+                finally
+                {
+                    if (conn != null)
+                        conn.Close();
+                }
+            }
+
             return recordCount;
         }
 
@@ -612,6 +657,11 @@ namespace Reclamation.Core
                 rval = "[" + tableName + "]";
             }
             return rval;
+        }
+
+        public override string PortableWhereBool(bool p)
+        {
+          return p ? "1" : "0";
         }
     }
 }

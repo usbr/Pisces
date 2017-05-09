@@ -33,7 +33,13 @@ namespace Reclamation.TimeSeries.Usgs
           {
               double x = Convert.ToDouble(rdb.Rows[i]["indep"]);
               double y = Convert.ToDouble(rdb.Rows[i]["dep"]);
-              t.AddRatingTableRow(x, y);
+              var r = t.FindByx(x);
+              if (r == null)
+                  t.AddRatingTableRow(x, y);
+              else
+              {
+                  Console.WriteLine("Warning: duplicate x "+x);
+              }
           }
           t.Name = "Usgs " + siteNumber;
           return t;

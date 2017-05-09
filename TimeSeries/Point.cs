@@ -204,7 +204,9 @@ namespace Reclamation.TimeSeries
             {
                 if (Flag.IndexOf(PointFlag.QualityHigh) == 0
                     || Flag.IndexOf(PointFlag.QualityLow) == 0
-                    || Flag.IndexOf(PointFlag.QualityRateOfChange) == 0)
+                    || Flag.IndexOf(PointFlag.QualityRateOfChange) == 0
+                    || Flag.IndexOf(PointFlag.Missing) == 0
+                    )
                     return true;
 
                 return false;

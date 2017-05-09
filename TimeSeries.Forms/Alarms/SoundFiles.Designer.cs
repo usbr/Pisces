@@ -30,14 +30,15 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoundFiles));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonGenerate = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.checkBoxSite = new System.Windows.Forms.CheckBox();
             this.checkBoxParameter = new System.Windows.Forms.CheckBox();
+            this.checkBoxSite = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonGenerate = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonSave = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.buttonPreview = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -45,6 +46,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.buttonPreview);
             this.panel1.Controls.Add(this.checkBoxParameter);
             this.panel1.Controls.Add(this.checkBoxSite);
             this.panel1.Controls.Add(this.textBox1);
@@ -55,46 +57,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(232, 478);
             this.panel1.TabIndex = 0;
-            // 
-            // buttonGenerate
-            // 
-            this.buttonGenerate.Location = new System.Drawing.Point(31, 211);
-            this.buttonGenerate.Name = "buttonGenerate";
-            this.buttonGenerate.Size = new System.Drawing.Size(75, 23);
-            this.buttonGenerate.TabIndex = 0;
-            this.buttonGenerate.Text = "generate...";
-            this.buttonGenerate.UseVisualStyleBackColor = true;
-            this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 13);
-            this.label1.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(6, 3);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(211, 145);
-            this.textBox1.TabIndex = 2;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
-            // 
-            // checkBoxSite
-            // 
-            this.checkBoxSite.AutoSize = true;
-            this.checkBoxSite.Checked = true;
-            this.checkBoxSite.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSite.Location = new System.Drawing.Point(31, 165);
-            this.checkBoxSite.Name = "checkBoxSite";
-            this.checkBoxSite.Size = new System.Drawing.Size(140, 17);
-            this.checkBoxSite.TabIndex = 3;
-            this.checkBoxSite.Text = "create wav for each site";
-            this.checkBoxSite.UseVisualStyleBackColor = true;
             // 
             // checkBoxParameter
             // 
@@ -108,6 +70,46 @@
             this.checkBoxParameter.Text = "create wav for each parameter";
             this.checkBoxParameter.UseVisualStyleBackColor = true;
             // 
+            // checkBoxSite
+            // 
+            this.checkBoxSite.AutoSize = true;
+            this.checkBoxSite.Checked = true;
+            this.checkBoxSite.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSite.Location = new System.Drawing.Point(31, 165);
+            this.checkBoxSite.Name = "checkBoxSite";
+            this.checkBoxSite.Size = new System.Drawing.Size(140, 17);
+            this.checkBoxSite.TabIndex = 3;
+            this.checkBoxSite.Text = "create wav for each site";
+            this.checkBoxSite.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 3);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(211, 145);
+            this.textBox1.TabIndex = 2;
+            this.textBox1.Text = resources.GetString("textBox1.Text");
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(28, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 13);
+            this.label1.TabIndex = 1;
+            // 
+            // buttonGenerate
+            // 
+            this.buttonGenerate.Location = new System.Drawing.Point(31, 234);
+            this.buttonGenerate.Name = "buttonGenerate";
+            this.buttonGenerate.Size = new System.Drawing.Size(75, 23);
+            this.buttonGenerate.TabIndex = 0;
+            this.buttonGenerate.Text = "generate...";
+            this.buttonGenerate.UseVisualStyleBackColor = true;
+            this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.buttonSave);
@@ -116,15 +118,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(400, 57);
             this.panel2.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 57);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(400, 421);
-            this.dataGridView1.TabIndex = 2;
             // 
             // buttonSave
             // 
@@ -135,6 +128,25 @@
             this.buttonSave.Text = "save";
             this.buttonSave.UseVisualStyleBackColor = true;
             this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 57);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(400, 421);
+            this.dataGridView1.TabIndex = 2;
+            // 
+            // buttonPreview
+            // 
+            this.buttonPreview.Location = new System.Drawing.Point(31, 205);
+            this.buttonPreview.Name = "buttonPreview";
+            this.buttonPreview.Size = new System.Drawing.Size(75, 23);
+            this.buttonPreview.TabIndex = 5;
+            this.buttonPreview.Text = "preview";
+            this.buttonPreview.UseVisualStyleBackColor = true;
+            this.buttonPreview.Click += new System.EventHandler(this.buttonPreview_Click);
             // 
             // SoundFiles
             // 
@@ -164,5 +176,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button buttonPreview;
     }
 }

@@ -174,6 +174,31 @@ namespace Reclamation.TimeSeries.Parser.Tests
         }
 
         [Test]
+        public void TestIf()
+        {
+            Series gh = new Series("emi_gh"); // gauge height
+            Series zs = new Series("emi_zs"); // switch
+
+            DateTime t = DateTime.Parse("2001-01-01");
+            gh.Add(t,2.0); 
+            zs.Add(t,0); //  regular weir 
+            t = t.AddMinutes(15);
+            gh.Add(t,2.0);
+            zs.Add(t,1); // weir blade is up (low flows)
+
+            var regular = Math.GenericWeir(gh,0.07175,64.49,1.742);
+            var lowFlow = Math.RectangularContractedWeir(gh,3.0);
+
+            var x = Math.If(zs, lowFlow, regular);
+
+            x.WriteToConsole();
+            Assert.AreEqual(229.378145, x[0].Value,0.01);
+            Assert.AreEqual(24.48852205, x[1].Value,0.01);
+
+
+        }
+
+        [Test]
         public void Conditionals()
         {
             SeriesExpressionParser.Debug = true;

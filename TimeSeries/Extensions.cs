@@ -19,6 +19,11 @@ namespace Reclamation.TimeSeries
         {
             return t.Date.AddHours(23.999999);
         }
+        
+        public static DateTime StartOfDay(this DateTime t)
+        {
+            return t.Date;
+        }
 
         public static DateTime NextDay(this DateTime t)
         {

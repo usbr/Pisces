@@ -168,6 +168,9 @@ namespace Reclamation.TimeSeries
             ReadOnly = readOnly;
             InitDatabaseSettings(server);
             InitWithLookup(server, lookup);
+            if (Settings.ReadBoolean("VerboseLogging", false))
+                Logger.EnableLogger();
+
         }
 
 
@@ -205,6 +208,12 @@ namespace Reclamation.TimeSeries
             {
                 InitSettings();
                 UpgradeV1ToV2();
+            }
+
+            if (m_server.TableExists("sitecatalog"))
+            {
+                InitSettings();
+               // UpgradeToV4();
             }
 
             if (!ReadOnly)
@@ -287,12 +296,131 @@ namespace Reclamation.TimeSeries
                 + filter +"   order by id");
             return tbl;
         }
+
+        public string GetParameterDescription(string parameterCode, TimeInterval interval)
+        {
+            string whereClause = "id = '" + parameterCode.ToLower() + "'"
+                 + " and  timeinterval = '" + interval.ToString() + "'";
+
+            var pc = GetParameterCatalog(whereClause);
+            if (pc.Count != 0)
+                return pc[0].name + ", " + pc[0].units;
+            return "";
+        }
+
+        /// <summary>
+        /// Returns a string showing what years have data for a series
+        /// </summary>
+        /// <param name="siteID"></param>
+        /// <param name="parameter"></param>
+        /// <param name="interval"></param>
+        /// <returns></returns>
+        public string GetPeriodOfRecord(string siteID, string parameter, TimeInterval interval,
+            out int minYear, out int maxYear)
+        {
+            minYear = DateTime.Now.Year;
+            maxYear = minYear;
+            var tn = TimeSeriesName.GetTableName("", interval, siteID, parameter);
+            var sql = "select   EXTRACT(YEAR FROM datetime) from " + tn + " "
+                    + " group by EXTRACT(YEAR FROM datetime) order by 1";
+            var tbl = m_server.Table("por", sql);
+            if (tbl.Rows.Count == 0)
+                return "";
+
+            List<int> numbers = new List<int>();
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                
+                int y = Convert.ToInt32(tbl.Rows[i][0]);
+
+                if (i == 0)
+                {
+                    minYear = y;
+                    maxYear = y;
+                }
+
+                if (y < minYear)
+                    minYear = y;
+                if (y > maxYear)
+                    maxYear = y;
+
+                numbers.Add(y);
+            }
+
+            //https://codereview.stackexchange.com/questions/90072/compact-a-comma-delimited-number-list-into-ranges
+            List<string> items = numbers
+              .Select((n, i) => new { number = n, group = n - i })
+              .GroupBy(n => n.group)
+              .Select(g =>
+                g.Count() >= 3 ?
+                  g.First().number + "-" + g.Last().number
+                :
+                  String.Join(", ", g.Select(x => x.number))
+              )
+              .ToList();
+
+            var rval = String.Join(", ", items);
+
+            return rval;
+
+        }     
+
+
+        /// <summary>
+        /// Returns siteid and longer description
+        /// such as: AMF - American Falls Reservoir at American Falls, ID 
+        /// </summary>
+        /// <param name="siteID"></param>
+        /// <returns></returns>
+        public string GetSiteDescription(string siteID)
+        {
+            var sc = GetSiteCatalog("siteid = '" + siteID.ToLower() + "'");
+            if (sc.Count != 0)
+                return  sc[0].description;
+            return "";
+        }
         public TimeSeriesDatabaseDataSet.parametercatalogDataTable GetParameterCatalog()
         {
             var tbl = new TimeSeriesDatabaseDataSet.parametercatalogDataTable();
             m_server.FillTable(tbl, "select * from parametercatalog order by id");
             return tbl;
         }
+
+        /// <summary>
+        /// Gets a list of parameter identifiers
+        /// </summary>
+        /// <param name="siteid"></param>
+        /// <param name="interval"></param>
+        /// <param name="quality">set to trure to return quality info. i.e. battery voltage</param>
+        /// <returns></returns>
+        public string[] GetParameters(string siteid, TimeInterval interval, bool quality=false)
+        {
+            string sql = "Select parameter from seriescatalog where siteid = '" + siteid + "' and isfolder = 0 and timeinterval='"+interval.ToString()+"'";
+            var tbl = m_server.Table("a", sql);
+
+            List<string> rval = new List<string>();
+
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                string p = tbl.Rows[i][0].ToString();
+                if (p.Trim() == "")
+                    continue;
+                bool isQuality =  QualityParameters.Contains(p.ToLower());
+                if( isQuality )
+                {
+                  if( quality)
+                      rval.Add(p); 
+                }
+                else
+                {
+                    rval.Add(p);
+                }
+            }
+
+            return rval.ToArray();
+
+        }
+
 
         public TimeSeriesDatabaseDataSet.sitepropertiesDataTable GetSiteProperties()
         {
@@ -434,9 +562,13 @@ namespace Reclamation.TimeSeries
         internal bool SeriesExists(int sdi)
         {
             string sql = "select id from seriescatalog where id = " + sdi;
-            return Server.Table("sitecatalog", sql).Rows.Count > 0;
+            return Server.Table("tbl", sql).Rows.Count > 0;
         }
-
+        internal bool SeriesExists(string tablename)
+        {
+            string sql = "select id from seriescatalog where tablename = '" + tablename+"'";
+            return Server.Table("tbl", sql).Rows.Count > 0;
+        }
         internal bool FolderExists(string name, int parentID)
         {
             string sql = "select id from seriescatalog where parentid = " + parentID
@@ -599,7 +731,7 @@ namespace Reclamation.TimeSeries
         }
 
 
-        static string[] QualityParameters = new string[] { "PARITY", "POWER", "MSGLEN", "LENERR", "TIMEERR" };
+        static string[] QualityParameters = new string[] { "parity", "power", "msglen", "lenerr", "timeerr","batvolt","bv","battery" };
 
         /// <summary>
         /// Adds new site using template subset of a SeriesCatalog
@@ -615,7 +747,7 @@ namespace Reclamation.TimeSeries
         /// <param name="Install"></param>
         public void AddSiteWithTemplate(PiscesFolder parent, 
             TimeSeriesDatabaseDataSet.SeriesCatalogDataTable template, string SiteName, string SiteID, 
-            string state,string elevation, string Lat, string Lon, string TimeZone, string Install, string program)            
+            string state,double elevation, double Lat, double Lon, string TimeZone, string Install, DataTable program)            
         {
           
             var siteCatalog = GetSiteCatalog();
@@ -645,7 +777,7 @@ namespace Reclamation.TimeSeries
                 if (item.TimeInterval == "Irregular")
                     parentID = instant.ID;
 
-                if (QualityParameters.Contains(item.Parameter.ToUpper()))
+                if (QualityParameters.Contains(item.Parameter.ToLower()))
                 {
                     parentID = quality.ID;
                 }
@@ -660,7 +792,13 @@ namespace Reclamation.TimeSeries
                  {
                      sc.AddSeriesCatalogRow(id, parentID, 0, id, item.iconname, item.Name, item.siteid, item.Units,
                              item.TimeInterval, item.Parameter, item.TableName, item.Provider, item.ConnectionString, item.Expression, item.Notes, item.enabled);
-                     series_properties.AddseriespropertiesRow(series_properties.NextID(), id, "program", program);
+
+                     foreach (DataRow r in program.Rows)
+	                 {
+                         series_properties.AddseriespropertiesRow(series_properties.NextID(), id,
+                             r["name"].ToString(), r["value"].ToString());
+                     }
+                     
                  }
 
                 
@@ -888,7 +1026,7 @@ namespace Reclamation.TimeSeries
         /// truncate all time series data in database
         /// </summary>
         /// <param name="sdi"></param>
-        private void Truncate(int sdi)
+        internal void Truncate(int sdi)
         {
             SeriesCatalogRow si = GetSeriesRow(sdi);
             if (m_server.TableExists(si.TableName))
@@ -1072,6 +1210,7 @@ namespace Reclamation.TimeSeries
         {
             Logger.WriteLine("Table " + tableName + " does not exist");
             CreateSeriesTable(tableName, true);
+            m_tableNames.Clear();
         }
         DataTable tbl = m_server.Table(tableName, sql);
         return tbl;
@@ -1647,7 +1786,7 @@ namespace Reclamation.TimeSeries
         /// Series s is saved to the tablename defined in the Series s.DataTable.TableName
         /// the table will be created if necessary. 
         /// </summary>
-        public void ImportSeriesUsingTableName(Series s, string[] folderNames ,DatabaseSaveOptions saveOption = DatabaseSaveOptions.UpdateExisting)
+        public void ImportSeriesUsingTableName(Series s, DatabaseSaveOptions saveOption = DatabaseSaveOptions.UpdateExisting)
         {
             Logger.WriteLine("ImportSeriesUsingTableName: '" + s.Table.TableName+"'");
             FixInvalidTableName(s);
@@ -1660,13 +1799,14 @@ namespace Reclamation.TimeSeries
                 Logger.WriteLine("table: " + s.Table.TableName + " does not exist in the catalog");
                 TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
                 PiscesFolder folder = RootFolder;
-                if (folderNames.Length == 0 && tn.interval != "")
+                var folders = s.DefaultFolders();
+                if (folders.Length == 0 && tn.interval != "")
                 {
                    folder = GetOrCreateFolder(new string[] { tn.interval });
                 }
                 else
                 {
-                    folder = GetOrCreateFolder(RootFolder,folderNames);
+                    folder = GetOrCreateFolder(RootFolder, folders);
                 }
 
                 sr = GetNewSeriesRow();
@@ -1749,8 +1889,9 @@ namespace Reclamation.TimeSeries
 
         public void Inventory()
         {
+            int tableCount = m_server.TableNames().Count();
             Console.WriteLine("Inventory of Database "+m_server.Name);
-            Console.WriteLine("Tables in Database:"+m_server.TableNames().Count());
+            Console.WriteLine("Tables in Database:"+tableCount);
 
             Console.WriteLine("Instant Series:"+GetSeriesCatalog("timeinterval = 'Irregular'").Count());
             Console.WriteLine("Daily Series:" + GetSeriesCatalog("timeinterval = 'Daily'").Count());
@@ -1758,6 +1899,12 @@ namespace Reclamation.TimeSeries
             Console.WriteLine("Series in SeriesCatalog: "+GetSeriesCatalog().Count());
             Console.WriteLine("Sites in SiteCatalog: " + GetSiteCatalog().Count());
             Console.WriteLine("");
+
+            var s = new Series("table_count"); ;
+            s.Add(DateTime.Now, tableCount);
+            s.SiteID = "system";
+            ImportSeriesUsingTableName(s);
+
 
         }
 

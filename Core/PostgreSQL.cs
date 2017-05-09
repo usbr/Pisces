@@ -17,21 +17,20 @@ namespace Reclamation.Core
   /// </summary>
   public class PostgreSQL:BasicDBServer
   {
-    public static string DateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
     /// <summary>
     /// last command that was sent to server.
     /// </summary>
-    protected string lastSqlCeCommand;
+    protected string lastSqlCommand;
    // string lastMessage = "";
 
       /// <summary>
-    /// Creates a BasicDBServer object with connection string details defined
-    /// by a config file on Linux, or using AD on Windows.
-    /// PostgresServer and PostgresUser  may be defined in the config file
+      /// Creates a BasicDBServer object.
+      /// empty parameters userName and databaseName can be set in Config file
       /// </summary>
       /// <param name="databaseName"></param>
       /// <returns></returns>
-    public static BasicDBServer GetPostgresServer(string databaseName="", string serverName="", string userName="") 
+    public static BasicDBServer GetPostgresServer(string databaseName="", 
+        string serverName="", string userName="", string password="") 
     {
         string server = serverName;
         if(server == "") // use config file.
@@ -39,7 +38,7 @@ namespace Reclamation.Core
 
         if( databaseName == "")
         {
-            databaseName = ConfigurationManager.AppSettings["TimeSeriesDatabaseName"];
+            databaseName = ConfigurationManager.AppSettings["PostgresDatabase"];
         }
 
         if (LinuxUtility.IsLinux())
@@ -48,16 +47,41 @@ namespace Reclamation.Core
             {
                 userName = ConfigurationManager.AppSettings["PostgresUser"];
             }
+        }
+        else{ // windows
+            if (userName == "")
+            {
+                userName = WindowsUtility.GetShortUserName();
+            }
+        }
            
-            string cs = "Server=" + server + ";Database=" + databaseName + ";User id=" + userName + ";";
-            Logger.WriteLine(cs);
-            return new PostgreSQL(cs);
+        string cs = "Server=" + server + ";Database=" + databaseName + ";User id=" + userName + ";";
+
+        
+        if( password == "")
+        { //check config file for password
+            password = ConfigurationManager.AppSettings["PostgresPassword"];
+
+            if (password == null)
+                password = "";
+
+            if (File.Exists(password)) // might be file with password
+                password = File.ReadAllText(password);
         }
-        else
+
+        if (password.Length > 0)
         {
-            string cs = PostgreSQL.CreateADConnectionString(server, databaseName);
-            return new PostgreSQL(cs);
+            cs += "password=" + password + ";";
         }
+
+
+        var msg = cs;
+        if (password.Length > 0)
+            msg = cs.Replace("password="+password, "password="+"xxxxx");
+        Logger.WriteLine(msg);
+
+       return new PostgreSQL(cs);
+
     }
 
 
@@ -73,82 +97,7 @@ namespace Reclamation.Core
         }
     }
 
-    /*
-
-From:  Alan
-Sent: Wednesday, November 30, 2011 9:41 PM
-
-
-Karl,
-
-Sorry I didn’t get to my phone messages before today.
-I have a book on Kerberos but have not set up such an authentication system and so far I’ve been able to avoid having anything to do with AD.
-
-If its just a single sign in you want and there’s no other reason to make the PostgreSQL server part of the AD domain I suggest a simpler solution.
-
-Assuming the PostgreSQL database is being accessed by a custom application ( written in C# ? ), you could avoid a second login by setting up accounts on the PostgreSQL server using passwords that are generated dynamically from the userid and some shared secret.
-
-The application can get the user’s id from the Environment.UserName value available in C# programs.
-
-Domain login can be confirmed by making sure the Environment.UserDomainName matches the AD domain name.
-
-For added security make sure the Environment.MachineName does not match the AD domain name.
-
-When a machine is logged into locally the UserDomainName is set equal to the MachineName so, for example, if the AD domain name is BOR, a user could rename his machine BOR and login locally to set the UserDomainName equal to BOR without authenticating to the BOR AD.
-
-Hope your holidays are going well,
-Alan
-       
-     */
-
-      /// <summary>
-      /// Generates a Connection String with auto generated password based on windows User name. 
-      /// However, optional userName can be specified
-      /// </summary>
-      /// <param name="server"></param>
-      /// <param name="database"></param>
-      /// <param name="userName"></param>
-      /// <returns></returns>
-    public static string CreateADConnectionString(string server, string database, 
-        string userName = "", string keyFile = "postgresql_key.txt")
-    {
-        if (database.IndexOf(";") >= 0)
-            throw new Exception("invalid database name "+database);
-
-        string windowsUser = userName;
-        if( userName == "")
-            windowsUser = GetWindowsUserName();
-
-        string passwd = Guid.NewGuid().ToString();
-
         
-        string fileName =FileUtility.GetFileReference( keyFile);
-
-        if (File.Exists(fileName))
-        {
-            passwd = windowsUser + File.ReadAllText(fileName);
-        }
-        else
-        {
-            Logger.WriteLine("Error:  missing "+keyFile);
-            throw new FileNotFoundException(keyFile);
-        }
-
-        
-        
-        //searchpath='funds,users';"/
-        var rval = "Server=" + server + ";Database=" + database + ";User id="
-            +windowsUser.ToLower() +";";
-        if( passwd.Length>0)
-        rval+="password="+passwd+";";
-
-        var msg = rval;
-        if (passwd.Length > 0)
-            msg = rval.Replace("password="+passwd, "password="+"xxxxx");
-        Logger.WriteLine(msg);
-
-        return rval;
-    }
 
    
     public override BasicDBServer NewConnection(int fileIndex)
@@ -370,7 +319,9 @@ Alan
                 conn.Close();
         }
 
-        Logger.WriteLine("Saved " + recordCount + " records in " + perf.ElapsedSeconds + "seconds","ui");
+        string msg = "[" + dataTable.TableName + "] " + recordCount;
+        Logger.WriteLine(msg,"ui");
+        Console.WriteLine(msg);
         if (SqlCommands.Count > 5000)
         {
             SqlCommands.Clear();
@@ -470,7 +421,7 @@ Alan
       }
 
 
-      this.lastSqlCeCommand = sql;
+      this.lastSqlCommand = sql;
       SqlCommands.Add(sql);
       myAccessConn.Open();
       int recordCount = 0;
@@ -545,7 +496,7 @@ Alan
       var myDataAdapter = new NpgsqlDataAdapter(myAccessCommand);
       myDataAdapter.AcceptChangesDuringFill = AcceptChangesDuringFill;
       //Console.WriteLine(sql);
-      this.lastSqlCeCommand = sql;
+      this.lastSqlCommand = sql;
       SqlCommands.Add(sql);
       DataSet myDataSet = new DataSet();
       try
@@ -585,7 +536,7 @@ Alan
         var myDataAdapter = new NpgsqlDataAdapter(myAccessCommand);
 
         //Console.WriteLine(sql);
-        this.lastSqlCeCommand = sql;
+        this.lastSqlCommand = sql;
         SqlCommands.Add(sql);
         try
         {
@@ -679,7 +630,7 @@ Alan
         if (useTransaction)
             myTrans.Commit();
         //Logger.WriteLine(rval + " rows affected");
-        this.lastSqlCeCommand = sql;
+        this.lastSqlCommand = sql;
         SqlCommands.Add(sql);
       }
       catch(Exception e)

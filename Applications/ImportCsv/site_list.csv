@@ -1,0 +1,7 @@
+interval,filename,date_column,value_column,cbtt,pcode
+instant,kid.csv,Time,MB1_Hw_FlowMeter*0.0,ACHO,QC1
+instant,kid.csv,Time,MB1_Hw_FlowCalc*0.0,ACHO,QC2
+instant,kid.csv,Time,MB1_MillerHill_FlowPump1,MHPO,QP1
+instant,kid.csv,Time,MB1_MillerHill_FlowPump2,MHPO,QP2
+instant,kid.csv,Time,MB1_MillerHill_FlowPump3,MHPO,QP3
+instant,kid.csv,Time,MB1_MillerHill_FlowPump1+MB1_MillerHill_FlowPump2+MB1_MillerHill_FlowPump3,MHPO,QP

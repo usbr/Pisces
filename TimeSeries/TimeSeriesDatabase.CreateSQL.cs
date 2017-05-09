@@ -25,7 +25,7 @@ namespace Reclamation.TimeSeries
             CreateParameterCatalogTable();
             CreateSeriesPropertiesTable();
 
-            if (m_settings.GetDBVersion() == 3)
+            if (m_settings.GetDBVersion() >= 3)
             {
                 CreateAlarmGroups();
                 CreateMeasurementTable();
@@ -34,6 +34,7 @@ namespace Reclamation.TimeSeries
                 CreateAlarmDef();
                 CreateAlarmPhoneQueue();
                 CreateAlarmScripts();
+                CreateAlarmLog();
             }
 
         }
@@ -55,7 +56,6 @@ namespace Reclamation.TimeSeries
         }
 
 
-
         private void CreateAlarmGroups()
         {
 
@@ -73,7 +73,7 @@ namespace Reclamation.TimeSeries
             {
                 string sql = "create table alarm_recipient ("
                         + " id int not null primary key, "
-                        + " list    " + m_server.PortableCharacterType(20) + " not null default '', "
+                        + " list    " + m_server.PortableCharacterType(256) + " not null default '', "
                         + " call_order int not null default 0,"
                         + " phone    " + m_server.PortableCharacterType(20) + " not null default '', "
                         + " name    " + m_server.PortableCharacterType(20) + " not null default '', "
@@ -89,6 +89,7 @@ namespace Reclamation.TimeSeries
             {
                 string sql = "Create Table alarm_phone_queue "
                 + "( id  int not null primary key, "
+                +"  alarm_definition_id int not null default -1,"
                 + " list " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "
@@ -97,7 +98,8 @@ namespace Reclamation.TimeSeries
                 + " status_time " + m_server.PortableDateTimeType() + " not null , "
                 + " confirmed_by " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " event_time " + m_server.PortableDateTimeType() + " not null  ,"
-                + " priority int not null default 10 "
+                + " current_list_index int not null default -1 ,"
+                + " active boolean not null default true "
                 + " )";
                 ExecuteCreateTable(m_server, sql);
             }
@@ -119,6 +121,18 @@ namespace Reclamation.TimeSeries
 
         }
 
+        private void CreateAlarmLog()
+        {
+
+            if (!m_server.TableExists("alarm_log"))
+            {
+                string sql = "Create Table alarm_log "
+                + "( datetime "  + m_server.PortableDateTimeType() +" not null primary key, "
+                + " message " + m_server.PortableCharacterType(256) + " not null default '', "
+                + " alarm_phone_queue_id int not null default 0 )";
+                ExecuteCreateTable(m_server, sql);
+            }
+        }
         private void CreateAlarmDef()
         {
 
@@ -126,14 +140,13 @@ namespace Reclamation.TimeSeries
             {
                 string sql = "Create Table alarm_definition "
                 + "( id  int not null primary key, "
-                + " enabled smallint not null default 0, "
+                + " enabled boolean not null default false, "
                 + " list " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " siteid " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " parameter " + m_server.PortableCharacterType(256) + " not null default '', "
                 + " alarm_condition " + m_server.PortableCharacterType(256) + " not null default '', "
-                + " clear_condition " + m_server.PortableCharacterType(256) + " not null default '', "
-                + " priority int not null default 10 "
-                + " , unique(siteid,parameter) )";
+                + " clear_condition " + m_server.PortableCharacterType(256) + " not null default '' "
+                + " )";
                 ExecuteCreateTable(m_server, sql);
             }
         }
@@ -162,7 +175,7 @@ namespace Reclamation.TimeSeries
             if (!m_server.TableExists("sitecatalog"))
             {
                 /*CREATE TABLE sitecatalog ( siteid   nvarchar(256)  not null primary key,  description  nvarchar(1024)  not null default '',  state  nvarchar(30)  not null default '',
-  latitude  nvarchar(30)  not null default '',  longitude  nvarchar(30)  not null default '',  elevation  nvarchar(30)  not null default '',
+  latitude  float  default 0,  longitude  float  default 0,  elevation  float  default 0,
   timezone  nvarchar(30)  not null default '',  install  nvarchar(30)  not null default '' , horizontal_datum nvarchar(30)  not null default '',
  vertical_datum nvarchar(30)  not null default '', vertical_accuracy float not null default 0, elevation_method nvarchar(100)  not null default '',
  tz_offset nvarchar(10)  not null default '', active_flag nvarchar(1) not null default 'T', type nvarchar(100) not null default '', responsibility nvarchar(30) not null default ''  );
@@ -172,9 +185,9 @@ namespace Reclamation.TimeSeries
                 + "( siteid  " + m_server.PortableCharacterType(255) + " not null primary key, "  
                 + " description " + m_server.PortableCharacterType(1024) + " not null default '', "  
                 + " state " + m_server.PortableCharacterType(30) + " not null default '', "
-                + " latitude " + m_server.PortableCharacterType(30) + " not null default '', "
-                + " longitude " + m_server.PortableCharacterType(30) + " not null default '', "
-                + " elevation " + m_server.PortableCharacterType(30) + " not null default '', "
+                + " latitude float default 0, "
+                + " longitude float default 0, "
+                + " elevation float default 0, "
                 + " timezone " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " install " + m_server.PortableCharacterType(30) + " not null default '', "
                 + " horizontal_datum " + m_server.PortableCharacterType(30) + "  not null default '',"
@@ -246,7 +259,7 @@ namespace Reclamation.TimeSeries
             {
                 string sql = "Create Table parametercatalog "
                 + "( id  " + m_server.PortableCharacterType(100) + " not null, "
-                + " timeinterval " + m_server.PortableCharacterType(12) + " not null default '', "
+                + " timeinterval " + m_server.PortableCharacterType(1024) + " not null default '', "
                 + " units " + m_server.PortableCharacterType(1024) + " not null default '', "
                 + " statistic " + m_server.PortableCharacterType(1024) + " not null default '' ,"
                 + " name " + m_server.PortableCharacterType(1024) + " not null default '', "
@@ -268,7 +281,7 @@ namespace Reclamation.TimeSeries
                 ExecuteCreateTable(m_server, sql);
 
                 
-                sql = "insert INTO piscesinfo values ('FileVersion', '3')";
+                sql = "insert INTO piscesinfo values ('FileVersion', '4')";
                 m_server.RunSqlCommand(sql);
             }
 

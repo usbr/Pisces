@@ -81,15 +81,14 @@ namespace Reclamation.Riverware
                 if (s.TimeInterval == TimeInterval.Monthly)
                 {
                     // Monthly dates are read as EOM midnight values - David Neumann
-                    DateTime m_t1EOM = m_t1.AddMonths(1).AddDays(-1);
-                    sw.WriteLine("start_date: " + m_t1EOM.ToString("yyyy-MM-dd") + " 24:00");
+                    sw.WriteLine("start_date: " + m_t1.EndOfMonth().ToString("yyyy-MM-dd") + " 24:00");
                 }
                 else if (s.TimeInterval == TimeInterval.Daily)
                 {
                     // Daily dates are read as EOD midnight values
                     sw.WriteLine("start_date: " + m_t1.ToString("yyyy-MM-dd") + " 24:00");
                 }
-                else //(s.TimeInterval != TimeInterval.Daily && s.TimeInterval != TimeInterval.Monthly)
+                else
                 {
                     Console.WriteLine(s.TimeInterval.ToString() + " not supported in RiverWareDMI");
                     throw new NotImplementedException(s.TimeInterval.ToString() + " not supported in RiverWareDMI");

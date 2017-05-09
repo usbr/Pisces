@@ -77,12 +77,6 @@ namespace Reclamation.TimeSeries
             return txt;
         }
 
-        [Obsolete("Use SiteID, also see sitecatalog for site name")]
-        public string SiteName   // name/id for site:  example: usgs site number, or hydromet cbtt, or modsim node name
-        {
-            get { return SiteID; }
-            set { SiteID = value; }
-        }
 
         public string SiteID  
         {
@@ -104,7 +98,7 @@ namespace Reclamation.TimeSeries
         }
 
         /// <summary>
-        ///  Flow, Volume, Temperature, etc.. (descriptive)
+        ///  parameter identifier 
         /// </summary>
         public string Parameter
         {

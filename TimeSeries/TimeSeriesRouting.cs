@@ -97,7 +97,8 @@ namespace Reclamation.TimeSeries
         /// <param name="name">identity used as part of filename </param>
         public static void RouteInstant(SeriesList list, string name, RouteOptions route = RouteOptions.Both)
         {
-
+            if (list.Count == 0)
+                return;
             
             if (route == RouteOptions.None)
                 return;
@@ -108,15 +109,17 @@ namespace Reclamation.TimeSeries
                 
                 var tmpFileName = FileUtility.GetTempFileName(".txt");
                 File.Delete(tmpFileName);
-                Console.WriteLine("temp file:"+tmpFileName);
+                Logger.WriteLine("writing " + list.Count + " series ");
+                Logger.WriteLine("temp file:" + tmpFileName);
+                Performance p = new Performance();
                 foreach (var s in list)
                 {
                   HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), tmpFileName,true);
                 }
-
-                Console.WriteLine("Moving: "+tmpFileName);
+                Logger.WriteLine("finished saving in " + p.ElapsedSeconds + " seconds");
+                Logger.WriteLine("Moving: " + tmpFileName);
                 var fileName = GetOutgoingFileName("instant", name, "all");
-                Console.WriteLine("To: " + fileName);
+                Logger.WriteLine("To: " + fileName);
                 File.Move(tmpFileName, fileName);
 
             }

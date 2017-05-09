@@ -120,6 +120,6 @@
   <data name="textBox1.Text" xml:space="preserve">
     <value>use this screen to generate wav files for the alarm system.  The files will be output to a directory you select.  
 
-The wave files then need to be copied to you rasterisk system, usually in the directory /var/lib/asterisk/sounds/hydromet</value>
+The wave files then need to be copied to your asterisk system, usually in the directory /var/lib/asterisk/sounds/hydromet</value>
   </data>
 </root>

@@ -1,6 +1,7 @@
 ﻿using Reclamation.Core;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
@@ -31,6 +32,12 @@ namespace Reclamation.TimeSeries
         {
             if (m_db == null)
                 return;
+            string cfg = ConfigurationManager.AppSettings["ProcessFlags"];
+            if (!String.IsNullOrEmpty(cfg) && cfg == "false")
+            {
+                return;
+            }
+
             Logger.WriteLine("Checking Flags ");
             
 

@@ -49,6 +49,8 @@
             // 
             // panelList
             // 
+            this.panelList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panelList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelList.Controls.Add(this.buttonDelete);
             this.panelList.Controls.Add(this.buttonAdd);
@@ -56,12 +58,13 @@
             this.panelList.Controls.Add(this.dgvList);
             this.panelList.Location = new System.Drawing.Point(2, 1);
             this.panelList.Name = "panelList";
-            this.panelList.Size = new System.Drawing.Size(253, 308);
+            this.panelList.Size = new System.Drawing.Size(253, 501);
             this.panelList.TabIndex = 0;
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(93, 268);
+            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDelete.Location = new System.Drawing.Point(92, 464);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 23);
             this.buttonDelete.TabIndex = 3;
@@ -71,7 +74,8 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(12, 268);
+            this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAdd.Location = new System.Drawing.Point(11, 464);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 2;
@@ -110,13 +114,14 @@
             this.dgvList.Name = "dgvList";
             this.dgvList.ReadOnly = true;
             this.dgvList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvList.Size = new System.Drawing.Size(245, 212);
+            this.dgvList.Size = new System.Drawing.Size(245, 405);
             this.dgvList.TabIndex = 0;
             this.dgvList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dataGridViewList_MouseClick);
             // 
             // panelRecipients
             // 
-            this.panelRecipients.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panelRecipients.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelRecipients.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelRecipients.Controls.Add(this.buttonSaveRecipients);
@@ -124,12 +129,13 @@
             this.panelRecipients.Controls.Add(this.dataGridViewRecipient);
             this.panelRecipients.Location = new System.Drawing.Point(257, 1);
             this.panelRecipients.Name = "panelRecipients";
-            this.panelRecipients.Size = new System.Drawing.Size(469, 308);
+            this.panelRecipients.Size = new System.Drawing.Size(468, 501);
             this.panelRecipients.TabIndex = 1;
             // 
             // buttonSaveRecipients
             // 
-            this.buttonSaveRecipients.Location = new System.Drawing.Point(12, 268);
+            this.buttonSaveRecipients.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonSaveRecipients.Location = new System.Drawing.Point(3, 464);
             this.buttonSaveRecipients.Name = "buttonSaveRecipients";
             this.buttonSaveRecipients.Size = new System.Drawing.Size(75, 23);
             this.buttonSaveRecipients.TabIndex = 5;
@@ -143,7 +149,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(467, 44);
+            this.panel5.Size = new System.Drawing.Size(466, 44);
             this.panel5.TabIndex = 1;
             // 
             // textBox3
@@ -163,7 +169,7 @@
             this.dataGridViewRecipient.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRecipient.Location = new System.Drawing.Point(3, 50);
             this.dataGridViewRecipient.Name = "dataGridViewRecipient";
-            this.dataGridViewRecipient.Size = new System.Drawing.Size(461, 212);
+            this.dataGridViewRecipient.Size = new System.Drawing.Size(460, 405);
             this.dataGridViewRecipient.TabIndex = 0;
             // 
             // AlarmSetup
@@ -173,7 +179,7 @@
             this.Controls.Add(this.panelRecipients);
             this.Controls.Add(this.panelList);
             this.Name = "AlarmSetup";
-            this.Size = new System.Drawing.Size(727, 544);
+            this.Size = new System.Drawing.Size(726, 518);
             this.Load += new System.EventHandler(this.AlarmSetup_Load);
             this.panelList.ResumeLayout(false);
             this.panel2.ResumeLayout(false);

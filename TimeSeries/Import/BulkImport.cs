@@ -52,19 +52,12 @@ namespace Reclamation.TimeSeries.Import
                     interval = TimeInterval.Irregular;
                 if (timeinterval.IndexOf("month") >= 0)
                     interval = TimeInterval.Monthly;
+                if (timeinterval.IndexOf("daily") >= 0)
+                    interval = TimeInterval.Daily;
 
 
                 Series s = new Series("",interval);
-                s.Name = ReadString(row, "name");
-                s.SiteID = ReadString(row, "siteid");
-                s.Units = ReadString(row, "units");
-                s.Notes = ReadString(row, "notes");
-                s.Expression = ReadString(row, "expression");
-
-                
-               
-                if (s.Expression != "")
-                    s.Provider = "CalculationSeries";
+              
 
                 if (format == "csv" || format == "txt" )
                 {
@@ -87,7 +80,17 @@ namespace Reclamation.TimeSeries.Import
                 {
                     s = ImportMultiSheetDailySeriesExcel.ImportSpreadsheet(filename);
                 }
- 
+                s.Parameter = ReadString(row, "parameter");
+                s.Name = ReadString(row, "name");
+                s.SiteID = ReadString(row, "siteid");
+                s.Units = ReadString(row, "units");
+                s.Notes = ReadString(row, "notes");
+                s.Expression = ReadString(row, "expression");
+
+                if (s.Expression != "")
+                    s.Provider = "CalculationSeries";
+
+
                 if (tablename != "")
                 {
                     s.Table.TableName = tablename;
@@ -102,7 +105,18 @@ namespace Reclamation.TimeSeries.Import
                     folder = db.GetOrCreateFolder(path);
                 }
 
+
+                if( db.SeriesExists(s.Table.TableName))
+                {
+                    Console.WriteLine("Table already exists '"+s.Table.TableName+"'");
+                    continue;
+                }
+
                 int id = db.AddSeries(s, folder);
+
+
+
+
                 var prop = ReadString(row, "properties").Split(new char[] { ',' },
                                    StringSplitOptions.RemoveEmptyEntries);
 

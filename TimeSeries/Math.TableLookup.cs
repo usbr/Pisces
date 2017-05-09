@@ -17,8 +17,17 @@ namespace Reclamation.TimeSeries
             var rval = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, fileName);
             rval.RemoveMissing();
             return rval;
-
         }
+
+        [FunctionAttribute("Performs Rating table interpolation from a file",
+            "FileRatingTableInterpolate(series1,\"table.csv\")")]
+        public static Series FileRatingTableInterpolate(Series s, string fileName)
+        {
+            var rval = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, fileName,true);
+            rval.RemoveMissing();
+            return rval;
+        }
+
 
         [FunctionAttribute("Performs 2D lookup from a file with linear interpolation in both directions",
             "FileLookupInterpolate2D(series1, series2, csvFile)")]

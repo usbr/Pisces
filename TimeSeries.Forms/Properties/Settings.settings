@@ -173,15 +173,10 @@
     <Setting Name="DatabaseList" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;string&gt;test.water.usbr.gov:timeseries     #mysql&lt;/string&gt;
   &lt;string&gt;ibr1gcpdb004:Pisces     #sqlserver&lt;/string&gt;
   &lt;string&gt;lrgs1.pn.usbr.gov:timeseries   #postgresql&lt;/string&gt;
-  &lt;string&gt;lrgs1.pn.usbr.gov:timeseries_gp   #postgresql&lt;/string&gt;
-  &lt;string&gt;lrgs2.pn.usbr.gov:timeseries  #postgresql&lt;/string&gt;
   &lt;string&gt;127.0.0.1:timeseries    #mysql&lt;/string&gt;
   &lt;string&gt;127.0.0.1:timeseries   #postgresql&lt;/string&gt;
-  &lt;string&gt;test:timeseries     #mysql&lt;/string&gt;
-  &lt;string&gt;.\rbms:rbms  #sqlserver&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
   </Settings>

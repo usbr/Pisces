@@ -17,29 +17,12 @@ namespace Reclamation.TimeSeries.Forms.Alarms
         {
             InitializeComponent();
         }
-        BasicDBServer m_svr;
+        
         public AlarmManagerMain(BasicDBServer svr)
         {
-            m_svr = svr;
-            InitializeComponent();
-            SoundFiles s = new SoundFiles(svr);
-            this.tabPageSounds.Controls.Add(s);
-            s.Dock = DockStyle.Fill;
-
-            AlarmDataSet ds = AlarmDataSet.CreateInstance(svr);
-            AlarmSetup s1 = new AlarmSetup(ds);
-            this.tabPageSetup.Controls.Add(s1);
-            s1.Dock = DockStyle.Fill;
-
-
-            AlarmQueue q = new AlarmQueue(ds);
-            this.tabPageAlarms.Controls.Add(q);
-            q.Dock = DockStyle.Fill;
-
-            AlarmDefinition def = new AlarmDefinition(ds);
-            this.tabPageAlarmDef.Controls.Add(def);
-            def.Dock = DockStyle.Fill;
-
+            AlarmManagerControl c = new AlarmManagerControl(svr);
+            this.Controls.Add(c);
+            c.Dock = DockStyle.Fill;
 
         }
 
