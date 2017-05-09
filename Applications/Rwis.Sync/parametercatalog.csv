@@ -1,45 +1,45 @@
-id,timeinterval,units,statistic,name
-Day.Avg.AirTemperature.DegF,Day,DegF,Avg,Air Temperature
-Day.Avg.CanalDiversion.cfs,Day,cfs,Avg,Canal Diversion
-Day.Avg.CanalFlow.cfs,Day,cfs,Avg,Canal Flow
-Day.Avg.CanalStage.feet,Day,feet,Avg,Canal Stage
-Day.Avg.ElectricalConductivity.umhos/cm,Day,umhos/cm,Avg,Electrical Conductivity
-Day.Avg.FullNaturalFlow.cfs,Day,cfs,Avg,Full Natural Flow
-Day.Avg.PowerplantGeneration-Capacity.mw,Day,mw,Avg,Powerplant Generation - Capacity
-Day.Sum.PowerplantGeneration-Energy.mwh,Day,mwh,Sum,Powerplant Generation - Energy
-Day.Sum.Precipitation.inches,Day,inches,Sum,Precipitation
-Day.Inst.ReservoirArea.acres,Day,acres,Inst,Reservoir Area
-Day.Inst.ReservoirDiversion.cfs,Day,cfs,Inst,Reservoir Diversion
-Day.Sum.ReservoirDiversion.af,Day,af,Sum,Reservoir Diversion
-Day.Inst.ReservoirElevation.feet,Day,feet,Inst,Reservoir Elevation
-Day.Sum.ReservoirEvaporation.cfs,Day,cfs,Sum,Reservoir Evaporation
-Day.Sum.ReservoirEvaporation.inches,Day,inches,Sum,Reservoir Evaporation
-Day.Sum.ReservoirEvaporation.af,Day,af,Sum,Reservoir Evaporation
-Day.Avg.ReservoirInflow.cfs,Day,cfs,Avg,Reservoir Inflow
-Day.Sum.ReservoirInflow.af,Day,af,Sum,Reservoir Inflow
-Day.Avg.ReservoirInflow-Unregulated.cfs,Day,cfs,Avg,Reservoir Inflow - Unregulated
-Day.Sum.ReservoirInflow-Unregulated.af,Day,af,Sum,Reservoir Inflow - Unregulated
-Day.Avg.ReservoirRelease.cfs,Day,cfs,Avg,Reservoir Release
-Day.Avg.ReservoirRelease-Bypass.cfs,Day,cfs,Avg,Reservoir Release - Bypass
-Day.Sum.ReservoirRelease-Bypass.af,Day,af,Sum,Reservoir Release - Bypass
-Day.Avg.ReservoirRelease-FishTrap.cfs,Day,cfs,Avg,Reservoir Release - Fish Trap
-Day.Avg.ReservoirRelease-Outlet.cfs,Day,cfs,Avg,Reservoir Release - Outlet
-Day.Avg.ReservoirRelease-Powerplant.cfs,Day,cfs,Avg,Reservoir Release - Powerplant
-Day.Sum.ReservoirRelease-Powerplant.af,Day,af,Sum,Reservoir Release - Powerplant
-Day.Avg.ReservoirRelease-Spillway.cfs,Day,cfs,Avg,Reservoir Release - Spillway
-Day.Sum.ReservoirRelease-Spillway.af,Day,af,Sum,Reservoir Release - Spillway
-Day.Avg.ReservoirRelease-Total.cfs,Day,cfs,Avg,Reservoir Release - Total
-Day.Sum.ReservoirRelease-Total.af,Day,af,Sum,Reservoir Release - Total
-Day.Inst.ReservoirStorage.af,Day,af,Inst,Reservoir Storage
-Day.Avg.SnowWaterEquivalent.inches,Day,inches,Avg,Snow Water Equivalent
-Day.Avg.StreamGageHeight.feet,Day,feet,Avg,Stream Gage Height
-Day.Inst.StreamGageHeight.feet,Day,feet,Inst,Stream Gage Height
-Day.Avg.Streamflow.cfs,Day,cfs,Avg,Streamflow
-Day.Inst.Streamflow.cfs,Day,cfs,Inst,Streamflow
-Day.Avg.TailraceElevation.feet,Day,feet,Avg,Tailrace Elevation
-Day.Inst.TailraceElevation.feet,Day,feet,Inst,Tailrace Elevation
-Day.Avg.WaterPumped.cfs,Day,cfs,Avg,Water Pumped
-Day.Sum.WaterPumped.af,Day,af,Sum,Water Pumped
-Day.Avg.WaterTemperature.DegF,Day,DegF,Avg,Water Temperature
-Day.Avg.WindDirection.degrees,Day,degrees,Avg,Wind Direction
-Day.Avg.WindSpeed.mph,Day,mph,Avg,Wind Speed
+id,timeinterval,units,statistic,name,unitstext
+Day.Avg.AirTemperature.DegF,Day,DegF,Avg,"Air Temperature","Degrees Fahrenheit"
+Day.Avg.CanalDiversion.cfs,Day,cfs,Avg,"Canal Diversion","cubic feet per second"
+Day.Avg.CanalFlow.cfs,Day,cfs,Avg,"Canal Flow","cubic feet per second"
+Day.Avg.CanalStage.feet,Day,feet,Avg,"Canal Stage",Feet
+Day.Avg.ElectricalConductivity.umhos/cm,Day,uS/cm,Avg,"Electrical Conductivity","MicroSiemens per centimeter"
+Day.Avg.FullNaturalFlow.cfs,Day,cfs,Avg,"Full Natural Flow","cubic feet per second"
+Day.Avg.PowerplantGeneration-Capacity.mw,Day,mw,Avg,"Powerplant Generation - Capacity",Megawatts
+Day.Avg.ReservoirInflow-Unregulated.cfs,Day,cfs,Avg,"Reservoir Inflow - Unregulated","cubic feet per second"
+Day.Avg.ReservoirInflow.cfs,Day,cfs,Avg,"Reservoir Inflow","cubic feet per second"
+Day.Avg.ReservoirRelease-Bypass.cfs,Day,cfs,Avg,"Reservoir Release - Bypass","cubic feet per second"
+Day.Avg.ReservoirRelease-FishTrap.cfs,Day,cfs,Avg,"Reservoir Release - Fish Trap","cubic feet per second"
+Day.Avg.ReservoirRelease-Outlet.cfs,Day,cfs,Avg,"Reservoir Release - Outlet","cubic feet per second"
+Day.Avg.ReservoirRelease-Powerplant.cfs,Day,cfs,Avg,"Reservoir Release - Powerplant","cubic feet per second"
+Day.Avg.ReservoirRelease-Spillway.cfs,Day,cfs,Avg,"Reservoir Release - Spillway","cubic feet per second"
+Day.Avg.ReservoirRelease-Total.cfs,Day,cfs,Avg,"Reservoir Release - Total","cubic feet per second"
+Day.Avg.ReservoirRelease.cfs,Day,cfs,Avg,"Reservoir Release","cubic feet per second"
+Day.Avg.SnowWaterEquivalent.inches,Day,inches,Avg,"Snow Water Equivalent",Inches
+Day.Avg.Streamflow.cfs,Day,cfs,Avg,Streamflow,"cubic feet per second"
+Day.Avg.StreamGageHeight.feet,Day,feet,Avg,"Stream Gage Height",Feet
+Day.Avg.TailraceElevation.feet,Day,feet,Avg,"Tailrace Elevation",Feet
+Day.Avg.WaterPumped.cfs,Day,cfs,Avg,"Water Pumped","cubic feet per second"
+Day.Avg.WaterTemperature.DegF,Day,DegF,Avg,"Water Temperature","Degrees Fahrenheit"
+Day.Avg.WindDirection.degrees,Day,degrees,Avg,"Wind Direction","Azimuth degrees"
+Day.Avg.WindSpeed.mph,Day,mph,Avg,"Wind Speed","Miles per hour"
+Day.Inst.ReservoirArea.acres,Day,acres,Inst,"Reservoir Area",Acres
+Day.Inst.ReservoirDiversion.cfs,Day,cfs,Inst,"Reservoir Diversion","cubic feet per second"
+Day.Inst.ReservoirElevation.feet,Day,feet,Inst,"Reservoir Elevation",Feet
+Day.Inst.ReservoirStorage.af,Day,af,Inst,"Reservoir Storage","Acre feet"
+Day.Inst.Streamflow.cfs,Day,cfs,Inst,Streamflow,"cubic feet per second"
+Day.Inst.StreamGageHeight.feet,Day,feet,Inst,"Stream Gage Height",Feet
+Day.Inst.TailraceElevation.feet,Day,feet,Inst,"Tailrace Elevation",Feet
+Day.Sum.PowerplantGeneration-Energy.mwh,Day,mwh,Sum,"Powerplant Generation - Energy","Megawatt hour"
+Day.Sum.Precipitation.inches,Day,inches,Sum,Precipitation,Inches
+Day.Sum.ReservoirDiversion.af,Day,af,Sum,"Reservoir Diversion","Acre feet"
+Day.Sum.ReservoirEvaporation.af,Day,af,Sum,"Reservoir Evaporation","Acre feet"
+Day.Sum.ReservoirEvaporation.cfs,Day,cfs,Sum,"Reservoir Evaporation","cubic feet per second"
+Day.Sum.ReservoirEvaporation.inches,Day,inches,Sum,"Reservoir Evaporation",Inches
+Day.Sum.ReservoirInflow-Unregulated.af,Day,af,Sum,"Reservoir Inflow - Unregulated","Acre feet"
+Day.Sum.ReservoirInflow.af,Day,af,Sum,"Reservoir Inflow","Acre feet"
+Day.Sum.ReservoirRelease-Bypass.af,Day,af,Sum,"Reservoir Release - Bypass","Acre feet"
+Day.Sum.ReservoirRelease-Powerplant.af,Day,af,Sum,"Reservoir Release - Powerplant","Acre feet"
+Day.Sum.ReservoirRelease-Spillway.af,Day,af,Sum,"Reservoir Release - Spillway","Acre feet"
+Day.Sum.ReservoirRelease-Total.af,Day,af,Sum,"Reservoir Release - Total","Acre feet"
+Day.Sum.WaterPumped.af,Day,af,Sum,"Water Pumped","Acre feet"
