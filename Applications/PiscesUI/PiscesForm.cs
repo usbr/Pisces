@@ -36,7 +36,6 @@ namespace Reclamation.TimeSeries.Forms
             m_pluginManager.RegisterPlugins(this.contextMenuStripTree.Items["AddMenu"]);
             m_pluginManager.PluginClick += m_pluginManager_PluginClick;
             Enabling();
-            
         }
 
         void m_pluginManager_PluginClick(object sender, EventArgs e)

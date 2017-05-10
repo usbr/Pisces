@@ -1142,6 +1142,22 @@ namespace Reclamation.TimeSeries.Forms
         void f_ImportClick(object sender, EventArgs e)
         {
 
+        }        
+        
+        
+        /// <summary>
+        /// Add IDWR data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addIdwr_Click(object sender, EventArgs e)
+        {
+            ImportIdwrData dlg = new ImportIdwrData();
+
+            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                
+            }
         }
 
     }

@@ -133,6 +133,7 @@ namespace Reclamation.TimeSeries.Forms
             this.folderBrowserExport = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogCr10x = new System.Windows.Forms.OpenFileDialog();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.addIdwr = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.contextMenuStripTree.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -258,6 +259,7 @@ namespace Reclamation.TimeSeries.Forms
             this.addTextFile,
             this.addSqLiteModel,
             this.addOwrd,
+            this.addIdwr,
             this.addUsgsInternet,
             this.addUsgsRDBfile,
             this.addSHEF,
@@ -924,6 +926,13 @@ namespace Reclamation.TimeSeries.Forms
             this.timer1.Interval = 5000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // addIdwr
+            // 
+            this.addIdwr.Name = "addIdwr";
+            this.addIdwr.Size = new System.Drawing.Size(320, 26);
+            this.addIdwr.Text = "IDWR Series";
+            this.addIdwr.Click += new System.EventHandler(this.addIdwr_Click);
+            // 
             // PiscesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1052,6 +1061,7 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripMenuItem newRatingTableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortMenu;
+        private System.Windows.Forms.ToolStripMenuItem addIdwr;
         //private System.Windows.Forms.ToolStripMenuItem menuUpdate;
 
     }

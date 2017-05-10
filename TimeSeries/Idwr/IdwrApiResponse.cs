@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Reclamation.TimeSeries.Hydromet.IDWR
+namespace Reclamation.TimeSeries.IDWR
 {
     public class RiverItems
     {
