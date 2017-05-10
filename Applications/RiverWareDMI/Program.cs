@@ -86,18 +86,18 @@ namespace Reclamation.RiverwareDmi
                 string serverName = arguments["uhydrometserver"];
                 ReadFromHydromet(controlFilename, serverName, t1, t2);
             }
-            else if (arguments.Contains("usdffilename"))
+            else if (arguments.Contains("updbfilename"))
             {
-                string sdfFileName = arguments["usdffilename"];
+                string pdbFileName = arguments["updbfilename"];
                 Regex regex = new Regex(@"\$(.*?)\\");
-                Match match = regex.Match(sdfFileName);
+                Match match = regex.Match(pdbFileName);
                 if (match.Success)
                 {
                     var envVar = match.Groups[1].ToString();
                     var envPath = Environment.GetEnvironmentVariable(envVar);
-                    sdfFileName = sdfFileName.Replace(envVar, envPath).Replace("$", "");
+                    pdbFileName = pdbFileName.Replace(envVar, envPath).Replace("$", "");
                 }
-                ReadFromPisces(sdfFileName, controlFilename, t1, t2);
+                ReadFromPisces(pdbFileName, controlFilename, t1, t2);
             }
             else if (arguments.Contains("uembededdata") && arguments["uembededdata"].ToLower() == "true")
             {
@@ -109,9 +109,9 @@ namespace Reclamation.RiverwareDmi
             }
         }
 
-        private static void ReadFromPisces(string sdfFileName, string controlFilename, DateTime t1, DateTime t2)
+        private static void ReadFromPisces(string pdbFileName, string controlFilename, DateTime t1, DateTime t2)
         {
-            PiscesDMI dmi = new PiscesDMI(sdfFileName, controlFilename, t1, t2);
+            PiscesDMI dmi = new PiscesDMI(pdbFileName, controlFilename, t1, t2);
             dmi.ExportTextFiles();
         }
 
