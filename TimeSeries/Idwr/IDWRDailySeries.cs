@@ -11,10 +11,14 @@ namespace Reclamation.TimeSeries.IDWR
 {
     public class IDWRDailySeries : Series
     {
-         ///<summary>
-         ///SCRIPT TO TEST IDWR SERIES GENERATION and UPDATING
-         ///</summary>
-         ///<param name="args"></param>
+
+        static string idwrAPI = @"https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting";
+        static RestClient idwrClient = new RestClient(idwrAPI);
+
+        ///<summary>
+        ///SCRIPT TO TEST IDWR SERIES GENERATION and UPDATING
+        ///</summary>
+        ///<param name="args"></param>
         public void Main(string[] args)
         {
 
@@ -37,13 +41,27 @@ namespace Reclamation.TimeSeries.IDWR
 
         
         string station;
+        string parameter;
 
 
-        public IDWRDailySeries(string station)
+        public IDWRDailySeries(string station, string parameter)
         {
             this.station = station;
+            this.parameter = parameter;
             TimeInterval = TimeSeries.TimeInterval.Daily;
-            Units = "cfs";
+            switch (parameter)
+            {
+                case "FB": case "GH":
+                    Units = "feet";
+                    break;
+                case "QD":
+                    Units = "cfs";
+                    break;
+                case "AF":
+                    Units = "acre-feet";
+                    break;
+            }
+            Name = station + "_" + parameter;            
         }
 
         /// <summary>
@@ -60,7 +78,8 @@ namespace Reclamation.TimeSeries.IDWR
             else
             {
                 Add(
-                IDWRWebDownload(station, t1, t2));
+                //IDWRWebDownload(station, t1, t2));
+                IdwrApiDownload(station, parameter, t1, t2));
             }            
         }
 
@@ -109,9 +128,78 @@ namespace Reclamation.TimeSeries.IDWR
         //    int dbID = 1;//seriesPisces.SiteDataTypeID;
         //    DB.SaveTimeSeriesTable(dbID, seriesPisces, DatabaseSaveOptions.Save);
         //}
+        
+        private static List<TsData> IdwrApiQuerySiteData(RiverSite riverSite, string yearList)
+        {
+            // Working API Call
+            //https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting/history?siteid=10055500&yearlist=2016,2015&yeartype=CY&f=json
+
+            return IdwrApiQuerySiteData(riverSite.SiteID, yearList);
+        }
+
+        private static List<TsData> IdwrApiQuerySiteData(string siteID, string yearList)
+        {
+            // Working API Call
+            //https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting/history?siteid=10055500&yearlist=2016,2015&yeartype=CY&f=json
+
+            var request = new RestRequest("history?", Method.GET);
+            request.AddParameter("siteid", siteID);
+            request.AddParameter("yearlist", yearList);
+            request.AddParameter("yeartype", "CY");
+            request.AddParameter("f", "json");
+            IRestResponse restResponse = idwrClient.Execute(request);
+            return JsonConvert.DeserializeObject<List<TsData>>(restResponse.Content);
+        }
 
 
+        private static Series IdwrApiDownload(string station, string parameter, DateTime t1, DateTime t2)
+        {
+            var s = new Series();
+            string yearList = "";
+            for (int year = t1.Year; year <= t2.Year; year++)
+            {
+                yearList = year + ",";
+            }
+            yearList = yearList.Trim(',');
+            var jsonResponse = IdwrApiQuerySiteData(station, yearList);
 
+            foreach (var item in jsonResponse)
+            {
+                var t = DateTime.Parse(item.Date);
+                if (t >= t1 && t <= t2)
+                {
+                    string value = "";
+                    switch (parameter)
+                    {
+                        case ("GH"):
+                            value = item.GH;
+                            break;
+                        case ("FB"):
+                            value = item.FB;
+                            break;
+                        case ("AF"):
+                            value = item.AF;
+                            break;
+                        case ("QD"):
+                            value = item.QD;
+                            break;
+                        default:
+                            value = "NaN";
+                            break;
+                    }
+                    if (value == "NaN")
+                    {
+                        s.AddMissing(t);
+                    }
+                    else
+                    {
+                        s.Add(item.Date, Convert.ToDouble(value));
+                    }
+                }
+            }
+
+            return s;
+        }
 
 
         /// <summary>
@@ -219,7 +307,6 @@ namespace Reclamation.TimeSeries.IDWR
 
     public class Utilities
     {
-
         static string idwrAPI = @"https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting";
         static RestClient idwrClient = new RestClient(idwrAPI);
 
@@ -269,29 +356,11 @@ namespace Reclamation.TimeSeries.IDWR
             return JsonConvert.DeserializeObject<List<string>>(restResponse.Content);
         }
 
-        private static List<string> IdwrApiQuerySiteData(RiverSite riverSite, string yearList)
-        {
-            // Working API Call
-            //https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting/history?siteid=10055500&yearlist=2016,2015&yeartype=CY&f=json
 
-            return IdwrApiQuerySiteData(riverSite.SiteID, yearList);
-        }
-
-        private static List<string> IdwrApiQuerySiteData(string siteID, string yearList)
-        {
-            // Working API Call
-            //https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting/history?siteid=10055500&yearlist=2016,2015&yeartype=CY&f=json
-
-            var request = new RestRequest("HistoryAvailableYearsBySiteId?", Method.GET);
-            request.AddParameter("siteid", siteID);
-            request.AddParameter("yearlist", yearList);
-            request.AddParameter("yeartype", "CY");
-            request.AddParameter("f", "json");
-            IRestResponse restResponse = idwrClient.Execute(request);
-            return JsonConvert.DeserializeObject<List<string>>(restResponse.Content);
-        }
-
-
+        /// <summary>
+        /// Get all IDWR River Systems from Web API
+        /// </summary>
+        /// <returns></returns>
         public static DataTable GetIdwrRiverSystems()
         {
             var dTab = new DataTable();
@@ -311,6 +380,11 @@ namespace Reclamation.TimeSeries.IDWR
         }
 
 
+        /// <summary>
+        /// Get IDWR Sites from Web API given IDWR River System
+        /// </summary>
+        /// <param name="riverItem"></param>
+        /// <returns></returns>
         public static DataTable GetIdwrRiverSites(string riverItem)
         {
             var dTab = new DataTable();
@@ -333,6 +407,12 @@ namespace Reclamation.TimeSeries.IDWR
             return dTab;
         }
 
+
+        /// <summary>
+        /// Get IDWR Site Info from Web API given IDWR Site ID
+        /// </summary>
+        /// <param name="siteID"></param>
+        /// <returns></returns>
         public static DataTable GetIdwrSiteInfo(string siteID)
         {
             var dTab = new DataTable();

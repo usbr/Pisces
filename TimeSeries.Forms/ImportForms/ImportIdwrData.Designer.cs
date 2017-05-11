@@ -47,6 +47,8 @@
             this.labelSID = new System.Windows.Forms.Label();
             this.labelYears = new System.Windows.Forms.Label();
             this.timeSelectorBeginEnd1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
+            this.labelSType = new System.Windows.Forms.Label();
+            this.textBoxSID = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,7 +64,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 184);
+            this.label2.Location = new System.Drawing.Point(7, 257);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 5;
@@ -75,7 +77,7 @@
             this.groupBox1.Controls.Add(this.radioButtonGH);
             this.groupBox1.Controls.Add(this.radioButtonQD);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(218, 184);
+            this.groupBox1.Location = new System.Drawing.Point(215, 257);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(199, 115);
             this.groupBox1.TabIndex = 6;
@@ -138,18 +140,19 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(318, 314);
+            this.buttonOK.Location = new System.Drawing.Point(247, 378);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 8;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.idwrOkButton_Click);
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(404, 314);
+            this.buttonCancel.Location = new System.Drawing.Point(333, 378);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -159,7 +162,7 @@
             // linkLabelIdwrApiInfo
             // 
             this.linkLabelIdwrApiInfo.AutoSize = true;
-            this.linkLabelIdwrApiInfo.Location = new System.Drawing.Point(9, 319);
+            this.linkLabelIdwrApiInfo.Location = new System.Drawing.Point(6, 392);
             this.linkLabelIdwrApiInfo.Name = "linkLabelIdwrApiInfo";
             this.linkLabelIdwrApiInfo.Size = new System.Drawing.Size(78, 13);
             this.linkLabelIdwrApiInfo.TabIndex = 9;
@@ -181,7 +184,7 @@
             this.comboBoxRiverSystems.FormattingEnabled = true;
             this.comboBoxRiverSystems.Location = new System.Drawing.Point(13, 26);
             this.comboBoxRiverSystems.Name = "comboBoxRiverSystems";
-            this.comboBoxRiverSystems.Size = new System.Drawing.Size(471, 21);
+            this.comboBoxRiverSystems.Size = new System.Drawing.Size(401, 21);
             this.comboBoxRiverSystems.TabIndex = 11;
             this.comboBoxRiverSystems.DropDown += new System.EventHandler(this.comboBoxRiverSystems_OnDropDown);
             this.comboBoxRiverSystems.SelectedIndexChanged += new System.EventHandler(this.comboBoxRiverSystems_SelectedIndexChanged);
@@ -191,7 +194,7 @@
             this.comboBoxRiverSites.FormattingEnabled = true;
             this.comboBoxRiverSites.Location = new System.Drawing.Point(12, 71);
             this.comboBoxRiverSites.Name = "comboBoxRiverSites";
-            this.comboBoxRiverSites.Size = new System.Drawing.Size(472, 21);
+            this.comboBoxRiverSites.Size = new System.Drawing.Size(402, 21);
             this.comboBoxRiverSites.TabIndex = 12;
             this.comboBoxRiverSites.SelectedIndexChanged += new System.EventHandler(this.comboBoxRiverSites_SelectedIndexChanged);
             // 
@@ -226,6 +229,7 @@
             // 
             this.labelYears.AutoSize = true;
             this.labelYears.Location = new System.Drawing.Point(24, 157);
+            this.labelYears.MaximumSize = new System.Drawing.Size(350, 0);
             this.labelYears.Name = "labelYears";
             this.labelYears.Size = new System.Drawing.Size(86, 13);
             this.labelYears.TabIndex = 16;
@@ -233,7 +237,7 @@
             // 
             // timeSelectorBeginEnd1
             // 
-            this.timeSelectorBeginEnd1.Location = new System.Drawing.Point(13, 200);
+            this.timeSelectorBeginEnd1.Location = new System.Drawing.Point(10, 273);
             this.timeSelectorBeginEnd1.Name = "timeSelectorBeginEnd1";
             this.timeSelectorBeginEnd1.ShowTime = false;
             this.timeSelectorBeginEnd1.Size = new System.Drawing.Size(199, 46);
@@ -241,11 +245,29 @@
             this.timeSelectorBeginEnd1.T2 = new System.DateTime(2008, 3, 12, 7, 55, 34, 320);
             this.timeSelectorBeginEnd1.TabIndex = 1;
             // 
+            // labelSType
+            // 
+            this.labelSType.AutoSize = true;
+            this.labelSType.Location = new System.Drawing.Point(228, 138);
+            this.labelSType.Name = "labelSType";
+            this.labelSType.Size = new System.Drawing.Size(58, 13);
+            this.labelSType.TabIndex = 17;
+            this.labelSType.Text = "Site Type: ";
+            // 
+            // textBoxSID
+            // 
+            this.textBoxSID.Location = new System.Drawing.Point(70, 135);
+            this.textBoxSID.Name = "textBoxSID";
+            this.textBoxSID.Size = new System.Drawing.Size(139, 20);
+            this.textBoxSID.TabIndex = 18;
+            // 
             // ImportIdwrData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(491, 349);
+            this.ClientSize = new System.Drawing.Size(420, 413);
+            this.Controls.Add(this.textBoxSID);
+            this.Controls.Add(this.labelSType);
             this.Controls.Add(this.labelYears);
             this.Controls.Add(this.labelSID);
             this.Controls.Add(this.labelName);
@@ -260,7 +282,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.timeSelectorBeginEnd1);
-            this.MinimumSize = new System.Drawing.Size(507, 387);
+            this.MinimumSize = new System.Drawing.Size(436, 451);
             this.Name = "ImportIdwrData";
             this.Text = "Import IDWR Data";
             this.groupBox1.ResumeLayout(false);
@@ -291,5 +313,7 @@
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelSID;
         private System.Windows.Forms.Label labelYears;
+        private System.Windows.Forms.Label labelSType;
+        private System.Windows.Forms.TextBox textBoxSID;
     }
 }

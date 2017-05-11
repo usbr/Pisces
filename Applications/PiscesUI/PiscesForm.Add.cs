@@ -1156,7 +1156,14 @@ namespace Reclamation.TimeSeries.Forms
 
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                
+                string station = dlg.station;
+                string parameter = dlg.parameter;
+                DateTime t1 = dlg.tStart;
+                DateTime t2 = dlg.tEnd;
+
+                var s = new IDWR.IDWRDailySeries(station, parameter);
+                s.Read(t1, t2);
+                DB.AddSeries(s, CurrentFolder);
             }
         }
 

@@ -13,12 +13,23 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 {
     public partial class ImportIdwrData : Form
     {
+        public string parameter, station;
+        public DateTime tStart, tEnd;
+
         public ImportIdwrData()
         {
             InitializeComponent();
 
             this.timeSelectorBeginEnd1.T1 = DateTime.Now.AddDays(-10);
             this.timeSelectorBeginEnd1.T2 = DateTime.Now.AddDays(-1);
+
+            this.comboBoxRiverSystems.DataSource = null;
+            this.comboBoxRiverSystems.SelectedValue = null;
+            this.comboBoxRiverSystems.Items.Clear();
+            var dTab = Reclamation.TimeSeries.IDWR.Utilities.GetIdwrRiverSystems();
+            this.comboBoxRiverSystems.DataSource = dTab;
+            this.comboBoxRiverSystems.ValueMember = "River";
+            this.comboBoxRiverSystems.DisplayMember = "Name";
         }
 
 
@@ -41,14 +52,6 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
         private void comboBoxRiverSystems_OnDropDown(object sender, EventArgs e)
         {
-            this.comboBoxRiverSystems.DataSource = null;
-            this.comboBoxRiverSystems.SelectedValue = null;
-            this.comboBoxRiverSystems.Items.Clear();
-            var dTab = Reclamation.TimeSeries.IDWR.Utilities.GetIdwrRiverSystems();
-            this.comboBoxRiverSystems.DataSource = dTab;
-            this.comboBoxRiverSystems.ValueMember = "River";
-            this.comboBoxRiverSystems.DisplayMember = "Name";
-
             ComboBox senderComboBox = this.comboBoxRiverSystems;
             int width = senderComboBox.DropDownWidth;
             Graphics g = senderComboBox.CreateGraphics();
@@ -56,6 +59,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             int vertScrollBarWidth =
                 (senderComboBox.Items.Count > senderComboBox.MaxDropDownItems)
                 ? SystemInformation.VerticalScrollBarWidth : 0;
+
+            var dTab = senderComboBox.DataSource as DataTable;
 
             int newWidth, maxWidth = 156;
             for (int i = 0; i < dTab.Rows.Count; i++)
@@ -109,13 +114,17 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
                 switch (dTab.Rows[0]["SiteType"].ToString())
                 {
-                    case "F": case "Y": case "E": case "W":
+                    case "F":
+                    case "Y":
+                    case "E":
+                    case "W":
                         {
                             this.radioButtonGH.Enabled = false;
                             this.radioButtonFB.Enabled = false;
                             this.radioButtonAF.Enabled = false;
                             this.radioButtonQD.Enabled = true;
                             this.radioButtonQD.Checked = true;
+                            this.buttonOK.Enabled = true;
                             break;
                         }
                     case "D":
@@ -125,6 +134,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                             this.radioButtonAF.Enabled = false;
                             this.radioButtonQD.Enabled = true;
                             this.radioButtonQD.Checked = true;
+                            this.buttonOK.Enabled = true;
                             break;
                         }
                     case "R":
@@ -134,6 +144,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                             this.radioButtonAF.Enabled = true;
                             this.radioButtonQD.Enabled = false;
                             this.radioButtonFB.Checked = true;
+                            this.buttonOK.Enabled = true;
                             break;
                         }
                     default:
@@ -143,12 +154,38 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                             this.radioButtonAF.Enabled = false;
                             this.radioButtonQD.Enabled = false;
                             this.radioButtonFB.Checked = false;
+                            this.buttonOK.Enabled = false;
                             break;
                         }
                 }
                 this.labelName.Text = "Name: " + dTab.Rows[0]["FullName"].ToString();
-                this.labelSID.Text = "Site ID: " + dTab.Rows[0]["SiteID"].ToString();
+                //this.labelSID.Text = "Site ID: " + dTab.Rows[0]["SiteID"].ToString();
+                this.textBoxSID.Text = dTab.Rows[0]["SiteID"].ToString();
                 this.labelYears.Text = "Years Available: " + dTab.Rows[0]["Years"].ToString();
+                this.labelSType.Text = "Site Type: " + dTab.Rows[0]["SiteType"].ToString();
+            }
+        }
+
+        private void idwrOkButton_Click(object sender, EventArgs e)
+        {
+            if (this.textBoxSID.Text == "")
+            {
+                MessageBox.Show("Input a valid Site ID or select a Site from the drop-down lists...");
+            }
+            else
+            {
+                this.station = this.textBoxSID.Text;
+                this.parameter = "";
+                if (this.radioButtonAF.Checked) { parameter = "AF"; }
+                if (this.radioButtonFB.Checked) { parameter = "FB"; }
+                if (this.radioButtonGH.Checked) { parameter = "GH"; }
+                if (this.radioButtonQD.Checked) { parameter = "QD"; }
+
+                this.tStart = timeSelectorBeginEnd1.T1;
+                this.tEnd = timeSelectorBeginEnd1.T2;
+
+                this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+
             }
         }
     }
