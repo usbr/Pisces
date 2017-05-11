@@ -332,5 +332,30 @@ namespace Reclamation.TimeSeries.IDWR
             }
             return dTab;
         }
+
+        public static DataTable GetIdwrSiteInfo(string siteID)
+        {
+            var dTab = new DataTable();
+            dTab.Columns.Add("SiteID", typeof(string));
+            dTab.Columns.Add("SiteType", typeof(string));
+            dTab.Columns.Add("StationName", typeof(string));
+            dTab.Columns.Add("FullName", typeof(string));
+            dTab.Columns.Add("Years", typeof(string));
+            var sInfo = IdwrApiQuerySiteInfo(siteID);
+            var sYears = IdwrApiQuerySiteYears(siteID);
+            var dRow = dTab.NewRow();
+            dRow["SiteID"] = sInfo[0].SiteId;
+            dRow["SiteType"] = sInfo[0].SiteType;
+            dRow["StationName"] = sInfo[0].StationName;
+            dRow["FullName"] = sInfo[0].FullName;
+            var yearStr = "";
+            foreach (var year in sYears)
+            {
+                yearStr += year + ",";
+            }
+            dRow["Years"] = yearStr.Trim(',');
+            dTab.Rows.Add(dRow);
+            return dTab;
+        }
     }
 }
