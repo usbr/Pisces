@@ -22,14 +22,6 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
             this.timeSelectorBeginEnd1.T1 = DateTime.Now.AddDays(-10);
             this.timeSelectorBeginEnd1.T2 = DateTime.Now.AddDays(-1);
-
-            this.comboBoxRiverSystems.DataSource = null;
-            this.comboBoxRiverSystems.SelectedValue = null;
-            this.comboBoxRiverSystems.Items.Clear();
-            var dTab = Reclamation.TimeSeries.IDWR.Utilities.GetIdwrRiverSystems();
-            this.comboBoxRiverSystems.DataSource = dTab;
-            this.comboBoxRiverSystems.ValueMember = "River";
-            this.comboBoxRiverSystems.DisplayMember = "Name";
         }
 
 
@@ -52,6 +44,16 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
         private void comboBoxRiverSystems_OnDropDown(object sender, EventArgs e)
         {
+            toolStripStatusLabel1.Text = "Requesting River Systems API Data...";
+            statusStrip1.Refresh();
+            this.comboBoxRiverSystems.DataSource = null;
+            this.comboBoxRiverSystems.SelectedValue = null;
+            this.comboBoxRiverSystems.Items.Clear();
+            var dTab = Reclamation.TimeSeries.IDWR.Utilities.GetIdwrRiverSystems();
+            this.comboBoxRiverSystems.DataSource = dTab;
+            this.comboBoxRiverSystems.ValueMember = "River";
+            this.comboBoxRiverSystems.DisplayMember = "Name";
+
             ComboBox senderComboBox = this.comboBoxRiverSystems;
             int width = senderComboBox.DropDownWidth;
             Graphics g = senderComboBox.CreateGraphics();
@@ -59,8 +61,6 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             int vertScrollBarWidth =
                 (senderComboBox.Items.Count > senderComboBox.MaxDropDownItems)
                 ? SystemInformation.VerticalScrollBarWidth : 0;
-
-            var dTab = senderComboBox.DataSource as DataTable;
 
             int newWidth, maxWidth = 156;
             for (int i = 0; i < dTab.Rows.Count; i++)
@@ -72,10 +72,13 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 { maxWidth = newWidth; }
             }
             senderComboBox.DropDownWidth = maxWidth;
+            toolStripStatusLabel1.Text = "Done!";
         }
 
         private void comboBoxRiverSystems_SelectedIndexChanged(object sender, EventArgs e)
         {
+            toolStripStatusLabel1.Text = "Requesting River Sites API Data...";
+            statusStrip1.Refresh();
             if (comboBoxRiverSystems.SelectedValue is string)
             {
                 this.comboBoxRiverSites.DataSource = null;
@@ -103,6 +106,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                     { maxWidth = newWidth; }
                 }
                 senderComboBox.DropDownWidth = maxWidth;
+                toolStripStatusLabel1.Text = "Done!";
             }
         }
 
@@ -110,6 +114,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
         {
             if (comboBoxRiverSites.SelectedValue is string)
             {
+                toolStripStatusLabel1.Text = "Requesting Site Information API Data...";
+                statusStrip1.Refresh();
                 var dTab = Reclamation.TimeSeries.IDWR.Utilities.GetIdwrSiteInfo(this.comboBoxRiverSites.SelectedValue.ToString());
 
                 switch (dTab.Rows[0]["SiteType"].ToString())
@@ -163,6 +169,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 this.textBoxSID.Text = dTab.Rows[0]["SiteID"].ToString();
                 this.labelYears.Text = "Years Available: " + dTab.Rows[0]["Years"].ToString();
                 this.labelSType.Text = "Site Type: " + dTab.Rows[0]["SiteType"].ToString();
+                toolStripStatusLabel1.Text = "Done!";
             }
         }
 
@@ -174,6 +181,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             }
             else
             {
+                toolStripStatusLabel1.Text = "Requesting Site Time Series API Data...";
                 this.station = this.textBoxSID.Text;
                 this.parameter = "";
                 if (this.radioButtonAF.Checked) { parameter = "AF"; }
@@ -185,7 +193,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 this.tEnd = timeSelectorBeginEnd1.T2;
 
                 this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-
+                toolStripStatusLabel1.Text = "Done!";
             }
         }
     }

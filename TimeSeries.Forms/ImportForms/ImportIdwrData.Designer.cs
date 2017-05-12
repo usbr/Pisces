@@ -46,10 +46,13 @@
             this.labelName = new System.Windows.Forms.Label();
             this.labelSID = new System.Windows.Forms.Label();
             this.labelYears = new System.Windows.Forms.Label();
-            this.timeSelectorBeginEnd1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
             this.labelSType = new System.Windows.Forms.Label();
             this.textBoxSID = new System.Windows.Forms.TextBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.timeSelectorBeginEnd1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
             this.groupBox1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -64,7 +67,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 257);
+            this.label2.Location = new System.Drawing.Point(7, 244);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 5;
@@ -77,7 +80,7 @@
             this.groupBox1.Controls.Add(this.radioButtonGH);
             this.groupBox1.Controls.Add(this.radioButtonQD);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(215, 257);
+            this.groupBox1.Location = new System.Drawing.Point(215, 244);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(199, 115);
             this.groupBox1.TabIndex = 6;
@@ -140,7 +143,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(247, 378);
+            this.buttonOK.Location = new System.Drawing.Point(247, 365);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 8;
@@ -152,7 +155,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(333, 378);
+            this.buttonCancel.Location = new System.Drawing.Point(333, 365);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -162,7 +165,7 @@
             // linkLabelIdwrApiInfo
             // 
             this.linkLabelIdwrApiInfo.AutoSize = true;
-            this.linkLabelIdwrApiInfo.Location = new System.Drawing.Point(6, 392);
+            this.linkLabelIdwrApiInfo.Location = new System.Drawing.Point(9, 370);
             this.linkLabelIdwrApiInfo.Name = "linkLabelIdwrApiInfo";
             this.linkLabelIdwrApiInfo.Size = new System.Drawing.Size(78, 13);
             this.linkLabelIdwrApiInfo.TabIndex = 9;
@@ -181,16 +184,21 @@
             // 
             // comboBoxRiverSystems
             // 
+            this.comboBoxRiverSystems.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxRiverSystems.FormattingEnabled = true;
             this.comboBoxRiverSystems.Location = new System.Drawing.Point(13, 26);
             this.comboBoxRiverSystems.Name = "comboBoxRiverSystems";
             this.comboBoxRiverSystems.Size = new System.Drawing.Size(401, 21);
             this.comboBoxRiverSystems.TabIndex = 11;
+            this.comboBoxRiverSystems.Text = "Select A River System";
             this.comboBoxRiverSystems.DropDown += new System.EventHandler(this.comboBoxRiverSystems_OnDropDown);
             this.comboBoxRiverSystems.SelectedIndexChanged += new System.EventHandler(this.comboBoxRiverSystems_SelectedIndexChanged);
             // 
             // comboBoxRiverSites
             // 
+            this.comboBoxRiverSites.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxRiverSites.FormattingEnabled = true;
             this.comboBoxRiverSites.Location = new System.Drawing.Point(12, 71);
             this.comboBoxRiverSites.Name = "comboBoxRiverSites";
@@ -227,6 +235,8 @@
             // 
             // labelYears
             // 
+            this.labelYears.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelYears.AutoSize = true;
             this.labelYears.Location = new System.Drawing.Point(24, 157);
             this.labelYears.MaximumSize = new System.Drawing.Size(350, 0);
@@ -234,16 +244,6 @@
             this.labelYears.Size = new System.Drawing.Size(86, 13);
             this.labelYears.TabIndex = 16;
             this.labelYears.Text = "Years Available: ";
-            // 
-            // timeSelectorBeginEnd1
-            // 
-            this.timeSelectorBeginEnd1.Location = new System.Drawing.Point(10, 273);
-            this.timeSelectorBeginEnd1.Name = "timeSelectorBeginEnd1";
-            this.timeSelectorBeginEnd1.ShowTime = false;
-            this.timeSelectorBeginEnd1.Size = new System.Drawing.Size(199, 46);
-            this.timeSelectorBeginEnd1.T1 = new System.DateTime(2008, 3, 12, 7, 55, 34, 320);
-            this.timeSelectorBeginEnd1.T2 = new System.DateTime(2008, 3, 12, 7, 55, 34, 320);
-            this.timeSelectorBeginEnd1.TabIndex = 1;
             // 
             // labelSType
             // 
@@ -261,11 +261,38 @@
             this.textBoxSID.Size = new System.Drawing.Size(139, 20);
             this.textBoxSID.TabIndex = 18;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 391);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(420, 22);
+            this.statusStrip1.TabIndex = 19;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(185, 17);
+            this.toolStripStatusLabel1.Text = "Add an IDWR Series from web API";
+            // 
+            // timeSelectorBeginEnd1
+            // 
+            this.timeSelectorBeginEnd1.Location = new System.Drawing.Point(10, 260);
+            this.timeSelectorBeginEnd1.Name = "timeSelectorBeginEnd1";
+            this.timeSelectorBeginEnd1.ShowTime = false;
+            this.timeSelectorBeginEnd1.Size = new System.Drawing.Size(199, 46);
+            this.timeSelectorBeginEnd1.T1 = new System.DateTime(2008, 3, 12, 7, 55, 34, 320);
+            this.timeSelectorBeginEnd1.T2 = new System.DateTime(2008, 3, 12, 7, 55, 34, 320);
+            this.timeSelectorBeginEnd1.TabIndex = 1;
+            // 
             // ImportIdwrData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 413);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.textBoxSID);
             this.Controls.Add(this.labelSType);
             this.Controls.Add(this.labelYears);
@@ -287,6 +314,8 @@
             this.Text = "Import IDWR Data";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -315,5 +344,7 @@
         private System.Windows.Forms.Label labelYears;
         private System.Windows.Forms.Label labelSType;
         private System.Windows.Forms.TextBox textBoxSID;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }
