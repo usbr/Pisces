@@ -148,9 +148,9 @@ namespace Reclamation.RiverwareDmi
             Console.WriteLine("Where:");
             Console.WriteLine("       -UHydrometServer pnhyd0|yakhyd specifies what hydromet server to read from");
 
-            Console.WriteLine("Usage 3: controlfile tempPath yyyy-mm-dd hh:mm yyyy-mm-dd hh:mm 1DAY  -UsdfFileName=file.sdf");
+            Console.WriteLine("Usage 3: controlfile tempPath yyyy-mm-dd hh:mm yyyy-mm-dd hh:mm 1DAY  -UpdbFileName=file.pdb");
             Console.WriteLine("Where:");
-            Console.WriteLine("       -UsdfFileName file.sdf -- Pisces input file");
+            Console.WriteLine("       -UpdbFileName file.pdb -- Pisces input file");
 
             Console.WriteLine();
             Console.WriteLine("Usage 4: controlfile tempPath yyyy-mm-dd hh:mm yyyy-mm-dd hh:mm 1DAY  -UEmbededData=True ");
