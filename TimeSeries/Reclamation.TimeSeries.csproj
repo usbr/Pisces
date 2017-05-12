@@ -269,6 +269,7 @@
     <Compile Include="Tests\SeriesMath\TestResidual.cs" />
     <Compile Include="Tests\SeriesMath\TestInterpolate2D.cs" />
     <Compile Include="Tests\SeriesTypes\TestHDB.cs" />
+    <Compile Include="Tests\SeriesTypes\TestIdwr.cs" />
     <Compile Include="TimeRange.cs" />
     <Compile Include="TimeSeriesDatabase.Factory.cs" />
     <Compile Include="DataTableSeries.cs" />

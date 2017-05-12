@@ -15,7 +15,7 @@ namespace Reclamation.TimeSeries.IDWR
     public class IDWRDailySeries : Series
     {
         static string idwrAPI = @"https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting";
-        static RestClient idwrClient = new RestClient(idwrAPI);        
+        public static RestClient idwrClient = new RestClient(idwrAPI);        
         string station;
         string parameter;
 
@@ -56,9 +56,7 @@ namespace Reclamation.TimeSeries.IDWR
             }
             else
             {
-                Add(
-                //IDWRWebDownload(station, t1, t2));
-                IdwrApiDownload(station, parameter, t1, t2));
+                Add(IdwrApiDownload(station, parameter, t1, t2));
             }            
         }
 
@@ -257,16 +255,13 @@ namespace Reclamation.TimeSeries.IDWR
 
     public class Utilities
     {
-        static string idwrAPI = @"https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting";
-        static RestClient idwrClient = new RestClient(idwrAPI);
-
         private static List<RiverItems> IdwrApiQueryRiverList()
         {
             // Working API Call
             //https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting/RiverSystems
 
             var request = new RestRequest("RiverSystems/", Method.GET);
-            IRestResponse restResponse = idwrClient.Execute(request);
+            IRestResponse restResponse = IDWRDailySeries.idwrClient.Execute(request);
             return JsonConvert.DeserializeObject<List<RiverItems>>(restResponse.Content);
         }
 
@@ -278,7 +273,7 @@ namespace Reclamation.TimeSeries.IDWR
 
             var request = new RestRequest("SitesByRiver?", Method.GET);
             request.AddParameter("river", riverItem);
-            IRestResponse restResponse = idwrClient.Execute(request);
+            IRestResponse restResponse = IDWRDailySeries.idwrClient.Execute(request);
             return JsonConvert.DeserializeObject<List<RiverSite>>(restResponse.Content);
         }
 
@@ -289,7 +284,7 @@ namespace Reclamation.TimeSeries.IDWR
 
             var request = new RestRequest("SiteDetails?", Method.GET);
             request.AddParameter("sitelist", riverSite);
-            IRestResponse restResponse = idwrClient.Execute(request);
+            IRestResponse restResponse = IDWRDailySeries.idwrClient.Execute(request);
             return JsonConvert.DeserializeObject<List<SiteInfo>>(restResponse.Content);
         }
 
@@ -302,7 +297,7 @@ namespace Reclamation.TimeSeries.IDWR
             request.AddParameter("siteid", riverSite);
             request.AddParameter("yeartype", "CY");
             request.AddParameter("f", "json");
-            IRestResponse restResponse = idwrClient.Execute(request);
+            IRestResponse restResponse = IDWRDailySeries.idwrClient.Execute(request);
             return JsonConvert.DeserializeObject<List<string>>(restResponse.Content);
         }
 
