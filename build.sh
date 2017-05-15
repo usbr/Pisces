@@ -20,7 +20,7 @@ mono .nuget/nuget.exe restore Pisces.sln
 
 export EnableNuGetPackageRestore=true
 #./.nuget/NuGet.exe install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
-xbuild Pisces.sln /p:PostBuildEvent="" 
+xbuild Pisces.sln /p:PostBuildEvent=""  /p:DefineConstants="__MonoCS__"
 
 echo "copying core output to bin" 
 cp $HYDROMET/Reclamation.TimeSeries.dll $HYDROMET/Reclamation.Core.dll ./bin
