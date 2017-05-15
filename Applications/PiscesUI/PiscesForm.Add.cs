@@ -1154,7 +1154,7 @@ namespace Reclamation.TimeSeries.Forms
         {
             ImportIdwrData dlg = new ImportIdwrData();
 
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (dlg.ShowDialog() == DialogResult.OK)
             {
                 string station = dlg.station;
                 string parameter = dlg.parameter;
@@ -1164,6 +1164,10 @@ namespace Reclamation.TimeSeries.Forms
                 var s = new IDWR.IDWRDailySeries(station, parameter);
                 s.Read(t1, t2);
                 DB.AddSeries(s, CurrentFolder);
+            }
+            else if (dlg.ShowDialog() == DialogResult.Ignore)
+            {
+                dlg.ShowDialog();
             }
         }
 

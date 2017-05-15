@@ -109,7 +109,26 @@ namespace Reclamation.TimeSeries.IDWR
                 yearList += year + ",";
             }
             yearList = yearList.Trim(',');
-            var jsonResponse = IdwrApiQuerySiteData(station, yearList);
+            var jsonResponse = new List<TsData>();
+            try
+            {
+                jsonResponse = IdwrApiQuerySiteData(station, yearList);
+            }
+            catch
+            {
+                var ithT = t1.Date;
+                while (ithT <= t2)
+                {
+                    var tPoint = new TsData();
+                    tPoint.Date = ithT.ToShortDateString();
+                    tPoint.GH = "NaN";
+                    tPoint.FB = "NaN";
+                    tPoint.AF = "NaN";
+                    tPoint.QD = "NaN";
+                    jsonResponse.Add(tPoint);
+                    ithT = ithT.AddDays(1);                        
+                }                
+            }
 
             foreach (var item in jsonResponse)
             {

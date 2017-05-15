@@ -107,6 +107,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 }
                 senderComboBox.DropDownWidth = maxWidth;
                 toolStripStatusLabel1.Text = "Done!";
+                ValidateDates(sender, e);
             }
         }
 
@@ -170,6 +171,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 this.labelYears.Text = "Years Available: " + dTab.Rows[0]["Years"].ToString();
                 this.labelSType.Text = "Site Type: " + dTab.Rows[0]["SiteType"].ToString();
                 toolStripStatusLabel1.Text = "Done!";
+                statusStrip1.Refresh();
+                ValidateDates(sender, e);
             }
         }
 
@@ -178,6 +181,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             if (this.textBoxSID.Text == "")
             {
                 MessageBox.Show("Input a valid Site ID or select a Site from the drop-down lists...");
+                this.DialogResult = DialogResult.Ignore;
             }
             else
             {
@@ -192,9 +196,25 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 this.tStart = timeSelectorBeginEnd1.T1;
                 this.tEnd = timeSelectorBeginEnd1.T2;
 
-                this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+                this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 toolStripStatusLabel1.Text = "Done!";
             }
         }
+
+        private void ValidateDates(object sender, EventArgs e)
+        {
+            this.tStart = timeSelectorBeginEnd1.T1;
+            this.tEnd = timeSelectorBeginEnd1.T2;
+
+            var years = this.labelYears.Text;
+
+            if (!years.Contains(tStart.Year.ToString()) || !years.Contains(tEnd.Year.ToString()))
+            {
+                toolStripStatusLabel1.Text = "Selected date range have no data...";
+                statusStrip1.Refresh();
+            }
+        }
+
+
     }
 }
