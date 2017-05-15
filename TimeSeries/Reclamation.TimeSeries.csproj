@@ -215,7 +215,6 @@
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
     </None>
     <None Include="Alarms\extensions.conf" />
-    <None Include="Reports\statout.for" />
     <None Include="RatingTables\HydrographyDataSet.xsc">
       <DependentUpon>HydrographyDataSet.xsd</DependentUpon>
     </None>
