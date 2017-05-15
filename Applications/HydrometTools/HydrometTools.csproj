@@ -1,0 +1,986 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E5BF67D9-A1AC-4878-8072-0E5A23EA17CD}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>App.ico</ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>HydrometTools</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>HydrometTools</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>HydrometTools.FormMain</StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\TEMP\WebSite\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Pisces\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;SpreadsheetGear</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Forecasting|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Forecasting\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WatchDog|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\WatchDog\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'poet|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\poet\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'pisces|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\pisces\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Aga.Controls">
+      <HintPath>..\..\ThirdParty\Aga.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SSH.NET.2016.1.0-beta1\lib\net40\Renci.SshNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SpreadsheetGear">
+      <HintPath>..\..\Pisces\PaidThirdParty\SpreadsheetGear.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Design">
+      <Name>System.Design</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+    </COMReference>
+    <Reference Include="TeeChart, Version=3.5.3470.15475, Culture=neutral, PublicKeyToken=9c8126276c77bdb7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Pisces\PaidThirdParty\TeeChart.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Advanced\Advanced.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Advanced\Advanced.Designer.cs">
+      <DependentUpon>Advanced.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Advanced\ArchiverInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Advanced\ArchiverInput.Designer.cs">
+      <DependentUpon>ArchiverInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Advanced\ArchiverPcodeHelp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Advanced\ArchiverPcodeHelp.Designer.cs">
+      <DependentUpon>ArchiverPcodeHelp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Advanced\ArchiverFileList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Advanced\ArchiverFileList.Designer.cs">
+      <DependentUpon>ArchiverFileList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Advanced\DayfileInsert.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Advanced\DayfileInsert.Designer.cs">
+      <DependentUpon>DayfileInsert.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Advanced\EquationEditorTable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Advanced\EquationEditorTable.Designer.cs">
+      <DependentUpon>EquationEditorTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Advanced\ManualEncodeDecode\EncodeAscii.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Advanced\ManualEncodeDecode\EncodeAscii.Designer.cs">
+      <DependentUpon>EncodeAscii.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Advanced\Mcf2Decodes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Advanced\Mcf2Decodes.Designer.cs">
+      <DependentUpon>Mcf2Decodes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Advanced\RawDataInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Advanced\RawDataInput.Designer.cs">
+      <DependentUpon>RawDataInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Advanced\MathInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Advanced\MathInput.Designer.cs">
+      <DependentUpon>MathInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AgriMet\AgriMetCropChartEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AgriMet\AgriMetCropChartEditor.Designer.cs">
+      <DependentUpon>AgriMetCropChartEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AgriMet\AgriMetTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AgriMet\AgriMetTab.Designer.cs">
+      <DependentUpon>AgriMetTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AgriMet\SpreadsheetControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AgriMet\SpreadsheetControl.Designer.cs">
+      <DependentUpon>SpreadsheetControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Decodes\DecodesDataSet.cs">
+      <DependentUpon>DecodesDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Decodes\DecodesDataSet1.Designer.cs">
+      <DependentUpon>DecodesDataSet.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Decodes\DecodesRawFile.cs" />
+    <Compile Include="Decodes\DecodesUtility.cs" />
+    <Compile Include="Decodes\GoesMessageDataSet.cs">
+      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Decodes\GoesMessageDataSet.Designer.cs">
+      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Decodes\McfDecodesConverter.cs" />
+    <Compile Include="Decodes\McfToDecodes.cs" />
+    <Compile Include="Decodes\UnitConversion.cs" />
+    <Compile Include="FcPlot\FCOP.cs" />
+    <Compile Include="FcPlot\FcPlotUI.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FcPlot\FcPlotUI.Designer.cs">
+      <DependentUpon>FcPlotUI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FcPlot\HydrometTeeChart.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FcPlot\HydrometTeeChart.Designer.cs">
+      <DependentUpon>HydrometTeeChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphing\RatingTableGraph.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\RatingTableGraph.Designer.cs">
+      <DependentUpon>RatingTableGraph.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HydrometEditsVMS.cs" />
+    <Compile Include="Import\ImportFDRTemperature.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Import\ImportFDRTemperature.Designer.cs">
+      <DependentUpon>ImportFDRTemperature.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ITimeSeriesSpreadsheet.cs" />
+    <Compile Include="Reports\Reports.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\Reports.Designer.cs">
+      <DependentUpon>Reports.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\UpperSnake\americanfalls.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\UpperSnake\americanfalls.Designer.cs" />
+    <Compile Include="Reports\UpperSnake\islandpark.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\UpperSnake\islandpark.Designer.cs" />
+    <Compile Include="Reports\UpperSnake\jackson.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\UpperSnake\jackson.Designer.cs" />
+    <Compile Include="Reports\UpperSnake\littlewood.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\UpperSnake\littlewood.Designer.cs" />
+    <Compile Include="Reports\UpperSnake\milner.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\UpperSnake\milner.Designer.cs" />
+    <Compile Include="Reports\UpperSnake\minidoka.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\UpperSnake\minidoka.Designer.cs" />
+    <Compile Include="Reports\UpperSnake\MorningScript.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\UpperSnake\MorningScript.Designer.cs" />
+    <Compile Include="Reports\UpperSnake\palisades.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\UpperSnake\palisades.Designer.cs" />
+    <Compile Include="Reports\UpperSnake\ririe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\UpperSnake\ririe.Designer.cs" />
+    <Compile Include="Reports\UpperSnake\UpperSnakeMorning.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\UpperSnake\UpperSnakeMorning.Designer.cs">
+      <DependentUpon>UpperSnakeMorning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\ViewReportsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\ViewReportsForm.Designer.cs">
+      <DependentUpon>ViewReportsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\YakimaStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Reports\YakimaStatus.Designer.cs">
+      <DependentUpon>YakimaStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SaveOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaveOptions.Designer.cs">
+      <DependentUpon>SaveOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Look\LookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Look\LookForm.Designer.cs" />
+    <Compile Include="Look\LookClass.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Look\NewLook.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Look\NewLook.Designer.cs" />
+    <Compile Include="Look\Program.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Database.cs" />
+    <Compile Include="SpreadsheetRange.cs" />
+    <Compile Include="ssh\SecureCopy.cs" />
+    <Compile Include="ssh\Utility.cs" />
+    <Compile Include="Stats\MaxStat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\MaxStat.Designer.cs">
+      <DependentUpon>MaxStat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\Monthly.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\Monthly.Designer.cs">
+      <DependentUpon>Monthly.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\MultiWaterYearSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\MultiWaterYearSelector.Designer.cs">
+      <DependentUpon>MultiWaterYearSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\MultiYearAverage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\MultiYearAverage.Designer.cs">
+      <DependentUpon>MultiYearAverage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\StatsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\StatsControl.Designer.cs">
+      <DependentUpon>StatsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Stats\VolumeInRange.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Stats\VolumeInRange.Designer.cs">
+      <DependentUpon>VolumeInRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSeriesSpreadsheetSG.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimeSeriesSpreadsheetSG.Designer.cs">
+      <DependentUpon>TimeSeriesSpreadsheetSG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RatingTableTableViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RatingTableTableViewer.Designer.cs">
+      <DependentUpon>RatingTableTableViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSeriesHydrographEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\GraphingTabs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\GraphingTabs.Designer.cs">
+      <DependentUpon>GraphingTabs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphing\InstantGraphing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\InstantGraphing.Designer.cs">
+      <DependentUpon>InstantGraphing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphing\DailyGraphing.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\DailyGraphing.Designer.cs">
+      <DependentUpon>DailyGraphing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphing\EditStringCollection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Graphing\EditStringCollection.Designer.cs">
+      <DependentUpon>EditStringCollection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Graphing\DetailsComboBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphing\DetailsComboBox.Designer.cs">
+      <DependentUpon>DetailsComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="SnowGG\SelectBasin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SnowGG\SelectBasin.Designer.cs">
+      <DependentUpon>SelectBasin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSeriesEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormStatus.Designer.cs">
+      <DependentUpon>FormStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="RatingTableSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RatingTableSelector.Designer.cs">
+      <DependentUpon>RatingTableSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DateSelectorWaterYears.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTchartLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTchartLicense.Designer.cs">
+      <DependentUpon>FormTchartLicense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Import\ImportDaily.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Import\ImportDaily.Designer.cs">
+      <DependentUpon>ImportDaily.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RatingTableDisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RatingTableDisplay.Designer.cs">
+      <DependentUpon>RatingTableDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SnowGG\SnowGG.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SnowGG\SnowGG.Designer.cs">
+      <DependentUpon>SnowGG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SnowGG\SnowGGUtility.cs" />
+    <Compile Include="MonthlyCalculationPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MonthlyCalculationPreview.Designer.cs">
+      <DependentUpon>MonthlyCalculationPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeSeriesSpreadsheet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimeSeriesSpreadsheet.Designer.cs">
+      <DependentUpon>TimeSeriesSpreadsheet.cs</DependentUpon>
+    </Compile>
+    <Content Include="..\..\..\..\..\..\..\utils\PSCP.EXE">
+      <Link>PSCP.EXE</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\TimeSeries\Reports\YakimaStatusTemplate.txt">
+      <Link>YakimaStatusTemplate.txt</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\cfg\mpoll_inventory.txt">
+      <Link>cfg\mpoll_inventory.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Advanced\EquationEditorTable.resx">
+      <DependentUpon>EquationEditorTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Advanced\ManualEncodeDecode\EncodeAscii.resx">
+      <DependentUpon>EncodeAscii.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Advanced\Mcf2Decodes.resx">
+      <DependentUpon>Mcf2Decodes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgriMet\AgriMetCropChartEditor.resx">
+      <DependentUpon>AgriMetCropChartEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgriMet\SpreadsheetControl.resx">
+      <DependentUpon>SpreadsheetControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Import\ImportFDRTemperature.resx">
+      <DependentUpon>ImportFDRTemperature.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\Reports.resx">
+      <DependentUpon>Reports.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\UpperSnake\americanfalls.resx" />
+    <EmbeddedResource Include="Reports\UpperSnake\islandpark.resx" />
+    <EmbeddedResource Include="Reports\UpperSnake\jackson.resx" />
+    <EmbeddedResource Include="Reports\UpperSnake\littlewood.resx" />
+    <EmbeddedResource Include="Reports\UpperSnake\milner.resx" />
+    <EmbeddedResource Include="Reports\UpperSnake\minidoka.resx" />
+    <EmbeddedResource Include="Reports\UpperSnake\MorningScript.resx" />
+    <EmbeddedResource Include="Reports\UpperSnake\palisades.resx" />
+    <EmbeddedResource Include="Reports\UpperSnake\ririe.resx" />
+    <EmbeddedResource Include="Reports\UpperSnake\UpperSnakeMorning.resx">
+      <DependentUpon>UpperSnakeMorning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ViewReportsForm.resx">
+      <DependentUpon>ViewReportsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\YakimaStatus.resx">
+      <DependentUpon>YakimaStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaveOptions.resx">
+      <DependentUpon>SaveOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\MaxStat.resx">
+      <DependentUpon>MaxStat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\Monthly.resx">
+      <DependentUpon>Monthly.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\MultiWaterYearSelector.resx">
+      <DependentUpon>MultiWaterYearSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\MultiYearAverage.resx">
+      <DependentUpon>MultiYearAverage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\StatsControl.resx">
+      <DependentUpon>StatsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Stats\VolumeInRange.resx">
+      <DependentUpon>VolumeInRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeSeriesSpreadsheetSG.resx">
+      <DependentUpon>TimeSeriesSpreadsheetSG.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="..\..\..\..\..\..\..\HydrometTools\cfg\RuleCurves.xlsx">
+      <Link>RuleCurves.xlsx</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\..\..\..\..\..\utils\private\hydromet-tools-private.config">
+      <Link>hydromet-tools-private.config</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="..\..\TimeSeries\Reports\YakimaOthersAboveParker.csv">
+      <Link>YakimaOthersAboveParker.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\boise_arc.dat">
+      <Link>..\cfg\boise_arc.dat</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\CC.DAT">
+      <Link>cfg\CC.DAT</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\daily_pcode.csv">
+      <Link>cfg\daily_pcode.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\goes.csv">
+      <Link>cfg\goes.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\gp\alarm.csv">
+      <Link>cfg\gp\alarm.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\gp\arc_inv.dat">
+      <Link>cfg\gp\arc_inv.dat</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\gp\billings_arc.dat">
+      <Link>cfg\gp\billings_arc.dat</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\gp\goes.csv">
+      <Link>cfg\gp\goes.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\gp\group.csv">
+      <Link>cfg\gp\group.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\gp\pcode.csv">
+      <Link>cfg\gp\pcode.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\gp\ratingtables.xls">
+      <Link>cfg\gp\ratingtables.xls</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\gp\site.csv">
+      <Link>cfg\gp\site.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\group.csv">
+      <Link>cfg\group.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\instant_pcode.csv">
+      <Link>cfg\instant_pcode.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\monthly_pcode.csv">
+      <Link>cfg\monthly_pcode.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\mpoll.cbt">
+      <Link>cfg\mpoll.cbt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\nwcc_inventory.csv">
+      <Link>cfg\nwcc_inventory.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\owrd_station_list.csv">
+      <Link>cfg\owrd_station_list.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\pcode.csv">
+      <Link>cfg\pcode.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\rating_tables\bhr_af.csv">
+      <Link>cfg\rating_tables\bhr_af.csv</Link>
+    </None>
+    <None Include="..\cfg\site.csv">
+      <Link>cfg\site.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\snotel_site_list2.csv">
+      <Link>cfg\snotel_site_list2.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\snowgg_groups.csv">
+      <Link>cfg\snowgg_groups.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\snowgg_groups_gp.csv">
+      <Link>cfg\snowgg_groups_gp.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\yak\alarm.csv">
+      <Link>cfg\yak\alarm.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\yak\goes.csv">
+      <Link>cfg\yak\goes.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\yak\pcode.csv">
+      <Link>cfg\yak\pcode.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\yak\site.csv">
+      <Link>cfg\yak\site.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\yak\yakima_ratingtables.xls">
+      <Link>cfg\yak\yakima_ratingtables.xls</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Advanced\ManualEncodeDecode\Binary to Dec Conversion.xls" />
+    <None Include="..\cfg\RatingTableTemplate.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\reclamationcgi.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Decodes\DecodesDataSet.xsc">
+      <DependentUpon>DecodesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Decodes\DecodesDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DecodesDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Decodes\DecodesDataSet.xss">
+      <DependentUpon>DecodesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Decodes\GoesMessageDataSet.xsc">
+      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Decodes\GoesMessageDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>GoesMessageDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Decodes\GoesMessageDataSet.xss">
+      <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <EmbeddedResource Include="Graphing\RatingTableGraph.resx">
+      <DependentUpon>RatingTableGraph.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Look\LookForm.resx" />
+    <EmbeddedResource Include="Look\NewLook.resx" />
+    <EmbeddedResource Include="TimeSeriesSpreadsheet.resx">
+      <DependentUpon>TimeSeriesSpreadsheet.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="App.ico" />
+    <Content Include="HydrometTools.iss" />
+    <EmbeddedResource Include="FcPlot\FcPlotUI.resx">
+      <DependentUpon>FcPlotUI.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FcPlot\HydrometTeeChart.resx">
+      <DependentUpon>HydrometTeeChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MonthlyCalculationPreview.resx">
+      <DependentUpon>MonthlyCalculationPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Advanced\Advanced.resx">
+      <DependentUpon>Advanced.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Advanced\ArchiverInput.resx">
+      <DependentUpon>ArchiverInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Advanced\ArchiverPcodeHelp.resx">
+      <DependentUpon>ArchiverPcodeHelp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Advanced\ArchiverFileList.resx">
+      <DependentUpon>ArchiverFileList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Advanced\DayfileInsert.resx">
+      <DependentUpon>DayfileInsert.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Advanced\RawDataInput.resx">
+      <DependentUpon>RawDataInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Advanced\MathInput.resx">
+      <DependentUpon>MathInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AgriMet\AgriMetTab.resx">
+      <DependentUpon>AgriMetTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RatingTableTableViewer.resx">
+      <DependentUpon>RatingTableTableViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeSeriesHydrographEditor.resx">
+      <DependentUpon>TimeSeriesHydrographEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\GraphingTabs.resx">
+      <DependentUpon>GraphingTabs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\InstantGraphing.resx">
+      <DependentUpon>InstantGraphing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\DailyGraphing.resx">
+      <DependentUpon>DailyGraphing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\EditStringCollection.resx">
+      <DependentUpon>EditStringCollection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Graphing\DetailsComboBox.resx">
+      <DependentUpon>DetailsComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SnowGG\SelectBasin.resx">
+      <DependentUpon>SelectBasin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeSeriesEditor.resx">
+      <DependentUpon>TimeSeriesEditor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormStatus.resx">
+      <DependentUpon>FormStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RatingTableSelector.resx">
+      <DependentUpon>RatingTableSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DateSelectorWaterYears.resx">
+      <DependentUpon>DateSelectorWaterYears.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTchartLicense.resx">
+      <DependentUpon>FormTchartLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Import\ImportDaily.resx">
+      <DependentUpon>ImportDaily.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="RatingTableDisplay.resx">
+      <DependentUpon>RatingTableDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SnowGG\SnowGG.resx">
+      <DependentUpon>SnowGG.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Reclamation.Core.csproj">
+      <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
+      <Name>Reclamation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HydrometNotifications\HydrometNotifications.csproj">
+      <Project>{09B73D14-AFBB-434E-A71D-73248CBBF0A3}</Project>
+      <Name>HydrometNotifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj">
+      <Project>{37b543f5-03a5-479e-b20c-7b4acc53d16a}</Project>
+      <Name>Reclamation.TimeSeries.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj">
+      <Project>{862135b0-793a-4f06-b731-26c61b3ad068}</Project>
+      <Name>Reclamation.TimeSeries.Graphing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
+      <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>
+      <Name>Reclamation.TimeSeries.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries\Reclamation.TimeSeries.csproj">
+      <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
+      <Name>Reclamation.TimeSeries</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+</Project>

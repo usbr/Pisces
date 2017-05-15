@@ -1,0 +1,176 @@
+Order,Cbtt,Group
+1,PRKW,Hebgen
+2,TOPW,Hebgen
+3,CANW,Hebgen
+4,BLBM,Hebgen
+5,MDPM,Hebgen
+6,NORM,Hebgen
+7,SYLY,Hebgen
+8,WSKM,Hebgen
+9,BEAM,Jefferson
+10,CMDM,Jefferson
+11,DHLM,Jefferson
+12,MULM,Jefferson
+13,LMHM,Jefferson
+14,RKPM,Jefferson
+15,TPEM,Jefferson
+16,CLVM,Jefferson
+17,SDMM,Jefferson
+18,LWTM,Jefferson
+19,DIVM,Jefferson
+20,BLOM,Jefferson
+21,LVRM,Jefferson
+22,SHCM,Jefferson
+23,FRHM,Jefferson
+24,MOKI,Jefferson
+25,CRRM,Madison
+26,CMDM,Madison
+27,TPKM,Madison
+28,BLBM,Madison
+29,LWTM,Madison
+30,BEVM,Madison
+31,MDPM,Madison
+32,WSKM,Madison
+33,CRRM,Gallatin
+34,SHFM,Gallatin
+35,LCKM,Gallatin
+36,MTKM,Hungery Horse
+37,BADM,Hungery Horse
+38,CPCM,Hungery Horse
+39,NOIM,Hungery Horse
+40,EMCM,Hungery Horse
+41,BEAM,Clark Canyon
+42,DHLM,Clark Canyon
+43,LMHM,Clark Canyon
+44,TPEM,Clark Canyon
+45,DIVM,Clark Canyon
+46,BLOM,Clark Canyon
+47,LVRM,Clark Canyon
+48,CRRM,Canyon Ferry
+49,BEAM,Canyon Ferry
+50,CMDM,Canyon Ferry
+51,DHLM,Canyon Ferry
+52,SHFM,Canyon Ferry
+53,MULM,Canyon Ferry
+54,LHLM,Canyon Ferry
+55,RKPM,Canyon Ferry
+56,TPEM,Canyon Ferry
+57,BLBM,Canyon Ferry
+58,SDMM,Canyon Ferry
+59,LWTM,Canyon Ferry
+60,BEVM,Canyon Ferry
+61,DIVM,Canyon Ferry
+62,MDPM,Canyon Ferry
+63,BLOM,Canyon Ferry
+64,LVRM,Canyon Ferry
+65,SHCM,Canyon Ferry
+66,LCKM,Canyon Ferry
+67,WSKM,Canyon Ferry
+68,FRHM,Canyon Ferry
+69,CLVM,Canyon Ferry
+70,MOKI,Canyon Ferry
+71,MTKM,Gibson
+72,WODM,Gibson
+73,DPYM,Gibson
+74,WALM,Gibson
+75,BADM,Gibson
+76,Mtkm,Lake Elwell
+77,badm,Lake Elwell
+78,picm,Lake Elwell
+79,dpym,Lake Elwell
+80,walm,Lake Elwell
+81,TPEM,Lima
+82,DIVM,Lima
+83,LVRM,Lima
+84,CRBI,Lima
+85,ISPI,Lima
+86,FTMM,Sherburne
+87,MANM,Sherburne
+88,ROCM,Fresno
+89,KRWW,Buffalo Bill
+90,BLWY,Buffalo Bill
+91,EVNY,Buffalo Bill
+92,MRQY,Buffalo Bill
+93,SYLY,Buffalo Bill
+94,YOUY,Buffalo Bill
+95,SYRW,Buffalo Bill
+96,KRWW,Bighorn Lake
+97,BLWY,Bighorn Lake
+98,SCRY,Bighorn Lake
+99,PWDW,Bighorn Lake
+100,BLDY,Bighorn Lake
+101,BSDY,Bighorn Lake
+102,EVNY,Bighorn Lake
+103,OLWW,Bighorn Lake
+104,SUCY,Bighorn Lake
+105,DMLW,Bighorn Lake
+106,HNSW,Bighorn Lake
+107,MRQY,Bighorn Lake
+108,SYLY,Bighorn Lake
+109,YOUY,Bighorn Lake
+110,SYRW,Bighorn Lake
+111,LSTW,Bighorn Lake
+112,TCWY,Bighorn Lake
+113,BTNW,Bighorn Lake
+114,BRJW,Bighorn Lake
+115,MDDW,Bighorn Lake
+116,HBBY,Bull Lake
+117,cosw,Bull Lake
+118,ekpw,Bull Lake
+119,slaw,Bull Lake
+120,HBBY,Boysen
+121,CHRW,Boysen
+122,KRWW,Boysen
+123,COSW,Boysen
+124,LTWY,Boysen
+125,TOGY,Boysen
+126,SOPASSWY,Boysen
+127,BRCW,Boysen
+128,TWNW,Boysen
+129,SLAW,Boysen
+130,YOUY,Boysen
+131,APSC,Apishapa
+132,ASNC,Independence Pass
+133,DEDMNHCO,CLAFTCCO
+134,JWRC,CLAFTCCO
+135,BROKLNWY,Glendo
+136,CASPERWY,Glendo
+137,DEDMNHCO,Glendo
+138,DPKW,Glendo
+139,LPPY,Glendo
+140,RNHW,Glendo
+141,ROAC,Glendo
+142,SNLW,Glendo
+143,SOPASSWY,Glendo
+144,WNDY,Glendo
+145,LIRENECO,Granby
+146,PHANTMCO,Granby
+147,SCCO,Granby
+148,FREMNTCO,Granby
+149,HOSIERCO,Granby
+150,GRIZLYCO,Granby
+151,NLCO,Nast
+152,BLKC,Olympus
+153,LIRENECO,Olympus
+154,SUMC,Olympus
+155,FREMNTCO,Pueblo
+156,BRMC,Pueblo
+157,POPHYRCO,Pueblo
+158,ASNC,Ruedi
+159,IHCO,Ruedi
+160,KLNC,Ruedi
+161,NLCO,Ruedi
+162,COLMBNCO,Semino
+163,DVDY,Semino
+164,ELKC,Semino
+165,JWRC,Semino
+166,NFCY,Semino
+167,OLDBATCO,Semino
+168,SBCW,Semino
+169,SCBW,Semino
+170,TOWC,Semino
+171,WBSY,Semino
+172,WLLC,Semino
+173,WLLC,Willow
+174,SCCO,Willow
+175,WLDBASCO,Wild

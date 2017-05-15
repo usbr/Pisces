@@ -1,0 +1,389 @@
+Order,Cbtt,Group
+1,BORO,Baker
+2,BLPO,Baker
+3,EIMO,Baker
+4,GLDO,Baker
+5,ATAI,Boise
+6,ATLI,Boise
+7,BASI,Boise
+8,DHDI,Boise
+9,GARI,Boise
+10,GGSI,Boise
+11,GLSI,Boise
+12,IDHI,Boise
+13,JKPI,Boise
+14,MRKI,Boise
+15,PRAI,Boise
+16,SCKI,Boise
+17,TRMI,Boise
+18,VNNI,Boise
+19,ATAI,Boise-sno
+20,ATLI,Boise-sno
+21,BASI,Boise-sno
+22,BSDI,Boise-sno
+23,BKSI,Boise-sno
+24,BRBI,Boise-sno
+25,COZI,Boise-sno
+26,DDSI,Boise-sno
+27,DED,Boise-sno
+28,DHDI,Boise-sno
+29,GARI,Boise-sno
+30,GGSI,Boise-sno
+31,GLSI,Boise-sno
+32,IDHI,Boise-sno
+33,JKPI,Boise-sno
+34,MRKI,Boise-sno
+35,PRAI,Boise-sno
+36,SCKI,Boise-sno
+37,SCSI,Boise-sno
+38,TRMI,Boise-sno
+39,VNNI,Boise-sno
+40,WBRI,Boise-sno
+41,brri,Cascade
+42,BSDI,Cascade
+43,BKSI,Cascade
+44,DDSI,Cascade
+45,SCSI,Cascade
+46,SQFI,Cascade
+47,WBRI,Cascade
+48,elbi,Clear
+49,coli,Clear
+50,crai,Clear
+51,hemi,Clear
+52,hoom,Clear
+53,lpsi,Clear
+54,lsli,Clear
+55,mcki,Clear
+56,mtmi,Clear
+57,nzcm,Clear
+58,shai,Clear
+59,shwi,Clear
+60,svpi,Clear
+61,twlm,Clear
+62,BASI,Deadwood
+63,BKSI,Deadwood
+64,COZI,Deadwood
+65,DDSI,Deadwood
+66,JKPI,Deadwood
+67,MRKI,Deadwood
+68,pcode:sd,depth
+69,ATAI,depth
+70,BASI,depth
+71,bksi,depth
+72,DHDI,depth
+73,GGSI,depth
+74,GLSI,depth
+75,JKPI,depth
+76,MRKI,depth
+77,SCKI,depth
+78,TRMI,depth
+79,VNNI,depth
+80,smti,depth
+81,ispi,depth
+82,bbsy,depth
+83,OCMO,Deschutes
+84,DERO,Deschutes
+85,SNWO,Deschutes
+86,badm,flathead
+87,bism,flathead
+88,cpcm,flathead
+89,emcm,flathead
+90,ftmm,flathead
+91,grcm,flathead
+92,hanm,flathead
+93,krcm,flathead
+94,manm,flathead
+95,mspm,flathead
+96,mtkm,flathead
+97,nfjm,flathead
+98,noim,flathead
+99,picm,flathead
+100,spbm,flathead
+101,sqpm,flathead
+102,stam,flathead
+103,sttm,flathead
+104,trlm,flathead
+105,uhlm,flathead
+106,BLBM,Henrys
+107,CRBI,Henrys
+108,GCKY,Henrys
+109,GRLY,Henrys
+110,ISPI,Henrys
+111,LVRM,Henrys
+112,LWSY,Henrys
+113,MPLM,Henrys
+114,PCPI,Henrys
+115,PHBY,Henrys
+116,VLVI,Henrys
+117,WHEI,Henrys
+118,WSKM,Henrys
+119,badm,Hungry Horse
+120,emcm,Hungry Horse
+121,mtkm,Hungry Horse
+122,noim,Hungry Horse
+123,picm,Hungry Horse
+124,spbm,Hungry Horse
+125,crai,lochsa
+126,hemi,lochsa
+127,lpsi,lochsa
+128,shai,lochsa
+129,svpi,lochsa
+130,tmcm,lochsa
+131,twlm,lochsa
+132,BLPO,Malheur
+133,lkco,Malheur
+134,rcso,Malheur
+135,stro,Malheur
+136,BASI,mfsalmon
+137,BKSI,mfsalmon
+138,BRRI,mfsalmon
+139,DDSI,mfsalmon
+140,MLKI,mfsalmon
+141,MRGI,mfsalmon
+142,SCSI,mfsalmon
+143,BERN,owyhee
+144,BIGN,owyhee
+145,fwcn,owyhee
+146,JCUN,owyhee
+147,LADN,owyhee
+148,MDFI,owyhee
+149,prsn,owyhee
+150,SMTI,owyhee
+151,SSCN,owyhee
+152,TACN,owyhee
+153,pcode:snow,owyhee snow
+154,BERN,owyhee snow
+155,BIGN,owyhee snow
+156,JCUN,owyhee snow
+157,LADN,owyhee snow
+158,SSCN,owyhee snow
+159,TACN,owyhee snow
+160,SMTI,owyhee snow
+161,BASI,payette
+162,bogi,payette
+163,brbi,payette
+164,brri,payette
+165,BSDI,payette
+166,BKSI,payette
+167,COZI,payette
+168,DDSI,payette
+169,DED,payette
+170,JKPI,payette
+171,lfki,payette
+172,MRKI,payette
+173,SCSI,payette
+174,SQFI,payette
+175,sqmi,payette
+176,WBRI,payette
+177,BASI,salmon
+178,BEAM,salmon
+179,BKSI,salmon
+180,BRBI,salmon
+181,BRRI,salmon
+182,DDSI,salmon
+183,DHLM,salmon
+184,GLNI,salmon
+185,GLSI,salmon
+186,LMHM,salmon
+187,MDLI,salmon
+188,MLKI,salmon
+189,MNSI,salmon
+190,MOKI,salmon
+191,MTMI,salmon
+192,MRGI,salmon
+193,SCSI,salmon
+194,SDMM,salmon
+195,SQFI,salmon
+196,VNNI,salmon
+197,WBRI,salmon
+198,lpsi,selway
+199,moki,selway
+200,mtmi,selway
+201,nzcm,selway
+202,sdmm,selway
+203,svpi,selway
+204,tmcm,selway
+205,twlm,selway
+206,pcode:storage,storage
+207,BOISYS,storage
+208,AND,storage
+209,ARK,storage
+210,LUC,storage
+211,LOW,storage
+212,PAYSYS,storage
+213,CSC,storage
+214,DED,storage
+215,OWY,storage
+216,SNASYS,storage
+217,JCK,storage
+218,PAL,storage
+219,ISL,storage
+220,GRS,storage
+221,HEN,storage
+222,AMF,storage
+223,RIR,storage
+224,MIN,storage
+225,MIL,storage
+226,PHL,storage
+227,UNY,storage
+228,MCK,storage
+229,CLS,storage
+230,PRV,storage
+231,OCH,storage
+232,WIC,storage
+233,CRA,storage
+234,CRE,storage
+235,SCO,storage
+236,YAKSYS,storage
+237,BUM,storage
+238,RIM,storage
+239,KEE,storage
+240,KAC,storage
+241,CLE,storage
+242,pcode:flow,umatilla flow
+243,MYKO,umatilla flow
+244,MCKO,umatilla flow
+245,PDTO,umatilla flow
+246,BIRO,umatilla flow
+247,YOKO,umatilla flow
+248,UMUO,umatilla flow
+249,UMDO,umatilla flow
+250,UMMO,umatilla flow
+251,UMAO,umatilla flow
+252,arbo,umatilla
+253,luko,umatilla
+254,bmso,umatilla
+255,espo,umatilla
+256,hiro,umatilla
+257,pcode:prec,umatilla precip
+258,PILO,umatilla precip
+259,ECHO,umatilla precip
+260,HERO,umatilla precip
+261,pcode:stor,umatilla storage
+262,mck,umatilla storage
+263,cls,umatilla storage
+264,BBSY,upper snake
+265,BSCY,upper snake
+266,CLWY,upper snake
+267,ERDY,upper snake
+268,GCKY,upper snake
+269,GRCY,upper snake
+270,GRLY,upper snake
+271,GRSY,upper snake
+272,GRVY,upper snake
+273,HKBY,upper snake
+274,ISPI,upper snake
+275,JCK,upper snake
+276,LOPY,upper snake
+277,LWSY,upper snake
+278,PCPI,upper snake
+279,PHBY,upper snake
+280,SCDY,upper snake
+281,SKRY,upper snake
+282,SLTY,upper snake
+283,SORI,upper snake
+284,SPMI,upper snake
+285,THMY,upper snake
+286,TOGY,upper snake
+287,TOPY,upper snake
+288,TRPY,upper snake
+289,VLVI,upper snake
+290,WHEI,upper snake
+291,WILY,upper snake
+292,snow,usno
+293,arbo,usno
+294,luko,usno
+295,bmso,usno
+296,espo,usno
+297,hiro,usno
+298,BECI,wood
+299,GARI,wood
+300,GLSY,wood
+301,HYNI,wood
+302,LWDI,wood
+303,SWPI,wood
+304,AFSW,yakima
+305,APSW,yakima
+306,BGMW,yakima
+307,BMPW,yakima
+308,BPAW,yakima
+309,BRGW,yakima
+310,BUM,yakima
+311,CPPW,yakima
+312,COPW,yakima
+312,CAYW,yakima
+313,CSPW,yakima
+314,CUMW,yakima
+315,ELSW,yakima
+316,FISW,yakima
+317,GRCW,yakima
+318,GRLW,yakima
+319,HRPW,yakima
+320,KEE,yakima
+321,KUSW,yakima
+322,LOHW,yakima
+323,LPSW,yakima
+324,LYLW,yakima
+325,MGSW,yakima
+326,MIRW,yakima
+327,MLSW,yakima
+328,MMSW,yakima
+329,MPSW,yakima
+330,MRBW,yakima
+331,MRSW,yakima
+332,MTCW,yakima
+333,OMWW,yakima
+334,PCRW,yakima
+335,PGPW,yakima
+336,PPRW,yakima
+337,PTHW,yakima
+338,QSPW,yakima
+339,QUPW,yakima
+340,RAIW,yakima
+341,RXSW,yakima
+342,SAMW,yakima
+343,SASW,yakima
+344,SHPW,yakima
+345,SMPW,yakima
+346,SPLW,yakima
+347,SPMW,yakima
+348,SPTW,yakima
+349,SVNW,yakima
+350,THBW,yakima
+351,TKSW,yakima
+352,TOHW,yakima
+353,TRGW,yakima
+354,UPWW,yakima
+355,WCSW,yakima
+356,WHPW,yakima
+357,SORI,ririe
+358,SPMI,ririe
+359,SLGI,ririe
+360,BBSY,Salt/Grey
+361,CLWY,Salt/Grey
+362,LOPY,Salt/Grey
+363,SCDY,Salt/Grey
+364,SLTY,Salt/Grey
+365,TRPY,Salt/Grey
+366,WILY,Salt/Grey
+367,SLGI,Salt/Grey
+368,GIVI,Salt/Grey
+369,SNIY,Salt/Grey
+370,BBSY,Hoback/Other
+371,GRCY,Hoback/Other
+372,ERDY,Hoback/Other
+373,LOPY,Hoback/Other
+374,GRVY,Hoback/Other
+375,PHBY,Hoback/Other
+376,GTHY,Hoback/Other
+377,BSCY,Hoback/Other
+378,TOGY,Hoback/Other
+379,SKRY,Hoback/Other
+380,LWSY,Hoback/Other
+381,TOPY,Hoback/Other
+382,BSCY,Jackson
+383,TOGY,Jackson
+384,GRLY,Jackson
+385,SKRY,Jackson
+386,LWSY,Jackson
+387,THMY,Jackson
