@@ -66,8 +66,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Hydromet\cfg\reclamationcgi.csv">
+    <None Include="..\cfg\reclamationcgi.csv">
       <Link>reclamationcgi.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="App.config" />
     <None Include="MySQLApp.config">
