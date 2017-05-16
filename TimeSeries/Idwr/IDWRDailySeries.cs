@@ -20,7 +20,7 @@ namespace Reclamation.TimeSeries.IDWR
         string parameter;
 
 
-        public IDWRDailySeries(string station, string parameter)
+        public IDWRDailySeries(string station, string parameter="QD")
         {
             this.station = station;
             this.parameter = parameter;

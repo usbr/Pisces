@@ -10,6 +10,7 @@ using System.Configuration;
 using Reclamation.TimeSeries.Nrcs;
 using System.Web.Security;
 using Reclamation.TimeSeries.Graphing;
+using Reclamation.TimeSeries.IDWR;
 
 namespace HydrometTools
 {
