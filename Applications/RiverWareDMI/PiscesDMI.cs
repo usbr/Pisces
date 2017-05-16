@@ -97,7 +97,16 @@ namespace Reclamation.Riverware
                 DateTime t = m_t1;
                 while (t <= m_t2)
                 {
-                    int idx = s.IndexOf(t);
+                    int idx = -1;
+                    if (s.TimeInterval == TimeInterval.Monthly)
+                    {
+                        idx = GetMonthIdx(s, t);
+                    }
+                    else
+                    {
+                        idx = s.IndexOf(t);
+                    }
+
                     if (idx < 0)
                     {
                         sw.WriteLine("NaN");
@@ -121,6 +130,28 @@ namespace Reclamation.Riverware
 
                 sw.Close();
             }
+        }
+
+        private int GetMonthIdx(Series s, DateTime t)
+        {
+            var rval = -1;
+
+            var startOfMonth = new DateTime(t.Year, t.Month, 1);
+            var endOfMonth = new DateTime(t.Year, t.Month, DateTime.DaysInMonth(t.Year, t.Month));
+
+            var s2 = s.Subset(startOfMonth, endOfMonth);
+            
+            if (s2.Count > 1)
+            {
+                var msg = string.Format("Error: duplicate monthly values found in {0:MMM-yyyy}", t);
+                throw new DataException(msg);
+            }
+
+            if (s2.Count == 1)
+            {
+                rval = s.IndexOf(s2[0].DateTime);
+            }
+            return rval;
         }
 
         private void ParseControlFile()
