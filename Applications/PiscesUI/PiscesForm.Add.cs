@@ -1142,6 +1142,33 @@ namespace Reclamation.TimeSeries.Forms
         void f_ImportClick(object sender, EventArgs e)
         {
 
+        }        
+        
+        
+        /// <summary>
+        /// Add IDWR data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void addIdwr_Click(object sender, EventArgs e)
+        {
+            ImportIdwrData dlg = new ImportIdwrData();
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                string station = dlg.station;
+                string parameter = dlg.parameter;
+                DateTime t1 = dlg.tStart;
+                DateTime t2 = dlg.tEnd;
+
+                var s = new IDWR.IDWRDailySeries(station, parameter);
+                s.Read(t1, t2);
+                DB.AddSeries(s, CurrentFolder);
+            }
+            else if (dlg.ShowDialog() == DialogResult.Ignore)
+            {
+                dlg.ShowDialog();
+            }
         }
 
     }
