@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Reclamation.Core;
 
-namespace Reclamation.TimeSeries.Idwr
+namespace Reclamation.TimeSeries.IDWR
 {
     public class IdwrMonthy
     {
