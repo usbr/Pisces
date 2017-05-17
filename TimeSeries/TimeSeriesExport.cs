@@ -1,0 +1,102 @@
+﻿using Reclamation.Core;
+using Reclamation.TimeSeries.Hydromet;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Reclamation.TimeSeries
+{
+    /// <summary>
+    /// Manage exporting data as part of the data processing stream
+    /// </summary>
+    public class TimeSeriesExport
+    {
+
+        public TimeSeriesExport(TimeSeriesDatabase db)
+        {
+
+        }
+
+        /// <summary>
+        /// Routes a list of Series as a group 
+        /// hydromet cbtt is copied from list[i].SiteName
+        /// hydromet pcode is copied from list[i].Parameter
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="route"></param>
+        /// <param name="name">identity used as part of filename </param>
+        public void Export(SeriesList list, string name, TimeInterval interval)
+        {
+            if (list.Count == 0)
+                return;
+           
+            var tmpFileName = FileUtility.GetTempFileName(".txt");
+            File.Delete(tmpFileName);
+            Logger.WriteLine("writing " + list.Count + " series ");
+            Logger.WriteLine("temp file:" + tmpFileName);
+
+            if (interval == TimeInterval.Daily)
+            {
+                HydrometDailySeries.WriteToArcImportFile(list, tmpFileName);
+            }
+
+            if (interval == TimeInterval.Irregular)
+            {
+                foreach (var s in list)
+                {
+                    HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), tmpFileName, true);
+                }
+            }
+            Logger.WriteLine("Moving: " + tmpFileName);
+            string fn = interval == TimeInterval.Daily ? "daily" : "instant";
+            var fileName = GetOutgoingFileName(fn, name, "all");
+            Logger.WriteLine("To: " + fileName);
+            File.Move(tmpFileName, fileName);
+
+        }
+
+
+
+        /// <summary>
+        /// Path for incoming data files
+        /// </summary>
+        /// <returns></returns>
+        public static string GetIncommingFileName(string prefix, string cbtt, string pcode)
+        {
+            string incoming = ConfigurationManager.AppSettings["incoming"];
+            return Path.Combine(incoming, TimeSeriesExport.GetUniqueFileName(incoming, prefix, cbtt, pcode));
+        }
+
+
+        public static string GetOutgoingFileName(string prefix, string cbtt, string pcode)
+        {
+            string outgoing = ConfigurationManager.AppSettings["outgoing"];
+            if (outgoing == "" || outgoing == null)
+            {
+                Console.WriteLine("Error: 'outgoing' directory not defined in config file");
+                Logger.WriteLine("Error: 'outgoing' directory not defined in config file");
+            }
+            return Path.Combine(outgoing, GetUniqueFileName(outgoing, prefix, cbtt, pcode));
+        }
+
+        internal static string GetUniqueFileName(string dir, string prefix, string cbtt, string pcode)
+        {
+            string fileName = prefix + "_" + cbtt + "_" + pcode + "_" + DateTime.Now.ToString("MMMdyyyyHHmmssfff") + ".txt";
+            fileName = Path.Combine(dir, fileName.ToLower());
+
+            if (File.Exists(fileName))
+            {
+                Console.WriteLine("ERROR: " + fileName + " allready exists, will use GUID");
+                fileName = prefix + "_" + cbtt + "_" + pcode + "_" + Guid.NewGuid().ToString() + ".txt";
+                fileName = Path.Combine(dir, fileName.ToLower());
+
+            }
+
+            return fileName;
+        }
+    }
+}

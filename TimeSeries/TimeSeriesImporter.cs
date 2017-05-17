@@ -194,9 +194,10 @@ namespace Reclamation.TimeSeries
                 if (item.TimeInterval == TimeInterval.Daily)
                     dailyRoute.Add(item);
             }
-            Logger.WriteLine("Routing data");
-            TimeSeriesRouting.RouteInstant(instantRoute, importTag, m_routing);
-            TimeSeriesRouting.RouteDaily(dailyRoute, importTag, m_routing);
+            Logger.WriteLine("Exporting data");
+            TimeSeriesExport export = new TimeSeriesExport(m_db);
+            export.Export(instantRoute, importTag, TimeInterval.Irregular);
+            export.Export(dailyRoute, importTag, TimeInterval.Daily);
         }
 
         private static void PerformDailyComputations(SeriesList importSeries,

@@ -117,7 +117,7 @@ namespace Reclamation.TimeSeries
                 valueFilter = propertyFilter.Split(':')[1];
             }
 
-            return TimeSeriesRouting.GetOutgoingFileName("daily", valueFilter, "all");
+            return TimeSeriesExport.GetOutgoingFileName("daily", valueFilter, "all");
 
         }
 

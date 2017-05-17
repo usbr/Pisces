@@ -663,7 +663,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\cfg\boise_arc.dat">
-      <Link>..\cfg\boise_arc.dat</Link>
+      <Link>cfg\boise_arc.dat</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="..\cfg\CC.DAT">

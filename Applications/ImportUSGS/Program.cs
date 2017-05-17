@@ -53,7 +53,10 @@ namespace ImportUsgs
                         s = new Series();
                     }
                     s.Read(DateTime.Now.AddHours(-hoursBack), DateTime.Now);
-                    TimeSeriesRouting.RouteDaily(s, cbtt, pcode, RouteOptions.Outgoing);
+
+                    var fn = TimeSeriesExport.GetIncommingFileName("daily",cbtt,pcode);
+                    HydrometDailySeries.WriteToArcImportFile(s, cbtt, pcode, fn);
+
                 }
                 else if( interval == TimeInterval.Irregular)
                 {
@@ -81,8 +84,11 @@ namespace ImportUsgs
                         }
 
                         s.RemoveMissing();
-                        if( s.Count >0)
-                        TimeSeriesRouting.RouteInstant(s, cbtt, pcode, RouteOptions.Outgoing);
+                        if (s.Count > 0)
+                        {
+                            var fn = TimeSeriesExport.GetIncommingFileName("instant", cbtt, pcode);
+                            HydrometInstantSeries.WriteToHydrometFile(s, cbtt, pcode, WindowsUtility.GetShortUserName(), fn);
+                        }
                     }
                     catch(Exception e)
                     {

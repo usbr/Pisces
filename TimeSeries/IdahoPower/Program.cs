@@ -41,11 +41,15 @@ namespace GetIdahoPowerData
 
 
            var s = Reclamation.TimeSeries.IdahoPower.IdahoPowerSeries.GetIdahoPowerData(stationID, ipcoType, numDays, interval);
+            s.SiteID = cbtt;
+            s.Parameter = pcode;
 
-           if (interval == TimeInterval.Daily)
-               TimeSeriesRouting.RouteDaily(s, cbtt, pcode, RouteOptions.Outgoing);
-           if (interval == TimeInterval.Irregular)
-               TimeSeriesRouting.RouteInstant(s, cbtt, pcode, RouteOptions.Outgoing);
+            throw new Exception("need to update or call this code from HydrometServer");
+
+            TimeSeriesImporter imp = new TimeSeriesImporter(null);
+            imp.Import(s);
+            //TimeSeriesExport.
+ 
 
         }
 
