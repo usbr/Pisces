@@ -61,10 +61,9 @@ instant,kid.csv,Time,MB1.MillerHill_FlowPump3,HMPO,QP3
                 s.Calculate(DateTime.Now.AddDays(-daysBack), DateTime.Now);
 
                 Console.WriteLine("Processing " + cbtt + "_" + pcode + " " + s.Count + " records");
-                if (interval == TimeInterval.Daily)
-                    TimeSeriesRouting.RouteDaily(s, cbtt, pcode, RouteOptions.Incoming);
-                else
-                    TimeSeriesRouting.RouteInstant(s, cbtt, pcode, RouteOptions.Incoming);
+
+                TimeSeriesTransfer.Import(s,cbtt,pcode);
+
             }
 
         }

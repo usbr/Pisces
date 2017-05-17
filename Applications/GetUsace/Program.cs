@@ -88,7 +88,7 @@ namespace GetUsaceDaily
                    offset = double.Parse(soffset);
                }
  
-                var s = ProcessFile(url,interval, cbtt, pcode,offset,true, headers);
+                var s = ProcessFile(url,interval, cbtt, pcode,offset, headers);
 
 
 
@@ -138,7 +138,7 @@ namespace GetUsaceDaily
         }
 
         private static Series ProcessFile(string url,TimeInterval interval, string cbtt, string pcode,
-            double offset, bool route, params string[] headers)
+            double offset, params string[] headers)
         {
             //Series s;
             //if (interval == TimeInterval.Hourly)
@@ -163,30 +163,19 @@ namespace GetUsaceDaily
             {// compute acre-feet using rating table.
 
                 var af = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, cbtt.ToLower()+ "_af.txt");
-                Route(interval, cbtt, "af", af);
-                
+                TimeSeriesTransfer.Import(af, cbtt, "af");
             }
 
             if (units == "(kcfs)" ||  units == "(kaf)" || pcode == "Q" || pcode == "QW" || pcode == "QE" )
             {// multiply by 1000
                 Reclamation.TimeSeries.Math.Multiply(s, 1000.0);
             }
-            if (route)
-            {
-                Route(interval, cbtt, pcode, s);
-            }
+
+            TimeSeriesTransfer.Import(s, cbtt, pcode);
 
             return s;
         }
 
-        private static void Route(TimeInterval interval, string cbtt, string pcode, Series s)
-        {
-                Console.WriteLine("Processing " + cbtt + "_" + pcode + " " + s.Count + " records");
-                if (interval == TimeInterval.Daily)
-                    TimeSeriesRouting.RouteDaily(s, cbtt, pcode, RouteOptions.Outgoing);
-                else
-                    TimeSeriesRouting.RouteInstant(s, cbtt, pcode,RouteOptions.Outgoing);
-        }
 
 
     }

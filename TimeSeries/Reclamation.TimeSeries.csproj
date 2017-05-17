@@ -471,7 +471,7 @@
     <Compile Include="Tests\SeriesTypes\TestUsgs.cs" />
     <Compile Include="Tests\SeriesTypes\UrgwomTest.cs" />
     <Compile Include="DailyTimeSeriesCalculator.cs" />
-    <Compile Include="TimeSeriesExport.cs" />
+    <Compile Include="TimeSeriesTransfer.cs" />
     <Compile Include="TimeSeriesImporter.cs" />
     <Compile Include="TimeSeriesRouting.cs" />
     <Compile Include="Hydromet\Operations\WodiRuleCurve.cs" />

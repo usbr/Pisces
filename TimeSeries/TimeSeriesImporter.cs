@@ -195,7 +195,7 @@ namespace Reclamation.TimeSeries
                     dailyRoute.Add(item);
             }
             Logger.WriteLine("Exporting data");
-            TimeSeriesExport export = new TimeSeriesExport(m_db);
+            TimeSeriesTransfer export = new TimeSeriesTransfer(m_db);
             export.Export(instantRoute, importTag, TimeInterval.Irregular);
             export.Export(dailyRoute, importTag, TimeInterval.Daily);
         }

@@ -13,11 +13,26 @@ namespace Reclamation.TimeSeries
     /// <summary>
     /// Manage exporting data as part of the data processing stream
     /// </summary>
-    public class TimeSeriesExport
+    public class TimeSeriesTransfer
     {
 
-        public TimeSeriesExport(TimeSeriesDatabase db)
+        public TimeSeriesTransfer(TimeSeriesDatabase db)
         {
+
+        }
+
+        public static void Import(Series s,string siteID, string parameter){
+
+            if (s.TimeInterval == TimeInterval.Daily)
+            {
+                var fn = TimeSeriesTransfer.GetIncommingFileName("daily", siteID, parameter);
+                HydrometDailySeries.WriteToArcImportFile(s, siteID, parameter, fn);
+            }
+            if (s.TimeInterval == TimeInterval.Irregular)
+            {
+                var fn = TimeSeriesTransfer.GetIncommingFileName("instant", siteID, parameter);
+                HydrometInstantSeries.WriteToHydrometFile(s, siteID, parameter, WindowsUtility.GetShortUserName(), fn);
+            }
 
         }
 
@@ -65,10 +80,10 @@ namespace Reclamation.TimeSeries
         /// Path for incoming data files
         /// </summary>
         /// <returns></returns>
-        public static string GetIncommingFileName(string prefix, string cbtt, string pcode)
+         static string GetIncommingFileName(string prefix, string cbtt, string pcode)
         {
             string incoming = ConfigurationManager.AppSettings["incoming"];
-            return Path.Combine(incoming, TimeSeriesExport.GetUniqueFileName(incoming, prefix, cbtt, pcode));
+            return Path.Combine(incoming, TimeSeriesTransfer.GetUniqueFileName(incoming, prefix, cbtt, pcode));
         }
 
 
