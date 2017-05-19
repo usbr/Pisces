@@ -30,7 +30,7 @@ build:
 test:
   assemblies:
   - Reclamation.Core.dll
-  - Reclamation.TimeSeries.dll
+  - TimeSeries\bin\Debug\Reclamation.TimeSeries.dll
   - HydrometServer.exe
   - RiverwareDMI.exe
   categories:
