@@ -28,7 +28,8 @@ namespace Reclamation.TimeSeries
                 var fn = TimeSeriesTransfer.GetIncommingFileName("daily", siteID, parameter);
                 HydrometDailySeries.WriteToArcImportFile(s, siteID, parameter, fn);
             }
-            if (s.TimeInterval == TimeInterval.Irregular)
+            if (s.TimeInterval == TimeInterval.Irregular ||
+                s.TimeInterval == TimeInterval.Hourly)
             {
                 var fn = TimeSeriesTransfer.GetIncommingFileName("instant", siteID, parameter);
                 HydrometInstantSeries.WriteToHydrometFile(s, siteID, parameter, WindowsUtility.GetShortUserName(), fn);
@@ -94,6 +95,10 @@ namespace Reclamation.TimeSeries
             {
                 Console.WriteLine("Error: 'outgoing' directory not defined in config file");
                 Logger.WriteLine("Error: 'outgoing' directory not defined in config file");
+            }
+            if( !Directory.Exists(outgoing))
+            {
+                Console.WriteLine("Error: path does not exist: '"+outgoing+"'");
             }
             return Path.Combine(outgoing, GetUniqueFileName(outgoing, prefix, cbtt, pcode));
         }
