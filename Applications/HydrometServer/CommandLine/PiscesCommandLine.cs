@@ -74,12 +74,7 @@ namespace HydrometServer.CommandLine
         }
 
 
-        private static string[] QualityParameters = new string[] { "batvolt","bv","parity", "power", "msglen", "lenerr", "timeerr" };
-
-        private static bool IsQuality(string pcode)
-        {
-            return Array.IndexOf(QualityParameters,pcode.ToLower()) >=0;
-        }
+       
 
         /// <summary>
         /// Gets all parameters for a site ID
@@ -98,11 +93,11 @@ namespace HydrometServer.CommandLine
             {
                 if (quality)
                 {
-                    if (IsQuality(item.Parameter))
+                    if (TimeSeriesDatabase.IsQuality(item.Parameter))
                         rval.Add(item.Parameter);
                 }
                 else
-                    if (!IsQuality(item.Parameter))
+                    if (!TimeSeriesDatabase.IsQuality(item.Parameter))
                     {
                         rval.Add(item.Parameter);
                     }

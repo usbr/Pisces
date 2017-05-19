@@ -731,7 +731,12 @@ namespace Reclamation.TimeSeries
         }
 
 
-        static string[] QualityParameters = new string[] { "parity", "power", "msglen", "lenerr", "timeerr","batvolt","bv","battery" };
+        private static string[] QualityParameters = new string[] { "battery","batvolt", "bv", "parity", "power", "msglen", "lenerr", "timeerr" };
+
+        public static bool IsQuality(string pcode)
+        {
+            return Array.IndexOf(QualityParameters, pcode.ToLower()) >= 0;
+        }
 
         /// <summary>
         /// Adds new site using template subset of a SeriesCatalog

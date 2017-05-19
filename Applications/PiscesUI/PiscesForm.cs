@@ -584,6 +584,7 @@ namespace Reclamation.TimeSeries.Forms
             }
 
             sortMenu.Enabled = folderSelected && singleSelection;
+            OrganizeBySiteidPcode.Enabled = folderSelected && singleSelection;
 
             bool canAddStuff = (CurrentFolder != null);
 
@@ -1166,23 +1167,30 @@ namespace Reclamation.TimeSeries.Forms
 
         }
 
-        private void sortMenu_Click(object sender, EventArgs e)
+       
+
+        private void sortMenu_Click_1(object sender, EventArgs e)
         {
-
+            if (!tree1.IsFolderSelected)
+                return;
             var parent = DB.GetOrCreateFolder(tree1.SelectedFolder.Name);
-
-            var sc = DB.GetSeriesCatalog("parentid = " + parent.ID + " and isfolder = 1 ", "", " order by name");
-            int sortOrder = 10;
-            for (int i = 0; i < sc.Rows.Count; i++)
-            {
-                if (sc[i].siteid == "")
-                    sc[i].siteid = sc[i].Name; // fix... siteid might be handy on a folder
-                sc[i].SortOrder = sortOrder;
-                sortOrder += 10;
-            }
-            DB.Server.SaveTable(sc);
+            var u = new TimeSeriesDatabaseUtility(DB);
+            u.SortByName(parent);
             DatabaseChanged();
         }
+
+        private void OrganizeBySiteidPcode_Click(object sender, EventArgs e)
+        {
+            if (!tree1.IsFolderSelected)
+                return;
+            var parent = DB.GetOrCreateFolder(tree1.SelectedFolder.Name);
+            var u = new TimeSeriesDatabaseUtility(DB);
+            u.OrganizeCatalogBySiteInterval(parent);
+            DatabaseChanged();
+
+        }
+
+        
 
         
     }
