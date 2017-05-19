@@ -96,7 +96,7 @@ namespace Reclamation.TimeSeries
                 Console.WriteLine("Error: 'outgoing' directory not defined in config file");
                 Logger.WriteLine("Error: 'outgoing' directory not defined in config file");
             }
-            if( !Directory.Exists(outgoing))
+            if( !Directory.Exists(outgoing) || outgoing == null)
             {
                 Console.WriteLine("Error: path does not exist: '"+outgoing+"'");
             }

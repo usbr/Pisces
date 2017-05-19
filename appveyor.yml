@@ -8,6 +8,11 @@ init:
   - mkdir c:\temp
   - mkdir c:\temp\outgoing
   - mkdir c:\temp\incoming
+  - mkdir c:\hydromet
+  - mkdir c:\hydromet\outgoing
+  - mkdir c:\hydromet\incoming
+
+  
 
 install:
   - cmd: appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe 
