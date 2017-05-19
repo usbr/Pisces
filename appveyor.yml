@@ -7,7 +7,7 @@ branches:
 init:
   - mkdir c:\temp
   - mkdir c:\temp\outgoing
-  - mkidr c:\temp\incoming
+  - mkdir c:\temp\incoming
 
 install:
   - cmd: appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe 
