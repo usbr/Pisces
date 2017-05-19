@@ -122,7 +122,7 @@ namespace Pisces.NunitTests.SeriesMath
             db.AddSeries(c);
 
             FileImporter fi = new FileImporter(db);
-            fi.Import(dir,RouteOptions.None,true,true,"*.dat");
+            fi.Import(dir,true,true,"*.dat");
 
 
             var s = db.GetSeriesFromTableName("daily_wrdo_ym");

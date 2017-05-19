@@ -77,7 +77,7 @@ namespace Pisces.NunitTests.SeriesMath
             AddEquationSeries("aga_af", "DailyMidnight(instant_aga_af)", "daily");
 
             FileImporter fi = new FileImporter(db);
-            fi.Import(dir,RouteOptions.None,true,true,"*.txt");
+            fi.Import(dir,true,true,"*.txt");
 
 
             var s = db.GetSeriesFromTableName("instant_aga_q");

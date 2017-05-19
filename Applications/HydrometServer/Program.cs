@@ -172,7 +172,7 @@ namespace HydrometServer
 
                     string incomingPath = ConfigurationManager.AppSettings["incoming"];
                     FileImporter importer = new FileImporter(db, DatabaseSaveOptions.Upsert);
-                    importer.Import(incomingPath, RouteOptions.Outgoing,computeDependencies,computeDailyOnMidnight,searchPattern);
+                    importer.Import(incomingPath, computeDependencies,computeDailyOnMidnight,searchPattern);
                 }
 
 

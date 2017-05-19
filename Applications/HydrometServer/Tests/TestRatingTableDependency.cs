@@ -63,7 +63,7 @@ namespace Pisces.NunitTests.SeriesMath
 
             //SeriesExpressionParser.Debug = true;
             FileImporter import = new FileImporter(db);
-            import.Import(tmpDir,RouteOptions.None,computeDependencies:true,searchPattern:"*.txt");
+            import.Import(tmpDir,computeDependencies:true,searchPattern:"*.txt");
             db.Inventory();
 
 
@@ -138,7 +138,7 @@ namespace Pisces.NunitTests.SeriesMath
             db.AddSeries(c);
 
             FileImporter import = new FileImporter(db);
-            import.Import(tmpDir, RouteOptions.Outgoing, computeDependencies: true,searchPattern:"*.txt");
+            import.Import(tmpDir, computeDependencies: true,searchPattern:"*.txt");
             db.Inventory();
 
             var s = db.GetSeriesFromTableName("instant_mabo_q");

@@ -474,7 +474,6 @@
     <Compile Include="TimeSeriesDatabaseUtility.cs" />
     <Compile Include="TimeSeriesTransfer.cs" />
     <Compile Include="TimeSeriesImporter.cs" />
-    <Compile Include="TimeSeriesRouting.cs" />
     <Compile Include="Hydromet\Operations\WodiRuleCurve.cs" />
     <Compile Include="IdahoPower\IdahoPowerSeries.cs" />
     <Compile Include="Idwr\IDWRDailySeries.cs" />

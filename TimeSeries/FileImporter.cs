@@ -36,16 +36,16 @@ namespace Reclamation.TimeSeries
         }
 
 
-        public void ImportFile(string fileName, RouteOptions routing = RouteOptions.None,
-           bool computeDependencies = false, bool computeDailyOnMidnight = false, string searchPattern = "*.*")
+        public void ImportFile(string fileName, bool computeDependencies = false, 
+            bool computeDailyOnMidnight = false, string searchPattern = "*.*")
         {
             this.m_computeDailyDependencies = computeDailyOnMidnight;
             this.m_computeDependencies = computeDependencies;
             Console.WriteLine(fileName);
-            ProcessFile(routing, fileName);
+            ProcessFile( fileName);
         }
-        public void Import( string path, RouteOptions routing=RouteOptions.None,
-            bool computeDependencies = false, bool computeDailyOnMidnight = false, string searchPattern = "*.*")
+        public void Import( string path, bool computeDependencies = false, 
+            bool computeDailyOnMidnight = false, string searchPattern = "*.*")
         {
             this.m_computeDailyDependencies = computeDailyOnMidnight;
             this.m_computeDependencies = computeDependencies;
@@ -65,13 +65,13 @@ namespace Reclamation.TimeSeries
                     Console.WriteLine(" skipping file newer than 2 seconds ago " + fn + " " + fi.CreationTime);
                     continue;
                 }
-                ProcessFile(routing, fi.FullName);
+                ProcessFile( fi.FullName);
             }
           // needs .net 4.0 System.Threading.Tasks.Parallel.ForEach(ordered,(fi) => ProcessFile(routing,fi));
 
         }
 
-        private void ProcessFile(RouteOptions routing, string fileName)
+        private void ProcessFile(string fileName)
         {
             
             string importTag = "import"; // used to make friendly export filename
@@ -112,7 +112,7 @@ namespace Reclamation.TimeSeries
                     return;
                 }
 
-                m_importer = new TimeSeriesImporter(m_db, routing,m_saveOption);
+                m_importer = new TimeSeriesImporter(m_db,m_saveOption);
                 Console.WriteLine("Found " + sl.Count + " series in " + fileName);
                 foreach (var item in sl)
                 {

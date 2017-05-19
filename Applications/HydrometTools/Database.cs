@@ -106,7 +106,7 @@ namespace HydrometTools
         {
             
          FileImporter importer = new FileImporter(DB());
-         importer.ImportFile(editsFileName, RouteOptions.Outgoing, computeDependencies, computeDependencies);
+         importer.ImportFile(editsFileName, computeDependencies, computeDependencies);
 
         }
 

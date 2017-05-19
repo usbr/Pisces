@@ -14,15 +14,13 @@ namespace Reclamation.TimeSeries
     /// </summary>
     public class TimeSeriesImporter
     {
-
         TimeSeriesDatabase m_db;
-        RouteOptions m_routing;
         DatabaseSaveOptions m_saveOption;
         public TimeSeriesImporter(TimeSeriesDatabase db,
-            RouteOptions routing = RouteOptions.None, DatabaseSaveOptions saveOption = DatabaseSaveOptions.UpdateExisting)
+           DatabaseSaveOptions saveOption = DatabaseSaveOptions.UpdateExisting)
         {
             m_db = db;
-            m_routing = routing;
+            //m_routing = routing;
             m_saveOption = saveOption;
         }
 

@@ -503,6 +503,7 @@ namespace Reclamation.TimeSeries.Hydromet
                 else
                 {
                     s = new Series();
+                    s.TimeInterval = TimeInterval.Daily;
                     s.SiteID = cbtt;
                     s.Parameter = pcode;
                     s.Name = cbtt + "_" + pcode;

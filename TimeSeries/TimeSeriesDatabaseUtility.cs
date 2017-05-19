@@ -62,7 +62,7 @@ namespace Reclamation.TimeSeries
                 var expectedPath = new List<string>();
                 expectedPath.AddRange(selectedPath);
                 expectedPath.Add(tn.siteid);
-                expectedPath.Add(GetIntervalPath(row, tn));
+                expectedPath.Add(GetIntervalPath(row, tn.pcode));
              
                 if (!SamePath(expectedPath,rowPath))
                 {
@@ -110,7 +110,7 @@ namespace Reclamation.TimeSeries
              return true;
          }
 
-         private static string GetIntervalPath(TimeSeriesDatabaseDataSet.SeriesCatalogRow row, TimeSeriesName tn)
+         private static string GetIntervalPath(TimeSeriesDatabaseDataSet.SeriesCatalogRow row, string pcode)
          {
              var interval = "instant";
              if (row.TimeInterval == "Irregular" || row.TimeInterval == "Hourly")
@@ -118,7 +118,7 @@ namespace Reclamation.TimeSeries
              else
                  interval = row.TimeInterval.ToLower();
 
-             if (TimeSeriesDatabase.IsQuality(tn.pcode))
+             if (TimeSeriesDatabase.IsQuality(pcode))
                  interval = "quality";
 
              return interval;

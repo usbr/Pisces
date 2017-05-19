@@ -33,7 +33,7 @@ namespace Pisces.NunitTests.SeriesMath
             var tmpDir = TestRatingTableDependency.CopyTestDecodesFileToTempDirectory("instant_20150708152901.txt");
 
             FileImporter import = new FileImporter(db);
-            import.Import(tmpDir, RouteOptions.None, computeDependencies: true, searchPattern: "*.txt");
+            import.Import(tmpDir, computeDependencies: true, searchPattern: "*.txt");
             db.Inventory();
             //Assert.IsFalse(anyErrors);
         }

@@ -32,7 +32,7 @@ namespace Pisces.NunitTests.SeriesMath
             var tmpDir = TestRatingTableDependency.CopyTestDecodesFileToTempDirectory("bigi.txt");
 
             FileImporter import = new FileImporter(db);
-            import.Import(tmpDir, RouteOptions.Outgoing,searchPattern:"*.txt");
+            import.Import(tmpDir, searchPattern:"*.txt");
             //Assert.IsTrue(db.GetSeriesCatalog().Count>1);
             perf.Report();// 5.4 seconds 
         }
