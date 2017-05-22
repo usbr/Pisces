@@ -188,7 +188,13 @@ namespace Reclamation.TimeSeries.Reports
                 {
                     if (s.IndexOf(datatblDate) >= 0 && datatblDate < DateTime.Now)
                     {
-                        var val = s[datatblDate].Value.ToString("F2");
+                        string val = "";
+                        var o = s[datatblDate];
+                        if (o.IsMissing)
+                            val = "-";
+                        else
+                            val = o.Value.ToString("F2");
+
                         if (!val.Contains("-"))
                             rval.Rows[i][j] = val;
                     }
