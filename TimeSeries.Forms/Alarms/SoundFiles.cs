@@ -110,7 +110,7 @@ namespace Reclamation.TimeSeries.Forms.Alarms
         private void GenerateSounds(string dir, AlarmDataSet.alarm_scriptsDataTable scripts)
         {
 
-#if !__MonoCS__
+#if !PISCES_OPEN
             
             using (SpeechSynthesizer synth = new SpeechSynthesizer())
             {

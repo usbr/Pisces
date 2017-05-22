@@ -15,7 +15,7 @@ namespace Reclamation.Core
 
         static Web()
         {
-#if !__MonoCS__
+#if !PISCES_OPEN
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
 #endif
         }
