@@ -74,7 +74,7 @@ namespace Reclamation.TimeSeries
                 }
             }
 
-           // m_db.Server.SaveTable(sc);
+            m_db.Server.SaveTable(sc);
 
         }
 

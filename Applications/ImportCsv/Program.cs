@@ -10,9 +10,9 @@ using System.Text;
 namespace ImportCsv
 {
     /// <summary>
-    /// Program to Import CSV time series files.
-    /// Allows math expressions between columns being imported.
-    /// Routing to Hydromet
+    /// Program to Import CSV time series data.
+    /// math expressions allow calculations on imported data
+    /// this allows math expressions between columns being imported.
     /// </summary>
     class Program
     {

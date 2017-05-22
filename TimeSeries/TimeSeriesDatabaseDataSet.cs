@@ -33,10 +33,18 @@ namespace Reclamation.TimeSeries
                 m_db = db;
             }
 
-
-            public Dictionary<string, object> GetDictionary(string siteid)
+            public string GetValue(string siteid, string key, string defaultValue = "")
             {
-                var rval = new Dictionary<string, object>();
+                var d = GetDictionary(siteid);
+                if (d.ContainsKey(key))
+                {
+                    var val = d[key].ToString();
+                }
+                return defaultValue;
+            }
+            public Dictionary<string, string> GetDictionary(string siteid)
+            {
+                var rval = new Dictionary<string, string>();
                 var rows = Select("siteid = '" + siteid + "'");
                 foreach (var item in rows)
                 {

@@ -13,7 +13,7 @@ namespace GetSnotel
     class Program
     {
 
-        // TO DO: use hydromet convention for time stamps for PC and SWE?
+        // Consider: use hydromet convention for time stamps for PC and SWE?
 
         /// <summary>
         /// Reads daily snowtel data from NRCS web service 
@@ -145,8 +145,6 @@ namespace GetSnotel
 
                     }
 
-
-                   //TimeSeriesRouting.RouteDaily(ss, cbtt, "ss", RouteOptions.Incoming);
                     HydrometDailySeries.WriteToArcImportFile(ss, cbtt, "ss", outputFileName, appendToFile);
                     if (!appendToFile)
                         appendToFile = true; // append after the first time.

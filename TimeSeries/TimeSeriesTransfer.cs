@@ -15,10 +15,12 @@ namespace Reclamation.TimeSeries
     /// </summary>
     public class TimeSeriesTransfer
     {
-
+        TimeSeriesDatabase m_db;
+        TimeSeriesDatabaseDataSet.sitepropertiesDataTable m_siteproperty;
         public TimeSeriesTransfer(TimeSeriesDatabase db)
         {
-
+            m_db = db;
+            m_siteproperty = m_db.GetSiteProperties();
         }
 
         public static void Import(Series s,string siteID, string parameter){
@@ -57,7 +59,13 @@ namespace Reclamation.TimeSeries
 
             if (interval == TimeInterval.Daily)
             {
-                HydrometDailySeries.WriteToArcImportFile(list, tmpFileName);
+                SeriesList exportList = new SeriesList();
+                foreach (var s in list)
+                {
+                    if(AllowExport(s))
+                    exportList.Add(s);
+                }
+                HydrometDailySeries.WriteToArcImportFile(exportList, tmpFileName);
             }
 
             if (interval == TimeInterval.Irregular)
@@ -73,6 +81,12 @@ namespace Reclamation.TimeSeries
             Logger.WriteLine("To: " + fileName);
             File.Move(tmpFileName, fileName);
 
+        }
+
+        private bool AllowExport(Series s)
+        {
+            var val = m_siteproperty.GetValue(s.SiteID, "export", "true");
+            return  val.ToLower() == "true";
         }
 
 
