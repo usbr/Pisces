@@ -16,9 +16,7 @@ install:
   - mono .nuget/nuget.exe install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
   
 script:
-  #- xbuild /p:Configuration=Debug /p:Platform="Any CPU" /p:DefineConstants="__MonoCS__" Pisces.sln
-  - msbuild /p:Configuration=Debug /p:Platform="Any CPU" /p:DefineConstants="__MonoCS__" Core/Reclamation.Core.csproj
-  - msbuild /p:Configuration=Debug /p:Platform="Any CPU" /p:DefineConstants="__MonoCS__" TimeSeries/Reclamation.TimeSeries.csproj
+  - msbuild /p:Configuration=Debug /p:Platform="Any CPU" /p:DefineConstants="__MonoCS__" Pisces.sln
   #- mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Core/bin/Debug/Reclamation.Core.dll -exclude DatabaseServer,Internal,Windows
   #- mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TimeSeries/bin/Debug/Reclamation.TimeSeries.dll -exclude DatabaseServer,Internal,Windows
 
