@@ -472,6 +472,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemWeb.Name = "toolStripMenuItemWeb";
             this.toolStripMenuItemWeb.Size = new System.Drawing.Size(184, 26);
             this.toolStripMenuItemWeb.Text = "Online Data Sources";
+            this.toolStripMenuItemWeb.Visible = checkInternetConnection();
             // 
             // addBlankSeries
             // 
