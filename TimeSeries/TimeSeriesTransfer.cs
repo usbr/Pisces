@@ -72,6 +72,7 @@ namespace Reclamation.TimeSeries
             {
                 foreach (var s in list)
                 {
+                    if (AllowExport(s))
                     HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), tmpFileName, true);
                 }
             }

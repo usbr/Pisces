@@ -54,7 +54,7 @@ namespace Reclamation.TimeSeries
             bool computeDailyDependencies = false,
             string importTag = "data")
         {
-            var list = ImportInstant(importSeries, computeDependencies, importTag);
+            var list = Import(importSeries, computeDependencies, importTag);
 
             if (computeDailyDependencies)
             {
@@ -70,7 +70,7 @@ namespace Reclamation.TimeSeries
         /// <param name="computeDependencies"></param>
         /// <param name="importTag"></param>
         /// <returns>list of series including dependent calculations</returns>
-        private SeriesList ImportInstant(SeriesList importSeries, bool computeDependencies, string importTag)
+        private SeriesList Import(SeriesList importSeries, bool computeDependencies, string importTag)
         {
             Performance p = new Performance();
             int calculationCount = 0;
@@ -95,7 +95,7 @@ namespace Reclamation.TimeSeries
                 }
             }
             
-            RouteData(importTag, routingList);
+            Export(importTag, routingList);
             Stats(importSeries.Count, p.ElapsedSeconds, calculationCount,"instant");
             return routingList;
         }
@@ -129,7 +129,7 @@ namespace Reclamation.TimeSeries
             {
                 PerformDailyComputations(importSeries, dailyCalculationQueue, routingList);
             }
-            RouteData(importTag, routingList);
+            Export(importTag, routingList);
 
             Stats(0, p.ElapsedSeconds, dailyCalculationQueue.Count, "daily");
         }
@@ -173,11 +173,11 @@ namespace Reclamation.TimeSeries
         }
 
         /// <summary>
-        /// Routes data to incoming and/or outgoing directories
+        /// Export data to outgoing directory
         /// </summary>
         /// <param name="importTag"></param>
         /// <param name="routingList"></param>
-        private void RouteData(string importTag, SeriesList routingList)
+        private void Export(string importTag, SeriesList routingList)
         {
             SeriesList instantRoute = new SeriesList();
             SeriesList dailyRoute = new SeriesList();

@@ -163,7 +163,7 @@ namespace Reclamation.TimeSeries
                     {
                         TimeSeriesName tn = new TimeSeriesName(varName, interval);
                         if( !tn.Valid )
-                            Console.WriteLine("Error: Skipped Invalid equation .... "+cs.Expression);
+                            Console.WriteLine("Warning: Skipped non-series parameter/variable .... "+varName);
                         else
                         AddToDictionary(tn.GetTableName(), cs);    
                     }

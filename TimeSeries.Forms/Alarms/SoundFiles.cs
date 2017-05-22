@@ -6,7 +6,7 @@ using System.IO;
 using System.Data;
 using System.Diagnostics;
 
-#if !__MonoCS__
+#if !PISCES_OPEN
 using System.Speech.Synthesis;
 using System.Speech.AudioFormat;
 
@@ -32,7 +32,7 @@ namespace Reclamation.TimeSeries.Forms.Alarms
             m_svr = svr;
             InitializeComponent();
             Init();
-#if __MonoCS__
+#if !PISCES_OPEN
             buttonGenerate.Enabled = false;
 #endif
         }
@@ -110,7 +110,7 @@ namespace Reclamation.TimeSeries.Forms.Alarms
         private void GenerateSounds(string dir, AlarmDataSet.alarm_scriptsDataTable scripts)
         {
 
-#if !__MonoCS__
+#if !PISCES_OPEN
             
             using (SpeechSynthesizer synth = new SpeechSynthesizer())
             {

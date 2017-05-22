@@ -38,7 +38,7 @@ namespace Reclamation.TimeSeries
                 var d = GetDictionary(siteid);
                 if (d.ContainsKey(key))
                 {
-                    var val = d[key].ToString();
+                    return d[key].ToString();
                 }
                 return defaultValue;
             }
