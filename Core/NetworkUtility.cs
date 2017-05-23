@@ -44,6 +44,7 @@ namespace Reclamation.Core
 
         /// <summary>
         /// Check if there is a public internet connection 
+        /// https://stackoverflow.com/questions/2031824/what-is-the-best-way-to-check-for-internet-connectivity-using-net
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
