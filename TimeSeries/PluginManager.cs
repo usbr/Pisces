@@ -53,22 +53,35 @@ namespace Reclamation.TimeSeries
                                 select Activator.CreateInstance(t) as IPlugin;
                 
                 var dataAddItems = dataAddMenu as ToolStripDropDownItem;
+                var dataAddFromFile = dataAddItems.DropDownItems["toolStripMenuItemLocal"] as ToolStripDropDownItem;
+                var dataAddFromWeb = dataAddItems.DropDownItems["toolStripMenuItemWeb"] as ToolStripDropDownItem;
                 if (dataAddItems != null)
                 {
                     foreach (var instance in instances)
                     {
                         string txt = instance.GetAddMenuText();
-                        var idx = dataAddItems.DropDownItems.IndexOfKey("toolStripMenuItemBottom");
-                        if (idx >= 0)
+                        var menuItem = new ToolStripMenuItem(txt);
+                        if (txt.ToLower().Contains("file")) // if display name has 'file' then place in the 'From File' menu
                         {
-                            var menuItem = new ToolStripMenuItem(txt);
-                            dataAddItems.DropDownItems.Insert(idx, menuItem);
-                            var img = instance.GetImage();
-                            if (img != null)
-                                menuItem.Image = img;
-                            menuItem.Tag = instance;
-                            menuItem.Click += menuItem_Click;
+                            var idx = dataAddFromFile.DropDownItems.IndexOfKey("toolStripFromFileEnd");
+                            dataAddFromFile.DropDownItems.Insert(idx, menuItem);
                         }
+                        else if (txt.ToLower().Contains("web")) // if display name has 'web' then place in the 'From Web' menu
+                        {
+                            var idx = dataAddFromWeb.DropDownItems.IndexOfKey("toolStripFromWebEnd");
+                            dataAddFromWeb.DropDownItems.Insert(idx, menuItem);
+                        }
+                        else 
+                        {
+                            var idx = dataAddItems.DropDownItems.IndexOfKey("toolStripMenuItemBottom");
+                            dataAddItems.DropDownItems.Insert(idx, menuItem);
+                        }
+
+                        var img = instance.GetImage();
+                        if (img != null)
+                            menuItem.Image = img;
+                        menuItem.Tag = instance;
+                        menuItem.Click += menuItem_Click;
                     }
                 }
             }

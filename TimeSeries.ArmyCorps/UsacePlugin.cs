@@ -24,7 +24,7 @@ namespace Reclamation.TimeSeries.Usace
 
         public string GetAddMenuText()
         {
-            return "US Army Corps data query (northwestern division) ...";
+            return "US Army Corps Web Query (northwestern division) ...";
         }
 
         public void ModifyDatabase(Reclamation.TimeSeries.TimeSeriesDatabase db, PiscesFolder selectedFolder)
