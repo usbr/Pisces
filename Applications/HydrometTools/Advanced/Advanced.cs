@@ -49,7 +49,7 @@ namespace HydrometTools.Advanced
             dataGridViewQuality.DataSource = tbl;
         }
 
-        SiteMetaData m_siteMetaData;
+        SiteProperties m_siteMetaData;
         private void tabControlLinux_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -63,7 +63,7 @@ namespace HydrometTools.Advanced
                && m_siteMetaData == null)
             {
                 var db = Database.DB();
-                m_siteMetaData = new SiteMetaData(db);
+                m_siteMetaData = new SiteProperties(db);
                 m_siteMetaData.Parent = tabPageSites;
                 m_siteMetaData.Dock = DockStyle.Fill;
             }

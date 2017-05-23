@@ -9,16 +9,16 @@ using System.Windows.Forms;
 
 namespace Reclamation.TimeSeries.Forms.MetaData
 {
-    public partial class SiteMetaData : UserControl
+    public partial class SiteProperties : UserControl
     {
-        public SiteMetaData()
+        public SiteProperties()
         {
             InitializeComponent();
         }
         TimeSeriesDatabase m_db;
         TimeSeriesDatabaseDataSet.sitecatalogDataTable m_sites;
         TimeSeriesDatabaseDataSet.sitepropertiesDataTable m_props;
-        public SiteMetaData(TimeSeriesDatabase db)
+        public SiteProperties(TimeSeriesDatabase db )
         {
             
             m_db = db;
@@ -37,11 +37,16 @@ namespace Reclamation.TimeSeries.Forms.MetaData
             }
             
             comboBox1.DataSource = temp;
-            comboBox1.ValueMember = "description";
+            comboBox1.ValueMember = "siteid";
             comboBox1.DisplayMember = "description";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateDisplay();
+        }
+
+        private void UpdateDisplay()
         {
             if (comboBox1.SelectedIndex < 0)
             {
@@ -49,15 +54,18 @@ namespace Reclamation.TimeSeries.Forms.MetaData
                 return;
             }
 
-            var row =m_sites[comboBox1.SelectedIndex];
+            var row = m_sites[comboBox1.SelectedIndex];
             this.dataRowEditor1.SetDataRow(row);
 
             var siteid = row["siteid"].ToString();
             m_props.Columns["siteid"].DefaultValue = siteid;
             m_props.Columns["id"].AutoIncrement = true;
             m_props.Columns["id"].AutoIncrementSeed = m_props.NextID();
-            m_props.DefaultView.RowFilter = "siteid = '"+siteid+"'" ;
+            m_props.DefaultView.RowFilter = "siteid = '" + siteid + "'";
             this.dataGridViewSiteProperties.DataSource = m_props;
+
+            dataGridViewSiteProperties.Columns["siteid"].Visible = false;
+            dataGridViewSiteProperties.Columns["id"].Visible = false;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
@@ -65,6 +73,12 @@ namespace Reclamation.TimeSeries.Forms.MetaData
             var msg = m_db.Server.SaveTable(m_sites);
             msg += m_db.Server.SaveTable(m_props);
             labelStatus.Text = msg+ " rows saved ";
+        }
+
+        public void Draw(string siteID)
+        {
+            comboBox1.SelectedValue = siteID;
+            UpdateDisplay();
         }
     }
 }

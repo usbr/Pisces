@@ -296,7 +296,15 @@ namespace Reclamation.TimeSeries.Forms
                 return treeView1.SelectedNode.Tag is BasicRating;
             }
         }
-
+        public bool IsSiteSelected
+        {
+            get
+            {
+                if (treeView1.SelectedNode == null)
+                    return false;
+                return treeView1.SelectedNode.Tag is PiscesFolder;
+            }
+        }
         internal void SelectParent()
         {
             treeView1.SelectedNode = treeView1.SelectedNode.Parent;

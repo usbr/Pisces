@@ -11,6 +11,7 @@ using Reclamation.TimeSeries.Forms.Graphing;
 using System.Collections.Generic;
 using Reclamation.TimeSeries.RatingTables;
 using Reclamation.TimeSeries.Forms.Alarms;
+using Reclamation.TimeSeries.Forms.MetaData;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -384,6 +385,7 @@ namespace Reclamation.TimeSeries.Forms
 
         BasicMeasurementView measurementView = new BasicMeasurementView();
         RatingTableZedGraph ratingTableView = new RatingTableZedGraph();
+        SiteProperties siteEditor1;
 
         private void UpdateView()
         {
@@ -397,70 +399,103 @@ namespace Reclamation.TimeSeries.Forms
 
             if( tree1.IsMeasurementSelected && !tree1.IsCommandLine)
             {
-                var measurements = tree1.GetSelectedMeasurements();
-
-                if (measurements.Length > 1)
-                {
-                    SetView(ratingTableView);
-                    ratingTableView.Draw(measurements);
-
-                }else // view edit single measurement
-                {
-                    SetView(measurementView);
-                    measurementView.Measurement = tree1.SelectedObject as BasicMeasurement;
-                    measurementView.Draw();
-                }
-
-                toolStripProgressBar1.Visible = false;
+                SetMeasurementView();
             }
             else if (tree1.IsRatingSelected && !tree1.IsCommandLine)
             {
-                var ratings = tree1.GetSelectedRatings();
-
-                if (ratings.Length > 1)
-                {
-                    SetView(ratingTableView);
-
-                    ratingTableView.Draw(ratings);
-
-                }
-                else // view edit single measurement
-                {
-                    SetView(ratingTableView);
-                    ratingTableView.Draw(ratings);
-                }
-
-                toolStripProgressBar1.Visible = false;
+                SetRatingView();
             }
-
-
+            else if (tree1.IsSiteSelected && !tree1.IsCommandLine)
+            {
+                SetSiteView();
+            }
             else
             {
-                if ( !(engine1.View is GraphExplorerView) || engine1.View == null)
-                { // need to switch back to timeseries views
-                    SetView(graphView1);
-                }
-                engine1.SelectedSeries = tree1.GetSelectedSeries();
+                SetGraphView();
+            }
+        }
 
-                if (engine1.SelectedSeries.Length == 0)
-                {
-                    ClearDisplay();
-                    toolStripProgressBar1.Visible = false;
-                    Console.WriteLine("no update needed");
-                    return;
-                }
+        private void SetSiteView()
+        {
+            var sites = tree1.SelectedFolders;
 
-                engine1.SubtractFromBaseline = scenarioChooser1.SubtractFromBaseline;
-                engine1.IncludeBaseline = scenarioChooser1.IncludeBaseline;
-                engine1.IncludeSelected = scenarioChooser1.IncludeSelected;
-                engine1.MergeSelected = scenarioChooser1.MergeSelected;
-                backgroundWorker1.RunWorkerAsync();
+            if (sites.Length > 1)
+            {
+                //SetView(ratingTableView);
+                //ratingTableView.Draw(sites);
 
             }
+            else // view edit single measurement
+            {
+                siteEditor1 = new SiteProperties(DB);
+                SetView(siteEditor1);
+                siteEditor1.Draw(sites[0].Name);
+            }
 
+            toolStripProgressBar1.Visible = false; 
+        }
 
-           
-          
+        private void SetGraphView()
+        {
+            if (!(engine1.View is GraphExplorerView) || engine1.View == null)
+            { // need to switch back to timeseries views
+                SetView(graphView1);
+            }
+            engine1.SelectedSeries = tree1.GetSelectedSeries();
+
+            if (engine1.SelectedSeries.Length == 0)
+            {
+                ClearDisplay();
+                toolStripProgressBar1.Visible = false;
+                Console.WriteLine("no update needed");
+                return;
+            }
+
+            engine1.SubtractFromBaseline = scenarioChooser1.SubtractFromBaseline;
+            engine1.IncludeBaseline = scenarioChooser1.IncludeBaseline;
+            engine1.IncludeSelected = scenarioChooser1.IncludeSelected;
+            engine1.MergeSelected = scenarioChooser1.MergeSelected;
+            backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void SetRatingView()
+        {
+            var ratings = tree1.GetSelectedRatings();
+
+            if (ratings.Length > 1)
+            {
+                SetView(ratingTableView);
+
+                ratingTableView.Draw(ratings);
+
+            }
+            else // view edit single measurement
+            {
+                SetView(ratingTableView);
+                ratingTableView.Draw(ratings);
+            }
+
+            toolStripProgressBar1.Visible = false;
+        }
+
+        private void SetMeasurementView()
+        {
+            var measurements = tree1.GetSelectedMeasurements();
+
+            if (measurements.Length > 1)
+            {
+                SetView(ratingTableView);
+                ratingTableView.Draw(measurements);
+
+            }
+            else // view edit single measurement
+            {
+                SetView(measurementView);
+                measurementView.Measurement = tree1.SelectedObject as BasicMeasurement;
+                measurementView.Draw();
+            }
+
+            toolStripProgressBar1.Visible = false;
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)

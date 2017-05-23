@@ -1,6 +1,6 @@
 ﻿namespace Reclamation.TimeSeries.Forms.MetaData
 {
-    partial class SiteMetaData
+    partial class SiteProperties
     {
         /// <summary> 
         /// Required designer variable.

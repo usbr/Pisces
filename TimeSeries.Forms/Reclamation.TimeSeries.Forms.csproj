@@ -192,6 +192,8 @@
     <Compile Include="ImportForms\ImportIdwrData.Designer.cs">
       <DependentUpon>ImportIdwrData.cs</DependentUpon>
     </Compile>
+    <Compile Include="MetaData\DataRowEditor.cs" />
+    <Compile Include="MetaData\DataRowEditor.Designer.cs" />
     <Compile Include="RatingTables\IRatingTableGraph.cs" />
     <Compile Include="RatingTables\OldRatingEquationEditor.cs">
       <SubType>UserControl</SubType>
@@ -302,23 +304,11 @@
     <Compile Include="RatingTables\BasicMeasurementView.Designer.cs">
       <DependentUpon>BasicMeasurementView.cs</DependentUpon>
     </Compile>
-    <Compile Include="MetaData\DataRowEditor.cs">
+    <Compile Include="MetaData\SiteProperties.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="MetaData\DataRowEditor.Designer.cs">
-      <DependentUpon>DataRowEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MetaData\MetaDataEditor.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MetaData\MetaDataEditor.Designer.cs">
-      <DependentUpon>MetaDataEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MetaData\SiteMetaData.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MetaData\SiteMetaData.Designer.cs">
-      <DependentUpon>SiteMetaData.cs</DependentUpon>
+    <Compile Include="MetaData\SiteProperties.Designer.cs">
+      <DependentUpon>SiteProperties.cs</DependentUpon>
     </Compile>
     <Compile Include="ScenarioReferenceControl.cs">
       <SubType>UserControl</SubType>
@@ -688,6 +678,7 @@
       <DependentUpon>ImportIdwrData.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="MetaData\DataRowEditor.resx" />
     <EmbeddedResource Include="RatingTables\OldRatingEquationEditor.resx">
       <DependentUpon>OldRatingEquationEditor.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -748,14 +739,8 @@
     <EmbeddedResource Include="RatingTables\BasicMeasurementView.resx">
       <DependentUpon>BasicMeasurementView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MetaData\DataRowEditor.resx">
-      <DependentUpon>DataRowEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MetaData\MetaDataEditor.resx">
-      <DependentUpon>MetaDataEditor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MetaData\SiteMetaData.resx">
-      <DependentUpon>SiteMetaData.cs</DependentUpon>
+    <EmbeddedResource Include="MetaData\SiteProperties.resx">
+      <DependentUpon>SiteProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProbabilityOptions.resx">
       <DependentUpon>ProbabilityOptions.cs</DependentUpon>
