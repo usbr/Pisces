@@ -125,8 +125,8 @@ Source:  "..\..\PiscesTestData\data\ac_flow.xls";   DestDir: "{app}\sample-data"
 
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 [Icons]
-Name: "{group}\Pisces2"; Filename: "{app}\Pisces.exe"
-Name: "{commondesktop}\Pisces2"; Filename: "{app}\Pisces.exe"; Tasks: desktopicon
+Name: "{group}\Pisces3"; Filename: "{app}\Pisces.exe"
+Name: "{commondesktop}\Pisces3"; Filename: "{app}\Pisces.exe"; Tasks: desktopicon
 
 [Code]
 
