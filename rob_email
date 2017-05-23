@@ -1,0 +1,11 @@
+#!/bin/bash
+Y=`date +%Y`
+cd /home/agrimet/bin/HydrometServer
+mono HydrometServer.exe --cli=daily < cmds.txt > out.txt
+sed -i 's/pisces>//' out.txt
+echo "Attached is the daily data for BOII" > emailbody.txt
+echo "www.usbr.gov/pn/agrimet/" >> emailbody.txt
+/bin/mail -v -s "test email" -a "out.txt" -r rherrera@usbr.gov rherrera@usbr.gov < emailbody.txt
+echo
+~
+
