@@ -41,5 +41,28 @@ namespace Reclamation.Core
             }
             return false;
         }
+
+        /// <summary>
+        /// Check if there is a public internet connection 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private bool checkInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    using (var stream = client.OpenRead("http://www.google.com"))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

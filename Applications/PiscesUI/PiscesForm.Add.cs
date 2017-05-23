@@ -1171,29 +1171,5 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
-
-        /// <summary>
-        /// Check if there is an internet connection to show the Add options that rely on web services
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private bool checkInternetConnection()
-        {
-            try
-            {
-                using (var client = new System.Net.WebClient())
-                {
-                    using (var stream = client.OpenRead("http://www.google.com"))
-                    {
-                        return true;
-                    }
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
     }
 }
