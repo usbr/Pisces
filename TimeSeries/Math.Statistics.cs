@@ -254,6 +254,7 @@ namespace Reclamation.TimeSeries
                 return Point.MissingValueFlag;
             }
             double avg = sum / counter;
+            
             return avg;
         }
 

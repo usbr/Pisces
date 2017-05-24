@@ -223,9 +223,10 @@ namespace Reclamation.TimeSeries.Reports
                     rval.Rows[indexTotal][j] = sum;
 
                 var ave = Math.AverageOfSeries(monthCol).ToString("F2");
-                if (!ave.Contains("-"))
+                if (!ave.Contains("-") && !ave.Contains("NaN"))
                     rval.Rows[indexAve][j] = ave;
-
+                else
+                    rval.Rows[indexAve][j] = "---";
                 var max = Math.MaxValue(monthCol);
                 if (max >= 0)
                     rval.Rows[indexMax][j] = max;
