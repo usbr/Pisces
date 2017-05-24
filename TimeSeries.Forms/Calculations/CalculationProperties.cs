@@ -57,10 +57,15 @@ namespace Reclamation.TimeSeries.Forms.Calculations
                 string tn = basicEquation1.TimeInterval.ToString().ToLower() + "_" + TimeSeriesDatabase.SafeTableName(a);
                 tn = tn.Replace("irregular", "instant");
                 m_series.Table.TableName = tn;
+
+                TimeSeriesName x = new TimeSeriesName(a, basicEquation1.TimeInterval);
+                m_series.SiteID = x.siteid;
             }
             a = basicEquation1.Units.Trim();
             if (a != "")
                 m_series.Units = a;
+
+            
 
             string errorMessage = "";
             m_series.TimeInterval = basicEquation1.TimeInterval;
