@@ -42,6 +42,7 @@
             this.labelStatus = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSiteList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNotifications)).BeginInit();
             this.SuspendLayout();
@@ -49,30 +50,27 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(33, 105);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(25, 85);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 17);
+            this.label2.Size = new System.Drawing.Size(46, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "email list";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(33, 140);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(25, 114);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(83, 17);
+            this.label3.Size = new System.Drawing.Size(63, 13);
             this.label3.TabIndex = 3;
             this.label3.Text = "notifications";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(20, 487);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(15, 396);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(58, 17);
+            this.label5.Size = new System.Drawing.Size(43, 13);
             this.label5.TabIndex = 5;
             this.label5.Text = "site lists";
             this.toolTip1.SetToolTip(this.label5, "site lists are used for notifications of multiple sites. Such as all AgriMet site" +
@@ -81,10 +79,9 @@
             // linkLabelBack
             // 
             this.linkLabelBack.AutoSize = true;
-            this.linkLabelBack.Location = new System.Drawing.Point(20, 16);
-            this.linkLabelBack.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLabelBack.Location = new System.Drawing.Point(15, 13);
             this.linkLabelBack.Name = "linkLabelBack";
-            this.linkLabelBack.Size = new System.Drawing.Size(54, 17);
+            this.linkLabelBack.Size = new System.Drawing.Size(43, 13);
             this.linkLabelBack.TabIndex = 6;
             this.linkLabelBack.TabStop = true;
             this.linkLabelBack.Text = "<<back";
@@ -93,10 +90,9 @@
             // linkLabelDelete
             // 
             this.linkLabelDelete.AutoSize = true;
-            this.linkLabelDelete.Location = new System.Drawing.Point(263, 16);
-            this.linkLabelDelete.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLabelDelete.Location = new System.Drawing.Point(197, 13);
             this.linkLabelDelete.Name = "linkLabelDelete";
-            this.linkLabelDelete.Size = new System.Drawing.Size(63, 17);
+            this.linkLabelDelete.Size = new System.Drawing.Size(48, 13);
             this.linkLabelDelete.TabIndex = 7;
             this.linkLabelDelete.TabStop = true;
             this.linkLabelDelete.Text = "delete ...";
@@ -106,19 +102,17 @@
             // 
             this.textBoxEmailList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxEmailList.Location = new System.Drawing.Point(123, 101);
-            this.textBoxEmailList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxEmailList.Location = new System.Drawing.Point(92, 82);
             this.textBoxEmailList.Name = "textBoxEmailList";
-            this.textBoxEmailList.Size = new System.Drawing.Size(783, 22);
+            this.textBoxEmailList.Size = new System.Drawing.Size(588, 20);
             this.textBoxEmailList.TabIndex = 8;
             // 
             // linkLabelSave
             // 
             this.linkLabelSave.AutoSize = true;
-            this.linkLabelSave.Location = new System.Drawing.Point(119, 16);
-            this.linkLabelSave.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLabelSave.Location = new System.Drawing.Point(89, 13);
             this.linkLabelSave.Name = "linkLabelSave";
-            this.linkLabelSave.Size = new System.Drawing.Size(38, 17);
+            this.linkLabelSave.Size = new System.Drawing.Size(30, 13);
             this.linkLabelSave.TabIndex = 9;
             this.linkLabelSave.TabStop = true;
             this.linkLabelSave.Text = "save";
@@ -130,10 +124,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewSiteList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewSiteList.Location = new System.Drawing.Point(24, 507);
-            this.dataGridViewSiteList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewSiteList.Location = new System.Drawing.Point(18, 412);
             this.dataGridViewSiteList.Name = "dataGridViewSiteList";
-            this.dataGridViewSiteList.Size = new System.Drawing.Size(883, 172);
+            this.dataGridViewSiteList.Size = new System.Drawing.Size(662, 140);
             this.dataGridViewSiteList.TabIndex = 10;
             // 
             // dataGridViewNotifications
@@ -141,44 +134,50 @@
             this.dataGridViewNotifications.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewNotifications.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewNotifications.Location = new System.Drawing.Point(24, 171);
-            this.dataGridViewNotifications.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridViewNotifications.Location = new System.Drawing.Point(18, 139);
             this.dataGridViewNotifications.Name = "dataGridViewNotifications";
-            this.dataGridViewNotifications.Size = new System.Drawing.Size(883, 302);
+            this.dataGridViewNotifications.Size = new System.Drawing.Size(662, 245);
             this.dataGridViewNotifications.TabIndex = 11;
             // 
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(84, 43);
-            this.labelStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelStatus.Location = new System.Drawing.Point(63, 35);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(0, 17);
+            this.labelStatus.Size = new System.Drawing.Size(0, 13);
             this.labelStatus.TabIndex = 12;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(33, 63);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(25, 51);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 17);
+            this.label1.Size = new System.Drawing.Size(36, 13);
             this.label1.TabIndex = 13;
             this.label1.Text = "name:";
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(123, 63);
-            this.textBoxName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBoxName.Location = new System.Drawing.Point(92, 51);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.ReadOnly = true;
-            this.textBoxName.Size = new System.Drawing.Size(223, 22);
+            this.textBoxName.Size = new System.Drawing.Size(168, 20);
             this.textBoxName.TabIndex = 14;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(176, 106);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(465, 20);
+            this.textBox1.TabIndex = 15;
+            this.textBox1.Text = "symbols:  d:jck af (daily)  i:amf fb (instant)   %value %data_source";
             // 
             // NotificationDetail
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelStatus);
@@ -191,9 +190,8 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "NotificationDetail";
-            this.Size = new System.Drawing.Size(939, 699);
+            this.Size = new System.Drawing.Size(704, 568);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSiteList)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewNotifications)).EndInit();
             this.ResumeLayout(false);
@@ -216,5 +214,6 @@
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxName;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

@@ -53,7 +53,9 @@ Source:  "bin\debug\HydrometNotifications.exe";   DestDir: "{app}";   Flags: ign
 Source:  "bin\debug\Npgsql.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\ZedGraph.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\DgvFilterPopup.dll";   DestDir: "{app}";   Flags: ignoreversion
-                                                                                                 Source:  ".\bin\debug\System.Data.SQLite.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "bin\debug\System.Threading.Tasks.Extensions.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "bin\debug\Renci.SshNet.dll";   DestDir: "{app}";   Flags: ignoreversion
+
 Source:  ".\bin\debug\x86\SQLite.Interop.dll";   DestDir: "{app}\x86";   Flags: ignoreversion
 Source:  ".\bin\debug\x64\SQLite.Interop.dll";   DestDir: "{app}\x64";   Flags: ignoreversion
 Source:  ".\bin\debug\System.Data.SQLite.dll";   DestDir: "{app}";   Flags: ignoreversion
@@ -84,6 +86,7 @@ Source:  "..\cfg\mpoll_inventory.txt";   DestDir: "{app}\cfg";   Flags: ignoreve
 ; Hydromet tools specific  - below
 Source:  "C:\utils\private\reclamationcgi.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "C:\utils\private\RuleCurves.xlsx";   DestDir: "{app}\cfg";   Flags: ignoreversion
+Source:  "C:\utils\private\hydromet-tools-private.config";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "..\cfg\RatingTableTemplate.xls";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "..\cfg\snowgg_groups.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "..\cfg\snowgg_groups_gp.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion

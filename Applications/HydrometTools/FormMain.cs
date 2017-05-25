@@ -417,13 +417,21 @@ namespace HydrometTools
 			Application.Run(new FormMain());
 		}
 
-        static DateTime prevDateTime = DateTime.MinValue;
+        static DateTime prevDateTime = DateTime.Now;
         static void Application_Idle(object sender, EventArgs e)
         { // close connection to Hydromet after 1 hour idle.
-            if (DateTime.Now >= prevDateTime.AddHours(1.0))
+            try
             {
-                prevDateTime = DateTime.Now;
-                HydrometTools.ssh.Utility.Close();
+                if (DateTime.Now >= prevDateTime.AddHours(1.0))
+                {
+                    prevDateTime = DateTime.Now;
+                    HydrometTools.ssh.Utility.Close();
+                }
+            }
+            catch (Exception)
+            {
+                
+               
             }
         }
 
@@ -434,8 +442,14 @@ namespace HydrometTools
 
         private static void Cleanup()
         {
-            HydrometTools.ssh.Utility.Close();
-            PostgreSQL.ClearAllPools();
+            try
+            {
+                HydrometTools.ssh.Utility.Close();
+                PostgreSQL.ClearAllPools();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         static void CurrentDomain_ProcessExit(object sender, EventArgs e)

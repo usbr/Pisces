@@ -19,6 +19,7 @@ namespace HydrometTools.ssh
                     Console.WriteLine("Creating new connection to "+hostname);
                     ssh = new SshClient(hostname, username, passwd);
                     ssh.Connect();
+                    
                     var cmd = ssh.RunCommand(command);
                     rval += cmd.Result;
             }
@@ -42,11 +43,18 @@ namespace HydrometTools.ssh
 
         public static void Close()
         {
-            if (ssh != null)
+            try
             {
-                ssh.Disconnect();
-                ssh.Dispose();
-                ssh = null;
+                if (ssh != null)
+                {
+                    ssh.Disconnect();
+                    ssh.Dispose();
+                    ssh = null;
+                }
+            }
+            catch (Exception)
+            {
+                
             }
         }
     }

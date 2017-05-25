@@ -841,6 +841,8 @@ namespace HydrometTools
 			{
                 HydrometHost svr = HydrometInfoUtility.HydrometServerFromPreferences();
                 string query = "";
+
+                Logger.WriteLine("svr = " + svr.ToString());
                 //if (svr == HydrometHost.PNLinux)
                 //{// lookup parameters from database.
                 //    //PiscesDatabase.Info.Parameters()
@@ -1332,7 +1334,13 @@ Color.Chartreuse, Color.Chocolate,Color.Coral,Color.CornflowerBlue};
                     }
                     catch (Exception aex)
                     {
-                        MessageBox.Show(aex.Message); 
+                        string msg = aex.Message;
+
+                        if( aex.InnerException != null)
+                        {
+                            msg += "inner\n" + aex.InnerException.Message;
+                        }
+                        MessageBox.Show(msg);
                     }
                     finally
                     {
