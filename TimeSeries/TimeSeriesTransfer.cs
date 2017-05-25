@@ -76,11 +76,14 @@ namespace Reclamation.TimeSeries
                     HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), tmpFileName, true);
                 }
             }
-            Logger.WriteLine("Moving: " + tmpFileName);
-            string fn = interval == TimeInterval.Daily ? "daily" : "instant";
-            var fileName = GetOutgoingFileName(fn, name, "all");
-            Logger.WriteLine("To: " + fileName);
-            File.Move(tmpFileName, fileName);
+            if (File.Exists(tmpFileName))
+            {
+                Logger.WriteLine("Moving: " + tmpFileName);
+                string fn = interval == TimeInterval.Daily ? "daily" : "instant";
+                var fileName = GetOutgoingFileName(fn, name, "all");
+                Logger.WriteLine("To: " + fileName);
+                File.Move(tmpFileName, fileName);
+            }
 
         }
 
