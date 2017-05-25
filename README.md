@@ -20,9 +20,12 @@ The key programs and assemblies  (HydrometServer.exe, Reclamation.Core.dll and R
  
 Hydrologist, Engineers (especially modelers), and programmers have used these Pisces libraries to manage large amounts of time series data with ease. The main componet in the library called Series can be used without any database if desired.
 
-## Motivation
+## History and Motivation
 
-The ability to write simple to understand time series equations is a motivation to create Pisces.
+Pisces initially started so users could manage large amounts of environmental time series data from sensors or modeling outputs.   Using Pisces different data sets (scenarios) are easy to compare to each other including when different statistics such as exceedance as selected.
+
+
+The ability to write simple to understand time series equations is one motivation to create Pisces.
 
 Example simple equation involving three different time series and two different time steps.
 ```
