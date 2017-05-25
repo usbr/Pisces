@@ -133,16 +133,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Pisces\Core\Reclamation.Core.csproj">
-      <Project>{80c73d4c-43cf-42de-addc-7b0f06ecf086}</Project>
-      <Name>Reclamation.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Pisces\TimeSeries\Reclamation.TimeSeries.csproj">
-      <Project>{5dd20a8a-4037-4885-ab91-2f5a3d1f48b4}</Project>
-      <Name>Reclamation.TimeSeries</Name>
-    </ProjectReference>
-  </ItemGroup>
+  
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
