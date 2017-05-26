@@ -23,7 +23,7 @@ namespace ImportKlamathShef
             }
             CsvFile csv = new CsvFile(args[0]);
             string outputFilename = args[1];
-
+       
             if( args.Length == 3)
             {// read files from local directory instead of ftp.
                 ProcessFromDirectory(args[2],csv,outputFilename);
@@ -34,6 +34,14 @@ namespace ImportKlamathShef
         private static void ProcessFromDirectory(string dir, CsvFile csv, string outputFilename)
         {
             string[] fileEntries = Directory.GetFiles(dir);
+
+            if( fileEntries.Length == 0)
+            {
+                Console.WriteLine("no files found");
+                return;
+            }
+
+            Console.WriteLine("saving to '" + outputFilename + "'");
 
             for (int i = 0; i < fileEntries.Length; i++)
             {
@@ -51,7 +59,7 @@ namespace ImportKlamathShef
             {
                 var r = csv.Rows[i];
                 var s = SimpleShef.ReadSimpleShefA(filename, r["shefloc"].ToString(), r["shefcode"].ToString());
-
+                Console.WriteLine(r["cbtt"].ToString()+"/"+r["pcode"].ToString()+" "+s.Count +" records");
 
                 HydrometInstantSeries.WriteToHydrometFile(s, r["cbtt"].ToString(),
                     r["pcode"].ToString(), WindowsUtility.GetUserName(), outputFilename, true);

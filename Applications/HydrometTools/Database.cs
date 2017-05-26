@@ -59,7 +59,7 @@ namespace HydrometTools
             }
             else
             {
-                return null;
+                throw new Exception("Error: the password is blank. Please set this in the settings tab");
             }
 
             BasicDBServer svr = PostgreSQL.GetPostgresServer(dbname, password: pw);

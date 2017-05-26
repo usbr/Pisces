@@ -9,9 +9,15 @@ namespace Reclamation.TimeSeries
     public class TimeSeriesDatabaseUtility
     {
         TimeSeriesDatabase m_db;
+        TimeSeriesDatabaseDataSet.SeriesCatalogDataTable m_seriesCatalog;
+        TimeSeriesDatabaseDataSet.sitecatalogDataTable m_siteCatalog;
+        
+
         public TimeSeriesDatabaseUtility(TimeSeriesDatabase db)
         {
-            m_db = db;
+           m_db = db;
+           m_seriesCatalog = m_db.GetSeriesCatalog();
+           m_siteCatalog = m_db.GetSiteCatalog();
         }
 
         public void SortByName(PiscesFolder parent)
@@ -30,51 +36,71 @@ namespace Reclamation.TimeSeries
 
 
         /// <summary>
-        ///  put each series in folder ../siteid/interval/
+        /// define path based on  root/sitecatalog.type/siteid/interval
         /// </summary>
-        /// <param name="root"></param>
-        /// <param name="folder"></param>
-         public void OrganizeCatalogBySiteInterval(PiscesFolder folder)
+        /// <param name="row"></param>
+        /// <returns></returns>
+        private List<string> GetNewPath(string root,TimeSeriesDatabaseDataSet.SeriesCatalogRow row)
         {
-          
+            var selectedPath = new List<string>();
 
-            TimeSeriesDatabaseDataSet.SeriesCatalogDataTable sc = m_db.GetSeriesCatalog();
-            var siteCatalog = m_db.GetSiteCatalog();
+            selectedPath.Add(root);
+            
+            var siteRow = m_siteCatalog.FindBysiteid(row.siteid);
+            if (siteRow != null)
+                selectedPath.Add(siteRow.type);
+            else
+            {
+                Console.WriteLine("no site defined... in sitecatalog.");
+                selectedPath.Add("unknown");
+            }
+            selectedPath.Add(row.siteid);
+            selectedPath.Add(GetIntervalPath(row));
+            return selectedPath;
+
+        }
+
+        /// <summary>
+        /// Put all series into a consistent folder structure
+        /// </summary>
+        public void OrganizeSeriesCatalog(PiscesFolder folder)
+        {
+            
+            if( folder.ID != folder.ParentID)
+            {
+                return; // must start from root folder.
+            }
 
             var selectedPath = new List<string>();
-            selectedPath.AddRange(sc.GetPath(folder.ID));
+            selectedPath.AddRange(m_seriesCatalog.GetPath(folder.ID));
             selectedPath.Add(folder.Name);
 
-            for (int i = 0; i < sc.Count; i++)
+
+            for (int i = 0; i < m_seriesCatalog.Count; i++)
             {
-                var row = sc[i];
-                if (row.IsFolder == 1 || row.Provider != "Series")
-                    continue;
-                TimeSeriesName tn = new TimeSeriesName(row.TableName);
-
-                var rowPath = new List<string>();
-
-                rowPath.AddRange(sc.GetPath(row.id));
-
-                if( ! IsChildInRoot(selectedPath,rowPath))
+                var row = m_seriesCatalog[i];
+                if (row.IsFolder == 1 )
                     continue;
 
-                var expectedPath = new List<string>();
-                expectedPath.AddRange(selectedPath);
-                expectedPath.Add(tn.siteid);
-                expectedPath.Add(GetIntervalPath(row, tn.pcode));
-             
-                if (!SamePath(expectedPath,rowPath))
+                var existingPath = new List<string>();
+                existingPath.AddRange(m_seriesCatalog.GetPath(row.id));
+
+
+                var newPath = GetNewPath(folder.Name,row);
+
+                 
+
+                if (!SamePath(newPath,existingPath))
                 {
                     Console.WriteLine("Moving "+row.TableName);
-                    Console.WriteLine("From :"+ String.Join("/",rowPath.ToArray()));
-                    Console.WriteLine("To   :"+ String.Join("/", expectedPath.ToArray()));
-                    var id = sc.GetOrCreateFolder(expectedPath.ToArray());
+                    Console.WriteLine("From :"+ String.Join("/",existingPath.ToArray()));
+                    Console.WriteLine("To   :"+ String.Join("/", newPath.ToArray()));
+                    var id = m_seriesCatalog.GetOrCreateFolder(newPath.ToArray());
                     row.ParentID = id;
                 }
             }
 
-            m_db.Server.SaveTable(sc);
+            m_db.Server.SaveTable(m_seriesCatalog);
 
         }
 
@@ -91,34 +117,35 @@ namespace Reclamation.TimeSeries
              return true;
          }
 
-        /// <summary>
-        /// determines if the child is inside the root
-        /// </summary>
-        /// <param name="selectedPath">root path </param>
-        /// <param name="rowPath"></param>
-        /// <returns></returns>
-         private bool IsChildInRoot(List<string> root, List<string> child)
-         {
-             if (root.Count > child.Count)
-                 return false;
+        ///// <summary>
+        ///// determines if the child is inside the root
+        ///// </summary>
+        ///// <param name="selectedPath">root path </param>
+        ///// <param name="rowPath"></param>
+        ///// <returns></returns>
+        // private bool IsChildInRoot(List<string> root, List<string> child)
+        // {
+        //     if (root.Count > child.Count)
+        //         return false;
 
-             for (int i = 0; i < root.Count; i++)
-             {
-                 if (root[i] != child[i])
-                     return false;
-             }
-             return true;
-         }
+        //     for (int i = 0; i < root.Count; i++)
+        //     {
+        //         if (root[i] != child[i])
+        //             return false;
+        //     }
+        //     return true;
+        // }
 
-         private static string GetIntervalPath(TimeSeriesDatabaseDataSet.SeriesCatalogRow row, string pcode)
+         private static string GetIntervalPath(TimeSeriesDatabaseDataSet.SeriesCatalogRow row)
          {
+             TimeSeriesName tn = new TimeSeriesName(row.TableName);
              var interval = "instant";
              if (row.TimeInterval == "Irregular" || row.TimeInterval == "Hourly")
                  interval = "instant";
              else
                  interval = row.TimeInterval.ToLower();
 
-             if (TimeSeriesDatabase.IsQuality(pcode))
+             if (TimeSeriesDatabase.IsQuality(tn.pcode))
                  interval = "quality";
 
              return interval;

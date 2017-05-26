@@ -19,6 +19,8 @@ namespace Reclamation.TimeSeries
             if (args.Contains("sqlite"))
             {
                 SQLiteServer svr = new SQLiteServer(args["sqlite"]);
+                Logger.WriteLine("Using SQLite " + args["sqlite"]);
+                Console.WriteLine(args["sqlite"]);
                 var db = new TimeSeriesDatabase(svr, LookupOption.TableName,readOnly);
                 return db;
             }

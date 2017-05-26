@@ -619,7 +619,10 @@ namespace Reclamation.TimeSeries.Forms
             }
 
             sortMenu.Enabled = folderSelected && singleSelection;
-            OrganizeBySiteidPcode.Enabled = folderSelected && singleSelection;
+
+            OrganizeBySiteidPcode.Enabled = anySelected 
+                && folderSelected && singleSelection
+                && CurrentFolder.ID == CurrentFolder.ParentID;
 
             bool canAddStuff = (CurrentFolder != null);
 
@@ -1218,9 +1221,9 @@ namespace Reclamation.TimeSeries.Forms
         {
             if (!tree1.IsFolderSelected)
                 return;
-            var parent = DB.GetOrCreateFolder(tree1.SelectedFolder.Name);
+
             var u = new TimeSeriesDatabaseUtility(DB);
-            u.OrganizeCatalogBySiteInterval(parent);
+            u.OrganizeSeriesCatalog(tree1.SelectedFolder);
             DatabaseChanged();
 
         }
