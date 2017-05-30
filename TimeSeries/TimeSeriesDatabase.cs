@@ -1367,9 +1367,10 @@ namespace Reclamation.TimeSeries
         /// <returns></returns>
         public CalculationSeries GetCalculationSeries(string siteID, string pcode, TimeInterval interval)
         {
-            string tn = interval.ToString().ToLower() + "_" + siteID + "_" + pcode;
-            tn = tn.ToLower();
-            string filter = " tablename = '" + tn + "' and timeinterval = '" + interval + "' and provider = 'CalculationSeries'";
+            var tsn = new TimeSeriesName(siteID, pcode, interval);
+            
+            string filter = " tablename = '" + tsn.GetTableName().ToLower() 
+                + "' and provider = 'CalculationSeries'";
 
             var sr = GetSeriesRow(filter);
             if (sr == null)

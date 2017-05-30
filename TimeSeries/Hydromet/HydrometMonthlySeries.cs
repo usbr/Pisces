@@ -59,7 +59,7 @@ namespace Reclamation.TimeSeries.Hydromet
             ConnectionString = "server=" + server.ToString()
             + ";cbtt=" + cbtt + ";pcode=" + pcode + ";LastUpdate=" + DateTime.Now.ToString(DateTimeFormatInstantaneous);
 
-            this.Table.TableName = "Monthly_" + cbtt + "_" + pcode;
+            this.Table.TableName = "monthly_" + cbtt + "_" + pcode;
         }
 
         public HydrometMonthlySeries(TimeSeriesDatabase db, Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow sr)

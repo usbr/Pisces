@@ -241,7 +241,10 @@ namespace HydrometTools
                     else if (interval == TimeInterval.Daily)
                     {
                         DailyCalculation(ssRng, cbtt, pcode, c);
-
+                    }
+                    else if( interval == TimeInterval.Irregular)
+                    {
+                        InstantCalculation(ssRng, cbtt, pcode, c);
                     }
                 }
             }
@@ -249,6 +252,26 @@ namespace HydrometTools
             {
                 Cursor = Cursors.Default;
             }
+        }
+
+        private void InstantCalculation(SpreadsheetRange ssRng, string cbtt, string pcode, int columnOffset)
+        {
+            var db = Database.DB();
+
+            var series = db.GetCalculationSeries(cbtt, pcode, TimeInterval.Irregular);
+            if (series == null)
+                return;
+
+            Reclamation.TimeSeries.Parser.SeriesExpressionParser.Debug = true;
+            var rng = ssRng.SelectedDateRange;
+            series.Calculate(rng.DateTime1, rng.DateTime2);
+            if (ssRng.RowCount != series.Count)
+            {
+                MessageBox.Show(series.Messages.ToString(50), "Error with Calculation");
+                return;
+            }
+            ssRng.InsertSeriesValues(series, "", columnOffset);
+   
         }
 
         private static void DailyCalculation(SpreadsheetRange ssRng, string cbtt, string pcode, int columnOffset)

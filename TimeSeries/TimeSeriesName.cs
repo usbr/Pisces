@@ -20,7 +20,17 @@ namespace Reclamation.TimeSeries
 
         public bool Valid = false;
 
+        public TimeSeriesName(string siteId, string parameter, TimeInterval interval)
+        {
+            Init2(siteId + "_" + parameter, interval);
+        }
+
         public TimeSeriesName(string name, TimeInterval interval)
+        {
+            Init2(name, interval);
+        }
+
+        private void Init2(string name, TimeInterval interval)
         {
             if (interval == TimeInterval.Irregular)
                 Init(name, "instant");
