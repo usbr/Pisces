@@ -24,6 +24,7 @@ namespace Reclamation.TimeSeries.Import
             
             NpoiExcel xls = new NpoiExcel(excelFilename);
 
+            var dirXls = Path.GetDirectoryName(excelFilename);
             var tbl = xls.ReadDataTable(0, true, true);
 
             for (int i = 0; i < tbl.Rows.Count; i++)
@@ -39,6 +40,10 @@ namespace Reclamation.TimeSeries.Import
                 {
                      string dir = Path.GetDirectoryName(db.DataSource);
                     filename = Path.Combine(dir, filename);
+                }
+                else
+                {
+                    filename = Path.Combine(dirXls, filename);
                 }
                  
                 
