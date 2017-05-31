@@ -259,7 +259,7 @@ namespace Reclamation.TimeSeries
             {
                 string sql = "Create Table parametercatalog "
                 + "( id  " + m_server.PortableCharacterType(100) + " not null, "
-                + " timeinterval " + m_server.PortableCharacterType(1024) + " not null default '', "
+                + " timeinterval " + m_server.PortableCharacterType(10) + " not null default '', "
                 + " units " + m_server.PortableCharacterType(1024) + " not null default '', "
                 + " statistic " + m_server.PortableCharacterType(1024) + " not null default '' ,"
                 + " name " + m_server.PortableCharacterType(1024) + " not null default '', "
