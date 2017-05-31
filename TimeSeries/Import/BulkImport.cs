@@ -36,7 +36,7 @@ namespace Reclamation.TimeSeries.Import
                 var filename = ReadString(row, "filename");
                 
                 var tablename = ReadString(row, "tablename");
-                if (filename != "" &&  !Path.IsPathRooted(filename))
+                if (filename != "" &&  Path.IsPathRooted(filename))
                 {
                      string dir = Path.GetDirectoryName(db.DataSource);
                     filename = Path.Combine(dir, filename);
