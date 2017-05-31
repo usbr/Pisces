@@ -15,8 +15,14 @@ namespace Reclamation.Core
         public MySqlServer(string connectionString)
         {
             this.ConnectionString = connectionString;
-           
+        }
 
+        const int max_char = 65535;
+        public override string PortableCharacterType(int size)
+        {
+            if( size > max_char)
+               return " nvarchar("+max_char+") "; 
+            return base.PortableCharacterType(size);
         }
 
 
