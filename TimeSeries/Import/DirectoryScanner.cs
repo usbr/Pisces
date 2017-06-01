@@ -59,8 +59,6 @@ namespace Reclamation.TimeSeries.Import
             }
 
             m_files = files.ToArray();
-            m_scenario = Enumerable.Repeat<string>("", m_files.Length).ToArray();
-            m_siteid = Enumerable.Repeat<string>("", m_files.Length).ToArray();
 
             if( regexPattern != "")
             {
@@ -70,27 +68,37 @@ namespace Reclamation.TimeSeries.Import
 
         public void FindMatches(string regexPattern)
         {
+            var regexFiles = new List<string>();
+            var regexScenarios = new List<string>();
+            var regexSiteIDs = new List<string>();
+
             re = new Regex(regexPattern, RegexOptions.IgnoreCase);
 
             for (int i = 0; i < m_files.Length; i++)
             {
-                if (re.IsMatch(m_files[i]))
+                var fname = m_files[i];
+
+                if (re.IsMatch(fname))
                 {
-                    m_scenario[i] = "";
-                    m_siteid[i] = "";
-                    var m = re.Matches(m_files[i])[0];
-                    
+                    var m = re.Matches(fname)[0];
+
+                    regexFiles.Add(fname);
+
                     if (re.GetGroupNames().Contains("scenario"))
                     {
-                        m_scenario[i] = TimeSeriesDatabase.SafeTableName(m.Groups["scenario"].Value);
+                        regexScenarios.Add(TimeSeriesDatabase.SafeTableName(m.Groups["scenario"].Value));
                     }
                     
                     if (re.GetGroupNames().Contains("siteid"))
                     {
-                        m_siteid[i] = m.Groups["siteid"].Value;
+                        regexSiteIDs.Add(m.Groups["siteid"].Value);
                     }
                 }
             }
+
+            m_files = regexFiles.ToArray();
+            m_scenario = regexScenarios.ToArray();
+            m_siteid = regexSiteIDs.ToArray();
         }
 
 
