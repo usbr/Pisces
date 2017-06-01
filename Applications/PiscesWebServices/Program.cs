@@ -16,9 +16,39 @@ namespace PiscesWebServices
     {
         /// <summary>
         /// Examples:
-        /// 
+        /// --server to start a self-hosted Nancy web service on the host server
         /// --cgi=sites --propertyFilter=program:agrimet --json_required_properties=json_extra
         /// --cgi=instant
+        /// 
+        /// Web Service Usage:
+        /// - On a command line, call: > PISCESWEBSERVICES --SERVER
+        /// - The Web Service relies on the following tables and views for rendering the front-end web pages
+        ///     - view_seriescatalog generated from the other catalogs below
+        ///         - Columns: (siteid, sitename, units, unitstext, timeinterval, statistic, parameter,
+        ///             tablename, name, enabled, region, server, isfolder, t1, t2, count)
+        ///     - sitecatalog
+        ///     - seriescatalog
+        ///     - parametercatalog
+        /// - Make sure to populate the PiscesWebServices.exe.config file in either the bin directory 
+        ///     (for testing or running from source) or the directory where the executable is located 
+        ///     to start the Nancy Web Service and connect it to your desired DB
+        ///     ------MYSQL SAMPLE----------------------------------------------------------------
+        ///     <add key="MySqlUser" value="jrocha" />        		    
+        ///     <add key="MySqlPassword" value="*****" />        		
+        ///     <add key="MySqlDatabase" value="timeseries" />     			
+        ///     <add key="MySqlServer" value="ibr*******00.bor.doi.net"/>  
+        ///     <add key="LocalConfigurationDataPath" value="~" />
+        ///     <add key="ClientSettingsProvider.ServiceUri" value=""/>	  
+        ///     ------POSTGRES SAMPLE----------------------------------------------------------------
+        ///     <!--<add key="PostgresUser" value="web_user"/>                                                              
+        ///     <!--<add key="PostgresPassword" value="*****"/>    
+        ///     <!--<add key="PostgresDatabase" value="timeseries"/>  
+        ///     <!--<add key="PostgresServer" value="*****"/>         
+        ///     <!--<add key="InternalNetworkPrefix" value="140."/>                                                         
+        ///     <!--<add key="LocalConfigurationDataPath" value="\\ibr*****00\ConfigurationData"/>  
+        ///     <!--<add key="ClientSettingsProvider.ServiceUri" value=""/>													
+        /// 
+        /// 
         /// </summary>
         /// <param name="args"></param>
         public static void Main(string[] args)

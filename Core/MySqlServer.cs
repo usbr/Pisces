@@ -357,8 +357,17 @@ namespace Reclamation.Core
                         password = user + File.ReadAllLines(@"mysql_key.txt", Encoding.UTF8)[0]; 
                     }
                 }
-                var cs = "server=" + server + ";uid=" + WindowsUtility.GetShortUserName() + ";" + "pwd=" + password +
-                       ";database=" + databaseName + ";";
+                string cs;
+                if (user == "")
+                {
+                    cs = "server=" + server + ";uid=" + WindowsUtility.GetShortUserName() + ";" + "pwd=" + password +
+                           ";database=" + databaseName + ";";
+                }
+                else
+                {
+                    cs = "server=" + server + ";uid=" + user + ";" + "pwd=" + password +
+                           ";database=" + databaseName + ";";
+                }
                 string msg = cs;
                 msg = msg.Replace("pwd=" + password, "pwd=" + "xxxxx");
                 Logger.WriteLine(msg);
