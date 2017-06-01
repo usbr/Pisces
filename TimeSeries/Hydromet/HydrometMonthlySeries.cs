@@ -423,28 +423,6 @@ namespace Reclamation.TimeSeries.Hydromet
             return tbl;
         }
 
-
-
-        /// <summary>
-        /// Loads an array of mpoll values based on a water year
-        /// used to support legacy FORTRAN converted to c#
-        /// </summary>
-        [Obsolete()]
-        public static void ReadMpoll(string cbtt, string pcode,
-            string waterYear, double[] values, string[] mark)
-        {
-
-            HydrometMonthlySeries s = new HydrometMonthlySeries(cbtt, pcode);
-            YearRange rng = new YearRange(int.Parse(waterYear), 10);
-            s.Read(rng.DateTime1, rng.DateTime2);
-
-            for (int i = 0; i < s.Count; i++)
-			{
-                values[i + 1] = s[i].Value;
-                mark[i + 1] = s[i].Flag;
-			}
-        }
-
         /// <summary>
         /// Returns longer descriptive name from a cbtt short name
         /// </summary>

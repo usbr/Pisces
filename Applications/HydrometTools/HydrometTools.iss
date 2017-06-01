@@ -39,7 +39,7 @@ Source:  "bin\debug\HydrometTools.exe";   DestDir: "{app}";   Flags: ignoreversi
 Source:  "bin\debug\HydrometNotifications.exe";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\HydrometTools.exe.config";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\Aga.Controls.dll";   DestDir: "{app}";   Flags: ignoreversion
-;Source:  "bin\debug\ICSharpCode.SharpZipLib.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "bin\debug\ICSharpCode.SharpZipLib.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\Reclamation.Core.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\Reclamation.TimeSeries.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\Reclamation.TimeSeries.Excel.dll";   DestDir: "{app}";   Flags: ignoreversion

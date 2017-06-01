@@ -455,7 +455,7 @@ namespace Reclamation.TimeSeries
                 return null;
             }
 
-            public int AddInstantRow(string siteID, int parentid, string units, string pcode, string expression = "")
+            public int AddRow(string siteID, int parentid, string units, string pcode, string expression = "", TimeInterval interval= TimeInterval.Irregular)
             {
                 var provider = "Series";
                 string iconName = "";
@@ -464,14 +464,16 @@ namespace Reclamation.TimeSeries
                     provider = "CalculationSeries";
                     iconName = "sum";
                 }
-                string tableName = "instant_" + siteID + "_" + pcode;
+                var tn = new TimeSeriesName(siteID + "_" + pcode,interval);
+
+                string tableName = tn.GetTableName();
 
                 var rows = Select("tablename = '" + tableName + "'");
                 if (rows.Length > 0)
                     Console.WriteLine("Warning table:'" + tableName + "' allready exists");
 
                 int rval = NextID();
-                AddSeriesCatalogRow(rval, parentid, 0, 1, iconName, siteID + "_" + pcode, siteID, units, "Irregular",
+                AddSeriesCatalogRow(rval, parentid, 0, 1, iconName, siteID + "_" + pcode, siteID, units,interval.ToString(),
                  pcode, tableName, provider, "", expression, "", 1);
                 return rval;
             }

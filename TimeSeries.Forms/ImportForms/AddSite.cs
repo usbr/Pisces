@@ -292,7 +292,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
         private void AddInstantRow(string siteID, string units, string pcode, string expression = "")
         {
-            m_seriesCatalog.AddInstantRow(siteID, 0, units, pcode, expression);
+            m_seriesCatalog.AddRow(siteID, 0, units, pcode, expression);
         }
 
        

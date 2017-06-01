@@ -925,7 +925,9 @@ namespace Reclamation.TimeSeries.Hydromet
 
                     if (File.Exists(fn))
                     {
-                        var tf = new TextFile(fn);
+                         var tf = new TextFile(fn);
+                         RemoveExtraRows(tf);
+
                          s_mpollInventory = new DataTable();
                         s_mpollInventory.Columns.Add("cbtt");
                         s_mpollInventory.Columns.Add("pcode");
@@ -935,16 +937,13 @@ namespace Reclamation.TimeSeries.Hydromet
 
                         string cbtt = "";
                         string pcode = "";
-                        DataRow newRow = s_mpollInventory.NewRow();
-                        string pattern = @"^\s(?<cbtt>[A-Z0-9]{1,12}|\s{10,15})\s+(?<pcode>[A-Z0-9]{1,10}|\s{8,10})\s+(?<years>([0-9]{4}-[0-9]{4})\s{2})+";
+                        string years = "";
+                        string pattern = @"^\s(?<cbtt>[A-Z0-9_]{1,12}|\s{10,15})\s+(?<pcode>[A-Z0-9]{1,10}|\s{8,10})\s+(?<years>[0-9\s\-]{4,})";
                         Regex re = new Regex(pattern, RegexOptions.Multiline);
                         for (int i = 0; i < tf.Length; i++)
                         {
                             string line = tf[i];
-                            if (line.IndexOf("-----") >= 0 || line.Trim() == "")
-                                continue;
-                            if (line.IndexOf("Parm Code") >= 0)
-                                continue;
+                            
                             var m  =re.Match(line);
                             if (!m.Success)
                             {
@@ -957,40 +956,26 @@ namespace Reclamation.TimeSeries.Hydromet
                                 cbtt = m.Groups["cbtt"].Value.Trim();
                             }
 
-                            var years = m.Groups["years"].Value.Trim();
-                            if (m.Groups["pcode"].Value.Trim() == "")
-                            {
-                                newRow["years"] = newRow["years"].ToString() + " " + years;
-                                continue;
-                            }
-                            else
+                            years = m.Groups["years"].Value.Trim() + " ";
+                            if (m.Groups["pcode"].Value.Trim() != "")
                             {
                                 pcode = m.Groups["pcode"].Value.Trim();
                             }
 
-                            
+                            var rows = s_mpollInventory.Select("cbtt = '" + cbtt + "' and pcode ='" + pcode + "'");
 
 
-                           newRow = s_mpollInventory.NewRow();
-                            newRow["cbtt"] = cbtt;
-                            newRow["pcode"] = pcode;
-                            newRow["years"] = years;
-                            //added two columns and using table to get units
-                            string descr = "";
-                            string units = "";
-                            for (int j = 0; j < Monthlykey.Rows.Count; j++)
+                            if (rows.Length == 1) // row allready exists (append more period or records)
                             {
-                                if (pcode == Monthlykey.Rows[j]["pcode"].ToString())
-                                {
-                                    descr = Monthlykey.Rows[j]["descr"].ToString();
-                                    units = Monthlykey.Rows[j]["units"].ToString();
-                                    break;
-                                }
+                                var row = rows[0];
+                                row["years"] = row["years"].ToString() + " " + years;
                             }
-                            newRow["descr"] = descr;
-                            newRow["units"] = units;
-
-                            s_mpollInventory.Rows.Add(newRow);
+                            else if (rows.Length > 1)
+                            {
+                                throw new Exception("Error.. duplicates???");
+                            }
+                            else
+                                 AddRow(cbtt, pcode, years);
                         }
 
 
@@ -998,6 +983,51 @@ namespace Reclamation.TimeSeries.Hydromet
                 }
 
                 return s_mpollInventory;
+            }
+        }
+
+        private static void AddRow(string cbtt, string pcode, string years)
+        {
+            var row = s_mpollInventory.NewRow();
+
+            row["cbtt"] = cbtt;
+            row["pcode"] = pcode;
+            row["years"] = years;
+            //added two columns and using table to get units
+            string descr = "";
+            string units = "";
+            for (int j = 0; j < Monthlykey.Rows.Count; j++)
+            {
+                if (pcode == Monthlykey.Rows[j]["pcode"].ToString())
+                {
+                    descr = Monthlykey.Rows[j]["descr"].ToString();
+                    units = Monthlykey.Rows[j]["units"].ToString();
+                    break;
+                }
+            }
+            row["descr"] = descr;
+            row["units"] = units;
+
+            s_mpollInventory.Rows.Add(row);
+            
+        }
+
+        private static void RemoveExtraRows(TextFile tf)
+        {
+
+            for (int i = 0; i < tf.Length; i++)
+            {
+                var line = tf[i];
+
+                if (line.IndexOf("-----") >= 0 || line.Trim() == "")
+                    tf.DeleteLine(i);
+            }
+                //Station     Parm Code    Years
+            for (int i = 0; i < tf.Length; i++)
+            {
+                var line = tf[i];
+                if (line.IndexOf("Parm Code") >= 0)
+                    tf.DeleteLine(i);
             }
         }
 
