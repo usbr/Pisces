@@ -52,6 +52,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pisces", "Applications\Pisc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportCsv", "Applications\ImportCsv\ImportCsv.csproj", "{DF7D7FCA-F5A0-4950-9E1A-354331D190ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetNiceNet", "Applications\GetNiceNet\GetNiceNet.csproj", "{728DF7C2-69D7-41FA-A358-61206BB90C4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,8 @@ Global
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.Debug|Any CPU.Build.0 = Debug|x86
 		{DF7D7FCA-F5A0-4950-9E1A-354331D190ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DF7D7FCA-F5A0-4950-9E1A-354331D190ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{728DF7C2-69D7-41FA-A358-61206BB90C4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{728DF7C2-69D7-41FA-A358-61206BB90C4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,5 +124,6 @@ Global
 		{B5149AE3-25DC-4ED3-8C22-6E429AA9532E} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 		{DF7D7FCA-F5A0-4950-9E1A-354331D190ED} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
+		{728DF7C2-69D7-41FA-A358-61206BB90C4E} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 	EndGlobalSection
 EndGlobal
