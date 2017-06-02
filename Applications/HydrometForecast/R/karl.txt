@@ -1,0 +1,7 @@
+setwd("C:/Documents and Settings/KTarbet/My Documents/project/Pisces/HydrometForecast/R")
+a <- read.csv("coeff_and.csv")
+summary(a)
+fit <- lm(Y1 ~ X1 + X2 + X3 +X4, data=a)
+summary(fit)
+coefficients(fit)
+confint(fit, level=0.90)

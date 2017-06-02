@@ -1,0 +1,71 @@
+
+R version 2.11.1 (2010-05-31)
+Copyright (C) 2010 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> setwd("C:/Documents and Settings/KTarbet/My Documents/project/Pisces/HydrometForecast/R")
+> a <- read.csv("coeff_and.csv")
+> summary(a)
+      Year            X1              X2               X3       
+ Min.   :1950   Min.   :34.16   Min.   : 17.85   Min.   : 51.4  
+ 1st Qu.:1965   1st Qu.:46.20   1st Qu.: 62.03   1st Qu.:174.7  
+ Median :1980   Median :56.01   Median : 77.69   Median :236.7  
+ Mean   :1980   Mean   :58.33   Mean   : 78.60   Mean   :226.9  
+ 3rd Qu.:1995   3rd Qu.:68.22   3rd Qu.: 95.76   3rd Qu.:279.0  
+ Max.   :2010   Max.   :96.06   Max.   :124.66   Max.   :364.7  
+       X4              Y1        
+ Min.   : 8.65   Min.   : 206.3  
+ 1st Qu.:16.77   1st Qu.: 452.1  
+ Median :21.50   Median : 662.7  
+ Mean   :22.89   Mean   : 667.8  
+ 3rd Qu.:28.33   3rd Qu.: 863.6  
+ Max.   :48.71   Max.   :1217.6  
+> fit <- lm(Y1 ~ X1 + X2 + X3 +X4, data=a)
+> summary(fit)
+
+Call:
+lm(formula = Y1 ~ X1 + X2 + X3 + X4, data = a)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-101.389  -44.797    2.361   41.194  117.806 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -435.0903    37.9964 -11.451 2.69e-16 ***
+X1             4.3722     0.6299   6.941 4.33e-09 ***
+X2             4.2501     0.8171   5.201 2.90e-06 ***
+X3             1.7523     0.2624   6.677 1.18e-08 ***
+X4             5.0766     0.7788   6.519 2.15e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1 
+
+Residual standard error: 55.2 on 56 degrees of freedom
+Multiple R-squared: 0.962,	Adjusted R-squared: 0.9593 
+F-statistic: 354.6 on 4 and 56 DF,  p-value: < 2.2e-16 
+
+> coefficients(fit)
+(Intercept)          X1          X2          X3          X4 
+-435.090288    4.372187    4.250107    1.752328    5.076553 
+> confint(fit, level=0.90)
+                    5 %        95 %
+(Intercept) -498.640187 -371.540389
+X1             3.318682    5.425691
+X2             2.883480    5.616735
+X3             1.313409    2.191247
+X4             3.774050    6.379055
+> 

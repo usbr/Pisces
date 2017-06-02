@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{1487EFF8-B216-482C-A75F-A2473A45DA60}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HydrometForecast</RootNamespace>
+    <AssemblyName>HydrometForecast</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Pisces\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Forecasting|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Forecasting\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>HydrometForecast.MainForm</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WatchDog|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\WatchDog\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'poet|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\poet\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'pisces|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\pisces\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="SpreadsheetGear, Version=5.1.1.162, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
+      <HintPath>..\..\Pisces\ThirdParty\SpreadsheetGear.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AntecedentRunoffForecastTerm.cs" />
+    <Compile Include="CompareTerms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CompareTerms.Designer.cs">
+      <DependentUpon>CompareTerms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HistoricalTerms.cs" />
+    <Compile Include="HydrometData.cs" />
+    <Compile Include="Tests\Feb2013.cs" />
+    <Compile Include="MonthlyEstimation.cs" />
+    <Compile Include="ForecastEquation.cs" />
+    <Compile Include="ForecastList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ForecastList.Designer.cs">
+      <DependentUpon>ForecastList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ForecastResult.cs" />
+    <Compile Include="ForecastTerm.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PrecipitationForecastTerm.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CoefficientCalculator.cs" />
+    <Compile Include="RegressionResults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegressionResults.Designer.cs">
+      <DependentUpon>RegressionResults.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RunForecast.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RunForecast.Designer.cs">
+      <DependentUpon>RunForecast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RunoffForecastTerm.cs" />
+    <Compile Include="SnowForecastTerm.cs" />
+    <Compile Include="ForecastSpreadsheetEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ForecastSpreadsheetEditor.Designer.cs">
+      <DependentUpon>ForecastSpreadsheetEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\TestForecastPerformance.cs" />
+    <Compile Include="Tests\Jan2013.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Reclamation.Core.csproj">
+      <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
+      <Name>Reclamation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj">
+      <Project>{37B543F5-03A5-479E-B20C-7B4ACC53D16A}</Project>
+      <Name>Reclamation.TimeSeries.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries\Reclamation.TimeSeries.csproj">
+      <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
+      <Name>Reclamation.TimeSeries</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CompareTerms.resx">
+      <DependentUpon>CompareTerms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ForecastList.resx">
+      <DependentUpon>ForecastList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegressionResults.resx">
+      <DependentUpon>RegressionResults.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RunForecast.resx">
+      <DependentUpon>RunForecast.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ForecastSpreadsheetEditor.resx">
+      <DependentUpon>ForecastSpreadsheetEditor.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Fortran\ADD.FOR" />
+    <None Include="Fortran\ADDOUT.FOR" />
+    <None Include="Fortran\ADDTEST.FOR" />
+    <None Include="Fortran\ANMPOL.FOR" />
+    <None Include="Fortran\ARRANGE.FOR" />
+    <None Include="Fortran\COMADATA.FOR" />
+    <None Include="Fortran\EQUATE.FOR" />
+    <None Include="Fortran\FCSTBLD.FOR" />
+    <None Include="Fortran\FOREEQU.FOR" />
+    <None Include="Fortran\FOREGEN.FOR" />
+    <None Include="Fortran\FRSTSUM.FOR" />
+    <None Include="Fortran\GATHER.FOR" />
+    <None Include="Fortran\HISTFORE.FOR" />
+    <None Include="Fortran\HISTFRCST.FOR" />
+    <None Include="Fortran\INS.FOR" />
+    <None Include="Fortran\MATCH.FOR" />
+    <None Include="Fortran\MONJIM.FOR" />
+    <None Include="Fortran\MONMPOL.FOR" />
+    <None Include="Fortran\MONREP.FOR" />
+    <None Include="Fortran\ORDER.FOR" />
+    <None Include="Fortran\PARWSUM.FOR" />
+    <None Include="Fortran\PLOTMPOL.FOR" />
+    <None Include="Fortran\RECLOCK.FOR" />
+    <None Include="Fortran\RENAME.FOR" />
+    <None Include="Fortran\STATUS.FOR" />
+    <None Include="Fortran\SUB.FOR" />
+    <None Include="Fortran\SUMMARY.FOR" />
+    <None Include="Fortran\SUMMARY2.FOR" />
+    <None Include="Fortran\SUMMARY3.FOR" />
+    <None Include="Fortran\SUMMARY_OLD.FOR" />
+    <None Include="Fortran\UPDTFOR.FOR" />
+    <None Include="Fortran\UPMPOLL.FOR" />
+    <None Include="history.out">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
