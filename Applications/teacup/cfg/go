@@ -1,0 +1,39 @@
+#!/bin/bash
+TMPDIR=/home/hydromet/tmp
+export TMPDIR
+cd /home/hydromet/bin/TeaCup
+EXE="/usr/local/bin/mono ./Teacup.exe"
+ 
+#exe infile outfile cfgfile
+# infile = background gif...
+# outfile = program output file...
+# cfgfile = coordinated for gif edits....
+#
+#rm -f idaho_power.log
+$EXE bg/loidbg.gif loid.gif cfg/loid.cfg
+$EXE bg/elwbg.gif elw.gif cfg/elw.cfg
+$EXE bg/tuabg.gif tua.gif cfg/tua.cfg
+$EXE bg/desbg2.gif des.gif cfg/des.cfg
+$EXE bg/desesabg.gif desesa.gif cfg/desesa.cfg
+$EXE bg/umabg.gif uma.gif cfg/uma.cfg
+$EXE bg/owybg.gif owy.gif cfg/owy.cfg
+$EXE bg/roguebg.gif rogue2tea.gif cfg/rogue.cfg
+sftp "pnhydromet@@c5awebapp10.usbr.gov" <<EOF
+cd /data/web/sites/www.usbr.gov/html/pn/hydromet
+put loid.gif
+put tua.gif
+put des.gif
+put desesa.gif
+put owy.gif
+put rogue2tea.gif
+cd /data/web/sites/www.usbr.gov/html/pn/hydromet/elwha
+put elw.gif
+cd /data/web/sites/www.usbr.gov/html/pn/hydromet/umatilla
+put uma.gif
+exit
+#$EXE 13289702   d HW   10 brn  fb  >> idaho_power.log
+#$EXE 1321919001 q Qx   2  mhro q   >> idaho_power.log
+#$EXE 1321919001 q Sx   2  mhro gh  >> idaho_power.log
+#$EXE 1322700001 q Qx   2  bulo q   >> idaho_power.log
+#$EXE 1322100001 q Qx   2  mavo q   >> idaho_power.log
+#$EXE 1322100001 q Sx   2  mavo gh  >> idaho_power.log
