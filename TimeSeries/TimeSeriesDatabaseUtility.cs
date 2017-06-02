@@ -40,7 +40,7 @@ namespace Reclamation.TimeSeries
         /// </summary>
         /// <param name="row"></param>
         /// <returns></returns>
-        private List<string> GetNewPath(string root,TimeSeriesDatabaseDataSet.SeriesCatalogRow row)
+        private List<string> GetDefaultPath(string root,TimeSeriesDatabaseDataSet.SeriesCatalogRow row)
         {
             var selectedPath = new List<string>();
 
@@ -86,7 +86,7 @@ namespace Reclamation.TimeSeries
                 existingPath.AddRange(m_seriesCatalog.GetPath(row.id));
 
 
-                var newPath = GetNewPath(folder.Name,row);
+                var newPath = GetDefaultPath(folder.Name,row);
 
                  
 

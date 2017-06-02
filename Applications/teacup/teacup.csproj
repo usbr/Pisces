@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{763F2078-F389-4A4A-8644-96C8309A4291}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>teacup</RootNamespace>
+    <AssemblyName>teacup</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConfigLine.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="cfg\boipay.cfg" />
+    <None Include="cfg\bur.cfg" />
+    <None Include="cfg\des.cfg" />
+    <None Include="cfg\desesa.cfg" />
+    <None Include="cfg\elw.cfg" />
+    <None Include="cfg\esa.cfg" />
+    <None Include="cfg\esa.cfg.bak" />
+    <None Include="cfg\go" />
+    <None Include="cfg\loid.cfg" />
+    <None Include="cfg\loid.cfg.bak" />
+    <None Include="cfg\owy.cfg" />
+    <None Include="cfg\rogue.cfg" />
+    <None Include="cfg\rogue2.cfg" />
+    <None Include="cfg\rogue7.cfg" />
+    <None Include="cfg\tua.cfg" />
+    <None Include="cfg\uma.cfg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bg\boipaybackground.gif" />
+    <Content Include="bg\burbackground.gif" />
+    <Content Include="bg\desbackground.gif" />
+    <Content Include="bg\desbg2.gif" />
+    <Content Include="bg\desesabackground.gif" />
+    <Content Include="bg\desesabackground.PNG" />
+    <Content Include="bg\elwbackground.gif" />
+    <Content Include="bg\esabackground.gif" />
+    <Content Include="bg\esabackground2.gif" />
+    <Content Include="bg\loidbg.gif" />
+    <Content Include="bg\newrogue.gif" />
+    <Content Include="bg\oldroguebkgrnd.gif" />
+    <Content Include="bg\owybackground.gif" />
+    <Content Include="bg\owynew.gif" />
+    <Content Include="bg\rogue2.gif" />
+    <Content Include="bg\rogue2_15.gif" />
+    <Content Include="bg\rogue2_16.gif" />
+    <Content Include="bg\rogue2_17.gif" />
+    <Content Include="bg\rogue2_new.gif" />
+    <Content Include="bg\rogue7background.gif" />
+    <Content Include="bg\roguebackground.gif" />
+    <Content Include="bg\tuabackground.png" />
+    <Content Include="bg\tuabg.gif" />
+    <Content Include="bg\umabackground.gif" />
+    <Content Include="bg\yakbackground.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Reclamation.Core.csproj">
+      <Project>{80c73d4c-43cf-42de-addc-7b0f06ecf086}</Project>
+      <Name>Reclamation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries\Reclamation.TimeSeries.csproj">
+      <Project>{5dd20a8a-4037-4885-ab91-2f5a3d1f48b4}</Project>
+      <Name>Reclamation.TimeSeries</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

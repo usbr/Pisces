@@ -78,15 +78,12 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxProvider = new System.Windows.Forms.TextBox();
             this.labelSortOrder = new System.Windows.Forms.Label();
             this.textBoxSortOrder = new System.Windows.Forms.TextBox();
-            this.tabPageAlarm = new System.Windows.Forms.TabPage();
-            this.label26 = new System.Windows.Forms.Label();
             this.tabPageNotes = new System.Windows.Forms.TabPage();
             this.textBoxNotes = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tabPageAdvanced.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProperties)).BeginInit();
-            this.tabPageAlarm.SuspendLayout();
             this.tabPageNotes.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -342,7 +339,6 @@ namespace Reclamation.TimeSeries.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPageGeneral);
             this.tabControl1.Controls.Add(this.tabPageAdvanced);
-            this.tabControl1.Controls.Add(this.tabPageAlarm);
             this.tabControl1.Controls.Add(this.tabPageNotes);
             this.tabControl1.Location = new System.Drawing.Point(4, 0);
             this.tabControl1.Name = "tabControl1";
@@ -614,26 +610,6 @@ namespace Reclamation.TimeSeries.Forms
             this.textBoxSortOrder.Size = new System.Drawing.Size(154, 20);
             this.textBoxSortOrder.TabIndex = 43;
             // 
-            // tabPageAlarm
-            // 
-            this.tabPageAlarm.Controls.Add(this.label26);
-            this.tabPageAlarm.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAlarm.Name = "tabPageAlarm";
-            this.tabPageAlarm.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAlarm.Size = new System.Drawing.Size(436, 419);
-            this.tabPageAlarm.TabIndex = 4;
-            this.tabPageAlarm.Text = "Alarm";
-            this.tabPageAlarm.UseVisualStyleBackColor = true;
-            this.tabPageAlarm.Click += new System.EventHandler(this.tabPageAlarm_Click);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(6, 157);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(0, 13);
-            this.label26.TabIndex = 10;
-            // 
             // tabPageNotes
             // 
             this.tabPageNotes.Controls.Add(this.textBoxNotes);
@@ -677,8 +653,6 @@ namespace Reclamation.TimeSeries.Forms
             this.tabPageAdvanced.ResumeLayout(false);
             this.tabPageAdvanced.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProperties)).EndInit();
-            this.tabPageAlarm.ResumeLayout(false);
-            this.tabPageAlarm.PerformLayout();
             this.tabPageNotes.ResumeLayout(false);
             this.tabPageNotes.PerformLayout();
             this.ResumeLayout(false);
@@ -739,7 +713,5 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox textBoxHigh;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.TabPage tabPageAlarm;
-        private System.Windows.Forms.Label label26;
     }
 }
