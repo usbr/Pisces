@@ -677,6 +677,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.openTextFileDialog.DefaultExt = "txt";
             this.openTextFileDialog.Filter = "Text and Comma Separated Files  (*.csv;*.txt) |*.csv;*.txt|All Files (*.*)|*.*";
+            this.openTextFileDialog.Multiselect = true;
             // 
             // openExcelDialog
             // 

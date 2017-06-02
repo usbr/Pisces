@@ -284,16 +284,19 @@ namespace Reclamation.TimeSeries.Forms
         {
             if (openTextFileDialog.ShowDialog() == DialogResult.OK)
             {
-                Series s = TextSeries.ReadFromFile(openTextFileDialog.FileName);
-                if (s.Count == 0)
+                foreach (string filename in openTextFileDialog.FileNames)
                 {
-                    MessageBox.Show("No data found in file:" + openTextFileDialog.FileName);
-                    return;
-                }
+                    Series s = TextSeries.ReadFromFile(filename);
+                    if (s.Count == 0)
+                    {
+                        MessageBox.Show("No data found in file:" + filename);
+                        continue;
+                    }
 
-                if (s.Count > 0)
-                {
-                    DB.AddSeries(s, CurrentFolder);
+                    if (s.Count > 0)
+                    {
+                        DB.AddSeries(s, CurrentFolder);
+                    }
                 }
             }
         }
