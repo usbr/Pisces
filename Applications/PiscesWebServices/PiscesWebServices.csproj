@@ -89,9 +89,14 @@
     <Compile Include="CGI\WebTimeSeriesWriter.Legacy.cs" />
     <Compile Include="DyGraphWriter.cs" />
     <Compile Include="HtmlElement.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SiteCsvTable.cs" />
     <Compile Include="Database.cs" />
-    <Compile Include="HomePage.cs" />
+    <Compile Include="PageBuilder.cs" />
     <Compile Include="HydroJsonWriter.cs" />
     <Compile Include="PiscesWebRoutes.cs" />
     <Compile Include="SiteInfoCGI.cs" />
@@ -128,6 +133,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Views\Home.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="WEBDAYCSV.C" />
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +162,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
