@@ -89,6 +89,7 @@
     <Compile Include="CGI\WebTimeSeriesWriter.Legacy.cs" />
     <Compile Include="DyGraphWriter.cs" />
     <Compile Include="HtmlElement.cs" />
+    <Compile Include="NancyBootstrapper.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
