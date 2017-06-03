@@ -1,5 +1,6 @@
 using Nancy;
 using Nancy.Diagnostics;
+using System.Configuration;
 
 namespace PiscesWebServices
 {
@@ -10,7 +11,7 @@ namespace PiscesWebServices
         // For more information https://github.com/NancyFx/Nancy/wiki/Bootstrapper
         protected override DiagnosticsConfiguration DiagnosticsConfiguration
         {
-            get { return new DiagnosticsConfiguration { Password = @"secretpassword" }; }
+            get { return new DiagnosticsConfiguration { Password = ConfigurationManager.AppSettings["NancyDiagnosticsPassword"] }; }
         }
     }
 }
