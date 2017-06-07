@@ -36,5 +36,13 @@ namespace HdbApi
             return _con;
         }
 
+        public OracleConnection Connect(string dbServer, string dbUser, string dbPass)
+        {
+            OracleConnection _con = new OracleConnection();
+            _con.ConnectionString = "Data Source=" + dbServer + ";User Id=" + dbUser + ";Password=" + dbPass + ";";            
+            _con.Open();
+            return _con;
+        }
+
     }
 }

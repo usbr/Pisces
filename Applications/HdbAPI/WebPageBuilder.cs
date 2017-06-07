@@ -18,12 +18,13 @@ namespace HdbApi
                 "<strong>" +
                 "<br><li><a href=https://github.com/usbr/Pisces >Source Code (GitHub Link)</a></li>" +
                 "<br><li><a href=/query>Query Interface</a></li>" +
-                "<br><li>HDB Predefined Queries</li> " +
+                "<br><li>HDB API Operations</li> " +
                 "</strong>" +
-                "<a href=/series>List All Series</a>" +
-                "<br><a href=/sites>List All Sites</a>" +
-                "<br><a href=/datatypes>List All Datatypes</a>" +
-                "<br><a href=/db>List DB Instances</a>";
+                "<a href=/tsquery>Time Series Data Query</a>";
+                //"<a href=/query>List All Series</a>" +
+                //"<br><a href=/sites>List All Sites</a>" +
+                //"<br><a href=/datatypes>List All Datatypes</a>" +
+                //"<br><a href=/db>List DB Instances</a>";
 
             return webPage.Replace("<!-- PAYLOAD -->", payload);
         }
