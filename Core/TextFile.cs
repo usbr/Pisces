@@ -131,9 +131,7 @@ namespace Reclamation.Core
         {
             get
             {
-                StreamReader srFromFile =
-                    new StreamReader(filename);
-                string rval = srFromFile.ReadToEnd();
+                string rval = File.OpenText(filename).ReadToEnd();
                 return rval;
             }
 
@@ -211,18 +209,17 @@ namespace Reclamation.Core
             Regex re = new Regex(expression, RegexOptions.Compiled);
 
             this.filename = filename;
-            StreamReader srFromFile =
-                new StreamReader(filename);
-            string strLine;
-            while ((strLine = srFromFile.ReadLine()) != null)
+            using (var srFromFile = File.OpenText(filename))
             {
-
-                if (re.IsMatch(strLine))
+                string strLine;
+                while ((strLine = srFromFile.ReadLine()) != null)
                 {
-                    lines.Add(strLine);
+                    if (re.IsMatch(strLine))
+                    {
+                        lines.Add(strLine);
+                    }
                 }
             }
-            srFromFile.Close();
         }
 
 
@@ -552,25 +549,26 @@ namespace Reclamation.Core
 
         public void SaveAsVms(string filename)
         {
-            
-            StreamWriter sw = new StreamWriter(filename);
-            //sw.NewLine = "\r";
-            for (int i = 0; i < lines.Count; i++)
+            using (var sw = File.CreateText(filename))
             {
-                sw.Write(lines[i]);
-                sw.Write("\n");
+                //sw.NewLine = "\r";
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    sw.Write(lines[i]);
+                    sw.Write("\n");
+                }
             }
-            sw.Close();
         }
 
         public void SaveAs(string filename)
         {
-            StreamWriter sw = new StreamWriter(filename);
-            for (int i = 0; i < lines.Count; i++)
+            using (var sw = File.CreateText(filename))
             {
-                sw.WriteLine(lines[i]);
+                for (int i = 0; i < lines.Count; i++)
+                {
+                    sw.WriteLine(lines[i]);
+                }
             }
-            sw.Close();
         }
 
 
