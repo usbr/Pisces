@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxPass = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxSiteList = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -40,8 +42,6 @@
             this.textBoxDbName = new System.Windows.Forms.TextBox();
             this.textBoxServer = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxPass = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,6 +72,25 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "create site in decodes";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(310, 33);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 13);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "password";
+            // 
+            // textBoxPass
+            // 
+            this.textBoxPass.Location = new System.Drawing.Point(304, 50);
+            this.textBoxPass.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxPass.Name = "textBoxPass";
+            this.textBoxPass.PasswordChar = '+';
+            this.textBoxPass.Size = new System.Drawing.Size(192, 20);
+            this.textBoxPass.TabIndex = 16;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -89,7 +108,7 @@
             this.textBoxSiteList.Name = "textBoxSiteList";
             this.textBoxSiteList.Size = new System.Drawing.Size(132, 20);
             this.textBoxSiteList.TabIndex = 14;
-            this.textBoxSiteList.Text = "c:\\temp\\site_list.txt";
+            this.textBoxSiteList.Text = "C:\\Users\\KTarbet\\Documents\\project\\Pisces\\Applications\\cfg\\yak\\yak_goes.txt";
             // 
             // label1
             // 
@@ -108,7 +127,7 @@
             this.textBoxNetworklist.Name = "textBoxNetworklist";
             this.textBoxNetworklist.Size = new System.Drawing.Size(89, 20);
             this.textBoxNetworklist.TabIndex = 12;
-            this.textBoxNetworklist.Text = "klamath";
+            this.textBoxNetworklist.Text = "yakima";
             // 
             // textBoxLogger
             // 
@@ -181,25 +200,6 @@
             this.label2.Size = new System.Drawing.Size(242, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "use this to copy mcf data to create a decodes site";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(310, 33);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(52, 13);
-            this.label6.TabIndex = 17;
-            this.label6.Text = "password";
-            // 
-            // textBoxPass
-            // 
-            this.textBoxPass.Location = new System.Drawing.Point(304, 50);
-            this.textBoxPass.Margin = new System.Windows.Forms.Padding(2);
-            this.textBoxPass.Name = "textBoxPass";
-            this.textBoxPass.PasswordChar = '+';
-            this.textBoxPass.Size = new System.Drawing.Size(192, 20);
-            this.textBoxPass.TabIndex = 16;
             // 
             // Mcf2Decodes
             // 

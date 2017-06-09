@@ -82,7 +82,6 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemBottom = new System.Windows.Forms.ToolStripSeparator();
             this.addBlankSeries = new System.Windows.Forms.ToolStripMenuItem();
             this.addCalcSeries = new System.Windows.Forms.ToolStripMenuItem();
-            this.addRatingTable = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuClear = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDelete = new System.Windows.Forms.ToolStripMenuItem();
@@ -205,7 +204,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemUtility,
             this.menuProperties});
             this.contextMenuStripTree.Name = "contextMenuStripTree";
-            this.contextMenuStripTree.Size = new System.Drawing.Size(145, 242);
+            this.contextMenuStripTree.Size = new System.Drawing.Size(153, 264);
             // 
             // toolStripMenuItem2
             // 
@@ -213,7 +212,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.ShortcutKeyDisplayString = "";
             this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem2.Text = "&Copy";
             this.toolStripMenuItem2.Visible = false;
             // 
@@ -222,14 +221,14 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem3.Enabled = false;
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem3.Text = "&Paste";
             this.toolStripMenuItem3.Visible = false;
             // 
             // menuUpdate
             // 
             this.menuUpdate.Name = "menuUpdate";
-            this.menuUpdate.Size = new System.Drawing.Size(144, 22);
+            this.menuUpdate.Size = new System.Drawing.Size(152, 22);
             this.menuUpdate.Text = "&Update";
             this.menuUpdate.Click += new System.EventHandler(this.toolStripMenuUpdate_Click);
             // 
@@ -239,7 +238,7 @@ namespace Reclamation.TimeSeries.Forms
             this.addMeasurementToolStripMenuItem,
             this.newRatingTableToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItem1.Text = "&Hydrography";
             // 
             // addMeasurementToolStripMenuItem
@@ -265,10 +264,9 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemWeb,
             this.toolStripMenuItemBottom,
             this.addBlankSeries,
-            this.addCalcSeries,
-            this.addRatingTable});
+            this.addCalcSeries});
             this.AddMenu.Name = "AddMenu";
-            this.AddMenu.Size = new System.Drawing.Size(144, 22);
+            this.AddMenu.Size = new System.Drawing.Size(152, 22);
             this.AddMenu.Text = "&Add";
             // 
             // addFolder
@@ -569,22 +567,15 @@ namespace Reclamation.TimeSeries.Forms
             this.addCalcSeries.Text = "Calculation Series";
             this.addCalcSeries.Click += new System.EventHandler(this.AddCalculationClick);
             // 
-            // addRatingTable
-            // 
-            this.addRatingTable.Name = "addRatingTable";
-            this.addRatingTable.Size = new System.Drawing.Size(171, 26);
-            this.addRatingTable.Text = "Rating Table";
-            this.addRatingTable.Visible = false;
-            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(149, 6);
             // 
             // menuClear
             // 
             this.menuClear.Name = "menuClear";
-            this.menuClear.Size = new System.Drawing.Size(144, 22);
+            this.menuClear.Size = new System.Drawing.Size(152, 22);
             this.menuClear.Text = "Clear";
             this.menuClear.ToolTipText = "Clears all data from this series";
             this.menuClear.Click += new System.EventHandler(this.ClearClick);
@@ -593,7 +584,7 @@ namespace Reclamation.TimeSeries.Forms
             // 
             this.menuDelete.AccessibleDescription = "delete this series and remove from the tree";
             this.menuDelete.Name = "menuDelete";
-            this.menuDelete.Size = new System.Drawing.Size(144, 22);
+            this.menuDelete.Size = new System.Drawing.Size(152, 22);
             this.menuDelete.Text = "Delete";
             this.menuDelete.ToolTipText = "delete selected series or folder";
             this.menuDelete.Click += new System.EventHandler(this.DeleteClick);
@@ -601,19 +592,19 @@ namespace Reclamation.TimeSeries.Forms
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(149, 6);
             // 
             // menuCalculate
             // 
             this.menuCalculate.Name = "menuCalculate";
-            this.menuCalculate.Size = new System.Drawing.Size(144, 22);
+            this.menuCalculate.Size = new System.Drawing.Size(152, 22);
             this.menuCalculate.Text = "Calculate...";
             this.menuCalculate.Click += new System.EventHandler(this.CalculateClick);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(141, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
             // 
             // toolStripMenuItemUtility
             // 
@@ -621,7 +612,7 @@ namespace Reclamation.TimeSeries.Forms
             this.sortMenu,
             this.OrganizeBySiteidPcode});
             this.toolStripMenuItemUtility.Name = "toolStripMenuItemUtility";
-            this.toolStripMenuItemUtility.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItemUtility.Size = new System.Drawing.Size(152, 22);
             this.toolStripMenuItemUtility.Text = "U&tility";
             // 
             // sortMenu
@@ -641,7 +632,7 @@ namespace Reclamation.TimeSeries.Forms
             // menuProperties
             // 
             this.menuProperties.Name = "menuProperties";
-            this.menuProperties.Size = new System.Drawing.Size(144, 22);
+            this.menuProperties.Size = new System.Drawing.Size(152, 22);
             this.menuProperties.Text = "&Properties";
             this.menuProperties.Click += new System.EventHandler(this.Properties);
             // 
@@ -1111,7 +1102,6 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
         private System.Windows.Forms.ToolStripMenuItem addHDBconfig;
         private System.Windows.Forms.ToolStripMenuItem addRioGrande;
-        private System.Windows.Forms.ToolStripMenuItem addRatingTable;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuRWIS;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem addMeasurementToolStripMenuItem;

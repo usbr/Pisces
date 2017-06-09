@@ -1066,7 +1066,9 @@ namespace Reclamation.TimeSeries
 
             if (m_tableNames.Count == 0) // table name cache speed up of 17%
             {
-                m_tableNames.AddRange(m_server.TableNames());
+                var tnames = m_server.TableNames();
+                Logger.WriteLine("caching " + tnames.Length + " table names ");
+                m_tableNames.AddRange(tnames);
             }
 
             if( m_tableNames.IndexOf(table.TableName) <0 )
