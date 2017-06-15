@@ -15,7 +15,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
         
 
-        static string xlsFileName()
+       public static string xlsFileName()
          {
 
              string s_xlsFileName = FileUtility.GetFileReference("RuleCurves.xlsx");

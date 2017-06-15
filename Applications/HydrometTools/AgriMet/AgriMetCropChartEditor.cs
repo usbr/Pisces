@@ -15,13 +15,22 @@ namespace Reclamation.AgriMet.UI
         {
             InitializeComponent();
             this.textBoxYear.Text = DateTime.Now.Year.ToString();
-            CropDatesDataSet.DB = HydrometTools.Database.GetServer("agrimet");
+            
         }
 
 
         CropDatesDataSet.CropDatesDataTable tbl;
         private void buttonRead_Click(object sender, EventArgs e)
         {
+            try
+            {
+                CropDatesDataSet.DB = HydrometTools.Database.GetServer("agrimet");
+            }
+            catch( Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 
             bool hasYear = textBoxYear.Text.Trim() != "";
             bool hasGroup = textBoxGroup.Text.Trim() != "";

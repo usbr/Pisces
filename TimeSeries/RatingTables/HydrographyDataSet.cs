@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Data;
 
-namespace Reclamation.TimeSeries.RatingTables {
-    
-    
-    public partial class HydrographyDataSet {
+namespace Reclamation.TimeSeries.RatingTables
+{
+
+
+    public partial class HydrographyDataSet
+    {
 
         TimeSeriesDatabase m_db;
         public HydrographyDataSet CreateInstance(TimeSeriesDatabase db)
@@ -26,10 +28,10 @@ namespace Reclamation.TimeSeries.RatingTables {
                 return max + 1;
             }
 
-            
+
         }
 
-        public partial class measurementDataTable :  TypedTableBase<measurementRow>
+        public partial class measurementDataTable : TypedTableBase<measurementRow>
         {
 
             public int NextID()
@@ -42,9 +44,9 @@ namespace Reclamation.TimeSeries.RatingTables {
 
             }
         }
-        
+
 
     }
 }
 
- 
+

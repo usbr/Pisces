@@ -37,6 +37,9 @@ namespace HydrometTools
                 || HydrometHostDiffers(h) )
             {
 
+                if (IsPasswordBlank())
+                    return null;
+
                 BasicDBServer svr = GetServer(dbname);
                 if (svr == null)
                     return null;
@@ -48,6 +51,11 @@ namespace HydrometTools
             return s_db;
         }
 
+        private static bool IsPasswordBlank()
+        {
+            var pw = UserPreference.Lookup("timeseries_database_password");
+            return pw == "";
+        }
         public static PostgreSQL GetServer(string dbname)
         {
             var pw = UserPreference.Lookup("timeseries_database_password");

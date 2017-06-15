@@ -11,6 +11,7 @@ using System.Web.Security;
 using HydrometTools.Advanced;
 using Reclamation.TimeSeries.Forms;
 using Reclamation.TimeSeries;
+using Reclamation.TimeSeries.Hydromet.Operations;
 
 
 namespace HydrometTools
@@ -567,8 +568,7 @@ namespace HydrometTools
 
 
             if (tabPageFcplot == null 
-                && File.Exists(
-                Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "cfg", "RuleCurves.xlsx")))
+                && File.Exists(FcPlotDataSet.xlsFileName()))
             {
                 tabPageFcplot = new TabPage("FCplot");
                 tabControl1.TabPages.Add(tabPageFcplot);
