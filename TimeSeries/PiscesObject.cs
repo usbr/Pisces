@@ -51,7 +51,7 @@ namespace Reclamation.TimeSeries
             set
             {
 
-                row.Name = CleanTextForTreeName(value);
+                row.Name = value;// CleanTextForTreeName(value);
             }
             get
             {
