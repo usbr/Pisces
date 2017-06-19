@@ -94,10 +94,48 @@ namespace Pisces.NunitTests.SeriesMath
 
            var x = af[0].Value;
            Assert.AreEqual(4543763, x, .01);
-       }
+        }
 
+        /// <summary>
+        /// DAYFILES > g bicw
+        ///1 BICW JUN 19 08:30 # GH             69.59 # Q              55.65
+        ///                   # HJ              0.08
+        ///   FileRatingTable(smci_ch+LookupShift(smci_ch) ,"smci.csv")
+        /// </summary>
+        [Test]
+        public void FileRatingTableInterpolateBICW()
+        {
+            Series s = new Series();
+            DateTime t = new DateTime(2017, 5, 3);
+            var gh = new double[] { 69.61, 69.59, 1 };
+            var q1 = new double[] {57.55, 55.65, double.NaN };
+            for (int i = 0; i < gh.Length; i++)
+            {
+                s.Add(t, gh[i]+0.08);
+                t = t.AddHours(1);
+            }
 
-       [Test]
+            var path = Path.Combine(Globals.TestDataPath, "rating_tables", "bicw_q.txt");
+            var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, true);
+
+            Assert.AreEqual(gh.Length, q.Count);
+            for (int i = 0; i < q.Count; i++)
+            {
+
+                if (double.IsNaN(q1[i]))
+                {
+                    Assert.IsTrue(q[i].IsMissing == true);
+                }
+                else
+                {
+                    Assert.AreEqual(q1[i], q[i].Value, 0.01);
+                }
+            }
+
+            q.WriteToConsole();
+        }
+
+        [Test]
        public void FileRatingTableInterpolate()
        {
             Series s = new Series();

@@ -70,25 +70,37 @@ namespace Reclamation.TimeSeries
 
                     var tokens = tf[i].Split(',');
 
-                    if (tokens.Length == 2)
+                    if (tokens.Length == 2) // csv.
                     {
-                        double x, y;
-                        if (double.TryParse(tokens[0], out x)
-                              && double.TryParse(tokens[1], out y))
+                        TryParseTokens(fileName, tokens);
+                    }
+                    else
+                    {
+                        tokens = tf[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        if( tokens.Length == 2)
                         {
-                            var r = this.FindByx(x);
-                            if( r == null)
-                              AddRatingTableRow(x, y);
-                            else
-                            {
-                                Console.WriteLine("Warning: Rating table has duplicate independent values. Skipping: "+x+"\n"+fileName);
-                            }
+                          TryParseTokens(fileName, tokens);
                         }
                     }
-
                 }
+            }
 
-                //this.AddRatingTableRow(
+            private void TryParseTokens(string fileName, string[] tokens)
+            {
+                if (tokens.Length != 2)
+                    return;
+                double x, y;
+                if (double.TryParse(tokens[0], out x)
+                      && double.TryParse(tokens[1], out y))
+                {
+                    var r = this.FindByx(x);
+                    if (r == null)
+                        AddRatingTableRow(x, y);
+                    else
+                    {
+                        Console.WriteLine("Warning: Rating table has duplicate independent values. Skipping: " + x + "\n" + fileName);
+                    }
+                }
             }
 
             public string YUnits = "";
