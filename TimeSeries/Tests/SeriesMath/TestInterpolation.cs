@@ -54,12 +54,10 @@ namespace Pisces.NunitTests.SeriesMath
             t.Rows.Add(4, 4);
 
 
-            int idx;
             double x = 3;
-            double y = Reclamation.TimeSeries.Math.Interpolate(t, x, "x", "y", out idx);
+            double y = Reclamation.TimeSeries.Math.Interpolate(t, x, "x", "y");
 
             Assert.AreEqual(3, y,"interpolated value");
-            Assert.AreEqual(2, idx,"nearest index");
         }
 
         [Test]
@@ -74,12 +72,10 @@ namespace Pisces.NunitTests.SeriesMath
             t.Rows.Add(4, 4);
 
 
-            int idx;
             double x = 1;
-            double y = Math.Interpolate(t, x, "x", "y", out idx);
+            double y = Math.Interpolate(t, x, "x", "y");
 
             Assert.AreEqual(1, y, "interpolated value");
-            Assert.AreEqual(0, idx, "nearest index");
         }
         [Test]
         public void DataTableInterpolationLastValue()
@@ -93,12 +89,10 @@ namespace Pisces.NunitTests.SeriesMath
             t.Rows.Add(4, 4);
 
 
-            int idx;
             double x = 4;
-            double y = Math.Interpolate(t, x, "x", "y", out idx);
+            double y = Math.Interpolate(t, x, "x", "y");
 
             Assert.AreEqual(4, y, "interpolated value");
-            Assert.AreEqual(2, idx, "nearest index");
         }
 
         [Test]
@@ -112,9 +106,8 @@ namespace Pisces.NunitTests.SeriesMath
             t.Rows.Add(1, 1);
             t.Rows.Add(2, 2);
 
-            int idx;
             double x = 3;
-            double y = Math.Interpolate(t, x, "x", "y", out idx);
+            double y = Math.Interpolate(t, x, "x", "y");
         }
 
 

@@ -7,6 +7,7 @@ using System.Text;
 
 namespace Reclamation.TimeSeries
 {
+    public enum InterpolateMethod { None, Linear, LogLog };
     public partial class TimeSeriesDatabaseDataSet
     {
         public partial class RatingTableDataTable
@@ -19,7 +20,8 @@ namespace Reclamation.TimeSeries
             /// <param name="s"></param>
             /// <param name="fileName">rating table filename</param>
             /// <returns></returns>
-            public static Series ComputeSeries(Series s, string fileName, bool interpolate=false)
+            public static Series ComputeSeries(Series s, string fileName, 
+                InterpolateMethod method = InterpolateMethod.None)
             {
                 var rval = new Series();
                 var fn = fileName;
@@ -40,15 +42,9 @@ namespace Reclamation.TimeSeries
                 var rt = new RatingTableDataTable();
                 rt.ReadFile(fn);
 
-                if (interpolate)
-                {
-                    rval =rt.Lookup(s,true);
-                }
-                else
-                {
-                    rval = rt.Lookup(s);
-                    rval.TimeInterval = s.TimeInterval;
-                }
+                rval =rt.Lookup(s,method);
+                
+                rval.TimeInterval = s.TimeInterval;
                 return rval;
             }
 
@@ -113,15 +109,17 @@ namespace Reclamation.TimeSeries
             /// </summary>
             /// <param name="s"></param>
             /// <returns></returns>
-            public Series Lookup(Series s, bool interpolate=false)
+            public Series Lookup(Series s, 
+                InterpolateMethod method = InterpolateMethod.None)
             {
                 Series rval = new Series();
 
                 foreach (var pt in s)
                 {
-                    if (interpolate)
+                    if (method  == InterpolateMethod.Linear
+                   || method == InterpolateMethod.LogLog)
                     {
-                        rval.Add(Interpolate(pt));
+                        rval.Add(Interpolate(pt,method));
                     }
                     else
                     {
@@ -151,7 +149,7 @@ namespace Reclamation.TimeSeries
                 return Math.Interpolate(this, val, this.columnx.ColumnName, this.columny.ColumnName);
             }
 
-             Point Interpolate(Point pt)
+             private Point Interpolate(Point pt, InterpolateMethod method)
             {
                 if (pt.IsMissing)
                     return new Point(pt.DateTime, Point.MissingValueFlag);
@@ -167,7 +165,7 @@ namespace Reclamation.TimeSeries
                     return new Point(pt.DateTime, Point.MissingValueFlag);
                 }
 
-               var d = Math.Interpolate(this, pt.Value, this.columnx.ColumnName, this.columny.ColumnName);
+               var d = Math.Interpolate(this, pt.Value, this.columnx.ColumnName, this.columny.ColumnName,method);
                return new Point(pt.DateTime, d);
             }
             /// <summary>

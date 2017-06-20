@@ -1126,8 +1126,8 @@ namespace Reclamation.TimeSeries
                
                 for (int i = 0; i < exceedanceLevels.Length; i++)
                 {
-                  Point pt =  InterpolateExceedanceLevel( sorted.Table, exceedanceLevels[i]);
-                  AddToSeriesAtDate(eList[i], pt, t);
+                  double x =  InterpolateExceedanceLevel( sorted.Table, exceedanceLevels[i]);
+                  eList[i].Add(t, x, "interpolated");
                 }
             } 
 
@@ -1257,11 +1257,9 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// Interpolate a Point in the series at the percent specified.
         /// If extrapolation is necessary a missing value point will be returned.
-        /// The nearest date is recored as part of the point
         /// </summary>
-        private static Point InterpolateExceedanceLevel(DataTable  tbl,double percent)
+        private static double InterpolateExceedanceLevel(DataTable  tbl,double percent)
         {
-            Point pt = new Point(DateTime.MinValue, Point.MissingValueFlag, PointFlag.Missing,percent);
 
             int sz = tbl.Rows.Count;
             if (sz > 0)
@@ -1271,26 +1269,22 @@ namespace Reclamation.TimeSeries
 
                 if (percent >= min && percent <= max)
                 {
-                    int idx = -1;
-                    double interp = Interpolate(tbl, percent, "percent", tbl.Columns[1].ColumnName,out idx);
-
-                     DateTime date = Convert.ToDateTime(tbl.DefaultView[idx][0]);
-                     pt = new Point(date, interp, "Interpolated",percent);
+                    double interp = Interpolate(tbl, percent, "percent", tbl.Columns[1].ColumnName);
+                    return interp;
                 }
             }
-                
 
-            return pt;
+
+            return double.NaN;
         }
 
 
         public static double Interpolate(DataTable tbl, double xValue,
                                    string xColumnName,
-                                   string yColumnName
-                                   )
+                                   string yColumnName,
+                                    InterpolateMethod method = InterpolateMethod.Linear                                   )
         {
-            int idx;
-            return Interpolate(tbl,xValue,xColumnName,yColumnName,out idx);
+            return Interpolate(tbl,xValue,xColumnName,yColumnName);
         }
         /// <summary>
         /// Linearly Interpolates y value from a DataTable 
@@ -1302,13 +1296,10 @@ namespace Reclamation.TimeSeries
         /// <param name="yColumnName">name of column that contains y values</param>
         /// <param name="nearestIndex">index to row nearest to x_value in your DataTable </param>
         /// <returns></returns>
-        public static double Interpolate(DataTable tbl, double x_value,
+        static double Interpolate(DataTable tbl, double x_value,
                                     string xColumnName ,
-                                    string yColumnName,
-                                    out int nearestIndex
-                                    )
+                                    string yColumnName )
         {
-            nearestIndex = -1;
             if (tbl.Rows.Count == 0)
             {
                 throw new ArgumentException("Interpolate can not work with an empty DataTable");
@@ -1324,7 +1315,6 @@ namespace Reclamation.TimeSeries
 
             if (x_value == currentX) // first value in table matches.
             {
-                nearestIndex = 0;
                 return Convert.ToDouble(tbl.Rows[0][yColumnName]);
             }
 
@@ -1355,19 +1345,10 @@ namespace Reclamation.TimeSeries
 
             if (x_value == currentX)
             {
-                nearestIndex = x_pos;
                 return Convert.ToDouble(rows[x_pos][yColumnName]);
             }
 
-            double percent = (x_value - previousX) / (currentX - previousX);
-            if (percent >= 0.5)
-            {
-                nearestIndex = x_pos;
-            }
-            else
-            {
-                nearestIndex = x_pos -1;
-            }
+            
 
             double y = Convert.ToDouble(rows[x_pos][yColumnName]);
             double ym1 = Convert.ToDouble(rows[x_pos-1][yColumnName]);
@@ -1377,6 +1358,7 @@ namespace Reclamation.TimeSeries
                 return Point.MissingValueFlag;
             }
 
+            double percent = (x_value - previousX) / (currentX - previousX);
             return ((1.0 - percent) * ym1 + percent * y);
 
         }

@@ -114,15 +114,6 @@ namespace Reclamation.TimeSeries
      // Notes = "";
     }
 
-    public Point(DateTime date, double value, string flag, double percent)
-    {
-        this.DateTime = date;
-        this.Value = value;
-        this.Flag = flag;
-        Percent = percent;
-        //Notes = "";
-    }
-
 
     public static Point operator *(Point pt, double value)
     {

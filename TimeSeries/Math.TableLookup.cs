@@ -23,7 +23,7 @@ namespace Reclamation.TimeSeries
             "FileRatingTableInterpolate(series1,\"table.csv\")")]
         public static Series FileRatingTableInterpolate(Series s, string fileName)
         {
-            var rval = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, fileName,true);
+            var rval = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, fileName, InterpolateMethod.Linear);
             rval.RemoveMissing();
             return rval;
         }

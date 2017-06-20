@@ -96,6 +96,46 @@ namespace Pisces.NunitTests.SeriesMath
            Assert.AreEqual(4543763, x, .01);
         }
 
+
+      // [Test]
+       public void FileRatingTableLogInterpolateETCW()
+       {
+           Series s = new Series();
+           DateTime t = DateTime.Now.Date;
+           var gh = new double[] { 1.63, 1.65,1.53,1.5,1.9, 0, 10};
+           var q1 = new double[] { 108.34,	110.25,	98.93,	98,	137, double.NaN , double.NaN};
+           for (int i = 0; i < gh.Length; i++)
+           {
+               s.Add(t, gh[i] -0.02);
+               t = t.AddHours(1);
+           }
+
+           var path = Path.Combine(Globals.TestDataPath, "rating_tables", "etcw_qc.txt");
+           var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolateMethod.LogLog);
+
+           Check(gh, q1, q);
+       }
+
+       private static void Check(double[] gh, double[] q1, Series q)
+       {
+           Assert.AreEqual(gh.Length, q.Count);
+           for (int i = 0; i < q.Count; i++)
+           {
+
+               if (double.IsNaN(q1[i]))
+               {
+                   Assert.IsTrue(q[i].IsMissing == true);
+               }
+               else
+               {
+                   Assert.AreEqual(q1[i], q[i].Value, 0.01);
+               }
+           }
+
+           q.WriteToConsole();
+       }
+
+
         /// <summary>
         /// DAYFILES > g bicw
         ///1 BICW JUN 19 08:30 # GH             69.59 # Q              55.65
@@ -116,23 +156,9 @@ namespace Pisces.NunitTests.SeriesMath
             }
 
             var path = Path.Combine(Globals.TestDataPath, "rating_tables", "bicw_q.txt");
-            var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, true);
+            var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolateMethod.Linear);
 
-            Assert.AreEqual(gh.Length, q.Count);
-            for (int i = 0; i < q.Count; i++)
-            {
-
-                if (double.IsNaN(q1[i]))
-                {
-                    Assert.IsTrue(q[i].IsMissing == true);
-                }
-                else
-                {
-                    Assert.AreEqual(q1[i], q[i].Value, 0.01);
-                }
-            }
-
-            q.WriteToConsole();
+            Check(gh, q1, q);
         }
 
         [Test]
@@ -149,23 +175,9 @@ namespace Pisces.NunitTests.SeriesMath
 			}
 
            var path = Path.Combine(Globals.TestDataPath, "rating_tables", "lvno.csv");
-           var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path,true);
+           var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolateMethod.Linear);
 
-           Assert.AreEqual(8,q.Count);
-           for (int i = 0; i < q.Count; i++)
-           {
-
-               if( double.IsNaN( qc[i]))
-               {
-                   Assert.IsTrue(q[i].IsMissing == true);
-               }
-               else
-               {
-               Assert.AreEqual(qc[i], q[i].Value, 0.01);
-               }
-           }
-           
-           q.WriteToConsole();
+           Check(ch, qc, q);
        }
 
 

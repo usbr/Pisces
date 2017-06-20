@@ -32,6 +32,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
+            this.labelInfo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -75,6 +76,14 @@
             this.textBoxName.Size = new System.Drawing.Size(227, 20);
             this.textBoxName.TabIndex = 16;
             // 
+            // labelInfo
+            // 
+            this.labelInfo.AutoSize = true;
+            this.labelInfo.Location = new System.Drawing.Point(24, 91);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(0, 13);
+            this.labelInfo.TabIndex = 18;
+            // 
             // FolderProperties
             // 
             this.AcceptButton = this.buttonOK;
@@ -82,6 +91,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(285, 207);
+            this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.buttonOK);
@@ -100,5 +110,6 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxName;
+        private System.Windows.Forms.Label labelInfo;
     }
 }

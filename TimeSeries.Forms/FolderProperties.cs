@@ -22,6 +22,7 @@ namespace Reclamation.TimeSeries.Forms
             this.folder = folder;
             this.Text = folder.Name + " Properties";
             this.textBoxName.Text = folder.Name;
+            labelInfo.Text = "id = " + folder.ID + " parentid = " + folder.ParentID;
             
         }
 
