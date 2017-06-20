@@ -51,6 +51,8 @@ namespace Reclamation.TimeSeries.Forms.MetaData
             if (comboBox1.SelectedIndex < 0)
             {
                 dataRowEditor1.SetDataRow(m_sites.NewsitecatalogRow());
+                dataGridViewSiteProperties.DataSource = null;
+
                 return;
             }
 
