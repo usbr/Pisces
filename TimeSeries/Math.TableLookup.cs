@@ -28,6 +28,15 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
+        [FunctionAttribute("Performs log-log Rating table interpolation from a file",
+            "FileRatingTableLogLogInterpolate(series1,\"table.csv\")")]
+        public static Series FileRatingTableLogLogInterpolate(Series s, string fileName)
+        {
+            var rval = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, fileName, InterpolationMethod.LogLog);
+            rval.RemoveMissing();
+            return rval;
+        }
+
 
         [FunctionAttribute("Performs 2D lookup from a file with linear interpolation in both directions",
             "FileLookupInterpolate2D(series1, series2, csvFile)")]
