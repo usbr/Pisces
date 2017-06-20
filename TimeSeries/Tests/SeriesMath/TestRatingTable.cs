@@ -97,13 +97,13 @@ namespace Pisces.NunitTests.SeriesMath
         }
 
 
-      // [Test]
+      [Test]
        public void FileRatingTableLogInterpolateETCW()
        {
            Series s = new Series();
            DateTime t = DateTime.Now.Date;
-           var gh = new double[] { 1.63, 1.65,1.53,1.5,1.9, 0, 10};
-           var q1 = new double[] { 108.34,	110.25,	98.93,	98,	137, double.NaN , double.NaN};
+           var gh = new double[] { 1.63, 1.65,1.53,1.5,1.92, -.2, 10};
+           var q1 = new double[] { 108.34,	110.25,	98.93,	95.08,	137.0, 0, double.NaN};
            for (int i = 0; i < gh.Length; i++)
            {
                s.Add(t, gh[i] -0.02);
@@ -111,7 +111,7 @@ namespace Pisces.NunitTests.SeriesMath
            }
 
            var path = Path.Combine(Globals.TestDataPath, "rating_tables", "etcw_qc.txt");
-           var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolateMethod.LogLog);
+           var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolationMethod.LogLog);
 
            Check(gh, q1, q);
        }
@@ -156,7 +156,7 @@ namespace Pisces.NunitTests.SeriesMath
             }
 
             var path = Path.Combine(Globals.TestDataPath, "rating_tables", "bicw_q.txt");
-            var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolateMethod.Linear);
+            var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolationMethod.Linear);
 
             Check(gh, q1, q);
         }
@@ -175,7 +175,7 @@ namespace Pisces.NunitTests.SeriesMath
 			}
 
            var path = Path.Combine(Globals.TestDataPath, "rating_tables", "lvno.csv");
-           var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolateMethod.Linear);
+           var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolationMethod.Linear);
 
            Check(ch, qc, q);
        }

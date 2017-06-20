@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Reclamation.TimeSeries
 {
-    public enum InterpolateMethod { None, Linear, LogLog };
+    public enum InterpolationMethod { None, Linear, LogLog };
     public partial class TimeSeriesDatabaseDataSet
     {
         public partial class RatingTableDataTable
@@ -21,12 +21,12 @@ namespace Reclamation.TimeSeries
             /// <param name="fileName">rating table filename</param>
             /// <returns></returns>
             public static Series ComputeSeries(Series s, string fileName, 
-                InterpolateMethod method = InterpolateMethod.None)
+                InterpolationMethod method = InterpolationMethod.None)
             {
                 var rval = new Series();
                 var fn = fileName;
 
-                Logger.WriteLine("ComputeSeries(" + s.Table.TableName + "," + fileName);
+                Logger.WriteLine("RatingTableDataTable.ComputeSeries(" + s.Table.TableName + "," + fileName);
                 if(!File.Exists(fn)) 
                    fn = Path.Combine(Path.Combine(Globals.LocalConfigurationDataPath, "rating_tables"), fileName);
 
@@ -110,14 +110,14 @@ namespace Reclamation.TimeSeries
             /// <param name="s"></param>
             /// <returns></returns>
             public Series Lookup(Series s, 
-                InterpolateMethod method = InterpolateMethod.None)
+                InterpolationMethod method = InterpolationMethod.None)
             {
                 Series rval = new Series();
 
                 foreach (var pt in s)
                 {
-                    if (method  == InterpolateMethod.Linear
-                   || method == InterpolateMethod.LogLog)
+                    if (method  == InterpolationMethod.Linear
+                   || method == InterpolationMethod.LogLog)
                     {
                         rval.Add(Interpolate(pt,method));
                     }
@@ -149,7 +149,7 @@ namespace Reclamation.TimeSeries
                 return Math.Interpolate(this, val, this.columnx.ColumnName, this.columny.ColumnName);
             }
 
-             private Point Interpolate(Point pt, InterpolateMethod method)
+             private Point Interpolate(Point pt, InterpolationMethod method)
             {
                 if (pt.IsMissing)
                     return new Point(pt.DateTime, Point.MissingValueFlag);

@@ -1279,13 +1279,6 @@ namespace Reclamation.TimeSeries
         }
 
 
-        public static double Interpolate(DataTable tbl, double xValue,
-                                   string xColumnName,
-                                   string yColumnName,
-                                    InterpolateMethod method = InterpolateMethod.Linear                                   )
-        {
-            return Interpolate(tbl,xValue,xColumnName,yColumnName);
-        }
         /// <summary>
         /// Linearly Interpolates y value from a DataTable 
         /// sorted based on your x values.
@@ -1294,11 +1287,10 @@ namespace Reclamation.TimeSeries
         /// <param name="x_value">interpolate at this x value</param>
         /// <param name="xColumnName">name of column that contains x values</param>
         /// <param name="yColumnName">name of column that contains y values</param>
-        /// <param name="nearestIndex">index to row nearest to x_value in your DataTable </param>
         /// <returns></returns>
-        static double Interpolate(DataTable tbl, double x_value,
+        public static double Interpolate(DataTable tbl, double x_value,
                                     string xColumnName ,
-                                    string yColumnName )
+                                    string yColumnName, InterpolationMethod method = InterpolationMethod.Linear)
         {
             if (tbl.Rows.Count == 0)
             {
@@ -1358,9 +1350,34 @@ namespace Reclamation.TimeSeries
                 return Point.MissingValueFlag;
             }
 
-            double percent = (x_value - previousX) / (currentX - previousX);
-            return ((1.0 - percent) * ym1 + percent * y);
+            if (method == InterpolationMethod.Linear)
+                return LinearInterpolation(x_value, currentX, previousX, y, ym1);
+            if (method == InterpolationMethod.LogLog)
+                 return LogLogInterpolation(x_value, currentX, previousX, y, ym1);
+            
+            return double.NaN;
+        }
 
+        private static double log(double d)
+        {
+            return System.Math.Log10(System.Math.Abs(d));
+        }
+
+        private static double LogLogInterpolation(double x, double x2, double x1, double y2, double y1)
+        {
+
+            double c = (log(y2) - log(y1)) * (log(x) - log(x1)) / (log(x2) - log(x1));
+            if (c < 0)
+                c = 0;
+
+            double rval = System.Math.Pow(10, log(y1) + c);
+            return rval;
+        }
+
+        private static double LinearInterpolation(double x, double x2, double x1, double y2, double y1)
+        {
+            double percent = (x - x1) / (x2 - x1);
+            return ((1.0 - percent) * y1 + percent * y2);
         }
 
         [FunctionAttribute("Computes a average by increment of 7 days.  If your data is instantaneous a daily average will first be computed",
