@@ -39,8 +39,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
          
            properties.Columns.Add("name");
            properties.Columns.Add("value");
-           properties.Rows.Add("program", "hydromet");
-           properties.Rows.Add("basin", "");
+           properties.Rows.Add("program", "yhydromet");
+           properties.Rows.Add("basin", "yakima");
 
            dataGridViewProperties.DataSource = properties;
             
@@ -173,8 +173,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             if (this.checkBoxQ.Checked)
             {
                 AddInstantRow(siteID, "feet", "gh");
-                AddInstantRow(siteID, "cfs", "q","FileRatingTable(%site%_gh,\"%site%.csv\")");
-                AddInstantRow(siteID, "feet", "hj", "FileRatingTable(%site%_gh,\"%site%_shift.csv\")");
+                AddInstantRow(siteID, "cfs", "q","FileRatingTableInterpolate("+siteID+"_gh,\""+siteID+"_q.csv\")");
+                AddInstantRow(siteID, "feet", "hj", "LookupShift("+siteID+"_gh)");
                 if (daily)
                 {
                     AddDailyRow(siteID, "cfs", "qd", "DailyAverage(instant_%site%_q,10)");

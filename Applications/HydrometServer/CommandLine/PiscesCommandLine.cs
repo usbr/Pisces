@@ -31,7 +31,7 @@ namespace HydrometServer.CommandLine
             var input = new CommandLineInput(m_interval);
             do
             {
-                Console.Write("pisces>");
+                Console.Write(">");
                 var s = Console.ReadLine();
                 if (s.Trim() == "")
                     continue;
