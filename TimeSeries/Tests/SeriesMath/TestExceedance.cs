@@ -34,18 +34,6 @@ namespace Pisces.NunitTests.SeriesMath
             Assert.AreEqual(99.95, min.Percent, 0.01);
             Assert.AreEqual(117.00, min.Value, 0.01);
 
-
-            // again with exceedance method.
-            Series s3 = new TextSeries(Path.Combine(TestData.DataPath, "SouthForkOfBoiseNearFeatherville.txt"));
-
-            Series e2 = s3.Exceedance(TimeSeriesDatabase.MinDateTime, TimeSeriesDatabase.MaxDateTime,
-                new MonthDayRange(7, 1, 7, 31), RankType.Weibul);
-
-            pt = e2[0];
-            Assert.AreEqual(4030.0, pt.Value, 0.01);
-            Assert.AreEqual(.05, pt.Percent, 0.01);
-
-
         }
         
 

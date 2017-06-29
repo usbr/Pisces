@@ -319,33 +319,6 @@ namespace Reclamation.Core
             return SaveTable(table);
         }
 
-        /// <summary>
-        /// Returns exceedance values from a time series table
-        /// </summary>
-        /// <param name="tableName">name of timeseries table</param>
-        /// <returns></returns>
-        public virtual DataTable ExceedanceTable(string tableName, DateTime t1, DateTime t2, MonthDayRange range , RankType sortType)
-        {
-            throw new NotImplementedException("ExceedanceTable");
-            //return null;
-            //            if (type == SortType.Weibul)
-            //{
-            //    for (int i = 0; i < sz; i++)
-            //    {
-            //        DataRowView row = tbl.DefaultView[i];
-            //        row["Percent"] = ((double)(i + 1.0) / (sz + 1.0)) * 100.0; //Weibul
-            //    }
-            //}
-            //else
-            //if (type == SortType.Proabability)
-            //{
-            //    for (int i = 0; i < sz; i++)
-            //    {
-            //        DataRowView row = tbl.DefaultView[i];
-            //        row["Percent"] = ((double)(i + 1.0) / (sz )) * 100.0; 
-            //    }
-
-        }
 
         public virtual void Vacuum()
         {

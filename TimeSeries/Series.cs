@@ -682,27 +682,6 @@ namespace Reclamation.TimeSeries
         }
 
 
-        public virtual Series Exceedance(DateTime t1, DateTime t2,
-            MonthDayRange range, RankType sortType)
-        {
-            if (m_db != null)
-            {
-               DataTable tbl  = m_db.Server.ExceedanceTable(this.Table.TableName, t1, t2, range, sortType);
-               Series s = new Series(tbl, Units,TimeInterval);
-               s.ReadOnly = true;
-               return s;
-            }
-            else
-            {
-                this.Read(t1, t2);
-                Series s = Math.Subset(this, range);
-                return Math.Sort(s, sortType);
-            }
-        }
-
-
-      
-
         /// <summary>
         /// Clear all data from Series
         /// </summary>
