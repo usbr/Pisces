@@ -1,0 +1,14 @@
+Title  S F Flathead River nr Columbia Falls MT
+Scaling  LogLog 
+#Scaling  Linear
+#Scaling Polynomial 3
+
+# stage    flow     label
+1.76   40.4   1995
+2.50  185
+4.44  1080  2010
+5.94  2630 2014
+8.10 5880 2004
+9.89 9390  1980
+10.64  11500  2017
+  
