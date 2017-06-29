@@ -1,6 +1,6 @@
 using System.Data;
 using System.Collections.Generic;
-using Reclamation.TimeSeries.RatingTables;
+
 namespace Reclamation.TimeSeries
 {
     public interface IExplorerView

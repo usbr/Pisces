@@ -2,7 +2,6 @@ using System;
 using System.Data;
 using System.Collections.Generic;
 using System.Text;
-using Reclamation.TimeSeries.RatingTables;
 
 namespace Reclamation.TimeSeries
 {
@@ -126,11 +125,6 @@ namespace Reclamation.TimeSeries
             }
         }
 
-
-       public BasicMeasurement Measurement { get; set; }
-
-
-       
 
     }
 }

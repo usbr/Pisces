@@ -1992,13 +1992,6 @@ UNION ALL
         }
 
         
-        public Reclamation.TimeSeries.RatingTables.Hydrography Hydrography
-        {
-            get {
-                return new Reclamation.TimeSeries.RatingTables.Hydrography(this);    
-            }
-        }
-       
 
         public SiteInfo  SiteInfo(string siteID)
         {

@@ -32,27 +32,6 @@ namespace Reclamation.TimeSeries.Forms
     public partial class PiscesForm
     {
 
-        private void AddMeasurement(object sender, EventArgs e)
-        {
-            FormNewMeasurment f = new FormNewMeasurment( DB.GetSiteCatalog());
-            if( f.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-
-                    DB.SuspendTreeUpdates();
-                    var mid = DB.Hydrography.NewMeasurement(f.SiteID, f.DateTime, f.Flow,
-                         f.Stage, f.Quality, f.Party, f.Notes);
-                }
-                finally
-                {
-                    DB.ResumeTreeUpdates();
-                    DatabaseChanged();
-
-                }
-            }
-        }
-
 
         private void ImportHydrologicModels_Click(object sender, EventArgs e)
         {

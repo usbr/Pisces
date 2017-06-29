@@ -7,7 +7,6 @@ using System.Reflection;
 using Reclamation.Core;
 using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow;
 using Reclamation.TimeSeries.Parser;
-using Reclamation.TimeSeries.RatingTables;
 
 namespace Reclamation.TimeSeries
 {
@@ -191,14 +190,6 @@ namespace Reclamation.TimeSeries
             {
                 rval = new PiscesFolder(db, sr);
             }
-            else if( sr.IsMeasurement)
-            {
-                rval = GetMeasurement(sr);
-            }
-            else if( sr.IsRatingTable)
-            {
-                rval = GetRatingTable(sr);
-            }
             else
             {
                 return GetSeries(sr); //11.53125 seconds elapsed.
@@ -208,16 +199,6 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
-        public BasicMeasurement GetMeasurement(SeriesCatalogRow sr)
-        {
-            BasicMeasurement bm = new BasicMeasurement(db, sr);
-            return bm;
-        }
-        public BasicRating GetRatingTable(SeriesCatalogRow sr)
-        {
-            var r = new BasicRating(db, sr);
-            return r;
-        }
 
 
         static private Image AssignIcon(string source)

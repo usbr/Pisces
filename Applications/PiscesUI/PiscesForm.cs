@@ -6,10 +6,8 @@ using Reclamation.Core;
 using Reclamation.TimeSeries.Graphing;
 using Reclamation.TimeSeries.Parser;
 using Reclamation.TimeSeries.Hydromet;
-using Reclamation.TimeSeries.Forms.RatingTables;
 using Reclamation.TimeSeries.Forms.Graphing;
 using System.Collections.Generic;
-using Reclamation.TimeSeries.RatingTables;
 using Reclamation.TimeSeries.Forms.Alarms;
 using Reclamation.TimeSeries.Forms.MetaData;
 
@@ -383,8 +381,6 @@ namespace Reclamation.TimeSeries.Forms
         }
 
 
-        BasicMeasurementView measurementView = new BasicMeasurementView();
-        RatingTableZedGraph ratingTableView = new RatingTableZedGraph();
         SiteProperties siteEditor1;
 
         private void UpdateView()
@@ -397,15 +393,7 @@ namespace Reclamation.TimeSeries.Forms
             toolStripProgressBar1.Visible = true;
             //Cursor = Cursors.WaitCursor;
 
-            if( tree1.IsMeasurementSelected && !tree1.IsCommandLine)
-            {
-                SetMeasurementView();
-            }
-            else if (tree1.IsRatingSelected && !tree1.IsCommandLine)
-            {
-                SetRatingView();
-            }
-            else if (tree1.IsSiteSelected && !tree1.IsCommandLine)
+           if (tree1.IsSiteSelected && !tree1.IsCommandLine)
             {
                 SetSiteView();
             }
@@ -458,45 +446,6 @@ namespace Reclamation.TimeSeries.Forms
             backgroundWorker1.RunWorkerAsync();
         }
 
-        private void SetRatingView()
-        {
-            var ratings = tree1.GetSelectedRatings();
-
-            if (ratings.Length > 1)
-            {
-                SetView(ratingTableView);
-
-                ratingTableView.Draw(ratings);
-
-            }
-            else // view edit single measurement
-            {
-                SetView(ratingTableView);
-                ratingTableView.Draw(ratings);
-            }
-
-            toolStripProgressBar1.Visible = false;
-        }
-
-        private void SetMeasurementView()
-        {
-            var measurements = tree1.GetSelectedMeasurements();
-
-            if (measurements.Length > 1)
-            {
-                SetView(ratingTableView);
-                ratingTableView.Draw(measurements);
-
-            }
-            else // view edit single measurement
-            {
-                SetView(measurementView);
-                measurementView.Measurement = tree1.SelectedObject as BasicMeasurement;
-                measurementView.Draw();
-            }
-
-            toolStripProgressBar1.Visible = false;
-        }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {

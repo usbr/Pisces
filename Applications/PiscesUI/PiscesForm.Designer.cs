@@ -41,9 +41,6 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuUpdate = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.addMeasurementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newRatingTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.addFolder = new System.Windows.Forms.ToolStripMenuItem();
             this.addSite = new System.Windows.Forms.ToolStripMenuItem();
@@ -193,7 +190,6 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItem2,
             this.toolStripMenuItem3,
             this.menuUpdate,
-            this.toolStripMenuItem1,
             this.AddMenu,
             this.toolStripSeparator3,
             this.menuClear,
@@ -204,7 +200,7 @@ namespace Reclamation.TimeSeries.Forms
             this.toolStripMenuItemUtility,
             this.menuProperties});
             this.contextMenuStripTree.Name = "contextMenuStripTree";
-            this.contextMenuStripTree.Size = new System.Drawing.Size(153, 264);
+            this.contextMenuStripTree.Size = new System.Drawing.Size(153, 242);
             // 
             // toolStripMenuItem2
             // 
@@ -231,28 +227,6 @@ namespace Reclamation.TimeSeries.Forms
             this.menuUpdate.Size = new System.Drawing.Size(152, 22);
             this.menuUpdate.Text = "&Update";
             this.menuUpdate.Click += new System.EventHandler(this.toolStripMenuUpdate_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addMeasurementToolStripMenuItem,
-            this.newRatingTableToolStripMenuItem});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.toolStripMenuItem1.Text = "&Hydrography";
-            // 
-            // addMeasurementToolStripMenuItem
-            // 
-            this.addMeasurementToolStripMenuItem.Name = "addMeasurementToolStripMenuItem";
-            this.addMeasurementToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.addMeasurementToolStripMenuItem.Text = "New &Measurement...";
-            this.addMeasurementToolStripMenuItem.Click += new System.EventHandler(this.AddMeasurement);
-            // 
-            // newRatingTableToolStripMenuItem
-            // 
-            this.newRatingTableToolStripMenuItem.Name = "newRatingTableToolStripMenuItem";
-            this.newRatingTableToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.newRatingTableToolStripMenuItem.Text = "New &Rating Table";
             // 
             // AddMenu
             // 
@@ -1103,8 +1077,6 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem addHDBconfig;
         private System.Windows.Forms.ToolStripMenuItem addRioGrande;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuRWIS;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem addMeasurementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem createTemplateFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importUsingTemplateToolStripMenuItem;
@@ -1114,7 +1086,6 @@ namespace Reclamation.TimeSeries.Forms
         private System.Windows.Forms.ToolStripMenuItem importUsingModelExportTemplate;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-        private System.Windows.Forms.ToolStripMenuItem newRatingTableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addIdwr;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemUtility;
         private System.Windows.Forms.ToolStripMenuItem sortMenu;

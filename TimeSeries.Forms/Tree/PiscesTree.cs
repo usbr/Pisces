@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using Aga.Controls.Tree;
 using Aga.Controls.Tree.NodeControls;
 using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow;
-using Reclamation.TimeSeries.RatingTables;
 namespace Reclamation.TimeSeries.Forms
 {
     /// <summary>
@@ -141,45 +140,6 @@ namespace Reclamation.TimeSeries.Forms
 
         }
 
-        public BasicMeasurement[] GetSelectedMeasurements()
-        {
-            var rval = new List<BasicMeasurement>();
-
-            if (IsCommandLine)
-            {
-                return rval.ToArray();
-            }
-            else
-            {
-                for (int i = 0; i < treeView1.SelectedNodes.Count; i++)
-                {
-                    PiscesObject o = treeView1.SelectedNodes[i].Tag as PiscesObject;
-                    if (o is BasicMeasurement)
-                        rval.Add(o as BasicMeasurement);
-                }
-            }
-            return rval.ToArray();
-        }
-
-        public BasicRating[] GetSelectedRatings()
-        {
-            var rval = new List<BasicRating>();
-
-            if (IsCommandLine)
-            {
-                return rval.ToArray();
-            }
-            else
-            {
-                for (int i = 0; i < treeView1.SelectedNodes.Count; i++)
-                {
-                    PiscesObject o = treeView1.SelectedNodes[i].Tag as PiscesObject;
-                    if (o is BasicRating)
-                        rval.Add(o as BasicRating);
-                }
-            }
-            return rval.ToArray();
-        }
         public Series[] GetSelectedSeries()
         {
                 var rval = new List<Series>();
@@ -277,25 +237,6 @@ namespace Reclamation.TimeSeries.Forms
             }                
         }
 
-        public bool IsMeasurementSelected
-        {
-            get
-            {
-                if (treeView1.SelectedNode == null)
-                    return false;
-                return treeView1.SelectedNode.Tag is BasicMeasurement;
-            }
-        }
-
-        public bool IsRatingSelected
-        {
-            get
-            {
-                if (treeView1.SelectedNode == null)
-                    return false;
-                return treeView1.SelectedNode.Tag is BasicRating;
-            }
-        }
         public bool IsSiteSelected
         {
             get

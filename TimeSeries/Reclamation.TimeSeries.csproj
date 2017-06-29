@@ -190,23 +190,8 @@
     <Compile Include="Import\BulkImport.cs" />
     <Compile Include="Import\DirectoryScanner.cs" />
     <Compile Include="Import\BulkImportDirectory.cs" />
-    <Compile Include="RatingTables\BasicRating.cs" />
-    <Compile Include="RatingTables\BasicMeasurement.cs" />
     <Compile Include="Profile\WaterProfileDatabase.cs" />
-    <Compile Include="RatingTables\Hydrography.cs" />
-    <Compile Include="RatingTables\HydrographyDataSet.cs">
-      <DependentUpon>HydrographyDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="RatingTables\HydrographyDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HydrographyDataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="RatingTables\MeasurementList.cs" />
     <Compile Include="RatingTables\RatingTableUtility.cs" />
-    <Compile Include="RatingTables\Yakima82RatingFile.cs" />
-    <Compile Include="RatingTables\YakimaUtility.cs" />
     <Compile Include="RBMS\RBMSTextFile.cs" />
     <Compile Include="RBMS\RbmsUtility.cs" />
     <Compile Include="Import\ImportMultiSheetDailySeriesExcel.cs" />
@@ -224,17 +209,6 @@
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
     </None>
     <None Include="Alarms\extensions.conf" />
-    <None Include="RatingTables\HydrographyDataSet.xsc">
-      <DependentUpon>HydrographyDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="RatingTables\HydrographyDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>HydrographyDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="RatingTables\HydrographyDataSet.xss">
-      <DependentUpon>HydrographyDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Reports\YakimaOthersAboveParker.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

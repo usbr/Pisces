@@ -5,7 +5,7 @@ using System.IO;
 using System.Data;
 using System;
 using System.Text.RegularExpressions;
-using Reclamation.TimeSeries.RatingTables;
+
 namespace Reclamation.TimeSeries
 {
 
@@ -305,41 +305,6 @@ namespace Reclamation.TimeSeries
                 return rval.ToArray();
             }
 
-            internal int AddRatingTable(HydrographyDataSet.rating_tablesRow m)
-            {
-                int folderID = GetOrCreateFolder(
-                 GetRootFolderNames()[0],      //"Untitled"
-                     m.siteid,                     //  NACW
-                       "Rating Tables");          //    "Flow Measurements"
-
-
-                int id = NextID();
-                var r = AddSeriesCatalogRow(id, folderID, 0, 100,
-                "rating",
-                m.version,
-                m.siteid, "", "Instant", "", "", "BasicRating", "id=" + m.id, "",
-                "", 1);
-
-                return r.id;
-            }
-
-            public int AddMeasurement(HydrographyDataSet.measurementRow m)
-            {
-                int folderID = GetOrCreateFolder(
-               GetRootFolderNames()[0],      //"Untitled"
-                   m.siteid,                          //  SouthBend
-                     "Flow Measurements");          //    "Flow Measurements"
-
-
-                int id = NextID();
-                var r = AddSeriesCatalogRow(id, folderID, 0, 100,
-                "measurement",
-                m.date_measured.ToString(Hydrography.MeasurementDateFormat), //" ("+m.stage.ToString("F2")+","+m.discharge.ToString("F2")+")" ,
-                m.siteid, "", "Instant", "", "", "BasicMeasurement", "id=" + m.id, "",
-                "", 1);
-
-                return r.id;
-            }
 
             public int AddFolder(string folderName, int id, int parentID)
             {
@@ -534,20 +499,6 @@ namespace Reclamation.TimeSeries
                 set { _icon = value; }
             }
 
-
-            public bool IsMeasurement
-            {
-                get {
-                    return Provider == "BasicMeasurement";
-                }
-            }
-            public bool IsRatingTable
-            {
-                get
-                {
-                    return Provider == "BasicRating";
-                }
-            }
 
         }
 
