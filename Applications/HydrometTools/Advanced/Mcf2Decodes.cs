@@ -35,7 +35,7 @@ namespace HydrometTools.Advanced
                 }
                   
                 McfToDecodes.Import(textBoxServer.Text, textBoxDbName.Text, 
-                   textBoxPass.Text,textBoxNetworklist.Text, siteList);
+                   textBoxPass.Text,textBoxNetworklist.Text, siteList,textBoxMrdbPath.Text);
             }
             catch (Exception ex)
             {

@@ -35,7 +35,7 @@ namespace Reclamation.TimeSeries.Decodes
     public void importMcf(string networkListName){
         
         int networklistid = SetupNetworkList(networkListName);
-        InsertUSGSSites();
+        InsertSites();
         InsertGoesPlatform( networklistid);
         DecodesUtility.UpdateServer(svr, decodes);
         DecodesUtility.UpdateSequences(svr);
@@ -119,7 +119,7 @@ namespace Reclamation.TimeSeries.Decodes
                         }
 
                 pc.AddplatformconfigRow(platformConfigID, cfgName, s.DESCR, GetManufactureCode( s.DCPMFG ));
-                p.AddplatformRow(platformID, s.GetAgencyName(), "TRUE", siteID, platformConfigID, platformDescription,
+                p.AddplatformRow(platformID, GetAgencyName(s.GRP), "TRUE", siteID, platformConfigID, platformDescription,
                        LinuxUtility.ToUnixTime(DateTime.Now.Date)*1000,
                        LinuxUtility.ToUnixTime(DateTime.Now.AddYears(100))*1000, platformDesignator);
 
@@ -152,6 +152,15 @@ namespace Reclamation.TimeSeries.Decodes
 
            }
         }
+
+    private string GetAgencyName(int p)
+    {
+        //this.decodes.Group
+        var rows = this.mcf.groupmcf.Select("Number = " + p);
+        if (rows.Length == 1)
+            return rows[0]["Name"].ToString();
+        return "";
+    }
 
     private bool InSiteList(string siteId)
     {
@@ -406,7 +415,7 @@ namespace Reclamation.TimeSeries.Decodes
 
 
 
-    public  void InsertUSGSSites()
+    public  void InsertSites()
     {
         int id = NextID(svr, "site");
         int count = 0;

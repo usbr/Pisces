@@ -26,24 +26,6 @@ namespace Reclamation.TimeSeries.Hydromet {
         public partial class sitemcfRow : global::System.Data.DataRow
         {
 
-            public string GetAgencyName()
-            {
-                if (this.GRP == 10)
-                {
-                    return "USGS";
-                }
-
-                if (this.GRP == 9)
-                {
-                    return "OWRD";
-                }
-                if (this.GRP == 8)
-                {
-                    return "IDWR";
-                }
-
-                return "USBR-PN";
-            }
             public bool IsSnotel
             {
                 get

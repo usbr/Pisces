@@ -12,7 +12,7 @@
   <xs:element name="McfDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="McfDataSet" msprop:Generator_UserDSName="McfDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="sitemcf" msprop:Generator_TableClassName="sitemcfDataTable" msprop:Generator_TableVarName="tablesitemcf" msprop:Generator_TablePropName="sitemcf" msprop:Generator_RowDeletingName="sitemcfRowDeleting" msprop:Generator_UserTableName="sitemcf" msprop:Generator_RowChangingName="sitemcfRowChanging" msprop:Generator_RowEvHandlerName="sitemcfRowChangeEventHandler" msprop:Generator_RowDeletedName="sitemcfRowDeleted" msprop:Generator_RowEvArgName="sitemcfRowChangeEvent" msprop:Generator_RowChangedName="sitemcfRowChanged" msprop:Generator_RowClassName="sitemcfRow">
+        <xs:element name="sitemcf" msprop:Generator_TableClassName="sitemcfDataTable" msprop:Generator_TableVarName="tablesitemcf" msprop:Generator_RowChangedName="sitemcfRowChanged" msprop:Generator_TablePropName="sitemcf" msprop:Generator_RowDeletingName="sitemcfRowDeleting" msprop:Generator_RowChangingName="sitemcfRowChanging" msprop:Generator_RowEvHandlerName="sitemcfRowChangeEventHandler" msprop:Generator_RowDeletedName="sitemcfRowDeleted" msprop:Generator_RowClassName="sitemcfRow" msprop:Generator_UserTableName="sitemcf" msprop:Generator_RowEvArgName="sitemcfRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="SITE" msprop:Generator_ColumnVarNameInTable="columnSITE" msprop:Generator_ColumnPropNameInRow="SITE" msprop:Generator_ColumnPropNameInTable="SITEColumn" msprop:Generator_UserColumnName="SITE" type="xs:string" minOccurs="0" />
@@ -61,7 +61,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="goesmcf" msprop:Generator_TableClassName="goesmcfDataTable" msprop:Generator_TableVarName="tablegoesmcf" msprop:Generator_TablePropName="goesmcf" msprop:Generator_RowDeletingName="goesmcfRowDeleting" msprop:Generator_UserTableName="goesmcf" msprop:Generator_RowChangingName="goesmcfRowChanging" msprop:Generator_RowEvHandlerName="goesmcfRowChangeEventHandler" msprop:Generator_RowDeletedName="goesmcfRowDeleted" msprop:Generator_RowEvArgName="goesmcfRowChangeEvent" msprop:Generator_RowChangedName="goesmcfRowChanged" msprop:Generator_RowClassName="goesmcfRow">
+        <xs:element name="goesmcf" msprop:Generator_TableClassName="goesmcfDataTable" msprop:Generator_TableVarName="tablegoesmcf" msprop:Generator_RowChangedName="goesmcfRowChanged" msprop:Generator_TablePropName="goesmcf" msprop:Generator_RowDeletingName="goesmcfRowDeleting" msprop:Generator_RowChangingName="goesmcfRowChanging" msprop:Generator_RowEvHandlerName="goesmcfRowChangeEventHandler" msprop:Generator_RowDeletedName="goesmcfRowDeleted" msprop:Generator_RowClassName="goesmcfRow" msprop:Generator_UserTableName="goesmcf" msprop:Generator_RowEvArgName="goesmcfRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="GOESDEC" msprop:Generator_ColumnVarNameInTable="columnGOESDEC" msprop:Generator_ColumnPropNameInRow="GOESDEC" msprop:Generator_ColumnPropNameInTable="GOESDECColumn" msprop:Generator_UserColumnName="GOESDEC" type="xs:string" minOccurs="0" />
@@ -95,7 +95,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="pcodemcf" msprop:Generator_TableClassName="pcodemcfDataTable" msprop:Generator_TableVarName="tablepcodemcf" msprop:Generator_TablePropName="pcodemcf" msprop:Generator_RowDeletingName="pcodemcfRowDeleting" msprop:Generator_UserTableName="pcodemcf" msprop:Generator_RowChangingName="pcodemcfRowChanging" msprop:Generator_RowEvHandlerName="pcodemcfRowChangeEventHandler" msprop:Generator_RowDeletedName="pcodemcfRowDeleted" msprop:Generator_RowEvArgName="pcodemcfRowChangeEvent" msprop:Generator_RowChangedName="pcodemcfRowChanged" msprop:Generator_RowClassName="pcodemcfRow">
+        <xs:element name="pcodemcf" msprop:Generator_TableClassName="pcodemcfDataTable" msprop:Generator_TableVarName="tablepcodemcf" msprop:Generator_RowChangedName="pcodemcfRowChanged" msprop:Generator_TablePropName="pcodemcf" msprop:Generator_RowDeletingName="pcodemcfRowDeleting" msprop:Generator_RowChangingName="pcodemcfRowChanging" msprop:Generator_RowEvHandlerName="pcodemcfRowChangeEventHandler" msprop:Generator_RowDeletedName="pcodemcfRowDeleted" msprop:Generator_RowClassName="pcodemcfRow" msprop:Generator_UserTableName="pcodemcf" msprop:Generator_RowEvArgName="pcodemcfRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="PCODE" msprop:Generator_ColumnVarNameInTable="columnPCODE" msprop:Generator_ColumnPropNameInRow="PCODE" msprop:Generator_ColumnPropNameInTable="PCODEColumn" msprop:Generator_UserColumnName="PCODE" type="xs:string" minOccurs="0" />
@@ -135,6 +135,14 @@
               <xs:element name="PLOTMIN" msprop:Generator_ColumnVarNameInTable="columnPLOTMIN" msprop:Generator_ColumnPropNameInRow="PLOTMIN" msprop:Generator_ColumnPropNameInTable="PLOTMINColumn" msprop:Generator_UserColumnName="PLOTMIN" type="xs:string" minOccurs="0" />
               <xs:element name="PLOTMAX" msprop:Generator_ColumnVarNameInTable="columnPLOTMAX" msprop:Generator_ColumnPropNameInRow="PLOTMAX" msprop:Generator_ColumnPropNameInTable="PLOTMAXColumn" msprop:Generator_UserColumnName="PLOTMAX" type="xs:string" minOccurs="0" />
               <xs:element name="Column1" msprop:Generator_ColumnVarNameInTable="columnColumn1" msprop:Generator_ColumnPropNameInRow="Column1" msprop:Generator_ColumnPropNameInTable="Column1Column" msprop:Generator_UserColumnName="Column1" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="groupmcf" msprop:Generator_TableClassName="groupmcfDataTable" msprop:Generator_TableVarName="tablegroupmcf" msprop:Generator_TablePropName="groupmcf" msprop:Generator_RowDeletingName="groupmcfRowDeleting" msprop:Generator_RowChangingName="groupmcfRowChanging" msprop:Generator_RowEvHandlerName="groupmcfRowChangeEventHandler" msprop:Generator_RowDeletedName="groupmcfRowDeleted" msprop:Generator_UserTableName="groupmcf" msprop:Generator_RowChangedName="groupmcfRowChanged" msprop:Generator_RowEvArgName="groupmcfRowChangeEvent" msprop:Generator_RowClassName="groupmcfRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Number" msprop:Generator_ColumnVarNameInTable="columnNumber" msprop:Generator_ColumnPropNameInRow="Number" msprop:Generator_ColumnPropNameInTable="NumberColumn" msprop:Generator_UserColumnName="Number" type="xs:int" default="0" minOccurs="0" />
+              <xs:element name="Name" msprop:Generator_ColumnVarNameInTable="columnName" msprop:Generator_ColumnPropNameInRow="Name" msprop:Generator_ColumnPropNameInTable="NameColumn" msprop:Generator_UserColumnName="Name" type="xs:string" default=" " minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

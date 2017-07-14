@@ -144,6 +144,10 @@ namespace Reclamation.TimeSeries.Decodes
                 {
                     return LinearEquation(pcode.SCALE, pcode.OFFSET, "ft");
                 }
+                if (pcode.RTCPROC.ToLower().Trim() == "ob2" )
+                {
+                    return OB2Equation();
+                }
                 
                 Logger.WriteLine("not implemented Rtcm routine :" + pcode.RTCPROC+" " +goes.GOESDEC);
                 return -1;
@@ -241,7 +245,31 @@ namespace Reclamation.TimeSeries.Decodes
             decodes.unitconverter.AddunitconverterRow(uc);
             return uc.id;
         }
-
+        /// <summary>
+        /// Y = A*x^5 + bx^4 + cx^3 + dx^2 + ex + f
+        /// </summary>
+        private int PolyEquation(double a, double b,double c,
+            double d,double e, double f, string units)
+        {
+            var uc = decodes.unitconverter.NewunitconverterRow();
+            uc.id = decodes.unitconverter.GetNextID();
+            uc.fromunitsabbr = "raw";
+            uc.tounitsabbr = units;
+            uc.algorithm = "poly-5";
+            uc.a = a;
+            uc.b = b;
+            uc.c = c;
+            uc.d = d;
+            uc.e = e;
+            uc.f = f;
+            decodes.unitconverter.AddunitconverterRow(uc);
+            return uc.id;
+        }
+       
+        private int OB2Equation()
+        {
+            return PolyEquation(0, 0.000000000002163568, -0.00000001304625, 0.00002481859, 0.02126273, -41.82516,"degF");
+        }
       
         /// <summary>
         /// Y = A(x) + b

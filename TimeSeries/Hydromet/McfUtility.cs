@@ -13,7 +13,7 @@ namespace Reclamation.TimeSeries.Hydromet
     {
 
 
-        static string[] tableNames = {"site","goes","pcode" };
+        static string[] tableNames = {"site","goes","pcode","group" };
 
         /// <summary>
         /// Loads xml version of  MCF
@@ -36,14 +36,14 @@ namespace Reclamation.TimeSeries.Hydromet
         /// </summary>
         /// <param name="svr"></param>
         /// <returns></returns>
-        public static McfDataSet GetDataSetFromCsvFiles( )
+        public static McfDataSet GetDataSetFromCsvFiles(string mrdbPath )
         {
             Performance p = new Performance();
             var ds = new McfDataSet();
           //  ds.EnforceConstraints = false;
             foreach (var item in tableNames)
             {
-                var fn = FileUtility.GetFileReference(item + ".csv");
+                var fn = Path.Combine(mrdbPath,item + ".csv");
                 if (!File.Exists(fn))
                 {
                     Logger.WriteLine("Error: file missing '" + fn + "'");

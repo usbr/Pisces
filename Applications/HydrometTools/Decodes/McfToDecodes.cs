@@ -13,7 +13,7 @@ namespace Reclamation.TimeSeries.Decodes
     public class McfToDecodes
     {
         public static void Import(string serverIP, string database,string password, string networkListName,
-            string[] siteList)
+            string[] siteList, string mrdbPath)
         {
 
             string fn = @"C:\temp\mcf.xml";
@@ -28,7 +28,7 @@ namespace Reclamation.TimeSeries.Decodes
             else
             {
              Logger.WriteLine("Reading csv files from MCF");
-             pnMcf = McfUtility.GetDataSetFromCsvFiles();
+             pnMcf = McfUtility.GetDataSetFromCsvFiles(mrdbPath);
              pnMcf.WriteXml(fn);
             }
 

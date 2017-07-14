@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxMrdbPath = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxPass = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -50,6 +52,8 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.textBoxMrdbPath);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.textBoxPass);
             this.groupBox1.Controls.Add(this.label5);
@@ -67,10 +71,29 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(572, 522);
+            this.groupBox1.Size = new System.Drawing.Size(578, 538);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "create site in decodes";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(28, 114);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(107, 13);
+            this.label7.TabIndex = 19;
+            this.label7.Text = "path to mrdb csv files";
+            // 
+            // textBoxMrdbPath
+            // 
+            this.textBoxMrdbPath.Location = new System.Drawing.Point(139, 111);
+            this.textBoxMrdbPath.Margin = new System.Windows.Forms.Padding(2);
+            this.textBoxMrdbPath.Name = "textBoxMrdbPath";
+            this.textBoxMrdbPath.Size = new System.Drawing.Size(357, 20);
+            this.textBoxMrdbPath.TabIndex = 18;
+            this.textBoxMrdbPath.Text = "c:\\hydromettools\\cfg\\gp\\";
             // 
             // label6
             // 
@@ -94,7 +117,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(111, 90);
+            this.label5.Location = new System.Drawing.Point(28, 90);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(55, 13);
@@ -103,12 +126,12 @@
             // 
             // textBoxSiteList
             // 
-            this.textBoxSiteList.Location = new System.Drawing.Point(176, 87);
+            this.textBoxSiteList.Location = new System.Drawing.Point(87, 87);
             this.textBoxSiteList.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxSiteList.Name = "textBoxSiteList";
-            this.textBoxSiteList.Size = new System.Drawing.Size(132, 20);
+            this.textBoxSiteList.Size = new System.Drawing.Size(409, 20);
             this.textBoxSiteList.TabIndex = 14;
-            this.textBoxSiteList.Text = "C:\\Users\\KTarbet\\Documents\\project\\Pisces\\Applications\\cfg\\yak\\yak_goes.txt";
+            this.textBoxSiteList.Text = "c:\\hydromet\\gp_agrimet_list.txt";
             // 
             // label1
             // 
@@ -127,24 +150,24 @@
             this.textBoxNetworklist.Name = "textBoxNetworklist";
             this.textBoxNetworklist.Size = new System.Drawing.Size(89, 20);
             this.textBoxNetworklist.TabIndex = 12;
-            this.textBoxNetworklist.Text = "yakima";
+            this.textBoxNetworklist.Text = "gp_agrimet";
             // 
             // textBoxLogger
             // 
             this.textBoxLogger.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLogger.Location = new System.Drawing.Point(7, 144);
+            this.textBoxLogger.Location = new System.Drawing.Point(4, 183);
             this.textBoxLogger.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxLogger.Multiline = true;
             this.textBoxLogger.Name = "textBoxLogger";
             this.textBoxLogger.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxLogger.Size = new System.Drawing.Size(551, 359);
+            this.textBoxLogger.Size = new System.Drawing.Size(555, 338);
             this.textBoxLogger.TabIndex = 11;
             // 
             // buttonGo
             // 
-            this.buttonGo.Location = new System.Drawing.Point(15, 120);
+            this.buttonGo.Location = new System.Drawing.Point(7, 160);
             this.buttonGo.Margin = new System.Windows.Forms.Padding(2);
             this.buttonGo.Name = "buttonGo";
             this.buttonGo.Size = new System.Drawing.Size(56, 19);
@@ -189,7 +212,7 @@
             this.textBoxServer.Name = "textBoxServer";
             this.textBoxServer.Size = new System.Drawing.Size(96, 20);
             this.textBoxServer.TabIndex = 2;
-            this.textBoxServer.Text = "lrgs1";
+            this.textBoxServer.Text = "localhost";
             // 
             // label2
             // 
@@ -208,7 +231,7 @@
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Mcf2Decodes";
-            this.Size = new System.Drawing.Size(596, 555);
+            this.Size = new System.Drawing.Size(602, 571);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -231,5 +254,7 @@
         private System.Windows.Forms.TextBox textBoxSiteList;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxPass;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxMrdbPath;
     }
 }
