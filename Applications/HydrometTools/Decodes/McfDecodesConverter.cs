@@ -441,7 +441,7 @@ namespace Reclamation.TimeSeries.Decodes
                 active_flag = "FALSE";
             decodes.site.AddsiteRow(id, s.LAT.ToString(), s.LONG.ToString(), "",
                 s.STATE, "", s.TimeZone(s.TZONE.ToString()),
-                "USA", s.ELEV, "feet", s.DESCR,active_flag,"",0,"");
+                "USA", s.ELEV, "ft", s.DESCR,active_flag,"",0,"");
 
             decodes.site_property.Addsite_propertyRow(id, "accessControlList",s.ACL);
             decodes.site_property.Addsite_propertyRow(id, "alternateID", s.ALTID);
