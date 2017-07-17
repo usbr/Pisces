@@ -347,6 +347,11 @@ namespace Reclamation.Core
         {
             return p.ToString();
         }
+
+        public virtual double SpaceUsedGB()
+        {
+            return 0;
+        }
     }
 
 

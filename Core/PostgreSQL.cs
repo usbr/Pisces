@@ -721,5 +721,15 @@ namespace Reclamation.Core
             var tbl = Table("a", sql);
             return tbl.Rows[0][0].ToString().ToLower() == "t";
         }
+        public override double SpaceUsedGB()
+        {
+            string sql = "select pg_database_size('" + Name
+              + "')/1024.0/1024.0/1024.0 ";
+            var t = Table("space", sql);
+            if (t.Rows.Count > 0)
+                return Convert.ToDouble(t.Rows[0][0]);
+
+            return 0;
+        }
     }
 }

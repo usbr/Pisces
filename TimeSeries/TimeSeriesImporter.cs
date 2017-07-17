@@ -115,6 +115,15 @@ namespace Reclamation.TimeSeries
             speedSeries.Add(DateTime.Now, speed, "# " + calculationCount + " series ("+interval+")");
             speedSeries.SiteID = "system";
             m_db.ImportSeriesUsingTableName(speedSeries, m_saveOption);
+
+            // disk space
+
+            var spaceUsed = new Series("disk_used");
+            spaceUsed.SiteID = "system";
+            spaceUsed.Units = "GB";
+            spaceUsed.Add(DateTime.Now, m_db.Server.SpaceUsedGB());
+            m_db.ImportSeriesUsingTableName(spaceUsed,DatabaseSaveOptions.Insert);
+            Console.WriteLine("space used" + m_db.Server.SpaceUsedGB());
         }
 
 

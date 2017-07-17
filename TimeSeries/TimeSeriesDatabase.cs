@@ -1900,6 +1900,7 @@ namespace Reclamation.TimeSeries
             int tableCount = m_server.TableNames().Count();
             Console.WriteLine("Inventory of Database "+m_server.Name);
             Console.WriteLine("Tables in Database:"+tableCount);
+            Console.WriteLine("Space used:"+m_server.SpaceUsedGB()+" GB");
 
             Console.WriteLine("Instant Series:"+GetSeriesCatalog("timeinterval = 'Irregular'").Count());
             Console.WriteLine("Daily Series:" + GetSeriesCatalog("timeinterval = 'Daily'").Count());

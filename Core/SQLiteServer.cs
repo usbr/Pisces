@@ -663,5 +663,15 @@ namespace Reclamation.Core
         {
           return p ? "1" : "0";
         }
+
+        public override double SpaceUsedGB( )
+        {
+            if(File.Exists(FileName))
+            {
+                FileInfo fi = new FileInfo(FileName);
+                return fi.Length / 1024.0 / 1024.0 / 1024.0;
+            }
+            return 0;
+        }
     }
 }
