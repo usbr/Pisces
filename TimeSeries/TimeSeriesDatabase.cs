@@ -1914,6 +1914,14 @@ namespace Reclamation.TimeSeries
             s.SiteID = "system";
             ImportSeriesUsingTableName(s);
 
+            // disk space
+
+            var spaceUsed = new Series("disk_used");
+            spaceUsed.SiteID = "system";
+            spaceUsed.Units = "GB";
+            spaceUsed.Add(DateTime.Now, Server.SpaceUsedGB());
+            ImportSeriesUsingTableName(spaceUsed, DatabaseSaveOptions.Insert);
+
 
         }
 
