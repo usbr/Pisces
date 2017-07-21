@@ -1946,7 +1946,7 @@ namespace Reclamation.TimeSeries
             {
                 TimeSpan ts = new TimeSpan(s[1].DateTime.Ticks - s[0].DateTime.Ticks);
 
-                if( System.Math.Abs( ts.Minutes) < 59.0 )
+                if( System.Math.Abs( ts.Minutes) < 59.0 && ts.Days < 1)
                 {
                     return TimeInterval.Irregular;
                 }
