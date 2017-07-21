@@ -1946,7 +1946,12 @@ namespace Reclamation.TimeSeries
             {
                 TimeSpan ts = new TimeSpan(s[1].DateTime.Ticks - s[0].DateTime.Ticks);
 
-                if (ts.TotalHours -1  < 0.01)
+                if( System.Math.Abs( ts.Minutes) < 59.0 )
+                {
+                    return TimeInterval.Irregular;
+                }
+
+                if (System.Math.Abs( ts.TotalHours -1)  < 0.01)
                 {
                     return TimeInterval.Hourly;
                 }
