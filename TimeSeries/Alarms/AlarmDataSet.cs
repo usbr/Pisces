@@ -240,6 +240,13 @@ namespace Reclamation.TimeSeries.Alarms
         private void CheckForRateOfChangeAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
         {
             Logger.WriteLine("Checking Rate of Change: " + c.Condition + " " + c.Value);
+            // need data one time step before.. read from database.
+
+            if( s.TimeInterval == TimeInterval.Irregular)
+              s.Read(s.MinDateTime.AddMinutes(-20), s.MaxDateTime.AddMinutes(1));
+            else if( s.TimeInterval == TimeInterval.Daily)
+                s.Read(s.MinDateTime.AddDays(-1), s.MaxDateTime.AddMinutes(1));
+
             for (int i = 1; i < s.Count; i++)
             {
                 var pt = s[i];

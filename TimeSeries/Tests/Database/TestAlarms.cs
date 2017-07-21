@@ -21,7 +21,7 @@ namespace Pisces.NunitTests.Database
         }
 
 
-        private static TimeSeriesDatabase GetDatabase()
+        private static TimeSeriesDatabase GetNewDatabase()
         {
             var fn = FileUtility.GetTempFileName(".pdb");
             var svr = new SQLiteServer(fn);
@@ -35,7 +35,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void DatabaseAboveAlarmTest()
         {
-            var db = GetDatabase();
+            var db = GetNewDatabase();
             // create database with alarm def
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("palisades");
@@ -71,7 +71,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void Below()
         {
-            var db = GetDatabase();
+            var db = GetNewDatabase();
             var ds = db.Alarms;
             int id = SetupAlarm(ds,"lucky","luc","fb", "below 5525");
 
@@ -112,7 +112,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void Dropping()
         {
-            var db = GetDatabase();
+            var db = GetNewDatabase();
 
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("cre");
@@ -147,7 +147,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void DroppingBetweenTransmissions()
         {
-            var db = GetDatabase();
+            var db = GetNewDatabase();
 
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("wicews");
@@ -168,11 +168,13 @@ namespace Pisces.NunitTests.Database
             s.Add(DateTime.Parse("2016-11-21 02:45"), 1.34);
                     
             // (1.34 - 1.27) *4 = 0.28 feet / hour
-
-            s.Add(DateTime.Parse("2016-11-21 03:00"), 1.27);
             db.AddSeries(s);
-            
 
+
+
+            s.Clear(); // empty out...
+            s.Add(DateTime.Parse("2016-11-21 03:00"), 1.27);
+            db.ImportSeriesUsingTableName(s);
 
             ds.Check(s);
 
@@ -186,7 +188,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void Rising()
         {
-            var db = GetDatabase();
+            var db = GetNewDatabase();
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("emi");
             ds.alarm_definition.Addalarm_definitionRow(true, "emi",
@@ -221,7 +223,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void AboveOrRising()
         {
-            var db = GetDatabase();
+            var db = GetNewDatabase();
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("uny");
             ds.AddNewAlarmGroup("test");
@@ -261,7 +263,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void AlarmDisabled()
         {
-            var db = GetDatabase();
+            var db = GetNewDatabase();
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("karl");
             var r = ds.alarm_definition.Addalarm_definitionRow(false, "karl",
@@ -296,7 +298,7 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void FlaggedDataShouldNotAlarm()
         {
-            var db = GetDatabase();
+            var db = GetNewDatabase();
             var ds = db.Alarms;
             int id = SetupAlarm(ds, "flagged", "karl", "bp", "above 12");
 
