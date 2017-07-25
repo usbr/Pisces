@@ -85,23 +85,23 @@ namespace HydrometTools
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBoxDbPassword = new System.Windows.Forms.TextBox();
             this.tabPageNotifications = new System.Windows.Forms.TabPage();
             this.tabPageLog = new System.Windows.Forms.TabPage();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonClearLog = new System.Windows.Forms.Button();
             this.tabPageAlarms = new System.Windows.Forms.TabPage();
-            this.textBoxDbPassword = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.serverSelection1 = new Reclamation.TimeSeries.Forms.Hydromet.ServerSelection();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tabPageLog.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // checkBoxHideStatus
@@ -212,6 +212,35 @@ namespace HydrometTools
             this.tabPageGeneral.Text = "general";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.textBoxDbPassword);
+            this.groupBox1.Location = new System.Drawing.Point(286, 227);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(261, 100);
+            this.groupBox1.TabIndex = 42;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "relational database";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 41;
+            this.label1.Text = "password";
+            // 
+            // textBoxDbPassword
+            // 
+            this.textBoxDbPassword.Location = new System.Drawing.Point(9, 45);
+            this.textBoxDbPassword.Name = "textBoxDbPassword";
+            this.textBoxDbPassword.PasswordChar = '*';
+            this.textBoxDbPassword.Size = new System.Drawing.Size(187, 20);
+            this.textBoxDbPassword.TabIndex = 40;
+            this.textBoxDbPassword.TextChanged += new System.EventHandler(this.textBoxDbPassword_TextChanged);
+            // 
             // tabPageNotifications
             // 
             this.tabPageNotifications.Location = new System.Drawing.Point(4, 22);
@@ -273,41 +302,12 @@ namespace HydrometTools
             this.tabPageAlarms.Text = "alarms";
             this.tabPageAlarms.UseVisualStyleBackColor = true;
             // 
-            // textBoxDbPassword
-            // 
-            this.textBoxDbPassword.Location = new System.Drawing.Point(9, 45);
-            this.textBoxDbPassword.Name = "textBoxDbPassword";
-            this.textBoxDbPassword.PasswordChar = '*';
-            this.textBoxDbPassword.Size = new System.Drawing.Size(187, 20);
-            this.textBoxDbPassword.TabIndex = 40;
-            this.textBoxDbPassword.TextChanged += new System.EventHandler(this.textBoxDbPassword_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 26);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 41;
-            this.label1.Text = "password";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBoxDbPassword);
-            this.groupBox1.Location = new System.Drawing.Point(286, 227);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(261, 100);
-            this.groupBox1.TabIndex = 42;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "relational database";
-            // 
             // serverSelection1
             // 
             this.serverSelection1.Location = new System.Drawing.Point(7, 16);
             this.serverSelection1.Margin = new System.Windows.Forms.Padding(2);
             this.serverSelection1.Name = "serverSelection1";
-            this.serverSelection1.Size = new System.Drawing.Size(226, 206);
+            this.serverSelection1.Size = new System.Drawing.Size(248, 206);
             this.serverSelection1.TabIndex = 39;
             // 
             // Settings
@@ -322,10 +322,10 @@ namespace HydrometTools
             this.tabControl1.ResumeLayout(false);
             this.tabPageGeneral.ResumeLayout(false);
             this.tabPageGeneral.PerformLayout();
-            this.tabPageLog.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPageLog.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
 		}

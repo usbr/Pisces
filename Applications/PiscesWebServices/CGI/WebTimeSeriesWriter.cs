@@ -87,7 +87,7 @@ namespace PiscesWebServices.CGI
 
             string format = "2";
             if (m_collection.AllKeys.Contains("format"))
-                format = m_collection["format"];
+                format = m_collection["format"].Trim();
 
             // because of history daily defaults flags= false;
             // no flags (the old daily database did not have flags )
@@ -285,10 +285,10 @@ namespace PiscesWebServices.CGI
             int startIndex = 0;
             var sql = "";
 
-            if (interval == TimeInterval.Daily)
+            if (interval == TimeInterval.Daily && db.Server is PostgreSQL)
             {
                 startIndex = 1; // take care of first table with join to enumerate all dates in range
-                sql = JoinFirstTableWithDatesBetween(t1, t2, tableName);
+                sql = DailyTableWithDates(t1, t2, tableName);
                 if (list.Count > 1)
                     sql += "\n UNION ALL \n";
             }
@@ -302,7 +302,15 @@ namespace PiscesWebServices.CGI
             return sql;
         }
 
-        private string JoinFirstTableWithDatesBetween(DateTime t1, DateTime t2, string tableName)
+        /// <summary>
+        /// Returns daily table with dates even when data is missing
+        /// table ( tablename, datetime, value, flag)
+        /// </summary>
+        /// <param name="t1"></param>
+        /// <param name="t2"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
+        private string DailyTableWithDates(DateTime t1, DateTime t2, string tableName)
         {
             string st1 = t1.ToString("yyyy-MM-dd");
             string st2 = t2.ToString("yyyy-MM-dd") + " 23:59:59.996";

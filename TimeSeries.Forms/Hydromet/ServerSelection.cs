@@ -40,6 +40,12 @@ namespace Reclamation.TimeSeries.Forms.Hydromet
             {
                 UserPreference.Save("HydrometServer", HydrometHost.GreatPlains.ToString());
             }
+            else
+                if (this.radioButtonLocal.Checked)
+                {
+                    UserPreference.Save("HydrometServer", HydrometHost.LocalSource.ToString());
+                }
+
         }
 
         private void ReadSettings()
@@ -64,6 +70,11 @@ namespace Reclamation.TimeSeries.Forms.Hydromet
             {
                 this.radioButtonGP.Checked = true;
             }
+            else if (svr == HydrometHost.LocalSource)
+            {
+                radioButtonLocal.Checked = true;
+            }
+
         }
 
         private void serverChanged(object sender, EventArgs e)

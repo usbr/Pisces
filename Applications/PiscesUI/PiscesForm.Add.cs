@@ -1065,6 +1065,8 @@ namespace Reclamation.TimeSeries.Forms
             try
             {
                 DB.SuspendTreeUpdates();
+                this.Cursor = Cursors.WaitCursor;
+                Application.DoEvents();
                 if (openExcelDialog.ShowDialog() == DialogResult.OK)
                 {
                     BulkImport.Import(DB, openExcelDialog.FileName);
@@ -1078,6 +1080,7 @@ namespace Reclamation.TimeSeries.Forms
             finally
             {
                 DB.ResumeTreeUpdates();
+                this.Cursor = Cursors.Default;
             }
         }
 

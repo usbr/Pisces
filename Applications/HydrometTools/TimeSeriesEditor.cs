@@ -844,7 +844,7 @@ namespace HydrometTools
 
                 Logger.WriteLine("svr = " + svr.ToString());
                 //if (svr == HydrometHost.PNLinux)
-                //{// lookup parameters from database.
+                //{// lookup parameters from database. 
                 //    //PiscesDatabase.Info.Parameters()
                 //    //m_db  == HydrometDataBase.
                 //}
