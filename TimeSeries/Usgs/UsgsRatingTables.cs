@@ -98,7 +98,9 @@ namespace Reclamation.TimeSeries.Usgs
                 qTable.Rows.Add(qRow);
             }
             if (qTable.Rows.Count < 1)
-            { throw new Exception("No skeletal points found for station: " + this.stationName); }
+            { 
+                Console.WriteLine("Warning: No skeletal points found for station: " + this.stationName); 
+            }
             this.hjTable = hjTable;
             this.qTable = qTable;
         }
