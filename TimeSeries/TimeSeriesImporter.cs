@@ -102,7 +102,7 @@ namespace Reclamation.TimeSeries
 
         private void Stats(int importCount ,double s, int calculationCount, string interval)
         {
-            if (importCount <= 0 && calculationCount <= 0)
+            if (importCount <= 1 && calculationCount <= 0)
                 return;
             Console.WriteLine("imported " + importCount
                 + " series with " + calculationCount + " dependent calculations");

@@ -34,7 +34,7 @@ namespace Reclamation.Core
             if (!IsLinux())
                 return DateTime.TryParse(dateStr,out t);
 
-            Logger.WriteLine("LinuxUtility.TryParseDateTime('"+dateStr +"')");
+            //Logger.WriteLine("LinuxUtility.TryParseDateTime('"+dateStr +"')");
             if (Regex.IsMatch(dateStr,@"\w{3}\s*\d{4}\s*"))// "JAN  2009 "
             {
                 string str = dateStr.Insert(4, "1").Trim();

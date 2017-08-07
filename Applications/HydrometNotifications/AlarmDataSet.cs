@@ -49,7 +49,7 @@ namespace HydrometNotifications
         }
        
 
-        public static void PreloadInstantHydrometData(AlarmDataSet.alarm_definitionDataTable alarmdef)
+        public static void PreloadInstantHydrometData(AlarmDataSet.alarm_definitionDataTable alarmdef, DateTime t)
         {
             // find all instant data, and largest hours_back, to make a single cache of data
             var cbttPcodes = (from row in alarmdef.AsEnumerable()
@@ -71,8 +71,8 @@ namespace HydrometNotifications
 
     
 
-            DateTime t1 = DateTime.Now.AddHours(-hours_back);
-            DateTime t2 = DateTime.Now;
+            DateTime t1 = t.AddHours(-hours_back);
+            DateTime t2 = t;
            // HydrometInstantSeries.KeepFlaggedData = true;
 
 
@@ -80,7 +80,7 @@ namespace HydrometNotifications
 
             var cache = new HydrometDataCache();
             cache.Add(String.Join(",", cbttPcodes).Split(','), t1, t2,
-                h, Reclamation.TimeSeries.TimeInterval.Irregular, hours_back);
+                h, Reclamation.TimeSeries.TimeInterval.Irregular, 0);
 
             HydrometInstantSeries.Cache = cache;
             Console.WriteLine(cbttPcodes);

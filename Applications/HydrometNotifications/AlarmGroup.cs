@@ -93,7 +93,7 @@ namespace HydrometNotifications
 
             if (useHydrometCache)
             {
-                AlarmDataSet.PreloadInstantHydrometData(alarmdef);
+                AlarmDataSet.PreloadInstantHydrometData(alarmdef,t);
             }
             string emailMsg = "";
             string txtMsg = "";
