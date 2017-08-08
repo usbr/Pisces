@@ -345,11 +345,19 @@ namespace Reclamation.TimeSeries.Alarms
             var t = m_server.Table("sitecatalog", "select description from sitecatalog where siteid='" + alarm.siteid + "'");
             if (t.Rows.Count > 0)
                 siteDescription = t.Rows[0][0].ToString();
+            else
+            {
+                siteDescription = "siteid =" + alarm.siteid + "  parameter = " + alarm.parameter;
+            }
 
             var parameterName = "";
             t = m_server.Table("parametercatalog", "select name from parametercatalog where id='" + alarm.parameter + "' and timeinterval = 'Irregular'");
             if (t.Rows.Count > 0)
                 parameterName = t.Rows[0][0].ToString();
+            else
+            { // parameter name not defined, use other information
+                parameterName = alarm.siteid + " " + alarm.parameter;
+            }
 
             var subject = "Alarm Condition at " + siteDescription + " " + alarm.siteid.ToUpper();
             subject += "  " + parameterName;
