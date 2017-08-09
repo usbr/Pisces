@@ -46,8 +46,8 @@ namespace GetIdahoPowerData
 
             throw new Exception("need to update or call this code from HydrometServer");
 
-            TimeSeriesImporter imp = new TimeSeriesImporter(null);
-            imp.Import(s);
+            //TimeSeriesImporter imp = new TimeSeriesImporter(null);
+           // imp.Import(s);
             //TimeSeriesExport.
  
 
