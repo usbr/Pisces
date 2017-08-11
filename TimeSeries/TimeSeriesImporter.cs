@@ -96,7 +96,7 @@ namespace Reclamation.TimeSeries
             }
             
             Export(importTag, routingList);
-            Stats(importSeries.Count, p.ElapsedSeconds, calculationCount,"instant");
+            Stats(importSeries.Count(), p.ElapsedSeconds, calculationCount,"instant");
             return routingList;
         }
 
@@ -110,11 +110,11 @@ namespace Reclamation.TimeSeries
             double speed = calculationCount / s;
             Console.WriteLine("elapsed time = " + s.ToString("F2") + " s  " + (speed).ToString("F2") + " records/s");
 
-            var speedSeries = new Series("import_speed"); ;
+            //var speedSeries = new Series("import_speed"); ;
 
-            speedSeries.Add(DateTime.Now, speed, "# " + calculationCount + " series ("+interval+")");
-            speedSeries.SiteID = "system";
-            m_db.ImportSeriesUsingTableName(speedSeries, m_saveOption);
+            //speedSeries.Add(DateTime.Now, speed, "# " + calculationCount + " series ("+interval+")");
+            //speedSeries.SiteID = "system";
+            //m_db.ImportSeriesUsingTableName(speedSeries, m_saveOption);
 
            
         }

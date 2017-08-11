@@ -39,7 +39,7 @@ namespace Reclamation.TimeSeries
 
 
         [FunctionAttribute("Performs 2D lookup from a file with linear interpolation in both directions",
-            "FileLookupInterpolate2D(series1, series2, csvFile)")]
+            "FileLookupInterpolate2D(series_row, series_column, csvFile)")]
         public static Series FileLookupInterpolate2D(Series s1, Series s2, string fileName)
         {
             var rval = new Series();
