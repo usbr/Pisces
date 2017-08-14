@@ -50,13 +50,18 @@ namespace Reclamation.TimeSeries
                 return rval;
             }
 
-            if (!File.Exists(fileName))
+            var fn = fileName;
+
+            if (!File.Exists(fn))
+                fn = Path.Combine(Path.Combine(Globals.LocalConfigurationDataPath, "rating_tables"), fileName);
+
+            if (!File.Exists(fn))
             {
                 Logger.WriteLine("FileLookupInterpolate2D - input fileName, file not found");
                 return rval;
             }
 
-            CsvFile csv = new CsvFile(fileName, CsvFile.FieldTypes.AllText);
+            CsvFile csv = new CsvFile(fn, CsvFile.FieldTypes.AllText);
             foreach (var pt in s1)
             {
                 Point point = pt;
@@ -76,6 +81,14 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
+
+        /// <summary>
+        /// https://en.wikipedia.org/wiki/Bilinear_interpolation
+        /// </summary>
+        /// <param name="tbl"></param>
+        /// <param name="rowValue"></param>
+        /// <param name="columnValue"></param>
+        /// <returns></returns>
         public static double Interpoloate2D(DataTable tbl, double rowValue, double columnValue)
         {
             int row = RowIndexValue(tbl, rowValue);
