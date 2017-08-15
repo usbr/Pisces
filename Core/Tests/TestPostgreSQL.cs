@@ -11,7 +11,7 @@ namespace Reclamation.Core.Tests
 
         public static BasicDBServer GetPGServer(string ipaddress = "localhost", string dbName = "nunit")
         {
-            return PostgreSQL.GetPostgresServer(ipaddress, dbName);
+            return PostgreSQL.GetPostgresServer(dbName,ipaddress);
         }
 
         [Test, Category("DatabaseServer")]

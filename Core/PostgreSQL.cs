@@ -267,6 +267,95 @@ namespace Reclamation.Core
     public bool MapToLowerCase = true;
     public bool SetAllValuesInCommandBuilder = false;
 
+      /// <summary>
+      /// Saves a specific DataTable with columns:(datetime, value, flag)
+      /// </summary>
+      /// <param name="dataTable"></param>
+      /// <returns></returns>
+    public int InsertTimeSeriesTable(DataTable dataTable)
+    {
+        /*
+UPDATE "nunit"."public"."pn_daily_jck_af2017aug15162651773" SET "datetime" = @p1, "value" = @p2, "flag" = @p3 WHERE (("datetime" = @p4) AND ((@p5 = 1 AND "value" IS NULL) OR ("value" = @p6)) AND ((@p7 = 1 AND "flag" IS NULL) OR ("flag" = @p8)))
+
+
+INSERT INTO "nunit"."public"."pn_daily_jck_af2017aug15162651773" ("datetime", "value", "flag") VALUES (@p1, @p2, @p3)
+
+
+DELETE FROM "nunit"."public"."pn_daily_jck_af2017aug15162651773" WHERE (("datetime" = @p1) AND ((@p2 = 1 AND "value" IS NULL) OR ("value" = @p3)) AND ((@p4 = 1 AND "flag" IS NULL) OR ("flag" = @p5)))
+
+         */
+        var sql = GetEmptyTableSqlCommand(dataTable);
+        Performance perf = new Performance();
+        Logger.WriteLine("Saving " + dataTable.TableName);
+        DataSet myDataSet = new DataSet();
+        myDataSet.Tables.Add(dataTable.TableName);
+
+        NpgsqlConnection conn = new NpgsqlConnection(ConnectionString);
+        NpgsqlCommand myAccessCommand = new NpgsqlCommand(sql, conn);
+        NpgsqlDataAdapter da = new NpgsqlDataAdapter(myAccessCommand);
+
+        //NpgsqlCommandBuilder cb = new NpgsqlCommandBuilder(da);
+        //da.UpdateCommand = cb.GetUpdateCommand();
+        //da.InsertCommand = cb.GetInsertCommand();
+        //da.DeleteCommand = cb.GetDeleteCommand();
+        var sqlUpdate  = "INSERT INTO "+dataTable.TableName.ToLower() 
+        +" (\"datetime\", \"value\", \"flag\") VALUES (@p1, @p2, @p3)";
+        da.InsertCommand = new NpgsqlCommand(sqlUpdate, conn);
+
+        var p1 = new NpgsqlParameter("datetime",DbType.DateTime);
+        var p2 = new NpgsqlParameter("value", DbType.Double);
+        var p3 = new NpgsqlParameter("flag", DbType.String);
+
+        da.InsertCommand.Parameters.Add(p1);
+        da.InsertCommand.Parameters.Add(p2);
+        da.InsertCommand.Parameters.Add(p3);
+
+        //cb.SetAllValues = SetAllValuesInCommandBuilder;
+        //cb.ConflictOption = ConflictOption.OverwriteChanges; // this fixes System.InvalidCastException : Specified cast is not valid.
+        // when reserved word  (group) was a column name
+
+        if (MapToLowerCase)
+        {
+            var map = da.TableMappings.Add(dataTable.TableName.ToLower(), dataTable.TableName);
+            for (int i = 0; i < dataTable.Columns.Count; i++)
+            {
+                var cn = dataTable.Columns[i].ColumnName;
+                map.ColumnMappings.Add(cn.ToLower(), cn);
+            }
+            //PrintMapping(da);
+        }
+
+        SqlCommands.Add(sql);
+        int recordCount = 0;
+        //da.RowUpdating += myDataAdapter_RowUpdating;
+
+        try
+        {
+            conn.Open();
+            var dbTrans = conn.BeginTransaction();
+            da.Fill(myDataSet, dataTable.TableName);
+
+            recordCount = da.Update(dataTable);
+            dbTrans.Commit();
+        }
+        finally
+        {
+            if (conn != null)
+                conn.Close();
+        }
+
+        string msg = "[" + dataTable.TableName + "] " + recordCount;
+        Logger.WriteLine(msg, "ui");
+        Console.WriteLine(msg);
+        if (SqlCommands.Count > 5000)
+        {
+            SqlCommands.Clear();
+        }
+        return recordCount;
+    }
+
+
+
     public override int SaveTable(DataTable dataTable, string sql)
     {
 
@@ -608,7 +697,10 @@ namespace Reclamation.Core
     /// <returns></returns>
      int RunSqlCommand(string sql, string SqlConnString, bool useTransaction = true)
     {
-       
+       if( sql.Trim().IndexOf("create database") >=0)
+       {
+           useTransaction = false;
+       }
       int rval =0;
       //this.lastMessage = "";
       var myConnection = new NpgsqlConnection(SqlConnString);

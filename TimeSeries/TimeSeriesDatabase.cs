@@ -1050,6 +1050,12 @@ namespace Reclamation.TimeSeries
 
             int count = 0;
          
+            if( false &&
+                option == DatabaseSaveOptions.Upsert && m_server is PostgreSQL)
+            {
+
+            }
+            else
             if( option == DatabaseSaveOptions.Upsert)
             {
                 try
