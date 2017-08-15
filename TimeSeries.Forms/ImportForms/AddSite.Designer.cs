@@ -316,8 +316,6 @@
             // checkBoxDaily
             // 
             this.checkBoxDaily.AutoSize = true;
-            this.checkBoxDaily.Checked = true;
-            this.checkBoxDaily.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxDaily.Location = new System.Drawing.Point(207, 86);
             this.checkBoxDaily.Name = "checkBoxDaily";
             this.checkBoxDaily.Size = new System.Drawing.Size(143, 17);

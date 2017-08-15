@@ -99,11 +99,10 @@
             this.basicEquation1.Margin = new System.Windows.Forms.Padding(4);
             this.basicEquation1.Name = "basicEquation1";
             this.basicEquation1.SeriesExpression = "";
-            this.basicEquation1.SeriesName = "";
+            this.basicEquation1.SiteID = "";
             this.basicEquation1.Size = new System.Drawing.Size(684, 519);
             this.basicEquation1.TabIndex = 3;
             this.basicEquation1.TimeInterval = Reclamation.TimeSeries.TimeInterval.Daily;
-            this.basicEquation1.Units = "";
             // 
             // buttonOK
             // 

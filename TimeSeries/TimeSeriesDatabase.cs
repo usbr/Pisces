@@ -588,46 +588,17 @@ namespace Reclamation.TimeSeries
         }
 
 
-
-        ///// <summary>
-        ///// gets or sets the Number of tables the database
-        ///// will use before creating another file on disk.
-        ///// Used for advanced scenarios where you approach
-        ///// the 4 GB limit of some databases.
-        ///// </summary>
-        //int TablesPerFile
-        //{
-        //    get { return m_tablesPerFile; }
-        //    set
-        //    {
-        //        if (TablesPerFile <= 0)
-        //            throw new ArgumentOutOfRangeException();
-
-        //        m_tablesPerFile = value;
-
-        //    }
-        //}
-
-        ///// <summary>
-        ///// TO-DO: If the current file is over 3GB 
-        ///// we better create another file so it does not exceed the
-        ///// 4GB SQL Compact limit.
-        ///// </summary>
-        ///// <param name="i"></param>
-        ///// <returns></returns>
-        //private int NewFileIndex(int i)
-        //{
-        //    //int rval = (i - 1) / m_tablesPerFile;
-        //    //return rval;
-            
-        //    return 0;
-        //}
-
-
         public int AddSeries(Series s)
         {
-            //PiscesFolder folder = RootObject as PiscesFolder;
-            return AddSeries(s, RootFolder);
+            PiscesFolder folder = RootFolder;
+            TimeSeriesName tn = new TimeSeriesName(s.Table.TableName);
+
+            var folders = s.DefaultFolders();
+            if (folders.Length > 0 && tn.interval != "")
+            {
+                folder = GetOrCreateFolder( folders);
+            }
+            return AddSeries(s, folder);
         }
 
 

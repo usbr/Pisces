@@ -34,16 +34,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.listBoxFunctions = new System.Windows.Forms.ListBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.textBoxSeriesName = new System.Windows.Forms.TextBox();
+            this.textBoxSiteID = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageEquation = new System.Windows.Forms.TabPage();
             this.comboBoxInterval = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxUnits = new System.Windows.Forms.ComboBox();
             this.checkBoxCompute = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
             this.textBoxHelp1 = new System.Windows.Forms.TextBox();
+            this.textBoxParameter = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPageEquation.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -102,13 +102,13 @@
             this.listBoxFunctions.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listBoxFunctions_KeyUp);
             this.listBoxFunctions.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxFunctions_MouseDown);
             // 
-            // textBoxSeriesName
+            // textBoxSeriesID
             // 
-            this.textBoxSeriesName.Location = new System.Drawing.Point(249, 82);
-            this.textBoxSeriesName.Name = "textBoxSeriesName";
-            this.textBoxSeriesName.Size = new System.Drawing.Size(122, 20);
-            this.textBoxSeriesName.TabIndex = 13;
-            this.toolTip1.SetToolTip(this.textBoxSeriesName, "enter a simple name  like boise_flow");
+            this.textBoxSiteID.Location = new System.Drawing.Point(249, 82);
+            this.textBoxSiteID.Name = "textBoxSeriesID";
+            this.textBoxSiteID.Size = new System.Drawing.Size(122, 20);
+            this.textBoxSiteID.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.textBoxSiteID, "enter a simple name  like boise_flow");
             // 
             // tabControl1
             // 
@@ -149,31 +149,14 @@
             this.comboBoxInterval.Size = new System.Drawing.Size(160, 21);
             this.comboBoxInterval.TabIndex = 12;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(180, 105);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(29, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "units";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(180, 84);
+            this.label1.Location = new System.Drawing.Point(172, 84);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 14;
-            this.label1.Text = "series name";
-            // 
-            // comboBoxUnits
-            // 
-            this.comboBoxUnits.FormattingEnabled = true;
-            this.comboBoxUnits.Location = new System.Drawing.Point(249, 105);
-            this.comboBoxUnits.Name = "comboBoxUnits";
-            this.comboBoxUnits.Size = new System.Drawing.Size(122, 21);
-            this.comboBoxUnits.TabIndex = 17;
+            this.label1.Text = "siteid (cbtt)";
             // 
             // checkBoxCompute
             // 
@@ -188,22 +171,31 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.textBoxParameter);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.textBoxHelp1);
             this.panel1.Controls.Add(this.textBoxHelp);
             this.panel1.Controls.Add(this.checkBoxCompute);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.listBoxFunctions);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.comboBoxUnits);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.comboBoxInterval);
             this.panel1.Controls.Add(this.tabControl1);
-            this.panel1.Controls.Add(this.textBoxSeriesName);
+            this.panel1.Controls.Add(this.textBoxSiteID);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(675, 446);
             this.panel1.TabIndex = 19;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(172, 110);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(54, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "parameter";
             // 
             // textBoxHelp1
             // 
@@ -216,6 +208,14 @@
             this.textBoxHelp1.Size = new System.Drawing.Size(660, 45);
             this.textBoxHelp1.TabIndex = 19;
             this.textBoxHelp1.Text = "Help text will be seen here";
+            // 
+            // textBoxParameter
+            // 
+            this.textBoxParameter.Location = new System.Drawing.Point(249, 108);
+            this.textBoxParameter.Name = "textBoxParameter";
+            this.textBoxParameter.Size = new System.Drawing.Size(122, 20);
+            this.textBoxParameter.TabIndex = 21;
+            this.toolTip1.SetToolTip(this.textBoxParameter, "enter a simple name  like boise_flow");
             // 
             // BasicEquation
             // 
@@ -243,12 +243,12 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageEquation;
         private System.Windows.Forms.ComboBox comboBoxInterval;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxSeriesName;
-        private System.Windows.Forms.ComboBox comboBoxUnits;
+        private System.Windows.Forms.TextBox textBoxSiteID;
         private System.Windows.Forms.CheckBox checkBoxCompute;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBoxHelp1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBoxParameter;
     }
 }

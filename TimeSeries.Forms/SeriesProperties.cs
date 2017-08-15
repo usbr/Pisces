@@ -154,7 +154,7 @@ namespace Reclamation.TimeSeries.Forms
             var s = m_series as CalculationSeries;
                 string tmpExp = s.Expression;
                var DB = s.TimeSeriesDatabase;
-                CalculationProperties p = new CalculationProperties(s, new TimeSeriesTreeModel(DB), DB.GetUniqueUnits());
+                CalculationProperties p = new CalculationProperties(s, new TimeSeriesTreeModel(DB), DB);
                 if (p.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     this.textBoxExpression.Text = s.Expression;

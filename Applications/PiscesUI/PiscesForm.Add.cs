@@ -224,7 +224,7 @@ namespace Reclamation.TimeSeries.Forms
         {
             
             CalculationSeries s = new CalculationSeries(DB);
-            CalculationProperties p = new CalculationProperties(s, new TimeSeriesTreeModel( DB), DB.GetUniqueUnits());
+            CalculationProperties p = new CalculationProperties(s, new TimeSeriesTreeModel( DB), DB);
 
             if (p.ShowDialog() == DialogResult.OK)
             {

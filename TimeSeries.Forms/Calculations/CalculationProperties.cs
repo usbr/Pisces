@@ -15,8 +15,10 @@ namespace Reclamation.TimeSeries.Forms.Calculations
 
         PiscesTree tree1;
 
-        public CalculationProperties(CalculationSeries s, ITreeModel model, string[] DBunits)
+        public CalculationProperties(CalculationSeries s, ITreeModel model, TimeSeriesDatabase db)
         {
+            string[] DBunits = db.GetUniqueUnits();
+
             InitializeComponent();
             tree1 = new PiscesTree(model);
             tree1.ExpandRootNodes();
@@ -28,9 +30,7 @@ namespace Reclamation.TimeSeries.Forms.Calculations
 
             m_series = s;
             basicEquation1.SeriesExpression = m_series.Expression;
-            basicEquation1.Units = m_series.Units;
-            basicEquation1.SeriesName = m_series.Table.TableName;
-            this.LoadList(basicEquation1.ComboBoxUnits, DBunits);
+            basicEquation1.SiteID = m_series.SiteID;
         }
 
         public bool Calculate
@@ -38,19 +38,11 @@ namespace Reclamation.TimeSeries.Forms.Calculations
             get { return this.basicEquation1.Calculate; }
         }
 
-        private void LoadList(ComboBox owner, string[] list)
-        {
-            owner.Items.Clear();
-            for (int i = 0; i < list.Length; i++)
-            {
-                owner.Items.Add(list[i]);
-            }
-        }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
             m_series.Expression = basicEquation1.SeriesExpression;
-            var a = this.basicEquation1.SeriesName;
+            var a = this.basicEquation1.SiteID + "_" + basicEquation1.Parameter;
             if (a != "")
             {
                 m_series.Name = a;
@@ -61,10 +53,7 @@ namespace Reclamation.TimeSeries.Forms.Calculations
                 TimeSeriesName x = new TimeSeriesName(a, basicEquation1.TimeInterval);
                 m_series.SiteID = x.siteid;
             }
-            a = basicEquation1.Units.Trim();
-            if (a != "")
-                m_series.Units = a;
-
+            
             
 
             string errorMessage = "";

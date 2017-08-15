@@ -39,8 +39,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
          
            properties.Columns.Add("name");
            properties.Columns.Add("value");
-           properties.Rows.Add("program", "yhydromet");
-           properties.Rows.Add("basin", "yakima");
+           //properties.Rows.Add("program", "hydromet");
+           //properties.Rows.Add("basin", "yakima");
 
            dataGridViewProperties.DataSource = properties;
             
@@ -185,8 +185,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             if (this.checkBoxCanal.Checked)
             {
                 AddInstantRow(siteID, "feet", "ch");
-                AddInstantRow(siteID, "cfs", "qc", "FileRatingTable(%site%_ch,\"%site%.csv\")");
-                AddInstantRow(siteID, "feet", "hh", "FileRatingTable(%site%_ch,\"%site%_shift.csv\")");
+                AddInstantRow(siteID, "cfs", "qc", "FileRatingTable("+siteID+"_ch,\""+siteID+"_qc.csv\")");
+                AddInstantRow(siteID, "feet", "hh", "LookupShift("+siteID+"_ch)");
                 if (daily)
                 {
                     AddDailyRow(siteID, "cfs", "qj", "DailyAverage(instant_%site%_qc,10)");
@@ -266,7 +266,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             if (this.checkBoxReservoir.Checked)
             {
                 AddInstantRow(siteID, "feet", "fb");
-                AddInstantRow(siteID, "acre-feet", "af", "FileRatingTable(%site%_fb,\"%site%.csv\")");
+                AddInstantRow(siteID, "acre-feet", "af", "FileRatingTable("+siteID+"_fb,\""+siteID+"_af.csv\")");
 
                 if( daily)
                 {

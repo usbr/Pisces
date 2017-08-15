@@ -23,7 +23,7 @@ namespace Reclamation.TimeSeries.Forms.Calculations
 
             listBoxFunctions.Items.AddRange((from a in fa select a.Example).ToArray<string>());
             functionHelp.AddRange((from a in fa select a.Description).ToArray<string>());
-            this.comboBoxInterval.SelectedItem = TimeInterval.Daily.ToString();
+            this.comboBoxInterval.SelectedItem = TimeInterval.Irregular.ToString();
         }
 
         public string SeriesExpression
@@ -36,21 +36,18 @@ namespace Reclamation.TimeSeries.Forms.Calculations
         {
             get { return this.checkBoxCompute.Checked; }
         }
-        public string SeriesName
+        public string SiteID
         {
-            get { return this.textBoxSeriesName.Text; }
-            set { this.textBoxSeriesName.Text = value; }
+            get { return this.textBoxSiteID.Text; }
+            set { this.textBoxSiteID.Text = value; }
         }
-        public string Units
+        public string Parameter
         {
-            get { return this.comboBoxUnits.Text; }
-            set { this.ComboBoxUnits.Text = value; }
-        }
-        public ComboBox ComboBoxUnits
-        {
-            get { return this.comboBoxUnits; } 
+            get { return this.textBoxParameter.Text; }
+            set { this.textBoxParameter.Text = value; }
         }
 
+         
 
         public TimeInterval TimeInterval
         {

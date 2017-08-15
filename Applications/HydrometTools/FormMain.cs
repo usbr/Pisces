@@ -98,7 +98,7 @@ namespace HydrometTools
 
         void Logger_OnLogEvent(object sender, StatusEventArgs e)
         {
-            if (e.Tag == "ui")
+            if (e.Tag == "ui" && this.statusStrip1.Items.Count > 0)
             {
                 this.statusStrip1.Items[0].Text = e.Message;
                 Application.DoEvents();
