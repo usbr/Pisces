@@ -6,6 +6,7 @@ using System.Configuration;
 using Npgsql;
 using System.Security.Principal;
 using System.Text.RegularExpressions;
+using NpgsqlTypes;
 
 namespace Reclamation.Core
 {
@@ -294,26 +295,23 @@ DELETE FROM "nunit"."public"."pn_daily_jck_af2017aug15162651773" WHERE (("dateti
         NpgsqlCommand myAccessCommand = new NpgsqlCommand(sql, conn);
         NpgsqlDataAdapter da = new NpgsqlDataAdapter(myAccessCommand);
 
-        //NpgsqlCommandBuilder cb = new NpgsqlCommandBuilder(da);
-        //da.UpdateCommand = cb.GetUpdateCommand();
-        //da.InsertCommand = cb.GetInsertCommand();
-        //da.DeleteCommand = cb.GetDeleteCommand();
-        var sqlUpdate  = "INSERT INTO "+dataTable.TableName.ToLower() 
-        +" (\"datetime\", \"value\", \"flag\") VALUES (@p1, @p2, @p3)";
+        var sqlUpdate = "INSERT INTO " + dataTable.TableName.ToLower()
+        + " (\"datetime\", \"value\", \"flag\") VALUES (@datetime, @value, @flag)";
+
+        if (SupportsUpsert())// pg 9.5 or higher
+         sqlUpdate += " ON CONFLICT (\"datetime\") DO UPDATE SET "
+             +"\"value\"= excluded.value, "
+             +"\"flag\"= excluded.flag";
         da.InsertCommand = new NpgsqlCommand(sqlUpdate, conn);
 
-        var p1 = new NpgsqlParameter("datetime",DbType.DateTime);
-        var p2 = new NpgsqlParameter("value", DbType.Double);
-        var p3 = new NpgsqlParameter("flag", DbType.String);
-
+        var p1 = new NpgsqlParameter("datetime",NpgsqlDbType.Timestamp,0,"datetime");
+        var p2 = new NpgsqlParameter("value", NpgsqlDbType.Double,0,"value");
+        var p3 = new NpgsqlParameter("flag", NpgsqlDbType.Varchar,0,"flag");
+        
         da.InsertCommand.Parameters.Add(p1);
         da.InsertCommand.Parameters.Add(p2);
         da.InsertCommand.Parameters.Add(p3);
-
-        //cb.SetAllValues = SetAllValuesInCommandBuilder;
-        //cb.ConflictOption = ConflictOption.OverwriteChanges; // this fixes System.InvalidCastException : Specified cast is not valid.
-        // when reserved word  (group) was a column name
-
+        
         if (MapToLowerCase)
         {
             var map = da.TableMappings.Add(dataTable.TableName.ToLower(), dataTable.TableName);
@@ -322,19 +320,14 @@ DELETE FROM "nunit"."public"."pn_daily_jck_af2017aug15162651773" WHERE (("dateti
                 var cn = dataTable.Columns[i].ColumnName;
                 map.ColumnMappings.Add(cn.ToLower(), cn);
             }
-            //PrintMapping(da);
         }
-
         SqlCommands.Add(sql);
         int recordCount = 0;
-        //da.RowUpdating += myDataAdapter_RowUpdating;
 
         try
         {
             conn.Open();
             var dbTrans = conn.BeginTransaction();
-            da.Fill(myDataSet, dataTable.TableName);
-
             recordCount = da.Update(dataTable);
             dbTrans.Commit();
         }
@@ -360,7 +353,7 @@ DELETE FROM "nunit"."public"."pn_daily_jck_af2017aug15162651773" WHERE (("dateti
     {
 
         //Logger.WriteLine("Save Table with transaction");
-        Performance perf = new Performance();
+        //Performance perf = new Performance();
         Logger.WriteLine("Saving " + dataTable.TableName);
         //Logger.WriteLine(sql);
         DataSet myDataSet = new DataSet();
@@ -454,86 +447,6 @@ DELETE FROM "nunit"."public"."pn_daily_jck_af2017aug15162651773" WHERE (("dateti
 
 
 
-    //public override int SaveTable(DataTable dataTable, string sql)
-    //{
-    //    return SaveTable(dataTable, sql, false);
-    //}
-
-
-      /// <summary>
-    /// SaveTable1 is SLOW -- not using a transaction.
-      /// </summary>
-      /// <param name="dataTable"></param>
-      /// <param name="sql"></param>
-      /// <param name="insert"></param>
-      /// <returns></returns>
-     private int SaveTable1(DataTable dataTable, string sql, bool insert=false)
-    {
-      base.SqlCommands.Add(sql);
-      //Logger.WriteLine("Saving " + dataTable.TableName + "\n ");
-      DataSet myDataSet = new DataSet();
-      myDataSet.Tables.Add(dataTable.TableName);
-
-      NpgsqlConnection myAccessConn = new NpgsqlConnection(ConnectionString);
-      NpgsqlCommand myAccessCommand = new NpgsqlCommand(sql, myAccessConn);
-        
-      var da = new NpgsqlDataAdapter(myAccessCommand);
-     // myDataAdapter.TableMappings.Add(dataTable.TableName.ToLower(), dataTable.TableName);
-      var cb = new  NpgsqlCommandBuilder(da);
-      cb.ConflictOption = ConflictOption.OverwriteChanges;
-      da.InsertCommand = (NpgsqlCommand)cb.GetInsertCommand();
-
-      //da.RowUpdated += da_RowUpdated;
-      Logger.WriteLine(da.InsertCommand.CommandText);
-
-
-         if( !insert)
-      try
-      {
-
-          da.UpdateCommand = (NpgsqlCommand)cb.GetUpdateCommand();
-
-      }
-      catch (InvalidOperationException ioe)
-      {
-          Console.WriteLine(ioe.Message);
-      }
-
-     if(!insert)
-      try
-      {
-          da.DeleteCommand = (NpgsqlCommand)cb.GetDeleteCommand();
-      }
-      catch (InvalidOperationException ioe)
-      {
-          Console.WriteLine(ioe.Message);
-      }
-
-
-      this.lastSqlCommand = sql;
-      SqlCommands.Add(sql);
-      myAccessConn.Open();
-      int recordCount = 0;
-      try
-      {   // call Fill method only to make things work. (we ignore myDataSet)
-          da.Fill(myDataSet, dataTable.TableName);
-          recordCount = da.Update(dataTable);
-      }
-      catch (DBConcurrencyException e)
-      {
-          throw e;
-           
-      }
-      finally
-      {
-        myAccessConn.Close();
-      }
-      return recordCount;
-    }
-
-     
-
-    
     /// <summary>
     /// Returns an empty table
     /// </summary>
@@ -823,5 +736,23 @@ DELETE FROM "nunit"."public"."pn_daily_jck_af2017aug15162651773" WHERE (("dateti
 
             return 0;
         }
+
+        string m_version = "";
+       string Version()
+        {
+            
+          if( m_version == "")
+              m_version = Table("version", "SHOW server_version").Rows[0][0].ToString();
+           //m_version = Table("version", "SELECT version()").Rows[0][0].ToString();
+          return m_version;
+        }
+
+      public bool SupportsUpsert()
+      {
+          var tokens = Version().Split('.');
+
+          return ( Double.Parse(tokens[0]) >= 9
+              && Double.Parse(tokens[1]) >= 5 );
+      }
     }
 }

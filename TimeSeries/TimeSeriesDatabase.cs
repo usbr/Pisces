@@ -1050,26 +1050,15 @@ namespace Reclamation.TimeSeries
 
             int count = 0;
          
-            if( false &&
-                option == DatabaseSaveOptions.Upsert && m_server is PostgreSQL)
+            if( option == DatabaseSaveOptions.Upsert && m_server is PostgreSQL
+                && (m_server as PostgreSQL).SupportsUpsert())
             {
-
+                //DeleteExistingData(table);
+                count = (m_server as PostgreSQL).InsertTimeSeriesTable(table);
             }
             else
-            if( option == DatabaseSaveOptions.Upsert)
-            {
-                try
-                {
-                    count = m_server.InsertTable(table);
-                }catch (Exception eprimary)
-                {
-                    Logger.WriteLine("Error: insert did not work.. deleting existing data first "+eprimary.Message);
-                    DeleteExistingData(table);
-                    count = m_server.InsertTable(table);
-                }
-            }
-            else
-            if (option == DatabaseSaveOptions.UpdateExisting)
+            if (option == DatabaseSaveOptions.UpdateExisting
+                || option == DatabaseSaveOptions.Upsert)
             {
                 //count = InsertOrUpdate(table, si.FileIndex); 
                 DeleteExistingData(table);
