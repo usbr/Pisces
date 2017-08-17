@@ -15,10 +15,11 @@ namespace Reclamation.TimeSeries.Forms.Calculations
 
         PiscesTree tree1;
 
+        TimeSeriesDatabase m_db;
         public CalculationProperties(CalculationSeries s, ITreeModel model, TimeSeriesDatabase db)
         {
             string[] DBunits = db.GetUniqueUnits();
-
+            m_db = db;
             InitializeComponent();
             tree1 = new PiscesTree(model);
             tree1.ExpandRootNodes();
@@ -49,19 +50,30 @@ namespace Reclamation.TimeSeries.Forms.Calculations
                 string tn = basicEquation1.TimeInterval.ToString().ToLower() + "_" + TimeSeriesDatabase.SafeTableName(a);
                 tn = tn.Replace("irregular", "instant");
                 m_series.Table.TableName = tn;
-
+                
                 TimeSeriesName x = new TimeSeriesName(a, basicEquation1.TimeInterval);
+                m_series.Parameter = x.pcode;
                 m_series.SiteID = x.siteid;
             }
             
-            
-
             string errorMessage = "";
             m_series.TimeInterval = basicEquation1.TimeInterval;
-            if ( m_series.TimeSeriesDatabase.Parser.VariableResolver is Parser.HydrometVariableResolver 
-               || m_series.IsValidExpression(basicEquation1.SeriesExpression, out errorMessage))
+
+            var xcs = m_db.GetCalculationSeries(m_series.SiteID,m_series.Parameter ,m_series.TimeInterval);
+
+            if( xcs != null) 
             {
-               
+                errorMessage = "This calculation already exists.";
+                MessageBox.Show("Error: "+errorMessage);
+                DialogResult = System.Windows.Forms.DialogResult.None;
+            }
+            else
+            if ( 
+                m_series.TimeSeriesDatabase.Parser.VariableResolver is Parser.HydrometVariableResolver 
+               || m_series.IsValidExpression(basicEquation1.SeriesExpression, out errorMessage) 
+                )
+            {
+                DialogResult = System.Windows.Forms.DialogResult.OK;
             }
             else
             {
