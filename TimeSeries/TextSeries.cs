@@ -40,8 +40,8 @@ namespace Reclamation.TimeSeries
       this.Provider = "TextSeries";
       FileInfo fi = new FileInfo(filename);
       this.ConnectionString = "FileName=" + Path.GetFullPath(filename) + ";LastWriteTime=" + fi.LastWriteTime.ToString(DateTimeFormatInstantaneous);
-      Name = Path.GetFileName(filename);
-      Table.TableName = Path.GetFileName(filename);
+      Name = CleanTextForTreeName(Path.GetFileName(filename));
+      Table.TableName = Name;
     }
 
     public TextSeries(TimeSeriesDatabase db, Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow sr):base(db,sr)

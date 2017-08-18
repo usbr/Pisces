@@ -59,7 +59,7 @@ namespace Reclamation.TimeSeries.Excel
             this.Source = "Excel";
             this.Provider = "ExcelDataReaderSeries";
             this.Units = units;
-            this.Name = valueColumn + ":" + sheetName + ":" + workbook.DataSetName;
+            this.Name = CleanTextForTreeName(valueColumn + "_" + sheetName + "_" + workbook.DataSetName);
             FileInfo fi = new FileInfo(workbook.DataSetName);
 
             this.ConnectionString = "FileName=" + workbook.DataSetName

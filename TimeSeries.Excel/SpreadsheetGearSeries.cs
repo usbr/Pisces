@@ -106,16 +106,13 @@ namespace Reclamation.TimeSeries.Excel
             this.Source = "Excel";
             this.Provider = "SpreadsheetGearSeries";
             this.Units = units;
-            //this.Name = workbook.Name + ":" + sheetName + " " + valueColumn;
-            this.Name = valueColumn + "_" + sheetName + "_" + workbook.Name;
+            this.Name = CleanTextForTreeName(valueColumn + "_" + sheetName + "_" + workbook.Name);
             if (siteFilter != "")
             {
-                //Name = siteFilter;
-                Name = siteFilter + "_" + sheetName + "_" + workbook.Name;
+                Name = CleanTextForTreeName(siteFilter + "_" + sheetName + "_" + workbook.Name);
             }
             this.siteColumn = siteColumn;
             this.siteFilter = siteFilter;
-            //Table = new System.Data.DataTable();
             FileInfo fi = new FileInfo(workbook.FullName);
 
             this.ConnectionString = "FileName=" + workbook.FullName

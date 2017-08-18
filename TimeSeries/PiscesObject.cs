@@ -51,7 +51,7 @@ namespace Reclamation.TimeSeries
             set
             {
 
-                row.Name = value;// CleanTextForTreeName(value);
+                row.Name = value;
             }
             get
             {
@@ -62,7 +62,7 @@ namespace Reclamation.TimeSeries
         /// <summary>
         /// removes invalid characters for use with calculation series.
         /// </summary>
-        private string CleanTextForTreeName(string txt)
+        protected string CleanTextForTreeName(string txt)
         {
             if (string.IsNullOrEmpty(txt))
                 return txt;
