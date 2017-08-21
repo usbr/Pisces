@@ -66,5 +66,10 @@ namespace HydrometTools.Advanced
         {
             LoadTable();
         }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            Database.DB().Server.SaveTable(tbl);
+        }
     }
 }

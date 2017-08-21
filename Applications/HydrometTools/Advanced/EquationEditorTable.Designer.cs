@@ -30,9 +30,9 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -61,6 +61,17 @@
             this.panel1.Size = new System.Drawing.Size(568, 90);
             this.panel1.TabIndex = 3;
             // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Location = new System.Drawing.Point(18, 63);
+            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(52, 25);
+            this.buttonRefresh.TabIndex = 4;
+            this.buttonRefresh.Text = "refresh";
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
             // buttonAdd
             // 
             this.buttonAdd.Location = new System.Drawing.Point(18, 5);
@@ -81,17 +92,7 @@
             this.buttonSave.TabIndex = 2;
             this.buttonSave.Text = "save";
             this.buttonSave.UseVisualStyleBackColor = true;
-            // 
-            // buttonRefresh
-            // 
-            this.buttonRefresh.Location = new System.Drawing.Point(18, 63);
-            this.buttonRefresh.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(52, 25);
-            this.buttonRefresh.TabIndex = 4;
-            this.buttonRefresh.Text = "refresh";
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // EquationEditorTable
             // 

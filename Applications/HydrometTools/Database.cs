@@ -21,10 +21,10 @@ namespace HydrometTools
         {
             HydrometHost h = HydrometInfoUtility.HydrometServerFromPreferences();
 
-            var dbname = ConfigurationManager.AppSettings["TimeSeriesDatabaseName"];
-            if (h == HydrometHost.GreatPlains)
-            {
-                dbname = ConfigurationManager.AppSettings["TimeSeriesDatabaseNameGP"];
+            var dbname = UserPreference.Lookup("TimeSeriesDatabaseName");
+            if( File.Exists(dbname))
+            { // local sqlite
+                Logger.WriteLine("reading: " + dbname);
                 var x = TryLocalDatabase(dbname,h);
                 if( x != null)
                 {
