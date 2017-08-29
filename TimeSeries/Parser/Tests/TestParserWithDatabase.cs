@@ -137,6 +137,19 @@ namespace Reclamation.TimeSeries.Parser.Tests
 
         }
         
+        /// <summary>
+        /// variable rir_rb is not detected.
+        /// </summary>
+        [Test]
+        public void Issue138Variable()
+        {
+            string equation = "FileLookupInterpolate2D(rir_fb, rir_ra, \"rir_q_2da.txt\") +FileLookupInterpolate2D(rir_fb, rir_rb, \"rir_q_2d.txt\")";
+            var vars = VariableParser.Default().GetAllVariables(equation);
+            Assert.IsTrue(Array.IndexOf(vars, "rir_fb") >= 0,"rir_fb");
+            Assert.IsTrue(Array.IndexOf(vars, "rir_ra") >= 0,"rir_ra");
+            Assert.IsTrue(Array.IndexOf(vars, "rir_rb") >= 0,"rir_rb");
+        }
+
 
         [Test]
         public void FunctionNames()

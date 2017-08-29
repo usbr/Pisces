@@ -88,11 +88,14 @@ namespace Reclamation.TimeSeries.Parser
         internal string[] GetAllVariables(string expression)
         {
             // remove double quoted strings, they are not variables
-            var m = Regex.Match(expression, "\".+\"", RegexOptions.None);
-            if (m.Success)
+            var pattern = "\".+?\"";
+            var m = Regex.Match(expression,pattern , RegexOptions.None);
+            while (m.Success)
             {
                 expression = expression.Replace(m.Value, "");
+                m = Regex.Match(expression, pattern, RegexOptions.None);
             }
+
             var rval = new List<string>();
             var mc = Regex.Matches(expression, patternAllVariables);
             foreach (Match item in mc)
