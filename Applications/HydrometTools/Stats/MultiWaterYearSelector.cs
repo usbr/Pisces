@@ -44,18 +44,31 @@ namespace HydrometTools.Stats
         {
             get
             {
-                var year1 = Convert.ToInt32(textBoxYear.Text);
-                var t = new DateTime(year1 - 1, 10, 1);
-                return t;
+                try
+                {
+                    var year1 = Convert.ToInt32(textBoxYear.Text);
+                    var t = new DateTime(year1 - 1, 10, 1);
+                    return t;
+                }
+                catch(Exception)
+                { }
+                return DateTime.Now.Date;
             }
         }
         public DateTime T2
         {
             get
             {
-                var year2 = Convert.ToInt32(textBoxEndYear.Text);
-                var t = new DateTime(year2, 9, 30);
-                return t;
+                try
+                {
+                    var year2 = Convert.ToInt32(textBoxEndYear.Text);
+                    var t = new DateTime(year2, 9, 30);
+                    return t;
+                }
+                catch(Exception )
+                {
+                }
+                return DateTime.Now.Date;
             }
         }
 

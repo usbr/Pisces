@@ -3,6 +3,8 @@ using System.Data;
 using System.IO;
 using Reclamation.Core;
 using Reclamation.TimeSeries.Parser;
+using Reclamation.TimeSeries.RatingTables;
+using System.Configuration;
 
 namespace Reclamation.TimeSeries
 {
@@ -50,12 +52,10 @@ namespace Reclamation.TimeSeries
                 return rval;
             }
 
-            var fn = fileName;
 
-            if (!File.Exists(fn))
-                fn = Path.Combine(Path.Combine(Globals.LocalConfigurationDataPath, "rating_tables"), fileName);
-
-            if (!File.Exists(fn))
+            var fn = RatingTableUtility.GetRatingTableAsLocalFile(fileName);
+            
+            if (  !File.Exists(fn))
             {
                 Logger.WriteLine("FileLookupInterpolate2D - input fileName, file not found");
                 return rval;
@@ -80,6 +80,8 @@ namespace Reclamation.TimeSeries
 
             return rval;
         }
+
+        
 
 
         /// <summary>

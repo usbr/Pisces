@@ -1,0 +1,3 @@
+﻿
+2017-08-25 Better handling of bad input in Stats (Check)
+2017-08-28 rating tables path defined in app.config RatingTablePath

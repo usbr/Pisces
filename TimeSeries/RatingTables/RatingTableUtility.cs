@@ -2,12 +2,35 @@
 using System.Data;
 using Reclamation.Core;
 using System.IO;
+using System.Configuration;
 //using Math = System.Math;
 
 namespace Reclamation.TimeSeries.RatingTables
 {
     public class RatingTableUtility
     {
+
+        /// <summary>
+        /// Find path to rating table as a local file.  If app.config
+        /// has RatingTablePath as a url download and return the path to the temporay file
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="fn"></param>
+        /// <returns></returns>
+        public static string GetRatingTableAsLocalFile(string fileName)
+        {
+
+            if (!File.Exists(fileName))
+                fileName = Path.Combine(ConfigurationManager.AppSettings["RatingTablePath"], fileName);
+            if (fileName.ToLower().StartsWith("http"))
+            {
+                var fn_tmp = FileUtility.GetTempFileName(".csv");
+                Web.GetFile(fileName, fn_tmp);
+                fileName = fn_tmp;
+            }
+            return fileName;
+        }
+
 
         /// <summary>
         /// 

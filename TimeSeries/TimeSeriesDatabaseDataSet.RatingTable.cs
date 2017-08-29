@@ -1,4 +1,5 @@
 ﻿using Reclamation.Core;
+using Reclamation.TimeSeries.RatingTables;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,12 +25,11 @@ namespace Reclamation.TimeSeries
                 InterpolationMethod method = InterpolationMethod.None)
             {
                 var rval = new Series();
-                var fn = fileName;
-
+                
                 Logger.WriteLine("RatingTableDataTable.ComputeSeries(" + s.Table.TableName + "," + fileName);
-                if(!File.Exists(fn)) 
-                   fn = Path.Combine(Path.Combine(Globals.LocalConfigurationDataPath, "rating_tables"), fileName);
 
+                var fn = RatingTableUtility.GetRatingTableAsLocalFile(fileName);
+                 
                 if (!File.Exists(fn))
                 {
                     string msg = "Error: File not found " + fn;

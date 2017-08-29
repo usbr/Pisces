@@ -7,6 +7,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Windows.Forms;
+using System.Configuration;
 namespace Reclamation.TimeSeries.Hydromet
 {
     public enum HydrometHost { PN, Yakima, GreatPlains, PNLinux,LocalSource };
@@ -795,7 +796,8 @@ namespace Reclamation.TimeSeries.Hydromet
             }
             else if( HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.PN)
             {
-                url = "http://lrgs1.pn.usbr.gov/rating_tables/"+ratingName+".csv";
+                url = ConfigurationManager.AppSettings["RatingTablePath"]+ratingName+".csv";
+
                 if( !NetworkUtility.Intranet)
                     url = "https://www.usbr.gov/pn/hydromet/configurationdata/rating_tables/" + ratingName + ".csv";
 

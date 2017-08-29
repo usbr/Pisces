@@ -32,7 +32,7 @@ namespace HydrometServer
          * 
          */
 
-        private static string hydrometRTFs = Path.Combine(ConfigurationManager.AppSettings["LocalConfigurationDataPath"], "rating_tables");
+        private static string hydrometRTFs = ConfigurationManager.AppSettings["RatingTablePath"];
         private static UsgsRatingTable usgsRatingTable;
 
         /// <summary>

@@ -5,6 +5,7 @@ using Reclamation.Core;
 using System.IO;
 using Reclamation.TimeSeries.Hydromet;
 using System.Text.RegularExpressions;
+using System.Configuration;
 
 namespace HydrometTools
 {
@@ -37,7 +38,13 @@ namespace HydrometTools
 
         private DataTable WebTable()
         {
-            var data = Web.GetPage("http://lrgs1.pn.usbr.gov/rating_tables/");
+            string rt = ConfigurationManager.AppSettings["RatingTablePath"];
+            if (String.IsNullOrEmpty(rt))
+            {
+                MessageBox.Show("Error: RatingTablePath Not defined in config file");
+                rt = "http://lrgs1.pn.usbr.gov/rating_tables/";
+            }
+            var data = Web.GetPage(rt);
 
             DataTable rval = new DataTable();
             rval.Columns.Add("Site");

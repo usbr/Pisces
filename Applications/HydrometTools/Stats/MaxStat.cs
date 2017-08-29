@@ -34,25 +34,23 @@ namespace HydrometTools.Stats
             Application.DoEvents();
             try
             {
-                var range = new MonthDayRange(Convert.ToInt16(Range1.Text.Substring(0, 2)), Convert.ToInt16(Range1.Text.Substring(3, 2)),
-                    Convert.ToInt16(Range2.Text.Substring(0, 2)), Convert.ToInt16(Range2.Text.Substring(3, 2)));
+                MonthDayRange range = monthDayRangePicker1.MonthDayRange;
 
-                int wy1 = Convert.ToInt32(textBoxYear.Text);
-                int wy2 = Convert.ToInt32(textBoxEndYear.Text);
 
-                string cbtt = textBoxCbtt.Text;
-                string pcode = textBoxPcode.Text;
+
+                string cbtt = multiWaterYearSelector1.cbtt;
+                string pcode = multiWaterYearSelector1.pcode;
 
                 //var s = Reclamation.TimeSeries.Math.HydrometDaily(cbtt, pcode);
 
-                var t1 = new DateTime(wy1 - 1, 10, 1);
-                var t2 = new DateTime(wy2, 9, 30);
+                var t1 = multiWaterYearSelector1.T1;
+                var t2 = multiWaterYearSelector1.T2;
                 HydrometHost svr = HydrometInfoUtility.HydrometServerFromPreferences();
 
                 var s = HydrometDailySeries.Read(cbtt, pcode, t1, t2, svr);
                 
-                var rvalMax = Reclamation.TimeSeries.Math.AnnualMax(s, range, Convert.ToInt16(Range1.Text.Substring(0, 2)));
-                var rvalMin = Reclamation.TimeSeries.Math.AnnualMin(s, range, Convert.ToInt16(Range1.Text.Substring(0, 2)));
+                var rvalMax = Reclamation.TimeSeries.Math.AnnualMax(s, range, range.Month1);
+                var rvalMin = Reclamation.TimeSeries.Math.AnnualMin(s, range,range.Month1 );
 
                 rvalMax.Appearance.LegendText = cbtt.ToUpper() + " " + pcode.ToUpper() + " Maximum in Range";
                 rvalMin.Appearance.LegendText = cbtt.ToUpper() + " " + pcode.ToUpper() + " Minimum in Range";
