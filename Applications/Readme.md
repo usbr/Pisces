@@ -6,7 +6,7 @@
 [http://www.usbr.gov/pn-bin/wyreport.pl?site=ABEI&amp;parameter=PP&amp;start=2016&amp;end=2016&amp;head=no](http://www.usbr.gov/pn-bin/wyreport.pl?site=ABEI&amp;parameter=PP&amp;start=2016&amp;end=2016&amp;head=no)
 
 
-## Daily -- AgriMet
+## Daily  
 
 [http://www.usbr.gov/pn-bin/daily?list=luc fb,sco fb&amp;start=2016-04-01&amp;end=2016-04-20](http://www.usbr.gov/pn-bin/daily?list=luc%20fb,sco%20fb&amp;start=2016-04-01&amp;end=2016-04-20)
 
@@ -24,7 +24,7 @@
 | end=2016-04-20 | empty | Ending date |
 | Site | Empty | Gives all parameters for a particular site |
 
-## Instant -- AgriMet
+## Instant 
 
 http://www.usbr.gov/pn-bin/instant.pl?list=boii ob,boii obx&amp;start=2016-04-15&amp;end=2016-04-20
 
