@@ -37,7 +37,6 @@ SO,"Accumulated Snow Water, Oct. 1 to Date (Equivalent Inches of Water)",in
 SP,Snow Water Content (Equivalent Inches of Water),in
 SR,ACCUMULATED GLOBAL SOLAR RADIATION (Langleys),Langleys
 SR2,ACCUMULATED DIFFUSE SOLAR RADIATION (Langleys),Langleys
-SR2 ,ACCUMULATED DIFFUSE SOLAR RADIATION (Langleys),Langleys
 SY,DAILY ACCUMULATED SNOW MOISTURE (equivalent inches of water),in
 TA,"Humidity, Daily Average (%)",%
 TD,Tailwater Daily Mean (feet),feet
