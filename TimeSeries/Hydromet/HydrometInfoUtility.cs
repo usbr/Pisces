@@ -544,18 +544,19 @@ namespace Reclamation.TimeSeries.Hydromet
             get
             {
                 string filename = "daily_pcode.csv";
-                if (m_dailypcodes == null || m_dailypcodes.TableName != filename)
+                if (s_dailypcodes == null || s_dailypcodes.TableName != filename)
                 {
                     var fn = FileUtility.GetFileReference(filename);
-                    m_dailypcodes = new CsvFile(fn, CsvFile.FieldTypes.AllText);
-                    m_dailypcodes.TableName = filename;
+                    s_dailypcodes = new CsvFile(fn, CsvFile.FieldTypes.AllText);
+                    s_dailypcodes.PrimaryKey = new DataColumn[] { s_dailypcodes.Columns[0] };
+                    s_dailypcodes.TableName = filename;
 
                 }
-                return m_dailypcodes;
+                return s_dailypcodes;
             }
         }
 
-        private static DataTable m_dailypcodes;
+        private static DataTable s_dailypcodes;
 
         public static string LookupDailyParameterName(string pcode)
         {
@@ -565,7 +566,17 @@ namespace Reclamation.TimeSeries.Hydromet
             return "";
         }
 
-        private static DataTable DailyInventory
+        /*
+USA_DELIV   QJ      : 1989
+VALO        GD      : 1982-2017
+VALO        HJ      : 1983-2017
+VALO        QD      : 1926-1934, 1951-1954, 1966-1972, 1974, 1977, 1981-2017
+                    8110
+VALO        QU      : 1971-1972, 1974, 1981-2017
+VCAO        QJ      : 1966-1972, 1974, 1977
+ 
+        */
+        public static DataTable DailyInventory
         {
             get{
 
@@ -576,22 +587,34 @@ namespace Reclamation.TimeSeries.Hydromet
                 tbl.Columns.Add("descr");
                 tbl.Columns.Add("units");
 
-                for (int i = 1; i < ArcInventory.Length; i++)
+                for (int i = 0; i < ArcInventory.Length; i++)
 			    {
-                    if (ArcInventory[i].Trim().Length < 21)
+                    if (ArcInventory[i].Length < 21)
                         continue;
+                    
+
                     string cbtt = ArcInventory[i].Substring(0, 13).Trim();
                     string pcode = ArcInventory[i].Substring(13, 8).Trim();
                     string years = ArcInventory[i].Substring(21);
+
+                    if( cbtt == "" && pcode == "" && years.Trim().Length >=4
+                        && tbl.Rows.Count >0)
+                    {
+                        // append years to previous row.
+                        var r = tbl.Rows[tbl.Rows.Count - 1];
+                        r["years"] = r["years"].ToString() + ", " + years;
+
+                        continue;
+                    }
+
                     string descr = "";
                     string units = "";
-                    for (int j = 0; j < DailyPcodesTable.Rows.Count; j++)
+                    var rows = DailyPcodesTable.Select("pcode = '" + pcode + "'");
+
+                    if (rows.Length > 0)
                     {
-                        if (pcode == DailyPcodesTable.Rows[j]["pcode"].ToString())
-                        {
-                            descr = DailyPcodesTable.Rows[j]["descr"].ToString();
-                            units = DailyPcodesTable.Rows[j]["units"].ToString();
-                        }
+                        descr = rows[0]["descr"].ToString();
+                        units = rows[0]["units"].ToString();
                     }
 
                     years = years.Replace(":","").Trim();
@@ -1082,12 +1105,5 @@ namespace Reclamation.TimeSeries.Hydromet
             return rval.ToArray();
         }
 
-       
-        //public static void SaveToArchives(Series s)
-        //{
-        //   var sl = new SeriesList();
-        //    sl.Add(s);
-        //    SaveToArchives(sl);
-        //}
     }
 }
