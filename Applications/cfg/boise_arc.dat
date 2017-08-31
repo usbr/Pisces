@@ -324,7 +324,7 @@
  AMF         AF      : 1926-2017, 6190, 7100, 8110
  AMF         AF-DWR  : 2005
  AMF         AFX     : 1986-1989
- AMF         AF_DWR  : 1995-2004, 2006-2014
+ AMF         AF_DWR  : 1995-2004, 2006-2015
  AMF         AF_WRD  : 1994
  AMF         CS      : 1977-2005
  AMF         DM      : 1985-1990
@@ -463,11 +463,11 @@
  ANTI        QU      : 1974-1975, 1983-1984, 1996
  ANTI        QX      : 1986
  ANTO        GD      : 2004-2017
- ANTO        GJ      : 2004-2016
+ ANTO        GJ      : 2004-2017
  ANTO        HH      : 2010-2015
  ANTO        HJ      : 2010-2017
  ANTO        QD      : 2004-2017
- ANTO        QJ      : 2004-2016
+ ANTO        QJ      : 2004-2017
  ANTO        QZ      : 2004-2010
  ANTO        WI      : 2004, 2010-2017
  ANTO        WK      : 2004, 2010-2017
@@ -773,7 +773,7 @@
  BBSY        SE      : 1980-2017
  BBSY        SS      : 2002-2017
  BBYI        GD      : 1982-1987, 1993-2007, 2010-2017
- BBYI        HJ      : 1983-1987, 1993-2007, 2010-2013
+ BBYI        HJ      : 1983-1987, 1993-2007, 2010-2013, 2017
  BBYI        QD      : 1978-1979, 1982-1988, 1993-2007, 2010-2017
  BBYI        QU      : 2012-2015
  BCAO        GD      : 2004-2017
@@ -822,6 +822,7 @@
  BCTO        WZ      : 2010-2017
  BCTO        XQD     : 2006-2014
  BDDI        AF      : 1995, 1997-2017
+ BDDI        AV      : 2017
  BDDI        FB      : 1988-2017
  BDDI        GD      : 1987-2017
  BDDI        HJ      : 1987-1995
@@ -942,7 +943,7 @@
  BFTI        QD      : 1910-2017, 6190, 7100, 8110
  BFTI        QDX     : 1987-1989
  BFTI        QX      : 1986
- BFTI        STORED  : 1989, 1991-2014
+ BFTI        STORED  : 1989, 1991-2015
  BFTI        WI      : 2005-2017
  BFTI        WK      : 2005-2017
  BFTI        WZ      : 2005-2017
@@ -1115,13 +1116,13 @@
  BMCI        HH      : 1988-2017
  BMCI        HH1     : 1988-1989
  BMCI        QJ      : 1977-2017
- BMPW        MM      : 1988-2016
- BMPW        MN      : 1988-2016
- BMPW        MX      : 1997-2016
- BMPW        PC      : 1978-1981, 1983-2016
- BMPW        SD      : 2003-2016
- BMPW        SE      : 1978-1981, 1983-2016, 6190
- BMPW        SS      : 2013-2016
+ BMPW        MM      : 1988-2017
+ BMPW        MN      : 1988-2017
+ BMPW        MX      : 1997-2017
+ BMPW        PC      : 1978-1981, 1983-2017
+ BMPW        SD      : 2003-2017
+ BMPW        SE      : 1978-1981, 1983-2017, 6190
+ BMPW        SS      : 2013-2017
  BMSO        MM      : 1989-2017
  BMSO        MN      : 1989-2017
  BMSO        MX      : 1997-2017
@@ -1382,6 +1383,7 @@
  BSEI        GJ      : 1981-2017
  BSEI        HH      : 1983-2017
  BSEI        QJ      : 1927-2017, 6190, 7100, 8110
+ BSEI        QJ2     : 2017
  BSEI        QS      : 1981-1982
  BSEI        QV      : 1981-1982
  BSEI        QZ      : 1985, 1995
@@ -1478,11 +1480,12 @@
  BUL         PU      : 1992-2017
  BUL         QD      : 1934, 1938-1962, 1971-2010
  BUL         QJ      : 1966-1974, 1977, 1981-2010, 2012-2017
- BUL         QU      : 1971-1974, 1977-1978, 1981-2004, 2008-2010
+ BUL         QU      : 1971-1974, 1977-1978, 1981-2004, 2008-2010, 2017
  BUL         XN      : 1999-2016
  BUL         XX      : 1999-2016
  BULO        QD      : 1987-1988, 2008-2017
  BULO        QJ      : 2011-2012
+ BULO        QU      : 2017
  BUM         AF      : 1912-2017
  BUM         FB      : 1912-2017
  BUM         GD      : 1910-2000
@@ -1496,7 +1499,7 @@
  BUM         PX      : 1960-1967
  BUM         QD      : 1909-2017
  BUM         QU      : 1920-2017
- BUM         SP      : 1978-2016
+ BUM         SP      : 1978-2017
  BUM         SY      : 1996-2000
  BUR         AF      : 1961-1987
  BURI        GJ      : 1990-2017
@@ -2015,7 +2018,8 @@
  COZI        MN      : 1983-2017
  COZI        MX      : 1983-2017
  COZI        PC      : 1980-2017
- COZI        PP      : 1981-2010
+ COZI        PP      : 1981-2010, 2017
+ COZI        PU      : 2017
  COZI        SD      : 2010-2017
  COZI        SE      : 1980-2017, 6190
  COZI        SS      : 2013-2017
@@ -2264,10 +2268,11 @@
  CSCI        GD      : 1982-2017
  CSCI        HJ      : 1983-2011
  CSCI        HR      : 1985-1992
- CSCI        PX      : 2016
+ CSCI        PS      : 2017
+ CSCI        PX      : 2016-2017
  CSCI        QD      : 1941-2017, 6190, 7100, 8110
  CSCI        QU      : 1942-2017, 7100
- CSCI        SD      : 2016
+ CSCI        SD      : 2016-2017
  CSCI        WI      : 2005-2017
  CSCI        WK      : 2005-2017
  CSCI        WM      : 1985-1991, 1993-1994
@@ -2586,7 +2591,7 @@
  DERO        SS      : 2013-2017
  DET         FB      : 1987-1988
  DGGI        GD      : 1985-2017
- DGGI        HJ      : 1985-2015
+ DGGI        HJ      : 1985-2015, 2017
  DGGI        QD      : 1962-2017, 6190
  DGGI        QDX     : 1988
  DHDI        MM      : 1988-2017
@@ -2761,7 +2766,7 @@
  DRYW        MN      : 1997-2017
  DRYW        MX      : 1997-2017
  DRYW        PC      : 1997-2017
- DRYW        PE      : 1997-2016
+ DRYW        PE      : 1997-2017
  DRYW        PP      : 1997-2017
  DRYW        PU      : 1998-2017
  DRYW        UA      : 1997-2017
@@ -3890,6 +3895,7 @@
  GRSI        PC      : 1984-2017
  GRSI        PP      : 1982-2017
  GRSI        PU      : 1991-2017
+ GRSY        QD      : 2017
  GRTU        ET      : 2015-2017
  GRTU        ETOS    : 2015-2017
  GRTU        ETRS    : 2015-2017
@@ -4335,7 +4341,7 @@
  HOPO        SS      : 2013-2017
  HOPW        QU      : 1969-1982
  HOTI        GD      : 1989-2017
- HOTI        HJ      : 1989-2013
+ HOTI        HJ      : 1989-2013, 2017
  HOTI        QD      : 1909-1915, 1944-2017, 6190
  HOTI        WI      : 1997, 2000, 2004-2016
  HOTI        WK      : 1997, 2000, 2004-2016
@@ -4404,7 +4410,7 @@
  HPWO        MN      : 2004-2017
  HPWO        MX      : 2004-2017
  HPWO        PC      : 2004-2017
- HPWO        PE      : 2004-2016
+ HPWO        PE      : 2004-2017
  HPWO        PP      : 2004-2017
  HPWO        PU      : 2014-2017
  HRFO        ET      : 1998-2017
@@ -4485,8 +4491,8 @@
  HRMO        ZL      : 1993-2017
  HRMO        ZM      : 1997, 2002-2017
  HRPO        GD      : 1999-2017
- HRPO        HJ      : 1999-2016
- HRPO        QD      : 1999-2016
+ HRPO        HJ      : 1999-2017
+ HRPO        QD      : 1999-2017
  HRPW        MM      : 1989-2017
  HRPW        MN      : 1989-2017
  HRPW        MX      : 1997-2017
@@ -5676,6 +5682,8 @@
  LUKO        SD      : 2005-2017
  LUKO        SE      : 1978-2017, 6190
  LUKO        SS      : 2013-2017
+ LVNO        GJ      : 2017
+ LVNO        QJ      : 2017
  LVRM        MM      : 1990-2017
  LVRM        MN      : 1990-2017
  LVRM        MX      : 1997-2017
@@ -5922,9 +5930,9 @@
  MDCO        WI      : 2012-2017
  MDCO        WK      : 2012-2017
  MDCO        WZ      : 2012-2017
- MDDO        GJ      : 2012-2016
+ MDDO        GJ      : 2012-2017
  MDDO        HH      : 2012-2014
- MDDO        QJ      : 2012-2016
+ MDDO        QJ      : 2012-2017
  MDEO        ET      : 2013-2017
  MDEO        ETOS    : 2013-2017
  MDEO        ETRS    : 2013-2017
@@ -6169,7 +6177,7 @@
  MINI        GD      : 1982-2017
  MINI        HJ      : 1983-2017
  MINI        QD      : 1910-2017, 6190, 7100, 8110
- MINI        QD_DWR  : 1987-1989, 1992-2014
+ MINI        QD_DWR  : 1987-1989, 1992-2015
  MINI        QD_PWR  : 1997-2015
  MINI        QD_SPILL: 2014-2015
  MINI        QD_STORE: 2012
@@ -6178,7 +6186,7 @@
  MINI        QV      : 1980-1985
  MINI        QX      : 1986
  MINI        RCH_GN  : 1991-1992
- MINI        STORED  : 1989, 1991-2014
+ MINI        STORED  : 1989, 1991-2015
  MINI        WI      : 2004-2017
  MINI        WK      : 2004-2017
  MINI        WZ      : 2004-2017
@@ -6383,6 +6391,7 @@
  MPCI        QP      : 1988-1991
  MPCI        QP1     : 2016-2017
  MPCI        QP2     : 2016-2017
+ MPCI        RGMI    : 2017
  MPHI        GD      : 1982, 1986-1989, 1992-1993, 1997, 1999, 2011
  MPHI        HJ      : 1986-1987
  MPLM        MM      : 1988-2017
@@ -6455,13 +6464,13 @@
  MRSO        YM      : 1989-2017
  MRSO        YP      : 1984-1989
  MRSO        YW      : 1992, 1995-2017
- MRSW        MM      : 1989-2016
- MRSW        MN      : 1989-2016
- MRSW        MX      : 1997-2016
- MRSW        PC      : 1978-1979, 1983-2016
- MRSW        SD      : 2006-2016
- MRSW        SE      : 1978-1979, 1981-2016, 6190
- MRSW        SS      : 2013-2016
+ MRSW        MM      : 1989-2017
+ MRSW        MN      : 1989-2017
+ MRSW        MX      : 1997-2017
+ MRSW        PC      : 1978-1979, 1983-2017
+ MRSW        SD      : 2006-2017
+ MRSW        SE      : 1978-1979, 1981-2017, 6190
+ MRSW        SS      : 2013-2017
  MRYI        GJ      : 1990-2017
  MRYI        HH      : 1990-2017
  MRYI        QJ      : 1977-2017
@@ -6867,7 +6876,7 @@
  OAKI        QU      : 1984
  OCH         AF      : 1920-1978, 1984-2017, 8110
  OCH         FB      : 1984-2017
- OCH         FCRESID : 2015-2016
+ OCH         FCRESID : 2015-2017
  OCH         FCSPACE : 2014-2017
  OCH         FCSTOR  : 2014-2017
  OCH         GD      : 1998
@@ -6898,7 +6907,7 @@
  OCHEWS      VW15    : 2000-2017
  OCHEWS      VW16    : 2000-2017
  OCHEWS      WEST    : 2000-2017
- OCHO        FC      : 2015-2016
+ OCHO        FC      : 2015-2017
  OCHO        GD      : 1983-2017
  OCHO        GJ      : 1983-2017
  OCHO        HH      : 1983-2017
@@ -7723,7 +7732,9 @@
  PRAI        MN      : 1989-2017
  PRAI        MX      : 1997-2017
  PRAI        PC      : 1981-2017
+ PRAI        SD      : 2017
  PRAI        SE      : 1986-2017, 6190
+ PRAI        SS      : 2017
  PRAW        JA      : 1985-1987
  PRAW        JB      : 1985-1987
  PRAW        JC      : 1985-1987
@@ -7734,7 +7745,7 @@
  PRAW        SS      : 1985-1987
  PRAW        Z1      : 1985
  PRCI        GD      : 2001, 2006-2017
- PRCI        HJ      : 2001, 2006-2013
+ PRCI        HJ      : 2001, 2006-2013, 2017
  PRCI        QD      : 1978-2017
  PRD         BH      : 1988-1998
  PRD         DM      : 1995-1998
@@ -7814,10 +7825,10 @@
  PRV         AF      : 1974-2017, 8110
  PRV         AF2     : 2001-2003
  PRV         FB      : 1976-2017
- PRV         FCRESID : 2014-2016
+ PRV         FCRESID : 2014-2017
  PRV         FCSPACE : 2014-2017
  PRV         FCSTOR  : 2014-2017
- PRVO        FC      : 2014-2016
+ PRVO        FC      : 2014-2017
  PRVO        GD      : 1983-2017
  PRVO        HJ      : 1983-2017
  PRVO        QD      : 1942-2017, 6190, 7100, 8110
@@ -8156,7 +8167,7 @@
  RGEP        WM      : 1999
  RGEP        WN      : 1999
  RGEP        WY      : 1999
- RGMI        QJ      : 2013-2014
+ RGMI        QJ      : 2013-2014, 2017
  RGMI        RETURN  : 2003-2017
  RICI        GJ      : 1986-2017
  RICI        HH      : 1986-2017
@@ -8823,7 +8834,7 @@
  SHYI        QDX     : 1987-1989
  SHYI        QX      : 1986
  SIFI        GD      : 1985-2017
- SIFI        HJ      : 1985-2013
+ SIFI        HJ      : 1985-2013, 2017
  SIFI        QD      : 1988-2017, 6190, 8110
  SIFI        QDX     : 1986-1989
  SIGM        EJ      : 1991-1994
@@ -9795,6 +9806,30 @@
  TLCI        GJ      : 2005-2017
  TLCI        HH      : 2005-2017
  TLCI        QJ      : 1977-2017
+ TLKC        ET      : 2017
+ TLKC        ETOS    : 2017
+ TLKC        ETRS    : 2017
+ TLKC        MM      : 2017
+ TLKC        MN      : 2017
+ TLKC        MX      : 2017
+ TLKC        PC      : 2017
+ TLKC        PP      : 2017
+ TLKC        SR      : 2017
+ TLKC        TA      : 2017
+ TLKC        TG      : 2017
+ TLKC        UA      : 2017
+ TLKC        UD      : 2017
+ TLKC        WG      : 2017
+ TLKC        WR      : 2017
+ TLKC        XC      : 2017
+ TLKC        XD      : 2017
+ TLKC        XG      : 2017
+ TLKC        XH      : 2017
+ TLKC        XJ      : 2017
+ TLKC        YM      : 2017
+ TLKC        YW      : 2017
+ TLKC        ZG      : 2017
+ TLKC        ZH      : 2017
  TMCI        QJ      : 1946-1985
  TMCM        MM      : 1988-2017
  TMCM        MN      : 1988-2017
@@ -10057,6 +10092,7 @@
  UMMO        WK      : 1993-1997, 2005-2017
  UMMO        WL      : 1993-1997
  UMMO        WZ      : 1993-1997, 2005-2017
+ UMSO        QD      : 2017
  UMSO        WI      : 2009-2017
  UMSO        WK      : 2009-2017
  UMSO        WZ      : 2009-2017
@@ -10375,7 +10411,7 @@
  WGLM        PP      : 1987-2017
  WGLM        PU      : 1991-2017
  WGLM        ZA      : 1986
- WGSO        GJ      : 2012-2016
+ WGSO        GJ      : 2012-2017
  WGSO        HH      : 2012-2015
  WHBI        GD      : 1988-2017
  WHBI        HJ      : 1988-2017
@@ -10456,7 +10492,7 @@
  WIWO        MN      : 1983-2017
  WIWO        MX      : 1983-2017
  WIWO        PC      : 1984-2017
- WIWO        PE      : 2002-2016
+ WIWO        PE      : 2002-2017
  WIWO        PP      : 1983-2017
  WIWO        PU      : 1996-2017
  WLAO        GD      : 1987-1998
