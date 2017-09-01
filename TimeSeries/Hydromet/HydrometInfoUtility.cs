@@ -556,20 +556,6 @@ namespace Reclamation.TimeSeries.Hydromet
             }
         }
 
-        //private static DataTable getDailyPcodesTable()
-        //{
-        //    string filename = "daily_pcode.csv";
-        //    if (s_dailypcodes == null || s_dailypcodes.TableName != filename)
-        //    {
-        //        var fn = FileUtility.GetFileReference(filename);
-        //        s_dailypcodes = new CsvFile(fn, CsvFile.FieldTypes.AllText);
-        //        //s_dailypcodes.PrimaryKey = new DataColumn[] { s_dailypcodes.Columns[0] };
-        //        s_dailypcodes.TableName = filename;
-
-        //    }
-        //    return s_dailypcodes;
-        //}
-
         private static DataTable s_dailypcodes;
 
         public static string LookupDailyParameterName(string pcode)
