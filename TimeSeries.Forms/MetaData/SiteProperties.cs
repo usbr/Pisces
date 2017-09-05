@@ -115,6 +115,7 @@ namespace Reclamation.TimeSeries.Forms.MetaData
                 newRow.description = this.textBoxDescription.Text;
                 newRow.latitude = 0;
                 newRow.longitude = 0;
+                newRow.elevation = 0;
                 m_sites.Rows.Add(newRow);
 
                 m_db.Server.SaveTable(m_sites);
