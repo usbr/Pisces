@@ -76,7 +76,7 @@ namespace Reclamation.Core
             Table.Rows.Add(row);
         }
 
-        public static string Lookup(string name)
+        public static string Lookup(string name, string defaultValue="")
         {
             DataRow[] rows;
             string rval = "";
@@ -85,6 +85,10 @@ namespace Reclamation.Core
             if (rows.Length > 0)
             {
                 rval = Convert.ToString(rows[0]["Value"]);
+            }
+            else
+            {
+                rval = defaultValue;
             }
 
             return rval;

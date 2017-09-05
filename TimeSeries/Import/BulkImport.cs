@@ -77,10 +77,6 @@ namespace Reclamation.TimeSeries.Import
                             Logger.WriteLine("File not found: '" + filename + "'");
                     }
                 }
-//                else if( format == "xls-monthly-wateryear")
-  //              {
-    //                throw new NotImplementedException("oops the programmer forgot to finish up some work");
-      //          }
                 else if( format == "xls-daily-yearlysheets")
                 {
                     s = ImportMultiSheetDailySeriesExcel.ImportSpreadsheet(filename);
@@ -118,9 +114,6 @@ namespace Reclamation.TimeSeries.Import
                 }
 
                 int id = db.AddSeries(s, folder);
-
-
-
 
                 var prop = ReadString(row, "properties").Split(new char[] { ',' },
                                    StringSplitOptions.RemoveEmptyEntries);

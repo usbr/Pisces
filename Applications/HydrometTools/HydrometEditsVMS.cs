@@ -258,7 +258,7 @@ namespace Reclamation.TimeSeries.Hydromet
             tf.Add("$! username: " + WindowsUtility.GetUserName() + " " + user);
             tf.Add("$! ----------------------------------");
             tf.Add("$interpret:== $SUTRON$:[rtcm]rtcm");
-            tf.Add("$set process/priv=syslck");
+            //tf.Add("$set process/priv=syslck");
             tf.Add("$DAY:== $SUTRON$:[DAYFILE]DAYFILE");
         }
 

@@ -383,7 +383,7 @@ namespace HydrometTools
             if( pw != "")
               this.textBoxDbPassword.Text = StringCipher.Decrypt(pw, "");
 
-            this.textBoxDbName.Text = UserPreference.Lookup("TimeSeriesDatabaseName");
+            this.textBoxDbName.Text = UserPreference.Lookup("TimeSeriesDatabaseName","timeseries");
 		}
 
 		public void SaveUserPref()

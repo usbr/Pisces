@@ -65,6 +65,7 @@ namespace HydrometTools
             UserPreference.SetDefault("HideStatusDialog", "False", false);
             UserPreference.SetDefault("AutoFlagDayFiles", "True", false);
 
+
             InitializeComponent();
 
            // MakeMinimalVersion();
