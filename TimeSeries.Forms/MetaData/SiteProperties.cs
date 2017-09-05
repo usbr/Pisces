@@ -18,16 +18,24 @@ namespace Reclamation.TimeSeries.Forms.MetaData
         TimeSeriesDatabase m_db;
         TimeSeriesDatabaseDataSet.sitecatalogDataTable m_sites;
         TimeSeriesDatabaseDataSet.sitepropertiesDataTable m_props;
+        private DataRowEditor dataRowEditor1;
+
         public SiteProperties(TimeSeriesDatabase db )
         {
             
             m_db = db;
             InitializeComponent();
+            InitDataRowEditor();
+            SetupComboBox();
+        }
+
+        private void SetupComboBox()
+        {
             comboBox1.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             comboBox1.AutoCompleteSource = AutoCompleteSource.ListItems;
-            m_props = db.GetSiteProperties();
-            
-            m_sites = db.GetSiteCatalog();
+            m_props = m_db.GetSiteProperties();
+
+            m_sites = m_db.GetSiteCatalog();
 
             var temp = m_sites.Copy(); // copy for the combo box (selection only)
             for (int i = 0; i < temp.Rows.Count; i++)
@@ -35,10 +43,21 @@ namespace Reclamation.TimeSeries.Forms.MetaData
                 var r = temp.Rows[i];
                 r["description"] = r["siteid"].ToString().ToUpper() + " " + r["description"].ToString();
             }
-            
+
             comboBox1.DataSource = temp;
             comboBox1.ValueMember = "siteid";
             comboBox1.DisplayMember = "description";
+        }
+
+        private void InitDataRowEditor()
+        {
+            dataRowEditor1 = new DataRowEditor();
+            this.dataRowEditor1.Location = new System.Drawing.Point(3, 58);
+            this.dataRowEditor1.Margin = new System.Windows.Forms.Padding(4);
+            this.dataRowEditor1.Name = "dataRowEditor1";
+            this.dataRowEditor1.Size = new System.Drawing.Size(352, 402);
+            dataRowEditor1.Parent = this;
+            this.dataRowEditor1.TabIndex = 2;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -50,7 +69,7 @@ namespace Reclamation.TimeSeries.Forms.MetaData
         {
             if (comboBox1.SelectedIndex < 0)
             {
-                dataRowEditor1.SetDataRow(m_sites.NewsitecatalogRow());
+               dataRowEditor1.SetDataRow(m_sites.NewsitecatalogRow());
                 dataGridViewSiteProperties.DataSource = null;
 
                 return;
@@ -81,6 +100,33 @@ namespace Reclamation.TimeSeries.Forms.MetaData
         {
             comboBox1.SelectedValue = siteID;
             UpdateDisplay();
+        }
+
+        private void buttonNew_Click(object sender, EventArgs e)
+        {
+            if (this.textBoxSiteID.Text.Trim() == ""
+              || this.textBoxDescription.Text.Trim() == "")
+                return;
+
+            try
+            {
+                var newRow = m_sites.NewsitecatalogRow();
+                newRow.siteid = this.textBoxSiteID.Text.ToLower().Trim();
+                newRow.description = this.textBoxDescription.Text;
+                newRow.latitude = 0;
+                newRow.longitude = 0;
+                m_sites.Rows.Add(newRow);
+
+                m_db.Server.SaveTable(m_sites);
+                SetupComboBox();
+                Draw(textBoxSiteID.Text.ToLower().Trim());
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
     }
 }
