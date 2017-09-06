@@ -48,6 +48,11 @@ namespace Reclamation.TimeSeries.Analysis
             {
                 myList.DateFormat = "MMM-yyyy";
             }
+            // [JR] hack for POET testing and development
+            //if (view == null)
+            //{
+            //    view = Explorer.View;
+            //}
             view.SeriesList = myList;
             string title = list.Text.TitleText();
             if (Explorer.SubtractFromBaseline)
