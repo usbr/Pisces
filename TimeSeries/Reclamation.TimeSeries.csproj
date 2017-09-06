@@ -184,7 +184,7 @@
     </Compile>
     <Compile Include="Estimation\Regression.cs" />
     <Compile Include="FileImporter.cs" />
-    <Compile Include="HDB\HDBSeries.cs" />
+    <Compile Include="HDB\HDBWebSeries.cs" />
     <Compile Include="IdahoPower\Program.cs" />
     <Compile Include="Idwr\IdwrApiResponse.cs" />
     <Compile Include="Import\BulkImport.cs" />

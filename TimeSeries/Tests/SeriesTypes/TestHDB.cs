@@ -16,7 +16,7 @@ namespace Pisces.NunitTests.SeriesTypes
         public void SDI1930()
         {
             Logger.EnableLogger();
-            var s = new HDBSeries(1930,TimeInterval.Daily ,HDBServer.LCHDB2);
+            var s = new HDBWebSeries(1930,TimeInterval.Daily ,HDBServer.LCHDB2);
             
             s.Read(new DateTime(2015, 4, 1), new DateTime(2015,4, 5));
 

@@ -18,12 +18,12 @@ namespace Reclamation.TimeSeries.HDB
     /// <summary>
     /// Reads Daily Data from HDB 
     /// </summary>
-    public class HDBSeries : Reclamation.TimeSeries.Series
+    public class HDBWebSeries : Reclamation.TimeSeries.Series
     {
 
         int m_sdi=-1;
         HDBServer  m_server;
-        public HDBSeries(int sdi,TimeInterval interval, HDBServer server )
+        public HDBWebSeries(int sdi,TimeInterval interval, HDBServer server )
         {
             m_sdi = sdi;
             m_server = server;
@@ -37,7 +37,7 @@ namespace Reclamation.TimeSeries.HDB
             Init();
         }
 
-        public HDBSeries(TimeSeriesDatabase db, TimeSeriesDatabaseDataSet.SeriesCatalogRow sr)
+        public HDBWebSeries(TimeSeriesDatabase db, TimeSeriesDatabaseDataSet.SeriesCatalogRow sr)
             : base(db, sr)
         {
             string str = ConnectionStringUtility.GetToken(ConnectionString, "server", "");
@@ -65,7 +65,7 @@ namespace Reclamation.TimeSeries.HDB
             string sinterval = ConnectionStringUtility.GetToken(ConnectionString, "TimeInterval", "");
             TimeInterval = (TimeInterval)Enum.Parse(typeof(TimeInterval), sinterval);
             
-            HDBSeries s = new HDBSeries(m_sdi,TimeInterval, m_server);
+            HDBWebSeries s = new HDBWebSeries(m_sdi,TimeInterval, m_server);
             return s;
         }
         protected override void ReadCore()
