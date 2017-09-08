@@ -42,7 +42,15 @@ namespace Reclamation.TimeSeries.Alarms
 
         public void SaveTable(DataTable table)
         {
-            m_server.SaveTable(table);
+
+            try
+            {
+                m_server.SaveTable(table);
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message);   
+            }
         }
 
         public alarm_listDataTable GetList()
@@ -481,6 +489,20 @@ namespace Reclamation.TimeSeries.Alarms
         internal int NextID(string tableName, string columnName)
         {
             return m_server.NextID(tableName, columnName);
+        }
+
+        public string ValidateDefinition()
+        {
+            var sql = " select 'WARNING ' || a.siteid ||' / ' || a.parameter || ' was not found in the database 'from alarm_definition a "
+                    + " left outer join  seriescatalog b on a.siteid=b.siteid and a.parameter=b.parameter "
+                    + " where b.parameter is null";
+            var tbl = m_server.Table("test", sql);
+            string rval = "";
+            for(int i=0; i< tbl.Rows.Count; i++)
+            {
+                rval += tbl.Rows[i][0].ToString() + "\n";
+            }
+            return rval;
         }
     }
 }

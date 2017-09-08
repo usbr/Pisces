@@ -70,6 +70,12 @@ namespace Reclamation.TimeSeries.Forms.Alarms
         {
 
             m_ds.SaveTable(alarm_definition);
+            // check for undefined parameters.
+            var msg = m_ds.ValidateDefinition();
+            if( msg != "")
+                MessageBox.Show(msg);
+           
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -101,6 +107,8 @@ namespace Reclamation.TimeSeries.Forms.Alarms
          var alarm = (AlarmDataSet.alarm_definitionRow)currentDataRowView.Row;
 
           m_ds.CreateAlarm(alarm,new Point(DateTime.Now,Convert.ToDouble(textBoxValue.Text)));
+
+          MessageBox.Show("Your test alarm was submitted. \nVerify with the alarm status tab");
 
         }
 

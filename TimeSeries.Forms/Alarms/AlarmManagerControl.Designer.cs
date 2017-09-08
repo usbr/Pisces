@@ -67,7 +67,7 @@
             this.tabPageAlarms.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageAlarms.Size = new System.Drawing.Size(629, 501);
             this.tabPageAlarms.TabIndex = 1;
-            this.tabPageAlarms.Text = "Alarms";
+            this.tabPageAlarms.Text = "Alarm Status";
             this.tabPageAlarms.UseVisualStyleBackColor = true;
             // 
             // tabPageSetup
