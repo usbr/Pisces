@@ -44,8 +44,10 @@ namespace Reclamation.Core
         /// <param name="filename"></param>
         /// <param name="xlsx">when false uses excel 8.0 oldb driver.</param>
         /// <returns></returns>
-      static string ConnectionString(string filename, bool xlsx=false)
+      static string ConnectionString(string filename)
       {
+        bool xlsx = Path.GetExtension(filename).ToLower().Contains("xlsx");
+
         string connectionStr= "Provider=Microsoft.Jet.OLEDB.4.0;" +
           "Data Source=" + filename + ";" +
           "Extended Properties=Excel 8.0;";
@@ -110,9 +112,9 @@ namespace Reclamation.Core
         Debug.Assert(File.Exists(filename));
 
 
-        bool xlsx = Path.GetExtension(filename).ToLower().Contains("xlsx");
+       
 
-        string strAccessConn = ConnectionString(filename,xlsx);
+        string strAccessConn = ConnectionString(filename);
 
         DataSet myDataSet = new DataSet();
         myDataSet.Tables.Add(worksheet);
