@@ -51,8 +51,14 @@ namespace HydrometTools.Reports.UpperSnake
                     HydrometInstantSeries s = new HydrometInstantSeries(c, p);
                     s.Read(t3, DateTime.Now); // read three days
 
-                    today.Add(cbtt[i], s[t].Value);
-                    yesterday.Add(cbtt[i], s[t2].Value);
+                    if (s.IndexOf(t) >= 0)
+                        today.Add(cbtt[i], s[t].Value);
+                    else
+                        today.Add(cbtt[i], Reclamation.TimeSeries.Point.MissingValueFlag);
+                    if( s.IndexOf(t2)>=0)
+                      yesterday.Add(cbtt[i], s[t2].Value);
+                    else
+                        yesterday.Add(cbtt[i], Reclamation.TimeSeries.Point.MissingValueFlag);
                 }
                 //Load the data into the user controls only loading 6:00 AM data 
                 //from today and yesterday

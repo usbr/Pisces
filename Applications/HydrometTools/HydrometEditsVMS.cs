@@ -259,7 +259,7 @@ namespace Reclamation.TimeSeries.Hydromet
             tf.Add("$! ----------------------------------");
             tf.Add("$interpret:== $SUTRON$:[rtcm]rtcm");
          HydrometHost svr = HydrometInfoUtility.HydrometServerFromPreferences();
-         if (svr == HydrometHost.PN)
+         if (svr == HydrometHost.PN || svr == HydrometHost.Yakima)
          {
           tf.Add("$set process/priv=syslck");
          }
