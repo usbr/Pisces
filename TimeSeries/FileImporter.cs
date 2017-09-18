@@ -38,7 +38,7 @@ namespace Reclamation.TimeSeries
 
 
         public void ImportFile(string fileName, bool computeDependencies = false, 
-            bool computeDailyOnMidnight = false, string searchPattern = "*.*")
+            bool computeDailyOnMidnight = false)
         {
             this.m_computeDailyDependencies = computeDailyOnMidnight;
             this.m_computeDependencies = computeDependencies;

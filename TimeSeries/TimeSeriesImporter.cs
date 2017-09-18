@@ -277,8 +277,9 @@ namespace Reclamation.TimeSeries
         }
         private SeriesList ComputeDependenciesSameInterval(Series s)
         {
+            int count = 0;
             SeriesList rval = new SeriesList();
-            var calcList = GetDependentsRecursive(s.Table.TableName, s.TimeInterval);
+            var calcList = GetDependentsRecursive(s.Table.TableName, s.TimeInterval,ref count);
             //var calcList = GetDependentCalculations(s.Table.TableName, s.TimeInterval);
             if (calcList.Count > 0)
                 Logger.WriteLine("Found " + calcList.Count + " " + s.TimeInterval + " calculations to update ");
@@ -301,12 +302,13 @@ namespace Reclamation.TimeSeries
         private List<CalculationSeries> GetDailyDependentCalculations(SeriesList list)
         {
             Logger.WriteLine("GetDailyDependentCalculations(" + list.Count + " series )");
+            int count = 0;
             var rval = new List<CalculationSeries>();
             foreach (var s in list)
             {
                 if (NeedDailyCalc(s) )
                 {  // daily calcs that depend on instant
-                    var x = GetDependentsRecursive(s.Table.TableName, TimeInterval.Daily);
+                    var x = GetDependentsRecursive(s.Table.TableName, TimeInterval.Daily,ref count);
                     foreach (var item in x)
                     { // prevent duplicates
                         if (!rval.Any(a => a.Table.TableName == item.Table.TableName))
@@ -324,14 +326,20 @@ namespace Reclamation.TimeSeries
         /// <param name="tableName"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        private List<CalculationSeries> GetDependentsRecursive(string tableName, TimeInterval interval)
+        private List<CalculationSeries> GetDependentsRecursive(string tableName, TimeInterval interval, ref int count)
         {
-            Logger.WriteLine("GetDependentsRecursive(" + tableName + "," + interval.ToString() + ")");
+            Logger.WriteLine("GetDependentsRecursive(" + tableName + "," + interval.ToString() + ",count="+count+")");
+
+            int maxRecursiveCount=10;
+            if( count > maxRecursiveCount)
+            {
+                Logger.WriteLine("TimeSeriesImporter max recursive level reached. maxRecursiveCount =" + maxRecursiveCount);
+                return new List<CalculationSeries>();
+            }
             var rval = new List<CalculationSeries>();
             TimeSeriesName tn = new TimeSeriesName(tableName);
             var calcList = GetDependentCalculations(tableName, interval);
-            //if (calcList.Count > 0)
-            //  Logger.WriteLine("Found " + calcList.Count + " daily calculations to update ref:"+tableName);
+
             foreach (var item in calcList)
             {
                 if (!rval.Any(a => a.Table.TableName == item.Table.TableName))
@@ -339,7 +347,8 @@ namespace Reclamation.TimeSeries
                 // check recursive
                 if (tableName != item.Table.TableName)
                 {
-                    var x = GetDependentsRecursive(item.Table.TableName, interval);
+                    count++;
+                    var x = GetDependentsRecursive(item.Table.TableName, interval, ref count);
 
                     foreach (var d in x)
                     {
