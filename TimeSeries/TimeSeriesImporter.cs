@@ -337,14 +337,16 @@ namespace Reclamation.TimeSeries
                 if (!rval.Any(a => a.Table.TableName == item.Table.TableName))
                       rval.Add(item);
                 // check recursive
-                var x = GetDependentsRecursive(item.Table.TableName,interval);
-
-                foreach (var d in x)
+                if (tableName != item.Table.TableName)
                 {
-                    if (!rval.Any(a => a.Table.TableName == d.Table.TableName))
-                        rval.Add(d);
-                }
-                   
+                    var x = GetDependentsRecursive(item.Table.TableName, interval);
+
+                    foreach (var d in x)
+                    {
+                        if (!rval.Any(a => a.Table.TableName == d.Table.TableName))
+                            rval.Add(d);
+                    }
+                } 
             }
             return rval;
         }
