@@ -26,7 +26,7 @@ namespace Reclamation.TimeSeries
             {
                 var rval = new Series();
                 
-                Logger.WriteLine("RatingTableDataTable.ComputeSeries(" + s.Table.TableName + "," + fileName);
+                Logger.WriteLine("RatingTableDataTable.ComputeSeries(" + s.Table.TableName + "," + fileName+")");
 
                 var fn = RatingTableUtility.GetRatingTableAsLocalFile(fileName);
                  

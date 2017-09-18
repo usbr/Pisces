@@ -74,7 +74,7 @@ namespace Reclamation.TimeSeries
 
         private void ProcessFile(string fileName)
         {
-            
+            Logger.WriteLine("ProcessFile('" + fileName + "')");
             string importTag = "import"; // used to make friendly export filename
             try
             {

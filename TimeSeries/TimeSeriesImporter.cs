@@ -122,6 +122,7 @@ namespace Reclamation.TimeSeries
 
         private void DailyCalculations(SeriesList importSeries, string importTag)
         {
+            Logger.WriteLine("DailyCalculations(" + importSeries.Count + " series, " + importTag + ")");
             Performance p = new Performance();
             var dailyCalculationQueue = GetDailyDependentCalculations(importSeries);
             var routingList = new SeriesList();
@@ -299,6 +300,7 @@ namespace Reclamation.TimeSeries
 
         private List<CalculationSeries> GetDailyDependentCalculations(SeriesList list)
         {
+            Logger.WriteLine("GetDailyDependentCalculations(" + list.Count + " series )");
             var rval = new List<CalculationSeries>();
             foreach (var s in list)
             {
@@ -324,6 +326,7 @@ namespace Reclamation.TimeSeries
         /// <returns></returns>
         private List<CalculationSeries> GetDependentsRecursive(string tableName, TimeInterval interval)
         {
+            Logger.WriteLine("GetDependentsRecursive(" + tableName + "," + interval.ToString() + ")");
             var rval = new List<CalculationSeries>();
             TimeSeriesName tn = new TimeSeriesName(tableName);
             var calcList = GetDependentCalculations(tableName, interval);
