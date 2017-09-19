@@ -6,7 +6,7 @@ namespace Reclamation.TimeSeries.Forms
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
+        
         /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
@@ -48,7 +48,6 @@ namespace Reclamation.TimeSeries.Forms
             this.maskedTextBoxPlotYear.Name = "maskedTextBoxPlotYear";
             this.maskedTextBoxPlotYear.Size = new System.Drawing.Size(254, 20);
             this.maskedTextBoxPlotYear.TabIndex = 3;
-            this.maskedTextBoxPlotYear.Text = System.DateTime.Now.Year.ToString() + "," + ((System.DateTime.Now.Year) - 1).ToString();
             // 
             // checkBoxPlotYear
             // 
@@ -68,7 +67,7 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBoxExtras.Controls.Add(this.checkBoxPlotYear);
             this.groupBoxExtras.Controls.Add(this.maskedTextBoxPlotYear);
             this.groupBoxExtras.Controls.Add(this.checkBoxMinimum);
-            this.groupBoxExtras.Location = new System.Drawing.Point(134, 130);
+            this.groupBoxExtras.Location = new System.Drawing.Point(179, 130);
             this.groupBoxExtras.Name = "groupBoxExtras";
             this.groupBoxExtras.Size = new System.Drawing.Size(295, 98);
             this.groupBoxExtras.TabIndex = 5;
@@ -108,7 +107,7 @@ namespace Reclamation.TimeSeries.Forms
             // yearTypeSelector1
             // 
             this.yearTypeSelector1.BeginningMonth = 10;
-            this.yearTypeSelector1.Location = new System.Drawing.Point(134, 234);
+            this.yearTypeSelector1.Location = new System.Drawing.Point(179, 234);
             this.yearTypeSelector1.Name = "yearTypeSelector1";
             this.yearTypeSelector1.Size = new System.Drawing.Size(308, 118);
             this.yearTypeSelector1.TabIndex = 12;
@@ -138,7 +137,7 @@ namespace Reclamation.TimeSeries.Forms
         90};
             this.exceedanceLevelPicker1.Location = new System.Drawing.Point(13, 130);
             this.exceedanceLevelPicker1.Name = "exceedanceLevelPicker1";
-            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(115, 213);
+            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(160, 213);
             this.exceedanceLevelPicker1.TabIndex = 0;
             // 
             // SummaryHydrographOptions

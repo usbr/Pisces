@@ -32,7 +32,6 @@ namespace Reclamation.TimeSeries.Forms
         }
         private void checkBoxPlotYear_CheckedChanged(object sender, EventArgs e)
         {
-
             if (this.checkBoxPlotYear.Checked)
             {
                 this.maskedTextBoxPlotYear.Enabled = true;
