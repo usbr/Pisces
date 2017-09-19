@@ -45,16 +45,48 @@ namespace Reclamation.TimeSeries.Analysis
 
             if (Explorer.AlsoPlotYear && list.Count == 1)
             {
-                YearRange yearRng = new YearRange(Explorer.PlotYear, Explorer.BeginningMonth);
-                DateTime t1 = yearRng.DateTime1;
-                DateTime t2 = yearRng.DateTime2;
+                int[] yearsToPlot = Explorer.PlotYear;
+                int xtraYearCount = 0;
+                DateTime tSumHyd1 = DateTime.Now;
+                DateTime tSumHyd2 = DateTime.Now;
+                foreach (var year in yearsToPlot)
+                {
+                    YearRange yearRng = new YearRange(year, Explorer.BeginningMonth);
+                    DateTime t1 = yearRng.DateTime1;
+                    DateTime t2 = yearRng.DateTime2;
 
-                Series s = Math.Subset(list[0], t1, t2);
-                s.Appearance.LegendText = yearRng.Year.ToString();
-                view.Messages.Add(yearRng.Year.ToString() + " included as separate series ");
-                myList.Add(s);
-                myList.Add(list.SummaryHydrograph(Explorer.ExceedanceLevels, t1,
-                    Explorer.PlotMax, Explorer.PlotMin, Explorer.PlotAvg,true));//,true));
+                    if (xtraYearCount == 0)//first series
+                    {
+                        Series s = Math.Subset(list[0], t1, t2);
+                        s.Appearance.LegendText = yearRng.Year.ToString();
+                        view.Messages.Add(yearRng.Year.ToString() + " included as separate series ");
+                        myList.Add(s);
+                        myList.Add(list.SummaryHydrograph(new int[] { }, t1, false, false, false, true));
+                        tSumHyd1 = t1;
+                        tSumHyd2 = t2;
+                    }
+                    else//every series
+                    {
+                        Series s = Math.Subset(list[0], t1, t2);
+                        Series sDummy = new Series();
+                        foreach (Point pt in s)
+                        {
+                            sDummy.Add(pt.DateTime.AddYears(tSumHyd1.Year - t1.Year), pt.Value);
+                        }
+                        sDummy.Appearance.LegendText = yearRng.Year.ToString();
+                        view.Messages.Add(yearRng.Year.ToString() + " included as separate series ");
+                        myList.Add(sDummy);
+                        if (xtraYearCount == yearsToPlot.Length - 1)//last series
+                        {
+                            myList.Add(list.SummaryHydrograph(Explorer.ExceedanceLevels, tSumHyd1, Explorer.PlotMax, Explorer.PlotMin, Explorer.PlotAvg, true));
+                        }
+                        else
+                        {
+                            myList.Add(list.SummaryHydrograph(new int[] { }, tSumHyd1, false, false, false, true));
+                        }
+                    }
+                    xtraYearCount++;
+                }
             }
             else
             {

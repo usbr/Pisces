@@ -44,21 +44,20 @@ namespace Reclamation.TimeSeries.Forms
             // maskedTextBoxPlotYear
             // 
             this.maskedTextBoxPlotYear.Enabled = false;
-            this.maskedTextBoxPlotYear.Location = new System.Drawing.Point(101, 17);
-            this.maskedTextBoxPlotYear.Mask = "0000";
+            this.maskedTextBoxPlotYear.Location = new System.Drawing.Point(29, 42);
             this.maskedTextBoxPlotYear.Name = "maskedTextBoxPlotYear";
-            this.maskedTextBoxPlotYear.Size = new System.Drawing.Size(46, 20);
+            this.maskedTextBoxPlotYear.Size = new System.Drawing.Size(254, 20);
             this.maskedTextBoxPlotYear.TabIndex = 3;
-            this.maskedTextBoxPlotYear.Text = "2006";
+            this.maskedTextBoxPlotYear.Text = System.DateTime.Now.Year.ToString() + "," + ((System.DateTime.Now.Year) - 1).ToString();
             // 
             // checkBoxPlotYear
             // 
             this.checkBoxPlotYear.AutoSize = true;
             this.checkBoxPlotYear.Location = new System.Drawing.Point(11, 19);
             this.checkBoxPlotYear.Name = "checkBoxPlotYear";
-            this.checkBoxPlotYear.Size = new System.Drawing.Size(84, 17);
+            this.checkBoxPlotYear.Size = new System.Drawing.Size(172, 17);
             this.checkBoxPlotYear.TabIndex = 4;
-            this.checkBoxPlotYear.Text = "plot the year";
+            this.checkBoxPlotYear.Text = "plot the year(s) (ex: 2017,2010)";
             this.checkBoxPlotYear.UseVisualStyleBackColor = true;
             this.checkBoxPlotYear.CheckedChanged += new System.EventHandler(this.checkBoxPlotYear_CheckedChanged);
             // 
@@ -69,9 +68,9 @@ namespace Reclamation.TimeSeries.Forms
             this.groupBoxExtras.Controls.Add(this.checkBoxPlotYear);
             this.groupBoxExtras.Controls.Add(this.maskedTextBoxPlotYear);
             this.groupBoxExtras.Controls.Add(this.checkBoxMinimum);
-            this.groupBoxExtras.Location = new System.Drawing.Point(171, 130);
+            this.groupBoxExtras.Location = new System.Drawing.Point(134, 130);
             this.groupBoxExtras.Name = "groupBoxExtras";
-            this.groupBoxExtras.Size = new System.Drawing.Size(173, 115);
+            this.groupBoxExtras.Size = new System.Drawing.Size(295, 98);
             this.groupBoxExtras.TabIndex = 5;
             this.groupBoxExtras.TabStop = false;
             this.groupBoxExtras.Text = "additional lines";
@@ -79,7 +78,7 @@ namespace Reclamation.TimeSeries.Forms
             // checkBoxAverage
             // 
             this.checkBoxAverage.AutoSize = true;
-            this.checkBoxAverage.Location = new System.Drawing.Point(11, 88);
+            this.checkBoxAverage.Location = new System.Drawing.Point(11, 70);
             this.checkBoxAverage.Name = "checkBoxAverage";
             this.checkBoxAverage.Size = new System.Drawing.Size(85, 17);
             this.checkBoxAverage.TabIndex = 7;
@@ -89,7 +88,7 @@ namespace Reclamation.TimeSeries.Forms
             // checkBoxMaximum
             // 
             this.checkBoxMaximum.AutoSize = true;
-            this.checkBoxMaximum.Location = new System.Drawing.Point(11, 42);
+            this.checkBoxMaximum.Location = new System.Drawing.Point(102, 70);
             this.checkBoxMaximum.Name = "checkBoxMaximum";
             this.checkBoxMaximum.Size = new System.Drawing.Size(89, 17);
             this.checkBoxMaximum.TabIndex = 6;
@@ -99,7 +98,7 @@ namespace Reclamation.TimeSeries.Forms
             // checkBoxMinimum
             // 
             this.checkBoxMinimum.AutoSize = true;
-            this.checkBoxMinimum.Location = new System.Drawing.Point(11, 65);
+            this.checkBoxMinimum.Location = new System.Drawing.Point(197, 70);
             this.checkBoxMinimum.Name = "checkBoxMinimum";
             this.checkBoxMinimum.Size = new System.Drawing.Size(86, 17);
             this.checkBoxMinimum.TabIndex = 5;
@@ -109,9 +108,9 @@ namespace Reclamation.TimeSeries.Forms
             // yearTypeSelector1
             // 
             this.yearTypeSelector1.BeginningMonth = 10;
-            this.yearTypeSelector1.Location = new System.Drawing.Point(171, 251);
+            this.yearTypeSelector1.Location = new System.Drawing.Point(134, 234);
             this.yearTypeSelector1.Name = "yearTypeSelector1";
-            this.yearTypeSelector1.Size = new System.Drawing.Size(295, 100);
+            this.yearTypeSelector1.Size = new System.Drawing.Size(308, 118);
             this.yearTypeSelector1.TabIndex = 12;
             // 
             // timeWindowOptions1
@@ -120,9 +119,9 @@ namespace Reclamation.TimeSeries.Forms
             this.timeWindowOptions1.Name = "timeWindowOptions1";
             this.timeWindowOptions1.Size = new System.Drawing.Size(275, 113);
             this.timeWindowOptions1.TabIndex = 11;
-            timeWindow1.FromDateToTodayT1 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
-            timeWindow1.FromToDatesT1 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
-            timeWindow1.FromToDatesT2 = new System.DateTime(2010, 11, 16, 10, 55, 11, 261);
+            timeWindow1.FromDateToTodayT1 = new System.DateTime(2010, 11, 16, 0, 0, 0, 0);
+            timeWindow1.FromToDatesT1 = new System.DateTime(2010, 11, 16, 0, 0, 0, 0);
+            timeWindow1.FromToDatesT2 = new System.DateTime(2010, 11, 16, 23, 59, 59, 996);
             timeWindow1.NumDaysFromToday = new decimal(new int[] {
             14,
             0,
@@ -139,7 +138,7 @@ namespace Reclamation.TimeSeries.Forms
         90};
             this.exceedanceLevelPicker1.Location = new System.Drawing.Point(13, 130);
             this.exceedanceLevelPicker1.Name = "exceedanceLevelPicker1";
-            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(140, 203);
+            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(115, 213);
             this.exceedanceLevelPicker1.TabIndex = 0;
             // 
             // SummaryHydrographOptions
@@ -151,7 +150,7 @@ namespace Reclamation.TimeSeries.Forms
             this.Controls.Add(this.groupBoxExtras);
             this.Controls.Add(this.exceedanceLevelPicker1);
             this.Name = "SummaryHydrographOptions";
-            this.Size = new System.Drawing.Size(504, 388);
+            this.Size = new System.Drawing.Size(504, 374);
             this.groupBoxExtras.ResumeLayout(false);
             this.groupBoxExtras.PerformLayout();
             this.ResumeLayout(false);
