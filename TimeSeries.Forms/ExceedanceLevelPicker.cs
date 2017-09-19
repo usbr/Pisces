@@ -43,16 +43,39 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
+        private void ClearExceedanceLevels()
+        {
+            for (int i = 0; i < checkedListBox1.Items.Count; i++)
+            {
+                this.checkedListBox1.SetItemChecked(i, false);
+            }
+        }
+
         public int[] ExceedanceLevels
         {
             get
             {
                 List<int> rval = new List<int>();
-                foreach (int indexChecked in checkedListBox1.CheckedIndices)
+                if (this.checkBox1.Checked)
                 {
-                    string s = checkedListBox1.Items[indexChecked].ToString();
-                    s = s.Replace("%", "");
-                    rval.Add(int.Parse(s));
+                    string[] customLevels = this.textBox1.Text.Split(',');
+                    foreach (var item in customLevels)
+                    {
+                        if (item != "")
+                        {
+                            var level = item.Replace("%", "");
+                            rval.Add(int.Parse(level));
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (int indexChecked in checkedListBox1.CheckedIndices)
+                    {
+                        string s = checkedListBox1.Items[indexChecked].ToString();
+                        s = s.Replace("%", "");
+                        rval.Add(int.Parse(s));
+                    }
                 }
 
                 return rval.ToArray();
@@ -63,6 +86,21 @@ namespace Reclamation.TimeSeries.Forms
                 ;
             }
 
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                this.checkedListBox1.Enabled = false;
+                this.textBox1.Enabled = true;
+                ClearExceedanceLevels();
+            }
+            else
+            {
+                this.checkedListBox1.Enabled = true;
+                this.textBox1.Enabled = false;
+            }
         }
     }
 }
