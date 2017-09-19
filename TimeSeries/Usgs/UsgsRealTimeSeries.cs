@@ -24,7 +24,7 @@ namespace Reclamation.TimeSeries.Usgs
         string m_columnName;
         string m_site_no;
         string m_flagColumnName;
-        static string m_url = "https://waterservices.usgs.gov/nwis/iv/?format=rdb&sites=14354200&startDT=2012-05-01&endDT=2012-05-01&parameterCd=00060";
+        static string m_url = "https://nwis.waterservices.usgs.gov/nwis/iv/?format=rdb&sites=14354200&startDT=2012-05-01&endDT=2012-05-01&parameterCd=00060";
 
         public UsgsRealTimeSeries(string site_no, UsgsRealTimeParameter parameter)
 		{
