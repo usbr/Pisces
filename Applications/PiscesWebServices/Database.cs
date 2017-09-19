@@ -33,6 +33,12 @@ namespace PiscesWebServices
             }
         }
 
+        internal static DataTable GetView(string viewName)
+        {
+            string sql = "select * from " + viewName;
+            return s_db.Server.Table("a", sql);
+        }
+
         internal static DataTable GetSiteByType(string typeName)
         {
             string sql = "select type, siteid, description,state,latitude,longitude from sitecatalog " +

@@ -69,7 +69,16 @@ C:\WINDOWS\system32>
                     var sites = Database.Sites;
                     return FormatDataTable(fmt, sites);
                 };
-            
+
+            Get["/view/(?<viewname>^[A-Za-z0-9]{1,40}$)"] = x =>
+            { // list paramters for a site, and other stuff?
+                var fmt = this.Request.Query["format"].ToString();
+                var viewname = x.viewname.ToString();
+
+                var tbl = Database.GetView(viewname);
+                return FormatDataTable(fmt, tbl);
+            };
+
             Get["/types"] = x =>
                 {
                     //var fmt = this.Request.Query["format"].ToString();
