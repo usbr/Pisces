@@ -15,13 +15,19 @@ namespace Reclamation.TimeSeries.Forms
             InitializeComponent();
         }
        
-        private int YearToPlot
+        private int[] YearToPlot
         {
             get
             {
-                int yr = 2000;
-                Int32.TryParse(maskedTextBoxPlotYear.Text, out yr);
-                return yr;
+                var years = maskedTextBoxPlotYear.Text.Split(',');
+                var yrs = new List<int>();
+                foreach (var year in years)
+                {
+                    int yr = 2000;
+                    Int32.TryParse(year, out yr);
+                    yrs.Add(yr);
+                }
+                return yrs.ToArray();
             }
         }
         private void checkBoxPlotYear_CheckedChanged(object sender, EventArgs e)
@@ -60,8 +66,13 @@ namespace Reclamation.TimeSeries.Forms
             this.checkBoxMaximum.Checked = settings.PlotMax;
             this.checkBoxMinimum.Checked = settings.PlotMin;
             this.checkBoxPlotYear.Checked = settings.AlsoPlotYear;
-            this.maskedTextBoxPlotYear.Text = settings.PlotYear.ToString();
-
+            var yearsText = "";
+            foreach (var years in settings.PlotYear)
+            {
+                yearsText += years + ",";
+            }
+            yearsText = yearsText.Trim(',');
+            this.maskedTextBoxPlotYear.Text = yearsText;
             timeWindowOptions1.TimeWindow = settings.TimeWindow;
             //this.timeWindowOptions1.AllowFullPeriodOfRecord = settings.AllowFullPeriodOfRecord;
 

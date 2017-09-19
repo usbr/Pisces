@@ -155,7 +155,7 @@ namespace Reclamation.TimeSeries
         public bool sumCYRadio;
         public bool sumWYRadio;
         public bool sumCustomRangeRadio;
-        public int PlotYear;
+        public int[] PlotYear;
         public string PlotTrace;
         public bool PlotMinTrace;
         public bool PlotMaxTrace;
@@ -257,11 +257,11 @@ namespace Reclamation.TimeSeries
             _monthDayRange = new MonthDayRange(10, 1, 9, 30);
             this.StatisticalMethods = StatisticalMethods.None;
             WaterYearBeginningMonth = 10;// october
-            WaterYears = new int[] { 2001, 2002, 2003, 2004, 2005, 2006 };
+            WaterYears = new int[] { DateTime.Now.Year - 5, DateTime.Now.Year - 4, DateTime.Now.Year - 3, DateTime.Now.Year - 2, DateTime.Now.Year - 1, DateTime.Now.Year };
             ExceedanceLevels = new int[] { 10, 50, 90 };
             AlsoPlotYear = false;
             AlsoPlotTrace = false;
-            PlotYear = 2006;
+            PlotYear = new int[] { DateTime.Now.Year };
             PlotTrace = "";
             PlotMin = false;
             PlotAvg = false;
