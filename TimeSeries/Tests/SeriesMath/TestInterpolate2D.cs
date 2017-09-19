@@ -104,5 +104,42 @@ namespace Pisces.NunitTests.SeriesMath
             Assert.AreEqual(1009.87, System.Math.Round(q[0].Value, 2));
             Assert.AreEqual(603.32, System.Math.Round(q[2].Value, 2));
         }
+
+
+        [Test]
+        public void TestInterp2dIslandParkWithDatabase()
+        {
+            Logger.EnableLogger();
+            var fn = FileUtility.GetTempFileName(".pdb");
+            File.Delete(fn);
+
+            SQLiteServer svr = new SQLiteServer(fn);
+            var db = new TimeSeriesDatabase(svr, false);
+
+            var c = new CalculationSeries("isl_q");
+            var path = Path.Combine(TestData.DataPath, "rating_tables");
+            var f1 = Path.Combine(path, "isl_q_single.txt");
+            var f2 = Path.Combine(path, "isl_q_both.txt");
+
+            var fb = new Series("isl_fb");
+            fb.Add("2017-09-19 10:45", 6299.90);
+            fb.Add("2017-09-19 11:00", 6302.0);
+
+            var ra = new Series("isl_ra");
+            ra.Add("2017-09-19 10:45", 0.12);
+            ra.Add("2017-09-19 11:00", 2.5);
+
+            var rb = new Series("isl_rb");
+            rb.Add("2017-09-19 10:45", 0.1);
+            rb.Add("2017-09-19 11:00", 0);
+
+            var x = Math.FileLookupInterpolate2DIslandPark(fb, ra, rb, f1, f2);
+
+            x.WriteToConsole();
+
+            Assert.AreEqual(51.66, x[0].Value, 0.01);
+            Assert.AreEqual(619.0, x[1].Value, 0.01);
+
+        }
     }
 }

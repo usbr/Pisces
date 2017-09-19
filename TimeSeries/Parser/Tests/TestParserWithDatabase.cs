@@ -143,6 +143,8 @@ namespace Reclamation.TimeSeries.Parser.Tests
         [Test]
         public void Issue138Variable()
         {
+            var x = Math.FileLookupInterpolate2D(new Series(), new Series(), "");
+
             string equation = "FileLookupInterpolate2D(rir_fb, rir_ra, \"rir_q_2da.txt\") +FileLookupInterpolate2D(rir_fb, rir_rb, \"rir_q_2d.txt\")";
             var vars = VariableParser.Default().GetAllVariables(equation);
             Assert.IsTrue(Array.IndexOf(vars, "rir_fb") >= 0,"rir_fb");

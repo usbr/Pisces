@@ -38,7 +38,77 @@ namespace Reclamation.TimeSeries
             rval.RemoveMissing();
             return rval;
         }
+        
+        [FunctionAttribute("Performs 2D lookup from a file to determine outflow of a reservoir with two gates and forebay elevation.",
+            "FileLookupInterpolate2DIslandPark(forebaySeries,gate1Series, gate2Series, \"singlegate.csv\",\"twogates.csv\")")]
+        public static Series FileLookupInterpolate2DIslandPark(Series forebay,Series gate1, Series gate2, string file1,string file2)
+        {
+            var rval = new Series();
 
+            if (forebay.IsEmpty || gate1.IsEmpty || gate2.IsEmpty)
+            {
+                Logger.WriteLine("FileLookupInterpolate2DIslandPark - input series empty");
+                return rval;
+            }
+
+            var fn1 = RatingTableUtility.GetRatingTableAsLocalFile(file1);
+            
+            if (  !File.Exists(fn1))
+            {
+                Logger.WriteLine("FileLookupInterpolate2DIslandPark - input fileName, file not found "+file1);
+                return rval;
+            }
+            var fn2 = RatingTableUtility.GetRatingTableAsLocalFile(file2);
+            
+            if (  !File.Exists(fn2))
+            {
+                Logger.WriteLine("FileLookupInterpolate2DIslandPark - input fileName, file not found "+file2);
+                return rval;
+            }
+
+            CsvFile csv1 = new CsvFile(fn1, CsvFile.FieldTypes.AllText);
+            CsvFile csv2 = new CsvFile(fn2, CsvFile.FieldTypes.AllText);
+            
+            forebay.RemoveMissing(true); // remove flagged data
+            gate1.RemoveMissing(true);
+            gate2.RemoveMissing(true);
+
+            foreach (var pt in forebay)
+            {
+                Point point = pt;
+
+                var g1_idx = gate1.IndexOf(pt.DateTime);
+                var g2_idx = gate2.IndexOf(pt.DateTime);
+                if (g1_idx >=0 && g2_idx >=0)
+                {
+                    var g1 = gate1[g1_idx].Value;
+                    var g2 = gate2[g2_idx].Value;
+
+                    if( g2 <=0.01) // gate 1 only
+                    {
+                      point.Value = Interpoloate2D(csv1, pt.Value, g1);
+                    }
+                    else if( g1 <= 0.01) // gate 2 only
+                    {
+                        point.Value = Interpoloate2D(csv1, pt.Value, g2);
+                    }
+                    else{ // both gates operating use second lookup table.
+                        point.Value = Interpoloate2D(csv2, pt.Value, (g1+g2)*0.5);
+                    }
+                }
+                else
+                {
+                    point.Value = Point.MissingValueFlag;
+                }
+                 
+                rval.Add(point);
+            }
+
+
+
+
+            return rval;
+        }
 
         [FunctionAttribute("Performs 2D lookup from a file with linear interpolation in both directions",
             "FileLookupInterpolate2D(series_row, series_column, csvFile)")]

@@ -321,7 +321,7 @@ DELETE FROM "nunit"."public"."pn_daily_jck_af2017aug15162651773" WHERE (("dateti
                 map.ColumnMappings.Add(cn.ToLower(), cn);
             }
         }
-        SqlCommands.Add(sql);
+        Logger.WriteLine(sql);
         int recordCount = 0;
 
         try
@@ -340,10 +340,6 @@ DELETE FROM "nunit"."public"."pn_daily_jck_af2017aug15162651773" WHERE (("dateti
         string msg = "[" + dataTable.TableName + "] " + recordCount;
         Logger.WriteLine(msg, "ui");
         Console.WriteLine(msg);
-        if (SqlCommands.Count > 5000)
-        {
-            SqlCommands.Clear();
-        }
         return recordCount;
     }
 
@@ -382,7 +378,7 @@ DELETE FROM "nunit"."public"."pn_daily_jck_af2017aug15162651773" WHERE (("dateti
             //PrintMapping(da);
         }
         
-        SqlCommands.Add(sql);
+        Logger.WriteLine(sql);
         int recordCount = 0;
         //da.RowUpdating += myDataAdapter_RowUpdating;
         
@@ -404,10 +400,7 @@ DELETE FROM "nunit"."public"."pn_daily_jck_af2017aug15162651773" WHERE (("dateti
         string msg = "[" + dataTable.TableName + "] " + recordCount;
         Logger.WriteLine(msg,"ui");
         Console.WriteLine(msg);
-        if (SqlCommands.Count > 5000)
-        {
-            SqlCommands.Clear();
-        }
+
         return recordCount;
     }
 
@@ -636,7 +629,7 @@ DELETE FROM "nunit"."public"."pn_daily_jck_af2017aug15162651773" WHERE (("dateti
             myTrans.Commit();
         //Logger.WriteLine(rval + " rows affected");
         this.lastSqlCommand = sql;
-        SqlCommands.Add(sql);
+        Logger.WriteLine(sql);
       }
       catch(Exception e)
       {
