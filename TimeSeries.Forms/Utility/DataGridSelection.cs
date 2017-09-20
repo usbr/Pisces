@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Windows.Forms;
 using System.Data;
 using System.Linq;
+using System.Windows.Forms;
 namespace Reclamation.Core
 {
     public class DataGridSelection

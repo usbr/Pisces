@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 
 namespace Reclamation.Core
 {
@@ -35,7 +34,7 @@ namespace Reclamation.Core
 
         private static string FileName()
         {
-            return Application.ExecutablePath + ".pid";
+            return FileUtility.GetExecutableDirectory() + ".pid";
         }
 
         /// <summary>

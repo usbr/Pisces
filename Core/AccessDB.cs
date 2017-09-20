@@ -1,22 +1,20 @@
+using Microsoft.Win32;
 using System;
-using System.Collections;
-using System.Reflection;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
-using System.Windows.Forms;
-using Microsoft.Win32;
+using System.Reflection;
 
 namespace Reclamation.Core
 {
-  /// <summary>
-  /// Basic SQL Operation
-  /// for Microsoft Access Database
-  /// Karl Tarbet
-  /// List of Microsoft Jet 4.0 reserved words
-  /// http://support.microsoft.com/default.aspx?scid=kb;EN-US;321266
-  /// </summary>
-  public class AccessDB : BasicDBServer
+    /// <summary>
+    /// Basic SQL Operation
+    /// for Microsoft Access Database
+    /// Karl Tarbet
+    /// List of Microsoft Jet 4.0 reserved words
+    /// http://support.microsoft.com/default.aspx?scid=kb;EN-US;321266
+    /// </summary>
+    public class AccessDB : BasicDBServer
   {
 
       public override string DataSource

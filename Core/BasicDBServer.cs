@@ -1,14 +1,13 @@
 using System;
-using System.Data;
 using System.Collections.Generic;
-using System.Security.Principal;
+using System.Data;
 namespace Reclamation.Core
 {
-	/// <summary>
-	/// Basic server database access to 
-	/// sql based databases
-	/// </summary>
-	public abstract class BasicDBServer
+    /// <summary>
+    /// Basic server database access to 
+    /// sql based databases
+    /// </summary>
+    public abstract class BasicDBServer
 	{
         List<string> m_sqlCommands = new List<string>();
         string m_connectionString= "";

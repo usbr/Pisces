@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
+using System.Reflection;
 
 namespace Reclamation.Core
 {
@@ -97,7 +97,7 @@ namespace Reclamation.Core
                 if (_traceSwitch.Level != TraceLevel.Off)
                 { // if any tracing.. save to log.
                     //string logName = Path.GetFileNameWithoutExtension(Application.ExecutablePath) + ".log";
-                    logName = Path.Combine(FileUtility.GetLocalApplicationPath(), Path.GetFileNameWithoutExtension(Application.ExecutablePath));
+                    logName = Path.Combine(FileUtility.GetLocalApplicationPath(), Assembly.GetEntryAssembly().GetName().Name);
                     logName = logName + ".log";
                     FileStream fs = new FileStream(logName, FileMode.Append);
                     TextWriterTraceListener listener = new TextWriterTraceListener(fs);

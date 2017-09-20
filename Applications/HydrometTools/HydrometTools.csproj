@@ -283,7 +283,6 @@
     </Compile>
     <Compile Include="Decodes\DecodesDataSet.cs">
       <DependentUpon>DecodesDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Decodes\DecodesDataSet1.Designer.cs">
       <DependentUpon>DecodesDataSet.xsd</DependentUpon>
@@ -294,7 +293,6 @@
     <Compile Include="Decodes\DecodesUtility.cs" />
     <Compile Include="Decodes\GoesMessageDataSet.cs">
       <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Decodes\GoesMessageDataSet.Designer.cs">
       <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>

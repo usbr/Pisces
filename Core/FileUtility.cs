@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Security.Cryptography;
 using System.Collections.Specialized;
-using System.Windows.Forms;
+using System.Reflection;
+//using System.Windows.Forms;
 
 namespace Reclamation.Core
 {
@@ -108,7 +109,7 @@ namespace Reclamation.Core
         public static string GetTempPath()
         {
             string s = Path.GetTempPath();
-            string n = System.Windows.Forms.Application.ProductName;
+            string n = Assembly.GetEntryAssembly().GetName().Name;
 
             s = Path.Combine(s,"Reclamation");
             s = Path.Combine(s, n);
@@ -143,7 +144,10 @@ namespace Reclamation.Core
 
         public static string GetExecutableDirectory()
         {
-            return Path.GetDirectoryName(Application.ExecutablePath);
+            var location = System.Reflection.Assembly.GetEntryAssembly().Location;
+            var directory = System.IO.Path.GetDirectoryName(location);
+            return directory;
+            //return Path.GetDirectoryName(Application.ExecutablePath);
         }
 
         /// <summary>
@@ -153,7 +157,7 @@ namespace Reclamation.Core
         public static string GetLocalApplicationPath()
         {
             string s = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string n = System.Windows.Forms.Application.ProductName;
+            string n = Assembly.GetEntryAssembly().GetName().Name;
 
             s = Path.Combine(s, "Reclamation");
             s = Path.Combine(s, n);
@@ -414,14 +418,14 @@ namespace Reclamation.Core
             /// <returns></returns>
             public static string GetFileReference(string filename)
             {
-                string rval = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), filename);
+                string rval = Path.Combine(GetExecutableDirectory(), filename);
                 if (File.Exists(rval))
                 {
                     Logger.WriteLine("Using local file " + rval);
                     return rval;
                 }
 
-                rval = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "cfg", filename);
+                rval = Path.Combine(GetExecutableDirectory(), "cfg", filename);
                 if (File.Exists(rval))
                 {
                     Logger.WriteLine("Using local file in cfg " + rval);

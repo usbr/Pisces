@@ -2,7 +2,8 @@
 using System;
 using System.Data;
 using System.IO;
-using System.Windows.Forms;
+using System.Reflection;
+
 namespace Reclamation.Core
 {
     /// <summary>
@@ -53,9 +54,9 @@ namespace Reclamation.Core
 
         private static string GetFilename()
         {
-         
-            string appName = Path.GetFileNameWithoutExtension(Application.ExecutablePath);
-            string tmpPath = System.Windows.Forms.Application.UserAppDataPath; 
+
+            string appName = Assembly.GetEntryAssembly().GetName().Name;
+            string tmpPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string filename = Path.Combine(tmpPath, appName+".xml");
             return filename;
         }

@@ -42,7 +42,6 @@
     <Compile Include="Alarm.cs" />
     <Compile Include="AlarmDataSet.cs">
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="AlarmDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
