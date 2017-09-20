@@ -58,8 +58,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GetINL", "Applications\GetI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depth", "Applications\depth\Depth.csproj", "{D6EE1B30-3205-4948-9BA3-8BE37BA50D27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.Windows", "Reclamation.Windows\Reclamation.Windows.csproj", "{27E07D72-E6B2-4266-83FC-09C1E22E6899}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -162,10 +160,6 @@ Global
 		{D6EE1B30-3205-4948-9BA3-8BE37BA50D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6EE1B30-3205-4948-9BA3-8BE37BA50D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6EE1B30-3205-4948-9BA3-8BE37BA50D27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27E07D72-E6B2-4266-83FC-09C1E22E6899}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27E07D72-E6B2-4266-83FC-09C1E22E6899}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27E07D72-E6B2-4266-83FC-09C1E22E6899}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27E07D72-E6B2-4266-83FC-09C1E22E6899}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
