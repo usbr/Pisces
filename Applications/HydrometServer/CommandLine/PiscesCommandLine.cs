@@ -66,6 +66,12 @@ namespace HydrometServer.CommandLine
                     Print(input,m_interval);
 
                 }
+
+                if( input.Command == Command.Date)
+                {
+
+                    Console.WriteLine(input.T1.ToString("yyyy-MM-dd"));
+                }
                 //Console.WriteLine("cmd = " + input.Command);
                 //Console.WriteLine("sites = " + String.Join(",", input.SiteList));
                 //Console.WriteLine("parameters  = " + String.Join(",", input.Parameters));

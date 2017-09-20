@@ -42,8 +42,9 @@ namespace HydrometServer.CommandLine
             }
         }
 
-        string pattern = @"^(?<cmd>help|exit|ex|get|g|gq|getq|date)(?<separator1>/|\s+|\=)?(?<parm1>[\,a-z0-9]+)?"
-                      +@"(?<separator2>/|\s+)?(?<parm2>[\,a-z0-1]+)?";
+        string pattern = @"^(?<cmd>help|exit|ex|get|g|gq|getq)(?<separator1>/|\s+|\=)?(?<parm1>[\,a-z0-9]+)?"
+                      +@"(?<separator2>/|\s+)?(?<parm2>[\,a-z0-1]+)?"
+                     + @"|(?<date>date)(=((?<year>[0-9]{4})-)?(?<md>[0-9]{1,2}-[0-9]{1,2}))?";
         string input = "";
         string sites= "";
         string pcodes = "";
@@ -101,7 +102,7 @@ namespace HydrometServer.CommandLine
         private string Value(string name)
         {
             var x = match.Groups[name].Value;
-            var g = match.Groups;
+            //var g = match.Groups;
             return x.Trim();
         }
 
@@ -118,7 +119,7 @@ namespace HydrometServer.CommandLine
                 if (Value("cmd") == "ex" || Value("cmd") == "exit")
                     m_command = Command.Exit;
                 else if (Value("cmd") == "get" || Value("cmd") == "g"
-                    || Value("cmd") == "getq" || Value("cmd") == "gq" )
+                    || Value("cmd") == "getq" || Value("cmd") == "gq")
                 {
                     m_command = CommandLine.Command.Get;
 
@@ -129,11 +130,11 @@ namespace HydrometServer.CommandLine
                     {//   g/ob   (get parameter, use existing cbtt)
                         pcodes = Value("parm1");
                     }
-                    if (Value("separator1") == "" && Value("parm1")!= "")
+                    if (Value("separator1") == "" && Value("parm1") != "")
                     {//   g  boii ( get all parameters, specify cbtt)
                         sites = Value("parm1");
                     }
-                    if (Value("parm2")!= "" )
+                    if (Value("parm2") != "")
                     {   // get/ob,pc/nmpi,boii  
                         //g/ob,pc nmpi,boii 
                         sites = Value("parm2");
@@ -143,10 +144,33 @@ namespace HydrometServer.CommandLine
                 {
                     m_command = CommandLine.Command.Help;
                 }
+                else if (Value("date") == "date")
+                {
+                    m_command = Command.Date;
+
+                    if ( Value("md") != "")
+                    {
+                        var md = Value("md");
+                        var y = Value("year");
+                        if (y == "")
+                            y = DateTime.Now.Year.ToString();
+                        DateTime t;
+                        var datestr = y + "-" + md;
+                        if (DateTime.TryParse(datestr, out t))
+                        {
+                            T1 = t;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error parsing date");
+                        }
+                    }
+                }
                 else
                 {
                     m_valid = false;
                 }
+                
             }
         }
     }

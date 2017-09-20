@@ -27,7 +27,7 @@ namespace HydrometServer.CommandLine
 
             do
             {
-                formattedTable(table, startIndex, endIndex);
+                FormattedTable(table, startIndex, endIndex);
                 startIndex = endIndex + 1;
                 endIndex = startIndex + columnsPerSection - 1;
                 if (endIndex >= table.Columns.Count)
@@ -39,30 +39,15 @@ namespace HydrometServer.CommandLine
             while (startIndex < table.Columns.Count);
 
           
-       
-              
-               
-          
-           
-
-
-
-
-            //int x = columnsToPrint;
-            //    if (currentColumn + x >= dataTable.Columns.Count)
-            //        x = dataTable.Columns.Count - currentColumn;
-
-            //    formattedTable(dataTable, currentColumn, x);
-            //    currentColumn += x;
-            
         }
 
-        private static void formattedTable(DataTable dataTable, int startIndex, int endIndex)
+        private static void FormattedTable(DataTable dataTable, int startIndex, int endIndex)
         {
             String title = "";
             String output = "";
 
-           
+            if (dataTable.Columns.Count == 0)
+                return;
 
             title += dataTable.Columns[0].ColumnName.PadLeft(10) + " | ";
             for (int i = startIndex; i <= endIndex; i++)
@@ -77,7 +62,15 @@ namespace HydrometServer.CommandLine
 
                     for (int columnIndex = startIndex; columnIndex <= endIndex; columnIndex++)
                     {
-                        output += dataTable.Rows[rowIndex][columnIndex].ToString().PadLeft(15);
+                    double f;
+                    object o = dataTable.Rows[rowIndex][columnIndex];
+                    if (o != DBNull.Value)
+                    {
+                        f = Convert.ToDouble(o);
+                        output += f.ToString("F2").PadLeft(15);
+                    }
+                    else 
+                        output += o.ToString().PadLeft(15);
                     }
                 }
                 Console.Write(title);
