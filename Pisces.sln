@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.Core", "Core\Reclamation.Core.csproj", "{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries.Modsim", "TimeSeries.Modsim\Reclamation.TimeSeries.Modsim.csproj", "{DBA88BAF-7CD3-4D67-9777-D843987CAEEC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries.ArmyCorps", "TimeSeries.ArmyCorps\Reclamation.TimeSeries.ArmyCorps.csproj", "{859FB4F4-B299-4B36-9955-E16C05E36158}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries.Forms", "TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj", "{A7E73F2A-CA66-4BC8-934A-B5068C566F10}"
@@ -72,10 +70,6 @@ Global
 		{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{DBA88BAF-7CD3-4D67-9777-D843987CAEEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBA88BAF-7CD3-4D67-9777-D843987CAEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBA88BAF-7CD3-4D67-9777-D843987CAEEC}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBA88BAF-7CD3-4D67-9777-D843987CAEEC}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{859FB4F4-B299-4B36-9955-E16C05E36158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{859FB4F4-B299-4B36-9955-E16C05E36158}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{859FB4F4-B299-4B36-9955-E16C05E36158}.Release|Any CPU.ActiveCfg = Debug|Any CPU
