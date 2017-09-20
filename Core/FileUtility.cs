@@ -109,7 +109,12 @@ namespace Reclamation.Core
         public static string GetTempPath()
         {
             string s = Path.GetTempPath();
-            string n = Assembly.GetEntryAssembly().GetName().Name;
+            var asm = Assembly.GetEntryAssembly();
+            string n = "";
+            if (asm != null)
+                n = asm.GetName().Name;
+            else
+                n = Assembly.GetCallingAssembly().GetName().Name;
 
             s = Path.Combine(s,"Reclamation");
             s = Path.Combine(s, n);
@@ -144,7 +149,11 @@ namespace Reclamation.Core
 
         public static string GetExecutableDirectory()
         {
-            var location = System.Reflection.Assembly.GetEntryAssembly().Location;
+            var asm = System.Reflection.Assembly.GetEntryAssembly();
+            if (asm == null)
+                return "";
+            var location = asm.Location;
+            //var location = System.AppContext.BaseDirectory;
             var directory = System.IO.Path.GetDirectoryName(location);
             return directory;
             //return Path.GetDirectoryName(Application.ExecutablePath);
