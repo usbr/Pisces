@@ -82,7 +82,11 @@ namespace Reclamation.TimeSeries.Analysis
                                 sDummy.Add(pt.DateTime.AddYears(tSumHyd1.Year - t1.Year), pt.Value);
                             }
                         }
-                        sDummy.Appearance.LegendText = yearRng.Year.ToString();
+                        sDummy.TimeInterval = s.TimeInterval;
+                        sDummy.Name= s.Name;
+                        sDummy.Units = s.Units;
+                        sDummy.Parameter= s.Parameter;
+                        sDummy.Appearance.LegendText = yearRng.Year.ToString();;
                         view.Messages.Add(yearRng.Year.ToString() + " included as separate series ");
                         myList.Add(sDummy);
                         if (xtraYearCount == yearsToPlot.Length - 1)//last series
