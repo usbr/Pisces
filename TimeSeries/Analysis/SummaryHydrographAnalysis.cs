@@ -54,10 +54,10 @@ namespace Reclamation.TimeSeries.Analysis
                     YearRange yearRng = new YearRange(year, Explorer.BeginningMonth);
                     DateTime t1 = yearRng.DateTime1;
                     DateTime t2 = yearRng.DateTime2;
+                    Series s = Math.Subset(list[0], t1, t2);
 
                     if (xtraYearCount == 0)//first series
                     {
-                        Series s = Math.Subset(list[0], t1, t2);
                         s.Appearance.LegendText = yearRng.Year.ToString();
                         view.Messages.Add(yearRng.Year.ToString() + " included as separate series ");
                         myList.Add(s);
@@ -74,11 +74,13 @@ namespace Reclamation.TimeSeries.Analysis
                     }
                     else//every series
                     {
-                        Series s = Math.Subset(list[0], t1, t2);
                         Series sDummy = new Series();
                         foreach (Point pt in s)
                         {
-                            sDummy.Add(pt.DateTime.AddYears(tSumHyd1.Year - t1.Year), pt.Value);
+                            if (pt.DateTime.Month != 2 && pt.DateTime.Day != 29) //sigh... leap days...
+                            {
+                                sDummy.Add(pt.DateTime.AddYears(tSumHyd1.Year - t1.Year), pt.Value);
+                            }
                         }
                         sDummy.Appearance.LegendText = yearRng.Year.ToString();
                         view.Messages.Add(yearRng.Year.ToString() + " included as separate series ");
