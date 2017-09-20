@@ -149,34 +149,34 @@ namespace Reclamation.Core
 
 
     /// <summary>Creates a new Access file (*.mdb) </summary>
-    public static void CreateMDB(string filename)
-    {
-      Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Reclamation.Core.blank.mdb");
+    //public static void CreateMDB(string filename)
+    //{
+    //  Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Reclamation.Core.blank.mdb");
 
-      byte[] buffer = new byte[stream.Length];
-        //following line is risky.. sholud check number of bytes read
+    //  byte[] buffer = new byte[stream.Length];
+    //    //following line is risky.. sholud check number of bytes read
       
-       stream.Read(buffer,0,buffer.Length);
+    //   stream.Read(buffer,0,buffer.Length);
 
-      File.Delete(filename);
-      FileStream fs = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Write);
-      BinaryWriter bw = new BinaryWriter(fs);
+    //  File.Delete(filename);
+    //  FileStream fs = new FileStream(filename, FileMode.OpenOrCreate, FileAccess.Write);
+    //  BinaryWriter bw = new BinaryWriter(fs);
 
-      bw.Write(buffer);
+    //  bw.Write(buffer);
 
-      bw.Close();
-      fs.Close();
-      //      ADOX.CatalogClass cat = new ADOX.CatalogClass();
-      //
-      //      cat.Create("Provider=Microsoft.Jet.OLEDB.4.0;" +
-      //        "Data Source="+filename+";" +
-      //        "Jet OLEDB:Engine Type=5");
-      //
-      //      Console.WriteLine("Database Created Successfully");
-      //
-      //      cat = null;
+    //  bw.Close();
+    //  fs.Close();
+    //  //      ADOX.CatalogClass cat = new ADOX.CatalogClass();
+    //  //
+    //  //      cat.Create("Provider=Microsoft.Jet.OLEDB.4.0;" +
+    //  //        "Data Source="+filename+";" +
+    //  //        "Jet OLEDB:Engine Type=5");
+    //  //
+    //  //      Console.WriteLine("Database Created Successfully");
+    //  //
+    //  //      cat = null;
 
-    }
+    //}
 
    
 

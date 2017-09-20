@@ -529,9 +529,11 @@
     <Compile Include="Update.Designer.cs">
       <DependentUpon>Update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utility\AccessDB.cs" />
     <Compile Include="Utility\ClipBoardUtility.cs" />
     <Compile Include="Utility\DataGridSelection.cs" />
     <Compile Include="Utility\DataGridViewUtility.cs" />
+    <Compile Include="Utility\DbaseIV.cs" />
     <Compile Include="Utility\LoggerView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -550,6 +552,8 @@
     <Compile Include="Utility\TableViewer.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Utility\Tests\TestDbaseIV.cs" />
+    <Compile Include="Utility\Tests\TestMdbBasics.cs" />
     <Compile Include="WaterYearOptions.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -903,6 +907,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Tree\jppisces_expert_history.txt" />
+    <EmbeddedResource Include="Utility\blank.mdb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -920,6 +925,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -135,11 +135,11 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="AccessSeries.cs" />
     <Compile Include="AgriMet\CropChartGenerator.cs" />
     <Compile Include="AgriMet\CropCurves.cs" />
     <Compile Include="AgriMet\CropDatesDataSet.cs">
       <DependentUpon>CropDatesDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="AgriMet\CropDatesDataSet1.Designer.cs">
       <DependentUpon>CropDatesDataSet.xsd</DependentUpon>
@@ -148,6 +148,7 @@
     </Compile>
     <Compile Include="Alarms\AlarmDataSet.cs">
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Alarms\AlarmDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -170,16 +171,8 @@
     <Compile Include="Analysis\SummaryHydrographAnalysis.cs" />
     <Compile Include="Analysis\TimeSeriesAnalysis.cs" />
     <Compile Include="Analysis\WaterYearsAnalysis.cs" />
-    <Compile Include="BpaHydsim\BpaHydsimSeriesAccess.cs" />
-    <Compile Include="BpaHydsim\BpaHydsimTreeAccess.cs" />
     <Compile Include="CalculationSeries.cs" />
     <Compile Include="ConstantSeries.cs" />
-    <Compile Include="BpaHydsim\HydSimScenarioPicker.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BpaHydsim\HydSimScenarioPicker.Designer.cs">
-      <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
-    </Compile>
     <Compile Include="Estimation\Regression.cs" />
     <Compile Include="FileImporter.cs" />
     <Compile Include="HDB\HDBWebSeries.cs" />
@@ -214,6 +207,7 @@
     <None Include="ScenarioManagement\example_VicUnregToModsimScenarios.cs" />
     <Compile Include="ScenarioManagement\ScenarioDataSet.cs">
       <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ScenarioManagement\ScenarioDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -258,7 +252,9 @@
     <Compile Include="Hydromet\DayFiles.cs" />
     <Compile Include="NOAA\SimpleShef.cs" />
     <Compile Include="Nrcs\MonthlySnowCourseSeries.cs" />
-    <Compile Include="Hydromet\mcf.cs" />
+    <Compile Include="Hydromet\mcf.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Hydromet\mcf1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -266,6 +262,7 @@
     </Compile>
     <Compile Include="Hydromet\Operations\FcPlotDataSet.cs">
       <DependentUpon>FcPlotDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Hydromet\Operations\FcPlotDataSet.Designer.cs">
       <DependentUpon>FcPlotDataSet.xsd</DependentUpon>
@@ -482,7 +479,9 @@
     <Compile Include="Quality.cs" />
     <Compile Include="Reports\USGSReport.cs" />
     <Compile Include="TimeSeriesDatabase.CreateSQL.cs" />
-    <Compile Include="TimeSeriesDatabaseDataSet.RatingTable.cs" />
+    <Compile Include="TimeSeriesDatabaseDataSet.RatingTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="TimeSeriesDependency.cs" />
     <Compile Include="TimeSeriesName.cs" />
     <Compile Include="Urgsim\UrgsimReferenceSeries.cs" />
@@ -501,7 +500,9 @@
       <DependentUpon>ScenarioPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="DataLogger\Cr10xSeries.cs" />
-    <Compile Include="Idwr\IdwrMonthy.cs" />
+    <Compile Include="Idwr\IdwrMonthy.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IScenarioSelector.cs" />
     <Compile Include="Owrd\OwrdSeries.cs" />
     <Compile Include="Parser\ParserResult.cs" />
@@ -520,6 +521,7 @@
     <Compile Include="TimeSeriesDatabase.Upgrade.cs" />
     <Compile Include="TimeSeriesDatabaseDataSet.cs">
       <DependentUpon>TimeSeriesDatabaseDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="TimeSeriesDatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -634,10 +636,6 @@
     <Compile Include="Usgs\UsgsGroundWaterLevelSeries.cs" />
     <Compile Include="WaterYear.cs" />
     <Compile Include="YearRange.cs" />
-    <EmbeddedResource Include="BpaHydsim\HydSimScenarioPicker.resx">
-      <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>

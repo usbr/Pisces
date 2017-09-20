@@ -123,12 +123,10 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
-    <Compile Include="AccessDB.cs" />
     <Compile Include="AssemblyUtility.cs" />
     <Compile Include="Arguments.cs" />
     <Compile Include="ConnectionStringUtility.cs" />
     <Compile Include="DateTimeWithZone.cs" />
-    <Compile Include="DbaseIV.cs" />
     <Compile Include="ExcelUtility.cs" />
     <Compile Include="FixedWidthTextFile.cs" />
     <Compile Include="LinuxUtility.cs" />
@@ -169,8 +167,6 @@
     </Compile>
     <Compile Include="Globals.cs" />
     <Compile Include="Tests\TestTimeZoneMath.cs" />
-    <Compile Include="Tests\TestDbaseIV.cs" />
-    <Compile Include="Tests\TestMdbBasics.cs" />
     <Compile Include="Tests\TestPostgreSQL.cs" />
     <Compile Include="Tests\TestExcelReader.cs" />
     <Compile Include="Tests\TestTextAndCsvFile.cs" />
@@ -184,9 +180,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="blank.xls" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="blank.mdb" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
