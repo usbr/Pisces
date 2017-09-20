@@ -61,7 +61,14 @@ namespace Reclamation.TimeSeries.Analysis
                         s.Appearance.LegendText = yearRng.Year.ToString();
                         view.Messages.Add(yearRng.Year.ToString() + " included as separate series ");
                         myList.Add(s);
-                        myList.Add(list.SummaryHydrograph(new int[] { }, t1, false, false, false, true));
+                        if (yearsToPlot.Length == 1)
+                        {
+                            myList.Add(list.SummaryHydrograph(Explorer.ExceedanceLevels, t1, Explorer.PlotMax, Explorer.PlotMin, Explorer.PlotAvg, true));
+                        }
+                        else
+                        {
+                            myList.Add(list.SummaryHydrograph(new int[] { }, t1, false, false, false, true));
+                        }
                         tSumHyd1 = t1;
                         tSumHyd2 = t2;
                     }
