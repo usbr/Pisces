@@ -63,7 +63,7 @@ namespace Pisces.NunitTests.Database
             ds.Check(s);
 
             var queue = ds.GetAlarmQueue(def_id);//"pal", "fb");
-            Console.WriteLine(DataTableOutput.ToJson(queue));
+            Console.WriteLine(DataTableOutput.ToHTML(queue));
             Assert.AreEqual(1, queue.Rows.Count);
         }
 
