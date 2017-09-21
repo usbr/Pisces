@@ -16,12 +16,11 @@ namespace Pisces.NunitTests.SeriesMath
     class TestImportDMS3
     {
 
-        bool anyErrors = false;
         public TestImportDMS3()
         {
         }
 
-        public bool AnyErrors { get => anyErrors; set => anyErrors = value; }
+        public bool AnyErrors;
 
         [Test]
         public void ImportParameterWithUnderscore()
