@@ -137,7 +137,7 @@ namespace Reclamation.TimeSeries.Forms
         90};
             this.exceedanceLevelPicker1.Location = new System.Drawing.Point(13, 130);
             this.exceedanceLevelPicker1.Name = "exceedanceLevelPicker1";
-            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(160, 213);
+            this.exceedanceLevelPicker1.Size = new System.Drawing.Size(160, 241);
             this.exceedanceLevelPicker1.TabIndex = 0;
             // 
             // SummaryHydrographOptions
