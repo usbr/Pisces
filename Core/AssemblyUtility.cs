@@ -44,5 +44,9 @@ namespace Reclamation.Core
             //
         }
 
+        public static string GetVersion()
+        {
+            return Assembly.GetEntryAssembly().GetName().Version.ToString();
+        }
     }
 }

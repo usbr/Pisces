@@ -7,7 +7,6 @@ using Reclamation.TimeSeries;
 using Reclamation.Core;
 using System.Configuration;
 using System.IO;
-using System.Windows.Forms;
 using Mono.Options;
 using Reclamation.TimeSeries.AgriMet;
 using Reclamation.TimeSeries.Alarms;
@@ -30,7 +29,10 @@ namespace HydrometServer
     {
         static void Main(string[] argList)
         {
-            Console.Write("HydrometServer " + Application.ProductVersion +" compiled: " + AssemblyUtility.CreationDate()+"\n");
+            
+            var ver = AssemblyUtility.GetVersion();
+
+            Console.Write("HydrometServer " + ver +" compiled: " + AssemblyUtility.CreationDate()+"\n");
             Console.WriteLine("System Time = "+DateTime.Now);
 
             Arguments args = new Arguments(argList);
