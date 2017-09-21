@@ -96,7 +96,6 @@ namespace Pisces.NunitTests.SeriesMath
         }
 
         [Test]
-        [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
         public void DataTableInterpolationWithError1()
         {
             DataTable t = new DataTable();
@@ -107,18 +106,22 @@ namespace Pisces.NunitTests.SeriesMath
             t.Rows.Add(2, 2);
 
             double x = 3;
-            double y = Math.Interpolate(t, x, "x", "y");
+            
+            //double y = Math.Interpolate(t, x, "x", "y");
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => Math.Interpolate(t, x, "x", "y"));
         }
 
 
         [Test]
-        [ExpectedException(typeof(System.ArgumentException))]
         public void DataTableInterpolationWithError2()
         {
             DataTable t = new DataTable();
 
             double x = 3;
             double y = Reclamation.TimeSeries.Math.Interpolate(t, x, "x", "y");
+
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => Math.Interpolate(t, x, "x", "y"));
+
         }
 
         [Test]

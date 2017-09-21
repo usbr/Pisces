@@ -13,11 +13,17 @@ namespace Pisces.NunitTests.DateMath
 
 
         [Test]
-        [ExpectedException(typeof(System.ArgumentOutOfRangeException))]
         public void BadRange()
         {
-            MonthDayRange range = new MonthDayRange(12, 3, 2, 2);
-            DateRange dr = new DateRange(range, 2001, 1);
+            try
+            {
+                MonthDayRange range = new MonthDayRange(12, 3, 2, 2);
+                DateRange dr = new DateRange(range, 2001, 1);
+            }
+            catch(Exception e)
+            {
+                Assert.IsTrue(e is ArgumentOutOfRangeException);
+            }
         }
 
 
