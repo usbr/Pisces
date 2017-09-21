@@ -118,9 +118,8 @@ namespace Pisces.NunitTests.SeriesMath
             DataTable t = new DataTable();
 
             double x = 3;
-            double y = Reclamation.TimeSeries.Math.Interpolate(t, x, "x", "y");
 
-            Assert.Throws<System.ArgumentOutOfRangeException>(() => Math.Interpolate(t, x, "x", "y"));
+            Assert.Throws<System.ArgumentException>(() => Math.Interpolate(t, x, "x", "y"));
 
         }
 

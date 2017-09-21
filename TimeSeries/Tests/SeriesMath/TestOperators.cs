@@ -57,7 +57,6 @@ namespace Pisces.NunitTests.SeriesMath
             Series s2 = new Series(null, "cfs", TimeInterval.Monthly);
 
             Assert.Throws<InvalidOperationException>(() =>Math.Add( s1,s2));
-            Series s = s1 + s2;
         }
     }
 }

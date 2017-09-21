@@ -1294,7 +1294,7 @@ namespace Reclamation.TimeSeries
         {
             if (tbl.Rows.Count == 0)
             {
-                throw new ArgumentException("Interpolate can not work with an empty DataTable");
+                throw new ArgumentException("Interpolate failed because the DataTable is empty");
             }
 
             DataView rows = tbl.DefaultView;
