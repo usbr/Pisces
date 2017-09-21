@@ -178,7 +178,6 @@
     <Compile Include="HDB\HDBWebSeries.cs" />
     <Compile Include="IdahoPower\Program.cs" />
     <Compile Include="Idwr\IdwrApiResponse.cs" />
-    <Compile Include="Import\BulkImport.cs" />
     <Compile Include="Import\DirectoryScanner.cs" />
     <Compile Include="Import\BulkImportDirectory.cs" />
     <Compile Include="Import\XConnectTextFile.cs" />
@@ -186,9 +185,7 @@
     <Compile Include="RatingTables\RatingTableUtility.cs" />
     <Compile Include="RBMS\RBMSTextFile.cs" />
     <Compile Include="RBMS\RbmsUtility.cs" />
-    <Compile Include="Import\ImportMultiSheetDailySeriesExcel.cs" />
     <Compile Include="Reports\YakimaStatusReport.cs" />
-    <Compile Include="ScenarioManagement\ForecastGenerator.cs" />
     <None Include="Alarms\AlarmDataSet.xsc">
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
     </None>
@@ -204,16 +201,6 @@
     <None Include="Reports\YakimaOthersAboveParker.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ScenarioManagement\example_VicUnregToModsimScenarios.cs" />
-    <Compile Include="ScenarioManagement\ScenarioDataSet.cs">
-      <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ScenarioManagement\ScenarioDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Service References\Nrcs\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -232,7 +219,6 @@
     <Compile Include="Tests\Import\TestXC.cs" />
     <Compile Include="Tests\Import\TestUsgsRating.cs" />
     <Compile Include="Tests\Import\TestBulkImport.cs" />
-    <Compile Include="Tests\Scenarios\TestScenarios.cs" />
     <Compile Include="Tests\DateMath\TestTimeRange.cs" />
     <Compile Include="Tests\SeriesFeatures\TestShiftSeriesBug.cs" />
     <Compile Include="Tests\SeriesMath\TestDailyCumulative.cs" />
@@ -342,17 +328,6 @@
     <Compile Include="Tests\SeriesTypes\Cr10xTest.cs" />
     <Compile Include="Tests\SeriesTypes\TestSnotel.cs" />
     <None Include="RBMS\Export - DH Manual Monitoring - Oct 2015.csv" />
-    <None Include="ScenarioManagement\ScenarioDataSet.xsc">
-      <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="ScenarioManagement\ScenarioDataSet.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ScenarioDataSet.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="ScenarioManagement\ScenarioDataSet.xss">
-      <DependentUpon>ScenarioDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Service References\Nrcs\AwdbWebService1.wsdl" />
     <None Include="Service References\Nrcs\Reclamation.TimeSeries.Nrcs.averagesData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

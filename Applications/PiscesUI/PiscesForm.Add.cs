@@ -32,58 +32,6 @@ namespace Reclamation.TimeSeries.Forms
     {
 
 
-        private void ImportHydrologicModels_Click(object sender, EventArgs e)
-        {
-            DB.SuspendTreeUpdates();
-            toolStripProgressBar1.Visible = true;
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Title = "Import Hydrologic Model output";
-            dlg.Filter = "Excel (*.xls;*.xlsx) |*.xls;*.xlsx|All files (*.*)|*.*";
-            var ds = new ScenarioManagement.ScenarioDataSet();
-            ds.OnProgress += explorer_OnProgress;
-            try
-            {
-                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    ds.Import(dlg.FileName, DB);
-                }
-            }
-            catch (Exception eex)
-            {
-                MessageBox.Show(eex.Message, "Error");
-
-            }
-            finally
-            {
-                DB.ResumeTreeUpdates();
-                DatabaseChanged();
-                toolStripProgressBar1.Visible = false;
-            }
-        }
-
-
-        private void AddRioGrandeSpreadsheet_Click(object sender, EventArgs e)
-        {
-
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.DefaultExt = ".xls";
-            openFileDialog.Filter = "Excel Files *.xls | *.xls";
-            if (openFileDialog.ShowDialog() != DialogResult.OK)
-                return;
-
-          var dlg = new Forms.ImportForms.AddRioGrandeSpreadsheet();
-            
-            if( dlg.ShowDialog() == DialogResult.OK)
-            {
-                var s = ImportMultiSheetDailySeriesExcel.ImportSpreadsheet(openFileDialog.FileName);
-                s.Name = dlg.SeriesName;
-                s.Units = dlg.Units;
-
-                DB.AddSeries(s);
-            }
-
-        }
-
 
         private void addRBMSDirectory(object sender, EventArgs e)
         {
@@ -1038,54 +986,9 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
-        private void createTemplateFileToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void importFromDirectoryToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-
-            var fn = Path.Combine(FileUtility.GetExecutableDirectory(), "sample-data", "bulk-import-template.xlsx");
-
-            if( File.Exists(fn))
-            {
-                System.Diagnostics.Process.Start(fn);
-            }
-            else
-            {
-                MessageBox.Show("Error: File is missing: "+fn);
-            }
-        }
-
-        /// <summary>
-        /// Ask user to select template for importing multiple series.
-        /// then import all series defined in the first sheet of the workbook.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void importUsingTemplateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                DB.SuspendTreeUpdates();
-                this.Cursor = Cursors.WaitCursor;
-                Application.DoEvents();
-                if (openExcelDialog.ShowDialog() == DialogResult.OK)
-                {
-                    BulkImport.Import(DB, openExcelDialog.FileName);
-                    DatabaseChanged();
-                }
-            }
-                catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                DB.ResumeTreeUpdates();
-                this.Cursor = Cursors.Default;
-            }
-        }
-
-        private void importFromDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
             try
             {
 

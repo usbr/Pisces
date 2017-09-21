@@ -10,34 +10,6 @@ namespace Pisces.NunitTests.Import
 	[TestFixture]
     public class TestBulkImport
     {
-        [Test]
-		public void TestArreyCanal()
-		{
-            var fn  = Path.Combine(TestData.DataPath, "ac_flow.xls");
-            Console.WriteLine(fn);
-            var s = ImportMultiSheetDailySeriesExcel.ImportSpreadsheet(fn);
-            Console.WriteLine(s.Count);
-            Console.WriteLine(s[s.Count-1].ToString());
-            Assert.AreEqual(289, s["2010-8-12"].Value, 0.01);
-		}
-
-        [Test]
-        public void ImportWithExcelControlFile()
-        {
-            var fn = Path.GetTempFileName();
-            SQLiteServer svr = new SQLiteServer(fn);
-            TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
-            var xlsControl = Path.Combine(TestData.DataPath, "bulk-import-template.xlsx");
-            BulkImport.Import(db, xlsControl);
-
-            var cs = db.Factory.GetCalculationSeries(TimeInterval.Daily, "tablename='daily_ger_fb'");
-
-            Assert.AreEqual("khydromet",cs[0].Properties.Get("program"));
-            Assert.AreEqual("DailyMidnight(instant_%site%_fb)", cs[0].Expression);
-
-            Console.WriteLine(fn);
-        }
-
 
         [Test]
         public void ImportDirectory()
