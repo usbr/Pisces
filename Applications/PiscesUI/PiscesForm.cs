@@ -247,18 +247,7 @@ namespace Reclamation.TimeSeries.Forms
         private void SetupScenarioSelector()
         {
             
-            if (DB.AnyUrgsimSeries())
-            {
-                scenarioChooser1 = new ScenarioSelectorCCProjectionsForm(DB);
-            }
-            else if (DB.AnyUrgwomSeries())
-            {
-                scenarioChooser1 = new ScenarioSelectorUrgwom(DB);
-            }
-            else
-            {
-                scenarioChooser1 = new ScenarioSelector(DB); 
-            }
+            scenarioChooser1 = new ScenarioSelector(DB); 
 
             scenarioChooser1.OnApply += new EventHandler(scenarioChooser1_OnApply);
             scenarioChooser1.OnCancel += new EventHandler(scenarioChooser1_OnCancel);

@@ -433,7 +433,6 @@
     <Compile Include="Tests\SeriesTypes\TestExcelReaderSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestHydromet.cs" />
     <Compile Include="Tests\SeriesTypes\TestReadTextFile.cs" />
-    <Compile Include="Tests\SeriesTypes\TestReadUrgsimData.cs" />
     <Compile Include="Tests\SeriesTypes\TestRiverwareSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestUsgs.cs" />
     <Compile Include="Tests\SeriesTypes\UrgwomTest.cs" />
@@ -484,9 +483,6 @@
     </Compile>
     <Compile Include="TimeSeriesDependency.cs" />
     <Compile Include="TimeSeriesName.cs" />
-    <Compile Include="Urgsim\UrgsimReferenceSeries.cs" />
-    <Compile Include="Urgsim\UrgsimSeries.cs" />
-    <Compile Include="Urgsim\UrgsimUtilitycs.cs" />
     <Compile Include="RiverWare\ImportRiverWare.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -723,9 +719,7 @@
       <DependentUpon>TimeSeriesDatabaseDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Urgsim\Tests\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Core\Reclamation.Core.csproj">
       <Project>{80c73d4c-43cf-42de-addc-7b0f06ecf086}</Project>

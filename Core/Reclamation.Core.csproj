@@ -126,7 +126,6 @@
     <Compile Include="AssemblyUtility.cs" />
     <Compile Include="Arguments.cs" />
     <Compile Include="ConnectionStringUtility.cs" />
-    <Compile Include="DateTimeWithZone.cs" />
     <Compile Include="ExcelUtility.cs" />
     <Compile Include="FixedWidthTextFile.cs" />
     <Compile Include="LinuxUtility.cs" />
@@ -145,7 +144,6 @@
     <Compile Include="DataTableUtility.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Events.cs" />
-    <Compile Include="ExcelDB.cs" />
     <Compile Include="FileUtility.cs" />
     <Compile Include="BasicDBServer.cs" />
     <Compile Include="MonthDayRange.cs" />
@@ -166,7 +164,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Globals.cs" />
-    <Compile Include="Tests\TestTimeZoneMath.cs" />
     <Compile Include="Tests\TestPostgreSQL.cs" />
     <Compile Include="Tests\TestExcelReader.cs" />
     <Compile Include="Tests\TestTextAndCsvFile.cs" />

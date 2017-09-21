@@ -517,19 +517,6 @@ namespace Reclamation.TimeSeries
         }
 
 
-        public bool AnyUrgsimSeries()
-        {
-             var sc = GetSeriesCatalog("provider = 'UrgsimSeries'");
-             return sc.Rows.Count > 0;
-        }
-        public bool AnyUrgwomSeries()
-        {
-            var sc = GetSeriesCatalog("provider = 'UrgsimSeries'");
-            return sc.Rows.Count > 0;
-        }
-
-       
-
 
         public TimeSeriesDatabaseDataSet.ScenarioDataTable GetSelectedScenarios()
         {

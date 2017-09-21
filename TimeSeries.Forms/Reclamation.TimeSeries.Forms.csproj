@@ -257,12 +257,6 @@
     <Compile Include="ScenarioReferenceControl.Designer.cs">
       <DependentUpon>ScenarioReferenceControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ScenarioSelectorCCProjections.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ScenarioSelectorCCProjections.designer.cs">
-      <DependentUpon>ScenarioSelectorCCProjections.cs</DependentUpon>
-    </Compile>
     <Compile Include="GCM_CheckBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -309,12 +303,6 @@
       <DependentUpon>Options.cs</DependentUpon>
     </Compile>
     <Compile Include="ParentChangedEventArgs.cs" />
-    <Compile Include="ScenarioSelectorCCProjectionsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ScenarioSelectorCCProjectionsForm.Designer.cs">
-      <DependentUpon>ScenarioSelectorCCProjectionsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="FolderProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -360,12 +348,6 @@
       <DependentUpon>RangePicker.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.cs" />
-    <Compile Include="OperationsModelSelector.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="OperationsModelSelector.Designer.cs">
-      <DependentUpon>OperationsModelSelector.cs</DependentUpon>
-    </Compile>
     <Compile Include="SeriesProperties.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -673,9 +655,6 @@
     <EmbeddedResource Include="ScenarioReferenceControl.resx">
       <DependentUpon>ScenarioReferenceControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ScenarioSelectorCCProjections.resx">
-      <DependentUpon>ScenarioSelectorCCProjections.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="GCM_CheckBox.resx">
       <DependentUpon>GCM_CheckBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -705,9 +684,6 @@
       <DependentUpon>Options.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ScenarioSelectorCCProjectionsForm.resx">
-      <DependentUpon>ScenarioSelectorCCProjectionsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="CorrelationOptions.resx">
       <DependentUpon>CorrelationOptions.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -731,9 +707,6 @@
     <EmbeddedResource Include="RangePicker.resx">
       <SubType>Designer</SubType>
       <DependentUpon>RangePicker.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="OperationsModelSelector.resx">
-      <DependentUpon>OperationsModelSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SeriesProperties.resx">
       <SubType>Designer</SubType>

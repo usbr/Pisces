@@ -8,7 +8,6 @@ using System.Data;
 using Reclamation.TimeSeries.Forms.ImportForms;
 using Reclamation.TimeSeries.Forms.Calculations;
 using Reclamation.TimeSeries.Excel;
-using Reclamation.TimeSeries.Urgsim;
 using Reclamation.Core;
 using System.IO;
 using Reclamation.TimeSeries.Nrcs;
@@ -952,22 +951,22 @@ namespace Reclamation.TimeSeries.Forms
         }
 
 
-        private void AddURGSIM_Click(object sender, EventArgs e)
+        private void aAddURGSIM_Click(object sender, EventArgs e)
         {
-            if (!DB.DeleteFolderByName("URGSiM", CurrentFolder, true))
-                return;
+            //if (!DB.DeleteFolderByName("URGSiM", CurrentFolder, true))
+            //    return;
 
-            DB.SuspendTreeUpdates();
-            ShowAsBusy("Reading URGSiM projections and variables");
+            //DB.SuspendTreeUpdates();
+            //ShowAsBusy("Reading URGSiM projections and variables");
 
-            UrgsimUtilitycs.CreateTree(DB,CurrentFolder);
-            UrgsimUtilitycs.LoadScenarioTable(DB);
+            //UrgsimUtilitycs.CreateTree(DB,CurrentFolder);
+            //UrgsimUtilitycs.LoadScenarioTable(DB);
 
-            SetupScenarioSelector();
+            //SetupScenarioSelector();
             
-            DatabaseChanged();
-            ShowAsReady("Done with URGSiM import");
-            DB.ResumeTreeUpdates();
+            //DatabaseChanged();
+            //ShowAsReady("Done with URGSiM import");
+            //DB.ResumeTreeUpdates();
 
         }
 

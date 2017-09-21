@@ -21,6 +21,8 @@ namespace Pisces.NunitTests.SeriesMath
         {
         }
 
+        public bool AnyErrors { get => anyErrors; set => anyErrors = value; }
+
         [Test]
         public void ImportParameterWithUnderscore()
         {
@@ -42,7 +44,7 @@ namespace Pisces.NunitTests.SeriesMath
         {
             Console.WriteLine(e.Message);
             if (e.Message.IndexOf("Error:") >= 0)
-                anyErrors = true;
+                AnyErrors = true;
         }
 
        

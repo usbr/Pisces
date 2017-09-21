@@ -18,6 +18,9 @@
     <ProjectGuid>{213AF28D-B0FD-4063-826F-86F6B21DCAD7}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -27,8 +30,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeWithZone.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestTimeZoneMath.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Pisces\Core\Reclamation.Core.csproj">
