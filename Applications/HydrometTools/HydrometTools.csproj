@@ -941,6 +941,10 @@
       <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
       <Name>Reclamation.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Reclamation.Windows\Reclamation.Windows.csproj">
+      <Project>{c9278b32-7c94-4532-9f4c-92109a6b8e03}</Project>
+      <Name>Reclamation.Windows</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HydrometNotifications\HydrometNotifications.csproj">
       <Project>{09B73D14-AFBB-434E-A71D-73248CBBF0A3}</Project>
       <Name>HydrometNotifications</Name>
