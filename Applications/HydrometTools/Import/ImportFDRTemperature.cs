@@ -25,6 +25,7 @@ namespace HydrometTools.Import
 
         private void buttonOpen_Click(object sender, EventArgs e)
         {
+            this.buttonSave.Enabled = false;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var fn = openFileDialog1.FileName;

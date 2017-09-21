@@ -221,6 +221,9 @@ namespace Reclamation.TimeSeries
         re = new Regex(expressionList[e],RegexOptions.Compiled|RegexOptions.IgnoreCase);
         for(int i=0; i<tf.Length; i++)
         {
+                    if (i > 100)
+                        break;
+
           if( re.IsMatch(tf[i]))
           {
               Logger.WriteLine("found file format match");
@@ -266,9 +269,20 @@ namespace Reclamation.TimeSeries
 
          ,
          @"(?<stevens>^.{29,29}\s*(?<yy>\d{2})(?<month>\d{2})(?<day>\d{2})\s+(?<hour>\d{2})(?<minute>\d{2})\s+(?<value>\d+\.\d{2}))"
+/*// tidbit water temperature csv file. (2 digit year yy)
+ "Plot Title: FDR 5 Feet"
+"#","Date Time, GMT-06:00","Temp, °C (LGR S/N: 10970592, SEN S/N: 10970592)","Coupler Detached (LGR S/N: 10970592)","Coupler Attached (LGR S/N: 10970592)","Stopped (LGR S/N: 10970592)","End Of File (LGR S/N: 10970592)"
+1,07/09/16 12:02:51 PM,14.673,,,,
+2,07/09/16 12:02:56 PM,,Logged,,,
+ */
+         ,
+         @"^\s*(\d+,)(?<date>\d\d?[/-]\d\d?[/-]\d\d(?<time>[\s]\d\d?:\d\d?(:\d\d?(\.\d*)?))?[\s](AM|PM))\s*[,\s]\s*\s*(?<value>[+-]?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?)"
+    //  yyyy  24:00
+               ,
+         @"^\s*(\d+,)(?<date>\d\d?[/-]\d\d?[/-]\d\d\d\d)\s*(?<time>\d\d?:\d\d?),(?<value>[+-]?([0-9]*\.?[0-9]+|[0-9]+\.?[0-9]*)([eE][+-]?[0-9]+)?)"
 
 
-			   
+
 
        };
 
