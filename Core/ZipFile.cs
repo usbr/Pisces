@@ -26,25 +26,32 @@ namespace Reclamation.Core
         /// <param name="outputZipFile"></param>
         public static void CompressFile(string fileToZip, string outputZipFile)
         {
-            //https://www.dotnetperls.com/gzipstream
-            byte[] file = File.ReadAllBytes(fileToZip);
-            using (GZipStream streamWriter = new GZipStream(new MemoryStream(file), CompressionMode.Compress))
+            File.Delete(outputZipFile);
+            using (var zip = System.IO.Compression.ZipFile.Open(outputZipFile, ZipArchiveMode.Create))
             {
-                byte[] buffer = new byte[size];
-                using (FileStream streamReader = new FileStream(outputZipFile, FileMode.Create))
-                {
-                    int count = 0;
-                    do
-                    {
-                        count = streamReader.Read(buffer, 0, size);
-                        if (count > 0)
-                        {
-                            streamWriter.Write(buffer, 0, count);
-                        }
-                    }
-                    while (count > 0);
-                }
+                zip.CreateEntryFromFile(fileToZip, fileToZip);
             }
+            
+
+            ////https://www.dotnetperls.com/gzipstream
+            //byte[] file = File.ReadAllBytes(fileToZip);
+            //using (GZipStream streamWriter = new GZipStream(new MemoryStream(file), CompressionMode.Compress))
+            //{
+            //    byte[] buffer = new byte[size];
+            //    using (FileStream streamReader = new FileStream(outputZipFile, FileMode.Create))
+            //    {
+            //        int count = 0;
+            //        do
+            //        {
+            //            count = streamReader.Read(buffer, 0, size);
+            //            if (count > 0)
+            //            {
+            //                streamWriter.Write(buffer, 0, count);
+            //            }
+            //        }
+            //        while (count > 0);
+            //    }
+            //}
 
             //      Crc32 crc = new Crc32();
             //ZipOutputStream s = new ZipOutputStream(File.Create(outputZipFile));
@@ -179,59 +186,12 @@ namespace Reclamation.Core
         /// <returns></returns>
         public static void UnzipFile(string zipFilename, string unzipFile)
         {
-            //https://www.dotnetperls.com/gzipstream
-            byte[] file = File.ReadAllBytes(zipFilename);
-            using (GZipStream streamReader = new GZipStream(new MemoryStream(file), CompressionMode.Decompress))
+            using (var zip = System.IO.Compression.ZipFile.Open(zipFilename, ZipArchiveMode.Read))
             {
-                byte[] buffer = new byte[size];
-                using (FileStream streamWriter = new FileStream(unzipFile, FileMode.Create))
-                {
-                    int count = 0;
-                    do
-                    {
-                        count = streamReader.Read(buffer, 0, size);
-                        if (count > 0)
-                        {
-                            streamWriter.Write(buffer, 0, count);
-                        }
-                    }
-                    while (count > 0);
-                }
-            }
-
-            //ZipInputStream s = new ZipInputStream(File.OpenRead(zipFilename));
-
-            //ZipEntry theEntry;
-            //if ((theEntry = s.GetNextEntry()) != null)
-            //{
-
-            //    string directoryName = Path.GetDirectoryName(unzipFile);
-            //    Directory.CreateDirectory(directoryName);
-
-            //if (unzipFile != String.Empty)
-            //{
-            //    FileStream streamWriter = File.Create(unzipFile);
-
-            //    int size = 2048;
-            //    byte[] data = new byte[2048];
-            //    while (true)
-            //    {
-            //        size = f.Read(data, 0, data.Length);
-            //        if (size > 0)
-            //        {
-            //            gz.Write(data, 0, size);
-            //        }
-            //        else
-            //        {
-            //            break;
-            //        }
-            //    }
-
-            //    gz.Close();
-            //}
-            //}
-            //s.Close();
-
+                var unzipDir = Path.GetDirectoryName(unzipFile);
+                File.Delete(unzipFile);
+                zip.ExtractToDirectory(unzipDir);
+            }        
         }
 
         /// <summary>
