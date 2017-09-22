@@ -102,7 +102,7 @@ where b.value = 'M - manually read static water level' ";
                 }
                 //int id = Convert.ToInt32(sc.Rows[0]["id"]);
                 int id = Convert.ToInt32(rows[0]["id"]);
-                var s = db.Factory.GetSeries(id);
+                var s = db.GetSeries(id);
                 if( !tableList.Contains(s.Table.TableName))
                    tableList.Add(s.Table.TableName);
                 string fn = Path.GetFileName(filename);

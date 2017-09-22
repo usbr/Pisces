@@ -133,8 +133,6 @@
     <Compile Include="Performance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceUtility.cs" />
-    <Compile Include="SqlServer.cs" />
-    <Compile Include="SqlServerAdmin.cs" />
     <Compile Include="CsvFile.cs">
       <SubType>Component</SubType>
     </Compile>

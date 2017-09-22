@@ -57,32 +57,11 @@ namespace Reclamation.TimeSeries
             Connect(svr);
         }
 
-        private void Connect(BasicDBServer svr)
+        public void Connect(BasicDBServer svr)
         {
             m_db = new TimeSeriesDatabase(svr,false);
             Defaults(m_db);
         }
-
-        public void ConnectToServer(string server, string database,  DatabaseType t, string password="")
-        {
-            BasicDBServer svr = null;
-            string user = WindowsUtility.GetShortUserName();
-            if (t == DatabaseType.PostgreSql)
-            {
-                svr = PostgreSQL.GetPostgresServer(database, server, user,password);
-            }
-            if (t == DatabaseType.SqlServer)
-            {
-                svr = new SqlServer(server, database);
-            }
-            if (t == DatabaseType.MySQL)
-            {
-              svr=  MySqlServer.GetMySqlServer(server, database,"",password);
-            }
-
-            Connect(svr);
-        }
-
 
 
         public TimeSeriesDatabase Database
