@@ -1,21 +1,18 @@
-using System;
-using System.IO;
-using System.Data;
-using System.Windows.Forms;
 using Reclamation.Core;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Globalization;
+using System.Data;
+using System.IO;
 namespace Reclamation.TimeSeries.Hydromet
 {
 
 
 
-	/// <summary>
-	/// HydrometDataUtility provides queries for multiple sites and parameters.
+    /// <summary>
+    /// HydrometDataUtility provides queries for multiple sites and parameters.
     /// used by HydrometTools.exe
-	/// </summary>
-	public class HydrometDataUtility
+    /// </summary>
+    public class HydrometDataUtility
 	{
 
         public static DataTable DayFilesTable(HydrometHost svr, string query, DateTime t1, DateTime t2, int back = 0, int interval = 0)

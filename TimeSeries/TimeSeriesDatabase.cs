@@ -1,16 +1,13 @@
-using System;
-using System.Data;
 using Reclamation.Core;
-using System.IO;
-using System.Text.RegularExpressions;
-using System.Collections.Generic;
-using System.Linq;
-
-using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow;
-using System.Windows.Forms;
-using Reclamation.TimeSeries.Parser;
 using Reclamation.TimeSeries.Alarms;
-using Reclamation.TimeSeries.Import;
+using Reclamation.TimeSeries.Parser;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow;
 
 namespace Reclamation.TimeSeries
 {

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Reflection;
-using System.Windows.Forms;
-using System.IO;
-using Reclamation.Core;
+﻿using Reclamation.Core;
+using System;
 using System.Data;
+using System.IO;
 
 namespace Reclamation.TimeSeries
 {

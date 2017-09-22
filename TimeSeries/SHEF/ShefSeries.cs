@@ -1,13 +1,9 @@
-﻿﻿using System;
-using System.Data;
+﻿using Reclamation.Core;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Reclamation.Core;
-using Reclamation.TimeSeries.NOAA;
-using Reclamation.TimeSeries.Hydromet;
 
 namespace Reclamation.TimeSeries.SHEF
 {

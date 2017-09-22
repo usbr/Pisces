@@ -1,13 +1,11 @@
+using Reclamation.Core;
 using System;
 using System.Collections.Generic;
-using Reclamation.Core;
-using System.IO;
-using System.Data;
-using System.Net;
-using System.Text.RegularExpressions;
-using System.Linq;
-using System.Windows.Forms;
 using System.Configuration;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 namespace Reclamation.TimeSeries.Hydromet
 {
     public enum HydrometHost { PN, Yakima, GreatPlains, PNLinux,LocalSource };

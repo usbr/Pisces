@@ -1,12 +1,6 @@
+using Reclamation.Core;
 using System;
 using System.Data;
-using System.Collections.Generic;
-using System.Text;
-using Reclamation.TimeSeries;
-using Reclamation.Core;
-using System.IO;
-using System.Windows.Forms;
-using System.Linq;
 
 namespace Reclamation.TimeSeries.Hydromet
 {
