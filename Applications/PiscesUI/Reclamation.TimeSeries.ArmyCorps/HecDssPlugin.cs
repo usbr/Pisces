@@ -11,15 +11,17 @@ namespace Reclamation.TimeSeries.Usace
 {
     class HecDSSPlugin: Reclamation.TimeSeries.IPlugin
     {
-
+        private Bitmap b1 = null;
         public System.Drawing.Bitmap GetImage()
         {
+            if (b1 != null)
+                return b1;
             var fn = Path.Combine(FileUtility.GetExecutableDirectory(), "images");
             fn = Path.Combine(fn, "hecdss.ico");
             if (!File.Exists(fn))
                 return null;
-            var b1 = new Bitmap(fn);
-            var b = new Bitmap(b1, new Size(16, 16));
+             b1 = new Bitmap(fn);
+            //var b = new Bitmap(b1, new Size(16, 16));
             return b1;
         }
 
