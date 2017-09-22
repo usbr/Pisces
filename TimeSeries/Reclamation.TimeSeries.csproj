@@ -232,7 +232,6 @@
     <Compile Include="Estimation\AllPossibleCombination.cs" />
     <Compile Include="Estimation\MultipleLinearRegression.cs" />
     <Compile Include="Estimation\MultipleLinearRegressionResults.cs" />
-    <Compile Include="ExcelReaderSeries1.cs" />
     <Compile Include="Hydromet\AsceEtCalculator.cs" />
     <Compile Include="Hydromet\CommandLine.cs" />
     <Compile Include="Hydromet\DayFiles.cs" />
