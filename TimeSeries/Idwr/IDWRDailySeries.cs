@@ -1,11 +1,9 @@
-﻿using System;
-using System.Data;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
 using Reclamation.Core;
-using System.Windows.Forms;
-using Reclamation.TimeSeries;
-using Newtonsoft.Json;
 using RestSharp;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace Reclamation.TimeSeries.IDWR
 {

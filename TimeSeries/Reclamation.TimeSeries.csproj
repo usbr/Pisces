@@ -401,7 +401,6 @@
     <None Include="Tests\SeriesTypes\TestBpaHydsimSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestHydromet.cs" />
     <Compile Include="Tests\SeriesTypes\TestReadTextFile.cs" />
-    <Compile Include="Tests\SeriesTypes\TestRiverwareSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestUsgs.cs" />
     <Compile Include="DailyTimeSeriesCalculator.cs" />
     <Compile Include="TimeSeriesDatabaseUtility.cs" />
@@ -448,18 +447,6 @@
     <Compile Include="TimeSeriesDatabaseDataSet.RatingTable.cs" />
     <Compile Include="TimeSeriesDependency.cs" />
     <Compile Include="TimeSeriesName.cs" />
-    <Compile Include="RiverWare\ImportRiverWare.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RiverWare\ImportRiverWare.Designer.cs">
-      <DependentUpon>ImportRiverWare.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ScenarioPicker\ScenarioPicker.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ScenarioPicker\ScenarioPicker.Designer.cs">
-      <DependentUpon>ScenarioPicker.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataLogger\Cr10xSeries.cs" />
     <Compile Include="Idwr\IdwrMonthy.cs" />
     <Compile Include="IScenarioSelector.cs" />
@@ -474,8 +461,6 @@
     <Compile Include="SimpleMathSeries.cs" />
     <Compile Include="NOAA\SpokaneCoopSeries.cs" />
     <Compile Include="PiscesFactory.cs" />
-    <Compile Include="RiverWare\RiverwareSeries.cs" />
-    <Compile Include="RiverWare\RiverwareTree.cs" />
     <Compile Include="SubtractSeries.cs" />
     <Compile Include="TimeSeriesDatabase.Upgrade.cs" />
     <Compile Include="TimeSeriesDatabaseDataSet.cs">
@@ -503,12 +488,6 @@
     <Compile Include="ScenarioTableEventArgs.cs" />
     <Compile Include="Parser\SeriesExpressionParser.cs">
     </Compile>
-    <EmbeddedResource Include="RiverWare\ImportRiverWare.resx">
-      <DependentUpon>ImportRiverWare.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ScenarioPicker\ScenarioPicker.resx">
-      <DependentUpon>ScenarioPicker.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="AgriMet\CropDatesDataSet.xsc">
       <DependentUpon>CropDatesDataSet.xsd</DependentUpon>
     </None>

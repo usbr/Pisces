@@ -251,6 +251,12 @@
     <Compile Include="MetaData\SiteProperties.Designer.cs">
       <DependentUpon>SiteProperties.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScenarioPicker\ScenarioPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScenarioPicker\ScenarioPicker.Designer.cs">
+      <DependentUpon>ScenarioPicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="ScenarioReferenceControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -651,6 +657,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ProbabilityOptions.resx">
       <DependentUpon>ProbabilityOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScenarioPicker\ScenarioPicker.resx">
+      <DependentUpon>ScenarioPicker.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ScenarioReferenceControl.resx">
       <DependentUpon>ScenarioReferenceControl.cs</DependentUpon>

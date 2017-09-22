@@ -65,6 +65,7 @@
     <Compile Include="Reclamation.Core\Tests\TestNpoiExcel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="blank.xls" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

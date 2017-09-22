@@ -23,9 +23,9 @@ namespace Reclamation.TimeSeries.Analysis
         protected TimeSeries.IExplorerView view;
         protected string m_name;
         private string m_description;
-        private Control m_userInterface;
+        private object m_userInterface;
 
-        public Control UserInterface
+        public object UserInterface
         {
             get { return m_userInterface; }
             set { m_userInterface = value; }

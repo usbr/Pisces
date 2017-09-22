@@ -70,7 +70,7 @@ namespace Reclamation.TimeSeries.Forms
                 activeControl.Visible = false;
             }
 
-            activeControl = analysisList[listBox1.SelectedIndex].UserInterface;
+            activeControl = (Control) analysisList[listBox1.SelectedIndex].UserInterface;
             activeControl.Parent = this.groupBox1;
             activeControl.Left = 5;
             activeControl.Top = 15;
