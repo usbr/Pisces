@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries", "TimeSeries\Reclamation.TimeSeries.csproj", "{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.Core", "Core\Reclamation.Core.csproj", "{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries.ArmyCorps", "TimeSeries.ArmyCorps\Reclamation.TimeSeries.ArmyCorps.csproj", "{859FB4F4-B299-4B36-9955-E16C05E36158}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries.Forms", "TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj", "{A7E73F2A-CA66-4BC8-934A-B5068C566F10}"
 EndProject
@@ -58,6 +56,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Depth", "Applications\depth
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.Windows", "Reclamation.Windows\Reclamation.Windows.csproj", "{C9278B32-7C94-4532-9F4C-92109A6B8E03}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries.ArmyCorps", "TimeSeries.ArmyCorps\Reclamation.TimeSeries.ArmyCorps.csproj", "{859FB4F4-B299-4B36-9955-E16C05E36158}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,10 +72,6 @@ Global
 		{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{859FB4F4-B299-4B36-9955-E16C05E36158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{859FB4F4-B299-4B36-9955-E16C05E36158}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{859FB4F4-B299-4B36-9955-E16C05E36158}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{859FB4F4-B299-4B36-9955-E16C05E36158}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{A7E73F2A-CA66-4BC8-934A-B5068C566F10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A7E73F2A-CA66-4BC8-934A-B5068C566F10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7E73F2A-CA66-4BC8-934A-B5068C566F10}.Release|Any CPU.ActiveCfg = Debug|Any CPU
@@ -160,6 +156,10 @@ Global
 		{C9278B32-7C94-4532-9F4C-92109A6B8E03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9278B32-7C94-4532-9F4C-92109A6B8E03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9278B32-7C94-4532-9F4C-92109A6B8E03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{859FB4F4-B299-4B36-9955-E16C05E36158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{859FB4F4-B299-4B36-9955-E16C05E36158}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{859FB4F4-B299-4B36-9955-E16C05E36158}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{859FB4F4-B299-4B36-9955-E16C05E36158}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
