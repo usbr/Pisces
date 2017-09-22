@@ -879,45 +879,6 @@ namespace Reclamation.TimeSeries.Forms
 #endif
         }
 
-        /// <summary>
-        /// URGWOM is a custom RiverWare model.
-        /// Pisces reads the ouput as excel files.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void AddUrgwomClick(object sender, EventArgs e)
-        {
-            if (openExcelDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                
-                UrgwomUtility u = new UrgwomUtility(DB,openExcelDialog.FileName);
-                u.LoadTree();// load slots into Tree from first run -- column names
-                u.LoadScenarios(); // Load scenario selector with years 1976 - 2005)
-                DatabaseChanged();   
-            }
-
-        }
-
-
-        private void aAddURGSIM_Click(object sender, EventArgs e)
-        {
-            //if (!DB.DeleteFolderByName("URGSiM", CurrentFolder, true))
-            //    return;
-
-            //DB.SuspendTreeUpdates();
-            //ShowAsBusy("Reading URGSiM projections and variables");
-
-            //UrgsimUtilitycs.CreateTree(DB,CurrentFolder);
-            //UrgsimUtilitycs.LoadScenarioTable(DB);
-
-            //SetupScenarioSelector();
-            
-            //DatabaseChanged();
-            //ShowAsReady("Done with URGSiM import");
-            //DB.ResumeTreeUpdates();
-
-        }
-
 
         /// <summary>
         /// Add SHEF data

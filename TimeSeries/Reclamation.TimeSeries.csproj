@@ -409,7 +409,6 @@
     <Compile Include="Tests\SeriesTypes\TestReadTextFile.cs" />
     <Compile Include="Tests\SeriesTypes\TestRiverwareSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestUsgs.cs" />
-    <Compile Include="Tests\SeriesTypes\UrgwomTest.cs" />
     <Compile Include="DailyTimeSeriesCalculator.cs" />
     <Compile Include="TimeSeriesDatabaseUtility.cs" />
     <Compile Include="TimeSeriesTransfer.cs" />
@@ -593,8 +592,6 @@
     </Compile>
     <Compile Include="PiscesObjectEventArgs.cs" />
     <Compile Include="TimeWindow.cs" />
-    <Compile Include="UrgwomSeries.cs" />
-    <Compile Include="UrgwomUtility.cs" />
     <Compile Include="Usgs\UsgsRatingTables.cs" />
     <Compile Include="Usgs\UsgsRealTimeSeries.cs" />
     <Compile Include="Usgs\UsgsUtility.cs" />
