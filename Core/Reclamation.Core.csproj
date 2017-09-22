@@ -115,7 +115,6 @@
     <Compile Include="MySqlServer.cs" />
     <Compile Include="NetworkUtility.cs" />
     <Compile Include="Options.cs" />
-    <Compile Include="InstanceUtility.cs" />
     <Compile Include="StringCipher.cs" />
     <Compile Include="Tests\TestCredentialsFile.cs" />
     <Compile Include="Tests\TestHttps.cs" />
