@@ -106,6 +106,8 @@
     <Compile Include="About.Designer.cs">
       <DependentUpon>About.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reclamation.Core\SqlServer.cs" />
+    <Compile Include="Reclamation.Core\SqlServerAdmin.cs" />
     <Compile Include="Reclamation.TimeSeries.Modsim\ModsimPiscesTree.cs" />
     <Compile Include="Reclamation.TimeSeries.Modsim\ModsimSeries.cs" />
     <Compile Include="Reclamation.TimeSeries.Modsim\ModsimUtilities.cs" />
@@ -145,6 +147,8 @@
     <Compile Include="Reclamation.TimeSeries\Hydross\HydrossTree.cs" />
     <Compile Include="Reclamation.TimeSeries\Hydross\ODSFunctions.cs" />
     <Compile Include="Reclamation.TimeSeries\PluginManager.cs" />
+    <Compile Include="Reclamation.TimeSeries\RBMS\RBMSTextFile.cs" />
+    <Compile Include="Reclamation.TimeSeries\RBMS\RbmsUtility.cs" />
     <Compile Include="Reclamation.TimeSeries\RiverWare\ImportRiverWare.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -367,6 +371,7 @@
     <Content Include="images\usgs.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Reclamation.TimeSeries\RBMS\Export - DH Manual Monitoring - Oct 2015.csv" />
     <None Include="Resources\folder_closed_32.bmp" />
   </ItemGroup>
   <ItemGroup>

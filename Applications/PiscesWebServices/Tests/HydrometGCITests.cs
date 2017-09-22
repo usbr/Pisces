@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using PiscesWebServices.CGI;
 using Reclamation.Core;
 using Reclamation.TimeSeries;
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using PiscesWebServices.CGI;
 
 namespace PiscesWebServices.Tests
 {

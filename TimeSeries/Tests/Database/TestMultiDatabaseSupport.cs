@@ -74,33 +74,33 @@ namespace Pisces.NunitTests.Database
             BasicDatabaseTest(db);
         }
 
-        [Test, Category("DatabaseServer")]
-        public void TestSqlServer()
-        {
-            /*
-             * C:\>sqlcmd -S .\SQLEXPRESS
-> create login [bor\ktarbet] from windows
-             *  select loginname from master..syslogins
-> go
-             sp_addsrvrolemember @loginame='bor\ktarbet' , @rolename='sysadmin'
-> ;
-             */
-            string cStr ="integrated security=SSPI;data source=localhost\\SQLEXPRESS;Database=master"; 
-            var svr = new SqlServer(cStr);
-            var tmp = svr.Table("exists", " SELECT name FROM master..sysdatabases where name = 'test_pisces'");
-            if (tmp.Rows.Count == 1)
-            {
-                svr.CloseAllConnections();
-                svr.DeleteDataBase("test_pisces");
-            }
+//        [Test, Category("DatabaseServer")]
+//        public void TestSqlServer()
+//        {
+//            /*
+//             * C:\>sqlcmd -S .\SQLEXPRESS
+//> create login [bor\ktarbet] from windows
+//             *  select loginname from master..syslogins
+//> go
+//             sp_addsrvrolemember @loginame='bor\ktarbet' , @rolename='sysadmin'
+//> ;
+//             */
+//            string cStr ="integrated security=SSPI;data source=localhost\\SQLEXPRESS;Database=master"; 
+//            var svr = new SqlServer(cStr);
+//            var tmp = svr.Table("exists", " SELECT name FROM master..sysdatabases where name = 'test_pisces'");
+//            if (tmp.Rows.Count == 1)
+//            {
+//                svr.CloseAllConnections();
+//                svr.DeleteDataBase("test_pisces");
+//            }
             
-            Console.WriteLine("about to create database");
-            svr.CreateDataBase("test_pisces");
-            svr = new SqlServer(cStr.Replace("master","test_pisces"));
+//            Console.WriteLine("about to create database");
+//            svr.CreateDataBase("test_pisces");
+//            svr = new SqlServer(cStr.Replace("master","test_pisces"));
             
-            TimeSeriesDatabase db = new TimeSeriesDatabase(svr,false);
-            BasicDatabaseTest(db);
-        }
+//            TimeSeriesDatabase db = new TimeSeriesDatabase(svr,false);
+//            BasicDatabaseTest(db);
+//        }
 
 
         public static void BasicDatabaseTest(TimeSeriesDatabase db)

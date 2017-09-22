@@ -176,29 +176,5 @@ namespace Reclamation.Core
             return ToHTML(dt, FormatCell);
 
         }
-        /// <summary>
-        /// Convert to JSON
-        /// http://stackoverflow.com/questions/36062991/how-to-use-odata-in-nancyfx
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
-        public static string ToJson(DataTable dt)
-        {
-        System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-                serializer.MaxJsonLength = Int32.MaxValue;
-                List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-                Dictionary<string, object> row;
-                foreach (DataRow dr in dt.Rows)
-                {
-                    row = new Dictionary<string, object>();
-                    foreach (DataColumn col in dt.Columns)
-                    {
-                        row.Add(col.ColumnName, dr[col]);
-                    }
-                    rows.Add(row);
-                }
-                var resultString = serializer.Serialize(rows);
-            return resultString;
-        }
     }
 }

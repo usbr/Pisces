@@ -23,7 +23,7 @@ namespace Reclamation.Core.Tests
          var fn = Path.Combine(Globals.TestDataPath,"npoi", "datatypes.xlsx");
          NpoiExcel x = new NpoiExcel(fn);
          var tbl = x.ReadDataTable("Sheet1",true,true);
-         Console.WriteLine(DataTableOutput.ToJson(tbl));
+         //Console.WriteLine(DataTableOutput.ToJson(tbl));
          Assert.AreEqual("text entry", tbl.Rows[0][0].ToString());
          Assert.AreEqual("1", tbl.Rows[1][0].ToString());
          Assert.AreEqual("3.15", tbl.Rows[2][0].ToString());

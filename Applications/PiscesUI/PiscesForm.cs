@@ -772,7 +772,9 @@ namespace Reclamation.TimeSeries.Forms
 
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    engine1.ConnectToServer(dlg.ServerName, dlg.DatabaseName,dlg.DatabaseType, dlg.Password);
+                    var svr = GetServer(dlg.ServerName, dlg.DatabaseName, dlg.DatabaseType, dlg.Password);
+
+                    engine1.Connect(svr);
                     DatabaseChanged();
                 }
             }
@@ -782,6 +784,25 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
+        private BasicDBServer GetServer(string server, string database, DatabaseType t, string password = "")
+        {
+            BasicDBServer svr = null;
+            string user = WindowsUtility.GetShortUserName();
+            if (t == DatabaseType.PostgreSql)
+            {
+                svr = PostgreSQL.GetPostgresServer(database, server, user, password);
+            }
+            if (t == DatabaseType.SqlServer)
+            {
+                svr = new SqlServer(server, database);
+            }
+            if (t == DatabaseType.MySQL)
+            {
+                svr = MySqlServer.GetMySqlServer(server, database, "", password);
+            }
+
+            return svr;
+        }
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             About a = new About();

@@ -149,7 +149,9 @@ C:\WINDOWS\system32>
         private static dynamic FormatDataTable(string fmt, DataTable sites)
         {
             if (fmt == "json")
-                return DataTableOutput.ToJson(sites) + " " + fmt;
+            {
+               return  Newtonsoft.Json.JsonConvert.SerializeObject(sites);
+            }
             else if (fmt == "xml")
             {
                 var fn = FileUtility.GetTempFileName(".xml");
