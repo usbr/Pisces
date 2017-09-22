@@ -1,13 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using NUnit.Framework;
-using Reclamation.TimeSeries;
+﻿using NUnit.Framework;
 using Reclamation.Core;
-using System.IO;
-using Math = Reclamation.TimeSeries.Math;
-using Reclamation.TimeSeries.Excel;
+using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.Hydromet;
+using System;
+using System.IO;
 
 namespace Pisces.NunitTests.Database
 {
@@ -22,8 +18,6 @@ namespace Pisces.NunitTests.Database
         TimeSeriesDatabase db;
        // string dataPath;
         string textFileName = "el68d_DigitizedChart.txt";
-        string excelFileName = "ImportWithUpdate.xls";
-        string updatedExcelFileName = "ImportWithUpdate2.xls";
 
         string tmpDir = @"C:\temp\db_test"; // test relative paths
 
@@ -46,19 +40,12 @@ namespace Pisces.NunitTests.Database
             File.Copy(Path.Combine(dataPath, textFileName), Path.Combine(tmpDir, textFileName),true);
             textFileName = Path.Combine(tmpDir, textFileName);
 
-            File.Copy(Path.Combine(dataPath, excelFileName), Path.Combine(tmpDir, excelFileName),true);
-            excelFileName = Path.Combine(tmpDir, excelFileName);
-
-            File.Copy(Path.Combine(dataPath, updatedExcelFileName), Path.Combine(tmpDir, updatedExcelFileName), true);
-            updatedExcelFileName = Path.Combine(tmpDir, updatedExcelFileName);
-   
 
 
             // Add some data for export test
             Series s;
             int c;
             int sdi;
-            AddExcelSeries(out s, out c, out sdi);
             AddTextSeries(out s, out c, out sdi);
 
 
@@ -102,49 +89,6 @@ namespace Pisces.NunitTests.Database
             sdi = db.AddSeries(s);
         }
 
-
-        [Test]
-        public void ExcelFactory()
-        {
-            Series s;
-            int c;
-            int sdi;
-            AddExcelSeries(out s, out c, out sdi);
-            
-
-            s = db.GetSeries(sdi);
-            s.Read();
-            Assert.AreEqual(c, s.Count);
-
-            s = db.GetSeries(sdi);
-            DateTime t1 = new DateTime(2007, 4, 30);
-            s.Read(t1, t1.AddDays(1));
-
-            Assert.AreEqual(1, s.Count);
-
-            // simulate updating excel file.
-            File.Copy(updatedExcelFileName, excelFileName,true);
-            // copy doesn't update LaswWriteTime so cache doesn't see a change
-            File.SetLastWriteTime(excelFileName, DateTime.Now);
-            s = db.GetSeries(sdi);
-            s.Read();
-            Console.WriteLine("After update count = "+s.Count);
-            Assert.AreEqual(c + 1, s.Count);
-        }
-
-        
-        private void AddExcelSeries(out Series s, out int c, out int sdi)
-        {
-            var fn = excelFileName;
-            s = new ExcelDataReaderSeries(fn, "NoDuplicates", "Date Sampled", "Field Temp C");
-            s.Read();
-            c = s.Count;
-            Console.WriteLine("Count = "+c);
-            Assert.IsTrue(s.Count > 0);
-            sdi = db.AddSeries(s);
-
-           
-        }
 
 
         [Test]

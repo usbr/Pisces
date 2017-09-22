@@ -569,7 +569,7 @@ namespace HydrometTools
 
 
             if (tabPageFcplot == null 
-                && File.Exists(FcPlotDataSet.xlsFileName()))
+                && FcPlotDataSet.HasRuleCurves())
             {
                 tabPageFcplot = new TabPage("FCplot");
                 tabControl1.TabPages.Add(tabPageFcplot);

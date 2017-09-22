@@ -1,9 +1,10 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using Reclamation.Core;
 using Reclamation.TimeSeries;
-using Math = Reclamation.TimeSeries.Math;
-using Reclamation.TimeSeries.Excel;
+using System;
 using System.IO;
+using Math = Reclamation.TimeSeries.Math;
+
 namespace Pisces.NunitTests.SeriesMath
 {
     /// <summary>
@@ -23,14 +24,14 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void TestMethod1()
         {
-            string fn = Path.Combine(TestData.DataPath, "SimpleResponseFunction.xls");
-
-            var diversion = new ExcelDataReaderSeries(fn, "Sheet1", "Date", "Input");
+            string fn = Path.Combine(TestData.DataPath, "SimpleResponseFunction.csv");
+            var csv = new CsvFile(fn);
+            var diversion = new DataTableSeries(csv, TimeInterval.Daily, "Date", "Input");
             diversion.Read();
-            var expected = new ExcelDataReaderSeries(fn, "Sheet1", "Date", "ExpectedResponse");
+            var expected = new DataTableSeries(csv, TimeInterval.Daily, "Date", "ExpectedResponse");
             expected.Read();
 
-            var responseFunction = new ExcelDataReaderSeries(fn, "Sheet1", "Date", "ResponseFunction");
+            var responseFunction = new DataTableSeries(csv,  TimeInterval.Daily, "Date", "ResponseFunction");
             responseFunction.Read();
 
             Console.WriteLine(" responseFunction has " + responseFunction.Count + " points");

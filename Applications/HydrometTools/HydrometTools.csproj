@@ -744,6 +744,110 @@
     <None Include="..\cfg\rating_tables\bhr_af.csv">
       <Link>cfg\rating_tables\bhr_af.csv</Link>
     </None>
+    <None Include="..\cfg\RuleCurves\AMF.csv">
+      <Link>cfg\RuleCurves\AMF.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\BEUO.csv">
+      <Link>cfg\RuleCurves\BEUO.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\BUL.csv">
+      <Link>cfg\RuleCurves\BUL.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\ControlPoints.csv">
+      <Link>cfg\RuleCurves\ControlPoints.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\EMI.csv">
+      <Link>cfg\RuleCurves\EMI.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\Heii.Dashed.csv">
+      <Link>cfg\RuleCurves\Heii.Dashed.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\Heii.Solid.csv">
+      <Link>cfg\RuleCurves\Heii.Solid.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\HGH.csv">
+      <Link>cfg\RuleCurves\HGH.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\HRSI.csv">
+      <Link>cfg\RuleCurves\HRSI.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\ISLI.csv">
+      <Link>cfg\RuleCurves\ISLI.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\LUC.csv">
+      <Link>cfg\RuleCurves\LUC.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\MaxCapacity.csv">
+      <Link>cfg\RuleCurves\MaxCapacity.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\MCKO.csv">
+      <Link>cfg\RuleCurves\MCKO.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\MFDO.csv">
+      <Link>cfg\RuleCurves\MFDO.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\OCHO.csv">
+      <Link>cfg\RuleCurves\OCHO.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\OWY.csv">
+      <Link>cfg\RuleCurves\OWY.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\PARW.csv">
+      <Link>cfg\RuleCurves\PARW.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\PODO.csv">
+      <Link>cfg\RuleCurves\PODO.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\PRVO.csv">
+      <Link>cfg\RuleCurves\PRVO.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\RIR.csv">
+      <Link>cfg\RuleCurves\RIR.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\SCOO.csv">
+      <Link>cfg\RuleCurves\SCOO.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\VariableForecastLevels.csv">
+      <Link>cfg\RuleCurves\VariableForecastLevels.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\WARO.csv">
+      <Link>cfg\RuleCurves\WARO.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\wodi.forecast.csv">
+      <Link>cfg\RuleCurves\wodi.forecast.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\wodi.inflow.csv">
+      <Link>cfg\RuleCurves\wodi.inflow.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\RuleCurves\wodi.space.csv">
+      <Link>cfg\RuleCurves\wodi.space.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="..\cfg\site.csv">
       <Link>cfg\site.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

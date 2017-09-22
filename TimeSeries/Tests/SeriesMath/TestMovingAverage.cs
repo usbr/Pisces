@@ -1,28 +1,31 @@
-using System;
 using NUnit.Framework;
+using Reclamation.Core;
 using Reclamation.TimeSeries;
-using Reclamation.TimeSeries.Excel;
+using System;
 using System.IO;
 
 namespace Pisces.NunitTests.SeriesMath
 {
-   [TestFixture]
+    [TestFixture]
    public class TestMovingAverage
     {
 
        /// <summary>
-       /// there is not data on 7/8/2004 
+       /// there is not data on 7/9/2004 
        /// therefore any moving average that 'touches' this date
        /// should be missing.  Don't compute the average
        /// </summary>
        [Test]
        public void SevenDayMovingInstantSparse()
        {
-           string fn = Path.Combine(TestData.DataPath, "temp example 7 day max.xls");
-           var s = new ExcelDataReaderSeries(fn, "sparse", "C", "D");
+
+          // string fn = Path.Combine(TestData.DataPath, "temp example 7 day max.xls");
+          // var s = new ExcelDataReaderSeries(fn, "sparse", "C", "D");
+            var s = new TextSeries(Path.Combine(TestData.DataPath, "temp_sparse.csv"));
            s.Read();
            Series s2 = Reclamation.TimeSeries.Math.SevenDADMAX(s);
-           Series expected = new ExcelDataReaderSeries(fn, "7dadmax", "A", "B");
+            //Series expected = new ExcelDataReaderSeries(fn, "7dadmax", "A", "B");
+            TextSeries expected = new TextSeries(Path.Combine(TestData.DataPath, "7dadmax.csv"));
            expected.Read();
 
            Assert.AreEqual(expected[0].DateTime.Date, s2[0].DateTime.Date);
@@ -35,16 +38,18 @@ namespace Pisces.NunitTests.SeriesMath
        [Test]
        public void SevenDayMovingInstant()
        {
-           string fn = Path.Combine(TestData.DataPath, "temp example 7 day max.xls");
-           var s = new ExcelDataReaderSeries(fn, "457373", "C", "D");
-           s.Read();
+            //string fn = Path.Combine(TestData.DataPath, "temp example 7 day max.xls");
+            //var s = new ExcelDataReaderSeries(fn, "457373", "C", "D");
+            var s = new TextSeries(Path.Combine(TestData.DataPath, "457373.csv"));
+
+            s.Read();
 
            Series s2 = Reclamation.TimeSeries.Math.SevenDADMAX(s);
 
-           var expected = new ExcelDataReaderSeries(fn, "7dadmax", "A", "B");
-           expected.Read();
+            TextSeries expected = new TextSeries(Path.Combine(TestData.DataPath, "7dadmax.csv"));
+            expected.Read();
 
-           for (int i = 0; i < expected.Count; i++)
+            for (int i = 0; i < expected.Count; i++)
            {
                Assert.AreEqual(expected[i].Value, s2[i].Value, 0.001);    
            }
@@ -55,10 +60,11 @@ namespace Pisces.NunitTests.SeriesMath
        [Test]
        public void SevenDayMovingDaily()
        {
-           string fn = Path.Combine(TestData.DataPath, "SpecificationTestData.xls");
-         Series s = new ExcelDataReaderSeries(fn, "Sheet1", "Date", "JulianDay");
-         Series expected = new ExcelDataReaderSeries(fn, "Sheet1", "Date", "SevenDayMovingAverage");
+           string fn = Path.Combine(TestData.DataPath, "SpecificationTestData.csv");
+            var csv = new CsvFile(fn);
+          DataTableSeries s = new DataTableSeries(csv, TimeInterval.Daily, "Date", "JulianDay");
 
+            Series expected = new DataTableSeries(csv,TimeInterval.Daily, "Date", "SevenDayMovingAverage");
          s.Read();
          expected.Read();
 

@@ -1,17 +1,15 @@
-using System;
-using System.Data;
 using NUnit.Framework;
 using Reclamation.TimeSeries;
-using Math = Reclamation.TimeSeries.Math;
-using Reclamation.TimeSeries.Excel;
+using System;
 using System.IO;
+using Math = Reclamation.TimeSeries.Math;
 
 namespace Pisces.NunitTests.SeriesMath
 {
-	/// <summary>
-	/// Summary description for DailyAverageTest.
-	/// </summary>
-	[TestFixture]
+    /// <summary>
+    /// Summary description for DailyAverageTest.
+    /// </summary>
+    [TestFixture]
 	public class AverageTest
 	{
     public static void RunTests()
@@ -153,9 +151,10 @@ units:feet
     [Test]
     public void SevenDay()
     {
-        string fn = Path.Combine(TestData.DataPath, "sevendayavg.xls");
-        var s = new ExcelDataReaderSeries(fn, "Sheet1", "A", "B");
-        s.Read();
+        string fn = Path.Combine(TestData.DataPath, "sevendayavg.csv");
+            //        var s = new ExcelDataReaderSeries(fn, "Sheet1", "A", "B");
+            var s = new TextSeries(fn);
+            s.Read();
         Assert.AreEqual(2738, s.Count);
         var s7 = Math.WeeklyAverageSimple(s);
 
@@ -211,8 +210,9 @@ units:feet
     [Test]
     public void PartialDay()
     {
-        string fn = Path.Combine(TestData.DataPath, "wilson.xls");
-        var s = new ExcelDataReaderSeries(fn, "wilson", "A", "B");
+        string fn = Path.Combine(TestData.DataPath, "wilson.csv");
+            //        var s = new ExcelDataReaderSeries(fn, "wilson", "A", "B");
+            var s = new TextSeries(fn);
         s.Read();
 
         Series avg = Math.TimeWeightedDailyAverage(s);

@@ -13,33 +13,47 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
     public partial class FcPlotDataSet {
 
 
-        
 
-       public static string xlsFileName()
+       public static bool HasRuleCurves()
          {
-
-             string s_xlsFileName = FileUtility.GetFileReference("RuleCurves.xlsx");
-
-           return s_xlsFileName;
+            string fn = "";
+            try
+            {
+                fn = FileUtility.GetFileReference(
+                    Path.Combine("RuleCurves", "ControlPoints.csv"));
+            }
+            catch (Exception )
+            {
+                return false;
+            }
+            return File.Exists(fn);
 
         }
 
+        static string LookupFile(string sheetname)
+        {
+            return FileUtility.GetFileReference(Path.Combine("RuleCurves", sheetname +".csv"));
+      
+        }
 
         internal static PeriodicSeries GetPeriodicSeries(string sheetName)
         {
-            var Table = ExcelUtility.Read(xlsFileName(), sheetName);
+            var Table = new CsvFile(LookupFile(sheetName));
+         //   var Table = ExcelUtility.Read(xlsFileName(), sheetName);
             var rval = new PeriodicSeries(Table);
             return rval;
         }
 
         internal static DataTable GetTable(string sheetName)
         {
-            return ExcelUtility.Read(xlsFileName(), sheetName);
+            return new CsvFile(LookupFile(sheetName));
+//            return ExcelUtility.Read(xlsFileName(), sheetName);
         }
 
         internal static System.Data.DataTable ControlPointTableFromName(string text, string lookupColumnName)
         {
-            var tbl = ExcelUtility.Read(xlsFileName(), "ControlPoints");
+            // var tbl = ExcelUtility.Read(xlsFileName(), "ControlPoints");
+            DataTable tbl = new CsvFile(LookupFile("ControlPoints"));
             tbl = DataTableUtility.Select(tbl, lookupColumnName+" = '" + text + "'", "");
             return tbl;
         }
@@ -47,7 +61,8 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         public static double[] GetVariableForecastLevels(string curveName)
         {
             var rval = new List<double>();
-            var tbl = ExcelUtility.Read(xlsFileName(), "VariableForecastLevels");
+            // var tbl = ExcelUtility.Read(xlsFileName(), "VariableForecastLevels");
+            DataTable tbl = new CsvFile(LookupFile("VariableForecastLevels"));
               tbl = DataTableUtility.Select(tbl," RuleCurve = '" + curveName + "'","");
 
             if (tbl.Rows.Count > 0)
@@ -73,8 +88,9 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         public static DateTime[] GetVariableForecastLabelDates(string curveName)
         {
             var rval = new List<DateTime>();
-            var tbl = ExcelUtility.Read(xlsFileName(), "VariableForecastLevels");
-                tbl = DataTableUtility.Select(tbl," RuleCurve = '" + curveName + "'","");
+            // var tbl = ExcelUtility.Read(xlsFileName(), "VariableForecastLevels");
+            var csv = new CsvFile(LookupFile("VariableForecastLevels"));
+            var tbl = DataTableUtility.Select(csv," RuleCurve = '" + curveName + "'","");
             //stored in excel as single string for example:
             /// 6/15,5/15,5/15,4/15,4/15, 3/15, 2/15, 1/15
             if (tbl.Rows.Count > 0)
@@ -100,8 +116,8 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
         public static string[] GetNames()
         {
-            var tbl = ExcelUtility.Read(xlsFileName(), "ControlPoints");
-                tbl = DataTableUtility.Select(tbl," Enabled = true","");
+            DataTable tbl = new CsvFile(LookupFile("ControlPoints"));
+            tbl = DataTableUtility.Select(tbl," Enabled = true","");
             return DataTableUtility.Strings(tbl, "", "Name");
         }
     }

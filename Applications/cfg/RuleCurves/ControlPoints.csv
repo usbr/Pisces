@@ -1,0 +1,39 @@
+Name,StationQU,StationQD,UpstreamReservoirs,PercentSpace,ReservoirLags,TotalUpstreamActiveSpace,VariableRuleCurve,Enabled,FlagLegend,RequiredLegend
+AMF - American Falls,AMF,AMFI,AMF,100,,1672590,TRUE,FALSE,,Guide Curve
+AND - Anderson,LUC,ANDI,AND,45,,413100,TRUE,TRUE,,Required
+BENO-Deschutes River at Benham Falls,BENO,BENO,"CRA,WIC,CRE",100,,342000,TRUE,FALSE,,Required
+BEU - Beulah,BEUO,BEUO,BEU,100,,59900,TRUE,TRUE,,Required
+BUL - Bully Creek,BUL,BULO,BUL,100,,23676,TRUE,TRUE,,Required
+BUM - Bumping,PARW,BUM,BUM ,13,,34000,TRUE,TRUE,,Guide Curve
+CLE - Cle Elum,PARW,CLE,CLE,42,,436900,TRUE,TRUE,,Guide Curve
+CREO-Crescent Lake,CREO,CREO,CRE,100,,86900,TRUE,FALSE,,Required
+CSC - Cascade,HRSI,CSCI,CSC,80,,646460,TRUE,TRUE,,Guide Curve
+DED - Deadwood,HRSI,DEDI,DED,20,,153992,TRUE,TRUE,,Guide Curve
+HEII  - Heise,HEII,HEII,"JCK,PAL",100,"1,0",2047000,TRUE,TRUE,,Required
+HGH - Hungry Horse,HGH,HGHM,HGH,100,,3467179,TRUE,TRUE,,Required
+HRSI - Payette nr Horseshoe Bend,HRSI,HRSI,"CSC,DED",100,,800452,TRUE,TRUE,,Guide Curve
+ISL - Island Park,ISLI,ISLI,ISL,100,,135200,TRUE,TRUE,,Guide Curve
+JCK - Jackson Lake,HEII,JCK,JCK,25,,847000,TRUE,TRUE,,Required
+KAC - Kachess,PARW,KAC,KAC,12,,239000,TRUE,TRUE,,Guide Curve
+KEE - Keechelus,PARW,KEE,KEE,13,,157800,TRUE,TRUE,,Guide Curve
+LUC - Boise System,LUC,LUC,"AND,ARK,LUC",100,,949700,TRUE,TRUE,,Required
+MAN-Mann Creek,MAN,MAN,MAN,100,,11100,TRUE,FALSE,,Required
+MCK - McKay,MCKO,MCKO,MCK,100,,65500,FALSE,TRUE,,Required
+EMI - Emigrant ,MFDO,MFDO,EMI,100,,39000,FALSE,TRUE,,Required
+NACW - Naches River nr Naches,PARW,NACW,"BUM,RIM",33.3,,232000,TRUE,TRUE,,Guide Curve
+OCHO - Ochoco,OCHO,OCHO,OCH,100,,44460,TRUE,TRUE,,Required
+OWY - Owyhee,OWY,OWY,OWY,100,,715000,TRUE,TRUE,,Guide Curve
+PAL - Palisades,HEII,PALI,PAL,75,,1200000,TRUE,TRUE,,Required
+PARW - Yakima River nr Parker,PARW,PARW,"KEE,KAC,CLE,BUM,RIM",100,,1065700,TRUE,TRUE,,Guide Curve
+PHL - Phillips Lake,PODO,PHL,PHL,100,,73500,TRUE,TRUE,,Required
+PRV - Prineville,PRVO,PRVO,PRV,100,,148633,TRUE,TRUE,,Required
+RIM - Rimrock,PARW,RIM,RIM,20,,198000,TRUE,TRUE,,Guide Curve
+RIR - Ririe,RIR,RIR,RIR,100,,80500,TRUE,TRUE,,Required
+SCO - Scoggins,SCOO,SCOO,SCO,100,,53600,FALSE,TRUE,,Required
+TDAO-Dalles,TDAO,GCL,GCL,100,,5185000,TRUE,FALSE,,Required
+UNY-Unity,UNY,UNY,UNY,100,,25200,TRUE,FALSE,,Required
+WAR - Warm Springs,WARO,WARO,WAR ,100,,169600,TRUE,TRUE,,Required
+WICO-Wickiup,WICO,WICO,"CRA,WIC",100,,255300,TRUE,FALSE,,Required
+WLDN-Wildhorse,WLDN,WLDN,WLD,100,,71500,TRUE,FALSE,,Required
+WODI - Little Wood River,WODI,WODI,WOD,100,,30000,TRUE,TRUE,"* apr 1-sep 30, based on forecast -- # sep 30-apr 15, based on filling schedule --  $ mar 1-jul 31, based on mean daily inflow",Required
+YUMW - Yakima River at Cle Elum,PARW,YUMW,"KEE,KAC,CLE",66.7,,833700,TRUE,TRUE,,Guide Curve

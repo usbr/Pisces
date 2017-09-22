@@ -4,6 +4,7 @@ using System.Collections;
 using ICSharpCode.SharpZipLib.Checksums;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.GZip;
+//using System.IO.Compression;
 
 
 namespace Reclamation.Core

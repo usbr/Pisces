@@ -1,13 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using NUnit.Framework;
-using Reclamation.TimeSeries;
+﻿using NUnit.Framework;
 using Reclamation.Core;
+using Reclamation.TimeSeries;
 using System.IO;
-using Math = Reclamation.TimeSeries.Math;
-using Reclamation.TimeSeries.Excel;
-using Reclamation.TimeSeries.Hydromet;
 
 namespace Pisces.NunitTests.Database
 {

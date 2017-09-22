@@ -66,6 +66,7 @@ Source:  "bin\debug\YakimaOthersAboveParker.csv";   DestDir: "{app}";   Flags: i
 Source:  "..\cfg\gp\*.*";   DestDir: "{app}\cfg\gp";   Flags: ignoreversion
 Source:  "..\cfg\yak\*.*";   DestDir: "{app}\cfg\yak";   Flags: ignoreversion
 Source:  "..\cfg\rating_tables\*.*";   DestDir: "{app}\cfg\rating_tables";   Flags: ignoreversion
+Source:  "..\cfg\RuleCurves\*.*";   DestDir: "{app}\cfg\RuleCurves";   Flags: ignoreversion
 Source:  "..\cfg\site.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "..\cfg\pcode.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "..\cfg\daily_pcode.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion

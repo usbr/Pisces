@@ -19,8 +19,10 @@ namespace HydrometTools
             DataTable tbl = new DataTable();
             if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
             {
-                var fn = ExcelListOfTables();
-                tbl = ExcelUtility.Read(fn, "summary");
+                string fn = Path.Combine("gp", "ratingtables.csv");
+                fn = FileUtility.GetFileReference(fn);
+
+                tbl = new CsvFile(fn);
                 var c = tbl.Columns.Add("name");
                 c.DefaultValue = "";
             }
@@ -84,12 +86,6 @@ namespace HydrometTools
             return rval;
         }
 
-        private static string ExcelListOfTables()
-        {
-            string fn = Path.Combine("gp", "ratingtables.xls");
-            fn = FileUtility.GetFileReference(fn);
-            return fn;
-        }
 
         public string cbtt
         {

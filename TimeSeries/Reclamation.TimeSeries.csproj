@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <Import Project="..\packages\NUnit3TestAdapter.3.8.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.8.0\build\net35\NUnit3TestAdapter.props')" />
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -51,6 +52,8 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -139,7 +142,6 @@
     <Compile Include="AgriMet\CropCurves.cs" />
     <Compile Include="AgriMet\CropDatesDataSet.cs">
       <DependentUpon>CropDatesDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="AgriMet\CropDatesDataSet1.Designer.cs">
       <DependentUpon>CropDatesDataSet.xsd</DependentUpon>
@@ -148,7 +150,6 @@
     </Compile>
     <Compile Include="Alarms\AlarmDataSet.cs">
       <DependentUpon>AlarmDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Alarms\AlarmDataSet1.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -237,9 +238,7 @@
     <Compile Include="Hydromet\DayFiles.cs" />
     <Compile Include="NOAA\SimpleShef.cs" />
     <Compile Include="Nrcs\MonthlySnowCourseSeries.cs" />
-    <Compile Include="Hydromet\mcf.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Hydromet\mcf.cs" />
     <Compile Include="Hydromet\mcf1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -247,7 +246,6 @@
     </Compile>
     <Compile Include="Hydromet\Operations\FcPlotDataSet.cs">
       <DependentUpon>FcPlotDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Hydromet\Operations\FcPlotDataSet.Designer.cs">
       <DependentUpon>FcPlotDataSet.xsd</DependentUpon>
@@ -276,7 +274,6 @@
     <Compile Include="Owrd\OwrdRatingTables.cs" />
     <Compile Include="Parser\Tests\TestParser.cs" />
     <Compile Include="Parser\Tests\TestParserWithDatabase.cs" />
-    <Compile Include="ExcelDataReaderSeries.cs" />
     <Compile Include="SeriesProperties.cs" />
     <Compile Include="TestData.cs" />
     <Compile Include="Tests\Database\TestSqLiteUnixTime.cs" />
@@ -307,8 +304,6 @@
     <Compile Include="Tests\SeriesMath\TestAdd.cs" />
     <Compile Include="Tests\SeriesMath\TestAnnualAggregates.cs" />
     <Compile Include="Tests\SeriesMath\TestAverageAggregate.cs" />
-    <Compile Include="Tests\SeriesMath\TestDailyMinMax.cs" />
-    <Compile Include="Tests\SeriesMath\TestEstimateDailyFromMonthly.cs" />
     <Compile Include="Tests\SeriesMath\TestExceedance.cs" />
     <Compile Include="Tests\SeriesMath\TestInterpolation.cs" />
     <Compile Include="Tests\SeriesMath\TestMonthlyOperations.cs" />
@@ -404,7 +399,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Tests\SeriesTypes\TestBpaHydsimSeries.cs" />
-    <Compile Include="Tests\SeriesTypes\TestExcelReaderSeries.cs" />
     <Compile Include="Tests\SeriesTypes\TestHydromet.cs" />
     <Compile Include="Tests\SeriesTypes\TestReadTextFile.cs" />
     <Compile Include="Tests\SeriesTypes\TestRiverwareSeries.cs" />
@@ -451,9 +445,7 @@
     <Compile Include="Quality.cs" />
     <Compile Include="Reports\USGSReport.cs" />
     <Compile Include="TimeSeriesDatabase.CreateSQL.cs" />
-    <Compile Include="TimeSeriesDatabaseDataSet.RatingTable.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="TimeSeriesDatabaseDataSet.RatingTable.cs" />
     <Compile Include="TimeSeriesDependency.cs" />
     <Compile Include="TimeSeriesName.cs" />
     <Compile Include="RiverWare\ImportRiverWare.cs">
@@ -469,9 +461,7 @@
       <DependentUpon>ScenarioPicker.cs</DependentUpon>
     </Compile>
     <Compile Include="DataLogger\Cr10xSeries.cs" />
-    <Compile Include="Idwr\IdwrMonthy.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Idwr\IdwrMonthy.cs" />
     <Compile Include="IScenarioSelector.cs" />
     <Compile Include="Owrd\OwrdSeries.cs" />
     <Compile Include="Parser\ParserResult.cs" />
@@ -490,7 +480,6 @@
     <Compile Include="TimeSeriesDatabase.Upgrade.cs" />
     <Compile Include="TimeSeriesDatabaseDataSet.cs">
       <DependentUpon>TimeSeriesDatabaseDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="TimeSeriesDatabaseDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -713,4 +702,10 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.8.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.8.0\build\net35\NUnit3TestAdapter.props'))" />
+  </Target>
 </Project>

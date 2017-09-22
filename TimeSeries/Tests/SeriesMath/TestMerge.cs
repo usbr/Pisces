@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using Reclamation.TimeSeries;
 using DateTime = System.DateTime;
-using Reclamation.TimeSeries.Excel;
 
 namespace Pisces.NunitTests.SeriesMath
 {

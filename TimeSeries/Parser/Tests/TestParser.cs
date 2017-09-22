@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
-using Reclamation.TimeSeries;
-using Reclamation.TimeSeries.Excel;
-using Reclamation.TimeSeries.Parser;
+using Reclamation.Core;
 using System;
 using System.IO;
 using DateTime = System.DateTime;
@@ -114,8 +112,9 @@ namespace Reclamation.TimeSeries.Parser.Tests
         public void ConvertToCelcius()
         {
 
-            var fn = Path.Combine(TestData.DataPath, "CalculationTests.xlsx");
-            Series s = new ExcelDataReaderSeries(fn, "ConvertToCelcius", "Date", "value");
+            var fn = Path.Combine(TestData.DataPath, "calculationtests_convert.csv");
+            var csv = new CsvFile(fn);
+            Series s = new DataTableSeries(csv,  TimeInterval.Daily, "Date", "value");
             s.Units = "degrees C";
             s.Name = "series1";
 
@@ -136,10 +135,10 @@ namespace Reclamation.TimeSeries.Parser.Tests
         [Test]
         public void UnregulatedFlow()
         {
-            var fn = Path.Combine(TestData.DataPath, "CalculationTests.xlsx");
-
-            Series af = new ExcelDataReaderSeries(fn, "jck_qu", "Date", "jck af");
-            Series qd = new ExcelDataReaderSeries(fn, "jck_qu", "Date", "jck qd");
+            var fn = Path.Combine(TestData.DataPath, "calculationtests_jck_qu.csv");
+            var csv = new CsvFile(fn);
+            Series af = new DataTableSeries(csv, TimeInterval.Daily, "Date", "jck af");
+            Series qd = new DataTableSeries(csv, TimeInterval.Daily, "Date", "jck qd");
 
             var qu = new CalculationSeries();
 
