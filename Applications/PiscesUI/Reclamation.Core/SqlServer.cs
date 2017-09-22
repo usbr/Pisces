@@ -99,14 +99,7 @@ namespace Reclamation.Core
       {
         if( _connectionString == null)
         {
-
           _connectionString = _staticConnectionString; //global
-          if( _connectionString == null)
-              _connectionString = ConfigurationManager.AppSettings["SqlConnectionString"];
-          if ( _connectionString == null)
-          {
-            _connectionString = "initial catalog=Fa-Tracking;User ID=Hi_This_will_crashr;Pwd=317EB34E-F52C-4dc4-AF09-C1531480DCA1";
-          }
         }
         return _connectionString;
       }
