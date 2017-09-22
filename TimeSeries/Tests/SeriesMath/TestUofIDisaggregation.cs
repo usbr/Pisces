@@ -27,7 +27,7 @@ namespace Pisces.NunitTests.SeriesMath
         string path = "";
         public TestUofIDisaggregation()
         {
-            string zipFile = Path.Combine(TestData.DataPath, "UofIDisaggregationTest.zip");
+            string zipFile = Path.Combine(TestData.DataPath, "UofIDisaggregationTest.gz");
             path = FileUtility.GetTempFileName(".pdb");
             ZipFile.UnzipFile(zipFile,path);
         }
