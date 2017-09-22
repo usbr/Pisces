@@ -20,7 +20,7 @@ namespace Reclamation.TimeSeries.Hydromet
         {
           Performance p = new Performance();
           var ds = new McfDataSet();
-          string fn = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "mcf.xml");
+          string fn = Path.Combine(FileUtility.GetExecutableDirectory(), "mcf.xml");
           ds.ReadXml(fn);
           p.Report("loaded mcf.xml");
           return ds;

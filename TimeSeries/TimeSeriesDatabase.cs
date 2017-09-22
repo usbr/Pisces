@@ -746,7 +746,7 @@ namespace Reclamation.TimeSeries
 
                  if (check.Length > 0)
                  {
-                     MessageBox.Show("Warning: skipping item that allready exists: "+item.TableName);
+                     Logger.WriteLine("Warning: skipping item that allready exists: "+item.TableName);
                  }
                  else
                  {
@@ -1200,35 +1200,35 @@ namespace Reclamation.TimeSeries
             if (parent is PiscesFolder)
                 RefreshFolder(parent as PiscesFolder);
         }
-        public bool DeleteFolderByName(string folderName, PiscesFolder selectedFolder, bool promptUser=false)
-        {
-            PiscesObject[] obj = GetChildren(selectedFolder);
-            bool process = true;
-            foreach (PiscesObject o in obj)
-            {
-                if (string.Equals(o.Name, folderName))
-                {
-                    var result = DialogResult.OK;
+        //public bool DeleteFolderByName(string folderName, PiscesFolder selectedFolder, bool promptUser=false)
+        //{
+        //    PiscesObject[] obj = GetChildren(selectedFolder);
+        //    bool process = true;
+        //    foreach (PiscesObject o in obj)
+        //    {
+        //        if (string.Equals(o.Name, folderName))
+        //        {
+        //            var result = DialogResult.OK;
 
-                    if (promptUser)
-                    {
-                        result = MessageBox.Show("This will delete the current '" + selectedFolder.Name + "/" + folderName + "' folder.",
-                                                   "Warning!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    }
+        //            if (promptUser)
+        //            {
+        //                result = MessageBox.Show("This will delete the current '" + selectedFolder.Name + "/" + folderName + "' folder.",
+        //                                           "Warning!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+        //            }
 
-                    if (result == DialogResult.OK)
-                    {
-                        Delete(o);
-                    }
-                    else if (result == DialogResult.Cancel)
-                    {
-                        process = false;
-                        break;
-                    }
-                }
-            }
-            return process;
-        }
+        //            if (result == DialogResult.OK)
+        //            {
+        //                Delete(o);
+        //            }
+        //            else if (result == DialogResult.Cancel)
+        //            {
+        //                process = false;
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    return process;
+        //}
 
 
         internal void DropTable(string tableName)

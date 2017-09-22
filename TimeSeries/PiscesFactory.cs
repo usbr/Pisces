@@ -229,7 +229,8 @@ namespace Reclamation.TimeSeries
             {
                 if (m_iconNames == null)
                 {
-                    string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
+                    //string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
+                    string dir = FileUtility.GetExecutableDirectory();
                     dir = Path.Combine(dir, "images");
 
                     if (!Directory.Exists(dir))

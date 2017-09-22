@@ -215,7 +215,7 @@ namespace Reclamation.TimeSeries.Hydromet
                             catch (Exception ex)
                             {
 
-                                MessageBox.Show(ex.Message);
+                                Logger.WriteLine(ex.Message);
                             }
 						
 					}
@@ -309,12 +309,12 @@ namespace Reclamation.TimeSeries.Hydromet
             List<string> pcodeList = new List<string>();
 			if(tblNew.Rows.Count != tblOld.Rows.Count)
 			{
-				MessageBox.Show("Error:  the number of rows in the data has changed. no update file will be written");
+				Logger.WriteLine("Error:  the number of rows in the data has changed. no update file will be written");
 				return 0;
 			}
 			if(tblNew.Columns.Count != tblOld.Columns.Count)
 			{
-				MessageBox.Show("Error:  the number of columns in the data has changed. no update file will be written");
+				Logger.WriteLine("Error:  the number of columns in the data has changed. no update file will be written");
 				return 0;
 			}
 			StreamWriter output = new StreamWriter(outputFilename);
@@ -384,12 +384,12 @@ namespace Reclamation.TimeSeries.Hydromet
             mpollPermanentMarkChanged = false;
             if (tblNew.Rows.Count != tblOld.Rows.Count)
             {
-                MessageBox.Show("Error:  the number of rows in the data has changed. no update file will be written");
+                Logger.WriteLine("Error:  the number of rows in the data has changed. no update file will be written");
                 return 0;
             }
             if (tblNew.Columns.Count != tblOld.Columns.Count)
             {
-                MessageBox.Show("Error:  the number of columns in the data has changed. no update file will be written");
+                Logger.WriteLine("Error:  the number of columns in the data has changed. no update file will be written");
                 return 0;
             }
             StreamWriter output = new StreamWriter(outputFilename);

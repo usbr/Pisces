@@ -6,6 +6,7 @@ using System.Data;
 using System.Windows.Forms;
 using System.IO;
 using Reclamation.TimeSeries;
+using System.Text;
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -199,7 +200,7 @@ namespace Reclamation.TimeSeries.Forms
       {
         if (e.Button ==toolBarButtonCopy )
         {// copy to clipboard.
-          series.CopyToClipboard();
+          CopyToClipboard(series);
         }
         else if( e.Button == toolBarButtonExcel)
         {
@@ -225,9 +226,42 @@ namespace Reclamation.TimeSeries.Forms
       Cursor = Cursors.Default;
     }
 
+        private void CopyToClipboard(Series series)
+        {
+            bool includeFlag = true;
+            //DataView view = series.Table.;//.DataView;
 
+            StringBuilder sb = new StringBuilder();
 
-     public event EventHandler SaveInDatabase;
+            string fmt = series.DateTimeFormat;
+
+            sb.Append("Date\tValue");
+            if (includeFlag)
+            {
+                sb.Append("\tflag");
+            }
+            sb.Append("\r\n");
+
+            int numRows = series.Count;
+
+            for (int i = 0; i < numRows; i++)
+            {
+                Point pt = series[i];
+                sb.Append(pt.DateTime.ToString(fmt));
+                sb.Append("\t");
+                sb.Append(pt.Value);
+                if (includeFlag)
+                {
+                    sb.Append("\t");
+                    sb.Append(pt.Flag);
+                }
+                sb.Append("\r\n");
+            }
+            System.Windows.Forms.Clipboard.SetDataObject(sb.ToString(), true);
+
+        }
+
+        public event EventHandler SaveInDatabase;
 
 
     /// <summary>

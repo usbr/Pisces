@@ -1,15 +1,13 @@
 ﻿using Reclamation.Core;
-using System.IO;
-using System.Data;
-using System.Collections.Generic;
-using Reclamation.TimeSeries;
 using System;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
 
 namespace Reclamation.TimeSeries.Hydromet.Operations
 {
-    
-    
+
+
     public partial class FcPlotDataSet {
 
 

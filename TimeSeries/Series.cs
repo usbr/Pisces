@@ -1725,41 +1725,9 @@ namespace Reclamation.TimeSeries
             return s;
         }
 
-        public void CopyToClipboard()
-        {
-            CopyToClipboard(true);
-        }
+        
         public void CopyToClipboard(bool includeFlag)
         {
-            DataView view = this.DataView;
-
-            StringBuilder sb = new StringBuilder();
-
-            string fmt = DateTimeFormat;
-
-            sb.Append("Date\tValue");
-            if (includeFlag)
-            {
-                sb.Append("\tflag");
-            }
-            sb.Append("\r\n");
-
-            int numRows = this.Count;
-
-            for (int i = 0; i < numRows; i++)
-            {
-                Point pt = this[i];
-                sb.Append(pt.DateTime.ToString(fmt));
-                sb.Append("\t");
-                sb.Append(pt.Value);
-                if (includeFlag)
-                {
-                    sb.Append("\t");
-                    sb.Append(pt.Flag);
-                }
-                sb.Append("\r\n");
-            }
-            System.Windows.Forms.Clipboard.SetDataObject(sb.ToString(), true);
         }
 
 

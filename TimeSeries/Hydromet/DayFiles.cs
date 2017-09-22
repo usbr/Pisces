@@ -26,12 +26,12 @@ namespace Reclamation.TimeSeries.Hydromet
             modifiedParameters = modParameterList.ToArray();
             if (tblNew.Rows.Count != tblOld.Rows.Count)
             {
-                MessageBox.Show("Error:  the number of rows in the data has changed. no update file will be written");
+                Logger.WriteLine("Error:  the number of rows in the data has changed. no update file will be written");
                 return 0;
             }
             if (tblNew.Columns.Count != tblOld.Columns.Count)
             {
-                MessageBox.Show("Error:  the number of columns in the data has changed. no update file will be written");
+                Logger.WriteLine("Error:  the number of columns in the data has changed. no update file will be written");
                 return 0;
             }
             StreamWriter output = new StreamWriter(outputFilename);

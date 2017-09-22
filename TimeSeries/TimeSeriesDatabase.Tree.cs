@@ -49,7 +49,7 @@ namespace Reclamation.TimeSeries
                    stack.Push(node);
                    if (node.Parent == null)
                    {
-                       System.Windows.Forms.MessageBox.Show("oops node.Parent == null");
+                       //System.Windows.Forms.MessageBox.Show("oops node.Parent == null");
                        Console.WriteLine("oops node.Parent == null");
                        break;
                    }

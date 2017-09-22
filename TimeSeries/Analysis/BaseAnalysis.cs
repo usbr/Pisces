@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Reclamation.Core;
-using System.Windows.Forms;
 
 namespace Reclamation.TimeSeries.Analysis
 {
