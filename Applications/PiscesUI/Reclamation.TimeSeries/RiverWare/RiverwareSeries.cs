@@ -206,36 +206,6 @@ namespace Reclamation.TimeSeries.RiverWare
              
          }
 
-         public override Series CreateBaseline()
-         {
-             if (ConfigurationManager.AppSettings["AlbScenarioPrefix"] == null)
-                 return this;
-
-             throw new NotImplementedException();
-             ////below This is specific code for Warren Sharp (Albuquerque)
-             //string newScenarioName = "";
-             
-             //if (scenario.Name.IndexOf("UNLIMITED_") == 0)
-             //{//remove prefix UNLIMITED_ 
-             //    newScenarioName = scenario.Name.Replace("UNLIMITED_", "");
-             //}
-             //else
-             //{ //replace first part of filename with BOTargets-
-             //    int idx = scenario.Name.IndexOf("-");
-             //    if (idx < 0)
-             //    {
-             //        Logger.WriteLine("Error: scenario did not include hyphen '-'");
-             //        return new Series();
-             //    }
-             //    newScenarioName = "BOTargets" + scenario.Name.Substring(idx);
-             //}
-             //return CreateScenario(newScenarioName);
-         }
-
-        //public override void Read()
-        //{
-        //    ReadFromFile(DateTime.MinValue,DateTime.MaxValue);
-        //}
          protected override void ReadCore(DateTime t1, DateTime t2)
         {
             ReadFromFile(t1, t2);   
