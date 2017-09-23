@@ -96,7 +96,10 @@ namespace Reclamation.Core
             {
                 var unzipDir = Path.GetDirectoryName(unzipFile);
                 File.Delete(unzipFile);
+                var zipEntry = Path.Combine(unzipDir, zip.Entries[0].Name);
+                File.Delete(zipEntry);
                 zip.ExtractToDirectory(unzipDir);
+                File.Move(zipEntry, unzipFile);
             }        
         }
 
