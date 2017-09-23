@@ -8,8 +8,7 @@ using Reclamation.TimeSeries;
 using System.IO;
 using Math = Reclamation.TimeSeries.Math;
 
-
-namespace Pisces.NunitTests.SeriesMath
+namespace Reclamation.TimeSeries
 {
     [TestFixture]
     public class TestUofIDisaggregation
@@ -46,7 +45,7 @@ namespace Pisces.NunitTests.SeriesMath
             Series known= DB.GetSeriesFromName("C#Disaggregated");
             known.Read(t1,t2);
             
-            Series infilled = Reclamation.TimeSeries.Math.RMSEInterp(daily, monthly);
+            Series infilled = Disaggregation.RMSEInterp(daily, monthly);
             var s = infilled.Subset(t1, t2);
             s.TimeInterval = TimeInterval.Daily;
             
@@ -68,7 +67,7 @@ namespace Pisces.NunitTests.SeriesMath
             monthly.Read();
             known.Read(t1, t2);
 
-            Series infilled = Math.UofIStreamflowDisaggregation(daily, monthly);
+            Series infilled = Disaggregation.UofIStreamflowDisaggregation(daily, monthly);
             var s = infilled.Subset(t1, t2);
             double diff = 0.0;
             for (int i = 0; i < known.Count; i++)
@@ -92,7 +91,7 @@ namespace Pisces.NunitTests.SeriesMath
             monthly.Read();
 
             // disaggregated daily summed to monthly acre-feet
-            Series infilled = Math.RMSEInterp(daily, monthly);
+            Series infilled = Disaggregation.RMSEInterp(daily, monthly);
             Series infilledMonthlySumAcreFeet = Math.MonthlySum(infilled) * 1.98347;
             infilledMonthlySumAcreFeet.TimeInterval = TimeInterval.Monthly;
             
@@ -116,8 +115,8 @@ namespace Pisces.NunitTests.SeriesMath
             monthly.Read();
 
             // disaggregate and merge
-            Series infilled = Math.RMSEInterp(daily, monthly);
-            Math.MergeCheckMassBalance(daily, infilled);
+            Series infilled = Disaggregation.RMSEInterp(daily, monthly);
+            Disaggregation.MergeCheckMassBalance(daily, infilled);
 
             // generate series of monthly volumes only for months with a computed value,
             // these will be compared to the observed monthly

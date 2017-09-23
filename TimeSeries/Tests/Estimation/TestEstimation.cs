@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using NUnit.Framework;
 using Reclamation.TimeSeries;
-using Reclamation.TimeSeries.Estimation;
+using System;
 
 
 namespace Pisces.NunitTests.SeriesMath
@@ -25,43 +22,43 @@ namespace Pisces.NunitTests.SeriesMath
         {
 
         }
-        /// <summary>
-        /// Test Multiple Linear Regression (MLR) 
-        /// with simple two series example. 
-        /// Series1 is twice the value of Series2 (Jan,Feb,Mar)
-        /// Series1 is 3 times the value of Series2 (Apr...Dec)
-        /// </summary> 
-        [Test]
-        public void SimpleMonthlyMLRJanFebMar()
-        {
-            CreateSeries();
+        ///// <summary>
+        ///// Test Multiple Linear Regression (MLR) 
+        ///// with simple two series example. 
+        ///// Series1 is twice the value of Series2 (Jan,Feb,Mar)
+        ///// Series1 is 3 times the value of Series2 (Apr...Dec)
+        ///// </summary> 
+        //[Test]
+        //public void SimpleMonthlyMLRJanFebMar()
+        //{
+        //    CreateSeries();
             
-           var x = MultipleLinearRegression.MlrInterpolation(list, new int[] { 1, 2,3 }, .7, true);
-           Console.WriteLine("Results:");
-           x.EstimatedSeries.WriteToConsole();
-           Console.WriteLine(String.Join("\n", x.Report));
-           Point feb = x.EstimatedSeries["2000-2-1"];
-           Assert.AreEqual(2, feb.Value,0.01, "Feb value should be 2");
-           Point may = x.EstimatedSeries["2000-5-1"];
-           Assert.IsTrue(may.IsMissing, "Value in May should not be estimated");
-        }
-        /// <summary>
-        /// Test Multiple Linear Regression (MLR) 
-        /// with simple two series example. 
-        /// </summary> 
-        [Test]
-        public void SimpleMonthlyMLRAprMayJun()
-        {
-            CreateSeries();
+        //   var x = MultipleLinearRegression.MlrInterpolation(list, new int[] { 1, 2,3 }, .7, true);
+        //   Console.WriteLine("Results:");
+        //   x.EstimatedSeries.WriteToConsole();
+        //   Console.WriteLine(String.Join("\n", x.Report));
+        //   Point feb = x.EstimatedSeries["2000-2-1"];
+        //   Assert.AreEqual(2, feb.Value,0.01, "Feb value should be 2");
+        //   Point may = x.EstimatedSeries["2000-5-1"];
+        //   Assert.IsTrue(may.IsMissing, "Value in May should not be estimated");
+        //}
+        ///// <summary>
+        ///// Test Multiple Linear Regression (MLR) 
+        ///// with simple two series example. 
+        ///// </summary> 
+        //[Test]
+        //public void SimpleMonthlyMLRAprMayJun()
+        //{
+        //    CreateSeries();
 
-            var y = MultipleLinearRegression.MlrInterpolation(list, new int[] { 4, 5, 6 }, .7, true);
-            y.EstimatedSeries.WriteToConsole();
-            var may = y.EstimatedSeries["2000-5-1"];
-            Assert.AreEqual(5, may.Value,0.01, "may value should be 5");
-            var feb = y.EstimatedSeries["2000-2-1"];
-            Assert.IsTrue(feb.IsMissing, "Value in Feb should not be estimated");
+        //    var y = MultipleLinearRegression.MlrInterpolation(list, new int[] { 4, 5, 6 }, .7, true);
+        //    y.EstimatedSeries.WriteToConsole();
+        //    var may = y.EstimatedSeries["2000-5-1"];
+        //    Assert.AreEqual(5, may.Value,0.01, "may value should be 5");
+        //    var feb = y.EstimatedSeries["2000-2-1"];
+        //    Assert.IsTrue(feb.IsMissing, "Value in Feb should not be estimated");
 
-        }
+        //}
         /// Series1 is twice the value of Series2 (Jan,Feb,Mar)
         /// Series1 is 3 times the value of Series2 (Apr...Dec)
         private void CreateSeries()

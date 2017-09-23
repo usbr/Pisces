@@ -1,15 +1,11 @@
-﻿using System;
+﻿using Reclamation.Core;
+using Reclamation.TimeSeries.Parser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Data;
-using Reclamation.Core;
-using Reclamation.TimeSeries.Parser;
-using Reclamation.TimeSeries.Estimation;
-
 namespace Reclamation.TimeSeries
 {
-    public static partial class Math
+    public static class Disaggregation
     {
         /// <summary>
         /// Entry point for disaggregating monthly streamflow using UofI's method
@@ -86,7 +82,7 @@ namespace Reclamation.TimeSeries
         public static Series RMSEInterp(Series daily, Series monthly)
         {
             // Generates the monthly totals for the RMS calculations in cu.ft/month
-            Series SSmonthTot = MonthSum(MonthlyAverage(daily));
+            Series SSmonthTot = MonthSum(Math.MonthlyAverage(daily));
             Series TSmonthTot = MonthSum(ConvertAcreFeetToCfs(monthly));
 
             // Builds a Series to keep track of the corresponding year with the minimum RMSe
@@ -429,11 +425,11 @@ namespace Reclamation.TimeSeries
         internal static void MergeCheckMassBalance(Series observed, Series estimated)
         {
             // Merge the observed and disaggregated series
-            Series merged = Merge(observed, estimated);
+            Series merged = Math.Merge(observed, estimated);
 
             // Get monthly sums from the original disaggregated and merged series along with their difference
-            Series disaggMonthlyVol = Reclamation.TimeSeries.Math.MonthlySum(estimated);
-            Series mergedMonthlyVol = Reclamation.TimeSeries.Math.MonthlySum(merged);
+            Series disaggMonthlyVol = Math.MonthlySum(estimated);
+            Series mergedMonthlyVol = Math.MonthlySum(merged);
             Series diffVol = disaggMonthlyVol - mergedMonthlyVol;
             diffVol = TimeSeries.Math.FillMissingWithZero(diffVol);
 

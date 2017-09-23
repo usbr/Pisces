@@ -82,19 +82,12 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
-    <Reference Include="alglibnet2">
-      <HintPath>..\ThirdParty\alglibnet2.dll</HintPath>
-    </Reference>
-    <Reference Include="MathNet.Numerics, Version=3.7.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MathNet.Numerics.3.7.0\lib\net40\MathNet.Numerics.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
@@ -169,7 +162,6 @@
     <Compile Include="Analysis\WaterYearsAnalysis.cs" />
     <Compile Include="CalculationSeries.cs" />
     <Compile Include="ConstantSeries.cs" />
-    <Compile Include="Estimation\Regression.cs" />
     <Compile Include="FileImporter.cs" />
     <Compile Include="HDB\HDBWebSeries.cs" />
     <Compile Include="IdahoPower\Program.cs" />
@@ -223,9 +215,6 @@
     <Compile Include="TimeRange.cs" />
     <Compile Include="TimeSeriesDatabase.Factory.cs" />
     <Compile Include="DataTableSeries.cs" />
-    <Compile Include="Estimation\AllPossibleCombination.cs" />
-    <Compile Include="Estimation\MultipleLinearRegression.cs" />
-    <Compile Include="Estimation\MultipleLinearRegressionResults.cs" />
     <Compile Include="Hydromet\AsceEtCalculator.cs" />
     <Compile Include="Hydromet\CommandLine.cs" />
     <Compile Include="Hydromet\DayFiles.cs" />
@@ -310,7 +299,6 @@
     <Compile Include="Tests\SeriesMath\TestSimpleAddBug.cs" />
     <Compile Include="Tests\SeriesMath\TestSmoothRangePreserveTotal.cs" />
     <Compile Include="Tests\SeriesMath\TestSummaryHydrograph.cs" />
-    <Compile Include="Tests\SeriesMath\TestUofIDisaggregation.cs" />
     <Compile Include="Tests\SeriesMath\TestWaterYear.cs" />
     <Compile Include="Tests\SeriesTypes\Cr10xTest.cs" />
     <Compile Include="Tests\SeriesTypes\TestSnotel.cs" />
@@ -403,11 +391,8 @@
     <Compile Include="Idwr\IDWRDailySeries.cs" />
     <Compile Include="Math.ET.cs" />
     <Compile Include="DataLogger\LoggerNetFile.cs" />
-    <Compile Include="Estimation\MonthlyToDailyConversion.cs" />
-    <Compile Include="Estimation\Smoothing.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="JulianIndex.cs" />
-    <Compile Include="Math.DissagregationUofI.cs" />
     <Compile Include="Math.Hydromet.cs" />
     <Compile Include="Math.Statistics.Daily.cs" />
     <Compile Include="Nrcs\NrcsDailySerieLegacy.cs" />

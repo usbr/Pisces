@@ -1,78 +1,72 @@
-﻿using System;
+﻿using Reclamation.TimeSeries.Parser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Reclamation.Core;
-using System.Data;
-using Reclamation.TimeSeries.Parser;
-using Reclamation.TimeSeries.Estimation;
-using MathNet.Numerics.LinearAlgebra;
-using MathNet.Numerics.LinearAlgebra.Double;
 
 namespace Reclamation.TimeSeries
 {
     public static partial class Math
     {
 
-        // we need this overloaded version of EstimateDailyFromMonthly without the optional parameter because we use reflection
+        //// we need this overloaded version of EstimateDailyFromMonthly without the optional parameter because we use reflection
 
-        public static Series EstimateDailyFromMonthly(Series daily, Series monthly)
-        {
-            return EstimateDailyFromMonthly(daily, monthly, false);
-        }
+        //public static Series EstimateDailyFromMonthly(Series daily, Series monthly)
+        //{
+        //    return EstimateDailyFromMonthly(daily, monthly, false);
+        //}
 
-        [FunctionAttribute("Replaces data above or below a user specified maximum and minimum, by interpolating from nearest ‘good’ data.",
-        "SmoothingInterpolateOutliers(series,min,max)")]
-        public static Series SmoothingInterpolateOutliers(Series s, double min, double max)
-        {
-            return Estimation.Smoothing.SmoothingInterpolateOutliers(s, min, max);
-        }
+        //[FunctionAttribute("Replaces data above or below a user specified maximum and minimum, by interpolating from nearest ‘good’ data.",
+        //"SmoothingInterpolateOutliers(series,min,max)")]
+        //public static Series SmoothingInterpolateOutliers(Series s, double min, double max)
+        //{
+        //    return Estimation.Smoothing.SmoothingInterpolateOutliers(s, min, max);
+        //}
 
 
-        /// <summary>
-        /// Estimates daily data 
-        /// </summary>
-        /// <param name="observed"></param>
-        /// <param name="monthly"></param>
-        /// <param name="merge"></param>
-        /// <returns></returns>
-        [FunctionAttribute("Estimates Daily data based on monthly and partial daily.  This was designed for estimating missing diversion data.  This is performed by using the time pattern from a Summary Hydrograph and scaling data to ensure the monthly volume matches.",
-         "EstimateDailyFromMonthly(daily_cfs,monthly_acre_feet,bool merge)")]
-        public static Series EstimateDailyFromMonthly(Series observed, Series monthly, bool merge = false)
-        {
-            MonthlyToDailyConversion c = new MonthlyToDailyConversion(observed, monthly);
+        ///// <summary>
+        ///// Estimates daily data 
+        ///// </summary>
+        ///// <param name="observed"></param>
+        ///// <param name="monthly"></param>
+        ///// <param name="merge"></param>
+        ///// <returns></returns>
+        //[FunctionAttribute("Estimates Daily data based on monthly and partial daily.  This was designed for estimating missing diversion data.  This is performed by using the time pattern from a Summary Hydrograph and scaling data to ensure the monthly volume matches.",
+        // "EstimateDailyFromMonthly(daily_cfs,monthly_acre_feet,bool merge)")]
+        //public static Series EstimateDailyFromMonthly(Series observed, Series monthly, bool merge = false)
+        //{
+        //    MonthlyToDailyConversion c = new MonthlyToDailyConversion(observed, monthly);
 
-            var rval = c.ConvertToDaily();
-            if (merge)
-                return Merge(observed, rval);
+        //    var rval = c.ConvertToDaily();
+        //    if (merge)
+        //        return Merge(observed, rval);
 
-            return rval;
+        //    return rval;
 
-        }
-        /// <summary>
-        ///  Estimates Daily data based on monthly and partial daily.  This was designed for estimating missing diversion data.  This is performed by using the time pattern from a Summary Hydrograph and scaling data to ensure the monthly volume matches.
-        /// </summary>
-        /// <param name="observed">Series of daily data (cfs)</param>
-        /// <param name="monthly">Series of monthly data (acre-feet)</param>
-        /// <param name="merge">when true any available observed data is used for the estimate</param>
-        /// <param name="medianOnly">Use a single median (50%) exceedence level instead of every 2% between 5% and 95%</param>
-        /// <param name="setMissingToZero">applies to observed daily data.  When setMissingToZero is true missing data is set to zero. Otherwise missing data is ignored</param>
-        /// <returns></returns>
-        [FunctionAttribute("Estimates Daily data based on monthly and partial daily.  This was designed for estimating missing diversion data.  This is performed by using the time pattern from a Summary Hydrograph and scaling data to ensure the monthly volume matches.",
-        "EstimateDailyFromMonthly(daily_cfs,monthly_acre_feet,bool merge = false,bool medianOnly=false, bool setMissingToZero=true)")]
-        public static Series EstimateDailyFromMonthly(Series observed, Series monthly, bool merge = false, bool medianOnly = false, bool setMissingToZero = true)
-        {
-            MonthlyToDailyConversion c = new MonthlyToDailyConversion(observed, monthly);
-            c.FillMissingWithZero = setMissingToZero;
-            c.MedianOnly = medianOnly;
+        ////}
+        ///// <summary>
+        /////  Estimates Daily data based on monthly and partial daily.  This was designed for estimating missing diversion data.  This is performed by using the time pattern from a Summary Hydrograph and scaling data to ensure the monthly volume matches.
+        ///// </summary>
+        ///// <param name="observed">Series of daily data (cfs)</param>
+        ///// <param name="monthly">Series of monthly data (acre-feet)</param>
+        ///// <param name="merge">when true any available observed data is used for the estimate</param>
+        ///// <param name="medianOnly">Use a single median (50%) exceedence level instead of every 2% between 5% and 95%</param>
+        ///// <param name="setMissingToZero">applies to observed daily data.  When setMissingToZero is true missing data is set to zero. Otherwise missing data is ignored</param>
+        ///// <returns></returns>
+        //[FunctionAttribute("Estimates Daily data based on monthly and partial daily.  This was designed for estimating missing diversion data.  This is performed by using the time pattern from a Summary Hydrograph and scaling data to ensure the monthly volume matches.",
+        //"EstimateDailyFromMonthly(daily_cfs,monthly_acre_feet,bool merge = false,bool medianOnly=false, bool setMissingToZero=true)")]
+        //public static Series EstimateDailyFromMonthly(Series observed, Series monthly, bool merge = false, bool medianOnly = false, bool setMissingToZero = true)
+        //{
+        //    MonthlyToDailyConversion c = new MonthlyToDailyConversion(observed, monthly);
+        //    c.FillMissingWithZero = setMissingToZero;
+        //    c.MedianOnly = medianOnly;
 
-            var rval = c.ConvertToDaily();
-            if (merge)
-                return Merge(observed, rval);
+        //    var rval = c.ConvertToDaily();
+        //    if (merge)
+        //        return Merge(observed, rval);
 
-            return rval;
+        //    return rval;
 
-        }
+        //}
 
 
         [FunctionAttribute("Sums a list of Series.  Missing data is replaced with a zero.",
@@ -204,26 +198,26 @@ namespace Reclamation.TimeSeries
         }
 
 
-        /// <summary>
-        /// Method to interpolate missing values within a Series via Multiple Linear Regression
-        /// </summary>
-        /// <param name="fitTolerance"></param>
-        /// <param name="s"></param>
-        /// <returns></returns>
-        [FunctionAttribute("Performs a Multiple Linear Regression using different combinations of the input interpolator Series " +
-            "and assigns the best fit as the interpolated value so long as the input fit tolerance is met.",
-            "MLRInterpolation(fitTolerance = value between 0.0 & 1.0, Series-0 to be interpolated, Series-1 used for interpolation, " +
-            "Series-2 used for interpolation, Series-3, Series-4, ...")]
-        public static Series MLRInterpolationPisces(double fitTolerance, params Series[] s)
-        {
-            SeriesList sList = new SeriesList();
-            foreach (var item in s)
-            { sList.Add(item); }
-            var sOut = Reclamation.TimeSeries.Estimation.MultipleLinearRegression.MlrInterpolation(sList,
-                new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 }, fitTolerance);
+        ///// <summary>
+        ///// Method to interpolate missing values within a Series via Multiple Linear Regression
+        ///// </summary>
+        ///// <param name="fitTolerance"></param>
+        ///// <param name="s"></param>
+        ///// <returns></returns>
+        //[FunctionAttribute("Performs a Multiple Linear Regression using different combinations of the input interpolator Series " +
+        //    "and assigns the best fit as the interpolated value so long as the input fit tolerance is met.",
+        //    "MLRInterpolation(fitTolerance = value between 0.0 & 1.0, Series-0 to be interpolated, Series-1 used for interpolation, " +
+        //    "Series-2 used for interpolation, Series-3, Series-4, ...")]
+        //public static Series MLRInterpolationPisces(double fitTolerance, params Series[] s)
+        //{
+        //    SeriesList sList = new SeriesList();
+        //    foreach (var item in s)
+        //    { sList.Add(item); }
+        //    var sOut = Reclamation.TimeSeries.Estimation.MultipleLinearRegression.MlrInterpolation(sList,
+        //        new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 }, fitTolerance);
 
-            return sOut.EstimatedSeries;
-        }
+        //    return sOut.EstimatedSeries;
+        //}
 
     }
 
