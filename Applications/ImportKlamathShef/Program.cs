@@ -62,7 +62,7 @@ namespace ImportKlamathShef
                 Console.WriteLine(r["cbtt"].ToString()+"/"+r["pcode"].ToString()+" "+s.Count +" records");
 
                 HydrometInstantSeries.WriteToHydrometFile(s, r["cbtt"].ToString(),
-                    r["pcode"].ToString(), WindowsUtility.GetUserName(), outputFilename, true);
+                    r["pcode"].ToString(), "klamath", outputFilename, true);
 
             }
             

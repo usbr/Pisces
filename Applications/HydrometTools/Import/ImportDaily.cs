@@ -321,11 +321,12 @@ namespace HydrometTools
             {
                 try
                 {
+                    var un = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
                     Cursor = Cursors.WaitCursor;
                      Application.DoEvents();
                      var results = HydrometEditsVMS.SaveDailyData(login.Username, login.Password, fileName, HydrometDataUtility.CreateRemoteFileName(login.Username, TimeInterval.Daily),false,false);
                     TimeSeriesEditor.ShowVmsStatus(results);
-                    textBoxLastUpdate.Text = DateTime.Now.ToShortDateString()+" "+ WindowsUtility.GetUserName();
+                    textBoxLastUpdate.Text = DateTime.Now.ToShortDateString()+" "+ un;
                     this.buttonSaveCsv_Click(this, EventArgs.Empty);
                 }
                 finally

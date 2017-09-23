@@ -38,7 +38,7 @@ namespace Reclamation.TimeSeries.Hydromet
 
             int modifiedCounter = 0;
             // first column is date, other columns are values
-            output.WriteLine("yyyyMMMdd hhmm cbtt     PC        NewValue   OldValue   Flag user:"+WindowsUtility.GetShortUserName());
+            output.WriteLine("yyyyMMMdd hhmm cbtt     PC        NewValue   OldValue   Flag user:"+ Environment.UserName);
             for (int c = 1; c < tblOld.Columns.Count; c += 2)
             {
                 string columnName = tblOld.Columns[c].ColumnName;

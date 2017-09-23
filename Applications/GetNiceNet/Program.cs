@@ -179,7 +179,7 @@ namespace GetNiceNet
                                 }
                                 //Only load the last hoursBack hours of data
                                s.Trim(DateTime.Now.AddHours(-hoursBack), DateTime.Now.AddHours(2));
-                                HydrometInstantSeries.WriteToHydrometFile(s, cbtt, pCode, WindowsUtility.GetUserName(), args["output"], true);
+                                HydrometInstantSeries.WriteToHydrometFile(s, cbtt, pCode, "nicenet", args["output"], true);
                             }
                             catch
                             {
@@ -191,7 +191,7 @@ namespace GetNiceNet
                     if (tp.Count > 0)
                     {
                         tp = ApplyFlags(tp, ParameterSet["TP"]);
-                        HydrometInstantSeries.WriteToHydrometFile(tp, cbtt, "TP", WindowsUtility.GetUserName(), args["output"], true);
+                        HydrometInstantSeries.WriteToHydrometFile(tp, cbtt, "TP", "nicenet", args["output"], true);
                     }
                     else
                     {

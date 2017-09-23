@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Core\Arguments.cs" Link="Arguments.cs" />
+    <Compile Include="..\Core\AssemblyUtility.cs" Link="AssemblyUtility.cs" />
+    <Compile Include="..\Core\BasicDBServer.cs" Link="BasicDBServer.cs" />
+    <Compile Include="..\Core\ConnectionStringUtility.cs" Link="ConnectionStringUtility.cs" />
+    <Compile Include="..\Core\CsvFile.cs" Link="CsvFile.cs" />
+    <Compile Include="..\Core\DataRowIO.cs" Link="DataRowIO.cs" />
+    <Compile Include="..\Core\DataTableOutput.cs" Link="DataTableOutput.cs" />
+    <Compile Include="..\Core\DataTableUtility.cs" Link="DataTableUtility.cs" />
+    <Compile Include="..\Core\Enums.cs" Link="Enums.cs" />
+    <Compile Include="..\Core\Events.cs" Link="Events.cs" />
+    <Compile Include="..\Core\FileUtility.cs" Link="FileUtility.cs" />
+    <Compile Include="..\Core\FixedWidthTextFile.cs" Link="FixedWidthTextFile.cs" />
+    <Compile Include="..\Core\Globals.cs" Link="Globals.cs" />
+    <Compile Include="..\Core\LinuxUtility.cs" Link="LinuxUtility.cs" />
+    <Compile Include="..\Core\Logger.cs" Link="Logger.cs" />
+    <Compile Include="..\Core\MonthDayRange.cs" Link="MonthDayRange.cs" />
+    <Compile Include="..\Core\NetworkUtility.cs" Link="NetworkUtility.cs" />
+    <Compile Include="..\Core\Options.cs" Link="Options.cs" />
+    <Compile Include="..\Core\Performance.cs" Link="Performance.cs" />
+    <Compile Include="..\Core\PostgreSQL.cs" Link="PostgreSQL.cs" />
+    <Compile Include="..\Core\ProgramRunner.cs" Link="ProgramRunner.cs" />
+    <Compile Include="..\Core\ResourceUtility.cs" Link="ResourceUtility.cs" />
+    <Compile Include="..\Core\SimpleWebCache.cs" Link="SimpleWebCache.cs" />
+    <Compile Include="..\Core\StringCipher.cs" Link="StringCipher.cs" />
+    <Compile Include="..\Core\TextFile.cs" Link="TextFile.cs" />
+    <Compile Include="..\Core\TextFileCredentials.cs" Link="TextFileCredentials.cs" />
+    <Compile Include="..\Core\UserPreference.cs" Link="UserPreference.cs" />
+    <Compile Include="..\Core\Web.cs" Link="Web.cs" />
+    <Compile Include="..\Core\ZipFileUtility.cs" Link="ZipFileUtility.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.0.0" />
+    <PackageReference Include="Npgsql" Version="3.2.5" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.0" />
+  </ItemGroup>
+
+</Project>

@@ -605,7 +605,7 @@ namespace Reclamation.TimeSeries
         private void ExportSeriesToDatabase()
         {
             // hack to cache all monthly data being process.ed
-            if (WindowsUtility.GetShortUserName().ToLower() == "ktarbetxss")
+            if (Environment.UserName.ToLower() == "ktarbetxss")
             {// 
 
                 if (this is Hydromet.HydrometMonthlySeries)

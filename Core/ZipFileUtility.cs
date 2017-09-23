@@ -12,11 +12,9 @@ namespace Reclamation.Core
     /// <summary>
     /// Summary description for ZipFile.
     /// </summary>
-    public class ZipFile
+    public class ZipFileUtility
     {
 
-        public delegate void ProgressEventHandler(object sender, ProgressEventArgs e);
-        public static event ProgressEventHandler OnProgress;
 
         /// <summary>
         /// compress a single file into a zip file.

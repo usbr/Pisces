@@ -36,7 +36,7 @@ namespace Reclamation.TimeSeries.Forms
             clearItems = dashes + "  clear items  " + dashes;
 
             LoadDatabaseList();
-            this.labelUserName.Text = WindowsUtility.GetShortUserName().ToLower();
+            this.labelUserName.Text = Environment.UserName.ToLower();
         }
 
         private void LoadDatabaseList()

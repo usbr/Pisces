@@ -55,7 +55,7 @@ namespace ImportIdahoPower
                 var fn = Path.Combine(dir, "instant_ipco_" + cbtt + "_" + pcode +d+ ".txt");
                 Console.WriteLine(fn);
                 HydrometInstantSeries.WriteToHydrometFile(s, cbtt,
-                  pcode , WindowsUtility.GetUserName(), fn);
+                  pcode , "idahopower", fn);
             }
             else if (interval.ToLower() == "daily")
             {
@@ -114,7 +114,7 @@ Timestamp (UTC-07:00),Value (Cubic Feet Per Second),Grade Code,Approval Level,In
 
             var csv = FileUtility.GetTempFileName(".csv");
             Console.WriteLine("Unzipping to-> " + csv);
-            ZipFile.UnzipFile(zip, csv);
+            ZipFileUtility.UnzipFile(zip, csv);
             return csv;
         }
 

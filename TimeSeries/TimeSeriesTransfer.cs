@@ -34,7 +34,7 @@ namespace Reclamation.TimeSeries
                 s.TimeInterval == TimeInterval.Hourly)
             {
                 var fn = TimeSeriesTransfer.GetIncommingFileName("instant", siteID, parameter);
-                HydrometInstantSeries.WriteToHydrometFile(s, siteID, parameter, WindowsUtility.GetShortUserName(), fn);
+                HydrometInstantSeries.WriteToHydrometFile(s, siteID, parameter,Environment.UserName , fn);
             }
 
         }
@@ -73,7 +73,7 @@ namespace Reclamation.TimeSeries
                 foreach (var s in list)
                 {
                     if (AllowExport(s))
-                    HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, WindowsUtility.GetShortUserName(), tmpFileName, true);
+                    HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, Environment.UserName, tmpFileName, true);
                 }
             }
             if (File.Exists(tmpFileName))

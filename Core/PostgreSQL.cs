@@ -52,7 +52,7 @@ namespace Reclamation.Core
         else{ // windows
             if (userName == "")
             {
-                userName = WindowsUtility.GetShortUserName();
+                    userName = Environment.UserName.ToLower();
             }
         }
            

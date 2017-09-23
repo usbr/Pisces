@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.Windows", "Recl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UofIDisaggregation", "Applications\UofIDisaggregation\UofIDisaggregation.csproj", "{6F7C6C62-721C-4AF6-AF29-70E69989CCE1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reclamation.NetCore", "Reclamation.NetCore\Reclamation.NetCore.csproj", "{C3D1A6BD-7217-40D4-980B-1FA938DB7844}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -160,6 +162,10 @@ Global
 		{6F7C6C62-721C-4AF6-AF29-70E69989CCE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F7C6C62-721C-4AF6-AF29-70E69989CCE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F7C6C62-721C-4AF6-AF29-70E69989CCE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3D1A6BD-7217-40D4-980B-1FA938DB7844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3D1A6BD-7217-40D4-980B-1FA938DB7844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3D1A6BD-7217-40D4-980B-1FA938DB7844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3D1A6BD-7217-40D4-980B-1FA938DB7844}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

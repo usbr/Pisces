@@ -128,7 +128,7 @@ namespace Pisces.NunitTests.SeriesMath
         {
             string zipFile = Path.Combine(TestData.DataPath, "UofIDisaggregationTest.zip");
             var path = FileUtility.GetTempPath() + @"\UofIDisaggregationTest.pdb";
-            ZipFile.UnzipFile(zipFile, path);
+            ZipFileUtility.UnzipFile(zipFile, path);
 
             Reclamation.Core.SQLiteServer pDB = new Reclamation.Core.SQLiteServer(path);
             TimeSeriesDatabase DB = new TimeSeriesDatabase(pDB,false);

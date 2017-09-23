@@ -333,7 +333,7 @@ namespace Reclamation.Core
             if (LinuxUtility.IsLinux() || server == "localhost" )
             {//Linux login is from config file.  Assuming localhost access
                 if (user == "")
-                    user = WindowsUtility.GetShortUserName();
+                    user = Environment.UserName;
 
                 var cs = "server=" + server + ";uid="
                + user + ";"
@@ -360,7 +360,7 @@ namespace Reclamation.Core
                 string cs;
                 if (user == "")
                 {
-                    cs = "server=" + server + ";uid=" + WindowsUtility.GetShortUserName() + ";" + "pwd=" + password +
+                    cs = "server=" + server + ";uid=" + Environment.UserName + ";" + "pwd=" + password +
                            ";database=" + databaseName + ";";
                 }
                 else

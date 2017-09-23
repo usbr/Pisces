@@ -56,13 +56,6 @@
     </StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DgvFilterPopup">
-      <HintPath>..\ThirdParty\DgvFilterPopup.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.ConnectorNET.Data.6.8.3.2\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
@@ -146,8 +139,7 @@
     <Compile Include="UserPreference.cs" />
     <Compile Include="Web.cs" />
     <Compile Include="SimpleWebCache.cs" />
-    <Compile Include="WindowsUtility.cs" />
-    <Compile Include="ZipFile.cs" />
+    <Compile Include="ZipFileUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

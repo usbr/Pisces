@@ -155,7 +155,7 @@ namespace GetINL
                     s.Trim(DateTime.Now.AddHours(-4), DateTime.Now.AddHours(2));
                 }
 
-                HydrometInstantSeries.WriteToHydrometFile(s, cbtt, hydromet_pcode, WindowsUtility.GetUserName(), args["output"], true);
+                HydrometInstantSeries.WriteToHydrometFile(s, cbtt, hydromet_pcode, "inl", args["output"], true);
 
                 var tp = DewPointCalculation(ob, tu, cbtt);
                 if (tp.Count > 0)
@@ -179,7 +179,7 @@ namespace GetINL
 
             var xmlFileName = FileUtility.GetTempFileName(".xml");
             Console.WriteLine("Unzipping to-> " + xmlFileName);
-            ZipFile.UnzipFile(zip, xmlFileName);
+            ZipFileUtility.UnzipFile(zip, xmlFileName);
             return xmlFileName;
         }
 
