@@ -3,7 +3,6 @@ using System.Data;
 
 namespace Reclamation.TimeSeries
 {
-    public enum AnalysisType { TimeSeries, Exceedance, WaterYears, SummaryHydrograph, Correlation };
 
 
     public class TimeSeriesSettings
