@@ -91,7 +91,6 @@
     </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -165,7 +164,6 @@
     <Compile Include="FileImporter.cs" />
     <Compile Include="HDB\HDBWebSeries.cs" />
     <Compile Include="IdahoPower\Program.cs" />
-    <Compile Include="Idwr\IdwrApiResponse.cs" />
     <Compile Include="Import\DirectoryScanner.cs" />
     <Compile Include="Import\BulkImportDirectory.cs" />
     <Compile Include="Import\XConnectTextFile.cs" />
@@ -211,7 +209,6 @@
     <Compile Include="Tests\SeriesMath\TestResidual.cs" />
     <Compile Include="Tests\SeriesMath\TestInterpolate2D.cs" />
     <Compile Include="Tests\SeriesTypes\TestHDB.cs" />
-    <Compile Include="Tests\SeriesTypes\TestIdwr.cs" />
     <Compile Include="TimeRange.cs" />
     <Compile Include="TimeSeriesDatabase.Factory.cs" />
     <Compile Include="DataTableSeries.cs" />
@@ -388,7 +385,6 @@
     <Compile Include="TimeSeriesImporter.cs" />
     <Compile Include="Hydromet\Operations\WodiRuleCurve.cs" />
     <Compile Include="IdahoPower\IdahoPowerSeries.cs" />
-    <Compile Include="Idwr\IDWRDailySeries.cs" />
     <Compile Include="Math.ET.cs" />
     <Compile Include="DataLogger\LoggerNetFile.cs" />
     <Compile Include="Extensions.cs" />
@@ -414,7 +410,6 @@
     <Compile Include="TimeSeriesDependency.cs" />
     <Compile Include="TimeSeriesName.cs" />
     <Compile Include="DataLogger\Cr10xSeries.cs" />
-    <Compile Include="Idwr\IdwrMonthy.cs" />
     <Compile Include="IScenarioSelector.cs" />
     <Compile Include="Owrd\OwrdSeries.cs" />
     <Compile Include="Parser\ParserResult.cs" />

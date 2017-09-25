@@ -64,8 +64,14 @@
     <Reference Include="libsim">
       <HintPath>..\..\ThirdParty\Modsim\libsim.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="SpreadsheetGear" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
       <HintPath>..\PaidThirdParty\SpreadsheetGear.dll</HintPath>
@@ -123,6 +129,12 @@
     <Compile Include="Reclamation.TimeSeries.ArmyCorps\TestHecDssSeries.cs" />
     <Compile Include="Reclamation.TimeSeries.ArmyCorps\UsacePlugin.cs" />
     <Compile Include="Reclamation.TimeSeries.ArmyCorps\UsaceSeries.cs" />
+    <Compile Include="Reclamation.TimeSeries.Forms\ImportIdwrData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reclamation.TimeSeries.Forms\ImportIdwrData.Designer.cs">
+      <DependentUpon>ImportIdwrData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reclamation.TimeSeries.Modsim\ModsimPiscesTree.cs" />
     <Compile Include="Reclamation.TimeSeries.Modsim\ModsimSeries.cs" />
     <Compile Include="Reclamation.TimeSeries.Modsim\ModsimUtilities.cs" />
@@ -161,6 +173,10 @@
     <Compile Include="Reclamation.TimeSeries\Hydross\HydrossSeries.cs" />
     <Compile Include="Reclamation.TimeSeries\Hydross\HydrossTree.cs" />
     <Compile Include="Reclamation.TimeSeries\Hydross\ODSFunctions.cs" />
+    <Compile Include="Reclamation.TimeSeries\Idwr\IdwrApiResponse.cs" />
+    <Compile Include="Reclamation.TimeSeries\Idwr\IDWRDailySeries.cs" />
+    <Compile Include="Reclamation.TimeSeries\Idwr\IdwrMonthy.cs" />
+    <Compile Include="Reclamation.TimeSeries\Idwr\TestIdwr.cs" />
     <Compile Include="Reclamation.TimeSeries\IPlugin.cs" />
     <Compile Include="Reclamation.TimeSeries\PluginManager.cs" />
     <Compile Include="Reclamation.TimeSeries\RBMS\RBMSTextFile.cs" />
@@ -180,6 +196,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reclamation.TimeSeries.ArmyCorps\ImportCorpsDataQuery.resx">
       <DependentUpon>ImportCorpsDataQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reclamation.TimeSeries.Forms\ImportIdwrData.resx">
+      <DependentUpon>ImportIdwrData.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Reclamation.TimeSeries\BpaHydsim\HydSimScenarioPicker.resx">
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>

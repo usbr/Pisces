@@ -10,7 +10,7 @@ namespace ReclamationTesting.AgriMet
     /// <summary>
     /// Summary description for CropWaterUse
     /// </summary>
-    [TestClass]
+    [TestFixture]
     public class TestCropWaterUse
     {
         public TestCropWaterUse()
@@ -60,7 +60,7 @@ namespace ReclamationTesting.AgriMet
         //
         #endregion
 
-        [TestMethod]
+        [Test]
         public void WaterUse()
         {
 

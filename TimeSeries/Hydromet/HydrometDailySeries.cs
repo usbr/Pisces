@@ -1,13 +1,10 @@
+using Reclamation.Core;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data;
-using Reclamation.Core;
-using System.Configuration;
-using System.IO;
-using System.Data.Linq;
-using System.Linq;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 
 namespace Reclamation.TimeSeries.Hydromet
 {
