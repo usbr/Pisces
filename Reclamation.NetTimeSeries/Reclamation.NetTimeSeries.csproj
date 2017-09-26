@@ -1,0 +1,301 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\DataRowComparer.cs" Link="corefx\DataRowComparer.cs" />
+    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\DataRowExtensions.cs" Link="corefx\DataRowExtensions.cs" />
+    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\DataSetUtil.cs" Link="corefx\DataSetUtil.cs" />
+    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\DataTableExtensions.cs" Link="corefx\DataTableExtensions.cs" />
+    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\EnumerableRowCollection.cs" Link="corefx\EnumerableRowCollection.cs" />
+    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\EnumerableRowCollectionExtensions.cs" Link="corefx\EnumerableRowCollectionExtensions.cs" />
+    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\OrderedEnumerableRowCollection.cs" Link="corefx\OrderedEnumerableRowCollection.cs" />
+    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\SortExpressionBuilder.cs" Link="corefx\SortExpressionBuilder.cs" />
+    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\TypedTableBase.cs" Link="corefx\TypedTableBase.cs" />
+    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\TypedTableBaseExtensions.cs" Link="corefx\TypedTableBaseExtensions.cs" />
+    <Compile Include="..\TimeSeries\AgriMet\CropChartGenerator.cs" Link="AgriMet\CropChartGenerator.cs" />
+    <Compile Include="..\TimeSeries\AgriMet\CropCurves.cs" Link="AgriMet\CropCurves.cs" />
+    <Compile Include="..\TimeSeries\AgriMet\CropDatesDataSet.cs" Link="AgriMet\CropDatesDataSet.cs" />
+    <Compile Include="..\TimeSeries\AgriMet\CropDatesDataSet1.Designer.cs" Link="AgriMet\CropDatesDataSet1.Designer.cs" />
+    <Compile Include="..\TimeSeries\AgriMet\TestCropWaterUse.cs" Link="AgriMet\TestCropWaterUse.cs" />
+    <Compile Include="..\TimeSeries\Alarms\AlarmCondition.cs" Link="Alarms\AlarmCondition.cs" />
+    <Compile Include="..\TimeSeries\Alarms\AlarmDataSet.cs" Link="Alarms\AlarmDataSet.cs" />
+    <Compile Include="..\TimeSeries\Alarms\AlarmDataSet1.Designer.cs" Link="Alarms\AlarmDataSet1.Designer.cs" />
+    <Compile Include="..\TimeSeries\Alarms\AlarmManager.cs" Link="Alarms\AlarmManager.cs" />
+    <Compile Include="..\TimeSeries\Alarms\AlarmRegex.cs" Link="Alarms\AlarmRegex.cs" />
+    <Compile Include="..\TimeSeries\Alarms\AsteriskCallFile.cs" Link="Alarms\AsteriskCallFile.cs" />
+    <Compile Include="..\TimeSeries\Analysis\AnalysisCollection.cs" Link="Analysis\AnalysisCollection.cs" />
+    <Compile Include="..\TimeSeries\Analysis\BaseAnalysis.cs" Link="Analysis\BaseAnalysis.cs" />
+    <Compile Include="..\TimeSeries\Analysis\CorrelationAnalysis.cs" Link="Analysis\CorrelationAnalysis.cs" />
+    <Compile Include="..\TimeSeries\Analysis\ExceedanceAnalysis.cs" Link="Analysis\ExceedanceAnalysis.cs" />
+    <Compile Include="..\TimeSeries\Analysis\MonthlySummaryAnalysis.cs" Link="Analysis\MonthlySummaryAnalysis.cs" />
+    <Compile Include="..\TimeSeries\Analysis\MovingAverageAnalysis.cs" Link="Analysis\MovingAverageAnalysis.cs" />
+    <Compile Include="..\TimeSeries\Analysis\PiscesAnalysis.cs" Link="Analysis\PiscesAnalysis.cs" />
+    <Compile Include="..\TimeSeries\Analysis\ProbabilityAnalysis.cs" Link="Analysis\ProbabilityAnalysis.cs" />
+    <Compile Include="..\TimeSeries\Analysis\SummaryHydrographAnalysis.cs" Link="Analysis\SummaryHydrographAnalysis.cs" />
+    <Compile Include="..\TimeSeries\Analysis\TimeSeriesAnalysis.cs" Link="Analysis\TimeSeriesAnalysis.cs" />
+    <Compile Include="..\TimeSeries\Analysis\TraceAnalysis.cs" Link="Analysis\TraceAnalysis.cs" />
+    <Compile Include="..\TimeSeries\Analysis\WaterYearsAnalysis.cs" Link="Analysis\WaterYearsAnalysis.cs" />
+    <Compile Include="..\TimeSeries\CalculationSeries.cs" Link="CalculationSeries.cs" />
+    <Compile Include="..\TimeSeries\ConstantSeries.cs" Link="ConstantSeries.cs" />
+    <Compile Include="..\TimeSeries\DailyTimeSeriesCalculator.cs" Link="DailyTimeSeriesCalculator.cs" />
+    <Compile Include="..\TimeSeries\DataLogger\Cr10xSeries.cs" Link="DataLogger\Cr10xSeries.cs" />
+    <Compile Include="..\TimeSeries\DataLogger\LoggerNetFile.cs" Link="DataLogger\LoggerNetFile.cs" />
+    <Compile Include="..\TimeSeries\DataTableSeries.cs" Link="DataTableSeries.cs" />
+    <Compile Include="..\TimeSeries\DateRange.cs" Link="DateRange.cs" />
+    <Compile Include="..\TimeSeries\ExplorerView.cs" Link="ExplorerView.cs" />
+    <Compile Include="..\TimeSeries\Extensions.cs" Link="Extensions.cs" />
+    <Compile Include="..\TimeSeries\FileImporter.cs" Link="FileImporter.cs" />
+    <Compile Include="..\TimeSeries\HDB\HDBWebSeries.cs" Link="HDB\HDBWebSeries.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\AsceEtCalculator.cs" Link="Hydromet\AsceEtCalculator.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\AsceInstantEtCalculator.cs" Link="Hydromet\AsceInstantEtCalculator.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\CommandLine.cs" Link="Hydromet\CommandLine.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\DayFiles.cs" Link="Hydromet\DayFiles.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\HydrometDailySeries.cs" Link="Hydromet\HydrometDailySeries.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\HydrometDataCache.cs" Link="Hydromet\HydrometDataCache.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\HydrometDataUtility.cs" Link="Hydromet\HydrometDataUtility.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\HydrometInfoUtility.cs" Link="Hydromet\HydrometInfoUtility.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\HydrometInstantSeries.cs" Link="Hydromet\HydrometInstantSeries.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\HydrometMonthlySeries.cs" Link="Hydromet\HydrometMonthlySeries.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\KimberlyPenmanEtSeries.cs" Link="Hydromet\KimberlyPenmanEtSeries.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\mcf.cs" Link="Hydromet\mcf.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\mcf1.Designer.cs" Link="Hydromet\mcf1.Designer.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\McfUtility.cs" Link="Hydromet\McfUtility.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\Operations\FcPlotDataSet.cs" Link="Hydromet\Operations\FcPlotDataSet.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\Operations\FcPlotDataSet.Designer.cs" Link="Hydromet\Operations\FcPlotDataSet.Designer.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\Operations\FloodControlPoint.cs" Link="Hydromet\Operations\FloodControlPoint.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\Operations\HeiiRuleCurve.cs" Link="Hydromet\Operations\HeiiRuleCurve.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\Operations\HghRuleCurve.cs" Link="Hydromet\Operations\HghRuleCurve.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\Operations\HydrometRuleCurve.cs" Link="Hydromet\Operations\HydrometRuleCurve.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\Operations\ResidualForecast.cs" Link="Hydromet\Operations\ResidualForecast.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\Operations\RuleCurveFactory.cs" Link="Hydromet\Operations\RuleCurveFactory.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\Operations\WodiRuleCurve.cs" Link="Hydromet\Operations\WodiRuleCurve.cs" />
+    <Compile Include="..\TimeSeries\Hydromet\Tests\TestForecasting.cs" Link="Hydromet\Tests\TestForecasting.cs" />
+    <Compile Include="..\TimeSeries\IdahoPower\IdahoPowerRatingTables.cs" Link="IdahoPower\IdahoPowerRatingTables.cs" />
+    <Compile Include="..\TimeSeries\IdahoPower\IdahoPowerSeries.cs" Link="IdahoPower\IdahoPowerSeries.cs" />
+    
+    <Compile Include="..\TimeSeries\IExplorerSettings.cs" Link="IExplorerSettings.cs" />
+    <Compile Include="..\TimeSeries\IExplorerView.cs" Link="IExplorerView.cs" />
+    <Compile Include="..\TimeSeries\Import\BulkImportDirectory.cs" Link="Import\BulkImportDirectory.cs" />
+    <Compile Include="..\TimeSeries\Import\DirectoryScanner.cs" Link="Import\DirectoryScanner.cs" />
+    <Compile Include="..\TimeSeries\Import\XConnectTextFile.cs" Link="Import\XConnectTextFile.cs" />
+    <Compile Include="..\TimeSeries\IScenarioSelector.cs" Link="IScenarioSelector.cs" />
+    <Compile Include="..\TimeSeries\JulianIndex.cs" Link="JulianIndex.cs" />
+    <Compile Include="..\TimeSeries\Math.cs" Link="Math.cs" />
+    <Compile Include="..\TimeSeries\Math.Estimation.cs" Link="Math.Estimation.cs" />
+    <Compile Include="..\TimeSeries\Math.ET.cs" Link="Math.ET.cs" />
+    <Compile Include="..\TimeSeries\Math.Hydromet.cs" Link="Math.Hydromet.cs" />
+    <Compile Include="..\TimeSeries\Math.Statistics.cs" Link="Math.Statistics.cs" />
+    <Compile Include="..\TimeSeries\Math.Statistics.Daily.cs" Link="Math.Statistics.Daily.cs" />
+    <Compile Include="..\TimeSeries\Math.TableLookup.cs" Link="Math.TableLookup.cs" />
+    <Compile Include="..\TimeSeries\NOAA\SimpleShef.cs" Link="NOAA\SimpleShef.cs" />
+    <Compile Include="..\TimeSeries\NOAA\SpokaneCoopSeries.cs" Link="NOAA\SpokaneCoopSeries.cs" />
+    <Compile Include="..\TimeSeries\Owrd\OwrdRatingTables.cs" Link="Owrd\OwrdRatingTables.cs" />
+    <Compile Include="..\TimeSeries\Owrd\OwrdSeries.cs" Link="Owrd\OwrdSeries.cs" />
+    <Compile Include="..\TimeSeries\Parser\DataTableVariableResolver.cs" Link="Parser\DataTableVariableResolver.cs" />
+    <Compile Include="..\TimeSeries\Parser\FunctionAttribute.cs" Link="Parser\FunctionAttribute.cs" />
+    <Compile Include="..\TimeSeries\Parser\HerbertSchildtExample.cs" Link="Parser\HerbertSchildtExample.cs" />
+    <Compile Include="..\TimeSeries\Parser\HydrometVariableResolver.cs" Link="Parser\HydrometVariableResolver.cs" />
+    <Compile Include="..\TimeSeries\Parser\ParserEventArgs.cs" Link="Parser\ParserEventArgs.cs" />
+    <Compile Include="..\TimeSeries\Parser\ParserFunction.cs" Link="Parser\ParserFunction.cs" />
+    <Compile Include="..\TimeSeries\Parser\ParserResult.cs" Link="Parser\ParserResult.cs" />
+    <Compile Include="..\TimeSeries\Parser\ParserUtility.cs" Link="Parser\ParserUtility.cs" />
+    <Compile Include="..\TimeSeries\Parser\SeriesExpressionParser.cs" Link="Parser\SeriesExpressionParser.cs" />
+    <Compile Include="..\TimeSeries\Parser\Tests\TestParser.cs" Link="Parser\Tests\TestParser.cs" />
+    <Compile Include="..\TimeSeries\Parser\Tests\TestParserWithDatabase.cs" Link="Parser\Tests\TestParserWithDatabase.cs" />
+    <Compile Include="..\TimeSeries\Parser\VariableParser.cs" Link="Parser\VariableParser.cs" />
+    <Compile Include="..\TimeSeries\Parser\VariableResolver.cs" Link="Parser\VariableResolver.cs" />
+    <Compile Include="..\TimeSeries\PeriodicSeries.cs" Link="PeriodicSeries.cs" />
+    <Compile Include="..\TimeSeries\PeriodOfRecord.cs" Link="PeriodOfRecord.cs" />
+    <Compile Include="..\TimeSeries\PiscesEngine.cs" Link="PiscesEngine.cs" />
+    <Compile Include="..\TimeSeries\PiscesFactory.cs" Link="PiscesFactory.cs" />
+    <Compile Include="..\TimeSeries\PiscesFolder.cs" Link="PiscesFolder.cs" />
+    <Compile Include="..\TimeSeries\PiscesObject.cs" Link="PiscesObject.cs" />
+    <Compile Include="..\TimeSeries\PiscesObjectEventArgs.cs" Link="PiscesObjectEventArgs.cs" />
+    <Compile Include="..\TimeSeries\PiscesSettings.cs" Link="PiscesSettings.cs" />
+    <Compile Include="..\TimeSeries\Point.cs" Link="Point.cs" />
+    <Compile Include="..\TimeSeries\PolynomialEquation.cs" Link="PolynomialEquation.cs" />
+    <Compile Include="..\TimeSeries\Profile\WaterProfileDatabase.cs" Link="Profile\WaterProfileDatabase.cs" />
+    <Compile Include="..\TimeSeries\Quality.cs" Link="Quality.cs" />
+    <Compile Include="..\TimeSeries\RatingTables\RatingTableUtility.cs" Link="RatingTables\RatingTableUtility.cs" />
+    <Compile Include="..\TimeSeries\ReclamationURL.cs" Link="ReclamationURL.cs" />
+    <Compile Include="..\TimeSeries\Reports\USGSReport.cs" Link="Reports\USGSReport.cs" />
+    <Compile Include="..\TimeSeries\Reports\YakimaStatusReport.cs" Link="Reports\YakimaStatusReport.cs" />
+    <Compile Include="..\TimeSeries\Scenario.cs" Link="Scenario.cs" />
+    <Compile Include="..\TimeSeries\ScenarioTableEventArgs.cs" Link="ScenarioTableEventArgs.cs" />
+    <Compile Include="..\TimeSeries\Selection.cs" Link="Selection.cs" />
+    <Compile Include="..\TimeSeries\Series.cs" Link="Series.cs" />
+    <Compile Include="..\TimeSeries\SeriesEventArgs.cs" Link="SeriesEventArgs.cs" />
+    <Compile Include="..\TimeSeries\SeriesList.cs" Link="SeriesList.cs" />
+    <Compile Include="..\TimeSeries\SeriesListDataTable.cs" Link="SeriesListDataTable.cs" />
+    <Compile Include="..\TimeSeries\SeriesListText.cs" Link="SeriesListText.cs" />
+    <Compile Include="..\TimeSeries\SeriesProperties.cs" Link="SeriesProperties.cs" />
+    <Compile Include="..\TimeSeries\SeriesRange.cs" Link="SeriesRange.cs" />
+    <Compile Include="..\TimeSeries\Settings.cs" Link="Settings.cs" />
+    <Compile Include="..\TimeSeries\SHEF\ShefSeries.cs" Link="SHEF\ShefSeries.cs" />
+    <Compile Include="..\TimeSeries\SimpleMathSeries.cs" Link="SimpleMathSeries.cs" />
+    <Compile Include="..\TimeSeries\SiteInfo.cs" Link="SiteInfo.cs" />
+    <Compile Include="..\TimeSeries\SQLiteSeries.cs" Link="SQLiteSeries.cs" />
+    <Compile Include="..\TimeSeries\SubtractSeries.cs" Link="SubtractSeries.cs" />
+    <Compile Include="..\TimeSeries\TestData.cs" Link="TestData.cs" />
+    <Compile Include="..\TimeSeries\Tests\Database\TestAlarms.cs" Link="Tests\Database\TestAlarms.cs" />
+    <Compile Include="..\TimeSeries\Tests\Database\TestDeleteDatabaseProperties.cs" Link="Tests\Database\TestDeleteDatabaseProperties.cs" />
+    <Compile Include="..\TimeSeries\Tests\Database\TestMultiDatabaseSupport.cs" Link="Tests\Database\TestMultiDatabaseSupport.cs" />
+    <Compile Include="..\TimeSeries\Tests\Database\TestQualityLimits.cs" Link="Tests\Database\TestQualityLimits.cs" />
+    <Compile Include="..\TimeSeries\Tests\Database\TestSiteInfo.cs" Link="Tests\Database\TestSiteInfo.cs" />
+    <Compile Include="..\TimeSeries\Tests\Database\TestSqLiteUnixTime.cs" Link="Tests\Database\TestSqLiteUnixTime.cs" />
+    <Compile Include="..\TimeSeries\Tests\Database\TimeSeriesDatabaseTest.cs" Link="Tests\Database\TimeSeriesDatabaseTest.cs" />
+    <Compile Include="..\TimeSeries\Tests\DateMath\TestDailyCalcRange.cs" Link="Tests\DateMath\TestDailyCalcRange.cs" />
+    <Compile Include="..\TimeSeries\Tests\DateMath\TestDateRange.cs" Link="Tests\DateMath\TestDateRange.cs" />
+    <Compile Include="..\TimeSeries\Tests\DateMath\TestMonthDayRange.cs" Link="Tests\DateMath\TestMonthDayRange.cs" />
+    <Compile Include="..\TimeSeries\Tests\DateMath\TestTimeRange.cs" Link="Tests\DateMath\TestTimeRange.cs" />
+    <Compile Include="..\TimeSeries\Tests\DateMath\TestYearRange.cs" Link="Tests\DateMath\TestYearRange.cs" />
+    <Compile Include="..\TimeSeries\Tests\Estimation\TestEstimation.cs" Link="Tests\Estimation\TestEstimation.cs" />
+    <Compile Include="..\TimeSeries\Tests\Import\TestBulkImport.cs" Link="Tests\Import\TestBulkImport.cs" />
+    <Compile Include="..\TimeSeries\Tests\Import\TestUsgsRating.cs" Link="Tests\Import\TestUsgsRating.cs" />
+    <Compile Include="..\TimeSeries\Tests\Import\TestXC.cs" Link="Tests\Import\TestXC.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\InsertDelete.cs" Link="Tests\SeriesFeatures\InsertDelete.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestFillMissingData.cs" Link="Tests\SeriesFeatures\TestFillMissingData.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestLookupAndIndexing.cs" Link="Tests\SeriesFeatures\TestLookupAndIndexing.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestLookupIndex.cs" Link="Tests\SeriesFeatures\TestLookupIndex.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestMissingRecordCount.cs" Link="Tests\SeriesFeatures\TestMissingRecordCount.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestMoveTo.cs" Link="Tests\SeriesFeatures\TestMoveTo.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestOffset.cs" Link="Tests\SeriesFeatures\TestOffset.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestPeriodicSeries.cs" Link="Tests\SeriesFeatures\TestPeriodicSeries.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestPoint.cs" Link="Tests\SeriesFeatures\TestPoint.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestSeriesList.cs" Link="Tests\SeriesFeatures\TestSeriesList.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestShiftSeriesBug.cs" Link="Tests\SeriesFeatures\TestShiftSeriesBug.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestShiftToYear.cs" Link="Tests\SeriesFeatures\TestShiftToYear.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesFeatures\TestSubset.cs" Link="Tests\SeriesFeatures\TestSubset.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\AverageTest.cs" Link="Tests\SeriesTypes\AverageTest.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\DailyCalculatorTest.cs" Link="Tests\SeriesTypes\DailyCalculatorTest.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestAdd.cs" Link="Tests\SeriesTypes\TestAdd.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestAnnualAggregates.cs" Link="Tests\SeriesTypes\TestAnnualAggregates.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestAverageAggregate.cs" Link="Tests\SeriesTypes\TestAverageAggregate.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestDailyCumulative.cs" Link="Tests\SeriesTypes\TestDailyCumulative.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestET.cs" Link="Tests\SeriesTypes\TestET.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestExceedance.cs" Link="Tests\SeriesTypes\TestExceedance.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestInterpolate2D.cs" Link="Tests\SeriesTypes\TestInterpolate2D.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestInterpolation.cs" Link="Tests\SeriesTypes\TestInterpolation.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestMerge.cs" Link="Tests\SeriesTypes\TestMerge.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestMonthlyOperations.cs" Link="Tests\SeriesTypes\TestMonthlyOperations.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestMovingAverage.cs" Link="Tests\SeriesTypes\TestMovingAverage.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestMulitYearAverage.cs" Link="Tests\SeriesTypes\TestMulitYearAverage.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestMultiply.cs" Link="Tests\SeriesTypes\TestMultiply.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestOperators.cs" Link="Tests\SeriesTypes\TestOperators.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestPolynomial.cs" Link="Tests\SeriesTypes\TestPolynomial.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestRatingTable.cs" Link="Tests\SeriesTypes\TestRatingTable.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestResidual.cs" Link="Tests\SeriesTypes\TestResidual.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestResponseFunction.cs" Link="Tests\SeriesTypes\TestResponseFunction.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestSimpleAddBug.cs" Link="Tests\SeriesTypes\TestSimpleAddBug.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestSmoothRangePreserveTotal.cs" Link="Tests\SeriesTypes\TestSmoothRangePreserveTotal.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestSummaryHydrograph.cs" Link="Tests\SeriesTypes\TestSummaryHydrograph.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestWaterYear.cs" Link="Tests\SeriesTypes\TestWaterYear.cs" />
+    <Compile Include="..\TimeSeries\Tests\SeriesMath\TestWeirEquations.cs" Link="Tests\SeriesTypes\TestWeirEquations.cs" />
+    <Compile Include="..\TimeSeries\TextSeries.cs" Link="TextSeries.cs" />
+    <Compile Include="..\TimeSeries\TimeRange.cs" Link="TimeRange.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesAppearance.cs" Link="TimeSeriesAppearance.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDatabase.CreateSQL.cs" Link="TimeSeriesDatabase.CreateSQL.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDatabase.cs" Link="TimeSeriesDatabase.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDatabase.Factory.cs" Link="TimeSeriesDatabase.Factory.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDatabase.Tree.cs" Link="TimeSeriesDatabase.Tree.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDatabase.Upgrade.cs" Link="TimeSeriesDatabase.Upgrade.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDatabaseDataSet.cs" Link="TimeSeriesDatabaseDataSet.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDatabaseDataSet.Designer.cs" Link="TimeSeriesDatabaseDataSet.Designer.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDatabaseDataSet.RatingTable.cs" Link="TimeSeriesDatabaseDataSet.RatingTable.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDatabaseDelete.cs" Link="TimeSeriesDatabaseDelete.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDatabaseSettings.cs" Link="TimeSeriesDatabaseSettings.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDatabaseUtility.cs" Link="TimeSeriesDatabaseUtility.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesDependency.cs" Link="TimeSeriesDependency.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesImporter.cs" Link="TimeSeriesImporter.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesMessageList.cs" Link="TimeSeriesMessageList.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesName.cs" Link="TimeSeriesName.cs" />
+    <Compile Include="..\TimeSeries\TimeSeriesTransfer.cs" Link="TimeSeriesTransfer.cs" />
+    <Compile Include="..\TimeSeries\TimeWindow.cs" Link="TimeWindow.cs" />
+    <Compile Include="..\TimeSeries\Usgs\UsgsDailiyValueSeries.cs" Link="Usgs\UsgsDailiyValueSeries.cs" />
+    <Compile Include="..\TimeSeries\Usgs\UsgsGroundWaterLevelSeries.cs" Link="Usgs\UsgsGroundWaterLevelSeries.cs" />
+    <Compile Include="..\TimeSeries\Usgs\UsgsInventory.cs" Link="Usgs\UsgsInventory.cs" />
+    <Compile Include="..\TimeSeries\Usgs\UsgsRatingTables.cs" Link="Usgs\UsgsRatingTables.cs" />
+    <Compile Include="..\TimeSeries\Usgs\UsgsRDBFile.cs" Link="Usgs\UsgsRDBFile.cs" />
+    <Compile Include="..\TimeSeries\Usgs\UsgsRealTimeSeries.cs" Link="Usgs\UsgsRealTimeSeries.cs" />
+    <Compile Include="..\TimeSeries\Usgs\UsgsUtility.cs" Link="Usgs\UsgsUtility.cs" />
+    <Compile Include="..\TimeSeries\WaterYear.cs" Link="WaterYear.cs" />
+    <Compile Include="..\TimeSeries\YearRange.cs" Link="YearRange.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\TimeSeries\IdahoPower\test.xml" Link="IdahoPower\test.xml" />
+    <Content Include="..\TimeSeries\Reports\YakimaStatusReport.txt" Link="Reports\YakimaStatusReport.txt" />
+    <Content Include="..\TimeSeries\Reports\YakimaStatusTemplate.txt" Link="Reports\YakimaStatusTemplate.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Reclamation.NetCore\Reclamation.NetCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="AgriMet\" />
+    <Folder Include="Alarms\" />
+    <Folder Include="Analysis\" />
+    <Folder Include="DataLogger\" />
+    <Folder Include="HDB\" />
+    <Folder Include="Hydromet\Tests\" />
+    <Folder Include="Hydromet\Operations\" />
+    <Folder Include="Idwr\" />
+    <Folder Include="Import\" />
+    <Folder Include="corefx\" />
+    <Folder Include="Parser\Tests\" />
+    <Folder Include="Tests\Database\" />
+    <Folder Include="Tests\DateMath\" />
+    <Folder Include="Tests\Estimation\" />
+    <Folder Include="Tests\Import\" />
+    <Folder Include="Tests\SeriesTypes\" />
+    <Folder Include="Tests\SeriesMath\" />
+    <Folder Include="Tests\SeriesFeatures\" />
+    <Folder Include="Usgs\" />
+    <Folder Include="SHEF\" />
+    <Folder Include="Reports\" />
+    <Folder Include="RatingTables\" />
+    <Folder Include="Profile\" />
+    <Folder Include="Owrd\" />
+    <Folder Include="Nrcs\" />
+    <Folder Include="NOAA\" />
+    <Folder Include="IdahoPower\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\TimeSeries\AgriMet\CropDatesDataSet.xsc" Link="AgriMet\CropDatesDataSet.xsc" />
+    <None Include="..\TimeSeries\AgriMet\CropDatesDataSet.xsd" Link="AgriMet\CropDatesDataSet.xsd" />
+    <None Include="..\TimeSeries\AgriMet\CropDatesDataSet.xss" Link="AgriMet\CropDatesDataSet.xss" />
+    <None Include="..\TimeSeries\Alarms\AlarmDataSet.xsc" Link="Alarms\AlarmDataSet.xsc" />
+    <None Include="..\TimeSeries\Alarms\AlarmDataSet.xsd" Link="Alarms\AlarmDataSet.xsd" />
+    <None Include="..\TimeSeries\Alarms\AlarmDataSet.xss" Link="Alarms\AlarmDataSet.xss" />
+    <None Include="..\TimeSeries\Alarms\extensions.conf" Link="Alarms\extensions.conf" />
+    <None Include="..\TimeSeries\Alarms\func_odbc.conf" Link="Alarms\func_odbc.conf" />
+    <None Include="..\TimeSeries\ClassDiagram1.cd" Link="ClassDiagram1.cd" />
+    <None Include="..\TimeSeries\Hydromet\mcf.xsc" Link="Hydromet\mcf.xsc" />
+    <None Include="..\TimeSeries\Hydromet\mcf.xsd" Link="Hydromet\mcf.xsd" />
+    <None Include="..\TimeSeries\Hydromet\mcf.xss" Link="Hydromet\mcf.xss" />
+    <None Include="..\TimeSeries\Hydromet\Operations\FcPlotDataSet.xsc" Link="Hydromet\Operations\FcPlotDataSet.xsc" />
+    <None Include="..\TimeSeries\Hydromet\Operations\FcPlotDataSet.xsd" Link="Hydromet\Operations\FcPlotDataSet.xsd" />
+    <None Include="..\TimeSeries\Hydromet\Operations\FcPlotDataSet.xss" Link="Hydromet\Operations\FcPlotDataSet.xss" />
+    <None Include="..\TimeSeries\Reports\YakimaOthersAboveParker.csv" Link="Reports\YakimaOthersAboveParker.csv" />
+    <None Include="..\TimeSeries\TimeSeriesDatabase.postgres.sql" Link="TimeSeriesDatabase.postgres.sql" />
+    <None Include="..\TimeSeries\TimeSeriesDatabaseDataSet.xsc" Link="TimeSeriesDatabaseDataSet.xsc" />
+    <None Include="..\TimeSeries\TimeSeriesDatabaseDataSet.xsd" Link="TimeSeriesDatabaseDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Include="..\TimeSeries\TimeSeriesDatabaseDataSet.xss" Link="TimeSeriesDatabaseDataSet.xss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="NUnit" Version="3.8.1" />
+  </ItemGroup>
+
+  
+  
+
+</Project>
