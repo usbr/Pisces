@@ -21,6 +21,7 @@
     <Compile Include="..\Core\LinuxUtility.cs" Link="LinuxUtility.cs" />
     <Compile Include="..\Core\Logger.cs" Link="Logger.cs" />
     <Compile Include="..\Core\MonthDayRange.cs" Link="MonthDayRange.cs" />
+    <Compile Include="..\Core\MySqlServer.cs" Link="MySqlServer.cs" />
     <Compile Include="..\Core\NetworkUtility.cs" Link="NetworkUtility.cs" />
     <Compile Include="..\Core\Options.cs" Link="Options.cs" />
     <Compile Include="..\Core\Performance.cs" Link="Performance.cs" />
@@ -30,6 +31,10 @@
     <Compile Include="..\Core\SimpleWebCache.cs" Link="SimpleWebCache.cs" />
     <Compile Include="..\Core\SQLiteServer.cs" Link="SQLiteServer.cs" />
     <Compile Include="..\Core\StringCipher.cs" Link="StringCipher.cs" />
+    <Compile Include="..\Core\Tests\TestCredentialsFile.cs" Link="Tests\TestCredentialsFile.cs" />
+    <Compile Include="..\Core\Tests\TestHttps.cs" Link="Tests\TestHttps.cs" />
+    <Compile Include="..\Core\Tests\TestPostgreSQL.cs" Link="Tests\TestPostgreSQL.cs" />
+    <Compile Include="..\Core\Tests\TestTextAndCsvFile.cs" Link="Tests\TestTextAndCsvFile.cs" />
     <Compile Include="..\Core\TextFile.cs" Link="TextFile.cs" />
     <Compile Include="..\Core\TextFileCredentials.cs" Link="TextFileCredentials.cs" />
     <Compile Include="..\Core\UserPreference.cs" Link="UserPreference.cs" />
@@ -40,9 +45,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="2.0.0" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.0.0" />
+    <PackageReference Include="MySql.Data" Version="6.9.9" />
     <PackageReference Include="Npgsql" Version="3.2.5" />
+    <PackageReference Include="NUnit" Version="3.8.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.0" />
     <PackageReference Include="System.Data.Common" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Tests\" />
   </ItemGroup>
 
 </Project>

@@ -5,21 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\DataRowComparer.cs" Link="corefx\DataRowComparer.cs" />
-    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\DataRowExtensions.cs" Link="corefx\DataRowExtensions.cs" />
-    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\DataSetUtil.cs" Link="corefx\DataSetUtil.cs" />
-    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\DataTableExtensions.cs" Link="corefx\DataTableExtensions.cs" />
-    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\EnumerableRowCollection.cs" Link="corefx\EnumerableRowCollection.cs" />
-    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\EnumerableRowCollectionExtensions.cs" Link="corefx\EnumerableRowCollectionExtensions.cs" />
-    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\OrderedEnumerableRowCollection.cs" Link="corefx\OrderedEnumerableRowCollection.cs" />
-    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\SortExpressionBuilder.cs" Link="corefx\SortExpressionBuilder.cs" />
-    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\TypedTableBase.cs" Link="corefx\TypedTableBase.cs" />
-    <Compile Include="..\..\corefx\src\System.Data.DataSetExtensions\src\System\Data\TypedTableBaseExtensions.cs" Link="corefx\TypedTableBaseExtensions.cs" />
     <Compile Include="..\TimeSeries\AgriMet\CropChartGenerator.cs" Link="AgriMet\CropChartGenerator.cs" />
     <Compile Include="..\TimeSeries\AgriMet\CropCurves.cs" Link="AgriMet\CropCurves.cs" />
     <Compile Include="..\TimeSeries\AgriMet\CropDatesDataSet.cs" Link="AgriMet\CropDatesDataSet.cs" />
     <Compile Include="..\TimeSeries\AgriMet\CropDatesDataSet1.Designer.cs" Link="AgriMet\CropDatesDataSet1.Designer.cs" />
-    <Compile Include="..\TimeSeries\AgriMet\TestCropWaterUse.cs" Link="AgriMet\TestCropWaterUse.cs" />
     <Compile Include="..\TimeSeries\Alarms\AlarmCondition.cs" Link="Alarms\AlarmCondition.cs" />
     <Compile Include="..\TimeSeries\Alarms\AlarmDataSet.cs" Link="Alarms\AlarmDataSet.cs" />
     <Compile Include="..\TimeSeries\Alarms\AlarmDataSet1.Designer.cs" Link="Alarms\AlarmDataSet1.Designer.cs" />
@@ -206,7 +195,6 @@
     <Compile Include="..\TimeSeries\TimeSeriesDatabaseDataSet.Designer.cs" Link="TimeSeriesDatabaseDataSet.Designer.cs" />
     <Compile Include="..\TimeSeries\TimeSeriesDatabaseDataSet.RatingTable.cs" Link="TimeSeriesDatabaseDataSet.RatingTable.cs" />
     <Compile Include="..\TimeSeries\TimeSeriesDatabaseDelete.cs" Link="TimeSeriesDatabaseDelete.cs" />
-    <Compile Include="..\TimeSeries\TimeSeriesDatabaseSettings.cs" Link="TimeSeriesDatabaseSettings.cs" />
     <Compile Include="..\TimeSeries\TimeSeriesDatabaseUtility.cs" Link="TimeSeriesDatabaseUtility.cs" />
     <Compile Include="..\TimeSeries\TimeSeriesDependency.cs" Link="TimeSeriesDependency.cs" />
     <Compile Include="..\TimeSeries\TimeSeriesImporter.cs" Link="TimeSeriesImporter.cs" />
@@ -245,7 +233,6 @@
     <Folder Include="Hydromet\Operations\" />
     <Folder Include="Idwr\" />
     <Folder Include="Import\" />
-    <Folder Include="corefx\" />
     <Folder Include="Parser\Tests\" />
     <Folder Include="Tests\Database\" />
     <Folder Include="Tests\DateMath\" />
@@ -293,6 +280,21 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="NUnit" Version="3.8.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="corefx\SR.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SR.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="corefx\SR.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SR.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   
