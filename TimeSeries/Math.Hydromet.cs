@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Reclamation.TimeSeries.Parser;
-using Reclamation.Core;
-using Reclamation.TimeSeries.Hydromet;
+﻿using Reclamation.Core;
 using Reclamation.TimeSeries.Hydromet.Operations;
+#if !NETCOREAPP2_0
 using Reclamation.TimeSeries.Nrcs;
+#endif
+using Reclamation.TimeSeries.Parser;
+using System;
 
 namespace Reclamation.TimeSeries
 {
@@ -176,13 +174,14 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
+#if !NETCOREAPP2_0
         [FunctionAttribute("Reads daily NRCS snowcourse data into monthly", "DailySnowCourseToMonthly(triplet)")]
         public static Series DailySnowCourseToMonthly(string triplet)
         {
             var s = new MonthlySnowCourseSeries(triplet);
             return s;
         }
-
+#endif
         /// <summary>
         /// CipolettiWeir
         /// https://www.usbr.gov/pmts/hydraulics_lab/pubs/wmm/chap07_12.html

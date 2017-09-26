@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Reclamation.TimeSeries.Parser
 {
-    class DatabaseVariableResolver: IVariableResolver
+    class DatabaseVariableResolver: VariableResolver
     {
         TimeSeriesDatabase db;
         CalculationSeries s;

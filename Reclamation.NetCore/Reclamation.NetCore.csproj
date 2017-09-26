@@ -28,6 +28,7 @@
     <Compile Include="..\Core\ProgramRunner.cs" Link="ProgramRunner.cs" />
     <Compile Include="..\Core\ResourceUtility.cs" Link="ResourceUtility.cs" />
     <Compile Include="..\Core\SimpleWebCache.cs" Link="SimpleWebCache.cs" />
+    <Compile Include="..\Core\SQLiteServer.cs" Link="SQLiteServer.cs" />
     <Compile Include="..\Core\StringCipher.cs" Link="StringCipher.cs" />
     <Compile Include="..\Core\TextFile.cs" Link="TextFile.cs" />
     <Compile Include="..\Core\TextFileCredentials.cs" Link="TextFileCredentials.cs" />
@@ -37,9 +38,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="2.0.0" />
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="2.0.0" />
     <PackageReference Include="Npgsql" Version="3.2.5" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.0" />
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
   </ItemGroup>
 
 </Project>

@@ -1069,6 +1069,10 @@
       <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
       <Name>Reclamation.TimeSeries</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PiscesUI\Pisces.csproj">
+      <Project>{60537c98-6e33-42f7-9b7d-9b326abc019e}</Project>
+      <Name>Pisces</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

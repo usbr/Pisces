@@ -1,10 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Data;
+#if NETCOREAPP2_0
+using Microsoft.Data.Sqlite;
+#else
 using System.Data.SQLite;
+#endif
 using System.IO;
 using System.Configuration;
 using System.Text.RegularExpressions;
+using System.Data.Common;
 
 namespace Reclamation.Core
 {
@@ -30,7 +35,9 @@ namespace Reclamation.Core
 
         public void ClearPool()
         {
+#if !NETCOREAPP2_0
             System.Data.SqlClient.SqlConnection.ClearAllPools();
+#endif
         }
 
 
@@ -77,10 +84,70 @@ namespace Reclamation.Core
             get { return FileName; }
         }
 
+        private DbConnection GetConnection(string connStr)
+        {
+#if NETCOREAPP2_0
+            return new SqliteConnection(connStr);
+#else
+            return new SQLiteConnection(connStr);
+#endif 
+        }
+
+        private DbCommand GetCommand(string sql,DbConnection conn)
+        {
+#if NETCOREAPP2_0
+            return new SqliteCommand(sql,(SqliteConnection)conn);
+#else
+            return new SQLiteCommand(sql,(SQLiteConnection)conn);
+#endif
+        }
+
+        private DbCommand GetCommand()
+        {
+#if NETCOREAPP2_0
+            return new SqliteCommand();
+#else
+            return new SQLiteCommand();
+#endif
+        }
+        private DbCommand GetCommand(string sql)
+        {
+#if NETCOREAPP2_0
+            return new SqliteCommand(sql);
+#else
+            return new SQLiteCommand(sql);
+#endif
+        }
+        private DbParameter GetParameter()
+        {
+#if NETCOREAPP2_0
+            return new SqliteParameter();
+#else
+            return new SQLiteParameter();
+#endif
+        }
+        private DbDataAdapter GetAdapter(DbCommand cmd)
+        {
+#if NETCOREAPP2_0
+            return null;//new Microsoft.Data.Sqlite.SqliteDataAdapter(cmd);
+#else
+            return new SQLiteDataAdapter((SQLiteCommand)cmd);
+#endif
+        }
+        private DbCommandBuilder GetBuilder(DataAdapter dataAdapter)
+        {
+#if NETCOREAPP2_0
+            return null;// new Microsoft.Data.Sqlite.SQLiteCommandBuilder(dataAdapter);
+#else
+            return new SQLiteCommandBuilder((SQLiteDataAdapter)dataAdapter);
+#endif
+        }
 
         public void CloseAllConnections()
         {//http://stackoverflow.com/a/24501130/2333687
+#if !NETCOREAPP2_0
             SQLiteConnection.ClearAllPools();
+#endif
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
@@ -141,47 +208,6 @@ namespace Reclamation.Core
             }
         }
 
-        ///// <summary>
-        ///// returns DataTable from stored procedure.
-        ///// </summary>
-        ///// <param name="storeProcedure"></param>
-        ///// <returns></returns>
-        //public DataTable TableFromProcs(SQLiteCommand cmd)
-        //{
-        //    DataTable table = new DataTable();
-        //    cmd.Connection = new SQLiteConnection(this._connectionString);
-        //    cmd.Connection.Open();
-        //    System.Data.SQLite.SQLiteDataReader reader = cmd.ExecuteReader();
-
-        //    if ((table.Columns.Count == 0))
-        //    {
-        //        table.TableName = cmd.CommandText;
-        //        for (int i = 0; (i < reader.FieldCount); i = i + 1
-        //          )
-        //        {
-        //            System.Type type = reader.GetFieldType(i);
-        //            string name = reader.GetName(i);
-        //            table.Columns.Add(name, type);
-        //        }
-        //    }
-        //    table.Clear();
-        //    int result = 0;
-        //    for (; reader.Read(); result = result + 1)
-        //    {
-        //        System.Data.DataRow row = table.NewRow();
-        //        object[] rowdata = new object[reader.FieldCount];
-        //        reader.GetValues(rowdata);
-        //        row.ItemArray = rowdata;
-        //        table.Rows.Add(row);
-        //    }
-        //    reader.Close();
-
-        //    return table;
-        //}
-
-
-       
-
         /// <summary>
         /// gets a list of all 'base tables'
         /// </summary>
@@ -200,7 +226,7 @@ namespace Reclamation.Core
         }
 
 
-        public object ExecuteScalarCmd(SQLiteCommand sqlCmd)
+        public object ExecuteScalarCmd(DbCommand sqlCmd)
         {
             this.SqlCommands.Add(sqlCmd.CommandText);
             // Validate Command Properties
@@ -212,7 +238,7 @@ namespace Reclamation.Core
 
             Object result = null;
 
-            using (SQLiteConnection cn = new SQLiteConnection(ConnectionString))
+            using (DbConnection cn = GetConnection(ConnectionString))
             {
                 sqlCmd.Connection = cn;
                 cn.Open();
@@ -225,10 +251,10 @@ namespace Reclamation.Core
         }
         public object ExecuteScalarCmd(string sql)
         {
-            SQLiteCommand sqlCmd = new SQLiteCommand(sql);
+            DbCommand sqlCmd = GetCommand(sql);
             return ExecuteScalarCmd(sqlCmd);
         }
-        public void AddParamToSQLCmd(SQLiteCommand sqlCmd, string paramId, DbType sqlType, int paramSize, ParameterDirection paramDirection, object paramvalue)
+        public void AddParamToSQLCmd(DbCommand sqlCmd, string paramId, DbType sqlType, int paramSize, ParameterDirection paramDirection, object paramvalue)
         {
             // Validate Parameter Properties
             if (sqlCmd == null)
@@ -237,7 +263,7 @@ namespace Reclamation.Core
                 throw (new ArgumentOutOfRangeException("paramId"));
 
             // Add Parameter
-            SQLiteParameter newSqlParam = new SQLiteParameter();
+            var newSqlParam = GetParameter();
             newSqlParam.ParameterName = paramId;
             newSqlParam.DbType = sqlType;
             newSqlParam.Direction = paramDirection;
@@ -273,9 +299,9 @@ namespace Reclamation.Core
 
         private bool RunSqlCommandNonTransaction(string sql)
         {
-            SQLiteConnection myConnection = new SQLiteConnection(ConnectionString);
+            var myConnection = GetConnection(ConnectionString);
             myConnection.Open();
-            SQLiteCommand myCommand = new SQLiteCommand();
+            var myCommand = GetCommand(sql);
             myCommand.Connection = myConnection;
             bool rval = false;
             try
@@ -320,47 +346,6 @@ namespace Reclamation.Core
 
         }
 
-        //public override int InsertTable(DataTable dataTable)
-        //{
-        //    //if (DateTime.Now.Month == 2) ;
-        //    //return SaveTable(dataTable);
-
-        //    //http://sqlite.phxsoftware.com/forums/t/134.aspx
-        //    Performance perf = new Performance();
-        //    Logger.WriteLine("InsertTable " + dataTable.TableName);
-        //    string sql = "select  * from " + dataTable.TableName + " where 2=1";
-        //    DataSet myDataSet = new DataSet();
-        //    myDataSet.Tables.Add(dataTable.TableName);
-
-        //    SQLiteConnection conn = new SQLiteConnection(ConnectionString);
-        //    SQLiteCommand cmd = new SQLiteCommand(sql, conn);
-        //    int recordCount = 0;
-
-        //    try
-        //    {
-        //            conn.Open();
-        //        SQLiteTransaction tran = conn.BeginTransaction();
-
-        //            SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
-        //            SQLiteCommandBuilder bld = new SQLiteCommandBuilder(da);
-        //            this.lastSqlCommand = sql;
-        //            SqlCommands.Add(sql);
-
-        //            da.InsertCommand = (SQLiteCommand)((ICloneable)bld.GetInsertCommand()).Clone();
-        //            bld.DataAdapter = null; // prevent callbacks
-        //            da.Fill(myDataSet, dataTable.TableName);
-        //            recordCount = da.Update(dataTable);
-        //            tran.Commit();
-
-        //    }finally
-        //    {
-        //        if( conn != null)
-        //          conn.Close();
-        //    }
-
-        //    Logger.WriteLine("Saved " + recordCount + " records in " + perf.ElapsedSeconds + "seconds");
-        //    return recordCount;
-        //}
         public override int SaveTable(DataTable dataTable, string sql)
         {
             Performance perf = new Performance();
@@ -369,10 +354,10 @@ namespace Reclamation.Core
             myDataSet.Tables.Add(dataTable.TableName);
             int recordCount = 0;
 
-            using ( SQLiteConnection conn = new SQLiteConnection(ConnectionString))
-            using ( SQLiteCommand myAccessCommand = new SQLiteCommand(sql, conn))
-            using ( SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myAccessCommand))
-            using ( SQLiteCommandBuilder karlCB = new SQLiteCommandBuilder(myDataAdapter))
+            using ( var conn = GetConnection(ConnectionString))
+            using ( var myAccessCommand = GetCommand(sql, conn))
+            using ( var myDataAdapter = GetAdapter(myAccessCommand))
+            using ( var karlCB = GetBuilder(myDataAdapter))
             {
                 this.lastSqlCommand = sql;
                 SqlCommands.Add(sql);
@@ -412,10 +397,10 @@ namespace Reclamation.Core
             
             int recordCount = 0;
 
-            using (SQLiteConnection conn = new SQLiteConnection(ConnectionString))
-            using (SQLiteCommand myAccessCommand = new SQLiteCommand() )
-            using (SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myAccessCommand))
-            using (SQLiteCommandBuilder karlCB = new SQLiteCommandBuilder(myDataAdapter))
+            using (var conn = GetConnection(ConnectionString))
+            using (var myAccessCommand = GetCommand() )
+            using (var myDataAdapter = GetAdapter(myAccessCommand))
+            using (var karlCB = GetBuilder(myDataAdapter))
             {
 
                 try
@@ -429,7 +414,7 @@ namespace Reclamation.Core
                         var tn = dataTable[i].TableName;
                         myDataSet.Tables.Add(tn);
                         string sql = "select  * from " + PortableTableName(tn) + " where 2=1";
-                        myDataAdapter.SelectCommand = new SQLiteCommand(sql,conn);
+                        myDataAdapter.SelectCommand = GetCommand(sql,conn);
                         myDataAdapter.Fill(myDataSet, tn);
                         recordCount = myDataAdapter.Update(dataTable[i]);
                         myDataSet.Tables.Remove(tn);
@@ -479,14 +464,14 @@ namespace Reclamation.Core
 
             string strAccessSelect = sql;
 
-            using (SQLiteConnection myAccessConn = new SQLiteConnection(ConnectionString))
+            using (var myAccessConn = GetConnection(ConnectionString))
             {
                 //myAccessConn.ConnectionTimeout = 30;
-                using (SQLiteCommand myAccessCommand = new SQLiteCommand(strAccessSelect, myAccessConn))
+                using (var myAccessCommand = GetCommand(strAccessSelect, myAccessConn))
                 {
                     myAccessCommand.CommandTimeout = myAccessConn.ConnectionTimeout;
 
-                    SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myAccessCommand);
+                    var myDataAdapter = GetAdapter(myAccessCommand);
                     myDataAdapter.AcceptChangesDuringFill = AcceptChangesDuringFill;
                     //Console.WriteLine(sql);
                     this.lastSqlCommand = sql;
@@ -519,9 +504,9 @@ namespace Reclamation.Core
         {
             base.SqlCommands.Add("Fill(" + dataTable.TableName + ")");
 
-            var myAccessConn = new SQLiteConnection(ConnectionString);
-            var myAccessCommand = new SQLiteCommand(sql, myAccessConn);
-            var myDataAdapter = new SQLiteDataAdapter(myAccessCommand);
+            var myAccessConn = GetConnection(ConnectionString);
+            var myAccessCommand = GetCommand(sql, myAccessConn);
+            var myDataAdapter = GetAdapter(myAccessCommand);
 
             //Console.WriteLine(sql);
             this.lastSqlCommand = sql;
@@ -552,9 +537,9 @@ namespace Reclamation.Core
 
             string strAccessSelect = sql;
 
-            SQLiteConnection myAccessConn = new SQLiteConnection(ConnectionString);
-            SQLiteCommand myAccessCommand = new SQLiteCommand(strAccessSelect, myAccessConn);
-            SQLiteDataAdapter myDataAdapter = new SQLiteDataAdapter(myAccessCommand);
+            var myAccessConn = GetConnection(ConnectionString);
+            var myAccessCommand = GetCommand(sql, myAccessConn);
+            var myDataAdapter = GetAdapter(myAccessCommand);
 
             //Console.WriteLine(sql);
             this.lastSqlCommand = sql;
@@ -594,12 +579,12 @@ namespace Reclamation.Core
         {
             int rval = 0;
             this.lastMessage = "";
-            using (SQLiteConnection myConnection = new SQLiteConnection(SqlConnString))
+            using (var myConnection = GetConnection(SqlConnString))
             {
                 myConnection.Open();
-                using (SQLiteCommand myCommand = new SQLiteCommand())
+                using (var myCommand = GetCommand())
                 {
-                    SQLiteTransaction myTrans;
+                    DbTransaction myTrans;
 
                     // Start a local transaction
                     myTrans = myConnection.BeginTransaction(IsolationLevel.ReadCommitted);
@@ -636,9 +621,11 @@ namespace Reclamation.Core
         ///
         public override string PortableDateString(DateTime t, string fmt)
         {
-            if( UnixTimeStamps)
+#if !NETCOREAPP2_0
+// TO DO -- ToUnixEpoch ??
+            if ( UnixTimeStamps)
                 return System.Data.SQLite.SQLiteConvert.ToUnixEpoch(t).ToString();
-
+#endif
             return "datetime(" + base.PortableDateString(t, fmt) + ")";
         }
 
