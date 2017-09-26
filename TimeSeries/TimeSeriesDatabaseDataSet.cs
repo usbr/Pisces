@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using Reclamation.Core;
-using System.IO;
-using System.Data;
+﻿using Reclamation.Core;
 using System;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
 
 namespace Reclamation.TimeSeries
 {
@@ -506,9 +504,10 @@ namespace Reclamation.TimeSeries
     }
 }
 
-namespace Reclamation.TimeSeries.TimeSeriesDatabaseDataSetTableAdapters {
-    
-    
+namespace Reclamation.TimeSeries.TimeSeriesDatabaseDataSetTableAdapters
+{
+
+
     public partial class SeriesCatalogTableAdapter {
 
 
