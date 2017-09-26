@@ -64,9 +64,9 @@ namespace HydrometServer.CommandLine
                     {
                     double f;
                     object o = dataTable.Rows[rowIndex][columnIndex];
-                    if (o != DBNull.Value)
+                    if (o != DBNull.Value && Double.TryParse(o.ToString(),out f))
                     {
-                        f = Convert.ToDouble(o);
+                        //f = Convert.ToDouble(o);
                         output += f.ToString("F2").PadLeft(15);
                     }
                     else 

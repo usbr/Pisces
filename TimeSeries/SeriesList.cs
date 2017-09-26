@@ -500,6 +500,8 @@ namespace Reclamation.TimeSeries
 
           Series tempSeries = new Series(table, "", TimeInterval.Irregular);
 
+            if (table.Columns.Contains("flag"))
+                table.Columns.Remove("flag");
           // tempSeries is not a "valid" series.  just taking advantage
           // of insert and lookup functions
 
