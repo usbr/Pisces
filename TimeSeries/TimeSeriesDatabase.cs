@@ -1046,7 +1046,11 @@ namespace Reclamation.TimeSeries
             {
                 //count = InsertOrUpdate(table, si.FileIndex); 
                 DeleteExistingData(table);
+                if( m_server is PostgreSQL)
+                    count = (m_server as PostgreSQL).InsertTimeSeriesTable(table);
+                else
                 count = m_server.InsertTable(table);
+                
             }
             else
                 if (option == DatabaseSaveOptions.DeleteAllExisting)
