@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\HydrometServer\ApplicationTrustPolicy.cs" Link="ApplicationTrustPolicy.cs" />
+    <Compile Include="..\HydrometServer\CommandLine\CommandLineInput.cs" Link="CommandLine\CommandLineInput.cs" />
+    <Compile Include="..\HydrometServer\CommandLine\PiscesCommandLine.cs" Link="CommandLine\PiscesCommandLine.cs" />
+    <Compile Include="..\HydrometServer\CommandLine\TablePrinter.cs" Link="CommandLine\TablePrinter.cs" />
+    <Compile Include="..\HydrometServer\Program.cs" Link="Program.cs" />
+    <Compile Include="..\HydrometServer\RatingTableDownload.cs" Link="RatingTableDownload.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Reclamation.NetCore\Reclamation.NetCore.csproj" />
+    <ProjectReference Include="..\..\Reclamation.NetTimeSeries\Reclamation.NetTimeSeries.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CommandLine\" />
+  </ItemGroup>
+
+</Project>

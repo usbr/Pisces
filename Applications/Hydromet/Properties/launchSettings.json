@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Hydromet": {
+      "commandName": "Project",
+      "commandLineArgs": " --import=\"*.txt\" --computeDependencies --computeDailyOnMidnight"
+    }
+  }
+}
