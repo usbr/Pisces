@@ -12,22 +12,6 @@ namespace Pisces.NunitTests.SeriesTypes
     {
 
         [Test]
-        [ExpectedException(typeof(System.Data.DuplicateNameException))]
-        public void ColumnNames()
-        {
-            string filename = TestData.DataPath + "\\ImportWithUpdate.xls";
-            SpreadsheetGearExcel db = new SpreadsheetGearExcel(filename);
-
-            string[] cols = db.ColumnNames("Duplicates");
-            foreach (var s in cols)
-            {
-                Console.WriteLine(s);
-            }
-
-            Assert.AreEqual(34, cols.Length);
-        }
-
-        [Test]
         public void MonthlyIntervalDetection()
         {
             string filename = TestData.DataPath + "\\unregulation calculations.xls";

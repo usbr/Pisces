@@ -1,19 +1,16 @@
-﻿using System;
+﻿using Reclamation.Core;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using Reclamation.Core;
 using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow;
-using Reclamation.TimeSeries.Parser;
 
 namespace Reclamation.TimeSeries
 {
     /// <summary>
     /// TimeSeriesFactory creates objects stored in the TimeSeriesDatabase
     /// </summary>
-    public class PiscesFactory
+    class PiscesFactory
     {
         TimeSeriesDatabase db;
         public PiscesFactory(TimeSeriesDatabase db)
@@ -95,8 +92,6 @@ namespace Reclamation.TimeSeries
                 if (sr.Provider == "Series")
                 { 
                     s = new Series(db, sr);
-                    //s.Table.TableName = 
-                    s.Icon = AssignIcon(sr.iconname);
                     s.TimeSeriesDatabase = this.db;
                     return s;
                 }
@@ -104,7 +99,6 @@ namespace Reclamation.TimeSeries
                 if (sr.Provider == "CalculationSeries")
                 {
                     s = new CalculationSeries(db, sr);
-                    s.Icon = AssignIcon(sr.iconname);
                     s.TimeSeriesDatabase = this.db;
                     return s;
                 }
@@ -171,7 +165,6 @@ namespace Reclamation.TimeSeries
 //                Logger.WriteLine("No Class found for '"+sr.Provider +"'  ID= "+sr.id+" Name = "+sr.Name);
                 s = new Series( db, sr);
             }
-            s.Icon = AssignIcon(sr.iconname);
             s.TimeSeriesDatabase = this.db;
             return s;
         }
@@ -195,97 +188,12 @@ namespace Reclamation.TimeSeries
                 return GetSeries(sr); //11.53125 seconds elapsed.
             }
 
-            rval.Icon = AssignIcon(sr.iconname);
+        //    rval.Icon = AssignIcon(sr.iconname);
             return rval;
         }
 
 
 
-        static private Image AssignIcon(string source)
-        {
-            if (source == "" )
-                return null;
-            for (int i = 0; i < IconNames.Length; i++)
-            {
-                string s = IconNames[i];
-                int idx = source.IndexOf(s, StringComparison.CurrentCultureIgnoreCase);
-                if (idx >= 0)
-                {
-                    return m_images[i];
-                }
-            }
-            return null;
-        }
-
-        static string[] m_iconNames = null;
-        static Image[] m_images = null;
-
-        /// <summary>
-        /// A list of image names without an extension.
-        /// </summary>
-        private static string[] IconNames
-        {
-            get
-            {
-                if (m_iconNames == null)
-                {
-                    //string dir = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-                    string dir = FileUtility.GetExecutableDirectory();
-                    dir = Path.Combine(dir, "images");
-
-                    if (!Directory.Exists(dir))
-                        return new string[] { };
-
-                    var lst = new List<string>();
-                    var imgList = new List<Image>();
-                    DirectoryInfo di = new DirectoryInfo(dir);
-                    FileInfo[] files = di.GetFiles();
-
-                    foreach (var f in files)
-                    {
-                        var ext = f.Extension.ToLower();
-                        if (ext == ".ico"
-                            || ext == ".bmp"
-                            || ext == ".gif")
-                        {
-                            Bitmap b = null;
-                            try
-                            {
-                                Logger.WriteLine("reading " + f.FullName);
-                                Bitmap b1;
-                                if (ext == ".gif")
-                                {
-                                    byte[] ir = File.ReadAllBytes(f.FullName);
-                                    Image i = Image.FromStream(new MemoryStream(ir));
-                                    b1 = new Bitmap(new Bitmap(i));
-                                }
-                                else
-                                {
-                                    b1 = new Bitmap(f.FullName);
-                                }
-                                b = new Bitmap(b1, new Size(16, 16));
-
-                            }
-                            catch (Exception ex)
-                            {
-                                //System.Windows.Forms.MessageBox.Show(ex.Message);
-                                Logger.WriteLine(ex.Message);
-                                //m_iconNames = new string[]{};
-                                //return m_iconNames;
-                                continue;
-                            }
-                            lst.Add(Path.GetFileNameWithoutExtension(f.FullName));
-                            imgList.Add(b);
-                        }
-                    }
-                    m_iconNames = lst.ToArray();
-                    m_images = imgList.ToArray();
-
-                }
-                return m_iconNames;
-
-            }
-        }
 
 
     }

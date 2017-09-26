@@ -491,9 +491,9 @@ namespace Reclamation.TimeSeries
             // public TimeSeriesDatabase TimeSeriesDatabase;
 
             // internal int FileIndex=0;
-            private Image _icon;
+            private object _icon;
 
-            public Image Icon
+            public Object Icon
             {
                 get { return _icon; }
                 set { _icon = value; }

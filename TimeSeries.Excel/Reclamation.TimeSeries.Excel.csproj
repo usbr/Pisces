@@ -29,11 +29,11 @@
     <Reference Include="Aga.Controls">
       <HintPath>..\ThirdParty\Aga.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\Applications\HydrometForecast\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="SpreadsheetGear">
-      <HintPath>..\PaidThirdParty\SpreadsheetGear.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\HydrometTools\SpreadsheetGear.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

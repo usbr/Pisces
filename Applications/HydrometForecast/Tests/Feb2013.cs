@@ -57,10 +57,9 @@ namespace ReclamationTesting.TimeSeries.Forecasting
        public void BULLY_CREEK() { VerifyForecast(t, "BULLY CREEK", 0.1, "MALHEUR"); }
        [Test]
        public void MAL_NR_DREWSEY() { VerifyForecast(t, "MAL. NR. DREWSEY", 0.1); }
-       [Test]
-       [ExpectedException(typeof(System.Exception))]
-       public void MANN_CREEK() { VerifyForecast(t, "MANN CREEK", 0.1); }
-       [Test]
+
+       
+        [Test]
        public void MCKAY() { VerifyForecast(t, "MCKAY", 0.1); }
        [Test]
        public void N_F_MALHEUR_R() { VerifyForecast(t, "N. F. MALHEUR R.", 0.1); }

@@ -126,7 +126,7 @@ namespace Reclamation.TimeSeries
             }
         }
 
-        public Image Icon
+        public Object Icon
         {
             get { return row.Icon; }
             set { row.Icon = value; }
