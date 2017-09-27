@@ -23,17 +23,17 @@ namespace Reclamation.TimeSeries
             m_siteproperty = m_db.GetSiteProperties();
         }
 
-        public static void Import(Series s,string siteID, string parameter){
+        public static void Import(Series s,string siteID, string parameter, string fileExtension="txt"){
 
             if (s.TimeInterval == TimeInterval.Daily)
             {
-                var fn = TimeSeriesTransfer.GetIncommingFileName("daily", siteID, parameter);
+                var fn = TimeSeriesTransfer.GetIncommingFileName("daily", siteID, parameter,fileExtension);
                 HydrometDailySeries.WriteToArcImportFile(s, siteID, parameter, fn);
             }
             if (s.TimeInterval == TimeInterval.Irregular ||
                 s.TimeInterval == TimeInterval.Hourly)
             {
-                var fn = TimeSeriesTransfer.GetIncommingFileName("instant", siteID, parameter);
+                var fn = TimeSeriesTransfer.GetIncommingFileName("instant", siteID, parameter,fileExtension);
                 HydrometInstantSeries.WriteToHydrometFile(s, siteID, parameter,Environment.UserName , fn);
             }
 
@@ -99,10 +99,10 @@ namespace Reclamation.TimeSeries
         /// Path for incoming data files
         /// </summary>
         /// <returns></returns>
-         static string GetIncommingFileName(string prefix, string cbtt, string pcode)
+         static string GetIncommingFileName(string prefix, string cbtt, string pcode, string fileExtension)
         {
             string incoming = ConfigurationManager.AppSettings["incoming"];
-            return Path.Combine(incoming, TimeSeriesTransfer.GetUniqueFileName(incoming, prefix, cbtt, pcode));
+            return Path.Combine(incoming, TimeSeriesTransfer.GetUniqueFileName(incoming, prefix, cbtt, pcode,fileExtension));
         }
 
 
@@ -121,9 +121,9 @@ namespace Reclamation.TimeSeries
             return Path.Combine(outgoing, GetUniqueFileName(outgoing, prefix, cbtt, pcode));
         }
 
-        internal static string GetUniqueFileName(string dir, string prefix, string cbtt, string pcode)
+        internal static string GetUniqueFileName(string dir, string prefix, string cbtt, string pcode, string fileExtension="txt")
         {
-            string fileName = prefix + "_" + cbtt + "_" + pcode + "_" + DateTime.Now.ToString("MMMdyyyyHHmmssfff") + ".txt";
+            string fileName = prefix + "_" + cbtt + "_" + pcode + "_" + DateTime.Now.ToString("MMMdyyyyHHmmssfff") + "."+fileExtension;
             fileName = Path.Combine(dir, fileName.ToLower());
 
             if (File.Exists(fileName))

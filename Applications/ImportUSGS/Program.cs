@@ -54,7 +54,7 @@ namespace ImportUsgs
                     }
                     s.Read(DateTime.Now.AddHours(-hoursBack), DateTime.Now);
 
-                    TimeSeriesTransfer.Import(s, cbtt, pcode);
+                    TimeSeriesTransfer.Import(s, cbtt, pcode,"usgs");
                     
 
                 }
@@ -86,7 +86,7 @@ namespace ImportUsgs
                         s.RemoveMissing();
                         if (s.Count > 0)
                         {
-                            TimeSeriesTransfer.Import(s, cbtt, pcode);
+                            TimeSeriesTransfer.Import(s, cbtt, pcode,"usgs");
                         }
                     }
                     catch(Exception e)
