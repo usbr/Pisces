@@ -2,7 +2,7 @@
   "profiles": {
     "Hydromet": {
       "commandName": "Project",
-      "commandLineArgs": " --import=\"*.txt\" --computeDependencies --computeDailyOnMidnight"
+      "commandLineArgs": "--cli=instant --imaaport=\"*.txt\" --computeDependencies --computeDailyOnMidnight"
     }
   }
 }

@@ -36,28 +36,6 @@ namespace HydrometServer
             Console.WriteLine("System Time = "+DateTime.Now);
 
             Arguments args = new Arguments(argList);
-            var p = new OptionSet();
-
-            var cli = "";
-            int processAlarms = 0;
-            p.Add("cli=", "interface --cli=instant|daily|monthly", x => cli = x);
-            p.Add("processAlarms",  x => processAlarms++ );
-
-            try
-            {
-                p.Parse(argList);
-            }
-            catch (OptionException e)
-            {
-                Console.WriteLine("Error: "+e.Message);
-                return;
-            }
-            if (argList.Length == 0)
-            {
-                ShowHelp(p);
-                return;
-            }
-
 
             string errorFileName = "errors.txt";
             Performance perf = new Performance();
@@ -101,13 +79,14 @@ namespace HydrometServer
                 }
 
 
+              
            
             var db = TimeSeriesDatabase.InitDatabase(args);
 
-            if (cli != "")
+            if (args.Contains("cli"))
             {
               TimeInterval interval = TimeInterval.Irregular;
-                    if (cli == "daily")
+                    if (args["cli"] == "daily")
                         interval = TimeInterval.Daily;
 
                     Console.WriteLine();
@@ -118,7 +97,7 @@ namespace HydrometServer
             }
 
 
-            if( processAlarms >0)
+                if ( args.Contains("processAlarms"))
             {
                 try
                 {
@@ -282,15 +261,16 @@ namespace HydrometServer
 
         
 
-        static void ShowHelp(OptionSet p)
+        static void ShowHelp()
         {
             Console.WriteLine("HydrometServer");
             Console.WriteLine();
             Console.WriteLine("Options:");
-            p.WriteOptionDescriptions(Console.Out);
 
-
-            Console.WriteLine(@"--sqlite=c:\data\mydata.pdb");
+            Console.WriteLine("--cli=instant|daily|monthly");
+            Console.WriteLine("             command line interface");
+            Console.WriteLine("--processAlarms");
+            Console.WriteLine("             process alarms in the table 'alarm_phone_queue'");
             Console.WriteLine("--import[=searchPattern]   [--computeDependencies] [--computeDailyOnMidnight]");
             Console.WriteLine("            imports (and processes) data in incoming directory");
             Console.WriteLine("            supports DMS3, and LoggerNet files");
@@ -328,6 +308,10 @@ namespace HydrometServer
             Console.WriteLine("          updates series properties with t1 and t2 for the data");
             Console.WriteLine("--run-crop-charts=2016   --run-crop-charts (defaults to current calendar year)");
             Console.WriteLine("        runs crop charts");
+            Console.WriteLine(@"--sqlite=c:\data\mydata.pdb");
+            Console.WriteLine("       use sqlite database, and provide filename");
+        //    Console.WriteLine("--perfTest");
+          //  Console.WriteLine("        measure performance importing test data with calculations ");
 
         }
         
