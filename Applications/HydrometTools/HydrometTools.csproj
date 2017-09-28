@@ -161,7 +161,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SpreadsheetGear">
-      <HintPath>..\..\Pisces\PaidThirdParty\SpreadsheetGear.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\HydrometTools\SpreadsheetGear.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

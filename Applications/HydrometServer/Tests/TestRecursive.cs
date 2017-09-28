@@ -18,7 +18,7 @@ namespace HydrometServer.Tests
         string dir;
         public TestRecursive()
         {
-            string fn = FileUtility.GetTempFileName(".pdb-recursive");
+            string fn = FileUtility.GetTempFileName(".pdb");
             Console.WriteLine(fn);
             var svr = new SQLiteServer(fn);
             db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName, false);
@@ -40,26 +40,27 @@ namespace HydrometServer.Tests
 "2017SEP15 2200 WAFI     CH        -1.05      998877.00  -20",
 "2017SEP15 2200 WAFI     BATVOLT   12.47      998877.00  -01"});
 
-            File.WriteAllLines(Path.Combine(dir, "file1.clk")
-                , new string[] {
+            WriteToFile("file1.clk",
+                 new string[] {
 
-"2017SEP27 2345 CLK FB        4529.97    998877.00 - 01",
-"2017SEP27 2330 CLK FB        4529.97    998877.00 - 01",
-"2017SEP27 2315 CLK FB        4529.97    998877.00 - 01",
-"2017SEP27 2300 CLK FB        4529.97    998877.00 - 01",
-"2017SEP27 2345 CLK TV        61.70      998877.00 - 01",
-"2017SEP27 2330 CLK TV        61.70      998877.00 - 01",
-"2017SEP27 2315 CLK TV        61.70      998877.00 - 01",
-"2017SEP27 2300 CLK TV        61.70      998877.00 - 01",
-"2017SEP27 2300 CLK BATVOLT   12.80      998877.00 - 01",
-"2017SEP27 2349 CLK PARITY    0.00       998877.00 - 01",
-"2017SEP27 2349 CLK POWER     48.00      998877.00 - 01",
-"2017SEP27 2349 CLK MSGLEN    30.00      998877.00 - 01",
-"2017SEP27 2349 CLK LENERR    0.00       998877.00 - 01",
-"2017SEP27 2349 CLK TIMEERR   0.56       998877.00 - 01" });
+"2017SEP27 2345 CLK      FB        4529.97    998877.00  -01",
+"2017SEP27 2330 CLK      FB        4529.97    998877.00  -01",
+"2017SEP27 2315 CLK      FB        4529.97    998877.00  -01",
+"2017SEP27 2300 CLK      FB        4529.97    998877.00  -01",
+"2017SEP27 2345 CLK      TV        61.70      998877.00  -01",
+"2017SEP27 2330 CLK      TV        61.70      998877.00  -01",
+"2017SEP27 2315 CLK      TV        61.70      998877.00  -01",
+"2017SEP27 2300 CLK      TV        61.70      998877.00  -01",
+"2017SEP27 2300 CLK      BATVOLT   12.80      998877.00  -01",
+"2017SEP27 2349 CLK      PARITY    0.00       998877.00  -01",
+"2017SEP27 2349 CLK      POWER     48.00      998877.00  -01",
+"2017SEP27 2349 CLK      MSGLEN    30.00      998877.00  -01",
+"2017SEP27 2349 CLK      LENERR    0.00       998877.00  -01",
+"2017SEP27 2349 CLK      TIMEERR   0.56       998877.00  -01"
+});
 
-            File.WriteAllLines(Path.Combine(dir, "file2.clk")
-                , new string[] {
+           WriteToFile("file2.clk",
+                 new string[] {
 "2017SEP28 0045 CLK      FB        4529.97    998877.00  -01",
 "2017SEP28 0030 CLK      FB        4529.96    998877.00  -01",
 "2017SEP28 0015 CLK      FB        4529.97    998877.00  -01",
@@ -75,6 +76,13 @@ namespace HydrometServer.Tests
 "2017SEP28 0049 CLK      LENERR    0.00       998877.00  -01",
 "2017SEP28 0049 CLK      TIMEERR   0.55       998877.00  -01" });
 
+        }
+        
+        private void WriteToFile( string filename,string[] lines)
+        {
+            var fn = Path.Combine(dir, filename);
+            File.WriteAllLines(fn, lines);
+            File.SetCreationTime(fn, DateTime.Now.AddSeconds(-5));
 
         }
 
@@ -108,6 +116,10 @@ namespace HydrometServer.Tests
             FileImporter fi = new FileImporter(db);
 
             fi.Import(dir, true, true, "*.clk");
+
+            var s = db.GetCalculationSeries("clk", "fb", TimeInterval.Daily);
+            s.Read();
+            Assert.IsTrue(s.Count >0);
         }
 
         private void AddDailyCalculation(string name, string exp)

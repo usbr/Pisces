@@ -333,7 +333,8 @@ namespace Reclamation.TimeSeries
             int maxRecursiveCount=10;
             if( count > maxRecursiveCount)
             {
-                Logger.WriteLine("TimeSeriesImporter max recursive level reached. maxRecursiveCount =" + maxRecursiveCount);
+                Logger.WriteLine("TimeSeriesImporter max recursive level reached. "+tableName+" maxRecursiveCount =" + maxRecursiveCount);
+                count = 0;
                 return new List<CalculationSeries>();
             }
             var rval = new List<CalculationSeries>();

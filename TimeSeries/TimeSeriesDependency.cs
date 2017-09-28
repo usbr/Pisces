@@ -152,7 +152,30 @@ namespace Reclamation.TimeSeries
         public List<CalculationSeries> LookupCalculations(string tableName, TimeInterval interval)
         {
             var rval = new List<CalculationSeries>();
+            InitInputDictionary(interval);
 
+            TimeSeriesName n = new TimeSeriesName(tableName, interval);
+
+            var key = n.GetTableName();
+            if (this.inputDictionary.ContainsKey(key))
+            {
+                Logger.WriteLine("inputDictionary.Count = " + inputDictionary.Count);
+                Logger.WriteLine("LookupCalculations(" + tableName + ")");
+
+                var x = inputDictionary[key];
+                foreach (CalculationSeries c in x)
+                {
+                    Logger.WriteLine("    "+c.Name + " " + c.Expression);
+                }
+
+                rval.AddRange(x.ToArray());
+            }
+
+            return rval;
+        }
+
+        private void InitInputDictionary(TimeInterval interval)
+        {
             if (inputDictionary == null)
             {
                 inputDictionary = new Dictionary<string, List<CalculationSeries>>();
@@ -162,26 +185,15 @@ namespace Reclamation.TimeSeries
                     foreach (var varName in vars)
                     {
                         TimeSeriesName tn = new TimeSeriesName(varName, interval);
-                        if( !tn.Valid )
-                            Console.WriteLine("Warning: Skipped non-series parameter/variable .... "+varName);
+                        if (!tn.Valid)
+                            Console.WriteLine("Warning: Skipped non-series parameter/variable .... " + varName);
                         else
-                        AddToDictionary(tn.GetTableName(), cs);    
+                            AddToDictionary(tn.GetTableName(), cs);
                     }
                 }
             }
-
-            Logger.WriteLine("LookupCalculations(" + tableName + ")");
-            Logger.WriteLine("inputDictionary.Count = " + inputDictionary.Count);
-
-            TimeSeriesName n = new TimeSeriesName(tableName,interval);
-            var key = n.GetTableName();
-            if (this.inputDictionary.ContainsKey(key))
-            {
-                rval.AddRange(inputDictionary[key].ToArray());
-            }
-
-            return rval;
         }
+
         private void AddToDictionary(string key, CalculationSeries cs)
         {
             if (inputDictionary.ContainsKey(key))
