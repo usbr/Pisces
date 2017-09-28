@@ -113,7 +113,8 @@ namespace Reclamation.TimeSeries
                     return;
                 }
 
-                m_importer = new TimeSeriesImporter(m_db,m_saveOption);
+                if(m_importer == null)
+                    m_importer = new TimeSeriesImporter(m_db,m_saveOption);
                 Console.WriteLine("Found " + sl.Count + " series in " + fileName);
                 foreach (var item in sl)
                 {
