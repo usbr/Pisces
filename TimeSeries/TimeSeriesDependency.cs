@@ -159,14 +159,11 @@ namespace Reclamation.TimeSeries
             var key = n.GetTableName();
             if (this.inputDictionary.ContainsKey(key))
             {
-                Logger.WriteLine("inputDictionary.Count = " + inputDictionary.Count);
-                Logger.WriteLine("LookupCalculations(" + tableName + ")");
+                //Logger.WriteLine("inputDictionary.Count = " + inputDictionary.Count);
+                //Logger.WriteLine("LookupCalculations(" + tableName + ")");
 
                 var x = inputDictionary[key];
-                foreach (CalculationSeries c in x)
-                {
-                    Logger.WriteLine("    "+c.Name + " " + c.Expression);
-                }
+                
 
                 rval.AddRange(x.ToArray());
             }

@@ -239,6 +239,8 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
+        static TimeSeriesDatabaseDataSet.sitecatalogRow s_prevSiteRow = null;
+
         private string AddSiteData(string rval)
         {
             // check for %site%.elevation or other lookups in sitecatalog table
@@ -254,7 +256,14 @@ namespace Reclamation.TimeSeries
             var m = Regex.Match(rval, pattern);
             while (m.Success && m_db != null)
             {
-                var site = m_db.GetSiteRow(SiteID);
+                TimeSeriesDatabaseDataSet.sitecatalogRow site;
+                if (s_prevSiteRow != null && s_prevSiteRow.siteid == SiteID)
+                    site = s_prevSiteRow; // save DB call
+                else
+                {
+                    site = m_db.GetSiteRow(SiteID);
+                    s_prevSiteRow = site;
+                }
 
                 string colName = m.Groups["column"].Value;
                 if (site != null && site.Table.Columns.IndexOf(colName) >= 0)

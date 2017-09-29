@@ -34,8 +34,14 @@ namespace HydrometServer
 
             Console.Write("HydrometServer " + ver +" compiled: " + AssemblyUtility.CreationDate()+"\n");
             Console.WriteLine("System Time = "+DateTime.Now);
+            if( argList.Length == 0)
+            {
+                ShowHelp();
+                return;
+            }
 
             Arguments args = new Arguments(argList);
+
 
             string errorFileName = "errors.txt";
             Performance perf = new Performance();
