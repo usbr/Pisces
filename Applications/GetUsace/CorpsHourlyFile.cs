@@ -11,8 +11,8 @@ namespace GetUsaceDaily
 {
     /// <summary>
     /// Manage reading  Corps of Engineers Hourly data 
-    /// from *.txt files .  For example: http://www.nwd-wc.usace.army.mil/ftppub/project_data/hourly/gcl_0daysback.txt
-    /// or http://www.nwd-wc.usace.army.mil/ftppub/project_data/hourly/gcl_1daysback.txt
+    /// from *.txt files .  For example:http://www.nwd-wc.usace.army.mil/ftppub/project_data/hourly/gcl_h.dat
+    /// or http://www.nwd-wc.usace.army.mil/ftppub/project_data/daily/lwg_d.dat
     /// data is returned in Series class
     /// </summary>
     class CorpsHourlyFile
