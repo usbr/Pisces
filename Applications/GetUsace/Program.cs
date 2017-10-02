@@ -159,12 +159,12 @@ namespace GetUsaceDaily
                 s = s + offset;
             }
 
-            if  ( (cbtt.ToLower() == "gcl" || cbtt.ToLower() == "bnk") && pcode.ToLower() == "fb")
-            {// compute acre-feet using rating table.
+            //if  ( (cbtt.ToLower() == "gcl" || cbtt.ToLower() == "bnk") && pcode.ToLower() == "fb")
+            //{// compute acre-feet using rating table.
 
-                var af = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, cbtt.ToLower()+ "_af.txt");
-                TimeSeriesTransfer.Import(af, cbtt, "af");
-            }
+            //    var af = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, cbtt.ToLower()+ "_af.csv");
+            //    TimeSeriesTransfer.Import(af, cbtt, "af");
+            //}
 
             if (units == "(kcfs)" ||  units == "(kaf)" || pcode == "Q" || pcode == "QW" || pcode == "QE" )
             {// multiply by 1000
