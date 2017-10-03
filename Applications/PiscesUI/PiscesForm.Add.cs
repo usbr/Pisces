@@ -20,6 +20,8 @@ using Reclamation.TimeSeries.OracleHdb;
 #endif 
 using Reclamation.TimeSeries.DataLogger;
 using Reclamation.TimeSeries.SHEF;
+using System.Collections.Generic;
+using Reclamation.TimeSeries.Excel;
 
 namespace Reclamation.TimeSeries.Forms
 {
