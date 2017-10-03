@@ -38,7 +38,6 @@ namespace Reclamation.TimeSeries
             }
 
         }
-
         /// <summary>
         /// Routes a list of Series as a group 
         /// hydromet cbtt is copied from list[i].SiteName
@@ -51,7 +50,16 @@ namespace Reclamation.TimeSeries
         {
             if (list.Count == 0)
                 return;
-           
+
+            var routes = RouteDestinations(list);
+            foreach (string route in routes.Keys)
+            {
+                WriteListToFile(routes[route], name, interval, route);
+            }
+
+        }
+        private void WriteListToFile(SeriesList list, string name, TimeInterval interval,  string route)
+        {
             var tmpFileName = FileUtility.GetTempFileName(".txt");
             File.Delete(tmpFileName);
             Logger.WriteLine("writing " + list.Count + " series ");
@@ -62,7 +70,6 @@ namespace Reclamation.TimeSeries
                 SeriesList exportList = new SeriesList();
                 foreach (var s in list)
                 {
-                    if(AllowExport(s))
                     exportList.Add(s);
                 }
                 HydrometDailySeries.WriteToArcImportFile(exportList, tmpFileName);
@@ -72,7 +79,6 @@ namespace Reclamation.TimeSeries
             {
                 foreach (var s in list)
                 {
-                    if (AllowExport(s))
                     HydrometInstantSeries.WriteToHydrometFile(s, s.SiteID, s.Parameter, Environment.UserName, tmpFileName, true);
                 }
             }
@@ -80,12 +86,13 @@ namespace Reclamation.TimeSeries
             {
                 Logger.WriteLine("Moving: " + tmpFileName);
                 string fn = interval == TimeInterval.Daily ? "daily" : "instant";
-                var fileName = GetOutgoingFileName(fn, name, "all");
+                var fileName = GetOutgoingFileName(fn, name, "all", route);
                 Logger.WriteLine("To: " + fileName);
                 File.Move(tmpFileName, fileName);
             }
-
         }
+
+
 
         private bool AllowExport(Series s)
         {
@@ -94,19 +101,60 @@ namespace Reclamation.TimeSeries
         }
 
 
+        /// <summary>
+        /// Returns of list of routes, from the site property table
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        private Dictionary<string, SeriesList> RouteDestinations(SeriesList list)
+        {
+            var rval = new Dictionary<string, SeriesList>();
+            foreach (var item in list)
+            {
+                if (!AllowExport(item))
+                    continue;
+
+                var prop = m_siteproperty.GetValue(item.SiteID, "route", "");
+
+                var keys = prop.Split(',');
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    var key = keys[i].Trim();
+                    AddToRoute(rval, item, key);
+                }
+                
+            }
+            return rval;
+        }
+
+        private static void AddToRoute(Dictionary<string, SeriesList> rval, Series s, string key)
+        {
+            SeriesList sl = null;
+            if (!rval.ContainsKey(key))
+            {
+                sl = new SeriesList();
+                rval.Add(key, sl);
+            }
+            else
+            {
+                sl = rval[key];
+            }
+
+            sl.Add(s);
+        }
+
 
         /// <summary>
         /// Path for incoming data files
         /// </summary>
         /// <returns></returns>
-         static string GetIncommingFileName(string prefix, string cbtt, string pcode, string fileExtension)
+        static string GetIncommingFileName(string prefix, string cbtt, string pcode, string fileExtension)
         {
             string incoming = ConfigurationManager.AppSettings["incoming"];
             return Path.Combine(incoming, TimeSeriesTransfer.GetUniqueFileName(incoming, prefix, cbtt, pcode,fileExtension));
         }
 
-
-        public static string GetOutgoingFileName(string prefix, string cbtt, string pcode)
+        public static string GetOutgoingFileName(string prefix, string cbtt, string pcode, string route = "")
         {
             string outgoing = ConfigurationManager.AppSettings["outgoing"];
             if (outgoing == "" || outgoing == null)
@@ -114,13 +162,18 @@ namespace Reclamation.TimeSeries
                 Console.WriteLine("Error: 'outgoing' directory not defined in config file");
                 Logger.WriteLine("Error: 'outgoing' directory not defined in config file");
             }
-            if( !Directory.Exists(outgoing) || outgoing == null)
+            if (!Directory.Exists(outgoing) || outgoing == null)
             {
-                Console.WriteLine("Error: path does not exist: '"+outgoing+"'");
+                Console.WriteLine("Error: path does not exist: '" + outgoing + "'");
             }
+            if (route != "") // route is subdirectory i.e.  /home/hydromet/outgoing/route
+                outgoing = Path.Combine(outgoing, route);
+
+            if( !Directory.Exists(outgoing))
+                Console.WriteLine("Error:  Directoy does not exist "+outgoing);
+
             return Path.Combine(outgoing, GetUniqueFileName(outgoing, prefix, cbtt, pcode));
         }
-
         internal static string GetUniqueFileName(string dir, string prefix, string cbtt, string pcode, string fileExtension="txt")
         {
             string fileName = prefix + "_" + cbtt + "_" + pcode + "_" + DateTime.Now.ToString("MMMdyyyyHHmmssfff") + "."+fileExtension;
