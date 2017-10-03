@@ -19,7 +19,7 @@ namespace Reclamation.TimeSeries.Forms
         {
             get
             {
-                var years = maskedTextBoxPlotYear.Text.Split(',');
+                var years = maskedTextBoxPlotYear.Text.Split(new char[] { ',', ' ' },StringSplitOptions.RemoveEmptyEntries);
                 var yrs = new List<int>();
                 foreach (var year in years)
                 {

@@ -77,7 +77,7 @@ namespace Reclamation.TimeSeries.Analysis
                         Series sDummy = new Series();
                         foreach (Point pt in s)
                         {
-                            if (pt.DateTime.Month != 2 && pt.DateTime.Day != 29) //sigh... leap days...
+                            if (  !(pt.DateTime.Month == 2 && pt.DateTime.Day == 29)) //sigh... leap days...
                             {
                                 sDummy.Add(pt.DateTime.AddYears(tSumHyd1.Year - t1.Year), pt.Value);
                             }
