@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using SeriesCatalogRow = Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow;
 
@@ -1852,31 +1853,67 @@ namespace Reclamation.TimeSeries
         public void Inventory()
         {
             int tableCount = m_server.TableNames().Count();
-            Console.WriteLine("Inventory of Database "+m_server.Name);
-            Console.WriteLine("Tables in Database:"+tableCount);
-            Console.WriteLine("Space used:"+m_server.SpaceUsedGB()+" GB");
+            Console.WriteLine("Inventory of Database " + m_server.Name);
+            Console.WriteLine("Tables in Database:" + tableCount);
+            Console.WriteLine("Space used:" + m_server.SpaceUsedGB().ToString("F3") + " GB");
 
-            Console.WriteLine("Instant Series:"+GetSeriesCatalog("timeinterval = 'Irregular'").Count());
+            Console.WriteLine("Instant Series:" + GetSeriesCatalog("timeinterval = 'Irregular'").Count());
             Console.WriteLine("Daily Series:" + GetSeriesCatalog("timeinterval = 'Daily'").Count());
             Console.WriteLine("Monthly Series:" + GetSeriesCatalog("timeinterval = 'Monthly'").Count());
-            Console.WriteLine("Series in SeriesCatalog: "+GetSeriesCatalog().Count());
+            Console.WriteLine("Series in SeriesCatalog: " + GetSeriesCatalog().Count());
             Console.WriteLine("Sites in SiteCatalog: " + GetSiteCatalog().Count());
             Console.WriteLine("");
 
-            var s = new Series("table_count"); ;
-            s.Add(DateTime.Now, tableCount);
+            AddStat(Server.SpaceUsedGB(),"disk_used", "GB");
+            AddStat(tableCount, "table_count");
+            AddStat(CurrentInventoryCount(TimeInterval.Daily),"daily_count");
+            AddStat(CurrentInventoryCount(TimeInterval.Irregular), "instant_count");
+            AddStat(CurrentInventoryCount(TimeInterval.Monthly), "monthly_count");
+
+        }
+
+        private void AddStat(double val, string name, string Units="")
+        {
+            var s = new Series(name);
             s.SiteID = "system";
-            ImportSeriesUsingTableName(s);
+            s.Units = Units;
+            s.Add(DateTime.Now, val);
+            ImportSeriesUsingTableName(s, DatabaseSaveOptions.Insert);
+        }
 
-            // disk space
+        private int CurrentInventoryCount(TimeInterval interval)
+        {
+            var sc = GetSeriesCatalog("timeinterval = '"+interval.ToString()+"' and isfolder = 0");
+            
+            var tableNames = m_server.TableNames();
 
-            var spaceUsed = new Series("disk_used");
-            spaceUsed.SiteID = "system";
-            spaceUsed.Units = "GB";
-            spaceUsed.Add(DateTime.Now, Server.SpaceUsedGB());
-            ImportSeriesUsingTableName(spaceUsed, DatabaseSaveOptions.Insert);
+           var tables = DataTableUtility.SplitTable(sc, 200);
+            int rval = 0;
+            
+            for (int part = 0; part < tables.Count; part++)
+            {
+                StringBuilder sb = new StringBuilder();
+                var tbl = tables[part];
+                for (int i = 0; i < tbl.Rows.Count; i++)
+                {
+                    var r = tbl.Rows[i];
+                    var tn = r["tablename"].ToString();
 
+                    if (!tableNames.Contains(tn))
+                    {
+                        Console.WriteLine("Notice: table in catalog, but not in database: " + tn);
+                        continue;
+                    }
 
+                    var sql = "(select '" + tn + "' as name,datetime, value from " + tn + " where datetime >= current_date order by datetime desc limit 1)";
+                    sb.Append(sql);
+                    if (i != tbl.Rows.Count - 1)
+                        sb.Append("\n UNION ALL \n");
+                }
+                var inv = m_server.Table("inv", sb.ToString());
+                rval += inv.Rows.Count;
+            }
+            return rval;
         }
 
         public void UpdateSystemStatus()

@@ -331,5 +331,45 @@ namespace Reclamation.Core
             return outputTable;
 
         }
+
+        /// <summary>
+        /// http://www.c-sharpcorner.com/blogs/splitting-a-large-datatable-into-smaller-batches1
+        /// </summary>
+        /// <param name="originalTable"></param>
+        /// <param name="batchSize"></param>
+        /// <returns></returns>
+        public static List<DataTable> SplitTable(DataTable originalTable, int batchSize)
+        {
+            List<DataTable> tables = new List<DataTable>();
+
+            int i = 0;
+            int j = 1;
+
+            DataTable newDt = originalTable.Clone();
+            newDt.TableName = "Table_" + j;
+            newDt.Clear();
+
+            foreach (DataRow row in originalTable.Rows)
+            {
+                DataRow newRow = newDt.NewRow();
+                newRow.ItemArray = row.ItemArray;
+
+                newDt.Rows.Add(newRow);
+                i++;
+
+                if (i == batchSize)
+                {
+                    tables.Add(newDt);
+
+                    j++;
+                    newDt = originalTable.Clone();
+                    newDt.TableName = "Table_" + j;
+                    newDt.Clear();
+
+                    i = 0;
+                }
+            }
+            return tables;
+        }
     }
 }
