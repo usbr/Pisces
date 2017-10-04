@@ -51,7 +51,7 @@ Source:  ".\bin\debug\Pisces.exe.config";   DestDir: "{app}";   Flags: ignorever
 Source:  "..\..\private.config";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\images\*";   DestDir: "{app}\images";   Flags: ignoreversion
 Source:  ".\bin\debug\Aga.Controls.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  ".\bin\debug\ICSharpCode.SharpZipLib.dll";   DestDir: "{app}";   Flags: ignoreversion
+;Source:  ".\bin\debug\ICSharpCode.SharpZipLib.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\Reclamation.Core.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\Reclamation.TimeSeries.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\Reclamation.TimeSeries.Excel.dll";   DestDir: "{app}";   Flags: ignoreversion
@@ -65,7 +65,7 @@ Source:  ".\bin\debug\System.Threading.Tasks.Extensions.dll";   DestDir: "{app}"
 Source:  ".\bin\debug\TeeChart.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\ZedGraph.dll";   DestDir: "{app}";   Flags: ignoreversion
 
-Source:  ".\bin\debug\hdb-poet.exe";   DestDir: "{app}";   Flags: ignoreversion
+;Source:  ".\bin\debug\hdb-poet.exe";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\DSSUTL.EXE";   DestDir: "{app}";   Flags: ignoreversion
 
 Source:  ".\bin\debug\MySql.Data.dll";   DestDir: "{app}";   Flags: ignoreversion
@@ -81,8 +81,8 @@ Source:  "..\Rwis.Sync\bin\Debug\Rwis.Sync.exe";   DestDir: "{app}";   Flags: ig
 Source:  "..\Rwis.Sync\bin\Debug\Rwis.Sync.exe.config";   DestDir: "{app}";   Flags: ignoreversion
 
 ; ORACLE
-Source:  "C:\Program Files (x86)\Common Files\Devart\dotConnect\5.00\Net2\Common\Devart.Data.Oracle.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "C:\Program Files (x86)\Common Files\Devart\dotConnect\5.00\Net2\Common\Devart.Data.dll";   DestDir: "{app}";   Flags: ignoreversion
+;Source:  "C:\Program Files (x86)\Common Files\Devart\dotConnect\5.00\Net2\Common\Devart.Data.Oracle.dll";   DestDir: "{app}";   Flags: ignoreversion
+;Source:  "C:\Program Files (x86)\Common Files\Devart\dotConnect\5.00\Net2\Common\Devart.Data.dll";   DestDir: "{app}";   Flags: ignoreversion
 
 Source:  "..\cfg\gp\*.*";   DestDir: "{app}\gp";   Flags: ignoreversion
 Source:  "..\cfg\yak\*.*";   DestDir: "{app}\yak";   Flags: ignoreversion
@@ -102,7 +102,7 @@ Source:  "..\cfg\mpoll.cbt";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "..\cfg\mpoll_inventory.txt";   DestDir: "{app}";   Flags: ignoreversion
 
 ; Modsim
-Source:  ".\bin\debug\alglibnet2.dll";   DestDir: "{app}";   Flags: ignoreversion
+;Source:  ".\bin\debug\alglibnet2.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\libsim.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\XYFile.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  ".\bin\debug\A2CM.dll";   DestDir: "{app}";   Flags: ignoreversion
