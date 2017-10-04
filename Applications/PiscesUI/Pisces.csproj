@@ -74,7 +74,7 @@
       <HintPath>..\..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="SpreadsheetGear" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
-      <HintPath>..\PaidThirdParty\SpreadsheetGear.dll</HintPath>
+      <HintPath>c:\hydromettools\SpreadsheetGear.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -415,10 +415,6 @@
     <None Include="Resources\folder_closed_32.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\HdbPoet\HdbPoet.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
-      <Project>{b60964f8-8699-4638-9460-68262e4d37a3}</Project>
-      <Name>HdbPoet</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Rwis.Sync\Rwis.Sync.csproj">
       <Project>{d2b37530-5d24-4772-8480-325920744643}</Project>
       <Name>Rwis.Sync</Name>

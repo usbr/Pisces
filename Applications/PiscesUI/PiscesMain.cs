@@ -26,9 +26,6 @@ namespace Pisces
 
 
             Logger.EnableLogger(true);
-#if !PISCES_OPEN
-            var x = HdbPoet.Hdb.Instance; // force this assembly to load.
-#endif
              try
             {
                 string fileName = GetFileName(args);

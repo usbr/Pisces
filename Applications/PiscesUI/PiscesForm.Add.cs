@@ -15,13 +15,12 @@ using Reclamation.TimeSeries.RBMS;
 using Reclamation.TimeSeries.Import;
 
 #if !PISCES_OPEN
-using HdbPoet;
-using Reclamation.TimeSeries.OracleHdb;
+using Reclamation.TimeSeries.Excel;
 #endif 
 using Reclamation.TimeSeries.DataLogger;
 using Reclamation.TimeSeries.SHEF;
 using System.Collections.Generic;
-using Reclamation.TimeSeries.Excel;
+
 
 namespace Reclamation.TimeSeries.Forms
 {
@@ -803,78 +802,14 @@ namespace Reclamation.TimeSeries.Forms
       
         private void AddHDBModel_Click(object sender, EventArgs e)
         {
-#if  !PISCES_OPEN
-             var server = OracleServer.ConnectToOracle();
-
-             if (server == null)
-                 return;
-             Hdb.Instance = new Hdb(server);
-
-            SelectHdbModel dlg = new SelectHdbModel();
-
-            if (dlg.ShowDialog() == DialogResult.OK && dlg.ModelID > 0)
-            {
-                // create tree for this model. 
-                var folder = DB.AddFolder(CurrentFolder, dlg.ModelName + " " + dlg.ModelTable);
-                var tbl = HdbModelTreeBuilder.PiscesSeriesCatalog(dlg.ModelID, dlg.ModelTable, dlg.OldestModelRunDate, DB.NextSDI(), folder.ID);
-
-                if (tbl.Rows.Count == 0)
-                {
-                    MessageBox.Show("No model runs found for model_id " + dlg.ModelID + " after " + dlg.OldestModelRunDate.ToString());
-                    return;
-                }
-                DB.Server.SaveTable(tbl);
-
-                // create scenario list.
-                var scenarioTable = DB.GetScenarios();
-                var ref_model_run = Hdb.Instance.ref_model_run(dlg.ModelID, dlg.OldestModelRunDate);
-                foreach (DataRow item in ref_model_run.Rows)
-                {
-                    string date = Convert.ToDateTime(item["run_date"]).ToShortDateString();
-                    string model_run_name = item["model_run_name"].ToString();
-                    string id = item["model_run_id"].ToString();
-                    string path = HdbModelSeries.BuildScenairoPath(model_run_name, id, date);
-                    string name = HdbModelSeries.BuildScenairoName(model_run_name, id, date);
-                    scenarioTable.AddScenarioRow(name, true, path,0);
-                }
-
-                DB.Server.SaveTable(scenarioTable);
-                DatabaseChanged();
-            }
-#endif
         }
 
 
         private void addHDB_Click(object sender, EventArgs e)
         {
-#if !PISCES_OPEN
-            var server = OracleServer.ConnectToOracle();
-
-            if (server != null )
-            {
-                Hdb.Instance = new Hdb(server);
-                var dlg = new HdbPoet.FormAddSeries();
-                if (dlg.ShowDialog() == DialogResult.OK)
-                {
-                    HdbPoet.Properties.Settings.Default.Save();
-                    ImportFromHdb.Import(dlg.DataSet, DB, CurrentFolder);
-                    DatabaseChanged();
-                }
-            }
-#endif
         }
         private void addHDBConfigFile_Click(object sender, EventArgs e)
         {
-#if !PISCES_OPEN
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "HDB Files |*.hdb|AllFiles|*.*";
-
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                ImportFromHdb.Import(dlg.FileName, DB, CurrentFolder);
-                DatabaseChanged();
-            }
-#endif
         }
 
 
