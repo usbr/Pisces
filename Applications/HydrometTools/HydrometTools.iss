@@ -46,7 +46,7 @@ Source:  "bin\debug\Reclamation.TimeSeries.Excel.dll";   DestDir: "{app}";   Fla
 Source:  "bin\debug\Reclamation.TimeSeries.Forms.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\Reclamation.TimeSeries.Graphing.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\pscp.exe";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "bin\debug\Excel.dll";   DestDir: "{app}";   Flags: ignoreversion
+;Source:  "bin\debug\Excel.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\SpreadsheetGear.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\TeeChart.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\HydrometNotifications.exe";   DestDir: "{app}";   Flags: ignoreversion
@@ -91,7 +91,7 @@ Source:  "C:\utils\private\hydromet-tools-private.config";   DestDir: "{app}";  
 Source:  "..\cfg\RatingTableTemplate.xls";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "..\cfg\snowgg_groups.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "..\cfg\snowgg_groups_gp.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
-Source:  "..\cfg\timeseries_gp.pdb";   DestDir: "{app}\cfg";   Flags: ignoreversion
+Source:  "C:\HydrometTools\cfg\timeseries_gp.pdb";   DestDir: "{app}\cfg";   Flags: ignoreversion
 
 
                    

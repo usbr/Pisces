@@ -53,12 +53,12 @@ namespace HydrometTools
 
         private static bool IsPasswordBlank()
         {
-            var pw = UserPreference.Lookup("timeseries_database_password");
+            var pw = UserPreference.Lookup("timeseries_database_password","");
             return pw == "";
         }
         public static PostgreSQL GetServer(string dbname)
         {
-            var pw = UserPreference.Lookup("timeseries_database_password");
+            var pw = UserPreference.Lookup("timeseries_database_password","");
             if (pw != "")
             {
                 pw = StringCipher.Decrypt(pw, "");

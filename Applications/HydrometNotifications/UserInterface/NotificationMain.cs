@@ -27,6 +27,9 @@ namespace HydrometNotifications.UserInterface
             var pw = UserPreference.Lookup("timeseries_database_password");
             pw = StringCipher.Decrypt(pw, "");
 
+            if (pw == "")
+                throw new Exception("Notifications require a database password. Please enter that in the settings/general tab");
+
             var svr = PostgreSQL.GetPostgresServer("hydromet", password:pw);
             HydrometNotifications.AlarmDataSet.DB = svr;
             dataGridView1.AutoGenerateColumns = false;

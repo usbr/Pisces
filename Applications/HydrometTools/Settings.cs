@@ -481,9 +481,14 @@ namespace HydrometTools
 
             if( tabControl1.SelectedTab == tabPageAlarms)
             {
-                if( alarmUI == null)
+                if ( alarmUI == null)
                 {
-                    alarmUI = new AlarmManagerControl(Database.DB().Server);
+                    var db = Database.DB();
+                    if ( db == null)
+                        throw new Exception(
+                    "Alarms require a database password. Please enter that in the settings/general tab");
+
+                    alarmUI = new AlarmManagerControl(db.Server);
                     alarmUI.Parent = tabPageAlarms;
                     alarmUI.Dock = DockStyle.Fill;
                     alarmUI.BringToFront();
