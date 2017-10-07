@@ -35,7 +35,7 @@ namespace ImportOWRD
                 string site_id = row["site_id"].ToString();
                 string pcode = row["pcode"].ToString();
                 string cbtt = row["cbtt"].ToString();
-                Console.WriteLine(cbtt);
+            
                 
                    var s = new OwrdSeries(site_id, OwrdSeries.OwrdDataSet.Instantaneous_Flow,true);
                     try
@@ -43,7 +43,8 @@ namespace ImportOWRD
                         s.Read(DateTime.Now.AddHours(-hoursBack), DateTime.Now);
 
                         s.RemoveMissing();
-                        if (s.Count > 0)
+                    Console.WriteLine(cbtt+" "+s.Count +" points");
+                    if (s.Count > 0)
                         {
                             TimeSeriesTransfer.Import(s, cbtt, pcode);
                         }
