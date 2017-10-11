@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.Windows", "Recl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UofIDisaggregation", "Applications\UofIDisaggregation\UofIDisaggregation.csproj", "{6F7C6C62-721C-4AF6-AF29-70E69989CCE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportOWRD", "Applications\ImportOWRD\ImportOWRD.csproj", "{98584217-A9DA-4375-9DC4-D82CF6899162}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -160,6 +162,10 @@ Global
 		{6F7C6C62-721C-4AF6-AF29-70E69989CCE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F7C6C62-721C-4AF6-AF29-70E69989CCE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F7C6C62-721C-4AF6-AF29-70E69989CCE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98584217-A9DA-4375-9DC4-D82CF6899162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98584217-A9DA-4375-9DC4-D82CF6899162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98584217-A9DA-4375-9DC4-D82CF6899162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98584217-A9DA-4375-9DC4-D82CF6899162}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -185,6 +191,7 @@ Global
 		{213AF28D-B0FD-4063-826F-86F6B21DCAD7} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 		{D6EE1B30-3205-4948-9BA3-8BE37BA50D27} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 		{6F7C6C62-721C-4AF6-AF29-70E69989CCE1} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
+		{98584217-A9DA-4375-9DC4-D82CF6899162} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F4C9525-1F25-425A-9DAF-CFE9A51060A3}
