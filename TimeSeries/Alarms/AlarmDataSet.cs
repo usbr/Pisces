@@ -189,7 +189,6 @@ namespace Reclamation.TimeSeries.Alarms
             m_server.FillTable(tbl, sql);
 
             return tbl;
-
         }
         /// <summary>
         /// Check each point in the series for an alarm
@@ -198,9 +197,14 @@ namespace Reclamation.TimeSeries.Alarms
         /// <param name="s"></param>
         internal void Check(Series s)
         {
+
+           if (!AnyActiveAlarms(s.SiteID.ToLower(), s.Parameter.ToLower()))
+                return;
+
             Logger.WriteLine("Check for alarms " + s.SiteID + " " + s.Parameter);
             var alarm = GetActiveAlarmDefinition(s.SiteID.ToLower(), s.Parameter.ToLower());
 
+            
             if (alarm.Rows.Count == 0)
             {
                 Logger.WriteLine("no alarms defined." + s.SiteID + "/" + s.Parameter);
@@ -419,6 +423,11 @@ namespace Reclamation.TimeSeries.Alarms
             Logger.WriteLine("message sent ");
             Logger.WriteLine(body);
         }
+
+        /// <summary>
+        /// Get all alarm definitions including inactive
+        /// </summary>
+        /// <returns></returns>
         public alarm_definitionDataTable GetAlarmDefinition()
         {
             var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
@@ -428,15 +437,12 @@ namespace Reclamation.TimeSeries.Alarms
             return alarm_definition;
         }
 
-        // cachine alarm def (41 records/s )
-        //static alarm_definitionDataTable s_alarmdef;
-
-
+        
         /// <summary>
         /// Returns a Table of enabled alarm definitions
         /// </summary>
         /// <returns></returns>
-        public AlarmDataSet.alarm_definitionDataTable GetActiveAlarmDefinition(string siteid, string parameter)
+        private AlarmDataSet.alarm_definitionDataTable GetActiveAlarmDefinition(string siteid, string parameter)
         {
             var alarm_definition = new AlarmDataSet.alarm_definitionDataTable();
 
@@ -448,6 +454,24 @@ namespace Reclamation.TimeSeries.Alarms
            m_server.FillTable(alarm_definition, sql);
 
             return alarm_definition;
+        }
+
+        alarm_definitionDataTable m_alarmDef = null;
+        DateTime m_alarmDefDate = DateTime.Now.AddDays(-1);// initilize as yesterday
+
+        private bool AnyActiveAlarms(string siteid, string parameter)
+        {
+            int cache_seconds = 30;
+            if( m_alarmDef == null || m_alarmDefDate.AddSeconds(cache_seconds) < DateTime.Now  )
+            { 
+                m_alarmDef = new AlarmDataSet.alarm_definitionDataTable();
+                var qry = "select * from alarm_definition where enabled = " + m_server.PortableWhereBool(true);
+                m_server.FillTable(m_alarmDef , qry);
+                m_alarmDefDate = DateTime.Now;
+            }
+            var sql = "siteid = '" + siteid + "' and parameter = '" + parameter + "'";
+            var rows = m_alarmDef.Select(sql);
+            return rows.Length > 0;
         }
 
 
