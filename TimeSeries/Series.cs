@@ -1584,6 +1584,7 @@ namespace Reclamation.TimeSeries
         /// <returns></returns>
         public int RemoveMissing(bool removeFlagged=false)
         {
+
             int rval = 0;
             string valcolName = table.Columns[m_valueColumnIndex].ColumnName;
 
@@ -1594,6 +1595,7 @@ namespace Reclamation.TimeSeries
                 sql += " or  " + m_flagColumnName + " LIKE '" + PointFlag.QualityLow + "%' ";
                 sql += " or  " + m_flagColumnName + " LIKE '" + PointFlag.QualityHigh + "%' ";
                 sql += " or  " + m_flagColumnName + " LIKE '" + PointFlag.QualityRateOfChange + "%' ";
+                sql += " or  " + m_flagColumnName + " LIKE '" + PointFlag.NoValueIndicator+ "%' ";
             }
 
             DataRow[] remove = table.Select(sql);
