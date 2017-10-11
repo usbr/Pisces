@@ -36,7 +36,7 @@ namespace HydrometDailyToPisces
 
             DailyCalcGenerator tool = new DailyCalcGenerator(db);
 
-            tool.AddDailyCalculations(pcodeLookup);
+            tool.AddDailyCalculations(pcodeLookup,false);
             
 
             // what about years like 6190.....
