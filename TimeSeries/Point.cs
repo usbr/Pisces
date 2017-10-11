@@ -14,6 +14,7 @@ namespace Reclamation.TimeSeries
         public const string Estimated = "E";
         public const string Missing = "m";
         public const string Interpolated = "N";
+        public const string NoValueIndicator = "n";
         public const string QualityHigh = "+";
         public const string QualityLow = "-";
         public const string QualityRateOfChange = "^";
@@ -126,7 +127,8 @@ namespace Reclamation.TimeSeries
       {
         if(Flag == PointFlag.Missing 
             || this.Value == MissingValueFlag
-            || Double.IsNaN(this.Value))
+            || Double.IsNaN(this.Value)
+            || Flag == PointFlag.NoValueIndicator )
         {
           return true;
         }
@@ -197,6 +199,7 @@ namespace Reclamation.TimeSeries
                     || Flag.IndexOf(PointFlag.QualityLow) == 0
                     || Flag.IndexOf(PointFlag.QualityRateOfChange) == 0
                     || Flag.IndexOf(PointFlag.Missing) == 0
+                    || Flag.StartsWith(PointFlag.NoValueIndicator)
                     )
                     return true;
 
