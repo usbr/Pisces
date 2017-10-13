@@ -71,7 +71,7 @@ namespace Reclamation.TimeSeries
 
         [FunctionAttribute("Sums a list of Series.  Missing data is replaced with a zero.",
       "SumSetMissingToZero(series1,series2,...)")]
-        public static Series SumSetMissingToZero(Series[] items)
+        public static Series SumSetMissingToZero(params Series[] items)
         {
             var rval = new Series();
             if (items.Length > 0)
