@@ -141,7 +141,9 @@ namespace HydrometDailyToPisces
 
                 if (System.Math.Abs(percent) > 0.05)
                 {
-                    sw.WriteLine("Stats, " + tn.Name + ", " + percent + " , hyd0," + hs[0].Value + " , hyd1, " + cs[0].Value+", "+absDiff);
+                    var msg = "Stats, " + tn.Name + ", " + percent + " , hyd0," + hs[0].Value + " , hyd1, " + cs[0].Value + ", " + absDiff;
+                    sw.WriteLine(msg);
+                    Console.WriteLine(msg);
                 }
             }
             catch (Exception e)
