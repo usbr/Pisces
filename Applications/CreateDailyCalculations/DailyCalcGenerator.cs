@@ -17,11 +17,13 @@ namespace HydrometDailyToPisces
         TimeSeriesDatabaseDataSet.sitecatalogDataTable m_sites;
         int newCalcCount = 0;
         int changeEqCount = 0;
+        StreamWriter sw;
 
-        public DailyCalcGenerator(TimeSeriesDatabase db)
+        public DailyCalcGenerator(TimeSeriesDatabase db, string outputFileName)
         {
             m_db = db;
             m_sites = m_db.GetSiteCatalog();
+            sw = new StreamWriter(outputFileName);
         }
 
 
@@ -102,15 +104,16 @@ namespace HydrometDailyToPisces
                 }
                 catch (Exception exc)
                 {
-                    Console.WriteLine(exc.Message);
+                    sw.WriteLine("Error:"+exc.Message);
                 }
                 if (j % 100 == 0)
                     Console.WriteLine(j + " of " + q.Count);
             }
 
 
-            Console.WriteLine("New equations: " + newCalcCount);
-            Console.WriteLine("modified to Equations :" + this.changeEqCount);
+            sw.WriteLine("New equations: " + newCalcCount);
+            sw.WriteLine("modified to Equations :" + this.changeEqCount);
+            sw.Close();
         }
 
         private void CompareWithVMS(TimeSeriesName tn)
@@ -126,7 +129,7 @@ namespace HydrometDailyToPisces
 
                 if (cs.Count == 0)
                 {
-                    Console.WriteLine("Error: no data computed " + tn.siteid + " " + tn.pcode);
+                    sw.WriteLine("Error: no data computed " + tn.siteid + " " + tn.pcode);
                     return;
                 }
                 var diff = cs - hs;
@@ -134,15 +137,16 @@ namespace HydrometDailyToPisces
 
                 var x = Reclamation.TimeSeries.Math.Sum(diff);
                 var percent = System.Math.Round(x, 2) / System.Math.Round(hs[0].Value, 2) * 100.0;
+                double absDiff = System.Math.Abs(cs[0].Value - hs[0].Value);
 
                 if (System.Math.Abs(percent) > 0.05)
                 {
-                    Console.WriteLine("Warning " + tn.Name + " " + percent + "  hyd0:" + hs[0].Value + "  hyd1: " + cs[0].Value);
+                    sw.WriteLine("Stats, " + tn.Name + ", " + percent + " , hyd0," + hs[0].Value + " , hyd1, " + cs[0].Value+", "+absDiff);
                 }
             }
             catch (Exception e)
             {
-
+                sw.WriteLine("Error:"+e.Message);
                 throw;
             }
         }
@@ -164,7 +168,7 @@ namespace HydrometDailyToPisces
                 if (!dryRun)
                     m_db.Server.SaveTable(x);
 
-                Console.WriteLine("Changing " + row.TableName + "  from Series to CalculationSeries   " + expression);
+                sw.WriteLine("Changing " + row.TableName + "  from Series to CalculationSeries   " + expression);
                 changeEqCount++;
             }
 
@@ -191,16 +195,18 @@ namespace HydrometDailyToPisces
             m_db.AddSeries(s);
         }
 
-        private static CalculationSeries CreateCalcSeries(TimeSeriesDatabaseDataSet.SeriesCatalogRow r, string name, TimeSeriesName tn, string expression)
+        private  CalculationSeries CreateCalcSeries(TimeSeriesDatabaseDataSet.SeriesCatalogRow r, string name, TimeSeriesName tn, string expression)
         {
-            var s = new CalculationSeries(name);
-            s.Parameter = r.Parameter;
-            s.SiteID = r.siteid;
-            s.Expression = expression;
+            var s = new CalculationSeries(name)
+            {
+                Parameter = r.Parameter,
+                SiteID = r.siteid,
+                Expression = expression
+            };
             s.Table.TableName = tn.GetTableName();
             s.TimeInterval = tn.GetTimeInterval();
 
-            Console.WriteLine("Created: " + tn.GetTableName() + " = " + expression);
+            sw.WriteLine("Created: " + tn.GetTableName() + " = " + expression);
             return s;
         }
 

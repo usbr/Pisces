@@ -20,10 +20,28 @@ namespace HydrometDailyToPisces
         static void Main(string[] args)
         {
 
+            if( args.Length != 5)
+            {
+                Console.WriteLine("Usage: CreateDailyCalculations server user pass outputFile dryrun");
+                Console.WriteLine(" server = lrgs1|lrgs2 ");
+                Console.WriteLine(" user = username");
+                Console.WriteLine(" pass = passwordfile");
+                Console.WriteLine(" outputfile = filename for stats/results");
+                Console.WriteLine(" dryrun = true|false -- when false only simulates changes");
+                return;
+            }
 
-            var host = "lrgs2";
-            string user = "ktarbet";
-            string pass = File.ReadAllLines(@"C:\utils\linux\ktarbet.postgres.txt")[0];
+            var host = args[0];
+            string user = args[1];
+            string pass = File.ReadAllLines(args[2])[0];
+            var outputFileName = args[3];
+            bool dryRun = true;
+            if (args[4] == "true")
+                dryRun = true;
+            else
+            if (args[4] == "false")
+                dryRun = false;
+            else throw new ArgumentException("invalid setting for dryrun. Must be true or false");
 
             var svr = PostgreSQL.GetPostgresServer("timeseries", host,user,pass);
             TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
@@ -34,7 +52,7 @@ namespace HydrometDailyToPisces
             File.Copy(Path.Combine(FileUtility.GetExecutableDirectory(),"daily_calcs_and_series.xlsx"), fn, true);
             var pcodeLookup = ExcelDB.Read(fn, "daily_instant_pcode");
 
-            DailyCalcGenerator tool = new DailyCalcGenerator(db);
+            DailyCalcGenerator tool = new DailyCalcGenerator(db,outputFileName);
 
             tool.AddDailyCalculations(pcodeLookup,false);
             
