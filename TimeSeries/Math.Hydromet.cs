@@ -229,17 +229,6 @@ namespace Reclamation.TimeSeries
             return s;
         }
 
-        [FunctionAttribute("ConstantShift ", "ConstantShift(h)")]
-        public static Series ConstantShift(Series h)
-        {
-            double shift = Convert.ToDouble(h.Properties.Get("shift", "0"));
-            var rval = h.Copy();
-            rval.RemoveMissing();
-            rval = rval * 0.0;
-            rval = rval + shift;
-
-            return rval;
-        }
 
         [FunctionAttribute("LookupShift from series properties ", "LookupShift(ch)")]
         public static Series LookupShift(Series ch)
