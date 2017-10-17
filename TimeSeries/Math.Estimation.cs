@@ -16,12 +16,12 @@ namespace Reclamation.TimeSeries
             return EstimateDailyFromMonthly(daily, monthly, false);
         }
 
-        //[FunctionAttribute("Replaces data above or below a user specified maximum and minimum, by interpolating from nearest ‘good’ data.",
-        //"SmoothingInterpolateOutliers(series,min,max)")]
-        //public static Series SmoothingInterpolateOutliers(Series s, double min, double max)
-        //{
-        //    return Estimation.Smoothing.SmoothingInterpolateOutliers(s, min, max);
-        //}
+        [FunctionAttribute("Replaces data above or below a user specified maximum and minimum, by interpolating from nearest ‘good’ data.",
+        "SmoothingInterpolateOutliers(series,min,max)")]
+        public static Series SmoothingInterpolateOutliers(Series s, double min, double max)
+        {
+            return Estimation.Smoothing.SmoothingInterpolateOutliers(s, min, max);
+        }
 
 
         ///// <summary>
