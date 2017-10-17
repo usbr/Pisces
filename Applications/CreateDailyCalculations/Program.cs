@@ -20,14 +20,15 @@ namespace HydrometDailyToPisces
         static void Main(string[] args)
         {
 
-            if( args.Length != 5)
+            if( args.Length != 5 && args.Length != 6)
             {
-                Console.WriteLine("Usage: CreateDailyCalculations server user pass outputFile dryrun");
+                Console.WriteLine("Usage: CreateDailyCalculations server user pass outputFile dryrun [sites]");
                 Console.WriteLine(" server = lrgs1|lrgs2 ");
                 Console.WriteLine(" user = username");
                 Console.WriteLine(" pass = passwordfile");
                 Console.WriteLine(" outputfile = filename for stats/results");
                 Console.WriteLine(" dryrun = true|false -- when false only simulates changes");
+                Console.WriteLine(" sites = amfi,anci,...   -- list of sites to filter");
                 return;
             }
 
@@ -43,6 +44,12 @@ namespace HydrometDailyToPisces
                 dryRun = false;
             else throw new ArgumentException("invalid setting for dryrun. Must be true or false");
 
+            var sites = new string[] { };
+
+            if (args.Length == 6)
+                sites = args[5].ToLower().Split(',');
+
+
             var svr = PostgreSQL.GetPostgresServer("timeseries", host,user,pass);
             TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
             Console.WriteLine(db.Server.ConnectionString);
@@ -54,7 +61,7 @@ namespace HydrometDailyToPisces
 
             DailyCalcGenerator tool = new DailyCalcGenerator(db,outputFileName);
 
-            tool.AddDailyCalculations(pcodeLookup,false);
+            tool.AddDailyCalculations(pcodeLookup,false,sites);
             
 
             // what about years like 6190.....

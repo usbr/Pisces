@@ -31,7 +31,7 @@ namespace HydrometDailyToPisces
         /// For each instant Series in the database create an appropirate 
         /// Dailycalculation.
         /// </summary>
-        public void AddDailyCalculations(DataTable pcodeLookup, bool dryRun)
+        public void AddDailyCalculations(DataTable pcodeLookup, bool dryRun, string[] sites)
         {
             var codes = new List<string>();
             for (int i = 0; i < pcodeLookup.Rows.Count; i++)
@@ -59,6 +59,9 @@ namespace HydrometDailyToPisces
                 var r = q[j];
                 try
                 {
+                    if (sites.Length > 0 && Array.IndexOf(sites, r.siteid) == -1 )
+                        continue;
+
                     if (HasCurrentData(r.TableName)) // don't add equations for 'old' data
                     {
                         var calcs = pcodeLookup.Select("InstantPcode ='" + r.Parameter + "'");
@@ -77,6 +80,9 @@ namespace HydrometDailyToPisces
                                 Console.WriteLine("Warning: skipping site not cataloged: " + r.siteid);
                                 continue;
                             }
+
+                            // remove property--> program:hydromet (prevents data flow from pnhyd0)
+                            RemoveProgramProperty(tn);
 
                             if (!FilterAllows(r.siteid, siteFilter)) // config spreasheet limits i.e. responsibility='IDWR'
                                 continue;
@@ -116,6 +122,21 @@ namespace HydrometDailyToPisces
             sw.Close();
         }
 
+        private void RemoveProgramProperty(TimeSeriesName tn)
+        {
+            var x = m_db.GetSeriesCatalog("tablename ='" + tn.GetTableName() + "'");
+            if (x.Count == 0)
+                return;
+
+            var row = x[0];
+
+            var props = m_db.GetSeriesProperties(true);
+
+            props.Delete("program", row.id);
+            props.Save();
+
+        }
+
         private void CompareWithVMS(TimeSeriesName tn)
         {
             try
@@ -153,13 +174,18 @@ namespace HydrometDailyToPisces
             }
         }
 
+        /// <summary>
+        /// Convert to equation 
+        /// </summary>
+        /// <param name="tn"></param>
+        /// <param name="expression"></param>
+        /// <param name="dryRun"></param>
         private void ConvertToDailyEquation(TimeSeriesName tn, string expression, bool dryRun)
         {
             Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogDataTable x;
             x = m_db.GetSeriesCatalog("tablename ='" + tn.GetTableName() + "'");
             var row = x[0];
 
-            //Console.Write(row.TableName+" ");
             if (row.Provider != "CalculationSeries")
             {
                 //Console.WriteLine("change to equation: "+expression);
@@ -173,9 +199,6 @@ namespace HydrometDailyToPisces
                 sw.WriteLine("Changing " + row.TableName + "  from Series to CalculationSeries   " + expression);
                 changeEqCount++;
             }
-
-            //else
-            //  Console.WriteLine("allready in Database ");
 
         }
 

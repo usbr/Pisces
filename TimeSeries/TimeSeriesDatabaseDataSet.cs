@@ -140,6 +140,27 @@ namespace Reclamation.TimeSeries
             }
 
 
+            /// <summary>
+            /// Delete specified item from the series properites
+            /// </summary>
+            /// <param name="name"></param>
+            /// <param name="seriesID"></param>
+            /// <returns></returns>
+            public void Delete(string name, int seriesID)
+            {
+                var rows = Select("name='" + name + "' and seriesid = " + seriesID);
+                if (rows.Length > 1)
+                    Console.WriteLine("Warning: duplicate property " + name + " seriesid = " + seriesID);
+
+                if (rows.Length == 0)
+                    return;
+
+                rows[0].Delete();
+            }
+
+
+
+
             public static void Set(string name, string value, TimeSeriesName tn, BasicDBServer svr)
             {
                 var tableName = tn.GetTableName();
