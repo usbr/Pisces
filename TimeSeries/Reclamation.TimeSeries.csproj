@@ -144,6 +144,7 @@
     <Compile Include="Analysis\WaterYearsAnalysis.cs" />
     <Compile Include="CalculationSeries.cs" />
     <Compile Include="ConstantSeries.cs" />
+    <Compile Include="Estimation\MonthlyToDailyConversion.cs" />
     <Compile Include="FileImporter.cs" />
     <Compile Include="HDB\HDBWebSeries.cs" />
     <Compile Include="IdahoPower\Program.cs" />

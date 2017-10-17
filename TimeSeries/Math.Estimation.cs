@@ -1,4 +1,5 @@
-﻿using Reclamation.TimeSeries.Parser;
+﻿using Reclamation.TimeSeries.Estimation;
+using Reclamation.TimeSeries.Parser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,10 @@ namespace Reclamation.TimeSeries
 
         //// we need this overloaded version of EstimateDailyFromMonthly without the optional parameter because we use reflection
 
-        //public static Series EstimateDailyFromMonthly(Series daily, Series monthly)
-        //{
-        //    return EstimateDailyFromMonthly(daily, monthly, false);
-        //}
+        public static Series EstimateDailyFromMonthly(Series daily, Series monthly)
+        {
+            return EstimateDailyFromMonthly(daily, monthly, false);
+        }
 
         //[FunctionAttribute("Replaces data above or below a user specified maximum and minimum, by interpolating from nearest ‘good’ data.",
         //"SmoothingInterpolateOutliers(series,min,max)")]
@@ -30,19 +31,20 @@ namespace Reclamation.TimeSeries
         ///// <param name="monthly"></param>
         ///// <param name="merge"></param>
         ///// <returns></returns>
-        //[FunctionAttribute("Estimates Daily data based on monthly and partial daily.  This was designed for estimating missing diversion data.  This is performed by using the time pattern from a Summary Hydrograph and scaling data to ensure the monthly volume matches.",
-        // "EstimateDailyFromMonthly(daily_cfs,monthly_acre_feet,bool merge)")]
-        //public static Series EstimateDailyFromMonthly(Series observed, Series monthly, bool merge = false)
-        //{
-        //    MonthlyToDailyConversion c = new MonthlyToDailyConversion(observed, monthly);
+        [FunctionAttribute("Estimates Daily data based on monthly and partial daily.  This was designed for estimating missing diversion data.  This is performed by using the time pattern from a Summary Hydrograph and scaling data to ensure the monthly volume matches.",
+         "EstimateDailyFromMonthly(daily_cfs,monthly_acre_feet,bool merge)")]
+        public static Series EstimateDailyFromMonthly(Series observed, Series monthly, bool merge = false)
+        {
+            MonthlyToDailyConversion c = new MonthlyToDailyConversion(observed, monthly);
 
-        //    var rval = c.ConvertToDaily();
-        //    if (merge)
-        //        return Merge(observed, rval);
+            var rval = c.ConvertToDaily();
+            if (merge)
+                return Merge(observed, rval);
 
-        //    return rval;
+            return rval;
 
-        ////}
+        }
+
         ///// <summary>
         /////  Estimates Daily data based on monthly and partial daily.  This was designed for estimating missing diversion data.  This is performed by using the time pattern from a Summary Hydrograph and scaling data to ensure the monthly volume matches.
         ///// </summary>
@@ -52,21 +54,21 @@ namespace Reclamation.TimeSeries
         ///// <param name="medianOnly">Use a single median (50%) exceedence level instead of every 2% between 5% and 95%</param>
         ///// <param name="setMissingToZero">applies to observed daily data.  When setMissingToZero is true missing data is set to zero. Otherwise missing data is ignored</param>
         ///// <returns></returns>
-        //[FunctionAttribute("Estimates Daily data based on monthly and partial daily.  This was designed for estimating missing diversion data.  This is performed by using the time pattern from a Summary Hydrograph and scaling data to ensure the monthly volume matches.",
-        //"EstimateDailyFromMonthly(daily_cfs,monthly_acre_feet,bool merge = false,bool medianOnly=false, bool setMissingToZero=true)")]
-        //public static Series EstimateDailyFromMonthly(Series observed, Series monthly, bool merge = false, bool medianOnly = false, bool setMissingToZero = true)
-        //{
-        //    MonthlyToDailyConversion c = new MonthlyToDailyConversion(observed, monthly);
-        //    c.FillMissingWithZero = setMissingToZero;
-        //    c.MedianOnly = medianOnly;
+        [FunctionAttribute("Estimates Daily data based on monthly and partial daily.  This was designed for estimating missing diversion data.  This is performed by using the time pattern from a Summary Hydrograph and scaling data to ensure the monthly volume matches.",
+        "EstimateDailyFromMonthly(daily_cfs,monthly_acre_feet,bool merge = false,bool medianOnly=false, bool setMissingToZero=true)")]
+        public static Series EstimateDailyFromMonthly(Series observed, Series monthly, bool merge = false, bool medianOnly = false, bool setMissingToZero = true)
+        {
+            MonthlyToDailyConversion c = new MonthlyToDailyConversion(observed, monthly);
+            c.FillMissingWithZero = setMissingToZero;
+            c.MedianOnly = medianOnly;
 
-        //    var rval = c.ConvertToDaily();
-        //    if (merge)
-        //        return Merge(observed, rval);
+            var rval = c.ConvertToDaily();
+            if (merge)
+                return Merge(observed, rval);
 
-        //    return rval;
+            return rval;
 
-        //}
+        }
 
 
         [FunctionAttribute("Sums a list of Series.  Missing data is replaced with a zero.",

@@ -34,6 +34,7 @@
     <Compile Include="..\TimeSeries\DataLogger\LoggerNetFile.cs" Link="DataLogger\LoggerNetFile.cs" />
     <Compile Include="..\TimeSeries\DataTableSeries.cs" Link="DataTableSeries.cs" />
     <Compile Include="..\TimeSeries\DateRange.cs" Link="DateRange.cs" />
+    <Compile Include="..\TimeSeries\Estimation\MonthlyToDailyConversion.cs" Link="Estimation\MonthlyToDailyConversion.cs" />
     <Compile Include="..\TimeSeries\ExplorerView.cs" Link="ExplorerView.cs" />
     <Compile Include="..\TimeSeries\Extensions.cs" Link="Extensions.cs" />
     <Compile Include="..\TimeSeries\FileImporter.cs" Link="FileImporter.cs" />
@@ -233,6 +234,7 @@
     <Folder Include="Hydromet\Operations\" />
     <Folder Include="Idwr\" />
     <Folder Include="Import\" />
+    <Folder Include="Estimation\" />
     <Folder Include="Parser\Tests\" />
     <Folder Include="Tests\Database\" />
     <Folder Include="Tests\DateMath\" />
