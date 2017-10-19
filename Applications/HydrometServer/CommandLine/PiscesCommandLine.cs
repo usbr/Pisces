@@ -142,26 +142,43 @@ namespace HydrometServer.CommandLine
         private static void PrintDaily(SeriesList list)
         {
             var tbl = list.ToDataTable(false);
+            if (tbl.Rows.Count == 0)
+                return;
+
+            var t1 = list.MinDateTime;
+            var t2 = list.MaxDateTime;
 
             var title = "\nStation   Parameter     ";
             var title2 = "========= ==========    ========= ========= ========= ========= =========";
-            for (int i = 0; i < tbl.Rows.Count; i++)
+            DateTime t = t1;
+            while(t <= t2)
             {
-                DateTime t = Convert.ToDateTime(tbl.Rows[i][0]);
                 title += t.ToString("ddd MMMdd");
                 title += " ";
+                t = t.AddDays(1);
             }
             Console.WriteLine(title);
             Console.WriteLine(title2);
 
+            
+
+
             foreach (var item in list)
             {
                 string x = item.SiteID.PadRight(10) + " " + item.Parameter.PadRight(11) + " ";
-                foreach (var pt in item)
+
+                t = t1;
+                while (t <= t2)
                 {
-                    x += pt.Value.ToString("F2").PadLeft(10);
+                    var idx = item.IndexOf(t);
+                    if (idx < 0)
+                        x += "".PadLeft(10);
+                    else
+                        x += item[t].Value.ToString("F2").PadLeft(10);
+                    t = t.AddDays(1);
                 }
                 Console.WriteLine(x);
+
             }
         }
        
