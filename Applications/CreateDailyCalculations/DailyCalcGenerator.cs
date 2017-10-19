@@ -224,7 +224,7 @@ namespace HydrometDailyToPisces
         {
             var s = new CalculationSeries(name)
             {
-                Parameter = r.Parameter,
+                Parameter = tn.pcode,
                 SiteID = r.siteid,
                 Expression = expression
             };
