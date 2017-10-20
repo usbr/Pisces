@@ -100,6 +100,8 @@ namespace HydrometTools.RecordWorkup
             tChart1.Series.Clear();
             tChart1.Zoom.Undo();
             InitAxis();
+            tChart1.Panel.MarginLeft = 10;
+            tChart1.Panel.MarginUnits = Steema.TeeChart.PanelMarginUnits.Percent;
             TChartDataLoader loader = new TChartDataLoader(this.tChart1);
             for (int i = 1; i < sz; i += 1)
             {
@@ -134,25 +136,38 @@ namespace HydrometTools.RecordWorkup
             tChart1.Axes.Left.Automatic = true;
         }
 
-        private Steema.TeeChart.Axis stageAxis;
+        private Steema.TeeChart.Axis shift;
+        private Steema.TeeChart.Axis flow;
+        private Steema.TeeChart.Axis stage;
 
         private void InitAxis()
         {
             tChart1.Axes.Custom.RemoveAll();
             tChart1.Panel.MarginLeft = 3;
-            tChart1.Axes.Left.Title.Text = "cfs";
-            tChart1.Axes.Right.Title.Text = " shift - feet";
+            tChart1.Axes.Left.Title.Text = "";
+            tChart1.Axes.Right.Title.Text = "";
 
-            stageAxis = new Steema.TeeChart.Axis();
-            tChart1.Axes.Custom.Add(stageAxis);
 
-            tChart1.Panel.MarginLeft += 10;
-            tChart1.Panel.MarginUnits = Steema.TeeChart.PanelMarginUnits.Percent;
-            stageAxis.RelativePosition = -10;
-            
-            stageAxis.Grid.Visible = false;
-            stageAxis.Title.Angle = 90;
-            stageAxis.Title.Text = "stage - feet";
+            flow = AddCustomAxis("flow - cfs", 0, 30);
+            stage = AddCustomAxis("stage - feet",35,60);
+            shift = AddCustomAxis("shift - feet", 76, 100);
+
+        }
+
+        private Steema.TeeChart.Axis AddCustomAxis(string name, int start, int end)
+        {
+            var a = new Steema.TeeChart.Axis();
+            tChart1.Axes.Custom.Add(a);
+
+
+            //stageAxis.RelativePosition = -10;
+            //stageAxis.StartEndPositionUnits = Steema.TeeChart.PositionUnits.Percent;
+            a.StartPosition = start;
+            a.EndPosition = end;
+            a.Grid.Visible = true;
+            a.Title.Angle = 90;
+            a.Title.Text = name;
+            return a;
         }
 
         private void SetAxis(Line series, string pcode)
@@ -160,13 +175,13 @@ namespace HydrometTools.RecordWorkup
             var cn = pcode.ToLower().Trim();
 
             if (cn == "qd" || cn == "qj") // flow
-                series.VertAxis = Steema.TeeChart.Styles.VerticalAxis.Left;
+                series.CustomVertAxis = flow;
             else if (cn == "hh" || cn == "hj")
             { //  shift 
-                series.VertAxis = Steema.TeeChart.Styles.VerticalAxis.Right;
+                series.CustomVertAxis = shift;
             }
             else
-                series.CustomVertAxis = stageAxis;
+                series.CustomVertAxis = stage;
         }
 
         
