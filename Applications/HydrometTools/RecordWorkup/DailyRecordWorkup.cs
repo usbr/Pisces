@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Reclamation.Core;
 using Reclamation.TimeSeries.Hydromet;
 using Reclamation.TimeSeries.Graphing;
+using Steema.TeeChart.Styles;
 
 namespace HydrometTools.RecordWorkup
 {
@@ -98,6 +99,7 @@ namespace HydrometTools.RecordWorkup
 
             tChart1.Series.Clear();
             tChart1.Zoom.Undo();
+            InitAxis();
             TChartDataLoader loader = new TChartDataLoader(this.tChart1);
             for (int i = 1; i < sz; i += 1)
             {
@@ -118,9 +120,7 @@ namespace HydrometTools.RecordWorkup
                         pcode = tokens[1].Trim();
                     }
 
-                    string units = GetUnits(columnName);
-                    TChartDataLoader.SetupAxisLeftRight(tChart1, series, units);
-
+                    SetAxis(series, pcode);
 
                     tChart1.Series.Add(series);
                 }
@@ -130,15 +130,56 @@ namespace HydrometTools.RecordWorkup
                     Logger.WriteLine(ex.ToString(), "ui");
                 }
             }
+
+            tChart1.Axes.Left.Automatic = true;
         }
 
-        private static string GetUnits(string columnName)
+        private Steema.TeeChart.Axis stageAxis;
+
+        private void InitAxis()
         {
-            var cn = columnName.ToLower().Trim();
+            tChart1.Axes.Custom.RemoveAll();
+            tChart1.Panel.MarginLeft = 3;
+            tChart1.Axes.Left.Title.Text = "cfs";
+            tChart1.Axes.Right.Title.Text = " shift - feet";
+
+            stageAxis = new Steema.TeeChart.Axis();
+            tChart1.Axes.Custom.Add(stageAxis);
+
+            tChart1.Panel.MarginLeft += 10;
+            tChart1.Panel.MarginUnits = Steema.TeeChart.PanelMarginUnits.Percent;
+            stageAxis.RelativePosition = -10;
             
-            if (cn  == "qd" || cn == "qj")
-              return "cfs";
-            return "feet";
+            stageAxis.Grid.Visible = false;
+            stageAxis.Title.Angle = 90;
+            stageAxis.Title.Text = "stage - feet";
         }
+
+        private void SetAxis(Line series, string pcode)
+        {
+            var cn = pcode.ToLower().Trim();
+
+            if (cn == "qd" || cn == "qj") // flow
+                series.VertAxis = Steema.TeeChart.Styles.VerticalAxis.Left;
+            else if (cn == "hh" || cn == "hj")
+            { //  shift 
+                series.VertAxis = Steema.TeeChart.Styles.VerticalAxis.Right;
+            }
+            else
+                series.CustomVertAxis = stageAxis;
+        }
+
+        
+
+        private void linkLabelCompute_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkLabelGraphOption_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Steema.TeeChart.Editor.Show(tChart1);
+        }
+
     }
 }

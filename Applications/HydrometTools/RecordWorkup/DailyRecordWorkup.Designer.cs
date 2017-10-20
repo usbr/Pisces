@@ -41,6 +41,7 @@
             this.linkLabelSave = new System.Windows.Forms.LinkLabel();
             this.linkLabelCompute = new System.Windows.Forms.LinkLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.linkLabelGraphOption = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.panelGraphTable.SuspendLayout();
             this.SuspendLayout();
@@ -81,6 +82,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.linkLabelGraphOption);
             this.panel1.Controls.Add(this.linkLabelCompute);
             this.panel1.Controls.Add(this.linkLabelSave);
             this.panel1.Controls.Add(this.linkLabelRead);
@@ -257,6 +259,19 @@
             this.linkLabelCompute.TabStop = true;
             this.linkLabelCompute.Text = "apply shifts ";
             this.toolTip1.SetToolTip(this.linkLabelCompute, "compute a new flow using shifts and rating table");
+            this.linkLabelCompute.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCompute_LinkClicked);
+            // 
+            // linkLabelGraphOption
+            // 
+            this.linkLabelGraphOption.AutoSize = true;
+            this.linkLabelGraphOption.Location = new System.Drawing.Point(11, 77);
+            this.linkLabelGraphOption.Name = "linkLabelGraphOption";
+            this.linkLabelGraphOption.Size = new System.Drawing.Size(71, 13);
+            this.linkLabelGraphOption.TabIndex = 7;
+            this.linkLabelGraphOption.TabStop = true;
+            this.linkLabelGraphOption.Text = "graph options";
+            this.toolTip1.SetToolTip(this.linkLabelGraphOption, "compute a new flow using shifts and rating table");
+            this.linkLabelGraphOption.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelGraphOption_LinkClicked);
             // 
             // DailyRecordWorkup
             // 
@@ -287,5 +302,6 @@
         private System.Windows.Forms.LinkLabel linkLabelSave;
         private System.Windows.Forms.LinkLabel linkLabelRead;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.LinkLabel linkLabelGraphOption;
     }
 }
