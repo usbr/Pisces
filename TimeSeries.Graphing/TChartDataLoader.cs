@@ -5,8 +5,8 @@ using Steema.TeeChart;
 //using System.Drawing;
 using Reclamation.Core;
 using System.Configuration;
-
- 
+using System.Data;
+using System.Drawing;
 
 namespace Reclamation.TimeSeries.Graphing
 {
@@ -130,6 +130,96 @@ namespace Reclamation.TimeSeries.Graphing
                 chart1.Series.Add(series);
             }
         }
+
+        public  Steema.TeeChart.Styles.Line CreateSeries( DataTable table, string columnName, TimeInterval interval,bool showBadData)
+        {
+            Steema.TeeChart.Styles.Line series1 = new Steema.TeeChart.Styles.Line();
+
+            double avg = AverageOfColumn(table, columnName, interval, showBadData);
+            series1.XValues.DateTime = true;
+            series1.ShowInLegend = true;
+            series1.Pointer.Visible = true;
+            series1.Pointer.HorizSize = 2;
+            series1.Pointer.VertSize = 2;
+
+            Color[] colors = {Color.Red,Color.Green,Color.Blue,Color.Black,Color.Orange,
+                                 Color.Aquamarine,Color.DarkGreen,Color.Purple,Color.Aqua,
+Color.BlueViolet,Color.Brown,Color.BurlyWood,Color.CadetBlue,
+Color.Chartreuse, Color.Chocolate,Color.Coral,Color.CornflowerBlue};
+
+            if (chart1.Series.Count < colors.Length)
+            {
+                series1.Color = colors[chart1.Series.Count];
+            }
+
+            series1.Title = columnName;
+
+            int sz = table.Rows.Count;
+            for (int i = 0; i < sz; i++)
+            {
+                DateTime date = (DateTime)table.Rows[i][0];
+
+                bool plotPoint = true;
+                if (interval == TimeInterval.Irregular)
+                {
+                    string flag = " ";
+                    int idx = table.Columns.IndexOf(columnName);
+                    idx++; // flag column is next
+                    if (!showBadData && table.Rows[i][idx] != DBNull.Value)
+                    {
+                        flag = table.Rows[i][idx].ToString().Trim();
+                        plotPoint = (flag == "" || flag == " " || flag == "e");
+                    }
+                }
+                if (table.Rows[i][columnName] != System.DBNull.Value && plotPoint)
+                {
+                    double val = (double)table.Rows[i][columnName];
+                    series1.Add((double)date.ToOADate(), val);
+                }
+                else
+                {
+                    series1.Add((double)date.ToOADate(), avg, Color.Transparent);
+                }
+            }
+          
+            return series1;
+        }
+
+
+        private static double AverageOfColumn(DataTable table, string columnName, TimeInterval interval, bool includeBadData)
+        {
+            int sz = table.Rows.Count;
+            int counter = 0;
+            double rval = 0;
+            for (int i = 0; i < sz; i++)
+            {
+
+                bool plotPoint = true;
+                if (!includeBadData && interval == TimeInterval.Irregular)
+                {
+                    string flag = "";
+                    int idx = table.Columns.IndexOf(columnName);
+                    idx++; // flag column is next
+                    if (table.Rows[i][idx] != DBNull.Value)
+                    {
+                        flag = table.Rows[i][idx].ToString().Trim();
+                        plotPoint = (flag == "" || flag == " " || flag == "e");
+                    }
+                }
+
+                if (table.Rows[i][columnName] != System.DBNull.Value
+                    && plotPoint)
+                {
+                    double x = (double)table.Rows[i][columnName];
+                    rval += x;
+                    counter++;
+                }
+            }
+            if (counter > 0)
+                return rval / counter;
+            else return 0;
+        }
+
 
         /// <summary>
         /// Find an existing axis with the same units, or create one, and assign this series to it.  

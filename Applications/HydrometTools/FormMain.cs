@@ -12,7 +12,7 @@ using HydrometTools.Advanced;
 using Reclamation.TimeSeries.Forms;
 using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.Hydromet.Operations;
-
+using HydrometTools.RecordWorkup;
 
 namespace HydrometTools
 {
@@ -55,7 +55,7 @@ namespace HydrometTools
         private ImportDaily importUI1;
         private TabPage tabPageFdrImport;
         private Import.ImportFDRTemperature importFDRTemperature1;
-
+        private TabPage tabPageRecords;
         private FcPlot.FcPlotUI fcUi;
 
 		public FormMain()
@@ -153,6 +153,7 @@ namespace HydrometTools
             this.tabPageReports = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tabPageRecords = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPageSetup.SuspendLayout();
             this.tabPageUpdater.SuspendLayout();
@@ -167,6 +168,7 @@ namespace HydrometTools
             this.tabControl1.Controls.Add(this.tabPageDay);
             this.tabControl1.Controls.Add(this.tabPageArc);
             this.tabControl1.Controls.Add(this.tabPageMPoll);
+            this.tabControl1.Controls.Add(this.tabPageRecords);
             this.tabControl1.Controls.Add(this.tabPageSnowGG);
             this.tabControl1.Controls.Add(this.tabPageSetup);
             this.tabControl1.Controls.Add(this.tabPageUpdater);
@@ -265,10 +267,10 @@ namespace HydrometTools
             this.tabControl2.Size = new System.Drawing.Size(928, 490);
             this.tabControl2.TabIndex = 0;
             // 
-            // tabPageDaillyImport
+            // tabPageDailyImport
             // 
             this.tabPageDailyImport.Location = new System.Drawing.Point(4, 22);
-            this.tabPageDailyImport.Name = "tabPageDaillyImport";
+            this.tabPageDailyImport.Name = "tabPageDailyImport";
             this.tabPageDailyImport.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageDailyImport.Size = new System.Drawing.Size(920, 464);
             this.tabPageDailyImport.TabIndex = 0;
@@ -379,6 +381,16 @@ namespace HydrometTools
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
+            // tabPageRecords
+            // 
+            this.tabPageRecords.Location = new System.Drawing.Point(4, 22);
+            this.tabPageRecords.Name = "tabPageRecords";
+            this.tabPageRecords.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageRecords.Size = new System.Drawing.Size(934, 496);
+            this.tabPageRecords.TabIndex = 17;
+            this.tabPageRecords.Text = "Daily Records";
+            this.tabPageRecords.UseVisualStyleBackColor = true;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -474,6 +486,7 @@ namespace HydrometTools
         private Reports.Reports reportControl1;
         private SnowGG.SnowGG snowGG1;
         private ImportDaily import1;
+        DailyRecordWorkup records;
         private void UpdateTabs()
         {
 
@@ -565,6 +578,14 @@ namespace HydrometTools
                         fdr.Parent = tabPageFdrImport;
                         fdr.Dock = DockStyle.Fill;
                     }
+            else if( tabControl1.SelectedTab == tabPageRecords
+                && records == null)
+            {
+                records = new DailyRecordWorkup();
+                records.Parent = tabPageRecords;
+                records.Dock = DockStyle.Fill;
+
+            }
 
 
 

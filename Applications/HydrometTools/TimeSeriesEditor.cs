@@ -1003,13 +1003,18 @@ namespace HydrometTools
             tChart1.Axes.Right.Title.Text = "";
             comboBoxEnableDragPoint.Items.Clear();
             comboBoxEnableDragPoint.Items.Add("None");
-			for(int i=1; i<sz; i+=increment)
+            TChartDataLoader loader = new TChartDataLoader(this.tChart1);
+
+            for (int i=1; i<sz; i+=increment)
 			{
 				try 
 				{
 					string columnName = hydrometDataTable.Columns[i].ColumnName;
-                    double avg = AverageOfColumn(hydrometDataTable, columnName);
-                    Steema.TeeChart.Styles.Line series = MakeSeries(hydrometDataTable, columnName, avg);
+                    // double avg = AverageOfColumn(hydrometDataTable, columnName);
+
+
+                    //Steema.TeeChart.Styles.Line series = MakeSeries(hydrometDataTable, columnName, avg);
+                    var series = loader.CreateSeries(hydrometDataTable, columnName, m_interval, checkBoxShowBadData.Checked);
 
                     series.VertAxis = Steema.TeeChart.Styles.VerticalAxis.Left;
                     series.Pointer.Visible = this.checkBoxShowPoints.Checked;
@@ -1117,111 +1122,24 @@ namespace HydrometTools
         }
 
 
-		private Steema.TeeChart.Styles.Line MakeSeries(DataTable table , string columnName, double avg)
-		{
-			Steema.TeeChart.Styles.Line series1 = new Steema.TeeChart.Styles.Line();
-
-			series1.XValues.DateTime = true;
-			series1.ShowInLegend = true;
-			series1.Pointer.Visible = true;
-			series1.Pointer.HorizSize = 2;
-			series1.Pointer.VertSize = 2;
-
-			Color[] colors = {Color.Red,Color.Green,Color.Blue,Color.Black,Color.Orange,
-                                 Color.Aquamarine,Color.DarkGreen,Color.Purple,Color.Aqua,
-Color.BlueViolet,Color.Brown,Color.BurlyWood,Color.CadetBlue,
-Color.Chartreuse, Color.Chocolate,Color.Coral,Color.CornflowerBlue};
-
-			if( tChart1.Series.Count <colors.Length)
-			{
-				series1.Color = colors[tChart1.Series.Count];
-			}
-            
-			series1.Title = columnName;
-            
-			int sz = table.Rows.Count;
-			for(int i=0; i<sz; i++)
-			{
-				DateTime date = (DateTime)table.Rows[i][0];
-                
-                bool plotPoint = true;
-                if (m_interval == TimeInterval.Irregular)
-                {
-                    string flag = " ";
-                    int idx = table.Columns.IndexOf(columnName);
-                    idx++; // flag column is next
-                    if (!checkBoxShowBadData.Checked && table.Rows[i][idx] != DBNull.Value)
-                    {
-                        flag = table.Rows[i][idx].ToString().Trim();
-                        plotPoint = IsGoodDayfileFlag(flag);
-                    }
-                }
-				if( table.Rows[i][columnName] != System.DBNull.Value && plotPoint)
-				{
-					double val = (double)table.Rows[i][columnName];
-					series1.Add((double)date.ToOADate(),val);
-				}
-				else
-				{
-					series1.Add((double)date.ToOADate(),avg,Color.Transparent);
-				}
-			}
-
+        private Steema.TeeChart.Styles.Line MakeSeries(DataTable table, string columnName, double avg)
+        {
+            TChartDataLoader loader = new TChartDataLoader(tChart1);
+            var rval = loader.CreateSeries(table, columnName, m_interval, checkBoxShowBadData.Checked);
 
             if (m_interval == TimeInterval.Irregular && table.Rows.Count > 0)
             {
-                DateTime maxDate = (DateTime)table.Rows[table.Rows.Count-1][0];
-                if ( T2.Date == DateTime.Now.Date &&  maxDate.Date < DateTime.Now.Date)
+                DateTime maxDate = (DateTime)table.Rows[table.Rows.Count - 1][0];
+                if (T2.Date == DateTime.Now.Date && maxDate.Date < DateTime.Now.Date)
                 {// add a missing point to better detect missing data
-                    series1.Add(DateTime.Now.ToOADate(), avg, Color.Transparent);
+                    rval.Add(DateTime.Now.ToOADate(), avg, Color.Transparent);
                 }
             }
-
-			return series1;
-		}
-
-        private bool IsGoodDayfileFlag(string flag)
-        {
-            string f = flag.Trim();
-            if (f == "" || f == " " || f == "e")
-                return true;
-            return false;
+            return rval;
         }
 
 
-		private double AverageOfColumn(DataTable table , string columnName)
-		{
-			int sz = table.Rows.Count;
-			int counter =0;
-			double rval =0;
-			for(int i=0; i<sz; i++)
-			{
 
-                bool plotPoint = true;
-                if (!checkBoxShowBadData.Checked && m_interval == TimeInterval.Irregular)
-                {
-                    string flag = "";
-                    int idx = table.Columns.IndexOf(columnName);
-                    idx++; // flag column is next
-                    if (table.Rows[i][idx] != DBNull.Value)
-                    {
-                        flag = table.Rows[i][idx].ToString().Trim();
-                        plotPoint = IsGoodDayfileFlag(flag);
-                    }
-                }
-
-				if( table.Rows[i][columnName] != System.DBNull.Value
-                    && plotPoint)
-				{
-					double x =(double)table.Rows[i][columnName];
-					rval += x;
-					counter++;
-				}
-			}
-			if(counter >0)
-				return rval/counter;
-			else return 0;
-		}
 
 		private void ButtonSaveClick(object sender, System.EventArgs e)
 		{

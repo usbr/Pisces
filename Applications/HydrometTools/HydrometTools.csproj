@@ -329,6 +329,12 @@
       <DependentUpon>ImportFDRTemperature.cs</DependentUpon>
     </Compile>
     <Compile Include="ITimeSeriesSpreadsheet.cs" />
+    <Compile Include="RecordWorkup\DailyRecordWorkup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RecordWorkup\DailyRecordWorkup.Designer.cs">
+      <DependentUpon>DailyRecordWorkup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\Reports.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -589,6 +595,7 @@
       <Link>cfg\mpoll_inventory.txt</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="RecordWorkup\192.txt" />
     <Content Include="version-notes.txt" />
     <EmbeddedResource Include="Advanced\EquationEditorTable.resx">
       <DependentUpon>EquationEditorTable.cs</DependentUpon>
@@ -607,6 +614,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Import\ImportFDRTemperature.resx">
       <DependentUpon>ImportFDRTemperature.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecordWorkup\DailyRecordWorkup.resx">
+      <DependentUpon>DailyRecordWorkup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Reports.resx">
       <DependentUpon>Reports.cs</DependentUpon>
@@ -653,10 +663,6 @@
     <EmbeddedResource Include="TimeSeriesSpreadsheetSG.resx">
       <DependentUpon>TimeSeriesSpreadsheetSG.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="..\..\..\..\..\..\..\HydrometTools\cfg\RuleCurves.xlsx">
-      <Link>RuleCurves.xlsx</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="..\..\..\..\..\..\..\utils\private\hydromet-tools-private.config">
       <Link>hydromet-tools-private.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -882,6 +888,10 @@
     </None>
     <None Include="..\cfg\yak\yakima_ratingtables.xls">
       <Link>cfg\yak\yakima_ratingtables.xls</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\cfg\yak\yakima_record_list.csv">
+      <Link>cfg\yak\yakima_record_list.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Advanced\ManualEncodeDecode\Binary to Dec Conversion.xls" />
