@@ -1904,11 +1904,11 @@ namespace Reclamation.TimeSeries
                         Console.WriteLine("Notice: table in catalog, but not in database: " + tn);
                         continue;
                     }
-
+                    if( sb.Length >0 )
+                        sb.Append("\n UNION ALL \n"); 
                     var sql = "(select '" + tn + "' as name,datetime, value from " + tn + " where datetime >= current_date order by datetime desc limit 1)";
                     sb.Append(sql);
-                    if (i != tbl.Rows.Count - 1)
-                        sb.Append("\n UNION ALL \n");
+                        
                 }
                 var inv = m_server.Table("inv", sb.ToString());
                 rval += inv.Rows.Count;
