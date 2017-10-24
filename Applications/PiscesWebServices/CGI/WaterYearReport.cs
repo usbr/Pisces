@@ -108,7 +108,7 @@ namespace PiscesWebServices.CGI
             var start = DateTime.Now.Date.Year.ToString();
 
             if (DateTime.Now.Date.Month >= 10)
-                start = (DateTime.Now.Date.Year - 1).ToString();
+                start = (DateTime.Now.Date.Year + 1).ToString();
 
             if (collection.AllKeys.Contains("start"))
             {
