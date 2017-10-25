@@ -66,12 +66,20 @@ namespace Reclamation.TimeSeries.Forms
 
             table.RowChanged += new DataRowChangeEventHandler(table_RowChanged);
             table.RowDeleted += new DataRowChangeEventHandler(table_RowDeleted);
+            dataGridView1.DataSource = null;
             dataGridView1.DataSource = table;
             this.dataGridView1.ReadOnly = SeriesList.ReadOnly || SeriesList.Count > 1;
             this.dataGridView1.AllowUserToAddRows = !SeriesList.ReadOnly;
             toolBarButtonSave.Enabled = !SeriesList.ReadOnly;
 
+            
+
             dataGridView1.Columns[0].DefaultCellStyle.Format = m_seriesList.DateFormat;
+            if (m_seriesList.Count == 1
+                && dataGridView1.Columns.Count > 1
+                && dataGridView1.Columns[1].HeaderText == "value"
+                )
+                dataGridView1.Columns[1].HeaderText = m_seriesList[0].Name;
 
         }
 
