@@ -198,27 +198,6 @@ namespace HydrometServer
 
 
 
-                if (args.Contains("update-daily"))
-                {
-                   string sql = "provider = '" + db.Server.SafeSqlLiteral(args["update-daily"]) + "'";
-                   var updateList = db.GetSeriesCatalog(sql);
-                   Console.WriteLine("Updating  "+updateList.Count+" Series ");
-
-                   foreach (var item in updateList)
-                   {
-                       try
-                       {
-                           Console.Write(item.Name + " ");
-                           var s = db.GetSeries(item.id);
-                           s.Update(t1, t2);
-                       }
-                       catch (Exception e)
-                       {
-                           Console.WriteLine(e.Message);
-                       }
-                   }
-                }
-
                 if (args.Contains("update-period-of-record"))
                 {
                     var sc = db.GetSeriesCatalog("isfolder=0");
@@ -309,7 +288,6 @@ namespace HydrometServer
             Console.WriteLine("           imports hydromet monthly data ( last 5 years)");
             Console.WriteLine("--import-rating-tables=site_list.csv  [--generateNewTables]");
             Console.WriteLine("          updates usgs,idahopower, and owrd rating tables");
-            Console.WriteLine("--update-daily=HydrometDailySeries");
             Console.WriteLine("--update-period-of-record");
             Console.WriteLine("          updates series properties with t1 and t2 for the data");
             Console.WriteLine("--run-crop-charts=2016   --run-crop-charts (defaults to current calendar year)");
