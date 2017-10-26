@@ -62,7 +62,11 @@ namespace HydrometDailyToPisces
                     if (sites.Length > 0 && Array.IndexOf(sites, r.siteid) == -1 )
                         continue;
 
-                    if (HasCurrentData(r.TableName)) // don't add equations for 'old' data
+                    if (!HasCurrentData(r.TableName)) // don't add equations for 'old' data
+                    {
+                        Console.WriteLine("no current data. skipping .."+r.TableName);
+                    }
+                    else
                     {
                         var calcs = pcodeLookup.Select("InstantPcode ='" + r.Parameter + "'");
 

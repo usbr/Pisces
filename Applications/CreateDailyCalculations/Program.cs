@@ -36,7 +36,7 @@ namespace HydrometDailyToPisces
             string user = args[1];
             string pass = File.ReadAllLines(args[2])[0];
             var outputFileName = args[3];
-            bool dryRun = true;
+            bool dryRun;
             if (args[4] == "true")
                 dryRun = true;
             else
