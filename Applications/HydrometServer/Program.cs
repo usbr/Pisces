@@ -32,8 +32,8 @@ namespace HydrometServer
             
             var ver = AssemblyUtility.GetVersion();
 
-            Console.Write("HydrometServer " + ver +" compiled: " + AssemblyUtility.CreationDate()+"\n");
-            Console.WriteLine("System Time = "+DateTime.Now);
+            Console.Write("HydrometServer " + ver +" " + AssemblyUtility.CreationDate()+ "   System Time = "+DateTime.Now);
+            Console.WriteLine();
             if( argList.Length == 0)
             {
                 ShowHelp();

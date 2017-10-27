@@ -40,6 +40,11 @@ namespace HydrometTools
             this.teeChartExplorerView1.Parent = this.panelChart;
             this.teeChartExplorerView1.Dock = System.Windows.Forms.DockStyle.Fill;
 
+            var fn = FileUtility.GetFileReference("data_import_sites.csv");
+            if(File.Exists(fn))
+            {
+                OpenFile(fn);
+            }
         }
 
        

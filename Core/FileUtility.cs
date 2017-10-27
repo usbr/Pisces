@@ -471,7 +471,7 @@ namespace Reclamation.Core
                 if (!File.Exists(rval))
                 {
                     Logger.WriteLine("Warning: could not find " + filename);
-                    throw new FileNotFoundException(filename);
+                  //  throw new FileNotFoundException(filename);
                 }
 
                 return rval;

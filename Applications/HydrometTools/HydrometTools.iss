@@ -45,6 +45,7 @@ Source:  "bin\debug\Reclamation.TimeSeries.dll";   DestDir: "{app}";   Flags: ig
 Source:  "bin\debug\Reclamation.TimeSeries.Excel.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\Reclamation.TimeSeries.Forms.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\Reclamation.TimeSeries.Graphing.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "bin\debug\Pisces.exe";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\pscp.exe";   DestDir: "{app}";   Flags: ignoreversion
 ;Source:  "bin\debug\Excel.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\SpreadsheetGear.dll";   DestDir: "{app}";   Flags: ignoreversion
@@ -72,6 +73,7 @@ Source:  "..\cfg\pcode.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "..\cfg\daily_pcode.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "..\cfg\instant_pcode.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "..\cfg\monthly_pcode.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
+Source:  "..\cfg\data_import_sites.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "..\cfg\goes.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
 
 

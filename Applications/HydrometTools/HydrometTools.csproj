@@ -683,6 +683,10 @@
       <Link>cfg\daily_pcode.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="..\cfg\data_import_sites.csv">
+      <Link>cfg\data_import_sites.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="..\cfg\goes.csv">
       <Link>cfg\goes.csv</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
