@@ -36,13 +36,7 @@ namespace HydrometDailyToPisces
             string user = args[1];
             string pass = File.ReadAllLines(args[2])[0];
             var outputFileName = args[3];
-            bool dryRun;
-            if (args[4] == "true")
-                dryRun = true;
-            else
-            if (args[4] == "false")
-                dryRun = false;
-            else throw new ArgumentException("invalid setting for dryrun. Must be true or false");
+            bool dryRun = (args[4] == "true");
 
             var sites = new string[] { };
 

@@ -14,13 +14,13 @@ namespace Reclamation.Core.Tests
           
 
 
-          var fn  = FileUtility.GetTempFileName(".html");
+          var fn  = FileUtility.GetTempFileName(".usbr.html");
            Web.GetFile("https://www.usbr.gov/",fn); // fails
         }
         [Test]
         public void google_http()
         {
-            var fn = FileUtility.GetTempFileName(".html");
+            var fn = FileUtility.GetTempFileName(".google.html");
             Web.GetFile("https://www.google.com/", fn);  // Works
         }
 
