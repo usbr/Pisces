@@ -1437,26 +1437,29 @@ namespace HydrometTools
 
             string query = cmd.GetDefaultQuery();  // filters out extra reference series.
 
+            if (query.Trim() == "")
+                hydrometDataTable = new DataTable("empty");
+            else
             if (m_interval == TimeInterval.Daily)
             {
-               hydrometDataTable = HydrometDataUtility.ArchiveTable(svr,query, T1, T2);
+                hydrometDataTable = HydrometDataUtility.ArchiveTable(svr, query, T1, T2);
             }
             else
                 if (m_interval == TimeInterval.Irregular)
-                {
-                    int interval = 0;
-                    var tokens = comboBoxInterval.SelectedItem.ToString().Split(' ');
-                    if (tokens.Length > 0)
-                        int.TryParse(tokens[0], out interval);
+            {
+                int interval = 0;
+                var tokens = comboBoxInterval.SelectedItem.ToString().Split(' ');
+                if (tokens.Length > 0)
+                    int.TryParse(tokens[0], out interval);
 
-                    hydrometDataTable = HydrometDataUtility.DayFilesTable(svr, query, T1, T2, interval: interval);
-                }
-                else
+                hydrometDataTable = HydrometDataUtility.DayFilesTable(svr, query, T1, T2, interval: interval);
+            }
+            else
                     if (m_interval == TimeInterval.Monthly)
-                    {
+            {
 
-                        hydrometDataTable = HydrometDataUtility.MPollTable(svr,query, T1, T2);
-                    }
+                hydrometDataTable = HydrometDataUtility.MPollTable(svr, query, T1, T2);
+            }
 
 		}
 
