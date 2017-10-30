@@ -51,7 +51,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         internal static System.Data.DataTable ControlPointTableFromName(string text, string lookupColumnName)
         {
             // var tbl = ExcelUtility.Read(xlsFileName(), "ControlPoints");
-            DataTable tbl = new CsvFile(LookupFile("ControlPoints"));
+            DataTable tbl = new CsvFile(LookupFile("ControlPoints"),CsvFile.FieldTypes.AllText);
             tbl = DataTableUtility.Select(tbl, lookupColumnName+" = '" + text + "'", "");
             return tbl;
         }
