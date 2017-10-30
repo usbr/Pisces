@@ -56,6 +56,8 @@ Source:  "bin\debug\ZedGraph.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\DgvFilterPopup.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\System.Threading.Tasks.Extensions.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\Renci.SshNet.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "bin\debug\Newtonsoft.Json.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "bin\debug\RestSharp.dll";   DestDir: "{app}";   Flags: ignoreversion
 
 Source:  ".\bin\debug\x86\SQLite.Interop.dll";   DestDir: "{app}\x86";   Flags: ignoreversion
 Source:  ".\bin\debug\x64\SQLite.Interop.dll";   DestDir: "{app}\x64";   Flags: ignoreversion
