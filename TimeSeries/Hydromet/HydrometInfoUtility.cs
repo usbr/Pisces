@@ -494,7 +494,8 @@ namespace Reclamation.TimeSeries.Hydromet
                         int val;
                         if (int.TryParse(tokens[i], out val))
                         {
-                            list.Add(val);
+                            if( val < 3000) // ignore the 'fake' years 8110, 7110 
+                              list.Add(val);
                         }
                     }
                     if (list.Count > 0)
