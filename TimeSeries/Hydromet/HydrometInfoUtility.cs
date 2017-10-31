@@ -504,6 +504,9 @@ namespace Reclamation.TimeSeries.Hydromet
                         int max = list.Max();
                         DateTime t1 = new DateTime(min-1,10, 1);
                         DateTime t2 = new DateTime(max,9, 30);
+                        if (t2 > DateTime.Now.Date)
+                            t2 = DateTime.Now;
+
                         return new PeriodOfRecord(t1, t2, 0);
                     }
                 }
