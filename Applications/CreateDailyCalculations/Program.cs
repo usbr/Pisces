@@ -23,7 +23,7 @@ namespace HydrometDailyToPisces
             if( args.Length != 5 && args.Length != 6)
             {
                 Console.WriteLine("Usage: CreateDailyCalculations server user pass outputFile dryrun [sites]");
-                Console.WriteLine(" server = lrgs1|lrgs2 ");
+                Console.WriteLine(" server = hostname ");
                 Console.WriteLine(" user = username");
                 Console.WriteLine(" pass = passwordfile");
                 Console.WriteLine(" outputfile = filename for stats/results");
@@ -45,6 +45,7 @@ namespace HydrometDailyToPisces
 
 
             var svr = PostgreSQL.GetPostgresServer("timeseries", host,user,pass);
+            UpdateVMS_daily_por(svr);
             TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
             Console.WriteLine(db.Server.ConnectionString);
             
@@ -63,7 +64,30 @@ namespace HydrometDailyToPisces
 
         }
 
+        private static void UpdateVMS_daily_por(BasicDBServer svr)
+        {
+            var tbl = HydrometInfoUtility.DailyInventory;
 
-         
-    }
+            svr.RunSqlCommand("truncate table vms_daily_por");
+            DataTable vms_daily_por = svr.Table("vms_daily_por");
+
+
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                var cbtt = tbl.Rows[i]["cbtt"].ToString();
+                if (cbtt.Trim() == "")
+                    continue;
+                var pcode = tbl.Rows[i]["pcode"].ToString();
+                var por = HydrometInfoUtility.ArchivePeriodOfRecord(cbtt, pcode);
+
+                vms_daily_por.Rows.Add(cbtt, pcode, por.T1.ToString(), por.T2.ToString());
+                Console.WriteLine(cbtt+" "+pcode);
+
+            }
+
+            svr.SaveTable(vms_daily_por);
+        }
+
+
+}
 }
