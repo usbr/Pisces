@@ -18,7 +18,7 @@ namespace ImportIdahoPower
             {
                 Console.WriteLine("Usage: ImportIdahoPower list.csv outputDirectory hoursBack");
                 Console.WriteLine("Example:");
-                Console.WriteLine("ImportIdahoPower.exe idaho_power_list.csv /home/hydromet/incoming/");
+                Console.WriteLine("ImportIdahoPower.exe idaho_power_list.csv /home/hydromet/incoming/  12");
                 return;
             }
 
