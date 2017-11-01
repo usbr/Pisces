@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PiscesAPI.Controllers
 {
-    [Route("api/[controller]")]
-    public class SampleEndPointsController : Controller
+    [Route("sample/[controller]")]
+    public class xxSampleEndPointsController : Controller
     {
         /// <summary>
         /// Retrieves all products

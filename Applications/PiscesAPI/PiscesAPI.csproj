@@ -10,13 +10,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="wwwroot\" />
+    <Compile Remove="Extensions\**" />
+    <Compile Remove="wwwroot\swagger\**" />
+    <Content Remove="Extensions\**" />
+    <Content Remove="wwwroot\swagger\**" />
+    <EmbeddedResource Remove="Extensions\**" />
+    <EmbeddedResource Remove="wwwroot\swagger\**" />
+    <None Remove="Extensions\**" />
+    <None Remove="wwwroot\swagger\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="1.50.2" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
+    <PackageReference Include="MySql.Data" Version="6.10.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
     <PackageReference Include="SwashBuckle.AspNetCore.MicrosoftExtensions" Version="0.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="1.0.0" />
@@ -26,6 +34,10 @@
 
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>
