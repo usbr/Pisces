@@ -74,13 +74,13 @@ namespace HydrometDailyToPisces
 
             for (int i = 0; i < tbl.Rows.Count; i++)
             {
-                var cbtt = tbl.Rows[i]["cbtt"].ToString();
+                var cbtt = tbl.Rows[i]["cbtt"].ToString().ToLower();
                 if (cbtt.Trim() == "")
                     continue;
-                var pcode = tbl.Rows[i]["pcode"].ToString();
+                var pcode = tbl.Rows[i]["pcode"].ToString().ToLower();
                 var por = HydrometInfoUtility.ArchivePeriodOfRecord(cbtt, pcode);
 
-                vms_daily_por.Rows.Add(cbtt, pcode, por.T1.ToString(), por.T2.ToString());
+                vms_daily_por.Rows.Add(cbtt, pcode, por.T1, por.T2);
                 Console.WriteLine(cbtt+" "+pcode);
 
             }
