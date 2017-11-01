@@ -21,24 +21,30 @@ namespace PiscesAPI
 
         public IConfiguration Configuration { get; }
 
+        public static string ApiConnectionString = "";
+
+        private string versionName = "v0";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            ApiConnectionString = Configuration["ConnectionStrings:DefaultConnection"];
+
             services.AddMvc();
+            //https://github.com/domaindrivendev/Swashbuckle.AspNetCore#swashbuckleaspnetcoreswagger
             services.AddSwaggerGen(c =>
             {
-                //c.SwaggerDoc("v0", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Pisces API", Version = "v0" });
                 var filePath = System.IO.Path.Combine(Microsoft.Extensions.PlatformAbstractions.PlatformServices.Default.Application.ApplicationBasePath, "PiscesAPI.xml");
                 c.IncludeXmlComments(filePath);
-                c.SwaggerDoc("v0", new Info
+                c.SwaggerDoc(versionName, new Info
                 {
                     Title = "Pisces API Data Service",
-                    Version = "v0",
-                    Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore " +
-                        "et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex " +
-                        "ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat " + 
-                        "nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim "+
-                        "id est laborum." +
+                    Version = versionName,
+                    Description = "Although the US Bureau of Reclamation makes efforts to maintain the accuracy of data found in the Hydromet system databases, " +
+                        "the data is largely unverified and should be considered preliminary and subject to change. Data and services are provided with the express " +
+                        "understanding that the United States Government makes no warranties, expressed or implied, concerning the accuracy, completeness, " +
+                        "usability or suitability for any particular purpose of the information or data obtained by access to this computer system, and the " +
+                        "United States shall be under no liability whatsoever to any individual or group entity by reason of any use made thereof." +
                         "\n\r" + 
                         "This Application Programming Interface (API) is preliminary or provisional and is subject to revision. " +
                         "It is currently in development and as such, frequent updates, downtimes, and loss of functionality are to " +
@@ -50,7 +56,7 @@ namespace PiscesAPI
                     Contact = new Contact
                     {
                         //Name = "Jon Rocha",
-                        Email = "jrocha@usbr.gov"
+                        Email = "jrocha@usbr.gov;ktarbet@usbr.gov"
                     },
                     License = new License
                     {
@@ -70,12 +76,14 @@ namespace PiscesAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v0/swagger.json", "Pisces API V0");
+                c.SwaggerEndpoint("/swagger/" + versionName + "/swagger.json", "Pisces API V0");
             });
         }
     }
+
 }
