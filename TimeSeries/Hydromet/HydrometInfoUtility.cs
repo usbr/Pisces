@@ -494,7 +494,8 @@ namespace Reclamation.TimeSeries.Hydromet
                         int val;
                         if (int.TryParse(tokens[i], out val))
                         {
-                            list.Add(val);
+                            if( val < 3000) // ignore the 'fake' years 8110, 7110 
+                              list.Add(val);
                         }
                     }
                     if (list.Count > 0)
@@ -503,6 +504,9 @@ namespace Reclamation.TimeSeries.Hydromet
                         int max = list.Max();
                         DateTime t1 = new DateTime(min-1,10, 1);
                         DateTime t2 = new DateTime(max,9, 30);
+                        if (t2 > DateTime.Now.Date)
+                            t2 = DateTime.Now.Date;
+
                         return new PeriodOfRecord(t1, t2, 0);
                     }
                 }
