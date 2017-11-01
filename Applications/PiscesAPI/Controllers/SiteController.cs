@@ -55,9 +55,11 @@ namespace PiscesAPI.Controllers
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public OkObjectResult Post([FromBody]string value)
+        public OkObjectResult Post([FromBody]List<SiteModel.PiscesSite> input)
         {
-            return Ok("Not Implemented");
+            var siteProcessor = new DataAccessLayer.SiteRepository();
+            var rval = siteProcessor.AddOrUpdateSites(input);
+            return Ok(rval);
         }
 
         /// <summary>
@@ -67,13 +69,15 @@ namespace PiscesAPI.Controllers
         /// <response code="200">Site(s) deleted</response>
         /// <response code="400">Site(s) has missing/invalid values</response>
         /// <response code="500">Oops! Can't delete your site(s) right now</response>
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public OkObjectResult Delete(int id)
+        public OkObjectResult Delete([FromBody]List<SiteModel.PiscesSite> input)
         {
-            return Ok("Not Implemented");
+            var siteProcessor = new DataAccessLayer.SiteRepository();
+            var rval = siteProcessor.DeleteSites(input);
+            return Ok(rval);
         }
     }
 }
