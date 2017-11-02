@@ -30,6 +30,13 @@ namespace PiscesAPI
         {
             ApiConnectionString = Configuration["ConnectionStrings:DefaultConnection"];
 
+            services.Configure<IISOptions>(options =>
+            {
+                options.AuthenticationDisplayName = "";
+                options.AutomaticAuthentication = false;
+                options.ForwardClientCertificate = false;
+            });
+
             services.AddMvc();
             //https://github.com/domaindrivendev/Swashbuckle.AspNetCore#swashbuckleaspnetcoreswagger
             services.AddSwaggerGen(c =>

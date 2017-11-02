@@ -36,6 +36,11 @@ namespace PiscesAPI.Models
             /// Parameter statistic
             /// </summary>
             public string statistic { get; set; }
+
+            /// <summary>
+            /// Parameter units description
+            /// </summary>
+            public string unitstext { get; set; }
         }
 
     }
