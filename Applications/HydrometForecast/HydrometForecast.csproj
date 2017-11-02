@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1487EFF8-B216-482C-A75F-A2473A45DA60}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HydrometForecast</RootNamespace>
     <AssemblyName>HydrometForecast</AssemblyName>
@@ -65,7 +65,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>HydrometForecast.MainForm</StartupObject>
+    <StartupObject>HydrometForecast.CommandLine</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'WatchDog|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AntecedentRunoffForecastTerm.cs" />
+    <Compile Include="CommandLine.cs" />
     <Compile Include="CompareTerms.cs">
       <SubType>Form</SubType>
     </Compile>
