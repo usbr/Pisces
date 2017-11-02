@@ -44,11 +44,13 @@
             this.textBoxEndYear = new System.Windows.Forms.TextBox();
             this.textBoxPcode = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxOldSChool = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxOldSChool);
             this.groupBox1.Controls.Add(this.AF);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.Range1);
@@ -65,7 +67,7 @@
             this.groupBox1.Controls.Add(this.textBoxPcode);
             this.groupBox1.Location = new System.Drawing.Point(7, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(235, 185);
+            this.groupBox1.Size = new System.Drawing.Size(235, 200);
             this.groupBox1.TabIndex = 39;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Year Summation";
@@ -73,7 +75,7 @@
             // AF
             // 
             this.AF.AutoSize = true;
-            this.AF.Location = new System.Drawing.Point(141, 151);
+            this.AF.Location = new System.Drawing.Point(125, 151);
             this.AF.Name = "AF";
             this.AF.Size = new System.Drawing.Size(88, 17);
             this.AF.TabIndex = 41;
@@ -202,6 +204,18 @@
             this.panel1.Size = new System.Drawing.Size(538, 384);
             this.panel1.TabIndex = 40;
             // 
+            // checkBoxOldSChool
+            // 
+            this.checkBoxOldSChool.AutoSize = true;
+            this.checkBoxOldSChool.Checked = true;
+            this.checkBoxOldSChool.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxOldSChool.Location = new System.Drawing.Point(125, 174);
+            this.checkBoxOldSChool.Name = "checkBoxOldSChool";
+            this.checkBoxOldSChool.Size = new System.Drawing.Size(104, 17);
+            this.checkBoxOldSChool.TabIndex = 42;
+            this.checkBoxOldSChool.Text = "old school report";
+            this.checkBoxOldSChool.UseVisualStyleBackColor = true;
+            // 
             // VolumeInRange
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -234,6 +248,6 @@
         private System.Windows.Forms.TextBox textBoxPcode;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox AF;
-
+        private System.Windows.Forms.CheckBox checkBoxOldSChool;
     }
 }

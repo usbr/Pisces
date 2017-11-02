@@ -14,17 +14,17 @@ namespace HydrometTools.ssh
     public class SecureCopy
     {
 
-        public static bool CopyFrom(string user, string host, string passwd,
-           string lfile, string rfile)
-        {
-            return Copy(user, host, passwd, lfile, rfile, ScpDirection.From);
-        }
+        //public static bool CopyFrom(string user, string host, string passwd,
+        //   string lfile, string rfile)
+        //{
+        //    return Copy(user, host, passwd, lfile, rfile, ScpDirection.From);
+        //}
 
-        public static bool CopyToWithPrivateKey(string user, string host, string identityFile, string lfile, string rfile)
-        {
-            string args = args = "-v  -batch \"" + lfile +"\" \""+ user + "@" + host + ":" + rfile + "\" ";
-            return RunPscp("xxxxxxxxx", args);
-        }
+        //public static bool CopyToWithPrivateKey(string user, string host, string identityFile, string lfile, string rfile)
+        //{
+        //    string args = args = "-v  -batch \"" + lfile +"\" \""+ user + "@" + host + ":" + rfile + "\" ";
+        //    return RunPscp("xxxxxxxxx", args);
+        //}
 
         public static bool CopyTo(string user, string host, string passwd,
            string lfile, string rfile)

@@ -56,14 +56,16 @@ namespace HydrometTools.Stats
                     s.Units = "Acre-Feet";
                 }
 
-                var rval = Reclamation.TimeSeries.Math.AnnualSum(s, range, 10);//Convert.ToInt16(Range1.Text.Substring(0, 2)));
+                var rval = Reclamation.TimeSeries.Math.AnnualSum(s, range, 10);
 
                 rval.Appearance.LegendText = cbtt.ToUpper() + " " + pcode.ToUpper() + " Sum in Range";
                 
+                if( checkBoxOldSChool.Checked)
+                  OldSchoolReport.Display(rval,"DAILY VALUES SUMMATION  - Volume in Acre-feet","Volume "+s.Units,
+                    cbtt, pcode, range, wy1, wy2);
+
                 var list = new SeriesList();
-
                 list.Add(rval);
-
                 view.SeriesList = list;
                 view.Draw();
 

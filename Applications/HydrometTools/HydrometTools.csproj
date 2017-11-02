@@ -443,6 +443,7 @@
     <Compile Include="Stats\MultiYearAverage.Designer.cs">
       <DependentUpon>MultiYearAverage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Stats\OldSchoolReport.cs" />
     <Compile Include="Stats\StatsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -596,6 +597,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="RecordWorkup\192.txt" />
+    <Content Include="Stats\Report.txt" />
     <Content Include="version-notes.txt" />
     <EmbeddedResource Include="Advanced\EquationEditorTable.resx">
       <DependentUpon>EquationEditorTable.cs</DependentUpon>
