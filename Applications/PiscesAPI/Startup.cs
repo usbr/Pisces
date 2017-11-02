@@ -9,6 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Newtonsoft.Json;
 
 namespace PiscesAPI
 {
@@ -84,12 +88,60 @@ namespace PiscesAPI
             }
 
             app.UseStaticFiles();
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/" + versionName + "/swagger.json", "Pisces API V0");
             });
+        }
+    }
+
+
+
+
+    /// <summary>
+    /// Custom Middleware for handling error reponses
+    /// https://docs.microsoft.com/en-us/aspnet/core/fundamentals/middleware?tabs=aspnetcore2x
+    /// </summary>
+    public class ErrorHandlingMiddleware
+    {
+        private readonly RequestDelegate next;
+
+        public ErrorHandlingMiddleware(RequestDelegate next)
+        {
+            this.next = next;
+        }
+
+        public async Task Invoke(HttpContext context /* other scoped dependencies */)
+        {
+            try
+            {
+                await next(context);
+            }
+            catch (Exception ex)
+            {
+                await HandleExceptionAsync(context, ex);
+            }
+        }
+
+        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        {
+            var correlationId = Guid.NewGuid();
+
+            var metadata = new PiscesAPI.Models.ErrorInfoModel
+            {
+                Message = exception.Message + exception.StackTrace + ". Contact the developer for more information.",// "An unexpected error occurred! Please use the Error ID to contact support",
+                TimeStamp = DateTime.UtcNow,
+                RequestUri = new Uri(context.Request.GetDisplayUrl()),//.Request.HttpContext.Request.RequestUri,
+                ErrorId = correlationId
+            };
+
+            var result = JsonConvert.SerializeObject(metadata);
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = 500;
+            return context.Response.WriteAsync(result);
         }
     }
 
