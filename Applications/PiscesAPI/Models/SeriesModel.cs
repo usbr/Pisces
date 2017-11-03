@@ -45,7 +45,7 @@ namespace PiscesAPI.Models
             /// <summary>
             /// Site geographic time zone (if applicable)
             /// </summary>
-            public int siteid { get; set; }
+            public string siteid { get; set; }
 
             /// <summary>
             /// Site installation date
