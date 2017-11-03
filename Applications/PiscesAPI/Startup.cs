@@ -26,13 +26,19 @@ namespace PiscesAPI
         public IConfiguration Configuration { get; }
 
         public static string ApiConnectionString = "";
-
+        public static string PiscesAPIDatabase = "mysql";
         private string versionName = "v0";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             ApiConnectionString = Configuration["ConnectionStrings:DefaultConnection"];
+
+            if (Configuration["ConnectionString"] != null)
+                ApiConnectionString = Configuration["ConnectionString"];
+
+            if (Configuration["PiscesAPIDatabase"] != null)
+                PiscesAPIDatabase = Configuration["PiscesAPIDatabase"];
 
             services.Configure<IISOptions>(options =>
             {

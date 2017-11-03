@@ -34,8 +34,16 @@ namespace PiscesAPI.Controllers
         /// <returns></returns>
         public static IDbConnection Connect()
         {
+            IDbConnection db = null;
             var conx = Startup.ApiConnectionString;
-            IDbConnection db = new MySql.Data.MySqlClient.MySqlConnection(conx);
+            if (Startup.PiscesAPIDatabase == "mysql")
+            {
+                db = new MySql.Data.MySqlClient.MySqlConnection(conx);
+            }
+            else if( Startup.PiscesAPIDatabase == "postgresql")
+            {
+                db = new Npgsql.NpgsqlConnection(conx);
+            }
             return db;
         }
         

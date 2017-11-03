@@ -5,6 +5,7 @@
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject />
+    <UserSecretsId>45b42ca4-3bdd-4f73-8c14-31c161b3d763</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -32,6 +33,7 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
     <PackageReference Include="MySql.Data" Version="6.10.4" />
+    <PackageReference Include="Npgsql" Version="3.2.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="1.0.0" />
     <PackageReference Include="SwashBuckle.AspNetCore.MicrosoftExtensions" Version="0.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="1.0.0" />
