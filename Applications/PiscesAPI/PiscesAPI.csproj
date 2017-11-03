@@ -8,6 +8,9 @@
     <UserSecretsId>45b42ca4-3bdd-4f73-8c14-31c161b3d763</UserSecretsId>
   </PropertyGroup>
 
+  <Target Name="GatherAllFilesToPublish">
+  </Target>
+  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netcoreapp2.0\PiscesAPI.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
