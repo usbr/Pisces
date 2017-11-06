@@ -38,10 +38,10 @@ namespace PiscesAPI.DataAccessLayer
             //List<SeriesDataModel.PiscesTimeSeriesData> ts = (List<SeriesDataModel.PiscesTimeSeriesData>)db.Query<SeriesDataModel.PiscesTimeSeriesData>(sqlStringMeta);
 
             var ts = (List<SeriesDataModel.PiscesTimeSeriesData>)db.Query< //Dapper MultiMap
-                SeriesDataModel.PiscesTimeSeriesData,
-                SeriesModel.PiscesSeries,
-                SiteModel.PiscesSite,
-                ParameterModel.PiscesParameter,
+                SeriesDataModel.PiscesTimeSeriesData, //a
+                SeriesModel.PiscesSeries, //b
+                SiteModel.PiscesSite, //c
+                ParameterModel.PiscesParameter, //d
                 SeriesDataModel.PiscesTimeSeriesData>(
                 sqlStringMeta,
                 (a, b, c, d) =>
@@ -51,7 +51,7 @@ namespace PiscesAPI.DataAccessLayer
                         series = b,
                         site = c,
                         parameter = d,
-                        data = new List<SeriesDataModel.Point>()
+                        data = tsData//new List<SeriesDataModel.Point>()
                     };
                     return a;
                 },
@@ -59,89 +59,79 @@ namespace PiscesAPI.DataAccessLayer
                 splitOn: "siteid,id"
             );
 
-            ts[0].data = tsData;
             return (ts[0]);
         }
 
-        public List<SeriesModel.PiscesSeries> AddOrUpdateSeriesData(List<SeriesModel.PiscesSeries> input)
+        public List<SeriesDataModel.Point> AddOrUpdateSeriesData(List<SeriesDataModel.PiscesTimeSeriesData> input)
         {
-            throw new NotImplementedException();
+            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+
+            var addedPoints = new List<SeriesDataModel.Point>();
+            foreach (SeriesDataModel.PiscesTimeSeriesData item in input)
+            {
+                string sqlString = GetInsertSQL(item);
+
+                db.Execute(sqlString);
+                addedPoints.AddRange(item.data);
+            }
+
+            return addedPoints;
         }
 
-        public List<SeriesModel.PiscesSeries> DeleteSeriesData(List<SeriesModel.PiscesSeries> input)
+        public List<SeriesDataModel.Point> DeleteSeriesData(List<SeriesDataModel.PiscesTimeSeriesData> input)
         {
-            throw new NotImplementedException();
+            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+
+            var deletedPoints = new List<SeriesDataModel.Point>();
+            foreach (SeriesDataModel.PiscesTimeSeriesData item in input)
+            {
+                string sqlString = GetDeleteSQL(item);
+
+                db.Execute(sqlString);
+                deletedPoints.AddRange(item.data);
+            }
+
+            return deletedPoints;
         }
 
-        private string GetInsertSQL()
+        private string GetInsertSQL(SeriesDataModel.PiscesTimeSeriesData input)
         {
-            return "insert into sitecatalog(" +
-                        "siteid," +
-                        "description," +
-                        "state," +
-                        "latitude," +
-                        "longitude," +
-                        "elevation," +
-                        "timezone," +
-                        "install," +
-                        "horizontal_datum," +
-                        "vertical_datum," +
-                        "vertical_accuracy," +
-                        "elevation_method," +
-                        "tz_offset," +
-                        "active_flag," +
-                        "type," +
-                        "responsibility," +
-                        "agency_region" +
-                    ") values (" +
-                        "@siteid," +
-                        "@description," +
-                        "@state," +
-                        "@latitude," +
-                        "@longitude," +
-                        "@elevation," +
-                        "@timezone," +
-                        "@install," +
-                        "@horizontal_datum," +
-                        "@vertical_datum," +
-                        "@vertical_accuracy," +
-                        "@elevation_method," +
-                        "@tz_offset," +
-                        "@active_flag," +
-                        "@type," +
-                        "@responsibility," +
-                        "@agency_region" +
-                    ")";
+            // MANUAL SQL LOOP
+            string sqlString = "insert into " + input.series.tablename + " (datetime,value,flag) values ";
+            foreach (SeriesDataModel.Point pt in input.data)
+            {
+                sqlString += "(str_to_date('" + pt.datetime + "','%m/%d/%Y %r'),'" + pt.value + "','" + pt.flag + "'),";
+            }
+            sqlString = sqlString.Remove(sqlString.Length - 1);
+
+            return sqlString;
         }
 
-        private string GetUpdateSQL()
+        private string GetUpdateSQL(SeriesDataModel.PiscesTimeSeriesData input)
         {
-            return "update sitecatalog set " +
-                        "description = @description," +
-                        "state = @state," +
-                        "latitude = @latitude," +
-                        "longitude = @longitude," +
-                        "elevation = @elevation," +
-                        "timezone = @timezone," +
-                        "install = @install," +
-                        "horizontal_datum = @horizontal_datum," +
-                        "vertical_datum = @vertical_datum," +
-                        "vertical_accuracy = @vertical_accuracy," +
-                        "elevation_method = @elevation_method," +
-                        "tz_offset = @tz_offset," +
-                        "active_flag = @active_flag," +
-                        "type = @type," +
-                        "responsibility = @responsibility," +
-                        "agency_region = @agency_region " +
-                    "where " +
-                        "siteid = @siteid";
+            // MANUAL SQL
+            string sqlString = "update " + input.series.tablename + " (datetime,value,flag) values ";
+            foreach (SeriesDataModel.Point pt in input.data)
+            {
+                sqlString += "(str_to_date('" + pt.datetime + "','%m/%d/%Y %r'),'" + pt.value + "','" + pt.flag + "'),";
+            }
+            sqlString.TrimEnd(',');
+
+            return sqlString;
         }
 
-        private string GetDeleteSQL()
+        private string GetDeleteSQL(SeriesDataModel.PiscesTimeSeriesData input)
         {
-            return "delete from sitecatalog "+
-                    "where " +
-                        "siteid = @siteid";
+            // MANUAL SQL LOOP
+            string sqlString = "delete from " + input.series.tablename + " where datetime in (";
+            foreach (SeriesDataModel.Point pt in input.data)
+            {
+                sqlString += "str_to_date('" + pt.datetime + "','%m/%d/%Y %r'),";
+            }
+            sqlString = sqlString.Remove(sqlString.Length - 1);
+            sqlString += ")";
+
+            return sqlString;
         }
 
 

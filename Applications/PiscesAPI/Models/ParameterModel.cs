@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace PiscesAPI.Models
 {
@@ -15,7 +16,7 @@ namespace PiscesAPI.Models
             /// <summary>
             /// Unique parameter ID
             /// </summary>
-            public string id { get; set; }
+            [Key] public string id { get; set; }
 
             /// <summary>
             /// Parameter name

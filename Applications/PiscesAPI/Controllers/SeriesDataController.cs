@@ -17,14 +17,14 @@ namespace PiscesAPI.Controllers
         /// <response code="200">TS fetched</response>
         /// <response code="400">TS has missing/invalid values</response>
         /// <response code="500">Oops! Can't fetch your TS right now</response>
-        [HttpGet("{seriestable}/{t1}/{t2}")]
+        [HttpGet("{tstable}/{t1}/{t2}")]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public OkObjectResult Get(string seriestable, DateTime t1, DateTime t2)
+        public OkObjectResult Get(string tstable, DateTime t1, DateTime t2)
         {
             var seriesdataProcessor = new DataAccessLayer.SeriesDataRepository();
-            return Ok(seriesdataProcessor.GetSeriesData(seriestable, t1, t2));
+            return Ok(seriesdataProcessor.GetSeriesData(tstable, t1, t2));
         }
 
         /// <summary>
@@ -38,10 +38,27 @@ namespace PiscesAPI.Controllers
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public OkObjectResult Post([FromBody]List<SeriesModel.PiscesSeries> series, DateTime t1, DateTime t2)
+        public OkObjectResult Post([FromBody]List<SeriesModel.PiscesSeries> ts, DateTime t1, DateTime t2)
         {
             var seriesdataProcessor = new DataAccessLayer.SeriesDataRepository();
-            return Ok(seriesdataProcessor.GetSeriesData(series[0], t1, t2));
+            return Ok(seriesdataProcessor.GetSeriesData(ts[0], t1, t2));
+        }
+
+        /// <summary>
+        /// Write TS data to Series object
+        /// </summary>
+        /// <remarks>Long description for this API endpoint goes here...</remarks>
+        /// <response code="200">TS(s) created</response>
+        /// <response code="400">TS(s) has missing/invalid values</response>
+        /// <response code="500">Oops! Can't create your TS(s) right now</response>
+        [HttpPut]
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(void), 500)]
+        public OkObjectResult Put([FromBody]List<SeriesDataModel.PiscesTimeSeriesData> ts)
+        {
+            var seriesdataProcessor = new DataAccessLayer.SeriesDataRepository();
+            return Ok(seriesdataProcessor.AddOrUpdateSeriesData(ts));
         }
 
         /// <summary>
@@ -55,9 +72,10 @@ namespace PiscesAPI.Controllers
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public OkObjectResult Delete([FromBody]List<SiteModel.PiscesSite> input)
+        public OkObjectResult Delete([FromBody]List<SeriesDataModel.PiscesTimeSeriesData> ts)
         {
-            throw new NotImplementedException();
+            var seriesdataProcessor = new DataAccessLayer.SeriesDataRepository();
+            return Ok(seriesdataProcessor.DeleteSeriesData(ts));
         }
     }
 }
