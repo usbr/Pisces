@@ -69,10 +69,23 @@ namespace PiscesAPI.DataAccessLayer
             var addedPoints = new List<SeriesDataModel.Point>();
             foreach (SeriesDataModel.PiscesTimeSeriesData item in input)
             {
-                string sqlString = GetInsertSQL(item);
+                foreach (SeriesDataModel.Point pt in item.data)
+                {
+                    var pointExists = GetSeriesData(item.series.tablename, pt.datetime, pt.datetime).data.Count > 0;
 
-                db.Execute(sqlString);
-                addedPoints.AddRange(item.data);
+                    string sqlString = "";
+                    if (pointExists)
+                    {
+                        sqlString = GetUpdateSQL(item, pt);
+                    }
+                    else
+                    {
+                        sqlString = GetInsertSQL(item, pt);
+                    }
+
+                    db.Execute(sqlString);
+                    addedPoints.Add(pt);
+                }
             }
 
             return addedPoints;
@@ -94,7 +107,7 @@ namespace PiscesAPI.DataAccessLayer
             return deletedPoints;
         }
 
-        private string GetInsertSQL(SeriesDataModel.PiscesTimeSeriesData input)
+        private string GetMassInsertSQL(SeriesDataModel.PiscesTimeSeriesData input)
         {
             // MANUAL SQL LOOP
             string sqlString = "insert into " + input.series.tablename + " (datetime,value,flag) values ";
@@ -107,16 +120,19 @@ namespace PiscesAPI.DataAccessLayer
             return sqlString;
         }
 
-        private string GetUpdateSQL(SeriesDataModel.PiscesTimeSeriesData input)
+        private string GetInsertSQL(SeriesDataModel.PiscesTimeSeriesData input, SeriesDataModel.Point pt)
         {
             // MANUAL SQL
-            string sqlString = "update " + input.series.tablename + " (datetime,value,flag) values ";
-            foreach (SeriesDataModel.Point pt in input.data)
-            {
-                sqlString += "(str_to_date('" + pt.datetime + "','%m/%d/%Y %r'),'" + pt.value + "','" + pt.flag + "'),";
-            }
-            sqlString.TrimEnd(',');
+            string sqlString = "insert into " + input.series.tablename + " (datetime,value,flag) values " + 
+                "(str_to_date('" + pt.datetime + "','%m/%d/%Y %r'),'" + pt.value + "','" + pt.flag + "')";
+            return sqlString;
+        }
 
+        private string GetUpdateSQL(SeriesDataModel.PiscesTimeSeriesData input, SeriesDataModel.Point pt)
+        {
+            // MANUAL SQL
+            string sqlString = "update " + input.series.tablename + " set value='" +
+                pt.value + "' where datetime=" + "str_to_date('" + pt.datetime + "','%m/%d/%Y %r')";
             return sqlString;
         }
 
