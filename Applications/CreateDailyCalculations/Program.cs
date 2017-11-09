@@ -27,7 +27,7 @@ namespace HydrometDailyToPisces
                 Console.WriteLine(" user = username");
                 Console.WriteLine(" pass = passwordfile");
                 Console.WriteLine(" outputfile = filename for stats/results");
-                Console.WriteLine(" dryrun = true|false -- when false only simulates changes");
+                Console.WriteLine(" dryrun = true|false -- when true only simulates changes");
                 Console.WriteLine(" sites = amfi,anci,...   -- list of sites to filter");
                 return;
             }
@@ -45,7 +45,7 @@ namespace HydrometDailyToPisces
 
 
             var svr = PostgreSQL.GetPostgresServer("timeseries", host,user,pass);
-            UpdateVMS_daily_por(svr);
+            //UpdateVMS_daily_por(svr);
             TimeSeriesDatabase db = new TimeSeriesDatabase(svr);
             Console.WriteLine(db.Server.ConnectionString);
             
@@ -56,7 +56,7 @@ namespace HydrometDailyToPisces
 
             DailyCalcGenerator tool = new DailyCalcGenerator(db,outputFileName);
 
-            tool.AddDailyCalculations(pcodeLookup,false,sites);
+            tool.AddDailyCalculations(pcodeLookup,dryRun,sites);
             
 
             // what about years like 6190.....
