@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 namespace Reclamation.TimeSeries.Hydromet
 {
-    public enum HydrometHost { PN, Yakima, GreatPlains, PNLinux,LocalSource };
+    public enum HydrometHost { PN, Yakima, GreatPlains, PNLinux,YakimaLinux,LocalSource };
 
     /// <summary>
     /// Common hydromet helper functions

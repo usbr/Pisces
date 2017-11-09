@@ -46,6 +46,18 @@ namespace Reclamation.TimeSeries.Forms.Hydromet
                     UserPreference.Save("HydrometServer", HydrometHost.LocalSource.ToString());
                 }
 
+                else
+                    if (this.radioButtonYakLinux.Checked)
+                    {
+                        UserPreference.Save("HydrometServer", HydrometHost.YakimaLinux.ToString());
+                    }
+            
+            
+            UserPreference.Save("TimeSeriesDatabaseName", this.textBoxDbName.Text);
+
+            
+
+
         }
 
         private void ReadSettings()
@@ -74,6 +86,8 @@ namespace Reclamation.TimeSeries.Forms.Hydromet
             {
                 radioButtonLocal.Checked = true;
             }
+
+            this.textBoxDbName.Text = UserPreference.Lookup("TimeSeriesDatabaseName", "timeseries");
 
         }
 

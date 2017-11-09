@@ -35,8 +35,6 @@ namespace HydrometTools
         private GroupBox groupBox1;
         private Label label1;
         private Button buttonShowPassword;
-        private TextBox textBoxDbName;
-        private Label labelDbName;
         bool Ready = false;
 		public Settings()
 		{
@@ -88,8 +86,6 @@ namespace HydrometTools
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
-            this.textBoxDbName = new System.Windows.Forms.TextBox();
-            this.labelDbName = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonShowPassword = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -205,8 +201,6 @@ namespace HydrometTools
             // 
             // tabPageGeneral
             // 
-            this.tabPageGeneral.Controls.Add(this.textBoxDbName);
-            this.tabPageGeneral.Controls.Add(this.labelDbName);
             this.tabPageGeneral.Controls.Add(this.groupBox1);
             this.tabPageGeneral.Controls.Add(this.serverSelection1);
             this.tabPageGeneral.Controls.Add(this.checkBoxHideStatus);
@@ -219,24 +213,6 @@ namespace HydrometTools
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "general";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
-            // 
-            // textBoxDbName
-            // 
-            this.textBoxDbName.Location = new System.Drawing.Point(26, 180);
-            this.textBoxDbName.Name = "textBoxDbName";
-            this.textBoxDbName.Size = new System.Drawing.Size(186, 20);
-            this.textBoxDbName.TabIndex = 44;
-            this.textBoxDbName.Text = "timeseries";
-            this.textBoxDbName.TextChanged += new System.EventHandler(this.textBoxDbName_TextChanged);
-            // 
-            // labelDbName
-            // 
-            this.labelDbName.AutoSize = true;
-            this.labelDbName.Location = new System.Drawing.Point(23, 163);
-            this.labelDbName.Name = "labelDbName";
-            this.labelDbName.Size = new System.Drawing.Size(83, 13);
-            this.labelDbName.TabIndex = 43;
-            this.labelDbName.Text = "database name:";
             // 
             // groupBox1
             // 
@@ -383,7 +359,7 @@ namespace HydrometTools
             if( pw != "")
               this.textBoxDbPassword.Text = StringCipher.Decrypt(pw, "");
 
-            this.textBoxDbName.Text = UserPreference.Lookup("TimeSeriesDatabaseName","timeseries");
+            
 		}
 
 		public void SaveUserPref()
@@ -400,7 +376,6 @@ namespace HydrometTools
             UserPreference.Save("AutoFlagDayFiles", this.checkBoxAutoFlagDayfiles.Checked.ToString());
             var pw = textBoxDbPassword.Text;
             UserPreference.Save("timeseries_database_password",StringCipher.Encrypt(pw,""));
-            UserPreference.Save("TimeSeriesDatabaseName", this.textBoxDbName.Text);
         }
 
        

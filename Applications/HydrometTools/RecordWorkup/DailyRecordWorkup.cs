@@ -11,6 +11,7 @@ using Reclamation.Core;
 using Reclamation.TimeSeries.Hydromet;
 using Reclamation.TimeSeries.Graphing;
 using Steema.TeeChart.Styles;
+using System.IO;
 
 namespace HydrometTools.RecordWorkup
 {
@@ -18,6 +19,7 @@ namespace HydrometTools.RecordWorkup
     {
         private ITimeSeriesSpreadsheet timeSeriesSpreadsheet1;
         DataTable siteListTable;
+        DataTable hydrometDataTable;
         public DailyRecordWorkup()
         {
             InitializeComponent();
@@ -29,7 +31,8 @@ namespace HydrometTools.RecordWorkup
             int yr = DateTime.Now.Year - 1;
             this.textBoxWaterYear.Text = yr.ToString();
 
-            var fn = FileUtility.GetFileReference("yakima_record_list.csv");
+            var fn = Path.Combine("yak","yakima_record_list.csv");
+             fn = FileUtility.GetFileReference(fn);
 
             siteListTable = new CsvFile(fn, CsvFile.FieldTypes.AllText);
 
@@ -84,19 +87,30 @@ namespace HydrometTools.RecordWorkup
             string siteId = comboBoxSiteList.SelectedValue.ToString();
 
             string query = siteId + " " + siteListTable.Rows[idx]["parameters"].ToString();
-            ReadSeries(svr, t1, t2, query);
+            hydrometDataTable = HydrometDataUtility.ArchiveTable(svr, query, t1, t2);
+            hydrometDataTable.AcceptChanges();
+            bool ctrl = (Control.ModifierKeys & Keys.Control) != 0;
+            timeSeriesSpreadsheet1.Clear();
+            timeSeriesSpreadsheet1.SetDataTable(hydrometDataTable, Reclamation.TimeSeries.TimeInterval.Daily, ctrl);
+
+            ReadSeries();
+            hydrometDataTable.RowChanged += hydrometDataTable_RowChanged;
 
         }
 
-        private void ReadSeries(HydrometHost svr, DateTime t1, DateTime t2, string query)
+        private void hydrometDataTable_RowChanged(object sender, DataRowChangeEventArgs e)
         {
-            var hydrometDataTable = HydrometDataUtility.ArchiveTable(svr, query, t1, t2);
+            if (!(timeSeriesSpreadsheet1.SuspendUpdates))
+                   ReadSeries();
+        }
+
+        private void ReadSeries()
+        {
+            
             int sz = hydrometDataTable.Columns.Count;
 
-            timeSeriesSpreadsheet1.Clear();
-            bool ctrl = (Control.ModifierKeys & Keys.Control) != 0;
-            timeSeriesSpreadsheet1.SetDataTable(hydrometDataTable,Reclamation.TimeSeries.TimeInterval.Daily,ctrl);
-
+            
+            
             tChart1.Series.Clear();
             tChart1.Zoom.Undo();
             InitAxis();

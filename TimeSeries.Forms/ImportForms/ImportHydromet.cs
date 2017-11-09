@@ -129,7 +129,10 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
                 if (this.radioButtonYakima.Checked)
                     return HydrometHost.Yakima;
-                
+
+                if (this.radioButtonHyd1.Checked)
+                    return HydrometHost.PNLinux;
+
                 return HydrometHost.GreatPlains;
 
             }

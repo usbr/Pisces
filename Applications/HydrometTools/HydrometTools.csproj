@@ -597,6 +597,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="RecordWorkup\192.txt" />
+    <Content Include="RecordWorkup\readme.txt" />
     <Content Include="Stats\Report.txt" />
     <Content Include="version-notes.txt" />
     <EmbeddedResource Include="Advanced\EquationEditorTable.resx">
