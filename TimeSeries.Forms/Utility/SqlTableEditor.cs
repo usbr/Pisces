@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.IO;
 using DgvFilterPopup;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 namespace Reclamation.Core
 {
 	/// <summary>
@@ -24,27 +25,37 @@ namespace Reclamation.Core
 		private System.ComponentModel.Container components = null;
         private Button buttonExcel;
         private Button buttonImport;
+        private CheckBox checkBoxData;
 
         private BasicDBServer m_server;
-		public SqlTableEditor(BasicDBServer server,string[] tableNames=null)
+		public SqlTableEditor(BasicDBServer server)
 		{
             m_server = server;
 			InitializeComponent();
-            if (tableNames == null)
-            {
-                LoadTableList();
-            }
-            else
-            {
-                this.comboBoxTableNames.Items.Clear();
-                this.comboBoxTableNames.Items.AddRange(tableNames);
-            }
+
+            LoadTableList();
 		}
 
     private void LoadTableList()
     {
       this.comboBoxTableNames.Items.Clear();
-      this.comboBoxTableNames.Items.AddRange(m_server.TableNames());
+      var tables = new List<string>();
+      bool showData = checkBoxData.Checked;
+
+      Regex dataRe = new Regex("^(instant|daily|monthly|hourly)");
+      foreach (var item in  m_server.TableNames())
+      {
+          if (showData)
+          {
+              tables.Add(item);
+          }
+          else if(!dataRe.IsMatch(item)) // filter out data tables
+          {
+              tables.Add(item);
+          }
+      }
+
+      this.comboBoxTableNames.Items.AddRange(tables.ToArray());
     }
 
 		/// <summary>
@@ -77,6 +88,7 @@ namespace Reclamation.Core
             this.comboBoxTableNames = new System.Windows.Forms.ComboBox();
             this.buttonExcel = new System.Windows.Forms.Button();
             this.buttonImport = new System.Windows.Forms.Button();
+            this.checkBoxData = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,9 +106,9 @@ namespace Reclamation.Core
             this.dataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGrid1.Location = new System.Drawing.Point(8, 44);
+            this.dataGrid1.Location = new System.Drawing.Point(8, 72);
             this.dataGrid1.Name = "dataGrid1";
-            this.dataGrid1.Size = new System.Drawing.Size(552, 412);
+            this.dataGrid1.Size = new System.Drawing.Size(608, 420);
             this.dataGrid1.TabIndex = 4;
             // 
             // comboBoxTableNames
@@ -126,11 +138,23 @@ namespace Reclamation.Core
             this.buttonImport.Text = "Import from CSV ...";
             this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
             // 
+            // checkBoxData
+            // 
+            this.checkBoxData.AutoSize = true;
+            this.checkBoxData.Location = new System.Drawing.Point(16, 42);
+            this.checkBoxData.Name = "checkBoxData";
+            this.checkBoxData.Size = new System.Drawing.Size(115, 17);
+            this.checkBoxData.TabIndex = 1;
+            this.checkBoxData.Text = "include data tables";
+            this.checkBoxData.UseVisualStyleBackColor = true;
+            this.checkBoxData.CheckedChanged += new System.EventHandler(this.checkBoxData_CheckedChanged);
+            // 
             // SqlTableEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(568, 462);
+            this.ClientSize = new System.Drawing.Size(624, 498);
+            this.Controls.Add(this.checkBoxData);
             this.Controls.Add(this.buttonImport);
             this.Controls.Add(this.buttonExcel);
             this.Controls.Add(this.buttonSave);
@@ -140,6 +164,7 @@ namespace Reclamation.Core
             this.Text = "FormTableEditor";
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
     }
 		#endregion
@@ -242,6 +267,11 @@ namespace Reclamation.Core
 
             }
 
+        }
+
+        private void checkBoxData_CheckedChanged(object sender, EventArgs e)
+        {
+            LoadTableList();
         }
 	}
 }
