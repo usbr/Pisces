@@ -86,6 +86,7 @@ namespace HydrometDailyToPisces
                             }
 
                             // remove property--> program:hydromet (prevents data flow from pnhyd0)
+                            if( !dryRun)
                             RemoveProgramProperty(tn);
 
                             if (!FilterAllows(r.siteid, siteFilter)) // config spreasheet limits i.e. responsibility='IDWR'
