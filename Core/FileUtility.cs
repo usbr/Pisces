@@ -200,22 +200,10 @@ namespace Reclamation.Core
         /// </summary>
         public static string GetTempFileNameInDirectory(string path, string extension, string filePrefix)
         {
-            string fn = "tmp1.tmp";
-            string fullName = "";
-            for (int i = 0; i < 500000; i++)
-            {
-                fn = filePrefix + i + extension;//".tmp";
-                fullName = Path.Combine( path ,  fn);
-                if (!File.Exists(fullName))
-                {
-                    // create zero byte file. to reserve this name..
-                    File.Create(fullName).Close();
-                    return fullName;
-                   // break;
-                }
-            }
-
-                return fullName+Guid.NewGuid().ToString();
+            // https://stackoverflow.com/questions/4657974/how-to-generate-unique-file-names-in-c-sharp
+            var fn = filePrefix + Guid.NewGuid().ToString().ToLower() + extension;//".tmp";
+            fn = Path.Combine(path, fn);
+            return fn;
         }
 
 
