@@ -65,13 +65,14 @@ namespace PiscesWebServices
             var sqLiteDatabaseFileName = "";
 
             p.Add("server", x => selfHost = true);
-            p.Add("cgi=", "required cgi to execute cgi=sites|series|instant|daily|wyreport|inventory", x => cgi = x);
+            p.Add("cgi=", "required cgi to execute cgi=help|sites|series|instant|daily|wyreport|inventory", x => cgi = x);
             p.Add("json_property_stubs=", "comma separated list of properties (i.e. 'region,url,') to created empty stubs if neeed ",
                               x => json_property_stubs = x);
             p.Add("site-type=", "filter agrimet sites", x => siteType = BasicDBServer.SafeSqlLikeClauseLiteral(x));
-            p.Add("payload=", "test query data for a CGI", x => payload = x);
+            p.Add("payload=", "test query data for a CGI", x => payload = System.Uri.EscapeDataString(x));
             p.Add("format=", "format json(default) | csv ", x => format = x);
             p.Add("verbose", " get more details", x => verbose = true);
+            p.Add("debug", " get more details", x => verbose = true);
             p.Add("database", "filename for SQLite database", x => sqLiteDatabaseFileName = x);
 
             try
@@ -117,12 +118,20 @@ namespace PiscesWebServices
                 return;
             }
 
+            
+
             if (verbose)
             {
                 Console.Write("Content-type: text/html\n\n");
                 Logger.EnableLogger();
                 Logger.WriteLine("verbose=true");
                 Logger.WriteLine("payload = " + payload);
+            }
+
+            if (cgi == "help")
+            {
+                Help.Print();
+                return;
             }
 
             if (cgi == "inventory")

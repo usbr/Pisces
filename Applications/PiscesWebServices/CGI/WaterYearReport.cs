@@ -135,6 +135,7 @@ namespace PiscesWebServices.CGI
 
         private static void StopWithError(string message)
         {
+            Help.PrintWaterYearHelp();
             Console.WriteLine("Error: " + message);
             throw new Exception(message);
         }

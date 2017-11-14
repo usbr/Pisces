@@ -41,6 +41,8 @@ namespace PiscesWebServices.CGI
             if (query == "")
                 StopWithError("invalid query");
 
+            query = System.Uri.UnescapeDataString(query);
+
             var collection = HttpUtility.ParseQueryString(query);
 
             var siteID = "";
@@ -49,7 +51,7 @@ namespace PiscesWebServices.CGI
                 siteID = collection["site"];
             }
 
-            if( siteID == "" || Regex.IsMatch(siteID,"[^a-zA-Z0-1_]"))
+            if( siteID == "" || Regex.IsMatch(siteID,"^[a-zA-Z0-1_]$"))
             {
                 StopWithError("invalid or missing site");
             }

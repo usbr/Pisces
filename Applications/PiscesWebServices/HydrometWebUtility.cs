@@ -55,11 +55,11 @@ namespace PiscesWebServices
                 {
                     PostedData += Convert.ToChar(Console.Read()).ToString();
                 }
-                srchString = "?" + PostedData;
+                srchString =  PostedData;
             }
             else //GET Method
             {
-                srchString = "?" + System.Environment.GetEnvironmentVariable("QUERY_STRING");
+                srchString =  System.Environment.GetEnvironmentVariable("QUERY_STRING");
             }
           //  srchString = SanitizeQuery(srchString);
 
@@ -87,8 +87,16 @@ namespace PiscesWebServices
                 var back = GetIntParam(c, "back", -1);
                 if (back != -1)
                 {
+
+
+
                     if (interval == TimeInterval.Hourly || interval == TimeInterval.Irregular)
-                        t1 = t2.AddHours(-back);
+                    {
+                        if (back <= 0 || back > 500)
+                            return false;
+
+                            t1 = t2.AddHours(-back);
+                    }
 
                     if (interval == TimeInterval.Daily)
                         t1 = t2.AddDays(-back);
@@ -139,7 +147,7 @@ namespace PiscesWebServices
             var m = re.Match(input);
             if (m.Success)
             {
-                rval = DateTime.ParseExact(input, "yyyy-M-d", CultureInfo.InvariantCulture,
+                rval = DateTime.ParseExact(input.Trim(), "yyyy-M-d", CultureInfo.InvariantCulture,
                 DateTimeStyles.None);
             }
             else

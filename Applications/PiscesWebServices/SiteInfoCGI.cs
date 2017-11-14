@@ -26,7 +26,7 @@ namespace PiscesWebServices
 
             if (query == "")
                 query = HydrometWebUtility.GetQuery();
-            query = HttpUtility.HtmlDecode(query);
+            query = System.Uri.UnescapeDataString(query);
 
             if (!ValidQuery(query))
             {
@@ -42,7 +42,7 @@ namespace PiscesWebServices
             if (query == "")
                 return false;
 
-            return Regex.IsMatch(query,"[^A-Za-z0-9=&%+-]");
+            return !Regex.IsMatch(query,"[^A-Za-z0-9=&%+\\-]");
         }
 
 

@@ -16,9 +16,10 @@ namespace PiscesWebServices.CGI
     /// <summary>
     ///  returns results from web query to timeseries data in pisces.
 
-    /// "https://localhost/pn-bin/instant.pl?list=boii ob,boii obx&start=2016-04-15&end=2016-04-20"
-    /// "https://localhost/pn-bin/instant.pl?list=bewo ob,bewo pc&start=2016-04-15&end=2016-04-20&format=zrxp"
-    /// "https://lrgs1/pn-bin/daily?list=jck fb, amf fb&start=2016-04-15&end=2016-04-20"
+    /// https://localhost/pn-bin/instant.pl?list=boii ob,boii obx&start=2016-04-15&end=2016-04-20
+    /// https://localhost/pn-bin/instant.pl?list=bewo ob,bewo pc&start=2016-04-15&end=2016-04-20&format=zrxp
+    /// https://localhost/pn-bin/instant.pl?site=bigi&back=24
+    /// https://lrgs1/pn-bin/daily?list=jck fb, amf fb&start=2016-04-15&end=2016-04-20
     /// "https://localhost/pn-bin/daily.pl?site=luc&start=2016-04-01&end=2016-04-20"
     ///  https://localhost/pn-bin/daily.pl?parameter=CRSM%20ET,COVM%20ET,RDBM%20ET,DRLM%20ET,SIGM%20ET,CRSM%20SR,COVM%20SR,RDBM%20SR,DRLM%20SR,SIGM%20SR,CRSM%20WR,COVM%20WR,RDBM%20WR,DRLM%20WR,SIGM%20WR,CRSM%20WG,COVM%20WG,RDBM%20WG,DRLM%20WG,SIGM%20WG,CRSM%20MN,COVM%20MN,RDBM%20MN,DRLM%20MN&syer=2017&format=html&header=false
     /// options :  
@@ -38,7 +39,7 @@ namespace PiscesWebServices.CGI
         Formatter m_formatter;
         string m_query = "";
         NameValueCollection m_collection;
-
+        TimeInterval m_interval;
 
         string[] supportedFormats = new string[] {"csv", // csv with headers
                                                 "html", // basic html
@@ -59,11 +60,12 @@ namespace PiscesWebServices.CGI
 
         private void InitFormatter(TimeInterval interval)
         {
+            m_interval = interval;
             if (m_query == "")
             {
                 m_query = HydrometWebUtility.GetQuery();
             }
-         
+            m_query = System.Uri.UnescapeDataString(m_query);
             Logger.WriteLine("Raw query: = '" + m_query + "'");
 
             if (m_query == "")
@@ -144,7 +146,13 @@ namespace PiscesWebServices.CGI
         {
             Logger.WriteLine(msg);
             HydrometWebUtility.PrintHydrometTrailer(msg);
-            throw new Exception(msg);
+
+            if(m_interval == TimeInterval.Irregular)
+               Help.PrintInstantHelp();
+            if (m_interval == TimeInterval.Daily)
+                Help.PrintDailyHelp();
+
+                throw new Exception(msg);
         }
 
         public void Run(string outputFile = "")
@@ -193,7 +201,9 @@ namespace PiscesWebServices.CGI
             if (query.Length > 9000)
                 return false;
 
-            return Regex.IsMatch(query, "[^A-Za-z0-9=&%+-]");
+            bool badMatch = Regex.IsMatch(query, "[^A-Za-z0-9=&%+\\-_,\\s]"); // any other character is considered bad
+
+            return !badMatch;
         }
 
 
@@ -396,19 +406,26 @@ namespace PiscesWebServices.CGI
             return sList;
         }
 
-
+/// <summary>
+/// convert queries such as: list=boii ob, bigi gh 
+/// into an array of time series names.
+/// 
+/// </summary>
+/// <param name="query"></param>
+/// <param name="interval"></param>
+/// <param name="db"></param>
+/// <returns></returns>
         private static TimeSeriesName[] GetTimeSeriesName(NameValueCollection query, TimeInterval interval,TimeSeriesDatabase db)
         {
             List<TimeSeriesName> rval = new List<TimeSeriesName>();
 
-            
 
-            var sites = HydrometWebUtility.GetParameter(query, "list");
+            var listParameter = HydrometWebUtility.GetParameter(query, "list");
 
             Logger.WriteLine("GetTimeSeriesName()");
             Logger.WriteLine(query.ToString());
 
-            var siteCodePairs = sites.Split(',');
+            var siteCodePairs = listParameter.Split(',');
 
             foreach (var item in siteCodePairs)
             {
