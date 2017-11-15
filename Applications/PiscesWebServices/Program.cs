@@ -130,6 +130,8 @@ namespace PiscesWebServices
 
             if (cgi == "help")
             {
+                if( !verbose)
+                Console.Write("Content-type: text/html\n\n");
                 Help.Print();
                 return;
             }
