@@ -42,7 +42,7 @@ namespace PiscesWebServices.CGI
                 StopWithError("invalid query");
 
             query = System.Uri.UnescapeDataString(query);
-
+            Logger.WriteLine("query='"+query+"'");
             var collection = HttpUtility.ParseQueryString(query);
 
             var siteID = "";
@@ -51,9 +51,9 @@ namespace PiscesWebServices.CGI
                 siteID = collection["site"];
             }
 
-            if( siteID == "" || Regex.IsMatch(siteID,"^[a-zA-Z0-1_]$"))
+            if( siteID == "" || Regex.IsMatch(siteID,"[^a-zA-Z0-9_=]"))
             {
-                StopWithError("invalid or missing site");
+                StopWithError("invalid query");
             }
 
             TimeInterval interval;
@@ -83,7 +83,7 @@ namespace PiscesWebServices.CGI
                 else
                     if (collection["interval"].ToLower() == "instant")
                     {
-
+                    interval = TimeInterval.Irregular;
                     }
                     else
                     {
@@ -189,6 +189,7 @@ namespace PiscesWebServices.CGI
         private static void StopWithError(string message)
         {
             Console.WriteLine("Error: " + message);
+            Help.PrintInventoryHelp();
             throw new Exception(message);
         }
 

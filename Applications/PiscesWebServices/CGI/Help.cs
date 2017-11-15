@@ -19,6 +19,7 @@ namespace PiscesWebServices.CGI
             Help.PrintInstantHelp();
             Help.PrintDailyHelp();
             Help.PrintWaterYearHelp();
+            PrintInventoryHelp();
         }
 
 
@@ -49,6 +50,14 @@ namespace PiscesWebServices.CGI
             var r = new Dictionary<string, string>();
             r.Add("Water year report 2012", "site=abei&parameter=pp&start=2012&end=2012");
             Print(r, "wyreport", "Water Year Report");
+        }
+
+        internal static void PrintInventoryHelp()
+        {
+            var r = new Dictionary<string, string>();
+            r.Add("Daily Inventory", "site=hghm&interval=daily");
+            r.Add("Instant Inventory", "site=hghm&interval=instant");
+            Print(r, "inventory", "Inventory");
         }
 
         private static void Print(Dictionary<string, string> d, string cgi, string header)
