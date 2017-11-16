@@ -811,15 +811,16 @@ VCAO        QJ      : 1966-1972, 1974, 1977
         {
 
             string url = "";
-            
 
-            if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
+            var server = HydrometInfoUtility.HydrometServerFromPreferences();
+
+            if (server == HydrometHost.GreatPlains)
             {
                 url = "https://www.usbr.gov/gp-bin/expandrtf.pl?site=pali&pcode=q&form=col";
                 url = url.Replace("site=pali", "site=" + cbtt.Trim());
                 url = url.Replace("pcode=q", "pcode=" + pcode.Trim());
             }
-            else if( HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.PN)
+            else if( server == HydrometHost.PN || server == HydrometHost.PNLinux )
             {
                 url = ConfigurationManager.AppSettings["RatingTablePath"]+ratingName+".csv";
 
@@ -833,7 +834,7 @@ VCAO        QJ      : 1966-1972, 1974, 1977
                 rt.ReadFile(tmp);
                 return rt;
             }
-            else if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.Yakima)
+            else if (server == HydrometHost.Yakima)
             {            // yakima ?
                 url = "https://www.usbr.gov/pn-bin/yak/expandrtf.pl?site=kee&pcode=af&form=col";
                 url = url.Replace("site=kee", "site=" + cbtt.Trim());
