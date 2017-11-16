@@ -41,6 +41,11 @@ namespace PiscesWebServices.CGI
         NameValueCollection m_collection;
         TimeInterval m_interval;
         bool contentTypeDefined = false;
+        string format = "2";
+        string title="";
+        bool m_printFlags=false;
+        bool printHeader = true;
+
         string[] supportedFormats = new string[] {"csv", // csv with headers
                                                 "html", // basic html
                                                 "zrxp", // wiski zxrp (kisters)
@@ -62,6 +67,51 @@ namespace PiscesWebServices.CGI
         private void InitFormatter(TimeInterval interval)
         {
             m_interval = interval;
+            ParseQueryOptions(interval);
+            DefineFormatter(interval);
+
+            if (m_collection.AllKeys.Contains("print_hourly"))
+                m_formatter.HourlyOnly = m_collection["print_hourly"] == "true";
+
+
+        }
+
+        private void DefineFormatter(TimeInterval interval)
+        {
+            if (format == "csv")
+                m_formatter = new CsvFormatter(interval, m_printFlags);
+            else if (format == "zrxp")
+            {
+                m_formatter = new WiskiFormatter(interval);
+            }
+            else if (format == "2")
+            {
+                m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
+            }
+            else if (format == "1")
+            {
+                m_formatter = new LegacyCsvFormatter(interval, m_printFlags, "\t");
+            }
+            else if (format == "html")
+            {
+                bool printDescription = false;
+                if (m_collection.AllKeys.Contains("description"))
+                {
+                    printDescription = m_collection["description"] == "true";
+                }
+                m_formatter = new HtmlFormatter(interval, m_printFlags, printHeader, printDescription, title);
+            }
+            else if (format == "dfcgi")
+            {
+                m_formatter = new HtmlFormatter(interval, false, true, true, title);
+            }
+
+            else
+                m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
+        }
+
+        private void ParseQueryOptions(TimeInterval interval)
+        {
             if (m_query == "")
             {
                 m_query = HydrometWebUtility.GetQuery();
@@ -88,24 +138,22 @@ namespace PiscesWebServices.CGI
             }
 
 
-            string format = "2";
             if (m_collection.AllKeys.Contains("format"))
                 format = m_collection["format"].Trim();
 
-            var title = "";
             if (m_collection.AllKeys.Contains("title"))
-                    title = m_collection["title"];
+                title = m_collection["title"];
 
             // because of history daily defaults flags= false;
             // no flags (the old daily database did not have flags )
-            bool m_printFlags = interval == TimeInterval.Hourly || interval == TimeInterval.Irregular;
+            m_printFlags = interval == TimeInterval.Hourly || interval == TimeInterval.Irregular;
 
             if (m_collection.AllKeys.Contains("flags"))
             {
                 m_printFlags = m_collection["flags"] == "true";
             }
 
-            bool printHeader = true;
+
             if (m_collection.AllKeys.Contains("header"))
             {
                 printHeader = m_collection["header"] == "true";
@@ -114,43 +162,8 @@ namespace PiscesWebServices.CGI
 
             if (Array.IndexOf(supportedFormats, format) < 0)
                 StopWithError("Error: invalid format " + format);
-
-            if (format == "csv")
-                m_formatter = new CsvFormatter(interval, m_printFlags);
-                else if( format == "zrxp")
-            {
-                m_formatter = new WiskiFormatter(interval);
-            }
-            else if (format == "2")
-            {
-                m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
-            }
-            else if (format == "1")
-            {
-                m_formatter = new LegacyCsvFormatter(interval, m_printFlags, "\t");
-            }
-            else if (format == "html")
-            {
-                bool printDescription = false;
-                if (m_collection.AllKeys.Contains("description"))
-                {
-                    printDescription = m_collection["description"] == "true";
-                }
-                m_formatter = new HtmlFormatter(interval, m_printFlags, printHeader,printDescription,title);
-            }
-            else if( format == "dfcgi")
-            {
-                    m_formatter = new HtmlFormatter(interval, false, true, true,title);
-            }
-
-            else
-                m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
-
-            if (m_collection.AllKeys.Contains("print_hourly"))
-                m_formatter.HourlyOnly = m_collection["print_hourly"] == "true";
-
-
         }
+
         private void StopWithError(string msg)
         {
             PrintContentType();
