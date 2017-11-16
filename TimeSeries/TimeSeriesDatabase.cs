@@ -306,6 +306,18 @@ namespace Reclamation.TimeSeries
             return "";
         }
 
+        public string GetSeriesDescription(int id)
+        {
+
+            string sql = "select value from seriesproperties where seriesid=" + id + " and name = 'description'";
+            var tbl  =m_server.Table("seriesproperties", sql);
+            if (tbl.Rows.Count == 1)
+                return tbl.Rows[0][0].ToString();
+            
+            return "";
+        }
+
+
         /// <summary>
         /// Returns a string showing what years have data for a series
         /// </summary>

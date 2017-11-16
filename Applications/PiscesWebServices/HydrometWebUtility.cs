@@ -61,9 +61,9 @@ namespace PiscesWebServices
             {
                 srchString =  System.Environment.GetEnvironmentVariable("QUERY_STRING");
             }
-          //  srchString = SanitizeQuery(srchString);
+            //  srchString = SanitizeQuery(srchString);
 
-            return srchString.ToLower();
+            return srchString.Trim();//.ToLower();
         }
 
         //internal static string SanitizeQuery(string srchString)
@@ -197,6 +197,11 @@ namespace PiscesWebServices
         {
             Console.WriteLine("</pre>");
             Console.WriteLine("</body></html>\n\n\n");
+        }
+
+        public static void PrintDisclamerLink()
+        {
+            Console.WriteLine("<a href = \"/pn/hydromet/disclaimer.html\"> Provisional Data - Subject to Change</a><br/>");
         }
         /// <summary>
         /// This header is compatable with Legacy vms code.

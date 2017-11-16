@@ -40,10 +40,11 @@ namespace PiscesWebServices.CGI
         string m_query = "";
         NameValueCollection m_collection;
         TimeInterval m_interval;
-
+        bool contentTypeDefined = false;
         string[] supportedFormats = new string[] {"csv", // csv with headers
                                                 "html", // basic html
                                                 "zrxp", // wiski zxrp (kisters)
+                                                "dfcgi", // legacy dayfile cgi program
                                                 "1", // legacy tab separated.
                                                 "2" // legacy csv
                                                 };
@@ -91,6 +92,10 @@ namespace PiscesWebServices.CGI
             if (m_collection.AllKeys.Contains("format"))
                 format = m_collection["format"].Trim();
 
+            var title = "";
+            if (m_collection.AllKeys.Contains("title"))
+                    title = m_collection["title"];
+
             // because of history daily defaults flags= false;
             // no flags (the old daily database did not have flags )
             bool m_printFlags = interval == TimeInterval.Hourly || interval == TimeInterval.Irregular;
@@ -131,7 +136,11 @@ namespace PiscesWebServices.CGI
                 {
                     printDescription = m_collection["description"] == "true";
                 }
-                m_formatter = new HtmlFormatter(interval, m_printFlags, printHeader,printDescription);
+                m_formatter = new HtmlFormatter(interval, m_printFlags, printHeader,printDescription,title);
+            }
+            else if( format == "dfcgi")
+            {
+                    m_formatter = new HtmlFormatter(interval, false, true, true,title);
             }
 
             else
@@ -144,6 +153,8 @@ namespace PiscesWebServices.CGI
         }
         private void StopWithError(string msg)
         {
+            PrintContentType();
+            Console.WriteLine(msg);
             Logger.WriteLine(msg);
             HydrometWebUtility.PrintHydrometTrailer(msg);
 
@@ -163,7 +174,7 @@ namespace PiscesWebServices.CGI
                 sw = new StreamWriter(outputFile);
                 Console.SetOut(sw);
             }
-            Console.Write("Content-type: text/html\n\n");
+            PrintContentType();
 
             try
             {
@@ -193,6 +204,12 @@ namespace PiscesWebServices.CGI
             Console.SetOut(standardOutput);
         }
 
+        private void PrintContentType()
+        {
+            if(!contentTypeDefined)
+                Console.Write("Content-type: text/html\n\n");
+            contentTypeDefined = true;
+        }
 
         private static bool ValidQuery(string query)
         {

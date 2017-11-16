@@ -72,6 +72,22 @@ namespace Reclamation.TimeSeries
             }
             return rval;
         }
+        /// <summary>
+        /// check for custom series property 'description'
+        /// if that is not defined then use parameter description
+        /// </summary>
+        /// <returns></returns>
+        public string SeriesDescription()
+        {
+            var rval = "";
+            if (m_db != null)
+            {
+                rval =  m_db.GetSeriesDescription(ID);
+                if (rval == "")
+                    return ParameterDescription();
+            }
+            return rval;
+        }
 
         public string ParameterDescription()
         {

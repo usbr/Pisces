@@ -109,7 +109,9 @@ namespace Reclamation.TimeSeries
             set { row.SortOrder = value; }
         }
 
-
+        /// <summary>
+        /// Id of this series. Used in seriescatalog database table
+        /// </summary>
         public int ID
         {
             get { return row.id; }

@@ -11,12 +11,14 @@ namespace PiscesWebServices.CGI
     {
         bool m_printHeader = true;
         bool m_printDescriptions;
+        string m_title;
         public HtmlFormatter(TimeInterval interval, bool printFlags,
-            bool printHeader, bool printDescriptions)
+            bool printHeader, bool printDescriptions, string title)
              : base(interval, printFlags)
          {
              m_printHeader = printHeader;
              m_printDescriptions = printDescriptions;
+            m_title = title;
          }
 
          public override void WriteLine(string s)
@@ -73,7 +75,9 @@ namespace PiscesWebServices.CGI
         {
             if( m_printDescriptions)
             {
-                WriteLine("<a href=\"http://www.usbr.gov/pn/hydromet/disclaimer.html\">Provisional Data - Subject to Change</a></h5><br />");
+                HydrometWebUtility.PrintDisclamerLink();
+
+                WriteLine("<h3><h3>" + m_title + "</h3></h3>");
 
                 // LRS FB = Clear Lake Dam, CA - Reservoir Elevation - Feet
                 // LRS FB2 = Clear Lake Dam, CA - Forebay Elevation below fish screens - Feet
@@ -82,7 +86,7 @@ namespace PiscesWebServices.CGI
                     Logger.WriteLine(s.Name+" count = "+s.Count);
                     var str = s.SiteID + " " + s.Parameter + " = "
                      + s.SiteDescription() + " "
-                     + s.ParameterDescription() + "<br/>";
+                     + s.SeriesDescription() + "<br/>";
                     WriteLine(str);
                 }
 
