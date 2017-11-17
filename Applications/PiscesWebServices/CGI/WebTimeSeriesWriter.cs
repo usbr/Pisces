@@ -526,7 +526,7 @@ namespace PiscesWebServices.CGI
             Logger.WriteLine("GetTimeSeriesName()");
             Logger.WriteLine(query.ToString());
 
-            var siteCodePairs = listParameter.Split(',');
+            var siteCodePairs = listParameter.ToLower().Split(',');
 
             foreach (var item in siteCodePairs)
             {
