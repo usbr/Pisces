@@ -9,6 +9,7 @@ using System.IO;
 using Nancy.Hosting.Self;
 using PiscesWebServices.Tests;
 using PiscesWebServices.CGI;
+using System.Collections;
 
 namespace PiscesWebServices
 {
@@ -124,6 +125,12 @@ namespace PiscesWebServices
             {
                 Console.Write("Content-type: text/html\n\n");
                 Logger.EnableLogger();
+                var ev = Environment.GetEnvironmentVariables();
+                
+                foreach (DictionaryEntry item in ev)
+                {
+                    Console.WriteLine(item.Key+": "+item.Value+"<br/>");
+                }
                 Logger.WriteLine("verbose=true");
                 Logger.WriteLine("payload = " + payload);
             }

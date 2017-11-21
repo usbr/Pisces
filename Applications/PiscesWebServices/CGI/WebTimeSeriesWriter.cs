@@ -98,7 +98,7 @@ namespace PiscesWebServices.CGI
             else if (format == "html")
             {
                 bool printDescription = false;
-                if (m_collection.AllKeys.Contains("description"))
+                if (m_collection.AllKeys.Contains("description",StringComparer.OrdinalIgnoreCase))
                 {
                     printDescription = m_collection["description"] == "true";
                 }
@@ -142,7 +142,7 @@ namespace PiscesWebServices.CGI
 
 
             if (m_collection.AllKeys.Contains("format"))
-                format = m_collection["format"].Trim();
+                format = m_collection["format"].Trim().ToLower();
 
             if (m_collection.AllKeys.Contains("title"))
                 title = m_collection["title"];

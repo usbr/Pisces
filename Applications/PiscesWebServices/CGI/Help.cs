@@ -30,7 +30,7 @@ namespace PiscesWebServices.CGI
             r.Add("multiple sites and parameters for the last 24 hours" ,"list=boii ob, bfgi ob&back=24");
             r.Add("multiple sites and parameters, with specific date range", "list=boii ob, bfgi ob,pmai ob&start=2016-04-01&end=2016-04-2");
             r.Add("html format (no flags), with description above table", "list=boii ob, bfgi ob,pmai ob&back=12&format=html&flags=false&description=true");
-            r.Add("wiski/kisters format", "list=boii ob, bfgi ob,pmai ob&back=12&format=format=zrxp");
+            r.Add("wiski/kisters format", "list=boii ob, bfgi ob,pmai ob&back=12&format=zrxp");
             r.Add("15-minute idwr sites in Shef A format", "report=idwr_hourly.a");
 
             Print(r,"instant","Near real-time data");
@@ -45,6 +45,8 @@ namespace PiscesWebServices.CGI
             r.Add("html format (no flags), with description above table", "list=bsei&back=7&format=html&flags=false&description=true");
             r.Add("wiski/kisters format", "list=scoo qd&back=12&format=zrxp");
             r.Add("daily idwr sites in Shef A format", "report=idwr_daily.a");
+            r.Add("daily water year report", "list=LRS&flags=false&description=true&format=html&back=12&title=MixedCase");
+            
             Print(r, "daily", "Daily Data");
         }
 
@@ -69,7 +71,11 @@ namespace PiscesWebServices.CGI
             t.Columns.Add("name");
             t.Columns.Add("example");
 
-            if (!NetworkUtility.Intranet)
+            //REQUEST_URI
+            var REMOTE_ADDR = Environment.GetEnvironmentVariable("REMOTE_ADDR");
+            //Console.WriteLine("REMOTE_ADDR:" + REMOTE_ADDR + "<br/>");
+
+            if (REMOTE_ADDR.IndexOf("140.215.")>=0)
                 cgi += ".pl?";
             else
                 cgi += "?";
