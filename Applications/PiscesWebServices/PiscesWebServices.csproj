@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="CGI\Help.cs" />
     <Compile Include="CGI\InventoryReport.cs" />
+    <Compile Include="CGI\WebData.cs" />
     <Compile Include="CGI\WiskiFormatter.cs" />
     <Compile Include="CGI\CsvFormatter.cs" />
     <Compile Include="CGI\HtmlFormatter.cs" />
