@@ -52,7 +52,8 @@ namespace PiscesWebServices.CGI
                                                 "zrxp", // wiski zxrp (kisters)
                                                 "dfcgi", // legacy dayfile cgi program
                                                 "1", // legacy tab separated.
-                                                "2" // legacy csv
+                                                "2", // legacy csv
+                                                "shefa" // simple shefA format.
                                                 };
 
 
@@ -235,7 +236,7 @@ namespace PiscesWebServices.CGI
             if (query.Length > 9000)
                 return false;
 
-            bool badMatch = Regex.IsMatch(query, "[^A-Za-z0-9=&%+\\-_,\\s\\.]"); // any other character is considered bad
+            bool badMatch = Regex.IsMatch(query, "[^A-Za-z0-9=&%+\\-_,\\s]"); // any other character is considered bad
 
             return !badMatch;
         }
