@@ -45,9 +45,7 @@ namespace PiscesWebServices.CGI
         string title="";
         bool m_printFlags=false;
         bool printHeader = true;
-        string report = "";
-        int columnCount = 6;
-        List<TimeSeriesName> reportTimeSeiresNames;
+
 
         string[] supportedFormats = new string[] {"csv", // csv with headers
                                                 "html", // basic html
@@ -163,71 +161,12 @@ namespace PiscesWebServices.CGI
             }
 
             
-            if (m_collection.AllKeys.Contains("report"))
-            {
-                report = m_collection["report"];
-            }
-
-            ReadOptionsFromReport(report);
 
 
             if (Array.IndexOf(supportedFormats, format) < 0)
                 StopWithError("Error: invalid format " + format);
         }
 
-        private void ReadOptionsFromReport(string report)
-        {
-            if (report == "")
-                return;
-            if (!Path.HasExtension(report))
-                report += ".cfg";
-
-            var fn = Path.Combine(FileUtility.GetExecutableDirectory(), "reports", report);
-
-            if (!File.Exists(fn))
-                return;
-
-            var ext = Path.GetExtension(fn).ToLower();
-
-            if (ext == "cfg")
-            {
-                TextFile tf = new TextFile(fn);
-                int idx = tf.IndexOf("BEGIN:");
-                if (idx < 0)
-                    return;
-                var back = tf.ReadString("BACK");
-                if (back == "")
-                    back = "12";
-
-                var cols = tf.ReadString("COLS");
-                if (cols == "")
-                    cols = "6";
-                int.TryParse(cols, out columnCount);
-
-
-                NameValueCollection c = new NameValueCollection();
-                c.Add("back", back);
-                if (!HydrometWebUtility.GetDateRange(c, m_interval, out start, out end))
-                {
-                    StopWithError("Error: Invalid dates");
-                }
-
-
-                // read timeseries names from file.
-                reportTimeSeiresNames = new List<TimeSeriesName>();
-                for (int i = idx + 1; i < tf.Length; i++)
-                {
-                    var tokens = tf[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-
-                    if (tokens.Length == 2)
-                    {
-                        TimeSeriesName tn = new TimeSeriesName(tokens[0], tokens[1], m_interval);
-                        reportTimeSeiresNames.Add(tn);
-                    }
-                }
-
-            }
-        }
 
         private void StopWithError(string msg)
         {
@@ -296,7 +235,7 @@ namespace PiscesWebServices.CGI
             if (query.Length > 9000)
                 return false;
 
-            bool badMatch = Regex.IsMatch(query, "[^A-Za-z0-9=&%+\\-_,\\s]"); // any other character is considered bad
+            bool badMatch = Regex.IsMatch(query, "[^A-Za-z0-9=&%+\\-_,\\s\\.]"); // any other character is considered bad
 
             return !badMatch;
         }
@@ -338,12 +277,7 @@ namespace PiscesWebServices.CGI
         {
             var interval = m_formatter.Interval;
 
-            TimeSeriesName[] names;
-
-            if (reportTimeSeiresNames != null && reportTimeSeiresNames.Count > 0)
-                names = reportTimeSeiresNames.ToArray();
-            else
-                names = GetTimeSeriesName(m_collection, interval,db);
+            TimeSeriesName[] names = GetTimeSeriesName(m_collection, interval,db);
 
             var tableNames = (from n in names select n.GetTableName()).ToArray();
 
