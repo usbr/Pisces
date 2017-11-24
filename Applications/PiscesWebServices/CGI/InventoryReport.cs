@@ -48,7 +48,7 @@ namespace PiscesWebServices.CGI
             var siteID = "";
             if (collection.AllKeys.Contains("site"))
             {
-                siteID = collection["site"];
+                siteID = collection["site"].ToLower();
             }
 
             if( siteID == "" || Regex.IsMatch(siteID,"[^a-zA-Z0-9_=]"))
