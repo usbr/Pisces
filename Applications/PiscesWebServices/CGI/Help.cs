@@ -31,7 +31,7 @@ namespace PiscesWebServices.CGI
             r.Add("multiple sites and parameters, with specific date range", "list=boii ob, bfgi ob,pmai ob&start=2016-04-01&end=2016-04-2");
             r.Add("html format (no flags), with description above table", "list=boii ob, bfgi ob,pmai ob&back=12&format=html&flags=false&description=true");
             r.Add("wiski/kisters format", "list=boii ob, bfgi ob,pmai ob&back=12&format=zrxp");
-            r.Add("15-minute idwr sites in Shef A format", "report=idwr_hourly.a");
+            r.Add("15-minute idwr sites in Shef A format", "custom_list=idwr&format=shefa");
 
             Print(r,"instant","Near real-time data");
         }
@@ -44,8 +44,8 @@ namespace PiscesWebServices.CGI
             r.Add("multiple sites and parameters, with specific date range", "list=luc af, and af, ark af, ded af, boisys af&start=2016-04-01&end=2016-04-2");
             r.Add("html format (no flags), with description above table", "list=bsei&back=7&format=html&flags=false&description=true");
             r.Add("wiski/kisters format", "list=scoo qd&back=12&format=zrxp");
-            r.Add("daily idwr sites in Shef A format", "report=idwr_daily.a");
-            r.Add("daily water year report", "list=LRS&flags=false&description=true&format=html&back=12&title=MixedCase");
+            //r.Add("daily idwr sites in Shef A format", "report=idwr_daily.a");
+            r.Add("html report with title", "list=LRS&flags=false&description=true&format=html&back=12&title=MixedCase");
             
             Print(r, "daily", "Daily Data");
         }

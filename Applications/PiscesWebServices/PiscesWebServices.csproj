@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CGI\ShefAFormatter.cs" />
     <Compile Include="CGI\Help.cs" />
     <Compile Include="CGI\InventoryReport.cs" />
     <Compile Include="CGI\WebData.cs" />

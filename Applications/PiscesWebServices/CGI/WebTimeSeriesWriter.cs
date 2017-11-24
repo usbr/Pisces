@@ -97,7 +97,7 @@ namespace PiscesWebServices.CGI
             else if (format == "html")
             {
                 bool printDescription = false;
-                if (m_collection.AllKeys.Contains("description",StringComparer.OrdinalIgnoreCase))
+                if (m_collection.AllKeys.Contains("description", StringComparer.OrdinalIgnoreCase))
                 {
                     printDescription = m_collection["description"] == "true";
                 }
@@ -107,7 +107,10 @@ namespace PiscesWebServices.CGI
             {
                 m_formatter = new HtmlFormatter(interval, false, true, true, title);
             }
-
+            else if (format == "shefa")
+            {
+                m_formatter = new ShefAFormatter(interval, false);
+            }
             else
                 m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
         }
@@ -312,9 +315,14 @@ namespace PiscesWebServices.CGI
 /// <returns></returns>
         private static TimeSeriesName[] GetTimeSeriesName(NameValueCollection query, TimeInterval interval,TimeSeriesDatabase db)
         {
+            
+            var custom_list = HydrometWebUtility.GetParameter(query, "custom_list");
+            if (custom_list == "idwr" && interval == TimeInterval.Irregular)
+            {
+                return GetIDWRInstantList(db.Server).ToArray();
+            }
+
             List<TimeSeriesName> rval = new List<TimeSeriesName>();
-
-
             var listParameter = HydrometWebUtility.GetParameter(query, "list");
 
             Logger.WriteLine("GetTimeSeriesName()");
@@ -345,7 +353,33 @@ namespace PiscesWebServices.CGI
             return rval.ToArray();
         }
 
+        private static List<TimeSeriesName> GetIDWRInstantList(BasicDBServer svr)
+        {
+            List<TimeSeriesName> rval = new List<TimeSeriesName>();
+            var sql = @"
+select s.tablename,p.value parameter,sitep.value siteid ,
 
+case(c.timezone)
+  when 'US/Mountain' then 'M'
+  when 'US/Pacific' then 'P'
+  end as timezone
+from seriescatalog s 
+    join seriesproperties p on s.id = p.seriesid 
+    join siteproperties sitep on sitep.siteid =s.siteid
+    join sitecatalog c on c.siteid = s.siteid 
+where p.name ='idwr_shef' and sitep.name='idwr_cbtt'
+and timeinterval = 'Irregular'
+";
+            var tbl = svr.Table("idwr", sql);
 
+            ShefAFormatter.CustomNames = tbl;
+
+            for (int i = 0; i < tbl.Rows.Count; i++)
+            {
+                var tn = new TimeSeriesName(tbl.Rows[i]["tablename"].ToString());
+                rval.Add(tn);
+            }
+            return rval;
+        }
     }
 }
