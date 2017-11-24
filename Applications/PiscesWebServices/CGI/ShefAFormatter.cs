@@ -115,15 +115,6 @@ namespace PiscesWebServices.CGI
         {
             WriteLine("<PRE>");
 
-            string headLine = "DateTime";
-
-            foreach (var item in list)
-            {
-                TimeSeriesName tn = new TimeSeriesName(item.Table.TableName);
-                headLine += "," + tn.siteid + "_" + tn.pcode;
-            }
-            
-            WriteLine(headLine);
         }
 
         public override void WriteSeriesTrailer()
