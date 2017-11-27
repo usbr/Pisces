@@ -299,10 +299,11 @@ namespace Reclamation.TimeSeries.AgriMet
                 "{site_wind}",
                 "{site_max_wind}" };
 
+            DateTime yesterday = DateTime.Now.Date.AddDays(-1);
             for (int i = 0; i < pcode.Length; i++)
             {
                 var s = new HydrometDailySeries(cbtt, pcode[i], s_host);
-                s.Read(t.AddDays(-1), t.AddDays(-1));
+                s.Read(yesterday, yesterday);
 
                 var val = "";
                 if (s.Count == 1 && !s[0].IsMissing)
@@ -312,8 +313,9 @@ namespace Reclamation.TimeSeries.AgriMet
 
             }
             contents = contents.Replace("{site_name}", cbtt);
+            contents = contents.Replace("{yesterday}", yesterday.ToString("yyyy-MM-dd"));
 
-            
+
             contents = contents.Replace("{site_m1}", t.AddDays(-1).Month.ToString() + "/" + t.AddDays(-1).Day.ToString());
             contents = contents.Replace("{site_m2}", t.AddDays(-2).Month.ToString() + "/" + t.AddDays(-2).Day.ToString());
             contents = contents.Replace("{site_m3}", t.AddDays(-3).Month.ToString() + "/" + t.AddDays(-3).Day.ToString());
