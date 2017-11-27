@@ -27,9 +27,10 @@ namespace PiscesWebServices.CGI
 
         public override void PrintDataTable(SeriesList list, DataTable table)
         {
-            for (int i = 0; i < table.Rows.Count; i++)
+            var sortedRows = table.Select("", "tablename");
+            for (int i = 0; i < sortedRows.Length; i++)
             {
-                var r = table.Rows[i];
+                var r = sortedRows[i];
                 var tn = new TimeSeriesName(r["tablename"].ToString());
 
                 if (r["value"] == DBNull.Value)
