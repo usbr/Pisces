@@ -65,7 +65,7 @@ namespace Reclamation.TimeSeries.Hydromet
         public static string RunArchiver(string user, string password, string[] cbtt,
     string pcode, DateTime t1, DateTime t2,bool previewOnly)
         {
-            string tmpFile = FileUtility.GetTempFileName(".com"); // create script.
+            string tmpFile = FileUtility.GetTempFileName(".txt"); // create script.
             TextFile tf = new TextFile(tmpFile);
 
             for (int i = 0; i < cbtt.Length; i++)
