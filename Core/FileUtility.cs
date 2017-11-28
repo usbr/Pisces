@@ -203,6 +203,7 @@ namespace Reclamation.Core
             // https://stackoverflow.com/questions/4657974/how-to-generate-unique-file-names-in-c-sharp
             var fn = filePrefix + Guid.NewGuid().ToString().ToLower() + extension;//".tmp";
             fn = Path.Combine(path, fn);
+            File.Create(fn).Close();
             return fn;
         }
 
