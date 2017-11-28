@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonYakLinux = new System.Windows.Forms.RadioButton();
+            this.textBoxDbName = new System.Windows.Forms.TextBox();
+            this.labelDbName = new System.Windows.Forms.Label();
             this.radioButtonLocal = new System.Windows.Forms.RadioButton();
             this.radioButtonPnHydromet = new System.Windows.Forms.RadioButton();
             this.radioButtonYakHydromet = new System.Windows.Forms.RadioButton();
             this.radioButtonBoiseLinux = new System.Windows.Forms.RadioButton();
             this.radioButtonGP = new System.Windows.Forms.RadioButton();
-            this.textBoxDbName = new System.Windows.Forms.TextBox();
-            this.labelDbName = new System.Windows.Forms.Label();
-            this.radioButtonYakLinux = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,6 +59,32 @@
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "time series data source";
+            // 
+            // radioButtonYakLinux
+            // 
+            this.radioButtonYakLinux.Location = new System.Drawing.Point(15, 105);
+            this.radioButtonYakLinux.Margin = new System.Windows.Forms.Padding(2);
+            this.radioButtonYakLinux.Name = "radioButtonYakLinux";
+            this.radioButtonYakLinux.Size = new System.Drawing.Size(136, 20);
+            this.radioButtonYakLinux.TabIndex = 47;
+            this.radioButtonYakLinux.Text = "Yakima Linux Hydromet";
+            // 
+            // textBoxDbName
+            // 
+            this.textBoxDbName.Location = new System.Drawing.Point(35, 168);
+            this.textBoxDbName.Name = "textBoxDbName";
+            this.textBoxDbName.Size = new System.Drawing.Size(186, 20);
+            this.textBoxDbName.TabIndex = 46;
+            this.textBoxDbName.Text = "timeseries";
+            // 
+            // labelDbName
+            // 
+            this.labelDbName.AutoSize = true;
+            this.labelDbName.Location = new System.Drawing.Point(32, 151);
+            this.labelDbName.Name = "labelDbName";
+            this.labelDbName.Size = new System.Drawing.Size(83, 13);
+            this.labelDbName.TabIndex = 45;
+            this.labelDbName.Text = "database name:";
             // 
             // radioButtonLocal
             // 
@@ -96,7 +122,7 @@
             this.radioButtonBoiseLinux.Name = "radioButtonBoiseLinux";
             this.radioButtonBoiseLinux.Size = new System.Drawing.Size(136, 20);
             this.radioButtonBoiseLinux.TabIndex = 5;
-            this.radioButtonBoiseLinux.Text = "Boise Hydromet 2";
+            this.radioButtonBoiseLinux.Text = "Boise Linux Hydromet ";
             this.radioButtonBoiseLinux.CheckedChanged += new System.EventHandler(this.serverChanged);
             // 
             // radioButtonGP
@@ -108,32 +134,6 @@
             this.radioButtonGP.TabIndex = 4;
             this.radioButtonGP.Text = "Billings Hydromet";
             this.radioButtonGP.CheckedChanged += new System.EventHandler(this.serverChanged);
-            // 
-            // textBoxDbName
-            // 
-            this.textBoxDbName.Location = new System.Drawing.Point(35, 168);
-            this.textBoxDbName.Name = "textBoxDbName";
-            this.textBoxDbName.Size = new System.Drawing.Size(186, 20);
-            this.textBoxDbName.TabIndex = 46;
-            this.textBoxDbName.Text = "timeseries";
-            // 
-            // labelDbName
-            // 
-            this.labelDbName.AutoSize = true;
-            this.labelDbName.Location = new System.Drawing.Point(32, 151);
-            this.labelDbName.Name = "labelDbName";
-            this.labelDbName.Size = new System.Drawing.Size(83, 13);
-            this.labelDbName.TabIndex = 45;
-            this.labelDbName.Text = "database name:";
-            // 
-            // radioButtonYakLinux
-            // 
-            this.radioButtonYakLinux.Location = new System.Drawing.Point(15, 105);
-            this.radioButtonYakLinux.Margin = new System.Windows.Forms.Padding(2);
-            this.radioButtonYakLinux.Name = "radioButtonYakLinux";
-            this.radioButtonYakLinux.Size = new System.Drawing.Size(136, 20);
-            this.radioButtonYakLinux.TabIndex = 47;
-            this.radioButtonYakLinux.Text = "Yakima Hydromet 2";
             // 
             // ServerSelection
             // 
