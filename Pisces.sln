@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries", "TimeSeries\Reclamation.TimeSeries.csproj", "{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}"
 EndProject
@@ -61,6 +61,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportOWRD", "Applications\ImportOWRD\ImportOWRD.csproj", "{98584217-A9DA-4375-9DC4-D82CF6899162}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDailyCalculations", "Applications\CreateDailyCalculations\CreateDailyCalculations.csproj", "{9C591F97-0713-44BA-AEB6-4147A5202CED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildTestDatabase", "Applications\BuildTestDatabase\BuildTestDatabase.csproj", "{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -172,6 +174,10 @@ Global
 		{9C591F97-0713-44BA-AEB6-4147A5202CED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C591F97-0713-44BA-AEB6-4147A5202CED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C591F97-0713-44BA-AEB6-4147A5202CED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -199,6 +205,7 @@ Global
 		{6F7C6C62-721C-4AF6-AF29-70E69989CCE1} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 		{98584217-A9DA-4375-9DC4-D82CF6899162} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 		{9C591F97-0713-44BA-AEB6-4147A5202CED} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
+		{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F4C9525-1F25-425A-9DAF-CFE9A51060A3}
