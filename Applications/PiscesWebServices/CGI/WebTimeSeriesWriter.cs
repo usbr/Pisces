@@ -15,7 +15,6 @@ namespace PiscesWebServices.CGI
 {
     /// <summary>
     ///  returns results from web query to timeseries data in pisces.
-
     /// https://localhost/pn-bin/instant.pl?list=boii ob,boii obx&start=2016-04-15&end=2016-04-20
     /// https://localhost/pn-bin/instant.pl?list=bewo ob,bewo pc&start=2016-04-15&end=2016-04-20&format=zrxp
     /// https://localhost/pn-bin/instant.pl?site=bigi&back=24
@@ -53,7 +52,8 @@ namespace PiscesWebServices.CGI
                                                 "dfcgi", // legacy dayfile cgi program
                                                 "1", // legacy tab separated.
                                                 "2", // legacy csv
-                                                "shefa" // simple shefA format.
+                                                "shefa", // simple shefA format.
+                                                "idwr_accounting"
                                                 };
 
 
@@ -110,6 +110,10 @@ namespace PiscesWebServices.CGI
             else if (format == "shefa")
             {
                 m_formatter = new ShefAFormatter(interval, false);
+            }
+            else if( format == "idwr_accounting")
+            {
+                m_formatter = new IdwrAccountingFormatter(interval,false);
             }
             else
                 m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
@@ -319,7 +323,12 @@ namespace PiscesWebServices.CGI
             var custom_list = HydrometWebUtility.GetParameter(query, "custom_list");
             if (custom_list == "idwr" && interval == TimeInterval.Irregular)
             {
-                return GetIDWRInstantList(db.Server).ToArray();
+                return IdwrCustom.GetIDWRInstantList(db.Server).ToArray();
+            }
+            else if( custom_list.ToLower().IndexOf("wd") == 0
+                   && interval == TimeInterval.Daily)
+            {
+                return IdwrCustom.GetIDWRDailyList(db.Server, custom_list).ToArray();
             }
 
             List<TimeSeriesName> rval = new List<TimeSeriesName>();
@@ -353,33 +362,6 @@ namespace PiscesWebServices.CGI
             return rval.ToArray();
         }
 
-        private static List<TimeSeriesName> GetIDWRInstantList(BasicDBServer svr)
-        {
-            List<TimeSeriesName> rval = new List<TimeSeriesName>();
-            var sql = @"
-select s.tablename,p.value parameter,sitep.value siteid ,
-
-case(c.timezone)
-  when 'US/Mountain' then 'M'
-  when 'US/Pacific' then 'P'
-  end as timezone
-from seriescatalog s 
-    join seriesproperties p on s.id = p.seriesid 
-    join siteproperties sitep on sitep.siteid =s.siteid
-    join sitecatalog c on c.siteid = s.siteid 
-where p.name ='idwr_shef' and sitep.name='idwr_cbtt'
-and timeinterval = 'Irregular'
-";
-            var tbl = svr.Table("idwr", sql);
-
-            ShefAFormatter.CustomNames = tbl;
-
-            for (int i = 0; i < tbl.Rows.Count; i++)
-            {
-                var tn = new TimeSeriesName(tbl.Rows[i]["tablename"].ToString());
-                rval.Add(tn);
-            }
-            return rval;
-        }
+        
     }
 }

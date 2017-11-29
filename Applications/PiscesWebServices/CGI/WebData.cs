@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace PiscesWebServices.CGI
 {
+    /// <summary>
+    /// Data access layer with SQL commands to read multiple series in a single query.
+    /// </summary>
     class WebData
     {
         TimeSeriesDatabase m_db;
