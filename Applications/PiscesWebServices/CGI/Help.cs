@@ -47,16 +47,18 @@ namespace PiscesWebServices.CGI
             r.Add("daily idwr sites in planning model format, for wd01", "custom_list=wd01&format=idwr_accounting");
             r.Add("daily idwr sites in planning model format, for wd63", "custom_list=wd63&format=idwr_accounting");
             r.Add("daily idwr sites in planning model format, for wd65", "custom_list=wd65&format=idwr_accounting");
-
             r.Add("html report with title", "list=LRS&flags=false&description=true&format=html&back=12&title=MixedCase");
-            
+
+
             Print(r, "daily", "Daily Data");
         }
 
         internal static void PrintWaterYearHelp()
         {
             var r = new Dictionary<string, string>();
-            r.Add("Water year report 2012", "site=abei&parameter=pp&start=2012&end=2012");
+            r.Add("water year report 2012", "site=abei&parameter=pp&start=2012&end=2012&format=usgs-html");
+            r.Add("water year data.  Includes previous year and 30 year average", "site=culo&parameter=qd&start=2018&format=csv-analysis");
+
             Print(r, "wyreport", "Water Year Report");
         }
 
