@@ -44,9 +44,9 @@ namespace PiscesWebServices.CGI
             r.Add("multiple sites and parameters, with specific date range", "list=luc af, and af, ark af, ded af, boisys af&start=2016-04-01&end=2016-04-2");
             r.Add("html format (no flags), with description above table", "list=bsei&back=7&format=html&flags=false&description=true");
             r.Add("wiski/kisters format", "list=scoo qd&back=12&format=zrxp");
-            r.Add("daily idwr sites in planning model format, for wd01", "custom_list=wd01&format=idwr_accounting");
-            r.Add("daily idwr sites in planning model format, for wd63", "custom_list=wd63&format=idwr_accounting");
-            r.Add("daily idwr sites in planning model format, for wd65", "custom_list=wd65&format=idwr_accounting");
+            r.Add("daily idwr sites for accounting, for wd01", "custom_list=wd01&format=idwr_accounting");
+            r.Add("daily idwr sites for accounting, for wd63", "custom_list=wd63&format=idwr_accounting");
+            r.Add("daily idwr sites for accounting, for wd65", "custom_list=wd65&format=idwr_accounting");
             r.Add("html report with title", "list=LRS&flags=false&description=true&format=html&back=12&title=MixedCase");
 
 
