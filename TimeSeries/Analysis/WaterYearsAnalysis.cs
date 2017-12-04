@@ -22,7 +22,7 @@ namespace Reclamation.TimeSeries.Analysis
             SeriesList list = Explorer.CreateSelectedSeries();
             // Note: we do not call ReadSeriesList(list)
 
-            SeriesList wySeries = PiscesAnalysis.WaterYears(list,Explorer.WaterYears,Explorer.ThirtyYearAverage, Explorer.BeginningMonth);
+            SeriesList wySeries = PiscesAnalysis.WaterYears(list,Explorer.WaterYears,Explorer.ThirtyYearAverage, Explorer.BeginningMonth,false);
 
 
             

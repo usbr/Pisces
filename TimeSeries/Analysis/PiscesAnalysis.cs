@@ -12,10 +12,11 @@ namespace Reclamation.TimeSeries.Analysis
         /// </summary>
         /// <param name="list">intput series</param>
         /// <param name="years">water years</param>
-        /// <param name="avg30yr">when true also includes 30 year average. If only 5 years are avaliable a 5 year average is created</param>
+        /// <param name="avg30yr">when true also includes 30 year average. </param>
         /// <param name="beginningMonth">series starting month number</param>
         /// <returns></returns>
-        public static SeriesList WaterYears(SeriesList list, int[] years, bool avg30yr, int beginningMonth, bool alwaysShiftTo2000 = false)
+        public static SeriesList WaterYears(SeriesList list, int[] years, bool avg30yr, 
+            int beginningMonth, bool alwaysShiftTo2000,DateTime? startOf30YearAvearge = null)
         {
 
             SeriesList wySeries = new SeriesList();
@@ -55,7 +56,12 @@ namespace Reclamation.TimeSeries.Analysis
                 }
                 if (avg30yr)
                 {
-                     list[j].Read(DateTime.Now.Date.AddYears(-30), DateTime.Now.Date);
+                    DateTime start = DateTime.Now.Date.AddYears(-30);
+                    if (startOf30YearAvearge.HasValue)
+                        start = startOf30YearAvearge.Value;
+
+                    DateTime end = start.AddYears(30);
+                    list[j].Read(start,end);
                     Series s30 = Math.MultiYearDailyAverage( list[j], beginningMonth);
                     if (s30.Count > 0)
                         wySeries.Add(s30);
