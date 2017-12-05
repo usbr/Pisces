@@ -32,6 +32,7 @@ namespace PiscesWebServices.CGI
             r.Add("html format (no flags), with description above table", "list=boii ob, bfgi ob,pmai ob&back=12&format=html&flags=false&description=true");
             r.Add("wiski/kisters format", "list=boii ob, bfgi ob,pmai ob&back=12&format=zrxp");
             r.Add("15-minute idwr sites in Shef A format", "custom_list=idwr&format=shefa");
+            r.Add("15-minute data, and 30 year daily average ", "list=heii q&format=csv-analysis&back=7&list-avg=heii qd");
 
             Print(r,"instant","Near real-time data");
         }

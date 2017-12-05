@@ -13,6 +13,7 @@ namespace PiscesWebServices.CGI
     public abstract class Formatter
     {
 
+        public string ContentType = "Content-type: text/html\n\n";
         private bool m_orderByDate = true;
 
         public bool OrderByDate

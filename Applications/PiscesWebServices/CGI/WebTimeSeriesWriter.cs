@@ -232,7 +232,7 @@ namespace PiscesWebServices.CGI
         private void PrintContentType()
         {
             if(!contentTypeDefined)
-                Console.Write("Content-type: text/html\n\n");
+                Console.Write(m_formatter.ContentType);
             contentTypeDefined = true;
         }
 

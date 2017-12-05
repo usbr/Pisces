@@ -15,7 +15,7 @@ namespace PiscesWebServices.CGI
          public CsvFormatter(TimeInterval interval, bool printFlags)
              : base(interval, printFlags)
          {
-
+            ContentType = "Content-type: text/csv\n\n";
          }
 
          public override void WriteLine(string s)
@@ -71,7 +71,7 @@ namespace PiscesWebServices.CGI
          }
         public override void WriteSeriesHeader(SeriesList list)
         {
-            WriteLine("<PRE>");
+            //WriteLine("<PRE>");
 
             string headLine = "DateTime";
 
@@ -86,7 +86,7 @@ namespace PiscesWebServices.CGI
 
         public override void WriteSeriesTrailer()
         {
-            HydrometWebUtility.PrintHydrometTrailer();
+            //HydrometWebUtility.PrintHydrometTrailer();
         }
 
     }
