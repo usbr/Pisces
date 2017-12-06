@@ -53,7 +53,8 @@ namespace PiscesWebServices.CGI
                                                 "1", // legacy tab separated.
                                                 "2", // legacy csv
                                                 "shefa", // simple shefA format.
-                                                "idwr_accounting"
+                                                "idwr_accounting",
+                                                "realtime-graph" // 7 days of instant, with 30 year average
                                                 };
 
 
@@ -81,7 +82,13 @@ namespace PiscesWebServices.CGI
         private void DefineFormatter(TimeInterval interval)
         {
             if (format == "csv")
+            {
                 m_formatter = new CsvFormatter(interval, m_printFlags);
+            }
+            else if( format == "realtime-graph")
+            {
+                m_formatter = new RealTimeFormatter(interval, m_printFlags,m_collection,db);
+            }
             else if (format == "zrxp")
             {
                 m_formatter = new WiskiFormatter(interval);
@@ -111,9 +118,9 @@ namespace PiscesWebServices.CGI
             {
                 m_formatter = new ShefAFormatter(interval, false);
             }
-            else if( format == "idwr_accounting")
+            else if (format == "idwr_accounting")
             {
-                m_formatter = new IdwrAccountingFormatter(interval,false);
+                m_formatter = new IdwrAccountingFormatter(interval, false);
             }
             else
                 m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
@@ -274,6 +281,7 @@ namespace PiscesWebServices.CGI
             {
                 var interval = m_formatter.Interval;
                 var tbl = wd.Read(list, item.StartDate, item.EndDate, interval,m_formatter.OrderByDate);
+
                 m_formatter.PrintDataTable(list, tbl);
             }
             m_formatter.WriteSeriesTrailer();
