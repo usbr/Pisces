@@ -89,7 +89,7 @@ namespace Teacup
 
         private static void WriteDate(DateTime date, Bitmap bmp)
         {
-            string firstText = date.ToString("MM/dd/") + date.ToString("yyyy");
+            string firstText = date.ToString("MM/dd/yyyy");
             //Location of the date
             PointF firstLocation = new PointF(2f, 3f);
             //load the image file  
