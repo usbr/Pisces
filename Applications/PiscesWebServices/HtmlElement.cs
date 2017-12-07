@@ -28,13 +28,14 @@ namespace PiscesWebServices
         public static string SelectMonth(string name, int currentMonth)
         {
             var rval = "<select name=\"" + name + "\">";
-            DateTime now = new DateTime(2000, currentMonth, 1);
+            DateTime now = new DateTime(2000, 1, 1);
             for (int m = 1; m <= 12; m++)
             {
                 if (m == currentMonth)
-                    rval += "<option selected value=\"" + m + "\">" + now.ToString("MMMM") + "</option>";
+                    rval += "<option selected value=\"" + m + "\">" + now.ToString("MMMM") + "</option>\n";
                 else
-                    rval += "<option value=\"" + m + "\">" + now.ToString("MMMM") + "</option>";
+                    rval += "<option value=\"" + m + "\">" + now.ToString("MMMM") + "</option>\n";
+                now = now.AddMonths(1);
             }
             rval += "</select>";
             return rval;
