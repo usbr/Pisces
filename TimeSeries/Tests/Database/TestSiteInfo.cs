@@ -14,7 +14,10 @@ namespace Pisces.NunitTests.Database
         [Test]
         public void SiteInfoDesignTest()
         {
-            var fn = FileUtility.GetTempFileName(".pdb"); 
+            var tmpDir = FileUtility.GetTempPath();
+
+            var fn = Path.Combine(tmpDir, "TestSiteInfo_SiteInfoDesignTest.pdb");
+            //var fn = FileUtility.GetTempFileName(".pdb"); 
 
             SQLiteServer svr = new SQLiteServer(fn);
             var db = new TimeSeriesDatabase(svr,false);
