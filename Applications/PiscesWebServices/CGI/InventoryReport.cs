@@ -135,7 +135,14 @@ namespace PiscesWebServices.CGI
 
             if (ui)
             {
-                WriteLine("<form name=\"Form\" action=\"/pn-bin/daily.pl\" method=\"get\" >");
+                string cgiTag = "";
+                if (CgiUtility.IsRemoteRequest())
+                    cgiTag = ".pl";
+                if( interval == TimeInterval.Daily)
+                    WriteLine("<form name=\"Form\" action=\"/pn-bin/daily"+cgiTag+"\" method=\"get\" >");
+                else
+                    WriteLine("<form name=\"Form\" action=\"/pn-bin/instant"+cgiTag+"\" method=\"get\" >");
+
                 WriteLine("<input name=station type=\"hidden\" value=\"" + siteID + "\">");
                 WriteLine("<input name=format type=\"hidden\" value=\"html\">");
 

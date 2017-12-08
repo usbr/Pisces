@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CGI\CgiUtility.cs" />
     <Compile Include="CGI\RealTimeFormatter.cs" />
     <Compile Include="CGI\IdwrCustom.cs" />
     <Compile Include="CGI\IdwrAccountingFormatter.cs" />

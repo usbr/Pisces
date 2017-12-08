@@ -77,11 +77,7 @@ namespace PiscesWebServices.CGI
             t.Columns.Add("name");
             t.Columns.Add("example");
 
-            //REQUEST_URI
-            var REMOTE_ADDR = Environment.GetEnvironmentVariable("REMOTE_ADDR");
-            //Console.WriteLine("REMOTE_ADDR:" + REMOTE_ADDR + "<br/>");
-
-            if (REMOTE_ADDR.IndexOf("140.215.")>=0)
+            if (CgiUtility.IsRemoteRequest())
                 cgi += ".pl?";
             else
                 cgi += "?";
