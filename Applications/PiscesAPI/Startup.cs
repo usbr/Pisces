@@ -64,7 +64,7 @@ namespace PiscesAPI
                         "understanding that the United States Government makes no warranties, expressed or implied, concerning the accuracy, completeness, " +
                         "usability or suitability for any particular purpose of the information or data obtained by access to this computer system, and the " +
                         "United States shall be under no liability whatsoever to any individual or group entity by reason of any use made thereof." +
-                        "\n\r" + 
+                        "\n\r" +
                         "This Application Programming Interface (API) is preliminary or provisional and is subject to revision. " +
                         "It is currently in development and as such, frequent updates, downtimes, and loss of functionality are to " +
                         "be expected. The API has not received final approval by Reclamation. No warranty, expressed or implied, is " +
@@ -82,8 +82,10 @@ namespace PiscesAPI
                         Name = "MIT License",
                         Url = "https://opensource.org/licenses/MIT"
                     }
+                    
                 });
 
+                c.DocumentFilter<ReadOnlyFilter>();
             });
         }
 
