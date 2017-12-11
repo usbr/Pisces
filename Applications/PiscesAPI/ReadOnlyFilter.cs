@@ -10,6 +10,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace PiscesAPI
 {
+    /// <summary>
+    /// modified from:
+    /// https://github.com/jenyayel/SwaggerSecurityTrimming/blob/master/src/V2/SwaggerAuthorizationFilter.cs
+    /// </summary>
     public class ReadOnlyFilter:IDocumentFilter
     {
         private IServiceProvider _provider;
