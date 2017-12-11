@@ -19,7 +19,7 @@ namespace PiscesAPI.DataAccessLayer
 
         public List<ParameterModel.PiscesParameter> GetParameters(string id = "", bool exactMatch = false)
         {
-            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+            IDbConnection db = Database.Connect();
             string sqlString = "select * from parametercatalog ";
             if (id != "")
             {
@@ -38,7 +38,7 @@ namespace PiscesAPI.DataAccessLayer
         public List<ParameterModel.PiscesParameter> AddOrUpdateParameters(List<ParameterModel.PiscesParameter> input)
         {
             var addedSites = new List<ParameterModel.PiscesParameter>();
-            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+            IDbConnection db = Database.Connect();
             foreach (ParameterModel.PiscesParameter item in input)
             {
                 var siteExists = GetParameters(item.id, true).Count > 0;
@@ -64,7 +64,7 @@ namespace PiscesAPI.DataAccessLayer
         public List<ParameterModel.PiscesParameter> DeleteParameters(List<ParameterModel.PiscesParameter> input)
         {
             var deletedSites = new List<ParameterModel.PiscesParameter>();
-            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+            IDbConnection db = Database.Connect();
             foreach (ParameterModel.PiscesParameter item in input)
             {
                 var siteExists = GetParameters(item.id, true).Count > 0;

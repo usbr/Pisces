@@ -7,7 +7,7 @@ using PiscesAPI.Models;
 
 namespace PiscesAPI.Controllers
 {
-    [Route("[controller]")]
+    [Route("parameters/")]
     public class ParameterController : Controller
     {
         /// <summary>

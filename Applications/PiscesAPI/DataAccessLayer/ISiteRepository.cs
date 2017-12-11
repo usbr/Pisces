@@ -19,7 +19,7 @@ namespace PiscesAPI.DataAccessLayer
 
         public List<SiteModel.PiscesSite> GetSites(string id = "", bool exactMatch = false)
         {
-            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+            IDbConnection db = Database.Connect();
             string sqlString = "select * from sitecatalog ";
             if (id != "")
             {
@@ -38,7 +38,7 @@ namespace PiscesAPI.DataAccessLayer
         public List<SiteModel.PiscesSite> AddOrUpdateSites(List<SiteModel.PiscesSite> input)
         {
             var addedSites = new List<SiteModel.PiscesSite>();
-            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+            IDbConnection db = Database.Connect();
             foreach (SiteModel.PiscesSite item in input)
             {
                 var siteExists = GetSites(item.siteid, true).Count > 0;
@@ -64,7 +64,7 @@ namespace PiscesAPI.DataAccessLayer
         public List<SiteModel.PiscesSite> DeleteSites(List<SiteModel.PiscesSite> input)
         {
             var deletedSites = new List<SiteModel.PiscesSite>();
-            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+            IDbConnection db = Database.Connect();
             foreach (SiteModel.PiscesSite item in input)
             {
                 var siteExists = GetSites(item.siteid, true).Count > 0;

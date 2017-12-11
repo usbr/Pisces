@@ -19,7 +19,7 @@ namespace PiscesAPI.DataAccessLayer
 
         public List<SeriesModel.PiscesSeries> GetSeries(string id = "", bool exactMatch = false)
         {
-            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+            IDbConnection db = Database.Connect();
             string sqlString = "select * from seriescatalog where isfolder = 0 ";
             if (id != "")
             {

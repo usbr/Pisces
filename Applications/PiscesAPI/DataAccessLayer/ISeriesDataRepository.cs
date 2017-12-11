@@ -25,7 +25,7 @@ namespace PiscesAPI.DataAccessLayer
 
         public SeriesDataModel.PiscesTimeSeriesData GetSeriesData(string seriesTable, DateTime t1, DateTime t2)
         {
-            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+            IDbConnection db = Database.Connect();
 
             // Get TS data points
             string sqlStringData = "select * from " + seriesTable + " where datetime >= str_to_date('" + t1 + "','%m/%d/%Y %r') "+
@@ -64,7 +64,7 @@ namespace PiscesAPI.DataAccessLayer
 
         public List<SeriesDataModel.Point> AddOrUpdateSeriesData(List<SeriesDataModel.PiscesTimeSeriesData> input)
         {
-            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+            IDbConnection db = Database.Connect();
 
             var addedPoints = new List<SeriesDataModel.Point>();
             foreach (SeriesDataModel.PiscesTimeSeriesData item in input)
@@ -93,7 +93,7 @@ namespace PiscesAPI.DataAccessLayer
 
         public List<SeriesDataModel.Point> DeleteSeriesData(List<SeriesDataModel.PiscesTimeSeriesData> input)
         {
-            IDbConnection db = Controllers.DatabaseConnectionController.Connect();
+            IDbConnection db = Database.Connect();
 
             var deletedPoints = new List<SeriesDataModel.Point>();
             foreach (SeriesDataModel.PiscesTimeSeriesData item in input)

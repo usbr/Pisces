@@ -7,7 +7,7 @@ using PiscesAPI.Models;
 
 namespace PiscesAPI.Controllers
 {
-    [Route("[controller]")]
+    [Route("series/")]
     public class TimeSeriesController : Controller
     {
         /// <summary>
