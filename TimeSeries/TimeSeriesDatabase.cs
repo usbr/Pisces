@@ -1918,7 +1918,10 @@ namespace Reclamation.TimeSeries
                     }
                     if( sb.Length >0 )
                         sb.Append("\n UNION ALL \n"); 
+
                     var sql = "(select '" + tn + "' as name,datetime, value from " + tn + " where datetime >= current_date order by datetime desc limit 1)";
+                    if( interval == TimeInterval.Monthly)
+                        sql = "(select '" + tn + "' as name,datetime, value from " + tn + " where datetime >= current_date - interval ' 60 day ' order by datetime desc limit 1)";
                     sb.Append(sql);
                         
                 }
