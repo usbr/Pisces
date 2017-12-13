@@ -179,9 +179,11 @@ namespace Reclamation.TimeSeries.RiverWare
          public override Series CreateScenario(TimeSeriesDatabaseDataSet.ScenarioRow scenario)
          {
              //string s = ConfigurationManager.AppSettings["scenarioList"];
-             string fn = this.m_filename; // TO DO..update scenarioNumber if needed
+             string fn = ConnectionStringUtility.GetFileName(scenario.Path, m_db.Server.DataSource); 
+            
+            // TO DO..update scenarioNumber if needed
 
-             if (m_scenarioNumber >= 0 && m_db != null)
+            if (m_scenarioNumber >= 0 && m_db != null)
              {
                  
                 int idx = Array.IndexOf(m_db.GetScenarios().GetNames(), scenario.Name);
@@ -189,7 +191,7 @@ namespace Reclamation.TimeSeries.RiverWare
              }
              else
              {
-                 string path = Path.GetDirectoryName(m_filename);
+                 var path = Path.GetDirectoryName(fn);
                  fn = Path.Combine(path, scenario.Name + ".rdf");
                  Logger.WriteLine("Reading series from " + fn);
                  if (!File.Exists(fn))
