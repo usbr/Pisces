@@ -86,7 +86,7 @@ namespace Reclamation.TimeSeries.Hydromet
             if (m_db != null)
                 ReadCore(TimeSeriesDatabase.MinDateTime, TimeSeriesDatabase.MaxDateTime);
             else
-                ReadCore(new DateTime(1906, 1, 1), DateTime.Now.Date.AddDays(-1));
+                ReadCore(new DateTime(1850, 1, 1), DateTime.Now.Date.AddDays(-1));
         }
 
         protected override void ReadCore(DateTime t1, DateTime t2)
