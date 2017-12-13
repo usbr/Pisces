@@ -28,7 +28,7 @@ namespace HydrometDailyToPisces
 
 
         /// <summary>
-        /// For each instant Series in the database create an appropirate 
+        /// For each instant Series in the database create an appropriate 
         /// Dailycalculation.
         /// </summary>
         public void AddDailyCalculations(DataTable pcodeLookup, bool dryRun, string[] sites)
