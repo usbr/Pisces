@@ -55,23 +55,23 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(356, 201);
+            this.groupBox1.Size = new System.Drawing.Size(364, 226);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "time series data source";
             // 
             // radioButtonYakLinux
             // 
-            this.radioButtonYakLinux.Location = new System.Drawing.Point(15, 105);
+            this.radioButtonYakLinux.Location = new System.Drawing.Point(15, 117);
             this.radioButtonYakLinux.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonYakLinux.Name = "radioButtonYakLinux";
             this.radioButtonYakLinux.Size = new System.Drawing.Size(136, 20);
             this.radioButtonYakLinux.TabIndex = 47;
-            this.radioButtonYakLinux.Text = "Yakima Linux Hydromet";
+            this.radioButtonYakLinux.Text = "Yakima Linux";
             // 
             // textBoxDbName
             // 
-            this.textBoxDbName.Location = new System.Drawing.Point(35, 168);
+            this.textBoxDbName.Location = new System.Drawing.Point(35, 182);
             this.textBoxDbName.Name = "textBoxDbName";
             this.textBoxDbName.Size = new System.Drawing.Size(186, 20);
             this.textBoxDbName.TabIndex = 46;
@@ -80,7 +80,7 @@
             // labelDbName
             // 
             this.labelDbName.AutoSize = true;
-            this.labelDbName.Location = new System.Drawing.Point(32, 151);
+            this.labelDbName.Location = new System.Drawing.Point(32, 165);
             this.labelDbName.Name = "labelDbName";
             this.labelDbName.Size = new System.Drawing.Size(83, 13);
             this.labelDbName.TabIndex = 45;
@@ -88,7 +88,7 @@
             // 
             // radioButtonLocal
             // 
-            this.radioButtonLocal.Location = new System.Drawing.Point(15, 126);
+            this.radioButtonLocal.Location = new System.Drawing.Point(15, 141);
             this.radioButtonLocal.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonLocal.Name = "radioButtonLocal";
             this.radioButtonLocal.Size = new System.Drawing.Size(100, 20);
@@ -107,7 +107,7 @@
             // 
             // radioButtonYakHydromet
             // 
-            this.radioButtonYakHydromet.Location = new System.Drawing.Point(15, 42);
+            this.radioButtonYakHydromet.Location = new System.Drawing.Point(15, 45);
             this.radioButtonYakHydromet.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonYakHydromet.Name = "radioButtonYakHydromet";
             this.radioButtonYakHydromet.Size = new System.Drawing.Size(112, 20);
@@ -117,7 +117,7 @@
             // 
             // radioButtonBoiseLinux
             // 
-            this.radioButtonBoiseLinux.Location = new System.Drawing.Point(15, 84);
+            this.radioButtonBoiseLinux.Location = new System.Drawing.Point(15, 93);
             this.radioButtonBoiseLinux.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonBoiseLinux.Name = "radioButtonBoiseLinux";
             this.radioButtonBoiseLinux.Size = new System.Drawing.Size(136, 20);
@@ -127,7 +127,7 @@
             // 
             // radioButtonGP
             // 
-            this.radioButtonGP.Location = new System.Drawing.Point(15, 63);
+            this.radioButtonGP.Location = new System.Drawing.Point(15, 69);
             this.radioButtonGP.Margin = new System.Windows.Forms.Padding(2);
             this.radioButtonGP.Name = "radioButtonGP";
             this.radioButtonGP.Size = new System.Drawing.Size(112, 20);
@@ -142,7 +142,7 @@
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ServerSelection";
-            this.Size = new System.Drawing.Size(356, 201);
+            this.Size = new System.Drawing.Size(364, 226);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

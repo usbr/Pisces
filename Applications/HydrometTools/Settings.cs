@@ -109,7 +109,7 @@ namespace HydrometTools
             // checkBoxHideStatus
             // 
             this.checkBoxHideStatus.AutoSize = true;
-            this.checkBoxHideStatus.Location = new System.Drawing.Point(7, 227);
+            this.checkBoxHideStatus.Location = new System.Drawing.Point(7, 253);
             this.checkBoxHideStatus.Name = "checkBoxHideStatus";
             this.checkBoxHideStatus.Size = new System.Drawing.Size(111, 17);
             this.checkBoxHideStatus.TabIndex = 25;
@@ -132,7 +132,7 @@ namespace HydrometTools
             // 
             this.groupBox2.Controls.Add(this.checkBoxAdmin);
             this.groupBox2.Controls.Add(this.checkBoxCompute);
-            this.groupBox2.Location = new System.Drawing.Point(286, 16);
+            this.groupBox2.Location = new System.Drawing.Point(305, 16);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(299, 101);
             this.groupBox2.TabIndex = 28;
@@ -166,7 +166,7 @@ namespace HydrometTools
             // 
             this.groupBox3.Controls.Add(this.checkBoxAutoFlagDayfiles);
             this.groupBox3.Controls.Add(this.checkBoxMultipleYAxis);
-            this.groupBox3.Location = new System.Drawing.Point(286, 144);
+            this.groupBox3.Location = new System.Drawing.Point(305, 144);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(383, 76);
             this.groupBox3.TabIndex = 38;
@@ -219,7 +219,7 @@ namespace HydrometTools
             this.groupBox1.Controls.Add(this.buttonShowPassword);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxDbPassword);
-            this.groupBox1.Location = new System.Drawing.Point(286, 227);
+            this.groupBox1.Location = new System.Drawing.Point(305, 227);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(361, 100);
             this.groupBox1.TabIndex = 42;
@@ -259,7 +259,7 @@ namespace HydrometTools
             this.serverSelection1.Location = new System.Drawing.Point(7, 16);
             this.serverSelection1.Margin = new System.Windows.Forms.Padding(2);
             this.serverSelection1.Name = "serverSelection1";
-            this.serverSelection1.Size = new System.Drawing.Size(248, 206);
+            this.serverSelection1.Size = new System.Drawing.Size(293, 232);
             this.serverSelection1.TabIndex = 39;
             // 
             // tabPageNotifications

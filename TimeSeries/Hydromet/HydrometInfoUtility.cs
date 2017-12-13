@@ -184,7 +184,7 @@ namespace Reclamation.TimeSeries.Hydromet
             else if (NetworkUtility.MyIpStartsWith(gp))
                 UserPreference.SetDefault("HydrometServer", HydrometHost.GreatPlains.ToString(), false);
             else
-                UserPreference.SetDefault("HydrometServer", HydrometHost.PN.ToString(), false);
+                UserPreference.SetDefault("HydrometServer", HydrometHost.PNLinux.ToString(), false);
         }
 
         internal static void ParseConnectionString(string connectionString, out HydrometHost svr, out string cbtt, out string pcode)
