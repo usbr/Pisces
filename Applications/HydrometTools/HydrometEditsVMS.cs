@@ -9,6 +9,7 @@ namespace Reclamation.TimeSeries.Hydromet
 {
      static class HydrometEditsVMS
     {
+        static string timeFormat = "MMMdyyyy_HH_mm_ss";
 
         public static string HydrometHostAddress
             
@@ -44,7 +45,7 @@ namespace Reclamation.TimeSeries.Hydromet
              
             var tmpFile = FileUtility.GetTempFileName(".txt");
             TextFile tf = new TextFile(tmpFile);
-
+            AddVmsScriptHeader(user, tf);
             foreach (var item in commands)
             {
                 tf.Add(item);
@@ -52,7 +53,7 @@ namespace Reclamation.TimeSeries.Hydromet
             }
 
             tf.SaveAsVms(tf.FileName);
-            string t = DateTime.Now.ToString("MMMdyyyyHHmmss").ToLower();
+            string t = DateTime.Now.ToString(timeFormat).ToLower();
             string remoteFile = "huser1:[edits]run_archiver_"+user+t+".com";
             string unixRemoteFile = VmsToUnixPath(remoteFile);
             rval += "\n" + SendFileAndRunCommand(user, password, tmpFile, unixRemoteFile, "@" + remoteFile);
@@ -122,7 +123,7 @@ namespace Reclamation.TimeSeries.Hydromet
             else
             {
                 tf.SaveAsVms(tf.FileName);
-                string t = DateTime.Now.ToString("MMMdyyyyHHmmss").ToLower();
+                string t = DateTime.Now.ToString(timeFormat).ToLower();
                 string remoteFile = "huser1:[edits]run_archiver_" + user +t+ ".com";
                 string unixRemoteFile = VmsToUnixPath(remoteFile);
                 string rval = SendFileAndRunCommand(user, password, tmpFile, unixRemoteFile, "@" + remoteFile);
@@ -151,7 +152,7 @@ namespace Reclamation.TimeSeries.Hydromet
           //  tf.Add("$ Mail/subject=\"Raw data has run for cbtt=["+cbtt + "]  \" run_rawdata.com ktarbet");
 
             tf.SaveAsVms(tf.FileName);
-            string t = DateTime.Now.ToString("MMMdyyyyHHmmss").ToLower();
+            string t = DateTime.Now.ToString(timeFormat).ToLower();
             string remoteFile = "huser1:[edits]run_rawdata_"+user+t+".com";
             string unixRemoteFile = VmsToUnixPath(remoteFile);
             string rval = SendFileAndRunCommand(user, password, tmpFile, unixRemoteFile, "@" + remoteFile);
@@ -204,6 +205,8 @@ namespace Reclamation.TimeSeries.Hydromet
             tf.Add("$ Exit");
         }
 
+        
+
         public static string RunRatingTableMath(string user, string password, string cbtt, string pcodeIn, 
             string pcodeOut, DateTime t1, DateTime t2, bool ace=false)
         {
@@ -226,7 +229,7 @@ namespace Reclamation.TimeSeries.Hydromet
             
             CreateRatingMathCommands(user, cbtt, pcodeIn, pcodeOut, t1, t2, tf_dfp,ace);
 
-            string t = DateTime.Now.ToString("MMMdyyyyHHmmss").ToLower();
+            string t = DateTime.Now.ToString(timeFormat).ToLower();
             string remoteFile_dfp = "huser1:[edits]math_cmds_" + user +t+ ".dfp";
             string remoteFile_com = "huser1:[edits]run_math_" + user +t+ ".com";
             string unixRemoteFile_dfp = VmsToUnixPath(remoteFile_dfp);
