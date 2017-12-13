@@ -10,17 +10,17 @@ using System.IO;
 namespace Reclamation.TimeSeries
 {
     /// <summary>
-    /// DailyTimeSeriesCalculator compute daily values
+    /// MonthlyTimeSeriesCalculator compute daily values
     /// for all Daily CalculationSeries.  Used in a batch type operation.
     /// </summary>
-    public class DailyTimeSeriesCalculator
+    public class MonthlyTimeSeriesCalculator
     {
         TimeSeriesDatabase m_db;
         TimeInterval m_interval;
         string m_filter;
         string m_propertyFilter;
         List<CalculationSeries> m_calculationList;
-        public DailyTimeSeriesCalculator(TimeSeriesDatabase db, TimeInterval interval, string filter="",
+        public MonthlyTimeSeriesCalculator(TimeSeriesDatabase db, TimeInterval interval, string filter="",
             string propertyFilter="")
         {
             m_db = db;

@@ -196,6 +196,14 @@ namespace HydrometServer
                     calc.ComputeDailyValues(t1, t2, errorFileName);
                 }
 
+                if (args.Contains("calculate-monthly"))
+                {
+                    MonthlyTimeSeriesCalculator calc = new MonthlyTimeSeriesCalculator(db, TimeInterval.Monthly,
+                        filter, propertyFilter);
+                    File.AppendAllText(errorFileName, "begin: calculate-monthly " + DateTime.Now.ToString() + "\n");
+                    //calc.ComputeDailyValues(t1, t2, errorFileName);
+                    calc.ComputeMonthlyValues(t1, t2, errorFileName);
+                }
 
 
                 if (args.Contains("update-period-of-record"))
@@ -267,7 +275,7 @@ namespace HydrometServer
             Console.WriteLine("--calculate-daily");
             Console.WriteLine("           computes daily data");
             Console.WriteLine("--calculate-monthly");
-            Console.WriteLine("           computes all monthly equations");
+            Console.WriteLine("           evaluates monthly equations");
             Console.WriteLine("--computeDependencies");
             Console.WriteLine("           computes dependencies at the same level");
             Console.WriteLine("--t1=1-31-2013|yesterday|lastyear");
