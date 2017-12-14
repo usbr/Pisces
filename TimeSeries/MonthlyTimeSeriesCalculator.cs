@@ -37,11 +37,11 @@ namespace Reclamation.TimeSeries
         /// <param name="t1"></param>
         /// <param name="t2"></param>
         /// <param name="propertyFilter">series property filter.  Example  program:agrimet </param>
-        public CalculationSeries[] ComputeDailyValues(DateTime t1, DateTime t2, 
+        public CalculationSeries[] ComputeMonthlyValues(DateTime t1, DateTime t2, 
             string errorFileName="")
         {
-            if (m_interval != TimeInterval.Daily)
-                throw new Exception("ComputeDailyValues must be used with daily interval. interval ="+m_interval);
+            if (m_interval != TimeInterval.Monthly)
+                throw new Exception("ComputeMonthlyValues must be used with daily interval. interval ="+m_interval);
 
             Performance p = new Performance();
             HydrometInstantSeries.Cache = new HydrometDataCache(); // clear out and make new cache.
