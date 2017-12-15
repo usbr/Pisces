@@ -164,6 +164,9 @@ namespace PiscesWebServices.CGI
             // no flags (the old daily database did not have flags )
             m_printFlags = interval == TimeInterval.Hourly || interval == TimeInterval.Irregular;
 
+            if (interval == TimeInterval.Monthly)
+                m_printFlags = true; // historical default for monthly is flags
+
             if (m_collection.AllKeys.Contains("flags"))
             {
                 m_printFlags = m_collection["flags"] == "true";

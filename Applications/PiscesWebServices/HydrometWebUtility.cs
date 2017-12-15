@@ -82,13 +82,16 @@ namespace PiscesWebServices
              if (interval == TimeInterval.Daily)
                  t2 = DateTime.Now.AddDays(-1).Date;
 
+            if (interval == TimeInterval.Monthly)
+            {  
+                t1 = DateTime.Now.AddYears(-2);
+            }
+
             try
             {
                 var back = GetIntParam(c, "back", -1);
                 if (back != -1)
                 {
-
-
 
                     if (interval == TimeInterval.Hourly || interval == TimeInterval.Irregular)
                     {
@@ -100,6 +103,9 @@ namespace PiscesWebServices
 
                     if (interval == TimeInterval.Daily)
                         t1 = t2.AddDays(-back);
+
+                    if (interval == TimeInterval.Monthly)
+                        t1 = t2.AddMonths(-back);
 
                     return true;
                 }
