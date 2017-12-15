@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Mono.Options;
-using Reclamation.TimeSeries;
-using Reclamation.Core;
-using System.IO;
-using Nancy.Hosting.Self;
-using PiscesWebServices.Tests;
+﻿using Mono.Options;
 using PiscesWebServices.CGI;
+using PiscesWebServices.Tests;
+using Reclamation.Core;
+using Reclamation.TimeSeries;
+using System;
 using System.Collections;
 
 namespace PiscesWebServices
@@ -62,11 +57,8 @@ namespace PiscesWebServices
             var p = new OptionSet();
             var format = "json";
             var verbose = false;
-            bool selfHost = false;
-            var sqLiteDatabaseFileName = "";
 
-            p.Add("server", x => selfHost = true);
-            p.Add("cgi=", "required cgi to execute cgi=help|sites|series|instant|daily|wyreport|inventory", x => cgi = x);
+            p.Add("cgi=", "required cgi to execute cgi=help|sites|series|instant|daily|monthly|wyreport|inventory", x => cgi = x);
             p.Add("json_property_stubs=", "comma separated list of properties (i.e. 'region,url,') to created empty stubs if neeed ",
                               x => json_property_stubs = x);
             p.Add("site-type=", "filter agrimet sites", x => siteType = BasicDBServer.SafeSqlLikeClauseLiteral(x));
@@ -74,7 +66,6 @@ namespace PiscesWebServices
             p.Add("format=", "format json(default) | csv ", x => format = x);
             p.Add("verbose", " get more details", x => verbose = true);
             p.Add("debug", " get more details", x => verbose = true);
-            p.Add("database", "filename for SQLite database", x => sqLiteDatabaseFileName = x);
 
             try
             {
@@ -88,37 +79,12 @@ namespace PiscesWebServices
             Database.InitDB(args);
             var db = Database.DB();
 
-            if (selfHost)
-            {
-                try
-                {
-                    var serverUri = "http://localhost:8080";
-                    var cfg = new HostConfiguration();
-                    //cfg.RewriteLocalhost = false;
-                    //c..fg.UrlReservations.CreateAutomatically=true;
-                    var host = new Nancy.Hosting.Self.NancyHost(cfg, new Uri(serverUri));
-                    //var host = new Nancy.Hosting.Self.NancyHost();
-                    using (host)
-                    {
-                        host.Start();
-                        Console.WriteLine("Running on " + serverUri);
-                        Console.ReadLine();
-                    }
-                }
-                catch (Exception nancyEx)
-                {
-
-                    Console.WriteLine(nancyEx.Message);
-                }
-                return;
-            }
 
             if (cgi == "")
             {
                 ShowHelp(p);
                 return;
             }
-
             
 
             if (verbose)

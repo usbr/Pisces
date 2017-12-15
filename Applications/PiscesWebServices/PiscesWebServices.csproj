@@ -52,14 +52,6 @@
       <HintPath>..\..\packages\Mono.Posix.4.0.0.0\lib\net40\Mono.Posix.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Nancy, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nancy.1.4.1\lib\net40\Nancy.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Nancy.Hosting.Self, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nancy.Hosting.Self.1.4.1\lib\net40\Nancy.Hosting.Self.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -94,9 +86,7 @@
     <Compile Include="CGI\Formatter.cs" />
     <Compile Include="CGI\WaterYearReport.cs" />
     <Compile Include="CGI\WebTimeSeriesWriter.Legacy.cs" />
-    <Compile Include="DyGraphWriter.cs" />
     <Compile Include="HtmlElement.cs" />
-    <Compile Include="NancyBootstrapper.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -104,9 +94,7 @@
     </Compile>
     <Compile Include="SiteCsvTable.cs" />
     <Compile Include="Database.cs" />
-    <Compile Include="PageBuilder.cs" />
     <Compile Include="HydroJsonWriter.cs" />
-    <Compile Include="PiscesWebRoutes.cs" />
     <Compile Include="SiteInfoCGI.cs" />
     <Compile Include="CGI\WebTimeSeriesWriter.cs" />
     <Compile Include="JSONSites.cs" />
@@ -142,9 +130,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="WEBDAYCSV.C" />
   </ItemGroup>
   <ItemGroup>
