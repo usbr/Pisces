@@ -54,7 +54,7 @@ namespace PiscesWebServices.CGI
         private static void StopWithError(string message)
         {
             Console.Write("Content-type: text/html\n\n");
-            Help.PrintInstantHelp();
+            Help.PrintInstant();
             Console.WriteLine("Error: " + message);
             throw new Exception(message);
         }

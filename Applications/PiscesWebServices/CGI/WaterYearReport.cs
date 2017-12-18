@@ -194,7 +194,7 @@ namespace PiscesWebServices.CGI
         private static void StopWithError(string message)
         {
             Console.Write("Content-type: text/html\n\n");
-            Help.PrintWaterYearHelp();
+            Help.PrintWaterYear();
             Console.WriteLine("Error: " + message);
             throw new Exception(message);
         }

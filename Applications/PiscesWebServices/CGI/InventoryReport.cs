@@ -196,7 +196,7 @@ namespace PiscesWebServices.CGI
         private static void StopWithError(string message)
         {
             Console.WriteLine("Error: " + message);
-            Help.PrintInventoryHelp();
+            Help.PrintInventory();
             throw new Exception(message);
         }
 

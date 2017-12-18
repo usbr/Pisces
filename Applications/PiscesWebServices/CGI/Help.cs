@@ -16,14 +16,23 @@ namespace PiscesWebServices.CGI
 
         public static void Print()
         {
-            Help.PrintInstantHelp();
-            Help.PrintDailyHelp();
-            Help.PrintWaterYearHelp();
-            PrintInventoryHelp();
+            Help.PrintInstant();
+            Help.PrintDaily();
+            Help.PrintMonthly();
+            Help.PrintWaterYear();
+            PrintInventory();
         }
 
+        public static void PrintMonthly()
+        {
+            var r = new Dictionary<string, string>();
+            r.Add("one parameter one site with flags", "list=heii qm&back=24&format=csv");
+            r.Add("all parameters for a single site without flags", "list=heii qm&back=24&format=csv&flags=false");
+            r.Add("multiple sites and parameters, with specific date range", "list=BEUO QU , BEU PM , BNOO PM , VAEO PM , RVDO PM , BLPO SE , LKCO SE , RCSO SE&start=2015-10-01&end=2016-09-30");
+            Print(r, "monthly", "Monthly database");
+        }
 
-        public static void PrintInstantHelp()
+        public static void PrintInstant()
         {
             var r = new Dictionary<string, string>();
             r.Add("all parameters last 24 hours for specified site", "list=bigi&back=24");
@@ -37,7 +46,7 @@ namespace PiscesWebServices.CGI
             Print(r,"instant","Near real-time data");
         }
 
-        internal static void PrintDailyHelp()
+        internal static void PrintDaily()
         {
             var r = new Dictionary <string,string>();
             r.Add("all parameters last 24 days for specified site", "list=luc&back=24&format=csv");
@@ -54,7 +63,7 @@ namespace PiscesWebServices.CGI
             Print(r, "daily", "Daily Data");
         }
 
-        internal static void PrintWaterYearHelp()
+        internal static void PrintWaterYear()
         {
             var r = new Dictionary<string, string>();
             r.Add("water year report 2012", "site=abei&parameter=pp&start=2012&end=2012&format=usgs-html");
@@ -63,7 +72,7 @@ namespace PiscesWebServices.CGI
             Print(r, "wyreport", "Water Year Report");
         }
 
-        internal static void PrintInventoryHelp()
+        internal static void PrintInventory()
         {
             var r = new Dictionary<string, string>();
             r.Add("Daily Inventory", "site=hghm&interval=daily");

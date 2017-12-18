@@ -194,9 +194,11 @@ namespace PiscesWebServices.CGI
             HydrometWebUtility.PrintHydrometTrailer(msg);
 
             if(m_interval == TimeInterval.Irregular)
-               Help.PrintInstantHelp();
+               Help.PrintInstant();
             if (m_interval == TimeInterval.Daily)
-                Help.PrintDailyHelp();
+                Help.PrintDaily();
+            if (m_interval == TimeInterval.Monthly)
+                Help.PrintMonthly();
 
                 throw new Exception(msg);
         }
