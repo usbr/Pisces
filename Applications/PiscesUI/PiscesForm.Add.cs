@@ -946,10 +946,6 @@ namespace Reclamation.TimeSeries.Forms
                 s.Read(t1, t2);
                 DB.AddSeries(s, CurrentFolder);
             }
-            else if (dlg.ShowDialog() == DialogResult.Ignore)
-            {
-                dlg.ShowDialog();
-            }
         }
 
     }

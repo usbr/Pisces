@@ -125,6 +125,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                     case "Y":
                     case "E":
                     case "W":
+                    case "P":
                         {
                             this.radioButtonGH.Enabled = false;
                             this.radioButtonFB.Enabled = false;
