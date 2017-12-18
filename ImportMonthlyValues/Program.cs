@@ -16,9 +16,9 @@ namespace ImportMonthlyValues
     {
         static void Main(string[] args)
         {
-            if (args.Length != 3)
+            if (args.Length != 3 && args.Length != 4)
             {
-                Console.WriteLine("Usage: ImportMonthlyValues server user pass");
+                Console.WriteLine("Usage: ImportMonthlyValues server user pass [siteid]");
                 Console.WriteLine(" server = hostname ");
                 Console.WriteLine(" user = username");
                 Console.WriteLine(" pass = passwordfile");
@@ -28,7 +28,9 @@ namespace ImportMonthlyValues
             var host = args[0];
             string user = args[1];
             string pass = File.ReadAllLines(args[2])[0];
-
+            string cbtt = "";
+            if (args.Length == 4)
+                cbtt = args[3];
 
             var svr = PostgreSQL.GetPostgresServer("timeseries", host, user, pass);
             //UpdateVMS_daily_por(svr);
@@ -53,6 +55,9 @@ namespace ImportMonthlyValues
                 var pcode = r["pcode"].ToString().ToLower();
                 var years = r["years"].ToString();
 
+                if (cbtt != "" && cbtt.ToLower() != siteid.ToLower())
+                    continue;
+
                 HydrometMonthlySeries m = new HydrometMonthlySeries(siteid, pcode, HydrometHost.PN);
                 HydrometMonthlySeries.ConvertToAcreFeet = false;
                 // does site id exist in sitecatalog?
@@ -73,6 +78,8 @@ namespace ImportMonthlyValues
                         s = new Series("", TimeInterval.Monthly);
                         s.Name = siteid + "_" + pcode;
                         s.Table.TableName = tn;
+                        s.Parameter = pcode;
+                        s.SiteID = siteid;
                         s.TimeInterval = TimeInterval.Monthly;
                         db.AddSeries(s, folder);
                     }
