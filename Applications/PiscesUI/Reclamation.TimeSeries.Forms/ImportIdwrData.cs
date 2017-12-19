@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Reclamation.TimeSeries.Usgs;
+using Reclamation.TimeSeries.IDWR;
 using Reclamation.Core;
 using System.Diagnostics;
 
@@ -49,7 +49,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             this.comboBoxRiverSystems.DataSource = null;
             this.comboBoxRiverSystems.SelectedValue = null;
             this.comboBoxRiverSystems.Items.Clear();
-            var dTab = Reclamation.TimeSeries.IDWR.Utilities.GetIdwrRiverSystems();
+            var dTab = IDWRDailySeries.GetIdwrRiverSystems();
             this.comboBoxRiverSystems.DataSource = dTab;
             this.comboBoxRiverSystems.ValueMember = "River";
             this.comboBoxRiverSystems.DisplayMember = "Name";
@@ -83,7 +83,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             {
                 this.comboBoxRiverSites.DataSource = null;
                 this.comboBoxRiverSites.Items.Clear();
-                var dTab = Reclamation.TimeSeries.IDWR.Utilities.GetIdwrRiverSites(this.comboBoxRiverSystems.SelectedValue.ToString());
+                var dTab = IDWRDailySeries.GetIdwrRiverSites(this.comboBoxRiverSystems.SelectedValue.ToString());
                 this.comboBoxRiverSites.DataSource = dTab;
                 this.comboBoxRiverSites.ValueMember = "SiteID";
                 this.comboBoxRiverSites.DisplayMember = "SiteName";
@@ -117,7 +117,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             {
                 toolStripStatusLabel1.Text = "Requesting Site Information API Data...";
                 statusStrip1.Refresh();
-                var dTab = Reclamation.TimeSeries.IDWR.Utilities.GetIdwrSiteInfo(this.comboBoxRiverSites.SelectedValue.ToString());
+                var dTab = IDWRDailySeries.GetIdwrSiteInfo(this.comboBoxRiverSites.SelectedValue.ToString());
 
                 switch (dTab.Rows[0]["SiteType"].ToString())
                 {
@@ -192,7 +192,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 if (this.radioButtonAF.Checked) { parameter = "AF"; }
                 if (this.radioButtonFB.Checked) { parameter = "FB"; }
                 if (this.radioButtonGH.Checked) { parameter = "GH"; }
-                if (this.radioButtonQD.Checked) { parameter = "QD"; }
+                if (this.radioButtonQD.Checked) { parameter = this.textBoxSID.Text; }
 
                 this.tStart = timeSelectorBeginEnd1.T1;
                 this.tEnd = timeSelectorBeginEnd1.T2;
