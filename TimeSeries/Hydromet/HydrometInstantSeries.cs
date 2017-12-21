@@ -378,9 +378,9 @@ END DATA
 
         public static bool IsValidDMS3(TextFile tf)
         {
-            var header = "yyyyMMMdd hhmm cbtt     PC        NewValue   OldValue   Flag";
+            var header = @"yyyyMMMdd hhmm cbtt\s+PC\s+NewValue\s+OldValue\s+Flag";
 
-            if (tf.Length > 0 && tf[0].IndexOf(header) == 0)
+            if (tf.Length > 0 &&  Regex.IsMatch(tf[0],header) )
                 return true;
 
             DateTime t;

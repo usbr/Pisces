@@ -5,6 +5,7 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Reclamation.TimeSeries.Hydromet
 {
@@ -450,7 +451,9 @@ namespace Reclamation.TimeSeries.Hydromet
 
         internal static bool IsValidArchiveFile(TextFile tf)
         {
-            if (tf.Length > 0 && tf[0].IndexOf(archiveHeader) == 0)
+            var header = @"MM/dd/yyyy cbtt\s+PC\s+NewValue\s+OldValue ";
+
+            if (tf.Length > 0 && Regex.IsMatch(tf[0],header))
                 return true;
 
             return false;
