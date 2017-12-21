@@ -50,17 +50,17 @@ namespace Teacup
                 }
                 else if (cfg.IsLine)
                 {
-                    DrawLine(date, bmp, cfg);
+                    DrawLine(HServer,date, bmp, cfg);
 
                 }
             }
             bmp.Save(args[1]);//save the image file 
         }
 
-        private static void DrawLine(DateTime date, Bitmap bmp, ConfigLine cfg)
+        private static void DrawLine(HydrometHost HServer, DateTime date, Bitmap bmp, ConfigLine cfg)
         {
             string number = "";
-            double value = ReadHydrometValue(cfg.cbtt, cfg.pcode, date, HydrometHost.PN);
+            double value = ReadHydrometValue(cfg.cbtt, cfg.pcode, date, HServer );
             //check for missing values and set the output number of digits to report
             if ((cfg.units == "Feet") || (cfg.units == "%"))
             {
