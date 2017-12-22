@@ -32,14 +32,20 @@ namespace PiscesAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             PiscesAPIDatabase = Environment.GetEnvironmentVariable("PiscesAPIDatabase");
             ApiConnectionString = Environment.GetEnvironmentVariable("ConnectionString");
 
-            if (PiscesAPIDatabase == "")
-                throw new Exception("Error: environment variable  PiscesAPIDatabase must be either 'mysql' or 'postgres'");
-            if (ApiConnectionString == "")
-                throw new Exception("Error: environment variable  ConnectionString must be set");
+            // Try to get DB info from appsettings.json if ENV is not defined
+            if (PiscesAPIDatabase == null && ApiConnectionString == null)
+            {
+                PiscesAPIDatabase = Configuration["DatabaseProvider:DefaultDB"];
+                ApiConnectionString = Configuration["ConnectionString:DefaultConnection"];
+            }
+
+            if (PiscesAPIDatabase == "" || PiscesAPIDatabase == null)
+                throw new Exception("Error: 'PiscesAPIDatabase' must be either 'mysql' or 'postgres' as an Environment Variable or in appsettings.json");
+            if (ApiConnectionString == "" || ApiConnectionString == null)
+                throw new Exception("Error: 'ConnectionString' must be set as an Environment Variable or in appsettings.json");
 
 
             services.Configure<IISOptions>(options =>
