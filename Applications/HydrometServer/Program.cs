@@ -416,14 +416,18 @@ namespace HydrometServer
                     var pt = diff[i];
                     if (System.Math.Abs(pt.Value) > 0.01)
                     {
-                        Console.WriteLine("difference " + pt);
+                        Console.WriteLine(tablename +"difference " + pt);
                     }
                 }
 
             }
             else
             {
-                //destination.InsertTimeSeriesTable(table);
+                foreach (DataRow row in sourceTable.Rows)
+                {
+                    row.SetAdded();
+                }
+                destination.InsertTimeSeriesTable(sourceTable);
             }
         }
 
