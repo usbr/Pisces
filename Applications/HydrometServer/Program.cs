@@ -206,6 +206,24 @@ namespace HydrometServer
                 }
 
 
+                if(args.Contains("copy-daily"))
+                {
+                    var tablename = args["copy-daily"];
+
+                    if (tablename=="" || args["source"] == "")
+                    {
+                        Console.WriteLine("Error: --copy-daily=tablename requires tablename, and requires --source=connectionString");
+                        ShowHelp();
+                        return;
+                    }
+                    bool compare = args.Contains("compare");
+                    string connectionString = args["source"];
+
+                    Copy(TimeInterval.Daily, connectionString,tablename,(PostgreSQL) db.Server, t1, t2,compare);
+                    return;
+                }
+
+
                 if (args.Contains("update-period-of-record"))
                 {
                     var sc = db.GetSeriesCatalog("isfolder=0");
@@ -288,6 +306,12 @@ namespace HydrometServer
             Console.WriteLine("           raw sql filter against seriescatalog");
             Console.WriteLine("--error-log=errors.txt");
             Console.WriteLine("           file to log error messages");
+
+            Console.WriteLine("--copy-daily=tablename --source=connectionString [--compare]");
+            Console.WriteLine("           copy daily data from an external time series database");
+            Console.WriteLine("           if --compare then compare data in databases without copying");
+            Console.WriteLine("     example:  --copy-daily=daily_ahti_etos --source=\"Server=127.0.0.1;Database=timeseries;User id=me;password=[^543}9].*;\"");
+
             Console.WriteLine("--import-hydromet-instant");
             Console.WriteLine("           imports hydromet (vms) instant data default (t1-3 days)");
             Console.WriteLine("--import-hydromet-daily");
@@ -356,6 +380,51 @@ namespace HydrometServer
                 block++;
             }
             perf.Report("Finished importing daily data"); // 15 seconds
+        }
+
+        /// <summary>
+        /// Copy data from another database
+        /// if compare=true  compare tables without copying data
+        /// </summary>
+        /// <param name="db"></param>
+        private static void Copy(TimeInterval interval, string connectionString, string tablename,
+            PostgreSQL destination, DateTime t1, DateTime t2, bool compare=false)
+        {
+            Logger.WriteLine("--copy-daily="+tablename);
+            
+            var source = new PostgreSQL(connectionString);
+            var sql = "select * from "+tablename;
+                sql += " WHERE datetime >= " + source.PortableDateString(t1, TimeSeriesDatabase.dateTimeFormat)
+                + " AND "
+                + " datetime <= " + source.PortableDateString(t2, TimeSeriesDatabase.dateTimeFormat);
+            sql += " order by datetime ";
+            var sourceTable = source.Table(tablename,sql);
+            Logger.WriteLine("found "+sourceTable.Rows.Count +" records in source ");
+            if (compare) // show differences
+            {
+                var destTable = destination.Table(tablename, sql);
+                Logger.WriteLine("found " + destTable.Rows.Count + " records in destination ");
+                Series dest = new Series(tablename);
+                dest.Table = destTable;
+
+                var src = new Series("source_" + tablename);
+                src.Table = sourceTable;
+
+                var diff = src - dest;
+                for (int i = 0; i < diff.Count; i++)
+                {
+                    var pt = diff[i];
+                    if (System.Math.Abs(pt.Value) > 0.01)
+                    {
+                        Console.WriteLine("difference " + pt);
+                    }
+                }
+
+            }
+            else
+            {
+                //destination.InsertTimeSeriesTable(table);
+            }
         }
 
         private static void SaveTableToSeries(TimeSeriesDatabase db, DataTable table, TimeInterval interval)

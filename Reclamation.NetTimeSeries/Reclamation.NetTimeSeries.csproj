@@ -81,6 +81,7 @@
     <Compile Include="..\TimeSeries\Math.Statistics.cs" Link="Math.Statistics.cs" />
     <Compile Include="..\TimeSeries\Math.Statistics.Daily.cs" Link="Math.Statistics.Daily.cs" />
     <Compile Include="..\TimeSeries\Math.TableLookup.cs" Link="Math.TableLookup.cs" />
+    <Compile Include="..\TimeSeries\MonthlyTimeSeriesCalculator.cs" Link="MonthlyTimeSeriesCalculator.cs" />
     <Compile Include="..\TimeSeries\NOAA\SimpleShef.cs" Link="NOAA\SimpleShef.cs" />
     <Compile Include="..\TimeSeries\NOAA\SpokaneCoopSeries.cs" Link="NOAA\SpokaneCoopSeries.cs" />
     <Compile Include="..\TimeSeries\Owrd\OwrdRatingTables.cs" Link="Owrd\OwrdRatingTables.cs" />

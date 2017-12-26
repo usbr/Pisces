@@ -10,8 +10,8 @@ using System.IO;
 namespace Reclamation.TimeSeries
 {
     /// <summary>
-    /// MonthlyTimeSeriesCalculator compute daily values
-    /// for all Daily CalculationSeries.  Used in a batch type operation.
+    /// MonthlyTimeSeriesCalculator computes monthly values
+    /// for all Monthly CalculationSeries.  Used in a batch type operation.
     /// </summary>
     public class MonthlyTimeSeriesCalculator
     {
@@ -32,7 +32,7 @@ namespace Reclamation.TimeSeries
 
 
         /// <summary>
-        /// Calculates Daily values
+        /// Calculates Monthly values
         /// </summary>
         /// <param name="t1"></param>
         /// <param name="t2"></param>
