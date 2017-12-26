@@ -483,8 +483,8 @@ namespace Reclamation.TimeSeries.Hydromet
                 /*
 07/28/2016 CKVY         MN        998877.00     40.91   
                  */
-                string cbtt = tf[i].Substring(11, 12).Trim();
-                string pcode = tf[i].Substring(24, 9).Trim();
+                string cbtt = tf[i].Substring(11, 12).Trim().ToLower();
+                string pcode = tf[i].Substring(24, 9).Trim().ToLower();
                 string strValue = tf[i].Substring(34, 10);
                 double val = 0;
 
