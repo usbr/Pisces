@@ -514,7 +514,7 @@ namespace HydrometServer
             // be generated as a separate task.
             Console.WriteLine("ImportHydrometInstant");
             TimeRange timeRange = new TimeRange(start, end);
-            foreach (TimeRange item in timeRange.Split(30))
+            foreach (TimeRange item in timeRange.Split(365))
             {
                 int block = 1;
                 foreach (string query in GetBlockOfQueries(db, TimeInterval.Irregular, filter, propertyFilter))
