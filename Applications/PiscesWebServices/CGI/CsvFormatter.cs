@@ -14,8 +14,8 @@ namespace PiscesWebServices.CGI
 
          public CsvFormatter(TimeInterval interval, bool printFlags)
              : base(interval, printFlags)
-         {
-            ContentType = "Content-type: text/csv\n\n";
+         { 
+            ContentType = "Content-type: text/csv\nContent-Disposition: attachment; filename=hydromet.csv\n\n";
          }
 
          public override void WriteLine(string s)
