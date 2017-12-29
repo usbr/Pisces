@@ -582,6 +582,9 @@ namespace HydrometServer
             if( dateString.ToLower() == "yesterday")
             return DateTime.Now.AddDays(-1);
 
+            if (dateString.ToLower() == "lastweek")
+                return DateTime.Now.AddDays(-7);
+
             if (dateString.ToLower() == "lastyear")
                 return DateTime.Now.AddDays(-365);
 
