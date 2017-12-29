@@ -171,14 +171,22 @@ namespace HydrometServer
 
                 if (args.Contains("import-hydromet-instant"))
                 {
+                    HydrometHost host = HydrometHost.PN;
+                    if (args["import-hydromet-instant"] != "")
+                        host = (HydrometHost)Enum.Parse(typeof(HydrometHost), args["import-hydromet-instant"]);
+
                     File.AppendAllText(errorFileName, "begin: import-hydromet-instant " + DateTime.Now.ToString() + "\n");
-                    ImportHydrometInstant(db, t1.AddDays(-2), t2.AddDays(1), filter, propertyFilter);
+                    ImportHydrometInstant(host,db, t1.AddDays(-2), t2.AddDays(1), filter, propertyFilter);
                 }
 
                 if (args.Contains("import-hydromet-daily"))
                 {
+                    HydrometHost host = HydrometHost.PN;
+                    if (args["import-hydromet-daily"] != "")
+                        host = (HydrometHost)Enum.Parse(typeof(HydrometHost), args["import-hydromet-daily"]);
+
                     File.AppendAllText(errorFileName, "begin: import-hydromet-daily " + DateTime.Now.ToString() + "\n");
-                    ImportHydrometDaily(db, t1, t2, filter, propertyFilter);
+                    ImportHydrometDaily(host,db, t1, t2, filter, propertyFilter);
                 }
 
                 if (args.Contains("import-hydromet-monthly"))
@@ -311,10 +319,10 @@ namespace HydrometServer
             Console.WriteLine("           copy daily data from an external time series database");
             Console.WriteLine("           if --compare then compare data in databases without copying");
             Console.WriteLine("     example:  --copy-daily=daily_ahti_etos --source=\"Server=127.0.0.1;Database=timeseries;User id=me;password=[^543}9].*;\"");
-
-            Console.WriteLine("--import-hydromet-instant");
+            
+            Console.WriteLine("--import-hydromet-instant[=Yakima|PNLinux|GreatPlains|PN]");
             Console.WriteLine("           imports hydromet (vms) instant data default (t1-3 days)");
-            Console.WriteLine("--import-hydromet-daily");
+            Console.WriteLine("--import-hydromet-daily[=Yakima|PNLinux|GreatPlains|PN]");
             Console.WriteLine("           imports hydromet (vms) daily data default ( t1-100 days)");
             Console.WriteLine("--import-hydromet-monthly");
             Console.WriteLine("           imports hydromet monthly data ( last 5 years)");
@@ -363,7 +371,7 @@ namespace HydrometServer
         /// Imports daily data from Hydromet into TimeSeriesDatabase
         /// </summary>
         /// <param name="db"></param>
-        private static void ImportHydrometDaily(TimeSeriesDatabase db, DateTime t1, DateTime t2, string filter, string propertyFilter)
+        private static void ImportHydrometDaily(HydrometHost host, TimeSeriesDatabase db, DateTime t1, DateTime t2, string filter, string propertyFilter)
         {
             Performance perf = new Performance();
             Console.WriteLine("ImportHydrometDaily");
@@ -373,7 +381,7 @@ namespace HydrometServer
                 if (query == "")
                     continue;
 
-                var table = HydrometDataUtility.ArchiveTable(HydrometHost.PN, query, t1, t2, 0);
+                var table = HydrometDataUtility.ArchiveTable(host, query, t1, t2, 0);
                 Console.WriteLine("Block " + block + " has " + table.Rows.Count + " rows ");
                 Console.WriteLine(query);
                 SaveTableToSeries(db, table, TimeInterval.Daily);
@@ -508,7 +516,8 @@ namespace HydrometServer
         /// Imports instant data from Hydromet into TimeSeriesDatabase
         /// </summary>
         /// <param name="db"></param>
-        private static void ImportHydrometInstant(TimeSeriesDatabase db,DateTime start, DateTime end, string filter,string propertyFilter)
+        private static void ImportHydrometInstant(HydrometHost host, TimeSeriesDatabase db,DateTime start,
+            DateTime end, string filter,string propertyFilter)
         {
             // TO DO.. the outer loop of Date ranges  (t,t3) could
             // be generated as a separate task.
@@ -520,7 +529,7 @@ namespace HydrometServer
                 foreach (string query in GetBlockOfQueries(db, TimeInterval.Irregular, filter, propertyFilter))
                 {
                     Console.WriteLine("Reading " + item.StartDate + " to " + item.EndDate);
-                    var table = HydrometDataUtility.DayFilesTable(HydrometHost.PN, query, item.StartDate, item.EndDate, 0);
+                    var table = HydrometDataUtility.DayFilesTable(host, query, item.StartDate, item.EndDate, 0);
                     Console.WriteLine("Block " + block + " has " + table.Rows.Count + " rows ");
                     Console.WriteLine(query);
                     SaveTableToSeries(db, table, TimeInterval.Irregular);
