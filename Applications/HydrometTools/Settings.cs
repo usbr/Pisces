@@ -463,7 +463,7 @@ namespace HydrometTools
                         throw new Exception(
                     "Alarms require a database password. Please enter that in the settings/general tab");
 
-                    alarmUI = new AlarmManagerControl(db.Server);
+                    alarmUI = new AlarmManagerControl(db);
                     alarmUI.Parent = tabPageAlarms;
                     alarmUI.Dock = DockStyle.Fill;
                     alarmUI.BringToFront();

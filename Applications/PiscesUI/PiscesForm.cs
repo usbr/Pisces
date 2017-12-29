@@ -1123,7 +1123,7 @@ namespace Reclamation.TimeSeries.Forms
         {
             try
             {
-                AlarmManagerMain am = new AlarmManagerMain(DB.Server);
+                AlarmManagerMain am = new AlarmManagerMain(DB);
                 am.Size = new System.Drawing.Size(600, 400);
                 am.ShowDialog();
             }

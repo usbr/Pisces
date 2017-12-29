@@ -387,7 +387,7 @@ namespace Reclamation.TimeSeries
             var sc = GetSiteCatalog("siteid = '" + siteID.ToLower() + "'");
             if (sc.Count != 0)
                 return  sc[0].description;
-            return "";
+            return siteID;
         }
         public TimeSeriesDatabaseDataSet.parametercatalogDataTable GetParameterCatalog()
         {
@@ -2021,7 +2021,7 @@ UNION ALL
             {
                 if( m_alarmDS == null )
                 {
-                    m_alarmDS = AlarmDataSet.CreateInstance(m_server);
+                    m_alarmDS = AlarmDataSet.CreateInstance(this);
                 }
 
                 return m_alarmDS;

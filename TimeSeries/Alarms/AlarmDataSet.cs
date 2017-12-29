@@ -19,23 +19,13 @@ namespace Reclamation.TimeSeries.Alarms
         }
 
         private Core.BasicDBServer m_server;
+        private TimeSeriesDatabase m_db;
 
-        public static AlarmDataSet CreateInstance(BasicDBServer server = null)
+        public static AlarmDataSet CreateInstance(TimeSeriesDatabase db)
         {
-            if( server != null)
-            Logger.WriteLine("AlarmDataSet.CreateInstance("+server.Name+")");
-            AlarmDataSet rval;
-            if (server == null)
-            { // create from config files.
-                var db = TimeSeriesDatabase.InitDatabase(new Arguments(new string[] { }));
-                rval = new AlarmDataSet();
-                rval.m_server = db.Server;
-            }
-            else
-            {// create using server
-                rval = new AlarmDataSet();
-                rval.m_server = server;
-            }
+            Logger.WriteLine("AlarmDataSet.CreateInstance("+db.Server.Name+")");
+            var rval = new AlarmDataSet();
+            rval.m_server = db.Server;
             return rval;
         }
 
@@ -352,28 +342,21 @@ namespace Reclamation.TimeSeries.Alarms
 
         private void SendEmail(alarm_definitionRow alarm, Point pt)
         {
-            // old:  Alarm condition at site WICEWS for parameter GH -- value = 0.43
-            var siteDescription = "";
-            var t = m_server.Table("sitecatalog", "select description from sitecatalog where siteid='" + alarm.siteid + "'");
-            if (t.Rows.Count > 0)
-                siteDescription = t.Rows[0][0].ToString();
-            else
-            {
-                siteDescription = "siteid =" + alarm.siteid + "  parameter = " + alarm.parameter;
-            }
+            // vms message:  Alarm condition at site WICEWS for parameter GH -- value = 0.43
+            var tn = "instant_" + alarm.siteid + "_" + alarm.parameter;
+            var series = m_db.GetSeriesFromTableName(tn.ToLower());
+            var siteDescription = series.SiteDescription();
 
-            var parameterName = "";
-            t = m_server.Table("parametercatalog", "select name from parametercatalog where id='" + alarm.parameter + "' and timeinterval = 'Irregular'");
-            if (t.Rows.Count > 0)
-                parameterName = t.Rows[0][0].ToString();
-            else
-            { // parameter name not defined, use other information
-                parameterName = alarm.siteid + " " + alarm.parameter;
-            }
 
-            var subject = "Alarm Condition at " + siteDescription + " " + alarm.siteid.ToUpper();
-            subject += "  " + parameterName;
-            var body = "alarm condition: "+ alarm.alarm_condition;
+            var subject = "Alarm Condition at " + siteDescription 
+                 + " (" + alarm.siteid.ToUpper() + ") "+alarm.parameter+": " +alarm.alarm_condition;
+            var body = "\n<br/>";
+            body += "This email is from the Hydromet system.\n<br/>";
+            body += subject;
+            body += "\n<br/>alarm condition: " + alarm.parameter+" "+ alarm.alarm_condition;
+            body += "\n<br/>" + alarm.parameter + " = " + series.SeriesDescription();
+            body += "\n<br/>" + " ";
+            
             body += "\n<br/>"+ pt.ToString();
             body += "\n<br/>\n<br/>" + subject;
 
@@ -388,8 +371,6 @@ namespace Reclamation.TimeSeries.Alarms
              {
             SendEmail(emails, subject, body);
              }
-
-
         }
 
         private static void SendEmail(string[] address, string subject, string body)

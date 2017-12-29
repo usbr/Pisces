@@ -18,9 +18,9 @@ namespace Reclamation.TimeSeries.Forms.Alarms
             InitializeComponent();
         }
         
-        public AlarmManagerMain(BasicDBServer svr)
+        public AlarmManagerMain(TimeSeriesDatabase db)
         {
-            AlarmManagerControl c = new AlarmManagerControl(svr);
+            AlarmManagerControl c = new AlarmManagerControl(db);
             this.Controls.Add(c);
             c.Dock = DockStyle.Fill;
 

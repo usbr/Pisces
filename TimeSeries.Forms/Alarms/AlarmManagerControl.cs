@@ -20,16 +20,16 @@ namespace Reclamation.TimeSeries.Forms.Alarms
         {
             InitializeComponent();
         }
-        public AlarmManagerControl(BasicDBServer svr)
+        public AlarmManagerControl(TimeSeriesDatabase db)
         {
             InitializeComponent();
-            m_svr = svr;
+            m_svr = db.Server;
 
-            SoundFiles s = new SoundFiles(svr);
+            SoundFiles s = new SoundFiles(m_svr);
             this.tabPageSounds.Controls.Add(s);
             s.Dock = DockStyle.Fill;
 
-            AlarmDataSet ds = AlarmDataSet.CreateInstance(svr);
+            AlarmDataSet ds = AlarmDataSet.CreateInstance(db);
             AlarmSetup s1 = new AlarmSetup(ds);
             this.tabPageSetup.Controls.Add(s1);
             s1.Dock = DockStyle.Fill;

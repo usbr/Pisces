@@ -29,7 +29,7 @@ namespace Reclamation.TimeSeries.Alarms
         public AlarmManager(TimeSeriesDatabase db)
         {
             m_server = db.Server; ;
-            alarmDS = AlarmDataSet.CreateInstance(db.Server);
+            alarmDS = AlarmDataSet.CreateInstance(db);
         }
 
 
