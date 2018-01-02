@@ -14,7 +14,8 @@ namespace HydrometNotifications
             : base(row)
         {
             this.conditionColumnName = conditionColumnName;
-            var m = Regex.Match(row.alarm_condition, Expression);
+            string condition = row[conditionColumnName].ToString();
+            var m = Regex.Match(condition, Expression);
             if (m.Success)
             {
                 limit = Convert.ToInt32(m.Groups["limit"].Value);
@@ -22,7 +23,7 @@ namespace HydrometNotifications
             }
             else
             {
-                throw new ArgumentException("Invalid condition '"+row.alarm_condition+"' ");
+                throw new ArgumentException("Invalid condition '"+condition+"' ");
             }
         }
 
