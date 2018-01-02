@@ -23,9 +23,11 @@ namespace Reclamation.TimeSeries.Alarms
 
         public static AlarmDataSet CreateInstance(TimeSeriesDatabase db)
         {
+            
             Logger.WriteLine("AlarmDataSet.CreateInstance("+db.Server.Name+")");
             var rval = new AlarmDataSet();
             rval.m_server = db.Server;
+            rval.m_db = db;
             return rval;
         }
 
@@ -344,8 +346,14 @@ namespace Reclamation.TimeSeries.Alarms
         {
             // vms message:  Alarm condition at site WICEWS for parameter GH -- value = 0.43
             var tn = "instant_" + alarm.siteid + "_" + alarm.parameter;
+            string siteDescription = "siteid = " + alarm.siteid;
+            var seriesDescription = "siteid = " + alarm.siteid + " parameter = " + alarm.parameter;
             var series = m_db.GetSeriesFromTableName(tn.ToLower());
-            var siteDescription = series.SiteDescription();
+            if (series != null)
+            {
+                siteDescription = series.SiteDescription();
+                seriesDescription = series.SeriesDescription();
+            }
 
 
             var subject = "Alarm Condition at " + siteDescription 
@@ -354,7 +362,7 @@ namespace Reclamation.TimeSeries.Alarms
             body += "This email is from the Hydromet system.\n<br/>";
             body += subject;
             body += "\n<br/>alarm condition: " + alarm.parameter+" "+ alarm.alarm_condition;
-            body += "\n<br/>" + alarm.parameter + " = " + series.SeriesDescription();
+            body += "\n<br/>" + alarm.parameter + " = " + seriesDescription;
             body += "\n<br/>" + " ";
             
             body += "\n<br/>"+ pt.ToString();

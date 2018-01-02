@@ -178,9 +178,25 @@ namespace Reclamation.Core
             return s;
           
         }
+        public static string GetSimpleTempFileName(string extension)
+        {
+            string path = GetTempPath();
+
+            Random rnd = new Random();
+            string part1 = "t___" + rnd.Next(1200);
+            var fn = Path.Combine(path, part1+ extension);
+
+            if (File.Exists(fn))
+                throw new Exception("File allready exists");
+
+            File.Create(fn).Close();
+
+            return fn;
+        }
+
 
         /// <summary>
-        /// create a simple 8 character unique temporary filename with specified extension
+        /// create a unique temporary filename with specified extension
         /// in a temporary directory
         /// <param name="extension">extension includes leading .</param>
         /// </summary>
@@ -196,7 +212,7 @@ namespace Reclamation.Core
         }
 
         /// <summary>
-        /// create a simple 8 character unique temporary filename in the specfied directory
+        /// create unique temporary filename in the specfied directory
         /// </summary>
         public static string GetTempFileNameInDirectory(string path, string extension, string filePrefix)
         {

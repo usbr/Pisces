@@ -23,7 +23,7 @@ namespace Pisces.NunitTests.Database
 
         private static TimeSeriesDatabase GetNewDatabase()
         {
-            var fn = FileUtility.GetTempFileName(".pdb");
+            var fn = FileUtility.GetSimpleTempFileName(".pdb");
             var svr = new SQLiteServer(fn);
             var db = new TimeSeriesDatabase(svr);
             
@@ -224,7 +224,7 @@ namespace Pisces.NunitTests.Database
         public void AboveOrRising()
         {
             var db = GetNewDatabase();
-            var ds = db.Alarms;
+            var ds = AlarmDataSet.CreateInstance(db);
             ds.AddNewAlarmGroup("uny");
             ds.AddNewAlarmGroup("test");
 
