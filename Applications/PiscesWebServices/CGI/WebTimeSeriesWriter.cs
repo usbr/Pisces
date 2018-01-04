@@ -54,7 +54,8 @@ namespace PiscesWebServices.CGI
                                                 "2", // legacy csv
                                                 "shefa", // simple shefA format.
                                                 "idwr_accounting",
-                                                "realtime-graph" // 7 days of instant, with 30 year average
+                                                "realtime-graph", // 7 days of instant, with 30 year average
+                                                "recent" // most recent data/timestamp
                                                 };
 
 
@@ -121,6 +122,10 @@ namespace PiscesWebServices.CGI
             else if (format == "idwr_accounting")
             {
                 m_formatter = new IdwrAccountingFormatter(interval, false);
+            }
+            else if( format == "recent")
+            {
+                m_formatter = new RecentDataFormatter(interval, true);
             }
             else
                 m_formatter = new LegacyCsvFormatter(interval, m_printFlags);
