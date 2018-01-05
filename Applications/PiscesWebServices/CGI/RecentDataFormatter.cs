@@ -42,7 +42,9 @@ namespace PiscesWebServices.CGI
             if (x.Length > 0)
             {
               var r = x[x.Length - 1];
-               Point p = new Point((DateTime)r["datetime"], (double)r["value"], r["flag"].ToString());
+                var t = DateTime.Parse(r["datetime"].ToString());
+                var val = Double.Parse(r["value"].ToString());
+                Point p = new Point(t, val, r["flag"].ToString());
                 string rval = p.DateTime.ToString("MMM dd  HH:mm") + " "
                  + tn.pcode.ToUpper() + " " + p.Value.ToString("F2").PadLeft(11) + p.Flag;
                 return rval;
