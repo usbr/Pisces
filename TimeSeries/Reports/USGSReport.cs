@@ -188,15 +188,11 @@ namespace Reclamation.TimeSeries.Reports
                 {
                     if (s.IndexOf(datatblDate) >= 0 && datatblDate < DateTime.Now)
                     {
-                        string val = "";
                         var o = s[datatblDate];
                         if (o.IsMissing)
-                            val = "-";
+                            rval.Rows[i][j] = "-";
                         else
-                            val = o.Value.ToString("F2");
-
-                        if (!val.Contains("-"))
-                            rval.Rows[i][j] = val;
+                            rval.Rows[i][j] = o.Value.ToString("F2");
                     }
                     datatblDate = datatblDate.AddDays(1);
                 }
