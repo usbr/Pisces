@@ -78,10 +78,15 @@ namespace PiscesWebServices.CGI
             int startIndex = 0;
             var sql = "";
 
-            if (interval == TimeInterval.Daily && m_db.Server is PostgreSQL)
+            if ( ( interval == TimeInterval.Daily || interval == TimeInterval.Monthly)
+                
+                && m_db.Server is PostgreSQL)
             {
                 startIndex = 1; // take care of first table with join to enumerate all dates in range
-                sql = DailyTableWithDates(t1, t2, tableName);
+                var pgInterval = "1 day";
+                if (interval == TimeInterval.Monthly)
+                    pgInterval = "1 month";
+                sql = TableWithMissingDates(t1, t2, tableName,pgInterval);
                 if (list.Count > 1)
                     sql += "\n UNION ALL \n";
             }
@@ -103,7 +108,7 @@ namespace PiscesWebServices.CGI
         /// <param name="t2"></param>
         /// <param name="tableName"></param>
         /// <returns></returns>
-        private string DailyTableWithDates(DateTime t1, DateTime t2, string tableName)
+        private string TableWithMissingDates(DateTime t1, DateTime t2, string tableName,string pgInterval="1day")
         {
             string st1 = t1.ToString("yyyy-MM-dd");
             string st2 = t2.ToString("yyyy-MM-dd") + " 23:59:59.996";
@@ -113,7 +118,7 @@ namespace PiscesWebServices.CGI
             {
                 sql = "SELECT   '" + tableName + "' as tablename,a.datetime, value,flag "
                   + " FROM  ( Select datetime from generate_series"
-                  + "( '" + st1 + "'::timestamp , '" + st2 + "'::timestamp , '1 day'::interval) datetime ) a ";
+                  + "( '" + st1 + "'::timestamp , '" + st2 + "'::timestamp , '"+pgInterval+"'::interval) datetime ) a ";
                 sql += @" left join " + tableName + "  b on a.datetime = b.datetime "
                     + " WHERE  a.datetime >= '" + st1
                     + "' AND    a.datetime <= '" + st2 + "'";
@@ -122,7 +127,7 @@ namespace PiscesWebServices.CGI
             {
                 sql = "SELECT   '" + tableName + "' as tablename, datetime, null as value  , '' as flag "
                   + " FROM  ( Select datetime from generate_series"
-                  + "( '" + st1 + "'::timestamp , '" + st2 + "'::timestamp , '1 day'::interval) datetime ) a ";
+                  + "( '" + st1 + "'::timestamp , '" + st2 + "'::timestamp , '"+pgInterval+"'::interval) datetime ) a ";
 
             }
             return sql;

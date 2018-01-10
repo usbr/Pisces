@@ -173,7 +173,7 @@ namespace Reclamation.TimeSeries.Hydromet
                     if (strValue.IndexOf("NO RECORD") >= 0
                         || strValue.IndexOf("MISSING") >= 0
                         || strValue.IndexOf("998877.00") >=0 
-                        || strValue == "")
+                        || strValue.Trim() == "")
                     {
                         row[colIndex] = System.DBNull.Value;
                         if (hasFlag)
