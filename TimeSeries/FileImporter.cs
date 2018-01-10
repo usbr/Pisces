@@ -107,6 +107,10 @@ namespace Reclamation.TimeSeries
                     var xc = new XConnectTextFile(tf);
                     sl = xc.ToSeries();
                 }
+                else if( HydrometMonthlySeries.IsValidFile(tf))
+                {
+                    sl = HydrometMonthlySeries.FileToSeriesList(tf);
+                }
                 else
                 {
                     Logger.WriteLine("skipped Unknown File Format: " + fileName);

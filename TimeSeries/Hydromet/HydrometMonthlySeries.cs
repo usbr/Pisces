@@ -1,6 +1,7 @@
 using Reclamation.Core;
 using System;
 using System.Data;
+using System.Globalization;
 
 namespace Reclamation.TimeSeries.Hydromet
 {
@@ -148,7 +149,80 @@ namespace Reclamation.TimeSeries.Hydromet
             }
         }
 
- 
+        /// <summary>
+        /// Reads TextFile into a Series List
+        /// </summary>
+        /// <param name="tf"></param>
+        /// <returns></returns>
+        internal static SeriesList FileToSeriesList(TextFile tf)
+        {
+            SeriesList rval = new SeriesList();
+            /*
+             * cbtt,pc,Year,month,value,flag,oldValue,oldFlag
+             * ARK, PM,2018,JAN,1.00,M,5.36,M
+             */
+
+            string[] MonthShortNames = {"ZERO",
+                "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
+
+            for (int i = 1; i < tf.Length; i++) // skip first row (header)
+            {
+                var tokens = tf[i].Split(',');
+                if (tokens.Length != 8)
+                {
+                    Console.WriteLine("Skipping invalid line: " + tf[i]);
+                    continue;
+                }
+                var siteid = tokens[0].ToLower();
+                var parameter = tokens[1].ToLower();
+                int yr;
+                if( !int.TryParse(tokens[2],out yr))
+                {
+                    Console.WriteLine("Error parsing year: "+tf[i]);
+                    continue;
+                }
+                string name = "monthly_" + siteid + "_" + parameter;
+                var idx = rval.IndexOfTableName(name);
+                Series s;
+                if (idx >= 0)
+                    s = rval[idx];
+                else
+                {
+                    s = new Series();
+                    s.TimeInterval = TimeInterval.Monthly;
+                    s.SiteID = siteid;
+                    s.Parameter = parameter;
+                    s.Name = siteid + "_" + parameter;
+                    s.Name = s.Name.ToLower();
+                    s.Table.TableName = name;
+                    rval.Add(s);
+                }
+                //int idx = 
+
+            }
+            return rval;
+        }
+
+            /// <summary>
+            ///  looking for file like this:
+            ///  cbtt,pc,Year,month,value,flag,oldValue,oldFlag
+            ///  ARK, PM,2018,JAN,1.00,M,5.36,M
+            /// </summary>
+            /// <param name="tf"></param>
+            /// <returns></returns>
+            internal static bool IsValidFile(TextFile tf)
+        {
+            if (tf.Length < 2)
+                return false;
+            var header = "cbtt,pc,Year,month,value,flag,oldValue,oldFlag".ToLower();
+            if (tf[0].ToLower().Trim() != header)
+                return false;
+            
+            return true;
+
+        }
+
+
 
         //public TimePostion TimePostion = TimePostion.EndOfMonth;
         public TimePostion TimePostion = TimePostion.Automatic;
