@@ -136,9 +136,9 @@ namespace Reclamation.TimeSeries.Hydromet
 
             CreateColumnNames(hasFlag, columnNames, tbl);
 
-			for(int i=idxDates; i<idx2; i++)
-			{
-                
+            for (int i = idxDates; i < idx2; i++)
+            {
+
 
                 JoinWrappedLines(data, i);
 
@@ -147,33 +147,35 @@ namespace Reclamation.TimeSeries.Hydromet
                 if (line == "")
                     continue;
 
-				string[] parts = line.Trim().Split(',');
-				if( parts.Length ==0)
-					continue;
-				DataRow row = tbl.NewRow();
+                string[] parts = line.Trim().Split(',');
+                if (parts.Length == 0)
+                    continue;
+                DataRow row = tbl.NewRow();
 
                 DateTime date = DateTime.Now;
 
 
                 //if (!DateTime.TryParse(parts[0], out date))
-                if( !LinuxUtility.TryParseDateTime(parts[0],out date))
+                if (!LinuxUtility.TryParseDateTime(parts[0], out date))
                 {
-                        Logger.WriteLine("Error parsing date " + parts[0]);
-                        break;
+                    Logger.WriteLine("Error parsing date " + parts[0]);
+                    break;
                 }
 
-                if( endOfMonth)
-                  date = date.Date.EndOfMonth();
+                if (endOfMonth)
+                    date = date.Date.EndOfMonth();
 
-				row[0] =date;
-				for(int j=1; j<parts.Length; j++)
-				{
-					string strValue = parts[j];
+                row[0] = date;
+                for (int j = 1; j < parts.Length; j++)
+                {
+                    string strValue = parts[j];
 
                     if (strValue.IndexOf("NO RECORD") >= 0
                         || strValue.IndexOf("MISSING") >= 0
-                        || strValue.IndexOf("998877.00") >=0 
-                        || strValue.Trim() == "")
+                        || strValue.IndexOf("998877.00") >= 0
+                        || strValue.Trim() == ""
+                        || strValue.Trim() == PointFlag.Missing
+                        )
                     {
                         row[colIndex] = System.DBNull.Value;
                         if (hasFlag)

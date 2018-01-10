@@ -16,6 +16,7 @@ namespace HydrometForecast
     /// </summary>
     public class HydrometData
     {
+        public static HydrometHost s_server = HydrometHost.PNLinux;
 
         public static string FileName = ""; // when empty use hydromet server
         static HydrometData()
@@ -48,7 +49,7 @@ namespace HydrometForecast
             if (avgPcode == "")
                 return new Point(date, Point.MissingValueFlag, PointFlag.Missing);
 
-            Series avg = GetSeries(cbtt, avgPcode);
+            Series avg = GetSeries(cbtt, avgPcode, HydrometHost.PN);
             
             avg.Read(t1, t2);
             Logger.WriteLine("Reading Average value for " + cbtt + "/" + pcode);
@@ -87,12 +88,12 @@ namespace HydrometForecast
 
             DateTime t1 = new DateTime(8110, month1, 1);
             DateTime t2 = new DateTime(8110, month2, DateTime.DaysInMonth(8110, month2));
-            var s = GetSeries(cbtt, pcode); //new HydrometMonthlySeries(cbtt, pcode);
+            var s = GetSeries(cbtt, pcode, HydrometHost.PN); //new HydrometMonthlySeries(cbtt, pcode);
             s.Read(t1, t2);
             return Reclamation.TimeSeries.Math.Sum(s);
         }
 
-        public static Series GetSeries(string cbtt, string pcode)
+        public static Series GetSeries(string cbtt, string pcode, HydrometHost host)
         {
             var rval = new Series();
             if (UseSQLite())
@@ -108,7 +109,7 @@ namespace HydrometForecast
             }
             else
             {
-                rval = new HydrometMonthlySeries(cbtt, pcode);
+                rval = new HydrometMonthlySeries(cbtt, pcode, host);
             }
             Logger.WriteLine("Reading data for cbtt ='" + cbtt + "' pcode = '" + pcode+"'");
             
@@ -147,7 +148,7 @@ namespace HydrometForecast
                 Logger.WriteLine("Caching Hydromet Data for a year ");
                 cache.Add(cbttPcodeList,
                                      new DateTime(t.Year - 1, 1, 1),
-                                     new DateTime(t.Year, 12, 31));
+                                     new DateTime(t.Year, 12, 31), s_server);
             }
             if (cacheAverage) // get average values (special water year 9999 )
             {
@@ -164,7 +165,7 @@ namespace HydrometForecast
                 Logger.WriteLine("Caching Hydromet Data for average years");
                 cache.Add(avgCodes.ToArray(),
                                    new DateTime(9998, 10, 1),
-                                   new DateTime(9999, 9, 30));
+                                   new DateTime(9999, 9, 30), HydrometHost.PN);
 
             }
             HydrometMonthlySeries.Cache = cache;

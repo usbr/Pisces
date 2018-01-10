@@ -56,7 +56,7 @@ namespace HydrometForecast
         string currentForecast = "";
 
 
-        string errors = "";
+       // List<string> errors = new List<string>();
         private void buttonRun_Click(object sender, EventArgs e)
         {
             Logger.LogHistory.Clear();
@@ -105,7 +105,13 @@ namespace HydrometForecast
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: while running "+currentForecast+"\n"+ ex.Message+"\n"+errors);
+                var tmp = new List<string>();
+                tmp.AddRange(textBoxSummary.Lines);
+                var msg = "Error: while running " + currentForecast + "\n" + ex.Message + "\n"+ex.StackTrace;
+                tmp.Add(msg);
+
+                textBoxSummary.Lines = tmp.ToArray();
+                Console.WriteLine(msg);
             }
             finally
             {
@@ -115,7 +121,9 @@ namespace HydrometForecast
 
         void Logger_OnLogEvent(object sender, StatusEventArgs e)
         {
-            errors += "\n" + e.Message;
+            //  errors.Add(e.Message);
+            Console.WriteLine(e.Message);
+
         }
 
         
@@ -174,7 +182,7 @@ namespace HydrometForecast
         public string PercentOfNormal(double avg, double forecast)
         {
             int percent = 0;
-            if (avg > 0)
+            if (avg > 0 && !double.IsNaN(forecast) && !double.IsNaN(avg))
             {
                 percent = Convert.ToInt32(Math.Round(forecast / avg * 100.0, 0));
             }

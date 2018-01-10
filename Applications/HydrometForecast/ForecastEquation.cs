@@ -491,6 +491,7 @@ namespace HydrometForecast
                     rval.Details.AddRange(X.Details());
                     rval.Details.Add("X"+X.Number+" = "+d.ToString("F2"));
                     rval.Details.Add("");
+                Logger.WriteLine("X" + X.Number + "= " + rval.Forecast);
                 }
 
              rval.Details.Add("");

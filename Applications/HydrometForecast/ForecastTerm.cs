@@ -177,11 +177,13 @@ namespace HydrometForecast
                     var cbtt = tokens[0].Trim();
                     var pcode = tokens[1].Trim();
 
+                    HydrometHost host = HydrometData.s_server;
                     if (getAveragePcode)
                     { // used for snow/precip
                         pcode = HydrometMonthlySeries.LookupAveargePcode(pcode);
+                        host = HydrometHost.PN;
                     }
-                    var s = HydrometData.GetSeries(cbtt, pcode);
+                    var s = HydrometData.GetSeries(cbtt, pcode,host);
                     list.Add(s);
                 }
             }
