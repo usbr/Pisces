@@ -161,10 +161,7 @@ namespace Reclamation.TimeSeries.Hydromet
              * cbtt,pc,Year,month,value,flag,oldValue,oldFlag
              * ARK, PM,2018,JAN,1.00,M,5.36,M
              */
-
-            string[] MonthShortNames = {"ZERO",
-                "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
-
+            
             for (int i = 1; i < tf.Length; i++) // skip first row (header)
             {
                 var tokens = tf[i].Split(',');
@@ -175,12 +172,22 @@ namespace Reclamation.TimeSeries.Hydromet
                 }
                 var siteid = tokens[0].ToLower();
                 var parameter = tokens[1].ToLower();
-                int yr;
-                if( !int.TryParse(tokens[2],out yr))
+                DateTime t;
+                if( !ParseDate(tokens[2],tokens[3],  out t))
                 {
-                    Console.WriteLine("Error parsing year: "+tf[i]);
+                    Console.WriteLine("Error Parsing date "+tf[i]);
                     continue;
                 }
+
+                double val = 0;
+                if(! double.TryParse(tokens[4],out val))
+                {
+                    Console.WriteLine("Error Parsing value: "+tokens[4]);
+                    continue;
+                }
+
+                var flag = tokens[5];
+
                 string name = "monthly_" + siteid + "_" + parameter;
                 var idx = rval.IndexOfTableName(name);
                 Series s;
@@ -197,20 +204,54 @@ namespace Reclamation.TimeSeries.Hydromet
                     s.Table.TableName = name;
                     rval.Add(s);
                 }
-                //int idx = 
-
+                if (s.IndexOf(t) < 0)
+                {
+                    s.Add(t, val, flag);
+                }
+                else
+                {
+                    Logger.WriteLine(s.SiteID + ":" + s.Parameter + "skipped duplicate datetime " + t.ToString());
+                }
             }
             return rval;
         }
 
-            /// <summary>
-            ///  looking for file like this:
-            ///  cbtt,pc,Year,month,value,flag,oldValue,oldFlag
-            ///  ARK, PM,2018,JAN,1.00,M,5.36,M
-            /// </summary>
-            /// <param name="tf"></param>
-            /// <returns></returns>
-            internal static bool IsValidFile(TextFile tf)
+        static string[] MonthShortNames = {"ZERO",
+                "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC" };
+
+        private static bool ParseDate(string y, string m, out DateTime t)
+        {
+            t = new DateTime();
+            int yr;
+            if (!int.TryParse(y, out yr))
+            {
+                Console.WriteLine("Error parsing year: " + y);
+                return false;
+            }
+            int month = 1;
+
+            int idx = Array.IndexOf(MonthShortNames, m.ToUpper());
+
+            if( idx <=0)
+            {
+                Console.WriteLine("Error parsing month: "+m);
+                return false;
+            }
+            month = idx;
+
+            t = new DateTime(yr, month, 1);
+
+            return true;
+        }
+
+        /// <summary>
+        ///  looking for file like this:
+        ///  cbtt,pc,Year,month,value,flag,oldValue,oldFlag
+        ///  ARK, PM,2018,JAN,1.00,M,5.36,M
+        /// </summary>
+        /// <param name="tf"></param>
+        /// <returns></returns>
+        internal static bool IsValidFile(TextFile tf)
         {
             if (tf.Length < 2)
                 return false;
