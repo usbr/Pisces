@@ -282,7 +282,7 @@ namespace PiscesWebServices.CGI
                 daysStored = 3650; // 10 years
 
             if (m_formatter.Interval == TimeInterval.Monthly)
-                daysStored = 36500;
+                daysStored = 365000;
 
             TimeRange timeRange = new TimeRange(start, end);
             WebData wd = new WebData(db);
