@@ -299,6 +299,11 @@ namespace Reclamation.TimeSeries.Hydromet
                         t = t.EndOfMonth();
                     }
                 }
+                if (IndexOf(t) >= 0)
+                {
+                    Console.WriteLine("duplicate data? "+t.ToString()+" "+ tbl.Columns[dataIndex].ColumnName);
+                    continue;
+                }
 
                 if (Convert.IsDBNull(tbl.Rows[i][dataIndex]))
                 {
