@@ -24,6 +24,13 @@ namespace PiscesAPI
             {
                 db = new Npgsql.NpgsqlConnection(conx);
             }
+
+            if (db == null)
+            {
+                Console.WriteLine("Error... Database is not defined.");
+                Console.WriteLine("ApiConnectionString='"+Startup.ApiConnectionString+"'");
+                Console.WriteLine("PiscesAPIDatabase='"+ Startup.PiscesAPIDatabase + "'");
+            }
             return db;
         }
     }

@@ -7,26 +7,8 @@ using PiscesAPI.Models;
 
 namespace PiscesAPI.Controllers
 {
-    [Route("[controller]")]
     public class SiteController : Controller
     {
-        /// <summary>
-        /// Retrieves all sites
-        /// </summary>
-        /// <remarks>Long description for this API endpoint goes here...</remarks>
-        /// <response code="200">Sites fetched</response>
-        /// <response code="400">Sites have missing/invalid values</response>
-        /// <response code="500">Oops! Can't fetch sites right now</response>
-        [HttpGet]
-        [ProducesResponseType(typeof(string), 200)]
-        [ProducesResponseType(typeof(string), 400)]
-        [ProducesResponseType(typeof(void), 500)]
-        public OkObjectResult Get()
-        {
-            var siteProcessor = new DataAccessLayer.SiteRepository();
-            return Ok(siteProcessor.GetSites());
-        }
-
         /// <summary>
         /// Retrieves a specific site by id
         /// </summary>
@@ -34,14 +16,14 @@ namespace PiscesAPI.Controllers
         /// <response code="200">Site fetched</response>
         /// <response code="400">Site has missing/invalid values</response>
         /// <response code="500">Oops! Can't fetch your site right now</response>
-        [HttpGet("{id}")]
+        [HttpGet("/sites/")]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public OkObjectResult Get(string id)
+        public OkObjectResult Get(string id="")
         {
             var siteProcessor = new DataAccessLayer.SiteRepository();
-            return Ok(siteProcessor.GetSites(id));
+            return Ok(siteProcessor.GetSites(id,id!=""));
         }
 
         /// <summary>
