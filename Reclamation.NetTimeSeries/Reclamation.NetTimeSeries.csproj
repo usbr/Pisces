@@ -31,6 +31,7 @@
     <Compile Include="..\TimeSeries\ConstantSeries.cs" Link="ConstantSeries.cs" />
     <Compile Include="..\TimeSeries\DailyTimeSeriesCalculator.cs" Link="DailyTimeSeriesCalculator.cs" />
     <Compile Include="..\TimeSeries\DataLogger\Cr10xSeries.cs" Link="DataLogger\Cr10xSeries.cs" />
+    <Compile Include="..\TimeSeries\DataLogger\CsvScadaFile.cs" Link="DataLogger\CsvScadaFile.cs" />
     <Compile Include="..\TimeSeries\DataLogger\LoggerNetFile.cs" Link="DataLogger\LoggerNetFile.cs" />
     <Compile Include="..\TimeSeries\DataTableSeries.cs" Link="DataTableSeries.cs" />
     <Compile Include="..\TimeSeries\DateRange.cs" Link="DateRange.cs" />
