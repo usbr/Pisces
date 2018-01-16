@@ -37,7 +37,7 @@ sitename,tmstp,gv1,gs1,gv2,gs2,gv3,gs3,gv4,gs4,gv5,gs5,gv6,gs6,lv1,ls1,lv2,ls2,l
 
         public static bool IsValidFile(TextFile tf)
         {
-           return tf.Length > 1 && tf[0].ToLower().IndexOf("sitename,tmstp,gv1,gv2") == 0;
+           return tf.Length > 1 && tf[0].ToLower().IndexOf("sitename,tmstp,gv1,gs1,gv2,gs2") == 0;
         }
 
 
@@ -49,8 +49,8 @@ sitename,tmstp,gv1,gs1,gv2,gs2,gv3,gs3,gv4,gs4,gv5,gs5,gv6,gs6,lv1,ls1,lv2,ls2,l
             {
                 var row = csv.Rows[i];
                 //sitename,tmstp,gv1,gs1,gv2,gs2,gv3,gs3,gv4,gs4,gv5,gs5,gv6,gs6,lv1,ls1,lv2,ls2,lv3,ls3,lv4,ls4,lv5,ls5,lv6,ls6,sv,ss
-                string siteid = row["sitename"].ToString().ToLower();
-                string timestamp = row["tmstp"].ToString();
+                string siteid = row["sitename"].ToString().ToLower().Replace("'", "");
+                string timestamp = row["tmstp"].ToString().Replace("'", "");
                 DateTime t;
                 if (!DateTime.TryParse(timestamp, out t))
                 {

@@ -149,10 +149,10 @@ namespace Pisces.NunitTests.SeriesMath
         }
 
 
-        internal static string CopyTestDecodesFileToTempDirectory(string fileName)
+        internal static string CopyTestDecodesFileToTempDirectory(string fileName,string subdir="decodes")
         {
          
-            var fn = Path.Combine(Path.Combine(Globals.TestDataPath, "decodes"), fileName);
+            var fn = Path.Combine(Path.Combine(Globals.TestDataPath, subdir), fileName);
 
             var tmpDir = FileUtility.GetTempPath();
             

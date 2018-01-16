@@ -79,6 +79,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingTableDownload.cs" />
     <Compile Include="Tests\TestDailyCumulative.cs" />
+    <Compile Include="Tests\TestImportScadaCsv.cs" />
     <Compile Include="Tests\TestImportInstantDependency.cs" />
     <Compile Include="Tests\TestPiscesProgrammingEasy.cs" />
     <Compile Include="Tests\TestPiscesProgrammingFast.cs" />
@@ -99,6 +100,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\PiscesTestData\data\efo\curdata_2018-1-2.csv">
+      <Link>Tests\curdata_2018-1-2.csv</Link>
+    </None>
     <None Include="PostgresqlApp.config">
       <SubType>Designer</SubType>
     </None>

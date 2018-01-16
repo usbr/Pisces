@@ -101,6 +101,12 @@ namespace Reclamation.TimeSeries
                         sl = lf.ToSeries(validPcodes);
                     }
                 }
+                else if (CsvScadaFile.IsValidFile(tf))
+                {
+                    importTag = "scada";
+                    var scada = new CsvScadaFile(fileName);
+                    sl = scada.ToSeries();
+                }
                 else if (XConnectTextFile.IsValidFile(tf))
                 {
                     importTag = "xc";
