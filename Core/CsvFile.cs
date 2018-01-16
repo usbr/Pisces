@@ -524,15 +524,37 @@ namespace Reclamation.Core
             Console.WriteLine(" done.");
         }
 
+
+        static StreamWriter s_sw = null;
+
+        private static void Write(string s)
+        {
+            if (s_sw != null)
+                s_sw.Write(s);
+            else
+                Console.Write(s);
+        }
+        private static void WriteLine(string s)
+        {
+            if (s_sw != null)
+                s_sw.Write(s);
+            else
+                Console.Write(s);
+        }
         /// <summary>
-        /// Saves contents of TextDB to comma seperated file.
+        /// Saves contents of DataTable to comma seperated file.
+        /// if filename is empty print to console instead of a file
         /// </summary>
         /// <param name="filename"></param>
         public static void WriteToCSV(DataTable table, string filename, bool WriteSchema=true, bool printHeader=true)
         {
             if (debugOutput)
                 Console.Write("Writing to " + filename);
-            StreamWriter sr = new StreamWriter(filename, false);
+            if (filename != "")
+                s_sw = new StreamWriter(filename, false);
+            else
+                s_sw = null;
+
             int sz = table.Rows.Count;
             int cols = table.Columns.Count;
             bool[] IsStringColumn = new Boolean[cols];
@@ -543,9 +565,9 @@ namespace Reclamation.Core
                 for (c = 0; c < cols; c++)
                 {
                     if (c < cols - 1)
-                        sr.Write(EncodeCSVCell(table.Columns[c].ColumnName.Trim()) + ",");
+                        Write(EncodeCSVCell(table.Columns[c].ColumnName.Trim()) + ",");
                     else
-                        sr.WriteLine(EncodeCSVCell(table.Columns[c].ColumnName.Trim())); // no comma on last
+                        WriteLine(EncodeCSVCell(table.Columns[c].ColumnName.Trim())); // no comma on last
                     if (table.Columns[c].DataType.ToString() == "System.String")
                         IsStringColumn[c] = true;
                 }
@@ -555,12 +577,12 @@ namespace Reclamation.Core
             {
                 for (c = 0; c < cols - 1; c++)
                 {
-                    sr.Write(table.Columns[c].DataType);
-                    sr.Write(",");
+                    Write(table.Columns[c].DataType.ToString());
+                    Write(",");
                 }
 
-                sr.Write(table.Columns[c].DataType); // no comma on last
-                sr.WriteLine();
+                Write(table.Columns[c].DataType.ToString()); // no comma on last
+                WriteLine("");
             }
 
             for (int r = 0; r < sz; r++)
@@ -572,19 +594,20 @@ namespace Reclamation.Core
                         string s = table.Rows[r][c].ToString();
                         // s = s.Replace("\"", "\"\"");
                         //sr.Write("\""+s+"\"");
-                        sr.Write(EncodeCSVCell(s));
+                        Write(EncodeCSVCell(s));
                     }
                     else
                     {
-                        sr.Write(table.Rows[r][c]);
+                        Write(table.Rows[r][c].ToString());
                     }
                     if (c < cols - 1)
-                        sr.Write(",");
+                        Write(",");
                 }
-                sr.WriteLine();
+                WriteLine("");
 
             }
-            sr.Close();
+            if( s_sw != null)
+              s_sw.Close();
             if (debugOutput)
                 Console.WriteLine(" done.");
         }

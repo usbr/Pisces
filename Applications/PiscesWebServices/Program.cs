@@ -5,6 +5,7 @@ using Reclamation.Core;
 using Reclamation.TimeSeries;
 using System;
 using System.Collections;
+using System.Data;
 
 namespace PiscesWebServices
 {
@@ -103,6 +104,11 @@ namespace PiscesWebServices
                     SiteCsvTable c = new SiteCsvTable(db);
                     c.Execute(siteType);
                 }
+                else if( format == "test")
+                {
+                    SiteCsvTable c = new SiteCsvTable(db);
+                    c.Execute(siteType,"jck");
+                }
             }
             else if (cgi == "instant" || cgi == "daily" || cgi == "monthly")
             {
@@ -175,6 +181,8 @@ namespace PiscesWebServices
             Console.WriteLine("Options:");
             p.WriteOptionDescriptions(Console.Out);
         }
+
+
 
     }
 }

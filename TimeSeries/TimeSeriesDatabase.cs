@@ -280,7 +280,9 @@ namespace Reclamation.TimeSeries
         public TimeSeriesDatabaseDataSet.sitecatalogDataTable GetSiteCatalog(string filter="1=1", string propertyFilter="")
         {
             var tbl = new TimeSeriesDatabaseDataSet.sitecatalogDataTable();
-            string sql = "select * from sitecatalog where " + filter;
+            string sql = "select * from sitecatalog ";
+            if( filter != "")
+                sql += " where " + filter;
             sql += GetSitePropertySQL(propertyFilter);
             sql += "  order by  siteid";
             m_server.FillTable(tbl, sql);
