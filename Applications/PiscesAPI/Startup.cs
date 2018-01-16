@@ -56,6 +56,7 @@ namespace PiscesAPI
             });
 
             services.AddMvc();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             //https://github.com/domaindrivendev/Swashbuckle.AspNetCore#swashbuckleaspnetcoreswagger
             services.AddSwaggerGen(c =>
             {

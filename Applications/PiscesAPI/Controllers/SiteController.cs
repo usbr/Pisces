@@ -20,10 +20,10 @@ namespace PiscesAPI.Controllers
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public OkObjectResult Get(string id="")
+        public OkObjectResult Get(string siteid="")
         {
             var siteProcessor = new DataAccessLayer.SiteRepository();
-            return Ok(siteProcessor.GetSites(id,id!=""));
+            return Ok(siteProcessor.GetSites(siteid, siteid != ""));
         }
 
         /// <summary>
