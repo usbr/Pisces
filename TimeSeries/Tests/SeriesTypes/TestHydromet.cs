@@ -133,7 +133,7 @@ END DATA
         /// Hydromet mpoll stores the average for water years 1960-1989
         /// in the year 6189
         /// </summary>
-        [Test]
+        //[Test]
         public void Monthly30yrAverage()
         {
             HydrometMonthlySeries s = new HydrometMonthlySeries("jkpi", "sem");
