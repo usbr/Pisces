@@ -537,9 +537,9 @@ namespace Reclamation.Core
         private static void WriteLine(string s)
         {
             if (s_sw != null)
-                s_sw.Write(s);
+                s_sw.WriteLine(s);
             else
-                Console.Write(s);
+                Console.WriteLine(s);
         }
         /// <summary>
         /// Saves contents of DataTable to comma seperated file.
