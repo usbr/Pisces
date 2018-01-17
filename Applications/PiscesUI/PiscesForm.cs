@@ -1157,7 +1157,19 @@ namespace Reclamation.TimeSeries.Forms
 
         }
 
-       
+        private void addHecDssFile_Click(object sender, EventArgs e)
+        {
+            var dlg = new OpenFileDialog();
+            dlg.Filter = "Hec Dss File (*.dss)|*.dss|All Files (*.*)|*.*";
+            dlg.DefaultExt = ".dss";
+
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+                Hec.HecDssTree.AddDssFileToDatabase(
+                   dlg.FileName, tree1.SelectedFolder, DB);
+
+            }
+        }
     }
 
 
