@@ -17,13 +17,13 @@ namespace PiscesAPI.DataAccessLayer
     public class SeriesDataRepository : ISeriesDataRepository
     {
 
-        public SeriesDataModel.PiscesTimeSeriesData GetSeriesData(SeriesModel.PiscesSeries series, DateTime t1, DateTime t2)
+        public SeriesDataModel.TimeSeriesData GetSeriesData(SeriesModel.Series series, DateTime t1, DateTime t2)
         {
             var ts = GetSeriesData(series.tablename, t1, t2);
             return (ts);
         }
 
-        public SeriesDataModel.PiscesTimeSeriesData GetSeriesData(string seriesTable, DateTime t1, DateTime t2)
+        public SeriesDataModel.TimeSeriesData GetSeriesData(string seriesTable, DateTime t1, DateTime t2)
         {
             IDbConnection db = Database.Connect();
 
@@ -37,16 +37,16 @@ namespace PiscesAPI.DataAccessLayer
                 "where a.siteid=b.siteid and a.parameter=c.id and a.tablename = '" + seriesTable + "'";
             //List<SeriesDataModel.PiscesTimeSeriesData> ts = (List<SeriesDataModel.PiscesTimeSeriesData>)db.Query<SeriesDataModel.PiscesTimeSeriesData>(sqlStringMeta);
 
-            var ts = (List<SeriesDataModel.PiscesTimeSeriesData>)db.Query< //Dapper MultiMap
-                SeriesDataModel.PiscesTimeSeriesData, //a
-                SeriesModel.PiscesSeries, //b
+            var ts = (List<SeriesDataModel.TimeSeriesData>)db.Query< //Dapper MultiMap
+                SeriesDataModel.TimeSeriesData, //a
+                SeriesModel.Series, //b
                 SiteModel.PiscesSite, //c
                 ParameterModel.PiscesParameter, //d
-                SeriesDataModel.PiscesTimeSeriesData>(
+                SeriesDataModel.TimeSeriesData>(
                 sqlStringMeta,
                 (a, b, c, d) =>
                 {
-                    a = new SeriesDataModel.PiscesTimeSeriesData
+                    a = new SeriesDataModel.TimeSeriesData
                     {
                         series = b,
                         site = c,
@@ -62,12 +62,12 @@ namespace PiscesAPI.DataAccessLayer
             return (ts[0]);
         }
 
-        public List<SeriesDataModel.Point> AddOrUpdateSeriesData(List<SeriesDataModel.PiscesTimeSeriesData> input)
+        public List<SeriesDataModel.Point> AddOrUpdateSeriesData(List<SeriesDataModel.TimeSeriesData> input)
         {
             IDbConnection db = Database.Connect();
 
             var addedPoints = new List<SeriesDataModel.Point>();
-            foreach (SeriesDataModel.PiscesTimeSeriesData item in input)
+            foreach (SeriesDataModel.TimeSeriesData item in input)
             {
                 foreach (SeriesDataModel.Point pt in item.data)
                 {
@@ -91,12 +91,12 @@ namespace PiscesAPI.DataAccessLayer
             return addedPoints;
         }
 
-        public List<SeriesDataModel.Point> DeleteSeriesData(List<SeriesDataModel.PiscesTimeSeriesData> input)
+        public List<SeriesDataModel.Point> DeleteSeriesData(List<SeriesDataModel.TimeSeriesData> input)
         {
             IDbConnection db = Database.Connect();
 
             var deletedPoints = new List<SeriesDataModel.Point>();
-            foreach (SeriesDataModel.PiscesTimeSeriesData item in input)
+            foreach (SeriesDataModel.TimeSeriesData item in input)
             {
                 string sqlString = GetDeleteSQL(item);
 
@@ -107,7 +107,7 @@ namespace PiscesAPI.DataAccessLayer
             return deletedPoints;
         }
 
-        private string GetMassInsertSQL(SeriesDataModel.PiscesTimeSeriesData input)
+        private string GetMassInsertSQL(SeriesDataModel.TimeSeriesData input)
         {
             // MANUAL SQL LOOP
             string sqlString = "insert into " + input.series.tablename + " (datetime,value,flag) values ";
@@ -120,7 +120,7 @@ namespace PiscesAPI.DataAccessLayer
             return sqlString;
         }
 
-        private string GetInsertSQL(SeriesDataModel.PiscesTimeSeriesData input, SeriesDataModel.Point pt)
+        private string GetInsertSQL(SeriesDataModel.TimeSeriesData input, SeriesDataModel.Point pt)
         {
             // MANUAL SQL
             string sqlString = "insert into " + input.series.tablename + " (datetime,value,flag) values " + 
@@ -128,7 +128,7 @@ namespace PiscesAPI.DataAccessLayer
             return sqlString;
         }
 
-        private string GetUpdateSQL(SeriesDataModel.PiscesTimeSeriesData input, SeriesDataModel.Point pt)
+        private string GetUpdateSQL(SeriesDataModel.TimeSeriesData input, SeriesDataModel.Point pt)
         {
             // MANUAL SQL
             string sqlString = "update " + input.series.tablename + " set value='" +
@@ -136,7 +136,7 @@ namespace PiscesAPI.DataAccessLayer
             return sqlString;
         }
 
-        private string GetDeleteSQL(SeriesDataModel.PiscesTimeSeriesData input)
+        private string GetDeleteSQL(SeriesDataModel.TimeSeriesData input)
         {
             // MANUAL SQL LOOP
             string sqlString = "delete from " + input.series.tablename + " where datetime in (";

@@ -53,6 +53,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Reclamation.NetCore\Reclamation.NetCore.csproj" />
+    <ProjectReference Include="..\..\Reclamation.NetTimeSeries\Reclamation.NetTimeSeries.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="hosting.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

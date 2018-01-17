@@ -38,7 +38,7 @@ namespace PiscesAPI.Controllers
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public OkObjectResult Post([FromBody]List<SeriesModel.PiscesSeries> ts, DateTime t1, DateTime t2)
+        public OkObjectResult Post([FromBody]List<SeriesModel.Series> ts, DateTime t1, DateTime t2)
         {
             var seriesdataProcessor = new DataAccessLayer.SeriesDataRepository();
             return Ok(seriesdataProcessor.GetSeriesData(ts[0], t1, t2));
@@ -55,7 +55,7 @@ namespace PiscesAPI.Controllers
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public OkObjectResult Put([FromBody]List<SeriesDataModel.PiscesTimeSeriesData> ts)
+        public OkObjectResult Put([FromBody]List<SeriesDataModel.TimeSeriesData> ts)
         {
             var seriesdataProcessor = new DataAccessLayer.SeriesDataRepository();
             return Ok(seriesdataProcessor.AddOrUpdateSeriesData(ts));
@@ -72,7 +72,7 @@ namespace PiscesAPI.Controllers
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public OkObjectResult Delete([FromBody]List<SeriesDataModel.PiscesTimeSeriesData> ts)
+        public OkObjectResult Delete([FromBody]List<SeriesDataModel.TimeSeriesData> ts)
         {
             var seriesdataProcessor = new DataAccessLayer.SeriesDataRepository();
             return Ok(seriesdataProcessor.DeleteSeriesData(ts));

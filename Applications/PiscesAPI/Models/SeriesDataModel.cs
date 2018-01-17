@@ -10,12 +10,12 @@ namespace PiscesAPI.Models
         /// <summary>
         /// Timeseries data model
         /// </summary>
-        public class PiscesTimeSeriesData
+        public class TimeSeriesData
         {
             /// <summary>
             /// Series Information
             /// </summary>
-            public SeriesModel.PiscesSeries series { get; set; }
+            public SeriesModel.Series series { get; set; }
 
             /// <summary>
             /// Site Information

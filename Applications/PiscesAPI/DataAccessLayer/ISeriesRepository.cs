@@ -17,7 +17,7 @@ namespace PiscesAPI.DataAccessLayer
     public class SeriesRepository : ISeriesRepository
     {
 
-        public List<SeriesModel.PiscesSeries> GetSeries(string id = "", bool exactMatch = false)
+        public List<SeriesModel.Series> GetSeries(string id = "", bool exactMatch = false)
         {
             IDbConnection db = Database.Connect();
             string sqlString = "select * from seriescatalog where isfolder = 0 ";
@@ -32,10 +32,10 @@ namespace PiscesAPI.DataAccessLayer
                     sqlString += "and lower(tablename) = '" + id + "'";
                 }
             }
-            return (List<SeriesModel.PiscesSeries>)db.Query<SeriesModel.PiscesSeries>(sqlString);
+            return (List<SeriesModel.Series>)db.Query<SeriesModel.Series>(sqlString);
         }
 
-        public List<SeriesModel.PiscesSeries> AddOrUpdateSeries(List<SeriesModel.PiscesSeries> input)
+        public List<SeriesModel.Series> AddOrUpdateSeries(List<SeriesModel.Series> input)
         {
             // 1. Check if series exists
             // 2a. Insert new timeseriesdata table into DB if series !exists
@@ -43,7 +43,7 @@ namespace PiscesAPI.DataAccessLayer
             throw new NotImplementedException();
         }
 
-        public List<SeriesModel.PiscesSeries> DeleteSeries(List<SeriesModel.PiscesSeries> input)
+        public List<SeriesModel.Series> DeleteSeries(List<SeriesModel.Series> input)
         {
             // 1. Check if series exists
             // 2. Delete seriescatalog row from seriescatalog

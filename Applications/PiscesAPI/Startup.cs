@@ -108,9 +108,14 @@ namespace PiscesAPI
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseMvc();
             app.UseSwagger();
+            string x = Configuration["virtual_prefix"];
+            if (!string.IsNullOrEmpty(x))
+                app.UsePathBase(x);
+            
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/" + versionName + "/swagger.json", "Pisces API V0");
+             //   c.RoutePrefix = x;
+                c.SwaggerEndpoint(x+"/swagger/" + versionName + "/swagger.json", "Pisces API V0");
             });
         }
     }

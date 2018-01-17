@@ -11,7 +11,7 @@ namespace PiscesAPI.Models
         /// <summary>
         /// SITECATALOG table contents
         /// </summary>
-        public class PiscesSeries
+        public class Series
         {
             /// <summary>
             /// Unique series ID
