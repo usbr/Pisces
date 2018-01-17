@@ -7,8 +7,26 @@ using PiscesAPI.Models;
 
 namespace PiscesAPI.Controllers
 {
+    [Route("sites/")]
     public class SiteController : Controller
     {
+        /// <summary>
+        /// Retrieves all sites
+        /// </summary>
+        /// <remarks>Long description for this API endpoint goes here...</remarks>
+        /// <response code="200">Parameters fetched</response>
+        /// <response code="400">Parameters have missing/invalid values</response>
+        /// <response code="500">Oops! Can't fetch parameters right now</response>
+        [HttpGet]
+        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(void), 500)]
+        public OkObjectResult Get()
+        {
+            var siteProcessor = new DataAccessLayer.SiteRepository();
+            return Ok(siteProcessor.GetSites());
+        }
+
         /// <summary>
         /// Retrieves a specific site by id
         /// </summary>
@@ -16,7 +34,7 @@ namespace PiscesAPI.Controllers
         /// <response code="200">Site fetched</response>
         /// <response code="400">Site has missing/invalid values</response>
         /// <response code="500">Oops! Can't fetch your site right now</response>
-        [HttpGet("/sites/")]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]

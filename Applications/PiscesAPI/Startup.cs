@@ -92,7 +92,7 @@ namespace PiscesAPI
                     
                 });
 
-                c.DocumentFilter<ReadOnlyFilter>();
+                //c.DocumentFilter<ReadOnlyFilter>();
             });
         }
 
