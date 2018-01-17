@@ -37,13 +37,19 @@ namespace Reclamation.TimeSeries.IDWR
     {
         [JsonProperty("SiteID")] public string SiteID { get; set; }
         [JsonProperty("SiteType")] public string SiteType { get; set; }
-        [JsonProperty("Flow (CFS)")] public string QD { get; set; }
-        [JsonProperty("Gage Height (Feet)")] public string GH { get; set; }
-        [JsonProperty("Reservoir Contents (Acre Ft)")] public string AF { get; set; }
-        [JsonProperty("Surface Elevation (Feet)")] public string FB { get; set; }
         [JsonProperty("HSTDate")] public string Date { get; set; }
 
+        // override properties
+        [JsonProperty("Flow (CFS)")] public virtual string QD { get; set; }
+        [JsonProperty("Gage Height (Feet)")] public virtual string GH { get; set; }
+        [JsonProperty("Reservoir Contents (Acre Ft)")] public virtual string AF { get; set; }
+        [JsonProperty("Surface Elevation (Feet)")] public virtual string FB { get; set; }
     }
-    
+
+    public class TsDataALC : TsData
+    {
+        [JsonProperty("Actual Flow (CFS)")] public override string QD { get; set; }
+        [JsonProperty("Current Contents (AF)")] public override string AF { get; set; }
+    }
 
 }

@@ -26,14 +26,14 @@ namespace Reclamation.TimeSeries.IDWR
         public static RestClient idwrClient = new RestClient(idwrAPI);
         string station;
         string parameter;
-        DataType datatype;
+        DataType dataType;
 
         public IDWRDailySeries(string station, string parameter = "QD",
             DataType datatype = DataType.HST)
         {
             this.station = station;
             this.parameter = parameter;
-            this.datatype = datatype;
+            this.dataType = datatype;
             TimeInterval = TimeInterval.Daily;
             switch (parameter)
             {
@@ -67,18 +67,7 @@ namespace Reclamation.TimeSeries.IDWR
             }
             else
             {
-                if (t1 == TimeSeriesDatabase.MinDateTime
-                    || t2 == TimeSeriesDatabase.MaxDateTime)
-                {
-                    // assume we want all available data
-                    var availYears = IdwrApiQuerySiteYears(station, datatype);
-                    var yearList = string.Join(",", availYears);
-                    Add(IdwrApiDownload(station, parameter, yearList));
-                }
-                else
-                {
-                    Add(IdwrApiDownload(station, parameter, t1, t2));
-                }
+                Add(IdwrApiDownload(station, parameter, t1, t2));
             }
         }
 
@@ -99,16 +88,12 @@ namespace Reclamation.TimeSeries.IDWR
         //    return IdwrApiQuerySiteData(riverSite.SiteID, yearList);
         //}
 
-        private List<TsData> IdwrApiQuerySiteData(string siteID, string yearList)
+        private List<TsData> IdwrApiQuerySiteDataHST(string siteID, string yearList)
         {
             // Working API Call
             //https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting/history?siteid=10055500&yearlist=2016,2015&yeartype=CY&f=json
 
             var request = new RestRequest("history?", Method.GET);
-            if (datatype == DataType.ALC)
-            {
-                request = new RestRequest("model?", Method.GET);
-            }
             request.AddParameter("siteid", siteID);
             request.AddParameter("yearlist", yearList);
             request.AddParameter("yeartype", "CY");
@@ -117,6 +102,20 @@ namespace Reclamation.TimeSeries.IDWR
             return JsonConvert.DeserializeObject<List<TsData>>(restResponse.Content);
         }
 
+        private List<TsData> IdwrApiQuerySiteDataALC(string siteID, string yearList)
+        {
+            // Working API Call
+            //https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting/model?siteid=10055500&yearlist=2016,2015&yeartype=CY&f=json
+
+            var request = new RestRequest("model?", Method.GET);
+            request.AddParameter("siteid", siteID);
+            request.AddParameter("yearlist", yearList);
+            request.AddParameter("yeartype", "CY");
+            request.AddParameter("f", "json");
+            IRestResponse restResponse = idwrClient.Execute(request);
+            var result = JsonConvert.DeserializeObject<List<TsDataALC>>(restResponse.Content);
+            return result.Cast<TsData>().ToList();
+        }
 
         /// <summary>
         /// Method to call the data download API, get the JSON reponse, and convert to Series()
@@ -131,13 +130,15 @@ namespace Reclamation.TimeSeries.IDWR
         {
             var rval = new Series();
 
-            var years = Enumerable.Range(t1.Year, t2.Year - t1.Year + 1);
-            var yearlist = string.Join(",", years);
+            var yearlist = YearsToQuery(station, t1, t2);
 
             var jsonResponse = new List<TsData>();
             try
             {
-                jsonResponse = IdwrApiQuerySiteData(station, yearlist);
+                if (dataType == DataType.HST)
+                    jsonResponse = IdwrApiQuerySiteDataHST(station, yearlist);
+                else
+                    jsonResponse = IdwrApiQuerySiteDataALC(station, yearlist);
             }
             catch
             {
@@ -182,58 +183,20 @@ namespace Reclamation.TimeSeries.IDWR
             return rval;
         }
 
-        /// <summary>
-        /// Method to call the data download API, get the JSON reponse, and convert to Series()
-        /// </summary>
-        /// <param name="station"></param>
-        /// <param name="parameter"></param>
-        /// <param name="yearlist"></param>
-        /// <returns></returns>
-        private Series IdwrApiDownload(string station, string parameter,
-            string yearlist)
+        private string YearsToQuery(string station, DateTime t1, DateTime t2)
         {
-            var rval = new Series();
-
-            var jsonResponse = new List<TsData>();
-            try
+            var rval = "";
+            if (t1 == TimeSeriesDatabase.MinDateTime || t2 == TimeSeriesDatabase.MaxDateTime)
             {
-                jsonResponse = IdwrApiQuerySiteData(station, yearlist);
+                // assume we want all available data
+                var availYears = IdwrApiQuerySiteYears(station, dataType);
+                rval = string.Join(",", availYears);
             }
-            catch
+            else
             {
-                return rval;
-            }
-
-            foreach (var item in jsonResponse)
-            {
-                var t = DateTime.Parse(item.Date);
-                string value = "";
-                switch (parameter)
-                {
-                    case ("GH"):
-                        value = item.GH;
-                        break;
-                    case ("FB"):
-                        value = item.FB;
-                        break;
-                    case ("AF"):
-                        value = item.AF;
-                        break;
-                    case ("QD"):
-                        value = item.QD;
-                        break;
-                    default:
-                        value = "NaN";
-                        break;
-                }
-                if (value == "NaN")
-                {
-                    rval.AddMissing(t);
-                }
-                else
-                {
-                    rval.Add(item.Date, Convert.ToDouble(value));
-                }
+                // get years from t1 to t2
+                var years = Enumerable.Range(t1.Year, t2.Year - t1.Year + 1);
+                rval = string.Join(",", years);
             }
 
             return rval;
