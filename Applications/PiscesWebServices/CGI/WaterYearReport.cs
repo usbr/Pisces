@@ -172,6 +172,10 @@ namespace PiscesWebServices.CGI
             {
                 start = collection["start"];
             }
+            else
+            {
+                start = DateTime.Now.WaterYear().ToString();
+            }
             var end = start;
             if (collection.AllKeys.Contains("end"))
             {
