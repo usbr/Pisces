@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Reclamation.Core;
+using Reclamation.TimeSeries;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -15,14 +17,13 @@ namespace PiscesAPI
         public static IDbConnection Connect()
         {
             IDbConnection db = null;
-            var conx = Startup.ApiConnectionString;
             if (Startup.PiscesAPIDatabase == "mysql")
             {
-                db = new MySql.Data.MySqlClient.MySqlConnection(conx);
+                db = new MySql.Data.MySqlClient.MySqlConnection(Startup.ApiConnectionString);
             }
             else if (Startup.PiscesAPIDatabase == "postgresql")
             {
-                db = new Npgsql.NpgsqlConnection(conx);
+                db = new Npgsql.NpgsqlConnection(Startup.ApiConnectionString);
             }
 
             if (db == null)
@@ -31,6 +32,13 @@ namespace PiscesAPI
                 Console.WriteLine("ApiConnectionString='"+Startup.ApiConnectionString+"'");
                 Console.WriteLine("PiscesAPIDatabase='"+ Startup.PiscesAPIDatabase + "'");
             }
+            return db;
+        }
+
+        public static TimeSeriesDatabase GetTimeSeriesDatabase()
+        {
+            var svr = new PostgreSQL(Startup.ApiConnectionString);
+            var db = new TimeSeriesDatabase(svr);
             return db;
         }
     }

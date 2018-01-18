@@ -1,6 +1,5 @@
 ﻿using Mono.Options;
 using PiscesWebServices.CGI;
-using PiscesWebServices.Tests;
 using Reclamation.Core;
 using Reclamation.TimeSeries;
 using System;
@@ -150,22 +149,6 @@ namespace PiscesWebServices
             {
                 SiteInfoCGI si = new SiteInfoCGI(db);
                 si.Run(payload);
-            }
-            else if (cgi == "test-perf-large")
-            {
-                var c = new HydrometGCITests();
-                c.CGI_PerfTestLarge();
-
-            }
-            else if (cgi == "test-perf-small")
-            {
-                var c = new HydrometGCITests();
-                c.CGI_PerfTestSmall();
-            }
-            else if (cgi == "dump")
-            {
-                var c = new HydrometGCITests();
-                c.DumpTest();
             }
             else
             {

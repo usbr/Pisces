@@ -14,7 +14,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netcoreapp2.0\PiscesAPI.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
-    <DefineConstants>TRACE;DEBUG;NETCOREAPP2_0;READONLY</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETCOREAPP2_0;READONLY;NETCOREAPP2_0;READONLY</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,6 +30,31 @@
 
   <ItemGroup>
     <None Remove="Properties\PublishProfiles\FolderProfile.pubxml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\PiscesWebServices\CGI\CgiUtility.cs" Link="PiscesWebServices\CGI\CgiUtility.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\CsvFormatter.cs" Link="PiscesWebServices\CGI\CsvFormatter.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\Formatter.cs" Link="PiscesWebServices\CGI\Formatter.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\Help.cs" Link="PiscesWebServices\CGI\Help.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\HtmlFormatter.cs" Link="PiscesWebServices\CGI\HtmlFormatter.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\IdwrAccountingFormatter.cs" Link="PiscesWebServices\CGI\IdwrAccountingFormatter.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\IdwrCustom.cs" Link="PiscesWebServices\CGI\IdwrCustom.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\InventoryReport.cs" Link="PiscesWebServices\CGI\InventoryReport.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\LegacyCsvFormatter.cs" Link="PiscesWebServices\CGI\LegacyCsvFormatter.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\RealTimeFormatter.cs" Link="PiscesWebServices\CGI\RealTimeFormatter.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\RecentDataFormatter.cs" Link="PiscesWebServices\CGI\RecentDataFormatter.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\ShefAFormatter.cs" Link="PiscesWebServices\CGI\ShefAFormatter.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\WaterYearReport.cs" Link="PiscesWebServices\CGI\WaterYearReport.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\WebData.cs" Link="PiscesWebServices\CGI\WebData.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\WebTimeSeriesWriter.cs" Link="PiscesWebServices\CGI\WebTimeSeriesWriter.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\WebTimeSeriesWriter.Legacy.cs" Link="PiscesWebServices\CGI\WebTimeSeriesWriter.Legacy.cs" />
+    <Compile Include="..\PiscesWebServices\CGI\WiskiFormatter.cs" Link="PiscesWebServices\CGI\WiskiFormatter.cs" />
+    <Compile Include="..\PiscesWebServices\Database.cs" Link="PiscesWebServices\Database.cs" />
+    <Compile Include="..\PiscesWebServices\HtmlElement.cs" Link="PiscesWebServices\HtmlElement.cs" />
+    <Compile Include="..\PiscesWebServices\HydroJsonWriter.cs" Link="PiscesWebServices\HydroJsonWriter.cs" />
+    <Compile Include="..\PiscesWebServices\HydrometWebUtility.cs" Link="PiscesWebServices\HydrometWebUtility.cs" />
+    <Compile Include="..\PiscesWebServices\WaterMLWriter.cs" Link="PiscesWebServices\WaterMLWriter.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,7 +75,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="PiscesWebServices\CGI\" />
     <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\PiscesWebServices\inventory" Link="PiscesWebServices\inventory" />
+    <None Include="..\PiscesWebServices\Readme.md" Link="PiscesWebServices\Readme.md" />
+    <None Include="..\PiscesWebServices\series" Link="PiscesWebServices\series" />
   </ItemGroup>
 
   <ItemGroup>
