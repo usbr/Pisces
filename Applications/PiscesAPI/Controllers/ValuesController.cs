@@ -75,19 +75,5 @@ namespace PiscesAPI.Controllers
         {
         }
 
-        /// <summary>
-        /// Deletes a specific product by unique id
-        /// </summary>
-        /// <remarks>Long description for this API endpoint goes here...</remarks>
-        /// <response code="200">Product(s) deleted</response>
-        /// <response code="400">Product(s) has missing/invalid values</response>
-        /// <response code="500">Oops! Can't delete your product(s) right now</response>
-        [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(string), 200)]
-        [ProducesResponseType(typeof(string), 400)]
-        [ProducesResponseType(typeof(void), 500)]
-        public void Delete(int id)
-        {
-        }
     }
 }

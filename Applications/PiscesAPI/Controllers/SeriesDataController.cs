@@ -44,6 +44,7 @@ namespace PiscesAPI.Controllers
             return Ok(seriesdataProcessor.GetSeriesData(ts[0], t1, t2));
         }
 
+        #if !READONLY
         /// <summary>
         /// Write TS data to Series object
         /// </summary>
@@ -77,5 +78,7 @@ namespace PiscesAPI.Controllers
             var seriesdataProcessor = new DataAccessLayer.SeriesDataRepository();
             return Ok(seriesdataProcessor.DeleteSeriesData(ts));
         }
+#endif
+
     }
 }

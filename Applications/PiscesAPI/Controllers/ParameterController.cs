@@ -62,6 +62,7 @@ namespace PiscesAPI.Controllers
             return Ok(rval);
         }
 
+#if !READONLY
         /// <summary>
         /// Deletes a specific parameter by unique id
         /// </summary>
@@ -79,5 +80,6 @@ namespace PiscesAPI.Controllers
             var rval = paramProcessor.DeleteParameters(input);
             return Ok(rval);
         }
+#endif
     }
 }

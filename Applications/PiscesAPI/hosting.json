@@ -1,4 +1,3 @@
 ﻿{
-  "server.urls": "http://localhost:5000",
-  "avirtual_prefix":  "/pn-bin/api"
+  "server.urls": "http://localhost:5000"
 }

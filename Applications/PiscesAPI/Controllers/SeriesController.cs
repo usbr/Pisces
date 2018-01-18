@@ -60,6 +60,7 @@ namespace PiscesAPI.Controllers
             throw new NotImplementedException();
         }
 
+#if !READONLY
         /// <summary>
         /// Deletes a specific Series data object by unique id
         /// </summary>
@@ -75,5 +76,6 @@ namespace PiscesAPI.Controllers
         {
             throw new NotImplementedException();
         }
+#endif
     }
 }

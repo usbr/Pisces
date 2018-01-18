@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PiscesAPI.Models;
+using System.Text.RegularExpressions;
 
 namespace PiscesAPI.Controllers
 {
@@ -23,6 +24,9 @@ namespace PiscesAPI.Controllers
         [ProducesResponseType(typeof(void), 500)]
         public OkObjectResult Get(string siteid="")
         {
+            if (Regex.IsMatch(siteid, "[^A-Za-z_0-9]"))
+                throw new Exception("invalid site");
+                
             var siteProcessor = new DataAccessLayer.SiteRepository();
             return Ok(siteProcessor.GetSites(siteid, siteid != ""));
         }
@@ -45,6 +49,7 @@ namespace PiscesAPI.Controllers
             return Ok(rval);
         }
 
+        #if !READONLY
         /// <summary>
         /// Deletes a specific site by unique id
         /// </summary>
@@ -62,5 +67,6 @@ namespace PiscesAPI.Controllers
             var rval = siteProcessor.DeleteSites(input);
             return Ok(rval);
         }
+#endif
     }
 }
