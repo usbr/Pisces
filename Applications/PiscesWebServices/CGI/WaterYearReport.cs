@@ -137,7 +137,7 @@ namespace PiscesWebServices.CGI
             {
                 StopWithError("invalid parameter ");
             }
-            if (siteID == "" || Regex.IsMatch(siteID, "[^_a-z0-1A-Z]"))
+            if (siteID == "" || Regex.IsMatch(siteID, "[^_a-z0-9A-Z]"))
             {
                 StopWithError("invalid site ");
             }
