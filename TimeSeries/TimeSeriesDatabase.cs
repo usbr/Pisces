@@ -701,7 +701,7 @@ namespace Reclamation.TimeSeries
         }
 
 
-        private static string[] QualityParameters = new string[] { "battery","batvolt", "bv", "parity", "power", "msglen", "lenerr", "timeerr" };
+        private static string[] QualityParameters = new string[] { "battery","batvolt", "parity", "power", "msglen", "lenerr", "timeerr" };
 
         public static bool IsQuality(string pcode)
         {
