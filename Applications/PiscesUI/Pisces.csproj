@@ -74,7 +74,7 @@
       <HintPath>..\..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="SpreadsheetGear" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
-      <HintPath>c:\hydromettools\SpreadsheetGear.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\HydrometTools\SpreadsheetGear.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -415,6 +415,14 @@
     <None Include="Resources\folder_closed_32.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
+      <Project>{37b543f5-03a5-479e-b20c-7b4acc53d16a}</Project>
+      <Name>Reclamation.TimeSeries.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
+      <Project>{862135b0-793a-4f06-b731-26c61b3ad068}</Project>
+      <Name>Reclamation.TimeSeries.Graphing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rwis.Sync\Rwis.Sync.csproj">
       <Project>{d2b37530-5d24-4772-8480-325920744643}</Project>
       <Name>Rwis.Sync</Name>
@@ -426,14 +434,6 @@
     <ProjectReference Include="..\..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
       <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>
       <Name>Reclamation.TimeSeries.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
-      <Project>{37b543f5-03a5-479e-b20c-7b4acc53d16a}</Project>
-      <Name>Reclamation.TimeSeries.Excel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
-      <Project>{862135B0-793A-4F06-B731-26C61B3AD068}</Project>
-      <Name>Reclamation.TimeSeries.Graphing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\TimeSeries\Reclamation.TimeSeries.csproj">
       <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
