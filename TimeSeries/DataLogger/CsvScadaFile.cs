@@ -44,13 +44,19 @@ sitename,tmstp,gv1,gs1,gv2,gs2,gv3,gs3,gv4,gs4,gv5,gs5,gv6,gs6,lv1,ls1,lv2,ls2,l
         public SeriesList ToSeries()
         {
             // match gate or level status// matches gv1, gv2,... lv1, lv2,...
-            Regex re = new Regex("^(g|l)v[1-6]{1}$", RegexOptions.Compiled);
+            Regex reColumns = new Regex("^(g|l)v[1-6]{1}$", RegexOptions.Compiled);
+            // match valid site names  (site01,site02,  pmp202,pmp205...)
+            Regex reSites = new Regex("^(site|pmp)[0-9]{1,3}$");
             for (int i = 0; i < csv.Rows.Count; i++)
             {
                 var row = csv.Rows[i];
                 //sitename,tmstp,gv1,gs1,gv2,gs2,gv3,gs3,gv4,gs4,gv5,gs5,gv6,gs6,lv1,ls1,lv2,ls2,lv3,ls3,lv4,ls4,lv5,ls5,lv6,ls6,sv,ss
                 string siteid = row["sitename"].ToString().ToLower().Replace("'", "");
                 string timestamp = row["tmstp"].ToString().Replace("'", "");
+
+                if (!reSites.IsMatch(siteid))
+                    continue;
+
                 DateTime t;
                 if (!DateTime.TryParse(timestamp, out t))
                 {
@@ -60,7 +66,7 @@ sitename,tmstp,gv1,gs1,gv2,gs2,gv3,gs3,gv4,gs4,gv5,gs5,gv6,gs6,lv1,ls1,lv2,ls2,l
                 for (int j = 2; j < csv.Columns.Count; j++)
                 {
                     string pcode = csv.Columns[j].ToString().ToLower();
-                    if (!re.IsMatch(pcode))
+                    if (!reColumns.IsMatch(pcode))
                         continue;
 
                     string val = row[j].ToString();
