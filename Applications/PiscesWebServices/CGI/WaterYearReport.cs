@@ -133,7 +133,7 @@ namespace PiscesWebServices.CGI
 
         private void Validation(string siteID, string parameter)
         {
-            if( parameter == "" || Regex.IsMatch(parameter,"[^_a-z0-1A-Z]"))
+            if( parameter == "" || Regex.IsMatch(parameter,"[^_a-z0-9A-Z]"))
             {
                 StopWithError("invalid parameter ");
             }
