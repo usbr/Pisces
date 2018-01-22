@@ -35,11 +35,16 @@ namespace PiscesAPI
             return db;
         }
 
+        static TimeSeriesDatabase s_db;
         public static TimeSeriesDatabase GetTimeSeriesDatabase()
         {
-            var svr = new PostgreSQL(Startup.ApiConnectionString);
-            var db = new TimeSeriesDatabase(svr);
-            return db;
+            if (s_db == null)
+            {
+                var svr = new PostgreSQL(Startup.ApiConnectionString);
+                var db = new TimeSeriesDatabase(svr,true);
+                s_db = db;
+            }
+            return s_db;
         }
     }
 }

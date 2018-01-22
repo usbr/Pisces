@@ -64,17 +64,18 @@ namespace PiscesAPI
                 c.IncludeXmlComments(filePath);
                 c.SwaggerDoc(versionName, new Info
                 {
-                    Title = "Pisces API Data Service",
+                    Title = "Pisces API "+Reclamation.Core.AssemblyUtility.GetVersion(),
                     Version = versionName,
                     Description = "https://www.usbr.gov/pn/hydromet/disclaimer.html",
                     Contact = new Contact
                     {
-                        Email = "jrocha@usbr.gov;ktarbet@usbr.gov"
+                        Email = "jrocha@usbr.gov;ktarbet@usbr.gov",
                     },
                     License = new License
                     {
-                        Name = "MIT License",
+                        Name = "License",
                         Url = "https://opensource.org/licenses/MIT"
+
                     }
                     
                     
