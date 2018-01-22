@@ -10,6 +10,7 @@ using System.Data;
 using Reclamation.Core;
 using System.Net;
 using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace PiscesWebServices.CGI
 {
@@ -39,7 +40,6 @@ namespace PiscesWebServices.CGI
         string m_query = "";
         NameValueCollection m_collection;
         TimeInterval m_interval;
-        bool contentTypeDefined = false;
         string format = "2";
         string title="";
         bool m_printFlags=false;
@@ -59,6 +59,7 @@ namespace PiscesWebServices.CGI
                                                 };
 
         public string Format { get => format; set => format = value; }
+
 
         public WebTimeSeriesWriter(TimeSeriesDatabase db, TimeInterval interval, string query = "")
         {
@@ -192,7 +193,6 @@ namespace PiscesWebServices.CGI
 
         private void StopWithError(string msg)
         {
-            PrintContentType();
             Console.WriteLine(msg);
             Logger.WriteLine(msg);
             HydrometWebUtility.PrintHydrometTrailer(msg);
@@ -206,16 +206,12 @@ namespace PiscesWebServices.CGI
 
                 throw new Exception(msg);
         }
-
-        public void Run(string outputFile = "")
+        internal string Run(HttpResponse response)
         {
-            StreamWriter sw = null;
-            if (outputFile != "")
-            {
-                sw = new StreamWriter(outputFile);
-                Console.SetOut(sw);
-            }
-            PrintContentType();
+            string fn = System.IO.Path.GetTempPath();
+            fn = System.IO.Path.Combine(fn, Guid.NewGuid() + ".hydromet-web");
+            StreamWriter sw = new StreamWriter(fn);
+            Console.SetOut(sw);
 
             try
             {
@@ -224,6 +220,7 @@ namespace PiscesWebServices.CGI
                 if (list.Count == 0)
                 {
                     StopWithError("Error: list of series is empty");
+                    response.StatusCode = 500;
                 }
 
                 WriteSeries(list);
@@ -234,22 +231,21 @@ namespace PiscesWebServices.CGI
                     sw.Close();
 
             }
-            //catch (Exception e)
-            //{
-            //    Logger.WriteLine(e.Message);
-            //  Console.WriteLine("Error: Data");	
-            //}
+
+            var x = System.IO.File.ReadAllText(fn);
 
             StreamWriter standardOutput = new StreamWriter(Console.OpenStandardOutput());
             standardOutput.AutoFlush = true;
             Console.SetOut(standardOutput);
-        }
+            System.IO.File.Delete(fn);
 
-        private void PrintContentType()
-        {
-            if(!contentTypeDefined)
-                Console.Write(m_formatter.ContentType);
-            contentTypeDefined = true;
+            if (Format == "csv")
+                response.ContentType = "text/csv;Content-Disposition: attachment; filename=hydromet.csv";
+            else if (Format == "html")
+               response.ContentType = "text/html";
+            else
+                response.ContentType = "text/plain";
+            return x;
         }
 
         private static bool ValidQuery(string query)

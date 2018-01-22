@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export ConnectionString="server=localhost;database=timeseries;user id=reduced"
+export PiscesAPIDatabase=postgresql
+echo $ConnectionString
+echo $PiscesAPIDatabase
+/usr/bin/dotnet /home/hydromet/bin/cgi/api/PiscesAPI.dll
+

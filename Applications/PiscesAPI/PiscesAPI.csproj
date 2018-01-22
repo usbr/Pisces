@@ -6,6 +6,8 @@
     <OutputType>Exe</OutputType>
     <StartupObject />
     <UserSecretsId>45b42ca4-3bdd-4f73-8c14-31c161b3d763</UserSecretsId>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
   </PropertyGroup>
 
   <Target Name="GatherAllFilesToPublish">

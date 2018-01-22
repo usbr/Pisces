@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sudo systemctl restart hydromet-web
+sudo systemctl daemon-reload
+sleep 3
+sudo systemctl status hydromet-web

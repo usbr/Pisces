@@ -9,8 +9,8 @@ using Reclamation.Core;
 
 namespace PiscesAPI.Controllers
 {
-    [Route("daily/")]
-    public class DailyDataController : Controller
+    [Route("instant/")]
+    public class InstantController : Controller
     {
         /// <summary>
         /// Retrieve daily TS data
@@ -23,25 +23,11 @@ namespace PiscesAPI.Controllers
         public string Get(string query)
         {
             var db = Database.GetTimeSeriesDatabase();
-            var w = new WebTimeSeriesWriter(db, Reclamation.TimeSeries.TimeInterval.Daily, query);
-
-            string fn = System.IO.Path.GetTempPath();
-            fn = System.IO.Path.Combine(fn, Guid.NewGuid() + ".hydromet-web");
-            w.Run(fn);
-            var x = System.IO.File.ReadAllText(fn);
-
-            System.IO.File.Delete(fn);
-            SetResponseType(w);
+            var w = new WebTimeSeriesWriter(db, Reclamation.TimeSeries.TimeInterval.Irregular, query);
+            var x = w.Run(Response);
             return x;
         }
 
-        private void SetResponseType(WebTimeSeriesWriter w)
-        {
-            if( w.Format == "csv")
-                Response.ContentType = "Content-type: text/csv\nContent-Disposition: attachment; filename=hydromet.csv\n\n";
-            else
-            Response.ContentType = "text/html";
-        }
 
         /// <summary>
         /// Retrieve daily TS data
@@ -52,8 +38,6 @@ namespace PiscesAPI.Controllers
         [ProducesResponseType(typeof(void), 500)]
         public string Post()
         {
-             var p = new Performance();
-           
             var sr = new System.IO.StreamReader(Request.Body);
             var body = sr.ReadToEnd();
             sr.Close();
@@ -62,20 +46,8 @@ namespace PiscesAPI.Controllers
                 throw new Exception("no data posted");
             var db = Database.GetTimeSeriesDatabase();
             var w = new WebTimeSeriesWriter(db, Reclamation.TimeSeries.TimeInterval.Daily, body);
-
-            string fn = System.IO.Path.GetTempPath();
-            fn = System.IO.Path.Combine(fn, Guid.NewGuid() + ".hydromet-web");
-            w.Run(fn);
-            var x = System.IO.File.ReadAllText(fn);
-
-            System.IO.File.Delete(fn);
-
-            p.Report();
-            Response.ContentType = "karl";
+            var x = w.Run(Response);
             return x;
-            //return Ok(url).ToString();
-            //var seriesdataProcessor = new DataAccessLayer.SeriesDataRepository();
-            //return Ok(seriesdataProcessor.GetSeriesData(tstable, t1, t2));
 
         }
 

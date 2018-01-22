@@ -1,0 +1,18 @@
+# this file is stored in /etc/systemd/system/hydromet-web.service
+[Unit]
+Description=Hydromet web services
+
+[Service]
+WorkingDirectory=/home/hydromet/bin/cgi/api
+ExecStart=/bin/dotnet /home/hydromet/bin/cgi/api/PiscesAPI.dll
+Restart=always
+# Restart service after 10 seconds if dotnet service crashes
+RestartSec=10
+SyslogIdentifier=hydromet-webservice
+User=apache
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment="ConnectionString=server=localhost;database=timeseries;user id=readonly"
+Environment=PiscesAPIDatabase=postgresql
+[Install]
+WantedBy=multi-user.target
+
