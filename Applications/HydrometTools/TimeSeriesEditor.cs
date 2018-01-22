@@ -1184,9 +1184,9 @@ namespace HydrometTools
                 if (o.ShowDialog() == DialogResult.OK)
                 {
                     SaveToVMS = o.SaveToVMS;
-                    Database.ImportVMSTextFile(editsFileNameLinux,o.ComputeDependencies);
                     Logger.WriteLine("Pisces import: " + editsFileNameVax, "ui");
-
+                    Database.ImportVMSTextFile(editsFileNameLinux,o.ComputeDependencies);
+                    Logger.WriteLine("saved "+numRecordsWritten+" records ","ui");
                 }
             }
 
@@ -1259,6 +1259,7 @@ namespace HydrometTools
                             msg += "inner\n" + aex.InnerException.Message;
                         }
                         MessageBox.Show(msg);
+                        Logger.WriteLine("msg","ui");
                     }
                     finally
                     {
