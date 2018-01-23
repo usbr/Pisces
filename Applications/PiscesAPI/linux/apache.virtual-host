@@ -1,0 +1,15 @@
+<VirtualHost *:80>
+    ProxyPreserveHost On
+    ProxyPass /pn-bin/api/ http://127.0.0.1:5000/
+    ProxyPassReverse /pn-bin/api/ http://127.0.0.1:5000/
+
+    ProxyPass /swagger http://127.0.0.1:5000/swagger
+    ProxyPassReverse /swagger http://127.0.0.1:5000/swagger
+
+    ProxyPass /daily http://127.0.0.1:5000/daily
+    ProxyPassReverse /daily http://127.0.0.1:5000/daily
+
+    ProxyPass /sites http://127.0.0.1:5000/sites
+    ProxyPassReverse /sites http://127.0.0.1:5000/sites
+
+</VirtualHost>

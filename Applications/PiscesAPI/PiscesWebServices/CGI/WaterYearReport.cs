@@ -27,56 +27,53 @@ namespace PiscesWebServices.CGI
         string[] supportedFormats = new string[] {"csv-analysis", // csv with previous year, and 30 year average
                                                 "usgs-html" // usgs style in html
                                                 };
-
-        public WaterYearReport(TimeSeriesDatabase db, string payload)
+        TimeRange r;
+        string siteid, parameter;
+        public WaterYearReport(TimeSeriesDatabase db, 
+            string siteid, string parameter,
+            int start=0, int end=0,string format = "usgs-html")
         {
             this.db = db;
-            this.query = payload;
+            this.siteid = siteid;
+            this.parameter = parameter;
+            this.format = format;
+            Validation(siteid, parameter);
+
+            if (start <= 0)
+            { // default start
+                start = DateTime.Now.Date.Year;
+
+                if (DateTime.Now.Date.Month >= 10)
+                    start = DateTime.Now.Date.Year + 1;
+            }
+            if( end <=0)
+            {
+                end = DateTime.Now.Date.Year;
+            }
+
+            //creates a water year time range between the selected dates y1, y2
+            r = new TimeRange(
+                     WaterYear.BeginningOfWaterYear(new DateTime(start, 1, 1)),
+                     WaterYear.EndOfWaterYear(new DateTime(end, 1, 1)));
         }
 
 
-        internal void Run()
+
+        internal string Run()
         {
-         
-            if (query == "")
-            {
-                query = HydrometWebUtility.GetQuery();
-            }
-            query = System.Uri.UnescapeDataString(query);
-
-            var collection = HttpUtility.ParseQueryString(query);
-
-            TimeRange r = GetDateRange(collection);
-
-            var siteID = "";
-            if (collection.AllKeys.Contains("site"))
-            {
-                siteID = collection["site"];
-            }
-
-            var parameter = "";
-            if (collection.AllKeys.Contains("parameter"))
-            {
-                parameter = collection["parameter"];
-            }
-
-            Validation(siteID, parameter);
-
-            if (collection.AllKeys.Contains("format"))
-            {
-                format = collection["format"];
-            }
 
             if (Array.IndexOf(supportedFormats, format) < 0)
                 StopWithError("Error: invalid format " + format);
 
             if ( format == "usgs-html")
-                 PrintHtmlReport(r, siteID, parameter);
+                 return PrintHtmlReport(r, siteid, parameter);
 
             if(format == "csv-analysis")
             {
-                PrintAnalysis(r,siteID,parameter);
+                return PrintAnalysis(siteid,parameter);
             }
+
+            return "";
         }
 
         /// <summary>
@@ -85,9 +82,8 @@ namespace PiscesWebServices.CGI
         /// 10/1/2017, 123.34,   69.0,   77.7
         /// 10/2/2017, 120.0,   67.0,   77.3
         /// </summary>
-        private void PrintAnalysis(TimeRange r, string siteID, string parameter)
+        private string PrintAnalysis( string siteID, string parameter)
         {
-            Console.Write("Content-type: text/csv\n\n");
             var years = new List<int>();
             var current = DateTime.Now.Date.WaterYear();
             var prev = current - 1;
@@ -97,38 +93,44 @@ namespace PiscesWebServices.CGI
 
             var x = new SeriesList();
 
-            Series s = new HydrometDailySeries(siteID, parameter, HydrometHost.PNLinux);
+            var s = db.GetSeriesFromTableName("daily_" + siteID + "_" + parameter);
             x.Add(s);
             var result = PiscesAnalysis.WaterYears(x, years.ToArray(), true, 10, true,startOf30YearAvearge);
             var tbl = result.ToDataTable(true);
-           // Console.WriteLine("<pre/>");
-            Console.WriteLine("DateTime,Current Year,Previous Year,Average");
+            // Console.WriteLine("<pre/>");
+            StringBuilder sb = new StringBuilder();
+            sb.Append("DateTime,Current Year,Previous Year,Average");
+            
             for (int i = 0; i < tbl.Rows.Count; i++)
             {
                 var o = tbl.Rows[i];
                 var str = ((DateTime)o[0]).ToString("yyyy/MM/dd");
-                Console.WriteLine(str+","+o[1].ToString()+","+o[2].ToString()+","+o[3].ToString());   
+                sb.AppendLine();
+                sb.Append(str+","+o[1].ToString()+","+o[2].ToString()+","+o[3].ToString());
             }
-            
+            return sb.ToString();
         }
 
-        private void PrintHtmlReport(TimeRange r, string siteID, string parameter)
+        private string PrintHtmlReport(TimeRange r, string siteID, string parameter)
         {
-            Console.Write("Content-type: text/html\n\n");
-            var s = new HydrometDailySeries(siteID, parameter, HydrometHost.PNLinux);
+            var s = db.GetSeriesFromTableName("daily_" + siteID + "_" + parameter);
             var startYear = r.StartDate.Year;
             var endYear = r.EndDate.Year;
             DateTime t1 = r.StartDate;
 
+            StringBuilder sb = new StringBuilder();
             for (int i = startYear; i < endYear; i++)
             {
                 s.Read(t1, t1.AddMonths(12));
                 DataTable wyTable = Usgs.WaterYearTable(s);
                 var header = GetHeader(i + 1, siteID, parameter);
                 var html = DataTableOutput.ToHTML(wyTable, true, "", header);
-                Console.WriteLine(html);
+                sb.Append(html);
+                sb.AppendLine();
                 t1 = t1.AddMonths(12);
             }
+
+            return sb.ToString();
         }
 
         private void Validation(string siteID, string parameter)
@@ -157,48 +159,8 @@ namespace PiscesWebServices.CGI
         }
 
         
-
-       
-
-
-        private static TimeRange GetDateRange(NameValueCollection collection)
-        {
-            var start = DateTime.Now.Date.Year.ToString();
-
-            if (DateTime.Now.Date.Month >= 10)
-                start = (DateTime.Now.Date.Year + 1).ToString();
-
-            if (collection.AllKeys.Contains("start"))
-            {
-                start = collection["start"];
-            }
-            else
-            {
-                start = DateTime.Now.WaterYear().ToString();
-            }
-            var end = start;
-            if (collection.AllKeys.Contains("end"))
-            {
-                end = collection["end"];
-            }
-
-            int y1 = 0, y2 = 0;
-
-            if (!int.TryParse(start, out y1) || !int.TryParse(end, out y2))
-            {
-                StopWithError("Error with year range");
-            }
-            //creates a water year time range between the selected dates y1, y2
-            var rval = new TimeRange(
-                     WaterYear.BeginningOfWaterYear(new DateTime(y1, 1, 1)),
-                     WaterYear.EndOfWaterYear(new DateTime(y2, 1, 1)));
-            return rval;
-        }
-
         private static void StopWithError(string message)
         {
-            Console.Write("Content-type: text/html\n\n");
-            Help.PrintWaterYear();
             Console.WriteLine("Error: " + message);
             throw new Exception(message);
         }
