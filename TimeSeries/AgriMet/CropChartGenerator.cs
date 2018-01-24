@@ -79,7 +79,7 @@ namespace Reclamation.TimeSeries.AgriMet
                 
                 var fnDaily = Path.Combine(outputDirectory, cbttList[i].ToLower() + "ch.txt");
                 var fnDailyHtml = Path.Combine(outputDirectory, cbttList[i].ToLower() + "_crop_summary.html");
-                var fnSum = Path.Combine(outputDirectory, cbttList[i].ToLower() + t.Year.ToString().Substring(2) + "et.txt");
+                var fnSum = Path.Combine(outputDirectory, cbttList[i].ToLower() + terminateDate.Year.ToString().Substring(2) + "et.txt");
 
                 File.WriteAllLines(fnDailyHtml, dailyHtmlChart.ToArray());
 
