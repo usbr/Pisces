@@ -20,7 +20,7 @@ namespace PiscesAPI.Controllers
         /// <param name="start">first water year</param>
         /// <param name="end">ending water year</param>
         /// <param name="format">output format: csv-analysis|usgs-html</param>
-        [HttpGet()]
+        [HttpGet("{site},{parameter}")]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]

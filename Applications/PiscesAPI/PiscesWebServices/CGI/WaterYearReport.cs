@@ -94,6 +94,10 @@ namespace PiscesWebServices.CGI
             var x = new SeriesList();
 
             var s = db.GetSeriesFromTableName("daily_" + siteID + "_" + parameter);
+            if( s == null)
+            {
+                return "Error:  no data found: " + siteID + "/" + parameter;
+            }
             x.Add(s);
             var result = PiscesAnalysis.WaterYears(x, years.ToArray(), true, 10, true,startOf30YearAvearge);
             var tbl = result.ToDataTable(true);
@@ -114,6 +118,11 @@ namespace PiscesWebServices.CGI
         private string PrintHtmlReport(TimeRange r, string siteID, string parameter)
         {
             var s = db.GetSeriesFromTableName("daily_" + siteID + "_" + parameter);
+            if (s == null)
+            {
+                return "Error:  no data found: " + siteID + "/" + parameter;
+            }
+
             var startYear = r.StartDate.Year;
             var endYear = r.EndDate.Year;
             DateTime t1 = r.StartDate;
