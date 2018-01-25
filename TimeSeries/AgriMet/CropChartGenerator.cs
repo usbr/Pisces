@@ -50,6 +50,7 @@ namespace Reclamation.TimeSeries.AgriMet
 
             for (int i = 0; i < cbttList.Length; i++)
             {
+               
 
                 var cropDates = cropTable.Where(x => x.cbtt == cbttList[i]
                      && !x.IsterminatedateNull()
@@ -71,8 +72,9 @@ namespace Reclamation.TimeSeries.AgriMet
                 // Generates Daily and Summary Crop Charts
                 var dailyTxtChart = CreateDailyUglyTextReport(cbttList[i], t, cropDates);
                 var dailyHtmlChart = CreateDailyHTMLReport(cbttList[i], t, cropDates);
-                var sumChart = CreateSummaryReport(cbttList[i], t, cropDates);
-                CreateDailyHTMLWebReport(cbttList[i], t, cropDates);
+                var sumChart = CreateSummaryReport(cbttList[i], terminateDate, cropDates);
+
+                CreateDailyHTMLWebReport(cbttList[i], t, cropDates); // for emails
 
                 //string header = "AgriMet is excited to announce a partnership with Washington State University to icorporate AgriMet data into WSU's Irrigation Scheduler. To customize crop consumptive water use specific to your field or fields, visit http://weather.wsu.edu/is/";
 
