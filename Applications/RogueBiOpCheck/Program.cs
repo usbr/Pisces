@@ -205,7 +205,7 @@ namespace RogueBiOpCheck
             PiscesFolder rFldr)
         {
             Console.Write(CBTT + "_" + PCODE + ", ");
-            Series rval = new HydrometInstantSeries(CBTT, PCODE);
+            Series rval = new HydrometInstantSeries(CBTT, PCODE, HydrometHost.PNLinux);
             rval.Read(t1, t2);
             rval.Name = CBTT + "_" + PCODE + "15min";
             pDB.AddSeries(rval, rFldr);
