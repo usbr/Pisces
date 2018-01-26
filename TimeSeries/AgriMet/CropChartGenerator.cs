@@ -65,7 +65,7 @@ namespace Reclamation.TimeSeries.AgriMet
                 var terminateDate = TerminateDate(cbttList[i], cropDates);
 
                     if ( terminateDate < DateTime.Now)
-                        t = terminateDate.AddDays(1);
+                        t = terminateDate.AddDays(1); // daily is read in one more day
                     else
                         t = DateTime.Now.Date;
                 
