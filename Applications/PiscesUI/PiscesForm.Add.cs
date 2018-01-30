@@ -192,7 +192,7 @@ namespace Reclamation.TimeSeries.Forms
                 Series s = new Series();
                 s.Name = a.SeriesName;
                 s.Table.TableName = a.TableName;
-                s.Units = a.Units;
+                s.Parameter = a.Parameter;
                 s.TimeInterval = a.TimeInterval;
                 DB.AddSeries(s, CurrentFolder);
                 DatabaseChanged();

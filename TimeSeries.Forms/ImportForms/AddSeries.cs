@@ -19,7 +19,9 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
         public string SeriesName { get { return this.textBoxName.Text; } }
 
-        public string Units { get { return this.comboBoxUnits.Text; } }
+        //public string Units { get { return this.comboBoxUnits.Text; } }
+
+        public string Parameter { get { return this.textBoxParameter.Text; } }
 
         public TimeInterval TimeInterval
         {
@@ -40,6 +42,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
         {
             //update table name.
             string tn = this.TimeInterval.ToString().ToLower() + "_" + this.textBoxName.Text.ToLower();
+            if (Parameter != "")
+                tn += "_" + Parameter;
             tn = tn.Replace("irregular", "instant");
             this.textBoxTableName.Text = tn;
 

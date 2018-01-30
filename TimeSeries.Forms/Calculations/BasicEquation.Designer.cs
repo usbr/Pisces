@@ -35,6 +35,7 @@
             this.listBoxFunctions = new System.Windows.Forms.ListBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.textBoxSiteID = new System.Windows.Forms.TextBox();
+            this.textBoxParameter = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageEquation = new System.Windows.Forms.TabPage();
             this.comboBoxInterval = new System.Windows.Forms.ComboBox();
@@ -43,7 +44,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.textBoxHelp1 = new System.Windows.Forms.TextBox();
-            this.textBoxParameter = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPageEquation.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -102,13 +102,22 @@
             this.listBoxFunctions.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listBoxFunctions_KeyUp);
             this.listBoxFunctions.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxFunctions_MouseDown);
             // 
-            // textBoxSeriesID
+            // textBoxSiteID
             // 
             this.textBoxSiteID.Location = new System.Drawing.Point(249, 82);
-            this.textBoxSiteID.Name = "textBoxSeriesID";
+            this.textBoxSiteID.Name = "textBoxSiteID";
             this.textBoxSiteID.Size = new System.Drawing.Size(122, 20);
             this.textBoxSiteID.TabIndex = 13;
             this.toolTip1.SetToolTip(this.textBoxSiteID, "enter a simple name  like boise_flow");
+            // 
+            // textBoxParameter
+            // 
+            this.textBoxParameter.Location = new System.Drawing.Point(249, 108);
+            this.textBoxParameter.Name = "textBoxParameter";
+            this.textBoxParameter.Size = new System.Drawing.Size(122, 20);
+            this.textBoxParameter.TabIndex = 21;
+            this.textBoxParameter.Text = "default";
+            this.toolTip1.SetToolTip(this.textBoxParameter, "enter a simple name  like boise_flow");
             // 
             // tabControl1
             // 
@@ -208,14 +217,6 @@
             this.textBoxHelp1.Size = new System.Drawing.Size(660, 45);
             this.textBoxHelp1.TabIndex = 19;
             this.textBoxHelp1.Text = "Help text will be seen here";
-            // 
-            // textBoxParameter
-            // 
-            this.textBoxParameter.Location = new System.Drawing.Point(249, 108);
-            this.textBoxParameter.Name = "textBoxParameter";
-            this.textBoxParameter.Size = new System.Drawing.Size(122, 20);
-            this.textBoxParameter.TabIndex = 21;
-            this.toolTip1.SetToolTip(this.textBoxParameter, "enter a simple name  like boise_flow");
             // 
             // BasicEquation
             // 

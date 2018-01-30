@@ -32,7 +32,6 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
-            this.comboBoxUnits = new System.Windows.Forms.ComboBox();
             this.labelunits = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxTimeInterval = new System.Windows.Forms.ComboBox();
@@ -40,6 +39,7 @@
             this.textBoxTableName = new System.Windows.Forms.TextBox();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textBoxParameter = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,22 +81,14 @@
             this.textBoxName.Size = new System.Drawing.Size(281, 20);
             this.textBoxName.TabIndex = 22;
             // 
-            // comboBoxUnits
-            // 
-            this.comboBoxUnits.FormattingEnabled = true;
-            this.comboBoxUnits.Location = new System.Drawing.Point(88, 58);
-            this.comboBoxUnits.Name = "comboBoxUnits";
-            this.comboBoxUnits.Size = new System.Drawing.Size(175, 21);
-            this.comboBoxUnits.TabIndex = 24;
-            // 
             // labelunits
             // 
             this.labelunits.AutoSize = true;
             this.labelunits.Location = new System.Drawing.Point(24, 59);
             this.labelunits.Name = "labelunits";
-            this.labelunits.Size = new System.Drawing.Size(29, 13);
+            this.labelunits.Size = new System.Drawing.Size(54, 13);
             this.labelunits.TabIndex = 25;
-            this.labelunits.Text = "units";
+            this.labelunits.Text = "parameter";
             // 
             // label5
             // 
@@ -154,25 +146,32 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.checkedListBox1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 151);
+            this.groupBox1.Location = new System.Drawing.Point(12, 176);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(277, 161);
+            this.groupBox1.Size = new System.Drawing.Size(277, 136);
             this.groupBox1.TabIndex = 31;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "properties";
             this.groupBox1.Visible = false;
+            // 
+            // textBoxParameter
+            // 
+            this.textBoxParameter.Location = new System.Drawing.Point(88, 56);
+            this.textBoxParameter.Name = "textBoxParameter";
+            this.textBoxParameter.Size = new System.Drawing.Size(186, 20);
+            this.textBoxParameter.TabIndex = 32;
             // 
             // AddSeries
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(431, 329);
+            this.Controls.Add(this.textBoxParameter);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxTableName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxName);
-            this.Controls.Add(this.comboBoxUnits);
             this.Controls.Add(this.labelunits);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.comboBoxTimeInterval);
@@ -192,7 +191,6 @@
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxName;
-        private System.Windows.Forms.ComboBox comboBoxUnits;
         private System.Windows.Forms.Label labelunits;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxTimeInterval;
@@ -200,5 +198,6 @@
         private System.Windows.Forms.TextBox textBoxTableName;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox textBoxParameter;
     }
 }
