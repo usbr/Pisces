@@ -299,8 +299,10 @@ namespace HydrometTools
         {
             var  db = Database.DB();
 
-            
             CalculationSeries series = db.GetCalculationSeries(cbtt, pcode, TimeInterval.Monthly);
+
+            if (series == null)
+                return;
 
             var rng = ssRng.SelectedDateRange;
             series.Calculate(rng.DateTime1.FirstOfMonth(), rng.DateTime2.EndOfMonth());

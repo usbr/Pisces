@@ -1,4 +1,5 @@
 ﻿using Reclamation.Core;
+using Reclamation.TimeSeries;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,12 +13,32 @@ namespace HydrometTools
 {
     public partial class SaveOptions : Form
     {
+        TimeInterval m_interval = TimeInterval.Daily;
         public SaveOptions()
         {
             InitializeComponent();
+            Init();
+        }
 
+        private void Init()
+        {
             SaveToVMS = UserPreference.Lookup("SaveToVMS") == "True";
             ComputeDependencies = UserPreference.Lookup("ComputeDependencies") == "True";
+            if (m_interval == TimeInterval.Monthly)
+            {
+                checkBoxDependencies.Enabled = false;
+                checkBoxDependencies.Checked = false;
+
+            }
+        }
+
+        public SaveOptions(TimeInterval interval)
+        {
+            InitializeComponent();
+            m_interval = interval;
+            Init();
+           
+         
         }
 
         public bool SaveToVMS
@@ -39,7 +60,8 @@ namespace HydrometTools
         private void buttonOk_Click(object sender, EventArgs e)
         {
             UserPreference.Save("SaveToVMS", SaveToVMS.ToString());
-            UserPreference.Save("ComputeDependencies", ComputeDependencies.ToString());
+            if( checkBoxDependencies.Enabled)
+             UserPreference.Save("ComputeDependencies", ComputeDependencies.ToString());
 
 
         }

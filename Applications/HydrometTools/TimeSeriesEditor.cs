@@ -1180,7 +1180,7 @@ namespace HydrometTools
             bool SaveToVMS = true;
             if (svr == HydrometHost.PNLinux && numRecordsWritten >0)
             { // saving to Postgresql/Linux
-                SaveOptions o = new SaveOptions();
+                SaveOptions o = new SaveOptions(m_interval);
                 if (o.ShowDialog() == DialogResult.OK)
                 {
                     SaveToVMS = o.SaveToVMS;

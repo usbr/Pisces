@@ -466,6 +466,8 @@ namespace Reclamation.TimeSeries.AgriMet
             string dateString = " ";
             for (int dateIndex = 1; dateIndex < numDaysRead; dateIndex++)
             {
+                if (dateIndex >= et.Count)
+                    break;
                 var t1 = et[dateIndex].DateTime;
                 dateString = " " + t1.ToString("MM/dd").PadLeft(4);
                 string valueString = "";
