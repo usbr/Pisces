@@ -115,7 +115,13 @@ namespace PiscesWebServices.CGI
         public override void PrintDataTable(SeriesList list, DataTable table)
         {
             // add a column for 30 year average to the table.
-            Series s = new HydrometDailySeries(dailySiteID, dailyPcode, HydrometHost.PNLinux);
+            //Series s = new HydrometDailySeries(dailySiteID, dailyPcode, HydrometHost.PNLinux);
+            var s = m_db.GetSeriesFromTableName("daily_" + dailySiteID + "_" + dailyPcode);
+            if (s == null)
+            {
+                Console.WriteLine("Error:  no data found: " + dailySiteID + "/" + dailyPcode);
+                return;
+            }
             DateTime t1 = new DateTime(1980, 10, 1);
             s.Read(t1, t1.AddYears(30));
             Series s30 = Reclamation.TimeSeries.Math.MultiYearDailyAverage(s, 10);

@@ -13,41 +13,24 @@ namespace PiscesAPI.Controllers
     public class InstantController : Controller
     {
         /// <summary>
-        /// Retrieve daily TS data
+        /// Retrieve instant time (typically 15 minute) series data
         /// </summary>
-        /// <param name="query">query such as 'list=jck' or list ='jck af,pal af'</param>
         [HttpGet()]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public string Get(string query)
+        public ContentResult Get()
         {
+            var query = Request.QueryString.Value;
+            if (query.IndexOf("?") == 0)
+                query = query.Substring(1);
+
             var db = Database.GetTimeSeriesDatabase();
             var w = new WebTimeSeriesWriter(db, Reclamation.TimeSeries.TimeInterval.Irregular, query);
             var x = w.Run(Response);
-            return x;
+            return Content(x, Response.ContentType);
         }
 
-        /// <summary>
-        /// Retrieve instant Time Series data
-        /// </summary>
-        /// <param name="parameter">site parameter combination: 'pdto q'</param>
-        /// 
-        /// <param name="smnth">starting month</param>
-        [HttpGet()]
-        [ProducesResponseType(typeof(string), 200)]
-        [ProducesResponseType(typeof(string), 400)]
-        [ProducesResponseType(typeof(void), 500)]
-         ContentResult Get(string parameter, int syer, int smnth)
-        {
-            
-            var db = Database.GetTimeSeriesDatabase();
-            var w = new WebTimeSeriesWriter(db, Reclamation.TimeSeries.TimeInterval.Irregular, parameter);
-            var x = w.Run(Response);
-            return Content(x);
-        }
-        //
-        //instant? parameter = PDTO % 20Q&syer=2018&smnth=1&sdy=16&eyer=2018&emnth=1&edy=23&format=2
 
 
         /// <summary>

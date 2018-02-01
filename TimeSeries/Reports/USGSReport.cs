@@ -216,7 +216,7 @@ namespace Reclamation.TimeSeries.Reports
 
                 var sum = Math.Sum(monthCol);
                 if (sum >= 0)
-                    rval.Rows[indexTotal][j] = sum;
+                    rval.Rows[indexTotal][j] = sum.ToString("F2");
 
                 var ave = Math.AverageOfSeries(monthCol).ToString("F2");
                 if (!ave.Contains("-") && !ave.Contains("NaN"))
@@ -225,11 +225,11 @@ namespace Reclamation.TimeSeries.Reports
                     rval.Rows[indexAve][j] = "---";
                 var max = Math.MaxValue(monthCol);
                 if (max >= 0)
-                    rval.Rows[indexMax][j] = max;
+                    rval.Rows[indexMax][j] = max.ToString("F2");
 
                 var min = Math.MinValue(monthCol);
                 if (min >= 0 && max >= 0)
-                    rval.Rows[indexMin][j] = min;
+                    rval.Rows[indexMin][j] = min.ToString("F2"); ;
                 
                 month++;
                 if (month > 12)

@@ -240,9 +240,14 @@ namespace PiscesWebServices.CGI
             System.IO.File.Delete(fn);
 
             if (Format == "csv")
-                response.ContentType = "text/csv;Content-Disposition: attachment; filename=hydromet.csv";
+            {
+                response.ContentType = "text/csv";
+             //   response.Headers.Add("Content-Disposition", "attachment; filename=hydromet.csv");
+
+                //response.ContentType = "text/csv;Content-Disposition: attachment; filename=hydromet.csv";
+            }
             else if (Format == "html")
-               response.ContentType = "text/html";
+                response.ContentType = "text/html";
             else
                 response.ContentType = "text/plain";
             return x;

@@ -22,7 +22,6 @@ namespace PiscesWebServices.CGI
     public partial class WaterYearReport
     {
         private TimeSeriesDatabase db;
-        private string query;
         private string format = "usgs-html";
         string[] supportedFormats = new string[] {"csv-analysis", // csv with previous year, and 30 year average
                                                 "usgs-html" // usgs style in html

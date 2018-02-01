@@ -104,6 +104,7 @@ namespace Reclamation.TimeSeries
                 else if (CsvScadaFile.IsValidFile(tf))
                 {
                     importTag = "scada";
+                    m_db.GetSiteCatalog();
                     var scada = new CsvScadaFile(fileName);
                     sl = scada.ToSeries();
                 }
