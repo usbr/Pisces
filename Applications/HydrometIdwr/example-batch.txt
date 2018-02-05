@@ -1,0 +1,4 @@
+﻿HydrometIdwr --source:daily --daysPrevious:5 --config:daily_sites.csv --outputPath:"c:\temp"
+
+HydrometIdwr.exe --source:hourly --hoursPrevious:3 --config:hourly_sites.csv --outputPath:"c:\temp"
+

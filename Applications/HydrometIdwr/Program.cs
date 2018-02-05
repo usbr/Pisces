@@ -82,7 +82,7 @@ namespace HydrometIdwr
         private static void WriteHourly(DateTime t1, DateTime t2, StreamWriter sw, string cbtt, string pcode, string shefName, string shefPcode, string timeZone)
         {
             //HydrometInstantSeries.UseCaching = false;
-            Series s = HydrometInstantSeries.Read(cbtt, pcode, t1, t2, HydrometHost.PN);
+            Series s = HydrometInstantSeries.Read(cbtt, pcode, t1, t2, HydrometHost.PNLinux);
             s.RemoveMissing();
 
             for (int j = 0; j < s.Count; j++)
@@ -103,7 +103,7 @@ namespace HydrometIdwr
         private static void WriteDaily( DateTime t1,  DateTime t2, StreamWriter sw, string cbtt, string pcode, string shefName, string shefPcode, string timeZone)
         {
             //HydrometDailySeries.UseInternet = true;
-            Series s = HydrometDailySeries.Read(cbtt, pcode, t1, t2, HydrometHost.PN);
+            Series s = HydrometDailySeries.Read(cbtt, pcode, t1, t2, HydrometHost.PNLinux);
             s.RemoveMissing();
 
             for (int j = 0; j < s.Count; j++)
