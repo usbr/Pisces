@@ -69,29 +69,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="..\..\..\..\..\..\..\HydrometTools\cfg\daily_pcode.csv">
-      <Link>daily_pcode.csv</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\..\..\..\..\..\HydrometTools\cfg\instant_pcode.csv">
-      <Link>instant_pcode.csv</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\..\..\..\..\..\HydrometTools\cfg\reclamationcgi.csv">
-      <Link>reclamationcgi.csv</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="..\..\..\..\..\..\..\HydrometTools\cfg\site.csv">
-      <Link>site.csv</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="App.config" />
+    <None Include="daily_pcode.csv" />
     <None Include="daily_sites.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="hourly_sites.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="instant_pcode.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -101,6 +87,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="reclamationcgi.csv" />
+    <None Include="site.csv" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -1,0 +1,4 @@
+Server,TimeInterval,Network,CGI
+PN,Daily,www,https://www.usbr.gov/pn-bin/daily.pl
+PN,Irregular,www,https://www.usbr.gov/pn-bin/instant.pl
+PN,Monthly,www,https://www.usbr.gov/pn-bin/monthly.pl
