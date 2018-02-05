@@ -45,8 +45,8 @@ sitename,tmstp,gv1,gs1,gv2,gs2,gv3,gs3,gv4,gs4,gv5,gs5,gv6,gs6,lv1,ls1,lv2,ls2,l
         {
             // match gate or level status// matches gv1, gv2,... lv1, lv2,...
             Regex reColumns = new Regex("^(g|l)v[1-6]{1}$", RegexOptions.Compiled);
-            // match valid site names  (site01,site02,  pmp202,pmp205...)
-            Regex reSites = new Regex("^(site|pmp)[0-9]{1,3}$");
+            // match valid site names  (site01,site02, )
+            Regex reSites = new Regex("^(site)[0-9]{1,3}$");
             for (int i = 0; i < csv.Rows.Count; i++)
             {
                 var row = csv.Rows[i];
