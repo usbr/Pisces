@@ -53,6 +53,11 @@ namespace HydrometTools
                  tabControl1.TabPages.Remove(tabPageNotifications);
         }
 		
+        internal void HideAlarms()
+        {
+            tabControl1.TabPages.Remove(tabPageAlarms);
+        }
+
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>

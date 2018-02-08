@@ -60,6 +60,12 @@ namespace HydrometTools
 
 		public FormMain()
         {
+            var host = HydrometInfoUtility.HydrometServerFromPreferences();
+            if (host == HydrometHost.PN)
+            {
+                UserPreference.SetDefault("HydrometServer", HydrometHost.PNLinux.ToString(), false);
+            }
+
             HydrometInfoUtility.SetDefaultHydrometServer();
 
             UserPreference.SetDefault("HideStatusDialog", "False", false);
@@ -68,7 +74,7 @@ namespace HydrometTools
 
             InitializeComponent();
 
-           // MakeMinimalVersion();
+            
             this.Text += " " + Application.ProductVersion;
 
            // FileUtility.CleanTempPath();
@@ -76,6 +82,7 @@ namespace HydrometTools
             TabPageManager tabManager = new TabPageManager(tabControl1);
             Logger.OnLogEvent += new StatusEventHandler(Logger_OnLogEvent);
             UpdateTabs();
+            //MakeMinimalVersion();
         }
 
         private void MakeMinimalVersion()
@@ -86,6 +93,7 @@ namespace HydrometTools
             //this.tabControl1.Controls.Remove(this.tabPageSnowGG);
             //this.tabControl1.Controls.Remove(this.tabPageSetup);
             this.setup1.HideNotificationSettings();
+            this.setup1.HideAlarms();
             this.tabControl1.Controls.Remove(this.tabPageUpdater);
             this.tabControl1.Controls.Remove(this.tabPageRating);
             this.tabControl1.Controls.Remove(this.tabPageAdvanced);
@@ -93,6 +101,8 @@ namespace HydrometTools
             this.tabControl1.Controls.Remove(this.tabPageHydrographEditor);
             this.tabControl1.Controls.Remove(this.tabPageStats);
             this.tabControl1.Controls.Remove(this.tabPageReports);
+            this.tabControl1.Controls.Remove(this.tabPageFcplot);
+            
         }
 
        

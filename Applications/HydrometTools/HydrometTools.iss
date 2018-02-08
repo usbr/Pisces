@@ -90,7 +90,7 @@ Source:  "..\cfg\mpoll_inventory.txt";   DestDir: "{app}\cfg";   Flags: ignoreve
 
 ; Hydromet tools specific  - below
 Source:  "C:\utils\private\reclamationcgi.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
-Source:  "C:\utils\private\RuleCurves.xlsx";   DestDir: "{app}\cfg";   Flags: ignoreversion
+;ource:  "C:\utils\private\RuleCurves.xlsx";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "C:\utils\private\hydromet-tools-private.config";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "..\cfg\RatingTableTemplate.xls";   DestDir: "{app}\cfg";   Flags: ignoreversion
 Source:  "..\cfg\snowgg_groups.csv";   DestDir: "{app}\cfg";   Flags: ignoreversion
