@@ -11,6 +11,9 @@ namespace Reclamation.TimeSeries.Hec
         public static void AddDssFileToDatabase(string dssFilename, PiscesFolder parent,
             TimeSeriesDatabase db)
         {
+            if (parent == null)
+                parent = db.RootFolder;
+
             PiscesFolder root = parent;
             try
             {
