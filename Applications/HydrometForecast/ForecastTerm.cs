@@ -180,6 +180,7 @@ namespace HydrometForecast
                     HydrometHost host = HydrometData.s_server;
                     if (getAveragePcode)
                     { // used for snow/precip
+                        throw new NotImplementedException("Error. Legacy System retired.");
                         pcode = HydrometMonthlySeries.LookupAveargePcode(pcode);
                         host = HydrometHost.PN;
                     }

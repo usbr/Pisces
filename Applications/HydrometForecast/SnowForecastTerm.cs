@@ -188,9 +188,29 @@ namespace HydrometForecast
 
         private SeriesList CreateAndRead(int year, int month, bool getAverageData=false)
         {
-            var a = CreateSeriesList(getAverageData);
-            a.Read(year,month);
-            return a;
+            if (year == 9999 && getAverageData)
+            {
+                var rval = new SeriesList();
+                for (int i = 0; i < cbttPodes.Count; i++)
+                {
+
+                    var tokens = cbttPodes[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    var cbtt = tokens[0].Trim();
+                    var pcode = tokens[1].Trim();
+                    var d = HydrometData.Sum30YearRunoff(cbtt, pcode, month, month);
+                    Series s = new Series("", TimeInterval.Monthly);
+                    var t = new DateTime(year, 1, 1);
+                    s.Add(t, d);
+                    rval.Add(s);
+                    }
+                return rval;
+            }
+            else
+            {
+                var a = CreateSeriesList(getAverageData);
+                a.Read(year, month);
+                return a;
+            }
         }
 
        
