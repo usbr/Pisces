@@ -9750,7 +9750,8 @@ namespace Pisces.NunitTests.SeriesTypes
 
 
 
-        [Test]
+
+        [Test, Category("Internal")]
         public void SnotelSnowDepth()
         {
             //var s= NrcsSnotelSeries.GetNRCS("jkpi", "sd", "15E09S");
@@ -9758,8 +9759,8 @@ namespace Pisces.NunitTests.SeriesTypes
             s.Read(DateTime.Parse("2010-10-1"), DateTime.Parse("2011-1-10"));
                s.WriteToConsole();
         }
-    
-        [Test]
+
+        [Test, Category("Internal")]
         public void SnotelSnowWaterEquivalent()
         {
             var s = new NrcsSnotelSeries("550", "WTEQ.I-1 (in)");
