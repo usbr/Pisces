@@ -133,6 +133,12 @@ namespace PiscesWebServices
                 var emnth = GetIntParam(c, "emnth", t2.Month);
                 var edy = GetIntParam(c, "edy", t2.Day);
 
+                if( interval == TimeInterval.Monthly)
+                { // 
+                    sdy = 1;
+                    edy = DateTime.DaysInMonth(edy, emnth);
+                }
+
                 t1 = new DateTime(syer, smnth, sdy);
                 t2 = new DateTime(eyer, emnth, edy).EndOfDay();
 
