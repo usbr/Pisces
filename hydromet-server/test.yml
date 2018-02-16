@@ -1,0 +1,20 @@
+---
+# This 
+
+- hosts: all
+  vars:
+    host_name: localhost
+  remote_user: root
+  tasks:
+
+  - include: ./dotnet.yml
+
+# hydromet web services .net core application
+#
+
+  - name: copy hydromet-web.service to systemd area
+    copy: src=hydromet-web.service  dest=/usr/lib/systemd/system
+
+  - name: configure hydromet-web.service 
+    systemd: name=hydromet-web enabled=yes state=started
+

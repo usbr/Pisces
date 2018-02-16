@@ -1,0 +1,38 @@
+# postgres install/setup for hydromet
+ 
+  - name: add postgresql 9.6 repository 
+    yum:
+      name: https://yum.postgresql.org/9.6/redhat/rhel-7-x86_64/pgdg-redhat96-9.6-3.noarch.rpm
+ 
+
+  - name: install core packages
+    yum: name={{ item }} state=installed
+    with_items:
+     - postgresql96-server
+     - postgresql96-contrib
+     - postgresql96
+ 
+  - name: Initiate database
+    command: /usr/pgsql-9.6/bin/postgresql96-setup initdb creates=/var/lib/pgsql/9.6/data/postgresql.conf
+  
+  - name: have postgres listen on all network cards
+    lineinfile:
+     dest=/var/lib/pgsql/9.6/data/postgresql.conf
+     line="listen_addresses = '*' "
+
+  - name: set max_locks_per_transaction (backups needed this)
+    lineinfile:
+     dest=/var/lib/pgsql/9.6/data/postgresql.conf
+     line="max_locks_per_transaction = 128 "
+
+  - name: set postgres log file format
+    lineinfile:
+     dest=/var/lib/pgsql/9.6/data/postgresql.conf
+     line="log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'"
+
+  - name: set pg_hba (database firewall)
+    copy: src=pg_hba.conf dest=/var/lib/pgsql/9.6/data/pg_hba.conf
+  
+  - name: Ensure the PostgreSQL service restarted
+    service: name=postgresql-9.6.service state=restarted enabled=yes
+  

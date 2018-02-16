@@ -1,0 +1,10 @@
+ 
+  - name: copy firewall config files to /etc/firewalld
+    copy: src=files/firewalld dest=/etc/
+
+  - name: Add port 8080 For tomcat
+    command: firewall-cmd --permanent --zone=public --add-port=8080/tcp
+
+  - name: reload firewall rules
+    command: firewall-cmd --reload
+

@@ -1,0 +1,8 @@
+#!/bin/bash
+cd /root
+#
+# restore  database
+#
+gzip -d postgres.gz
+/usr/bin/psql -f postgres -U postgres postgres
+touch postgres_restored

@@ -1,0 +1,55 @@
+# dotnet install/setup for hydromet
+# adapted from https://github.com/ocha/ansible-role-dotnet-core
+#
+---
+- name: .NET | Add rpm key
+  rpm_key:
+    key: https://packages.microsoft.com/keys/microsoft.asc
+    state: present
+  register: result
+  until: '"failed" not in result'
+  retries: 3
+  delay: 5
+
+- name: .NET | Add YUM repository
+  yum_repository:
+    name: packages-microsoft-com-prod
+    description: Microsoft .NET RHEL Repository
+    baseurl: https://packages.microsoft.com/yumrepos/microsoft-rhel7.3-prod
+    gpgcheck: yes
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    enabled: yes
+  retries: 3
+  delay: 5
+
+- name: .NET | Install dependencies
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "libicu"
+    - "libunwind"
+
+- name: .NET | Install dotnet core
+  package:
+    name: "dotnet-sdk-2.0.0"
+    state: present
+    update_cache: true
+  register: result
+  until: '"failed" not in result'
+  retries: 3
+  delay: 5
+
+# hydromet web services .net core application
+
+- name: copy hydromet-web.service to systemd area
+  copy: src=hydromet-web.service  dest=/usr/lib/systemd/system
+
+- name: configure hydromet-web.service 
+  systemd: name=hydromet-web enabled=yes state=started
+
+- name: configure apache to reverse proxy for .net core on port 5000
+  copy: src=hydromet.conf dest=/etc/httpd/conf.d
+
+ 
+

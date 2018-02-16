@@ -1,0 +1,83 @@
+#minute hour day month weekday
+# Lrgs1 
+1 17 * * * /home/hydromet/bin/USFOShifts/idwr_shift >/dev/null 2>&1
+TMPDIR=/home/hydromet/tmp
+45 06-13 * * * /home/hydromet/bin/TeaCup/go >/dev/null 2>&1
+50 06-13 * * * /home/hydromet/bin/TeaCup/yak >/dev/null 2>&1
+30 6,9 * * * /home/hydromet/bin/GetUsace/run_daily  >/dev/null 2>&1
+44 * * * * /home/hydromet/bin/GetUsace/run_hourly  >/dev/null 2>&1
+55 23 * * * /home/hydromet/bin/housekeeping > /dev/null 2>&1
+#
+# Get RFC-ESP data on Wednesday
+# kt.  RFC turning off ftp in October
+# 45 5 * * Wed /home/hydromet/bin/esp/get_esp  >/dev/null 2>&1
+
+
+7 * * * * /home/hydromet/bin/ImportUsgs/go  >/dev/null 2>&1
+8 * * * * /home/hydromet/bin/ImportOwrd/go  >/dev/null 2>&1
+10 * * * * /home/hydromet/bin/GetIdahoPower/go  >/dev/null 2>&1
+11 * * * * /home/hydromet/bin/ImportIdahoPower/go >/dev/null 2>&1
+30 6,12 * * * /home/hydromet/bin/ImportIdahoPower/go_daily >/dev/null 2>&1
+30 6 * * * /home/hydromet/bin/GetSnotel/go  >/dev/null 2>&1
+
+
+# daily calculations --- Linux Archiver..
+# daily calc --- using 'timeseries' postgres database
+30 6 * * * /home/hydromet/bin/HydrometServer/calc_hydromet_daily >/dev/null 2>&1
+11 3 * * * /home/hydromet/bin/HydrometServer/inventory >/dev/null 2>&1
+
+# run DECODES and compute flows
+1,11,21,31,41,51 * * * * /home/hydromet/bin/HydrometServer/decode_default >/dev/null 2>&1
+
+# data transfer to pnhyd0
+10 * * * * /home/hydromet/bin/daily_to_pnhyd0 > /dev/null 2>&1
+5,15,25,35,45,55 * * * * /home/hydromet/bin/instant_to_pnhyd0 > /dev/null 2>&1
+
+# --- BACKUPS ---
+30 21 * * * /home/hydromet/backup_postgresql >/home/hydromet/backup_postgresql.error  2>&1
+12 2 * * * /home/hydromet/backup_hydromet >/dev/null 2>&1
+
+
+23 * * * * /home/hydromet/bin/HydrometNotifications/notify hydromet_hourly >/dev/null 2>&1
+25 * * * * /home/hydromet/bin/HydrometNotifications/notify hydromet_tv >/dev/null 2>&1
+24 * * * * /home/hydromet/bin/HydrometNotifications/notify bsei >/dev/null 2>&1
+2 8 * * * /home/hydromet/bin/HydrometNotifications/notify cibw >/dev/null 2>&1
+45 7 * * * /home/hydromet/bin/HydrometNotifications/notify hydromet_batvolt >/dev/null 2>&1
+47 7 * * 1-5 /home/hydromet/bin/HydrometNotifications/notify hydromet_bv >/dev/null 2>&1
+22 6 * * 1-5 /home/hydromet/bin/HydrometNotifications/notify hydromet_pc >/dev/null 2>&1
+45 6 * * * /home/hydromet/bin/HydrometNotifications/notify hydromet_noaa >/dev/null 2>&1
+45 6,12 * * * /home/hydromet/bin/HydrometNotifications/notify hydromet_down >/dev/null 2>&1
+36 8 * * * /home/hydromet/bin/HydrometNotifications/notify hydromet_daily >/dev/null 2>&1
+36 6 * * * /home/hydromet/bin/HydrometNotifications/notify hydromet_ops >/dev/null 2>&1
+37 8 * * * /home/hydromet/bin/HydrometNotifications/notify ephrata >/dev/null 2>&1
+19 6 * * * /home/hydromet/bin/HydrometNotifications/notify mjayo >/dev/null 2>&1
+14 13 * * * /home/hydromet/bin/HydrometNotifications/notify USFO >/dev/null 2>&1
+1 7,14 * * * /home/hydromet/bin/HydrometNotifications/notify hydromet_ac >/dev/null 2>&1
+1 8 * * * /home/hydromet/bin/HydrometNotifications/notify owyhee_evap >/dev/null 2>&1
+2 8 * * * /home/hydromet/bin/HydrometNotifications/notify beuo_evap >/dev/null 2>&1
+3 8 * * * /home/hydromet/bin/HydrometNotifications/notify dryw_evap >/dev/null 2>&1
+4,34 14,15,16,17,18 * * * /home/hydromet/bin/HydrometNotifications/notify yakima_down >/dev/null 2>&1
+
+
+# -- Lewiston Orchards
+49 * * * * /home/hydromet/bin/HydrometNotifications/notify loid_hourly >/dev/null 2>&1
+
+# -- Rogue River
+16 8 * * * /home/hydromet/bin/HydrometNotifications/notify rogue_daily >/dev/null 2>&1
+55 * * * * /home/hydromet/bin/HydrometNotifications/notify rogue_hourly >/dev/null 2>&1
+
+# Klamath Data Import
+10,46 *  * * * /home/hydromet/bin/klamath/get_kid >/home/hydromet/bin/klamath/get_kid.log 2>&1
+# HAR files are pushed to ftp.usbr.gov 20 minutes after the hour
+25 * * * * /home/hydromet/bin/ImportKlamathShef/go_secure >/dev/null 2>&1
+
+# columbia basin project 
+55 5 * * * /home/hydromet/bin/cbp/get_cbp_daily.sh   >/dev/null 2>&1
+25,55 * * * * /home/hydromet/bin/cbp/get_cbp_instant.sh   >/dev/null 2>&1
+
+2 8,14 * * * /home/hydromet/bin/HydrometServer/update_rating_tables >/dev/null 2>&1
+
+2 * * * * /home/hydromet/bin/ProcessHydrometEmail/go >/dev/null 2>&1
+
+* * * * *  /home/hydromet/bin/yakima_status/check_status >/dev/null 2>&1
+

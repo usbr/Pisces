@@ -1,0 +1,149 @@
+---
+# This playbook deploys a hydromet server to centos 7 / rhel 7
+
+- hosts: all
+  vars:
+    host_name: hydromet
+    install_loggernet: false
+  remote_user: root
+  tasks:
+  - name: disable selinux
+    selinux: state=disabled
+
+  - include: ./firewall.yml
+
+  - name: set-default multi-user.target (GUI is not needed)
+    command: systemctl set-default multi-user.target
+
+  - name: add hydromet user
+    user: name=hydromet    
+
+  - name: add agrimet user
+    user: name=agrimet
+
+  - name: install epel CentOS
+    yum: 
+     name=epel-release state=present 
+    when: ansible_distribution == 'CentOS'
+
+  - name: install epel for RedHat
+    yum: 
+     name=https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm  state=present
+    when: ansible_distribution == 'RedHat'
+
+  - name: install mono rpm key
+    rpm_key: state=present key="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF"
+  
+  #mozroots --import --sync
+  
+  - name: add mono repository
+    yum_repository:
+      name: mono
+      description: mono yum repo
+      baseurl: http://download.mono-project.com/repo/centos/
+ 
+  - name: install core packages
+    yum: name={{ item }} state=installed
+    with_items:
+     - ntp
+     - dos2unix
+     - python-psycopg2
+     - httpd 
+     - mod_ssl
+     - sendmail 
+     - sendmail-cf 
+     - gtk2-devel 
+     - subversion 
+     - git 
+     - httpd
+     - ftp
+     - lshw
+     - perl-CGI
+     - crontabs 
+     - cronie 
+     - cronie-anacron 
+     - wget 
+     - vim 
+     - lshw
+     - perl-CGI
+     - mono-complete
+     - lshw
+     - perl-CGI
+     - mono-complete
+     - tomcat
+     - tomcat-native.x86_64
+     - tomcat-webapps
+     - tomcat-docs-webapp
+     - tomcat-admin-webapps
+     - tomcat-javadoc
+
+  - include: ./postgres.yml
+
+  - name: create /var/log/hydromet
+    file: path=/var/log/hydromet state=directory owner=hydromet mode=0755
+  
+  - name: create /var/log/agrimet
+    file: path=/var/log/agrimet state=directory owner=agrimet mode=0755
+
+  - name: create /home/hydromet/incoming
+    file: path=/home/hydromet/incoming state=directory owner=hydromet
+
+  - name: create /home/hydromet/incoming/attic
+    file: path=/home/hydromet/incoming/attic state=directory owner=hydromet
+
+  - name: create /home/hydromet/outgoing
+    file: path=/home/hydromet/outgoing state=directory owner=hydromet
+
+  - name: create /home/hydromet/outgoing/attic
+    file: path=/home/hydromet/outgoing/attic state=directory owner=hydromet
+
+  - name: create /home/hydromet/tmp
+    file: path=/home/hydromet/tmp state=directory owner=hydromet
+ 
+  - name: set host name
+    hostname: name={{ host_name }}
+  
+  - name: hosts file
+    template: src=hosts.j2 dest=/etc/hosts
+
+  - name: configure apache / httpd
+    copy: src=httpd.conf dest=/etc/httpd/conf/httpd.conf   
+
+  - name: http service state
+    service: name=httpd state=restarted enabled=yes
+  
+  - name: copy time server ntp.conf
+    copy: src=ntp.conf dest=/etc/ntp.conf
+  
+  - name: start ntp service
+    service: name=ntpd state=restarted enabled=yes
+
+  - name: set login banner motd
+    copy: src=motd.banner dest=/etc/motd
+
+  - name: set banner
+    copy: src=banner dest=/etc/banner
+ 
+  - name: set sshd config for banner
+    copy: src=sshd_config dest=/etc/sshd_config 
+  
+  - name: restart sshd
+    service: name=sshd state=restarted enabled=yes
+
+  - name: update mono certificate store
+    command: cert-sync /etc/pki/tls/certs/ca-bundle.crt
+
+  - name: hard limit files for Loggernet
+    lineinfile:
+     dest=/etc/security/limits.conf
+     line="loggernet        hard    nofile          8192"
+
+  - name: soft limit for loggernet 
+    lineinfile:
+     dest=/etc/security/limits.conf
+     line="loggernet        soft    nofile          8192"
+
+  - name: start postfix service
+    service: name=postfix state=restarted enabled=yes
+
+

@@ -1,0 +1,42 @@
+# this directory contains setup and confirugation scripts 
+# to build a Hydromet Linux server
+# Before startign you need a computer with the network/ip address working
+# /var needs about 100 GB of space for the postgres database
+# /home needs plenty of space
+
+Step 1)  create user hydromet and Restore the Hydromet directory  /home/hydromet
+         adduser hydromet
+         scp hydromet@lrgs1.pn.usbr.gov:backup/Fri_hydromet_backup.tgz /home/hydromet/.
+         tar -xvzf Fri_hydromet_backup.tgz
+
+Step 2)  setup hydromet in sudoers file
+         #visudo   (as root)
+          %hydromet  ALL=(ALL) NOPASSWD: ALL
+
+Step 3)  Restore the AgriMet directory  /home/agrimet (need to be in loggernet group)
+         cd /home/agrimet/ tar -xvf Tue_agrimet_backup.tgz
+
+Step 4)  run initial setup script
+          ./setup-rhel7.sh  or ./setup-centos7.sh
+
+Step 5)  run ansible configure script
+         vi ./hydromet.yml  (edit hostname variable if desired)
+         ./go
+
+Step 6)  restore database files (examples)
+         a sql database dump can be used, or rsync of datbase files when databas stopped
+          -- file backup and restore
+             scp hydromet@lrgs1.pn.usbr.gov:backup/Dec_Fri_2016_pg_dumpall.gz /home/hydromet/.
+             gunzip -c Dec_Fri_2016_pg_dumpall | psql -U postgres postgres 
+          -- backup database from live database running at lrgs1 to another (localhost)
+               pg_dumpall -U postgres -h lrgs1.pn.usbr.gov --clean | psql -U postgres postgres
+          -- backup using rsync (database must be stopped on source and destination)
+             rsync -avzP root@lrgs1:/var/lib/pgsql/ /var/lib/pgsql 
+
+Setp 7)  restore loggernet backup.
+
+Step 8)  setup hydromet crontable  
+         login as hydromet
+         contab -e
+         backup: /homet/hydromet/server-setup/files/hydromet.crontab
+
