@@ -169,6 +169,10 @@ namespace Reclamation.Core
         {
             Logger.WriteLine(url);
             Logger.WriteLine(payload);
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
             if (useCache && SimpleWebCache.Available(url+payload))
             {
                 
