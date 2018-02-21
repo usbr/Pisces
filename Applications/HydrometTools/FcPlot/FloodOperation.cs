@@ -9,7 +9,7 @@ using Reclamation.TimeSeries.Hydromet.Operations;
 
 namespace FcPlot
 {
-    public class FCOP
+    public class FloodOperation
     {
         public static Series ComputeTargets(FloodControlPoint pt, int waterYear)
         {

@@ -173,7 +173,7 @@ namespace FcPlot
                 {
                     if (Convert.ToInt32(this.textBoxWaterYear.Text) == DateTime.Now.WaterYear())
                     {
-                        targets = FCOP.ComputeTargets(pt, Convert.ToInt32(this.textBoxWaterYear.Text));
+                        targets = FloodOperation.ComputeTargets(pt, Convert.ToInt32(this.textBoxWaterYear.Text));
                         if (targets.Count > 0)
                         {
                             hydrometChart1.CreateTarget(Color.Yellow, "Target", targets, "left");

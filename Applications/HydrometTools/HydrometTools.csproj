@@ -302,7 +302,7 @@
     <Compile Include="Decodes\McfDecodesConverter.cs" />
     <Compile Include="Decodes\McfToDecodes.cs" />
     <Compile Include="Decodes\UnitConversion.cs" />
-    <Compile Include="FcPlot\FCOP.cs" />
+    <Compile Include="FcPlot\FloodOperation.cs" />
     <Compile Include="FcPlot\FcPlotUI.cs">
       <SubType>UserControl</SubType>
     </Compile>
