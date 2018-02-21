@@ -6,7 +6,7 @@ using Reclamation.TimeSeries;
 using Reclamation.TimeSeries.Hydromet;
 using Reclamation.Core;
 using Reclamation.TimeSeries.Hydromet.Operations;
-
+using Math = Reclamation.TimeSeries.Math;
 namespace FcPlot
 {
     public class FloodOperation
@@ -39,48 +39,20 @@ namespace FcPlot
 
             double averageForcastValue = HydrometMonthlySeries.AverageValue30Year(cbtt, "fc", forecastMonth, forecastMonth);
             double percent = forecastValue / averageForcastValue;
-            
-            //get thirty year average QU from either monthly or daily series which ever is available
-            if (UseDailyAverage(cbtt))
-	        {
-                avg30yrQU = new HydrometDailySeries(cbtt, "QU");
-                t1 = new DateTime(7100, forecastMonth, 1);
-                t2 = new DateTime(7100, 7, 31);
-                avg30yrQU.Read(t1, t2);
 
+            //get thirty year average QU from either monthly or daily series which ever is available
+            avg30yrQU = Get30YearAverageSeries(cbtt, "qu",forecastMonth);
+
+            if (avg30yrQU.Count >0)
+	        {
                 for (int i = 0; i < avg30yrQU.Count(); i++)
                 {
-                    if (avg30yrQU[i].IsMissing == false)
+                    var t = avg30yrQU[i].DateTime;
+                    if ( t >= t1 && t<=t2 && !avg30yrQU[i].IsMissing )
                     {
                         expectedRunoff = expectedRunoff + avg30yrQU[i].Value * 1.98347;
                         var s = forecastValue - expectedRunoff * percent;
                         targets.Add(avg30yrQU[i].DateTime, s);
-                    }
-                }
-	        }
-            else
-	        {
-                avg30yrQU = new HydrometMonthlySeries(cbtt, "QU");
-                t1 = new DateTime(7100, forecastMonth, 1);
-                t2 = new DateTime(7100, 7, 1);
-
-                avg30yrQU.Read(t1, t2);
-
-                for (int i = 0; i < avg30yrQU.Count(); i++)
-                {
-                    if (avg30yrQU[i].IsMissing == false)
-                    {
-                        if (i==0)
-                        {
-                            targets.Add(avg30yrQU[i].DateTime, forecastValue);
-                        }
-                        else
-                        {
-                            expectedRunoff = expectedRunoff + avg30yrQU[i].Value;
-                            var s = forecastValue - expectedRunoff * percent;
-                            targets.Add(avg30yrQU[i].DateTime, s);
-                        }
-                        
                     }
                 }
 	        }
@@ -99,7 +71,20 @@ namespace FcPlot
 
             return requiredContent;
         }
-        
+
+        private static Series Get30YearAverageSeries(string cbtt, string pcode,int forecastMonth)
+        {
+            var t1 = new DateTime(1980, 10, 1);
+            var t2 = new DateTime(2010, 9, 30);
+            var s2 = new HydrometDailySeries(cbtt, pcode, HydrometHost.PNLinux);
+            s2.Read(t1, t2);
+
+            DateTime t = new DateTime(2018, forecastMonth, 1);
+            var list = Math.SummaryHydrograph(s2, new int[] { }, t, false,false,true, false); 
+
+            return list[0];
+        }
+
         public static Series GetLatestForecast(string cbtt, Int32 waterYear)
         {
             Series forecast = new HydrometMonthlySeries(cbtt,"FC");

@@ -36,12 +36,6 @@ namespace HydrometForecast
             return FileName != "";
         }
 
-        public static Series GetSeries(string cbtt, string pcode, HydrometHost host)
-        {
-            var  rval = new HydrometMonthlySeries(cbtt, pcode, host);
-            Logger.WriteLine("Reading data for cbtt ='" + cbtt + "' pcode = '" + pcode+"'");
-            return rval;
-        }
 
         public static VariableResolver GetVariableResolver()
         {
