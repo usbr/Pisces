@@ -185,16 +185,6 @@ namespace HydrometForecast
 
         private void buttonOpenLocalMpoll_Click(object sender, EventArgs e)
         {
-            if (openFileDialogMpoll.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                HydrometData.FileName = openFileDialogMpoll.FileName;
-                textBoxLocalMpoll.Text = openFileDialogMpoll.FileName;
-            }
-            else
-            {
-                HydrometData.FileName = "";
-                textBoxLocalMpoll.Text = "";
-            }
         }
        
 

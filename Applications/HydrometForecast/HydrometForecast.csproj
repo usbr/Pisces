@@ -127,7 +127,6 @@
     </Compile>
     <Compile Include="HistoricalTerms.cs" />
     <Compile Include="HydrometData.cs" />
-    <Compile Include="Tests\Feb2013.cs" />
     <Compile Include="MonthlyEstimation.cs" />
     <Compile Include="ForecastEquation.cs" />
     <Compile Include="ForecastList.cs">
@@ -167,8 +166,6 @@
     <Compile Include="ForecastSpreadsheetEditor.Designer.cs">
       <DependentUpon>ForecastSpreadsheetEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tests\TestForecastPerformance.cs" />
-    <Compile Include="Tests\Jan2013.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Reclamation.Core.csproj">

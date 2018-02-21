@@ -181,10 +181,10 @@ namespace HydrometForecast
                     if (getAveragePcode)
                     { // used for snow/precip
                         throw new NotImplementedException("Error. Legacy System retired.");
-                        pcode = HydrometMonthlySeries.LookupAveargePcode(pcode);
-                        host = HydrometHost.PN;
+                       // pcode = HydrometMonthlySeries.LookupAveargePcode(pcode);
+                       // host = HydrometHost.PN;
                     }
-                    var s = HydrometData.GetSeries(cbtt, pcode,host);
+                    var s = new HydrometMonthlySeries(cbtt, pcode,host);
                     list.Add(s);
                 }
             }

@@ -15,7 +15,7 @@ namespace FcPlot
         {
             string cbtt = pt.StationQU;
             HydrometRuleCurve m_ruleCurve = RuleCurveFactory.Create(pt, 7100);
-            Series forecast30yrAvg = new HydrometMonthlySeries(cbtt, "FC");
+            
             Series avg30yrQU;
             Series targets = new Series();
             Series requiredContent = new Series();
@@ -39,6 +39,7 @@ namespace FcPlot
 
             //get 81-10 average forecast for that month and calculate percent of average
             t1 = new DateTime(8110, forecastMonth, 1);
+            Series forecast30yrAvg = new HydrometMonthlySeries(cbtt, "FC");
             forecast30yrAvg.Read(t1, t1);
             double averageForcastValue = forecast30yrAvg[0].Value;
             double percent = forecastValue / averageForcastValue;

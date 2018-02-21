@@ -49,7 +49,7 @@ namespace HydrometForecast
                     {
                         string cbtt = s.ConnectionStringToken("cbtt");
                         string pcode = s.ConnectionStringToken("pcode");
-                        var avg = HydrometData.ReadAverageValue(cbtt, pcode, mp.DateTime);
+                        var avg = HydrometMonthlySeries.ReadAverageValue(cbtt, pcode, mp.DateTime);
 
                         if (!avg.IsMissing)
                         {
@@ -97,7 +97,7 @@ namespace HydrometForecast
                     string pcode = s.ConnectionStringToken("pcode");
                     if (s[dateIndex].IsMissing && s[dateIndex].DateTime <= forecastDate.EndOfMonth())
                     {
-                        var pt = HydrometData.ReadAverageValue(cbtt, pcode, s[dateIndex].DateTime);
+                        var pt = HydrometMonthlySeries.ReadAverageValue(cbtt, pcode, s[dateIndex].DateTime);
                         if (!pt.IsMissing)
                         {
                             pt.Value = pt.Value * percentOfNormal;
@@ -128,7 +128,7 @@ namespace HydrometForecast
                 string pcode = s.ConnectionStringToken("pcode");
                 if (!s[dateIndex].IsMissing)
                 {
-                    var avg = HydrometData.ReadAverageValue(cbtt, pcode, s[dateIndex].DateTime).Value;
+                    var avg = HydrometMonthlySeries.ReadAverageValue(cbtt, pcode, s[dateIndex].DateTime).Value;
                     sumAvg += avg;
                     sum += s[dateIndex].Value;
 

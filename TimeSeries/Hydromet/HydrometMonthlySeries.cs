@@ -35,7 +35,7 @@ namespace Reclamation.TimeSeries.Hydromet
         string m_cbtt;
         string m_pcode;
         HydrometHost server = HydrometHost.PN;
-        public HydrometMonthlySeries(string cbtt, string pcode, HydrometHost server=HydrometHost.PN)
+        public HydrometMonthlySeries(string cbtt, string pcode, HydrometHost server=HydrometHost.PNLinux)
         {
             this.TimeInterval = TimeSeries.TimeInterval.Monthly;
             this.Units = "";
@@ -574,24 +574,6 @@ namespace Reclamation.TimeSeries.Hydromet
             }
         }
 
-        //public string[] MpollSiteNames
-        //{
-
-        //    get
-        //    {
-        //        var rval = new List<string>();
-        //        foreach (var item in MpollTextFileCatalog.FileData)
-        //        {
-        //            if (item.Length >= 4)
-        //            {
-        //                rval.Add(item.Substring(0, 4).Trim());
-        //            }
-        //        }
-        //        return rval.ToArray();
-        //    }
-        //}
-
-
         static string[] standardPcodes = { "PM", "SE", "SU", "QU", "QM" };
         static string[] averagePcodes = { "PMA", "SEA", "SUA", "QU", "QMA" };
         /// <summary>
@@ -604,12 +586,50 @@ namespace Reclamation.TimeSeries.Hydromet
             int idx = Array.IndexOf(standardPcodes, pcode);
             if (idx < 0)
                 return "";
-
-
             return averagePcodes[idx];
 
         }
 
-       
+
+        public static Point ReadAverageValue(string cbtt, string pcode, DateTime date)
+        {
+            var computedAvg = AverageValue(cbtt, pcode, date.Month, date.Month);
+            var pt2 = new Point(date, computedAvg, PointFlag.Estimated);
+            Logger.WriteLine("using estimated data " + cbtt + " " + pcode + " " + pt2.DateTime.ToString("yyyy MMM"));
+            return pt2;
+        }
+
+        /// <summary>
+        /// Sums runoff between month1 and month2 from 30 year average
+        /// Only valid between january and september
+        /// </summary>
+        /// <param name="cbtt"></param>
+        /// <param name="pcode"></param>
+        /// <param name="month1"></param>
+        /// <param name="month2"></param>
+        /// <returns></returns>
+        public static double Sum30YearRunoff(string cbtt, string pcode, int month1, int month2)
+        {
+            if (month1 > 9 || month1 > month2)
+                throw new ArgumentOutOfRangeException("30 year average only works between january and september");
+            var computed = AverageValue(cbtt, pcode, month1, month2);
+            return computed;
+        }
+
+        private static double AverageValue(string cbtt, string pcode, int month1, int month2)
+        {
+            var t1 = new DateTime(1980, 10, 1);
+            var t2 = new DateTime(2010, 9, 30);
+
+            var s2 = new HydrometMonthlySeries(cbtt, pcode, HydrometHost.PNLinux);
+            s2.Read(t1, t2);
+            MonthDayRange rng = new MonthDayRange(month1, 1, month2, 1);
+            var runoff2 = Math.AggregateAndSubset(StatisticalMethods.Sum, s2, rng, 10);
+            //compute monthly average here...
+            var rval = Math.Sum(runoff2) / runoff2.Count;
+
+            return rval;
+        }
+
     }
 }

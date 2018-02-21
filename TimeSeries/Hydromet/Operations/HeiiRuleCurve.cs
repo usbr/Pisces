@@ -19,7 +19,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
         private void Init(int waterYear)
         {
-            qu = new HydrometDailySeries("HEII", "QU");
+            qu = new HydrometDailySeries("HEII", "QU",HydrometHost.PNLinux);
             var t1 = new DateTime(waterYear-1, 10, 1);
             var t2 = new DateTime(waterYear, 8, 1);
             if (t2 > DateTime.Now && t2.Year != 7100)
