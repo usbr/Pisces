@@ -37,11 +37,7 @@ namespace FcPlot
             //value of forecast to use for percent of average
             double forecastValue = forecast[forecastMonth-1].Value;
 
-            //get 81-10 average forecast for that month and calculate percent of average
-            t1 = new DateTime(8110, forecastMonth, 1);
-            Series forecast30yrAvg = new HydrometMonthlySeries(cbtt, "FC");
-            forecast30yrAvg.Read(t1, t1);
-            double averageForcastValue = forecast30yrAvg[0].Value;
+            double averageForcastValue = HydrometMonthlySeries.AverageValue30Year(cbtt, "fc", forecastMonth, forecastMonth);
             double percent = forecastValue / averageForcastValue;
             
             //get thirty year average QU from either monthly or daily series which ever is available

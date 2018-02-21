@@ -555,7 +555,7 @@ namespace HydrometForecast
             if( aveargeFlowStation == "" || tokens.Length != 2)
                return 0;
 
-           return HydrometMonthlySeries.Sum30YearRunoff(tokens[0], tokens[1], t.Month, YTerm.Month2);
+           return HydrometMonthlySeries.AverageValue30Year(tokens[0], tokens[1], t.Month, YTerm.Month2);
             
         }
 

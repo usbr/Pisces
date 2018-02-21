@@ -198,7 +198,7 @@ namespace HydrometForecast
                     var tokens = cbttPodes[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     var cbtt = tokens[0].Trim();
                     var pcode = tokens[1].Trim();
-                    var d = HydrometMonthlySeries.Sum30YearRunoff(cbtt, pcode, month, month);
+                    var d = HydrometMonthlySeries.AverageValue30Year(cbtt, pcode, month, month);
                     Series s = new Series("", TimeInterval.Monthly);
                     var t = new DateTime(year, 1, 1);
                     s.Add(t, d);
