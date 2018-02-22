@@ -52,6 +52,7 @@ namespace FcPlot
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelFlagLegend = new System.Windows.Forms.Label();
+            this.textBoxTargetPercentages = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageGraph.SuspendLayout();
@@ -62,6 +63,7 @@ namespace FcPlot
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.textBoxTargetPercentages);
             this.panel1.Controls.Add(this.compareData);
             this.panel1.Controls.Add(this.dataInitial);
             this.panel1.Controls.Add(this.showGreenLines);
@@ -78,7 +80,7 @@ namespace FcPlot
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(628, 84);
+            this.panel1.Size = new System.Drawing.Size(730, 84);
             this.panel1.TabIndex = 2;
             // 
             // compareData
@@ -175,7 +177,7 @@ namespace FcPlot
             this.monthRangePicker1.AutoSize = true;
             this.monthRangePicker1.BeginningMonth = 10;
             this.monthRangePicker1.Location = new System.Drawing.Point(222, 0);
-            this.monthRangePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.monthRangePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.monthRangePicker1.MonthDayRange = monthDayRange1;
             this.monthRangePicker1.Name = "monthRangePicker1";
             this.monthRangePicker1.Size = new System.Drawing.Size(380, 35);
@@ -250,7 +252,7 @@ namespace FcPlot
             this.tabControl1.Location = new System.Drawing.Point(0, 84);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(628, 432);
+            this.tabControl1.Size = new System.Drawing.Size(730, 456);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPageGraph
@@ -258,8 +260,8 @@ namespace FcPlot
             this.tabPageGraph.Controls.Add(this.hydrometChart1);
             this.tabPageGraph.Location = new System.Drawing.Point(4, 22);
             this.tabPageGraph.Name = "tabPageGraph";
-            this.tabPageGraph.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPageGraph.Size = new System.Drawing.Size(620, 406);
+            this.tabPageGraph.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageGraph.Size = new System.Drawing.Size(722, 430);
             this.tabPageGraph.TabIndex = 0;
             this.tabPageGraph.Text = "graph";
             this.tabPageGraph.UseVisualStyleBackColor = true;
@@ -268,9 +270,9 @@ namespace FcPlot
             // 
             this.hydrometChart1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.hydrometChart1.Location = new System.Drawing.Point(3, 3);
-            this.hydrometChart1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.hydrometChart1.Margin = new System.Windows.Forms.Padding(4);
             this.hydrometChart1.Name = "hydrometChart1";
-            this.hydrometChart1.Size = new System.Drawing.Size(614, 400);
+            this.hydrometChart1.Size = new System.Drawing.Size(716, 424);
             this.hydrometChart1.TabIndex = 1;
             // 
             // tabPageReport
@@ -279,7 +281,7 @@ namespace FcPlot
             this.tabPageReport.Controls.Add(this.panel2);
             this.tabPageReport.Location = new System.Drawing.Point(4, 22);
             this.tabPageReport.Name = "tabPageReport";
-            this.tabPageReport.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageReport.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageReport.Size = new System.Drawing.Size(620, 406);
             this.tabPageReport.TabIndex = 1;
             this.tabPageReport.Text = "report";
@@ -313,6 +315,13 @@ namespace FcPlot
             this.labelFlagLegend.TabIndex = 4;
             this.labelFlagLegend.Text = "label2";
             // 
+            // textBoxTargetPercentages
+            // 
+            this.textBoxTargetPercentages.Location = new System.Drawing.Point(608, 31);
+            this.textBoxTargetPercentages.Name = "textBoxTargetPercentages";
+            this.textBoxTargetPercentages.Size = new System.Drawing.Size(115, 20);
+            this.textBoxTargetPercentages.TabIndex = 13;
+            // 
             // FcPlotUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -320,7 +329,7 @@ namespace FcPlot
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.Name = "FcPlotUI";
-            this.Size = new System.Drawing.Size(628, 516);
+            this.Size = new System.Drawing.Size(730, 540);
             this.Load += new System.EventHandler(this.FcPlotUI_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -358,5 +367,6 @@ namespace FcPlot
         private System.Windows.Forms.CheckBox showTarget;
         private System.Windows.Forms.Label compareData;
         private System.Windows.Forms.Label dataInitial;
+        private System.Windows.Forms.TextBox textBoxTargetPercentages;
     }
 }

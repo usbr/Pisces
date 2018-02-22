@@ -12,6 +12,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
     {
 
         public string StationQU { get; set; }
+        public string DailyStationQU { get; set; }
         public string StationQD { get; set; }
         public string[] UpstreamReservoirs {get; set;}
         public int[] ReservoirLags {get; set;}
@@ -51,6 +52,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             Name = tbl.Rows[0]["Name"].ToString();
             StationQU = tbl.Rows[0]["StationQU"].ToString();
             StationQD = tbl.Rows[0]["StationQD"].ToString();
+            DailyStationQU = tbl.Rows[0]["DailyStationQU"].ToString();
 
             if (tbl.Rows[0]["FlagLegend"] != DBNull.Value)
             {

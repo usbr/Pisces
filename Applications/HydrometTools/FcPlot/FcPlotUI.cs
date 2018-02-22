@@ -12,11 +12,12 @@ namespace FcPlot
 {
     public partial class FcPlotUI : UserControl
     {
+        int[] optionalPercents;
 
         public FcPlotUI()
         {
             InitializeComponent();
-          
+            optionalPercents = new int[] { };  
 
         }
 
@@ -67,11 +68,12 @@ namespace FcPlot
                 return;
             try
             {
+                optionalPercents = ParseOptionalPercentages();
                 Series alternateRequiredContent = new Series();
                 Series alternateActualContent = new Series();
                 Series actualContent = new Series();
                 Series requiredContent = new Series();
-                Series targets = new Series();
+                SeriesList targets = new SeriesList();
                 SeriesList hmList = new SeriesList();
                 SeriesList hmList2 = new SeriesList();
                 SeriesList ruleCurves = new SeriesList();
@@ -173,10 +175,17 @@ namespace FcPlot
                 {
                     if (Convert.ToInt32(this.textBoxWaterYear.Text) == DateTime.Now.WaterYear())
                     {
-                        targets = FloodOperation.ComputeTargets(pt, Convert.ToInt32(this.textBoxWaterYear.Text));
-                        if (targets.Count > 0)
+                        actualContent.RemoveMissing();
+                        var startPt = actualContent[actualContent.Count - 1];
+                        targets = FloodOperation.ComputeTargets(pt, Convert.ToInt32(this.textBoxWaterYear.Text),startPt, optionalPercents);
+                        var aColors = new Color[] {Color.Black,Color.Maroon,Color.Indigo,Color.DarkSlateGray,Color.SaddleBrown };
+                        for (int i = 0; i < targets.Count; i++)
                         {
-                            hydrometChart1.CreateTarget(Color.Yellow, "Target", targets, "left");
+                            var s = targets[i];
+                            var c = Color.Black;
+                            if (i < aColors.Length)
+                                c = aColors[i];
+                            hydrometChart1.CreateTarget(c, s.Name, s, "left");
                         }
                         
                     }
@@ -196,6 +205,24 @@ namespace FcPlot
             }
 
             Cursor = Cursors.Default;
+        }
+
+        private int[] ParseOptionalPercentages()
+        {
+            var txt = textBoxTargetPercentages.Text;
+            txt = txt.Replace(",", " ");
+            var x = txt.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var rval = new List<int>();
+            int v;
+            for (int i = 0; i < x.Length; i++)
+            {
+                if( int.TryParse(x[i],out v))
+                {
+                    rval.Add(v);
+                }
+            }
+
+            return rval.ToArray();
         }
 
         private string[] OptionalCbttList(string input)
