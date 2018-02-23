@@ -40,14 +40,14 @@ namespace FcPlot
             
             //get thirty year average QU from either monthly or daily series which ever is available
             avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", forecastMonth);
-            Series targetx = CalculateTarget(pt, waterYear, start, m_ruleCurve, avg30yrQU, t2, forecastValue);
+            Series targetx = CalculateTarget(pt,percent, waterYear, start, m_ruleCurve, avg30yrQU, t2, forecastValue);
             targetx.Name = "Forecast (" + (100 * percent).ToString("F0") + "%)";
             targetx.Add(start);
             rval.Add(targetx);
 
             for (int i = 0; i < optionalPercents.Length; i++)
             {
-                targetx = CalculateTarget(pt, waterYear, start,
+                targetx = CalculateTarget(pt, optionalPercents[i]/100.0, waterYear, start,
                     m_ruleCurve, avg30yrQU  
                     , t2, averageForcastValue* optionalPercents[i]/100.0);
                 targetx.Name = "Target (" + optionalPercents[i].ToString("F0") + "%)";
@@ -57,7 +57,8 @@ namespace FcPlot
             return rval;
         }
 
-        private static Series CalculateTarget(FloodControlPoint pt, int waterYear,
+        private static Series CalculateTarget(FloodControlPoint pt, double percent,
+             int waterYear,
             Point start, HydrometRuleCurve m_ruleCurve, Series avg30yrQU, 
              DateTime t2, double forecastValue)
         {
@@ -70,7 +71,7 @@ namespace FcPlot
                 var t = avg30yrQU[i].DateTime;
                 if (t > start.DateTime && t <= t2 && !avg30yrQU[i].IsMissing)
                 {
-                    runoffSum += avg30yrQU[i].Value * 1.98347;
+                    runoffSum += avg30yrQU[i].Value * 1.98347*percent;
                     var d = forecastValue - runoffSum; ;
                     residual.Add(avg30yrQU[i].DateTime, d);
                 }
