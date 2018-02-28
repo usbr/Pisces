@@ -45,6 +45,8 @@ namespace Reclamation.Core
         /// </summary>
         public static string[] GetPage(String url, bool useCache,string username, string password)
         {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             WebResponse result = null;
 
