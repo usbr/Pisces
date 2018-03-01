@@ -89,14 +89,14 @@ Timestamp (UTC-07:00),Value (Cubic Feet Per Second),Grade Code,Approval Level,In
          */
         private static Series GetData(string id, int hoursBack)
         {
-            //var url = "https://idastream.idahopower.com/Data/Export_Data/?dataset=18942&date=2017-05-12&endDate=2017-05-26&type=csv";
+            //var url = "https://idastream.idahopower.com/Data/Export_Data/?dataset=18942&date=2017-05-12&endDate=2017-05-26&exporttype=csv";
 
             var t2 = DateTime.Now.AddDays(1);
             var t1 = DateTime.Now.AddHours(-hoursBack);
 
             var url = "https://idastream.idahopower.com/Data/Export_Data/?dataset="
                 +id+"&date="+t1.ToString("yyyy-MM-dd")
-                +"&endDate="+t2.ToString("yyyy-MM-dd")+"&type=csv";
+                +"&endDate="+t2.ToString("yyyy-MM-dd")+"&exporttype=csv";
 
             var fn = DownloadAndUnzip(url);
 
