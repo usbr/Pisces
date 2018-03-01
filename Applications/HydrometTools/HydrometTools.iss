@@ -26,6 +26,8 @@ DisableProgramGroupPage=no
 AlwaysShowDirOnReadyPage=yes
 AlwaysShowGroupOnReadyPage=yes
 
+[InstallDelete]
+Type: files;  Name: "{app}\reclamationcgi.csv"
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
