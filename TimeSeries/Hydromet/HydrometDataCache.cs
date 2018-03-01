@@ -31,7 +31,7 @@ namespace Reclamation.TimeSeries.Hydromet
              m_dataSet = new DataSet();
          }
          public void Add(string[] cbttPcodeList, DateTime t1, DateTime t2,
-            HydrometHost svr = HydrometHost.PN, TimeInterval interval = TimeInterval.Monthly, int back=0)
+            HydrometHost svr = HydrometHost.PNLinux, TimeInterval interval = TimeInterval.Monthly, int back=0)
         {
              // make cbttPcodeList unique.
             List<string> lst = new List<string>(cbttPcodeList);
