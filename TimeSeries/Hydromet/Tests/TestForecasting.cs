@@ -40,6 +40,8 @@ namespace Reclamation.TimeSeries.Hydromet.Tests
 
 
         [Test, Category("Internal")]
+        [Ignore("Ignore internal tests per KTarbet.")]
+
         public void TestHydrometRuleCurve()
         {
             var residual = new HydrometDailySeries("prv", "fcresid");

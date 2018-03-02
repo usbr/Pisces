@@ -15,9 +15,8 @@ namespace Reclamation.Core
 
         static Web()
         {
-#if !PISCES_OPEN
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls11;
-#endif
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
         }
 
         private static string UserAgent()
@@ -45,8 +44,6 @@ namespace Reclamation.Core
         /// </summary>
         public static string[] GetPage(String url, bool useCache,string username, string password)
         {
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             WebResponse result = null;
 
@@ -171,9 +168,6 @@ namespace Reclamation.Core
         {
             Logger.WriteLine(url);
             Logger.WriteLine(payload);
-
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             if (useCache && SimpleWebCache.Available(url+payload))
             {

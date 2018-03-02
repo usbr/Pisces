@@ -51,6 +51,8 @@ namespace Pisces.NunitTests.SeriesMath
         /// aga_q = aga_qs + aga_qr
         /// </summary>
         [Test, Category("Internal")]
+        [Ignore("Ignore internal tests per KTarbet.")]
+
         public void aga()
         {
             Logger.EnableLogger();

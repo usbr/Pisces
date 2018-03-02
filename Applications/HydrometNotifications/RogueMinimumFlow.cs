@@ -113,9 +113,10 @@ namespace HydrometNotifications
         private static string GetPathToMinimumFlowFiles()
         {
             var dir = Path.GetDirectoryName(Application.ExecutablePath);
-            if (dir.IndexOf("NUnit-") > 0)
-            {// using test framework...
-                dir = @"C:\Users\KTarbet\Documents\project\Hydromet\HydrometNotifications\bin\Debug";
+            var testFile = Path.Combine(dir, "talsys_afavg.csv");
+            if (!File.Exists(testFile))
+            {// using test framework..
+                dir = NUnit.Framework.TestContext.CurrentContext.TestDirectory;
             }
             return dir;
         }
