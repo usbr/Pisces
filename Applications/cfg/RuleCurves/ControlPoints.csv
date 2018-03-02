@@ -1,39 +1,39 @@
-Name,StationQU,DailyStationQU,StationQD,UpstreamReservoirs,PercentSpace,ReservoirLags,TotalUpstreamActiveSpace,VariableRuleCurve,Enabled,FlagLegend,RequiredLegend
-AMF - American Falls,AMF,AMF,AMFI,AMF,100,,1672590,TRUE,FALSE,,Guide Curve
-AND - Anderson,LUC,LUC,ANDI,AND,45,,413100,TRUE,TRUE,,Required
-BENO-Deschutes River at Benham Falls,BENO,BENO,BENO,"CRA,WIC,CRE",100,,342000,TRUE,FALSE,,Required
-BEU - Beulah,BEUO,BEUO,BEUO,BEU,100,,59900,TRUE,TRUE,,Required
-BUL - Bully Creek,BUL,BUL,BULO,BUL,100,,23676,TRUE,TRUE,,Required
-BUM - Bumping,PARW,PARW,BUM,BUM ,13,,34000,TRUE,TRUE,,Guide Curve
-CLE - Cle Elum,PARW,PARW,CLE,CLE,42,,436900,TRUE,TRUE,,Guide Curve
-CREO-Crescent Lake,CREO,CREO,CREO,CRE,100,,86900,TRUE,FALSE,,Required
-CSC - Cascade,HRSI,HRSI,CSCI,CSC,80,,646460,TRUE,TRUE,,Guide Curve
-DED - Deadwood,HRSI,HRSI,DEDI,DED,20,,153992,TRUE,TRUE,,Guide Curve
-HEII  - Heise,HEII,HEII,HEII,"JCK,PAL",100,"1,0",2047000,TRUE,TRUE,,Required
-HGH - Hungry Horse,HGH,HGHM,HGHM,HGH,100,,3467179,TRUE,TRUE,,Required
-HRSI - Payette nr Horseshoe Bend,HRSI,HRSI,HRSI,"CSC,DED",100,,800452,TRUE,TRUE,,Guide Curve
-ISL - Island Park,ISLI,ISLI,ISLI,ISL,100,,135200,TRUE,TRUE,,Guide Curve
-JCK - Jackson Lake,HEII,HEII,JCK,JCK,25,,847000,TRUE,TRUE,,Required
-KAC - Kachess,PARW,PARW,KAC,KAC,12,,239000,TRUE,TRUE,,Guide Curve
-KEE - Keechelus,PARW,PARW,KEE,KEE,13,,157800,TRUE,TRUE,,Guide Curve
-LUC - Boise System,LUC,LUC,LUC,"AND,ARK,LUC",100,,949700,TRUE,TRUE,,Required
-MAN-Mann Creek,MAN,MAN,MAN,MAN,100,,11100,TRUE,FALSE,,Required
-MCK - McKay,MCKO,MCKO,MCKO,MCK,100,,65500,FALSE,TRUE,,Required
-EMI - Emigrant ,MFDO,MFDO,MFDO,EMI,100,,39000,FALSE,TRUE,,Required
-NACW - Naches River nr Naches,PARW,PARW,NACW,"BUM,RIM",33.3,,232000,TRUE,TRUE,,Guide Curve
-OCHO - Ochoco,OCHO,OCHO,OCHO,OCH,100,,44460,TRUE,TRUE,,Required
-OWY - Owyhee,OWY,OWY,OWY,OWY,100,,715000,TRUE,TRUE,,Guide Curve
-PAL - Palisades,HEII,HEII,PALI,PAL,75,,1200000,TRUE,TRUE,,Required
-PARW - Yakima River nr Parker,PARW,PARW,PARW,"KEE,KAC,CLE,BUM,RIM",100,,1065700,TRUE,TRUE,,Guide Curve
-PHL - Phillips Lake,PODO,PODO,PHL,PHL,100,,73500,TRUE,TRUE,,Required
-PRV - Prineville,PRVO,PRVO,PRVO,PRV,100,,148633,TRUE,TRUE,,Required
-RIM - Rimrock,PARW,PARW,RIM,RIM,20,,198000,TRUE,TRUE,,Guide Curve
-RIR - Ririe,RIR,RIR,RIR,RIR,100,,80500,TRUE,TRUE,,Required
-SCO - Scoggins,SCOO,SCOO,SCOO,SCO,100,,53600,FALSE,TRUE,,Required
-TDAO-Dalles,TDAO,TDAO,GCL,GCL,100,,5185000,TRUE,FALSE,,Required
-UNY-Unity,UNY,UNY,UNY,UNY,100,,25200,TRUE,FALSE,,Required
-WAR - Warm Springs,WARO,WARO,WARO,WAR ,100,,169600,TRUE,TRUE,,Required
-WICO-Wickiup,WICO,WICO,WICO,"CRA,WIC",100,,255300,TRUE,FALSE,,Required
-WLDN-Wildhorse,WLDN,WLDN,WLDN,WLD,100,,71500,TRUE,FALSE,,Required
-WODI - Little Wood River,WODI,WODI,WODI,WOD,100,,30000,TRUE,TRUE,"* apr 1-sep 30, based on forecast -- # sep 30-apr 15, based on filling schedule --  $ mar 1-jul 31, based on mean daily inflow",Required
-YUMW - Yakima River at Cle Elum,PARW,PARW,YUMW,"KEE,KAC,CLE",66.7,,833700,TRUE,TRUE,,Guide Curve
+Name,StationQU,DailyStationQU,StationQD,UpstreamReservoirs,PercentSpace,ReservoirLags,TotalUpstreamActiveSpace,VariableRuleCurve,Enabled,FlagLegend,RequiredLegend,ForecastMonth1,ForecastMonth2
+AMF - American Falls,AMF,AMF,AMFI,AMF,100,,1672590,TRUE,FALSE,,Guide Curve,1,7
+AND - Anderson,LUC,LUC,ANDI,AND,45,,413100,TRUE,TRUE,,Required,1,7
+BENO-Deschutes River at Benham Falls,BENO,BENO,BENO,"CRA,WIC,CRE",100,,342000,TRUE,FALSE,,Required,1,7
+BEU - Beulah,BEUO,BEUO,BEUO,BEU,100,,59900,TRUE,TRUE,,Required,1,6
+BUL - Bully Creek,BUL,BUL,BULO,BUL,100,,23676,TRUE,TRUE,,Required,1,6
+BUM - Bumping,PARW,PARW,BUM,BUM ,13,,34000,TRUE,TRUE,,Guide Curve,1,7
+CLE - Cle Elum,PARW,PARW,CLE,CLE,42,,436900,TRUE,TRUE,,Guide Curve,1,7
+CREO-Crescent Lake,CREO,CREO,CREO,CRE,100,,86900,TRUE,FALSE,,Required,1,7
+CSC - Cascade,HRSI,HRSI,CSCI,CSC,80,,646460,TRUE,TRUE,,Guide Curve,1,7
+DED - Deadwood,HRSI,HRSI,DEDI,DED,20,,153992,TRUE,TRUE,,Guide Curve,1,7
+HEII  - Heise,HEII,HEII,HEII,"JCK,PAL",100,"1,0",2047000,TRUE,TRUE,,Required,1,7
+HGH - Hungry Horse,HGH,HGHM,HGHM,HGH,100,,3467179,TRUE,TRUE,,Required,1,7
+HRSI - Payette nr Horseshoe Bend,HRSI,HRSI,HRSI,"CSC,DED",100,,800452,TRUE,TRUE,,Guide Curve,1,7
+ISL - Island Park,ISLI,ISLI,ISLI,ISL,100,,135200,TRUE,TRUE,,Guide Curve,1,7
+JCK - Jackson Lake,HEII,HEII,JCK,JCK,25,,847000,TRUE,TRUE,,Required,1,7
+KAC - Kachess,PARW,PARW,KAC,KAC,12,,239000,TRUE,TRUE,,Guide Curve,1,7
+KEE - Keechelus,PARW,PARW,KEE,KEE,13,,157800,TRUE,TRUE,,Guide Curve,1,7
+LUC - Boise System,LUC,LUC,LUC,"AND,ARK,LUC",100,,949700,TRUE,TRUE,,Required,1,7
+MAN-Mann Creek,MAN,MAN,MAN,MAN,100,,11100,TRUE,FALSE,,Required,1,6
+MCK - McKay,MCKO,MCKO,MCKO,MCK,100,,65500,FALSE,TRUE,,Required,1,6
+EMI - Emigrant ,MFDO,MFDO,MFDO,EMI,100,,39000,FALSE,TRUE,,Required,1,7
+NACW - Naches River nr Naches,PARW,PARW,NACW,"BUM,RIM",33.3,,232000,TRUE,TRUE,,Guide Curve,1,7
+OCHO - Ochoco,OCHO,OCHO,OCHO,OCH,100,,44460,TRUE,TRUE,,Required,1,6
+OWY - Owyhee,OWY,OWY,OWY,OWY,100,,715000,TRUE,TRUE,,Guide Curve,1,6
+PAL - Palisades,HEII,HEII,PALI,PAL,75,,1200000,TRUE,TRUE,,Required,1,7
+PARW - Yakima River nr Parker,PARW,PARW,PARW,"KEE,KAC,CLE,BUM,RIM",100,,1065700,TRUE,TRUE,,Guide Curve,1,7
+PHL - Phillips Lake,PODO,PODO,PHL,PHL,100,,73500,TRUE,TRUE,,Required,1,7
+PRV - Prineville,PRVO,PRVO,PRVO,PRV,100,,148633,TRUE,TRUE,,Required,1,8
+RIM - Rimrock,PARW,PARW,RIM,RIM,20,,198000,TRUE,TRUE,,Guide Curve,1,7
+RIR - Ririe,RIR,RIR,RIR,RIR,100,,80500,TRUE,TRUE,,Required,1,6
+SCO - Scoggins,SCOO,SCOO,SCOO,SCO,100,,53600,FALSE,TRUE,,Required,1,7
+TDAO-Dalles,TDAO,TDAO,GCL,GCL,100,,5185000,TRUE,FALSE,,Required,1,7
+UNY-Unity,UNY,UNY,UNY,UNY,100,,25200,TRUE,FALSE,,Required,1,7
+WAR - Warm Springs,WARO,WARO,WARO,WAR ,100,,169600,TRUE,TRUE,,Required,1,6
+WICO-Wickiup,WICO,WICO,WICO,"CRA,WIC",100,,255300,TRUE,FALSE,,Required,1,7
+WLDN-Wildhorse,WLDN,WLDN,WLDN,WLD,100,,71500,TRUE,FALSE,,Required,1,6
+WODI - Little Wood River,WODI,WODI,WODI,WOD,100,,30000,TRUE,TRUE,"* apr 1-sep 30, based on forecast -- # sep 30-apr 15, based on filling schedule --  $ mar 1-jul 31, based on mean daily inflow",Required,1,7
+YUMW - Yakima River at Cle Elum,PARW,PARW,YUMW,"KEE,KAC,CLE",66.7,,833700,TRUE,TRUE,,Guide Curve,1,7

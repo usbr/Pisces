@@ -33,15 +33,18 @@ namespace FcPlot
 
             //value of forecast to use for percent of average
             double forecastValue = forecast[forecastMonth - 1].Value;
+            // average runoff  month - end(typically July) volume
 
-            double averageForcastValue = HydrometMonthlySeries.AverageValue30Year(cbtt, "fc", forecastMonth, forecastMonth);
-            double percent = forecastValue / averageForcastValue;
+            avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", forecastMonth);
+
+            double historicalAverageResidual = 0;
+            double percent = forecastValue / historicalAverageResidual;
 
             
-            //get thirty year average QU from either monthly or daily series which ever is available
+            //get thirty year average QU from daily 
             avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", forecastMonth);
             Series targetx = CalculateTarget(pt,percent, waterYear, start, m_ruleCurve, avg30yrQU, t2, forecastValue);
-            targetx.Name = "Forecast (" + (100 * percent).ToString("F0") + "%)";
+            targetx.Name = "Forecast " + (100 * percent).ToString("F0") + " % "+(forecastValue/1000.0).ToString("F1");
             targetx.Add(start);
             rval.Add(targetx);
 
@@ -49,7 +52,7 @@ namespace FcPlot
             {
                 targetx = CalculateTarget(pt, optionalPercents[i]/100.0, waterYear, start,
                     m_ruleCurve, avg30yrQU  
-                    , t2, averageForcastValue* optionalPercents[i]/100.0);
+                    , t2, historicalAverageResidual* optionalPercents[i]/100.0);
                 targetx.Name = "Target (" + optionalPercents[i].ToString("F0") + "%)";
                 targetx.Add(start);
                 rval.Add(targetx);
@@ -94,8 +97,8 @@ namespace FcPlot
 
         private static Series Get30YearAverageSeries(string cbtt, string pcode,int forecastMonth)
         {
-            var t1 = new DateTime(1980, 10, 1);
-            var t2 = new DateTime(2010, 9, 30);
+            var t1 = HydrometDataUtility.T1Thirty;
+            var t2 = HydrometDataUtility.T2Thirty;
             var s2 = new HydrometDailySeries(cbtt, pcode, HydrometHost.PNLinux);
             s2.Read(t1, t2);
 
