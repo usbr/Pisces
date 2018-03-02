@@ -74,9 +74,9 @@ namespace _30_year_avg
                     string Pcode = row["daily_pcode"].ToString();
                     Console.WriteLine(CBTT+" " +Pcode);
                     Series s = new HydrometDailySeries(CBTT, Pcode,host);
-                    // Data ranges collected   
-                    var t1 = new DateTime(1980, 10, 1);
-                    var t2 = new DateTime(2010, 9, 30);
+                // Data ranges collected   
+                var t1 = HydrometDataUtility.T1Thirty;
+                var t2 = HydrometDataUtility.T2Thirty;
                     s.Read(t1, t2);
                     var s7100 = LabelAndSave30Year(db, 7100, CBTT, Pcode, folder,host);
                     var s8110 = LabelAndSave30Year(db, 8110, CBTT, Pcode, folder,host);
