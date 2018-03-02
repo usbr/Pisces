@@ -2,6 +2,8 @@ using Reclamation.Core;
 using System;
 using System.Data;
 using System.Globalization;
+using Reclamation.TimeSeries.Analysis;
+using Reclamation.Core;
 
 namespace Reclamation.TimeSeries.Hydromet
 {
@@ -601,8 +603,8 @@ namespace Reclamation.TimeSeries.Hydromet
 
         public static double AverageValue30Year(string cbtt, string pcode, int month1, int month2)
         {
-            var t1 = new DateTime(1980, 10, 1);
-            var t2 = new DateTime(2010, 9, 30);
+            var t1 = HydrometDataUtility.T1Thirty;
+            var t2 = HydrometDataUtility.T2Thirty;
 
             var s2 = new HydrometMonthlySeries(cbtt, pcode, HydrometHost.PNLinux);
             s2.Read(t1, t2);
@@ -614,5 +616,6 @@ namespace Reclamation.TimeSeries.Hydromet
             return rval;
         }
 
+       
     }
 }

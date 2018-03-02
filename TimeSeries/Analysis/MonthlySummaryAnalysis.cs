@@ -90,13 +90,20 @@ namespace Reclamation.TimeSeries.Analysis
         }
 
 
-        //public static Series MonthlySeries(Series daily, StatisticalMethods sm)
-        //{
-        //    SeriesList lst = new SeriesList();
-        //    lst.Add(daily);
-        //    DataTable tbl = MonthlySummary(lst, sm);
-        //    return CreateSeries(lst, tbl, 0, 1);
-        //}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s">input series</param>
+        /// <param name="sm">statisitical method</param>
+        /// <param name="multiYear">when false returns series with 12 values</param>
+        /// <returns></returns>
+        public static Series MonthlySeries(Series s, StatisticalMethods sm, bool multiYear)
+        {
+            SeriesList lst = new SeriesList();
+            lst.Add(s);
+            DataTable tbl = MonthlySummary(lst, sm,multiYear);
+            return CreateSeries(lst, tbl, 0, 1);
+        }
 
         /// <summary>
         /// Compute monthly statisitcs

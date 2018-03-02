@@ -102,7 +102,7 @@ namespace HydrometTools
             this.tabControl1.Controls.Remove(this.tabPageStats);
             this.tabControl1.Controls.Remove(this.tabPageReports);
             this.tabControl1.Controls.Remove(this.tabPageFcplot);
-            
+            this.tabControl1.Controls.Remove(this.tabPageRecords);
         }
 
        
