@@ -15,12 +15,12 @@ namespace Reclamation.TimeSeries.Hydromet
     public class HydrometDataUtility
 	{
         /// <summary>
-        /// Start of 30 year averaging period
+        /// Start of 30 year averaging period 1980-10-1
         /// </summary>
         public static DateTime T1Thirty = new DateTime(1980, 10, 1);
 
         /// <summary>
-        /// End of 30 year averaging period
+        /// End of 30 year averaging period 2010-9-30
         /// </summary>
         public static DateTime T2Thirty = new DateTime(2010, 9, 30);
 

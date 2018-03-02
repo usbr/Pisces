@@ -122,7 +122,7 @@ namespace PiscesWebServices.CGI
                 Console.WriteLine("Error:  no data found: " + dailySiteID + "/" + dailyPcode);
                 return;
             }
-            DateTime t1 = new DateTime(1980, 10, 1);
+            DateTime t1 = Reclamation.TimeSeries.Hydromet.HydrometDataUtility.T1Thirty;
             s.Read(t1, t1.AddYears(30));
             Series s30 = Reclamation.TimeSeries.Math.MultiYearDailyAverage(s, 10);
             s30.RemoveMissing();

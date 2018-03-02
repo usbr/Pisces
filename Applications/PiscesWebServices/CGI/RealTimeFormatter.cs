@@ -116,7 +116,7 @@ namespace PiscesWebServices.CGI
         {
             // add a column for 30 year average to the table.
             Series s = new HydrometDailySeries(dailySiteID, dailyPcode, HydrometHost.PNLinux);
-            DateTime t1 = new DateTime(1980, 10, 1);
+            DateTime t1 = HydrometDataUtility.T1Thirty;
             s.Read(t1, t1.AddYears(30));
             Series s30 = Reclamation.TimeSeries.Math.MultiYearDailyAverage(s, 10);
             s30.RemoveMissing();

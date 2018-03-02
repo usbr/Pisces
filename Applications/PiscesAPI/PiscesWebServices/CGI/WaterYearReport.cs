@@ -88,7 +88,7 @@ namespace PiscesWebServices.CGI
             var prev = current - 1;
             years.Add(current);
             years.Add(prev);
-            DateTime startOf30YearAvearge = new DateTime(1980, 10, 1);
+            DateTime startOf30YearAvearge = HydrometDataUtility.T1Thirty;
 
             var x = new SeriesList();
 
