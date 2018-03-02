@@ -1,0 +1,41 @@
+﻿                          US BUREAU OF RECLAMATION
+                              YAKIMA PROJECT
+                SYSTEM STATUS AT HH:mm, dddd, dd-MMM-yyyy 
+
+            FOREBAY                TOTAL     PERCENT   RESERVOIR RESERVOIR
+RESERVOIR  ELEVATION   CONTENT    CAPACITY   CAPACITY     INFLOW  RELEASES
+--------------------------------------------------------------------------
+                 FB         AF          AF         %         CFS       CFS
+Keechelus   %kee_fb     %kee_af    157800.   %kee_pct    %kee_in    %kee_q
+Kachess     %kac_fb     %kac_af    239000.   %kac_pct    %kac_in    %kac_q
+Cle Elum    %cle_fb     %cle_af    436900.   %cle_pct    %cle_in    %cle_q
+Bumping     %bum_fb     %bum_af     33970.   %bum_pct    %bum_in    %bum_q
+Rimrock     %rim_fb     %rim_af    198000.   %rim_pct    %rim_in    %rim_q
+Clear Cr    %clr_fb
+TOTALS                %total_af   1065400. %total_pct  %total_in  %total_q
+
+IRRIGATION DIVERSIONS                    RIVER FLOWS
+---------------------    CFS             -----------                  CFS
+Kittitas            %ktcw_qc             Yakima River at Easton    %easw_q 
+Roza                %rozw_qc             Teanaway River at Forks   %tnaw_q
+Yakima-Tieton       %tiew_qc             Yakima River near Horlick %yrww_q
+Wapato              %rscw_qc             Yakima River near Umtanum %umtw_q
+Sunnyside           %sncw_qc             Yakima River blw Roza Dam %rbdw_q
+MAJOR USERS TOTAL  %major_qc             Naches River nr. Clf'Dell %clfw_q
+                                         Tieton Rvr belw Cnl Hdwks %ticw_q
+Westside            %wesw_qc             Naches River near Naches  %nacw_q
+Naches-Selah        %nscw_qc             Yakima River near Parker  %parw_q
+OTHERS ABOVE PARKER%other_qc             Yakima River near Prosser %yrpw_q
+                                         
+TOTAL ABOVE PARKER%parker_qc
+----------------------------
+Kennewick           %kncw_qc
+
+OTHER CANAL DIVERSIONS
+Wapatox             %wopw_qc
+Roza at Headworks   %rzcw_qc  
+Chandler            %chcw_qc  
+
+UNREGULATED TRIBUTARY & RETURN FLOW ABOVE PARKER       %trib_parw CFS
+
+
