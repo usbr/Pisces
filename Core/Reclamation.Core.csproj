@@ -185,11 +185,12 @@
     <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.9.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.9.0\build\net35\NUnit3TestAdapter.props'))" />
   </Target>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.107.0\build\net451\System.Data.SQLite.Core.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
+    <!-- Create directories needed for Windows -->
+    <MakeDir Directories='C:\Temp' Condition=" !Exists('C:\Temp') AND $(OS) == 'Windows_NT' " />
+    <MakeDir Directories='C:\Temp\Outgoing' Condition=" !Exists('C:\Temp\Outgoing') AND $(OS) == 'Windows_NT' " />
+    <MakeDir Directories='C:\Temp\Incoming' Condition=" !Exists('C:\Temp\Incoming') AND $(OS) == 'Windows_NT' " />
   </Target>
   <Target Name="AfterBuild">
   </Target>
-  -->
 </Project>
