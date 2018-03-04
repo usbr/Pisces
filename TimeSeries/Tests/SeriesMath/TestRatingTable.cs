@@ -14,6 +14,19 @@ namespace Pisces.NunitTests.SeriesMath
     [TestFixture]
    public class TestRatingTable
     {
+        private string path;
+
+        public TestRatingTable()
+        {
+            if (LinuxUtility.IsLinux())
+            {
+                path = "/var/tmp/PiscesTestData";
+            } else
+            {
+                path = Globals.TestDataPath;
+            }
+        }
+
         [Test]
         public void ReservoirContentsWithDatabase()
         {
@@ -25,7 +38,7 @@ namespace Pisces.NunitTests.SeriesMath
             var db = new TimeSeriesDatabase(svr, Reclamation.TimeSeries.Parser.LookupOption.TableName,false);
 
             var c = new CalculationSeries("instant_karl_af");
-            var path = Path.Combine(Globals.TestDataPath, "rating_tables");
+            var path = Path.Combine(this.path, "rating_tables");
             path = Path.Combine(path, "karl_af.txt");
 
             c.Expression = "FileRatingTable(instant_karl_fb,\""+path+"\")";
@@ -88,7 +101,7 @@ namespace Pisces.NunitTests.SeriesMath
            Series s = new Series();
            s.Add(DateTime.Now.Date, 1281.95);
 
-           var path = Path.Combine(Globals.TestDataPath, "rating_tables", "gcl_af.txt");
+           var path = Path.Combine(this.path, "rating_tables", "gcl_af.txt");
            var af = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path);
 
 
@@ -110,7 +123,7 @@ namespace Pisces.NunitTests.SeriesMath
                t = t.AddHours(1);
            }
 
-           var path = Path.Combine(Globals.TestDataPath, "rating_tables", "etcw_qc.txt");
+           var path = Path.Combine(this.path, "rating_tables", "etcw_qc.txt");
            var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolationMethod.LogLog);
 
            Check(gh, q1, q);
@@ -155,7 +168,7 @@ namespace Pisces.NunitTests.SeriesMath
                 t = t.AddHours(1);
             }
 
-            var path = Path.Combine(Globals.TestDataPath, "rating_tables", "bicw_q.txt");
+            var path = Path.Combine(this.path, "rating_tables", "bicw_q.txt");
             var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolationMethod.Linear);
 
             Check(gh, q1, q);
@@ -174,7 +187,7 @@ namespace Pisces.NunitTests.SeriesMath
              t= t.AddHours(1);
 			}
 
-           var path = Path.Combine(Globals.TestDataPath, "rating_tables", "lvno.csv");
+           var path = Path.Combine(this.path, "rating_tables", "lvno.csv");
            var q = TimeSeriesDatabaseDataSet.RatingTableDataTable.ComputeSeries(s, path, InterpolationMethod.Linear);
 
            Check(ch, qc, q);

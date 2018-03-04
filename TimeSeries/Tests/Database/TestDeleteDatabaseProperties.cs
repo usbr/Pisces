@@ -8,14 +8,22 @@ namespace Pisces.NunitTests.Database
     [TestFixture]
     public class TestDeleteDatabaseProperties
     {
-
-
         TimeSeriesDatabase db;
 
         public TestDeleteDatabaseProperties()
         {
-            string fn = Path.Combine(@"C:\temp", "factory.pdb");
-            FileUtility.GetTempFileNameInDirectory(@"C:\temp\", ".pdb");
+            string path;
+            if (LinuxUtility.IsLinux())
+            {
+                path = "/tmp";
+            }
+            else
+            {
+                path = "C:\\Temp\\";
+            }
+
+            string fn = Path.Combine(path, "factory.pdb");
+            FileUtility.GetTempFileNameInDirectory(path, ".pdb");
 
             SQLiteServer.CreateNewDatabase(fn);
             SQLiteServer svr = new SQLiteServer(fn);

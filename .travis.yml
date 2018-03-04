@@ -10,6 +10,9 @@ branches:
   - master
 
 before_install:
+  - ln -s ../Pisces ../pisces
+  - ln -s PiscesTestData piscestestdata
+
   - mkdir -p .nuget
   - wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 

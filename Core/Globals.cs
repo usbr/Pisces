@@ -30,7 +30,11 @@ namespace Reclamation.Core
                 {
                     dir = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "PiscesTestData", "data");
                 }
-                Console.WriteLine(dir);
+
+                if (!Directory.Exists(dir))
+                {
+                    dir = Path.Combine("/var", "tmp", "PiscesTestData", "data");
+                }
 
                 s_testData = dir;
                 return s_testData;
