@@ -1070,10 +1070,6 @@
       <Project>{09B73D14-AFBB-434E-A71D-73248CBBF0A3}</Project>
       <Name>HydrometNotifications</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj">
-      <Project>{37b543f5-03a5-479e-b20c-7b4acc53d16a}</Project>
-      <Name>Reclamation.TimeSeries.Excel</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj">
       <Project>{862135b0-793a-4f06-b731-26c61b3ad068}</Project>
       <Name>Reclamation.TimeSeries.Graphing</Name>
