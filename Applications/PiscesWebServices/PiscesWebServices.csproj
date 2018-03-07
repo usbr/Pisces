@@ -108,7 +108,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\DataTableJSON.cs" />
-    <Compile Include="Tests\HydrometGCITests.cs" />
     <Compile Include="HydrometWebUtility.cs" />
     <Compile Include="WaterMLWriter.cs" />
   </ItemGroup>
