@@ -209,11 +209,42 @@ namespace Reclamation.TimeSeries
 
                 t = t.AddDays(1).Date;
             }
-
-
             return rval;
         }
 
+        /// <summary>
+        /// Returns one point per day, using the latest time stamp for each day
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        [FunctionAttribute("Last Value that occurs in a day",
+        "DailyLastValue(series1)")]
+        public static Series DailyLastValue(Series source)
+        {
+            Series rval = source.Clone();
+            rval.TimeInterval = TimeInterval.Daily;
+            source.RemoveMissing(true);
+
+            if (source.Count > 0)
+            {
+                Point last = source[0];
+                for (int i = 0; i < source.Count; i++)
+                {
+                    Point a = source[i];
+
+                    if (a.DateTime.Date != last.DateTime.Date)  // find next date, store previous/last
+                    {
+                        rval.Add(last.DateTime.Date,last.Value);
+                    }else if (i == source.Count -1)
+                    {
+                        rval.Add(last.DateTime.Date, last.Value);
+                    }
+
+                    last = a;
+                }
+            }
+            return rval;
+        }
 
         [FunctionAttribute("Growing Degree Days",
         "DailyGrowingDegree(sMax, sMin,tmax,tbase)")]
