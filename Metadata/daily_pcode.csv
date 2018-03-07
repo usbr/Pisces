@@ -1,0 +1,85 @@
+pcode,descr,units
+AF,Reservoir Active Storage (Acre-Feet),acre-feet
+BH,"Barometric Pressure, Daily Average (mmHg)",mmHg
+BN  ,MINIMUM BAROMETRIC PRESSURE (in. Hg Corrected to Sea Level),inHG
+BP  ,AVERAGE BAROMETRIC PRESSURE (in. Hg Corrected to Sea Level),inHG
+BX  ,MAXIMUM BAROMETRIC PRESSURE (in. Hg Corrected to Sea Level),inHG
+ET  ,REFERENCE EVAPOTRANSPIRATION (in/day)(1982 Kimberly-Penman equation),in/day
+ETOS,REFERENCE EVAPOTRANSPIRATION (in/day)(ASCE-EWRI Grass Reference)   ,in/day
+ETRS,REFERENCE EVAPOTRANSPIRATION (in/day)(ASCE-EWRI Alfalfa Reference),in/day
+FB,Reservoir Water Surface Elevation (Feet),feet
+GD,"Gauge Height, Daily Average (Feet)",feet
+GJ,"Canal Height, Daily Average (Feet)",feet
+HH,Canal Daily Average Shift,feet
+HJ,Gauge Daily Average Shift,feet
+ID,"Reservoir Inflow, Computed Daily Average (Cubic Feet per Second)",cfs
+MM,"Air Temperature, Daily Average (Degrees F)",degF
+MN,"Air Temperature, Daily Minimum (Degrees F)",degF
+MX,"Air Temperature, Daily Maximum (Degrees F)",degF
+NT,Total Dissolved Gas (mmHg),mmHg
+PC,"Precipitation, Cumulative (Inches)",in
+PE,"Pan Evaporation, Daily Total (Inches)",in
+PP,"Precipitation, Daily Total (Inches)",in
+PU,"Cumulative Water Year Precipitation, Oct. 1 to Date (Inches)",in
+PX,"Precipitation, Daily Total, Manually Observed (Inches)",in
+QD,"Discharge, Daily Average (Cubic Feet per Second)",cfs
+QJ,"Canal Discharge, Daily Average (Cubic Feet per Second)",cfs
+QRD,Q Average Duplicate,cfs
+QSD,QS Average,cfs
+QT,"Discharge, Totalled Daily Average (Cubic Feet per Second)",cfs
+QU,"Unregulated Flow, Estimated Daily Average (Cubic Feet per Second)",cfs
+QV,From LUC,cfs
+QX,"Discharge, Daily Maximum (Cubic Feet per Second)",cfs
+RBD,Shaft Encoder on Outlet Gate,feet
+RHN ,MINIMUM DAILY RELATIVE HUMIDITY (%),%
+SE,Snow Water Content (NRCS sites) (Equivalent Inches of Water),in
+SO,"Accumulated Snow Water, Oct. 1 to Date (Equivalent Inches of Water)",in
+SP,Snow Water Content (Equivalent Inches of Water),in
+SR,ACCUMULATED GLOBAL SOLAR RADIATION (Langleys),Langleys
+SR2,ACCUMULATED DIFFUSE SOLAR RADIATION (Langleys),Langleys
+SY,DAILY ACCUMULATED SNOW MOISTURE (equivalent inches of water),in
+TA,"Humidity, Daily Average (%)",%
+TD,Tailwater Daily Mean (feet),feet
+TG  ,DAILY GROWING DEGREE DAYS  (50 degrees F Base),day
+TG32,DAILY GROWING DEGREE DAYS  (32 degrees F Base),day
+TG41,DAILY GROWING DEGREE DAYS  (41 degrees F Base),day
+TG50,DAILY GROWING DEGREE DAYS  (50 degrees F Base),day
+UA,"Wind Speed, Daily Average (mph)",mph
+UD,"Wind Direction, Daily Resultant (Degrees Azimuth)",degrees Azimuth
+WG,DAILY PEAK WIND GUST (mph),mph
+WI,"Water Temperature, Daily Minimum (Degrees F)",degF
+WK,"Water Temperature, Daily Maximum (Degrees F)",degF
+WM,"Water Temperature, Daily Maximum (Degrees Celsius)",degC
+WN,"Water Temperature, Daily Minimum (Degrees Celsius)",degC
+WR,Wind Run (miles/day),mi/day
+WY,"Water Temperature, Daily Average (Degrees Celsius)",degC
+WZ,"Water Temperature, Daily Average (Degrees F)",degF
+XB  ,"MINIMUM DAILY 1"" SOIL TEMPERATURE (F)         ",degF
+XC  ,"MINIMUM DAILY 4"" SOIL TEMPERATURE (F) (Deg C at COVM < 4/1/07) (6"" Depth at BRKO)    ",degF
+XD  ,"MINIMUM DAILY 8"" SOIL TEMPERATURE (F) (12"" Depth at BRKO)    ",degF
+XF  ,"MAXIMUM DAILY 1"" SOIL TEMPERATURE (F)",degF
+XG  ,"MAXIMUM DAILY 4"" SOIL TEMPERATURE (F) (Deg C at COVM < 4/1/07) (6"" Depth at BRKO)",degF
+XH  ,"MAXIMUM DAILY 8"" SOIL TEMPERATURE (F) (12"" Depth at BRKO)",degF
+XJ  ,"MEAN DAILY 8"" SOIL TEMPERATURE (F) (12"" Depth at BRKO)",degF
+XQD,Daily avearge flow,cfs
+YA  ,MAXIMUM DAILY CANOPY AIR TEMPERATURE (F) (Shielded),degF
+YB  ,MINIMUM DAILY CANOPY AIR TEMPERATURE (F) (Shielded),degF
+YC  ,MAXIMUM DAILY SHELTER AIR TEMPERATURE (F),degF
+YD  ,MINIMUM DAILY SHELTER AIR TEMPERATURE (F),degF
+YL  ,"MEAN DAILY 1"" SOIL TEMPERATURE (F)",degF
+YM  ,MEAN DAILY DEW POINT TEMPERATURE (F),degF
+YR,"Saturation Percent, Total Dissolved Gas (Computed %)",%
+YW  ,"MEAN DAILY 4"" SOIL TEMPERATURE (F) (Deg C at COVM < 4/1/07) (6"" Depth at BRKO)",degF
+YY  ,MEAN DAILY SHELTER AIR TEMPERATURE (F),degF
+Z1  ,MINIMUM DAILY CANOPY AIR TEMPERATURE (unshielded),degF
+Z2  ,MAXIMUM DAILY CANOPY AIR TEMPERATURE (unshielded),degF
+Z3  ,AVERAGE DAILY CANOPY AIR TEMPERATURE (unshielded)     ,degF
+ZCM ,"MEAN DAILY 40"" SOIL TEMPERATURE (F)",degF
+ZCN ,"MINIMUM DAILY 40"" SOIL TEMPERATURE (F)",degF
+ZCX ,"MAXIMUM DAILY 40"" SOIL TEMPERATURE (F)",degF
+ZG  ,"MINIMUM DAILY 20"" SOIL TEMPERATURE (F)",degF
+ZH  ,"MAXIMUM DAILY 20"" SOIL TEMPERATURE (F)",degF
+ZK  ,"MAXIMUM DAILY  2"" SOIL TEMPERATURE (F) (Deg C at COVM < 4/1/07) (3"" Depth at BRKO)",degF
+ZL  ,"MINIMUM DAILY  2"" SOIL TEMPERATURE (F) (Deg C at COVM < 4/1/07) (3"" Depth at BRKO)",degF
+ZM  ,"MEAN DAILY 2"" SOIL TEMPERATURE (F) (Deg C at COVM < 4/1/07) (3"" Depth at BRKO)",degF
+GAIN,"Gain, Daily Average (Cubic Feet per Second)",cfs

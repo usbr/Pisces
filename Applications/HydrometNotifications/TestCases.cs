@@ -9,6 +9,11 @@ namespace HydrometNotifications
     [TestFixture]
     public class TestCases
     {
+        [SetUp]
+        public void setUp()
+        {
+            AlarmDataSet.DB = Reclamation.Core.PostgreSQL.GetPostgresServer("hydromet");
+        }
 
         [TestCase]
         public void TestTodaysState()

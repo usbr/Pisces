@@ -13,6 +13,7 @@ namespace Pisces.NunitTests.SeriesTypes
     {
 
         [Test, Category("Internal")]
+        [Ignore("Ignore internal tests per KTarbet.")]
         public void SDI1930()
         {
             Logger.EnableLogger();

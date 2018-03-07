@@ -1,18 +1,9 @@
 version: 1.0.{build}
+## AppVeyor CI for Windows testing
 
 branches:
   only:
     - master
-
-init:
-  - mkdir c:\temp
-  - mkdir c:\temp\outgoing
-  - mkdir c:\temp\incoming
-  - mkdir c:\hydromet
-  - mkdir c:\hydromet\outgoing
-  - mkdir c:\hydromet\incoming
-
-  
 
 install:
   - cmd: appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe 
@@ -29,23 +20,11 @@ build:
   
 test:
   assemblies:
-  - TimeSeries\bin\Debug\Reclamation.Core.dll
-  - TimeSeries\bin\Debug\Reclamation.TimeSeries.dll
-  - HydrometServer.exe
-  - RiverwareDMI.exe
+    ## Test the libraries
+    - Core\bin\Debug\Reclamation.Core.dll
+    - TimeSeries\bin\Debug\Reclamation.TimeSeries.dll
+
   categories:
     except:
     - DatabaseServer
-    - DatabaseFile
     - Internal
-    
-notifications:
-- provider: Email
-  to:
-  - ktarbet@usbr.gov
-  - jrocha@usbr.gov
-  - blounsbury@usbr.gov
-  subject: Windows Build -- With Tests
-  on_build_success: false
-  on_build_failure: true
-  on_build_status_changed: false

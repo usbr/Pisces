@@ -1,0 +1,74 @@
+pcode,descr,units
+AF,Reservoir Storage - Acre-Feet,acre*ft
+AU,AIR TEMPERATURE - CROP CANOPY - Degree F,degF
+BH,BAROMETRIC PRESSURE (MM OF HG),mmHg
+BP,BAROMETRIC PRESSURE (In. Hg Sea Level),inHg
+CH,Canal Gauge Height (feet),ft
+CH2,Canal Gauge Height (feet),ft
+CO,"Air Temperature, Degree C",DegC
+DO,Water Dissolved Oxygen ,ppm
+EA,ACTUAL VAPOR PRESSURE (KPA),kPa
+ETO,Grass Reference ET mm/hr,mm/hr
+FB,Forebay Elevation - Feet,ft
+FB2,Forebay Elevation - Feet,ft
+GH,Gauge Height - Feet,ft
+GH2,Gauge Height - Feet,ft
+GZ,"Gauge Height, Fish Screen Bypass - Feet",ft
+HK,Diversion Pool Stage - Feet,ft
+HP,Hours Pumped,hours
+HQ,Average Velocity - ft/sec,ft/sec
+HQX,Velocity X  - ft/sec,ft/sec
+HQY,Velocity Y  - ft/sec,ft/sec
+LS,Lake Storage - Acre-Feet,acre-ft
+LW,LEAF WETNESS - RESISTANCE KOHMS,kOhms
+NT,WATER TOTAL DISSOLVED GAS (MILLILITERS OF MERCURY),mmHG
+OB,Air Temperature - Deg. F,degF
+OBM,MIN 15MIN AIR TEMP (DEG F),degF
+OBN,AVERAGE 15MIN AIR TEMP (DEG F),degF
+OBX,MAX 15MIN AIR TEMP (DEG F),degF
+PC,Snotel Precipitation - Inches,in
+PI,Precipitation - Incremental (Inches),in
+Q,Discharge - CFS,cfs
+QC,Canal Discharge - cfs,cfs
+QR,"Discharge, Regulating Gate - cfs",cfs
+QS,Spillway Discharge - cfs,cfs
+QT,Total Flow of Powerplant,cfs
+QZ,"Discharge, Fish Screen Bypass - CFS",cfs
+SD,Snotel Depth - Inches,in
+SE,Snotel Pillow Snow Water Content - Inches,in 
+SI,SOLAR RADIATION (LANGLEY'S PER HOUR),langleys/hr
+SL,SOIL TEMPERATURE - 1 INCH DEPTH - Degree F,degF
+SP,"PRECIP, SNOW WATER-EQUIV FROM PILLOW (INCHES)",in
+SQ,SOLAR RADIATION (LANGLEY'S  CUMULATIVE),langleys
+SQ2,DIFFUSE SOLAR RADIATION (ACCUM LANGLEYS),langleys
+SV,Soil Temperature (8 Inch Depth) Degree F,degF
+SW,Soil Temperature (4 Inch Depth) Degree F,degF
+TP,"AIR TEMP, DEW POINT (DEG F)",degF
+TPN,1 hour Min DEW POINT TEMPERATURE - DEG F,degF
+TPX,1 hour Max DEW POINT TEMPERATURE - DEG F,degF
+TU,RELATIVE HUMIDITY (PERCENT),pct
+TUN,MIN 15MIN RELATIVE HUMIDITY (PERCENTAGE),pct
+TUX,MAX 15MIN RELATIVE HUMIDITY (PERCENTAGE),pct
+TV,TEMP VALVE HOUSE (DEG F),degF
+TW,Tailbay Elevation - Feet,ft
+UI,"WIND TRAVEL, CUMULATIVE WIND RUN IN MILES",miles
+UI2,WIND RUN AT 2 FT.  (MILES),miles
+VB,"GAGE HEIGHT, INSTANTANEOUS (FEET)",ft
+VV,Generation - Instantaneous MW,MW
+WC,WATER TEMPERATURE DEG C,degC
+WC2,Water Temperature Deg C ,degC
+WD,WIND DIRECTION (DEGREES),Degrees
+WDS,Wind Direction Standard Deviation (Degrees),Degrees
+WE,Water Specific Conductance - uMHOS/cm,uMHOS/cm
+WF,Water Temperature - Degree F,degF
+WF2,Water Temperature - Degree F,degF
+WG,Peak Wind Gust (MPH),mph
+WP,Water Acidity or Alkalinity (PH Value),PH
+WS,WIND SPEED (MILES PER HOUR),mph
+WT,Water Turbidity - NTU,NTU
+Z1,CANOPY TEMPERATURE - UNSHIELDED - Degree F,degF
+ZA,Soil Temperature (2 Inch Depth) Degree F,degF
+ZB,Soil Temperature (20 Inch Depth) Degree F,degF
+ZC,Soil Temperature (40 Inch Depth) Degree F,degF
+BGA,blue green algae (ug/L),ug/L
+CHL,Chlorophyll ug/L,ug/L

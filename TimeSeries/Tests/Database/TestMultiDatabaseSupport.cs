@@ -19,6 +19,7 @@ namespace Pisces.NunitTests.Database
         }
 
         [Test, Category("DatabaseServer")]
+        [Ignore("Ignore DatabaseServer tests per KTarbet.")]
         public void TestMySQL()
         {
             var svr = MySqlServer.GetMySqlServer("localhost", "timeseries");
@@ -46,14 +47,17 @@ namespace Pisces.NunitTests.Database
 
 
         [Test, Category("DatabaseServer")]
+        [Ignore("Ignore DatabaseServer tests per KTarbet.")]
         public void TestActiveDirectoryConnectionPostgresql()
         {
             var svr = TestPostgreSQL.GetPGServer();
         }
 
         [Test, Category("DatabaseServer")]
+        [Ignore("Ignore DatabaseServer tests per KTarbet.")]
         public void TestPostgresql()
         {
+            string str = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
             // using database nunit owned by user running the test
             Logger.EnableLogger();
             var svr = TestPostgreSQL.GetPGServer(dbName:"postgres") as PostgreSQL;

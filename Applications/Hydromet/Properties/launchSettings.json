@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "Hydromet": {
-      "commandName": "Project",
-      "commandLineArgs": "--cli=instant --imaaport=\"*.txt\" --computeDependencies --computeDailyOnMidnight"
-    }
-  }
-}

@@ -21,6 +21,8 @@ namespace Pisces.NunitTests.SeriesTypes
 
 
         [Test, Category("Internal")]
+        [Ignore("Ignore internal tests per KTarbet.")]
+
         public void TestNrcsWebService()
         {
 
@@ -33,6 +35,8 @@ namespace Pisces.NunitTests.SeriesTypes
         }
 
         [Test, Category("Internal")]
+        [Ignore("Ignore internal tests per KTarbet.")]
+
         public void SnowCourse()
         {
             Logger.EnableLogger();
@@ -54,6 +58,8 @@ namespace Pisces.NunitTests.SeriesTypes
         /// called.
         /// </summary>
         [Test, Category("Internal")]
+        [Ignore("Ignore internal tests per KTarbet.")]
+
         public void SnowCourseToMonthy()
         {
             var s = new MonthlySnowCourseSeries("16F02:ID:SNOW");

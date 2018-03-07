@@ -23,8 +23,18 @@ namespace Reclamation.Core
                 if (s_testData != "")
                     return s_testData;
 
-                string dir = Path.Combine(GetPathAbove("Pisces"), "PiscesTestData", "data");
-                Console.WriteLine(dir);
+                //string dir = Path.Combine(GetPathAbove("Pisces"), "PiscesTestData", "data");
+                // HACK
+                string dir = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "PiscesTestData", "data");
+                if (!Directory.Exists(dir))
+                {
+                    dir = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "PiscesTestData", "data");
+                }
+
+                if (!Directory.Exists(dir))
+                {
+                    dir = Path.Combine("/var", "tmp", "PiscesTestData", "data");
+                }
 
                 s_testData = dir;
                 return s_testData;

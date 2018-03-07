@@ -42,6 +42,11 @@ namespace Reclamation.Core
             databaseName = ConfigurationManager.AppSettings["PostgresDatabase"];
         }
 
+        if (userName == "")
+            {
+                userName = ConfigurationManager.AppSettings["PostgresUser"];
+            }
+
         if (LinuxUtility.IsLinux())
         {
             if (userName == "")
