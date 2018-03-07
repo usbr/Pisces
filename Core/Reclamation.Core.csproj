@@ -68,8 +68,8 @@
       <HintPath>..\packages\MySql.ConnectorNET.Data.6.8.3.2\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Npgsql, Version=3.2.6.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Npgsql.3.2.6\lib\net451\Npgsql.dll</HintPath>
+    <Reference Include="Npgsql, Version=3.2.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.2.7\lib\net451\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
@@ -192,10 +192,10 @@
   </Target>
   <Target Name="AfterBuild">
     <Copy SourceFiles="..\ThirdParty\libSQLite.Interop.so" DestinationFolder="$(OutputPath)" Condition=" $(OS) == 'Unix' " />
-      <ItemGroup>
-        <PiscesTestData Include="..\PiscesTestData\**\*.*" />
-      </ItemGroup>
-      <Copy SourceFiles="@(PiscesTestData)" DestinationFolder="\var\tmp\PiscesTestData\%(RecursiveDir)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" Condition=" $(OS) == 'Unix' " />
+    <ItemGroup>
+      <PiscesTestData Include="..\PiscesTestData\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PiscesTestData)" DestinationFolder="\var\tmp\PiscesTestData\%(RecursiveDir)" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" Condition=" $(OS) == 'Unix' " />
   </Target>
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" />
 </Project>
