@@ -329,3 +329,5 @@ ASALocalRun/
 
 # MSBuild Binary and Structured Log
 *.binlog
+Applications/HydrometTools/Output
+Applications/PiscesUI/Output
