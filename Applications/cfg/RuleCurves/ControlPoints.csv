@@ -1,4 +1,4 @@
-Name,StationQU,DailyStationQU,StationQD,UpstreamReservoirs,PercentSpace,ReservoirLags,TotalUpstreamActiveSpace,VariableRuleCurve,Enabled,FlagLegend,RequiredLegend,ForecastMonth1,ForecastMonth2
+Name,StationQU,DailyStationQU,StationQD,UpstreamReservoirs,PercentSpace,ReservoirLags,TotalUpstreamActiveSpace,VariableRuleCurve,Enabled,FlagLegend,RequiredLegend,ForecastMonthStart,ForecastMonthEnd
 AMF - American Falls,AMF,AMF,AMFI,AMF,100,,1672590,TRUE,FALSE,,Guide Curve,1,7
 AND - Anderson,LUC,LUC,ANDI,AND,45,,413100,TRUE,TRUE,,Required,1,7
 BENO-Deschutes River at Benham Falls,BENO,BENO,BENO,"CRA,WIC,CRE",100,,342000,TRUE,FALSE,,Required,1,7

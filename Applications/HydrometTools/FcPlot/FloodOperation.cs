@@ -18,8 +18,8 @@ namespace FcPlot
             HydrometRuleCurve m_ruleCurve = RuleCurveFactory.Create(pt, 7100);
             SeriesList rval = new SeriesList();
             Series avg30yrQU;
-            var t1 = new DateTime(waterYear, 1, 1);
-            var t2 = new DateTime(waterYear, 7, 1);
+            var t1 = new DateTime(waterYear, pt.ForecastMonthStart, 1);
+            var t2 = new DateTime(waterYear, pt.ForecastMonthEnd, 1);
 
             //calculate forecast of most recent month
             Series forecast = GetLatestForecast(cbtt, waterYear);
@@ -36,6 +36,8 @@ namespace FcPlot
             // average runoff  month - end(typically July) volume
 
             avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", forecastMonth);
+
+            // sum volume for the forecast period
 
             double historicalAverageResidual = 0;
             double percent = forecastValue / historicalAverageResidual;

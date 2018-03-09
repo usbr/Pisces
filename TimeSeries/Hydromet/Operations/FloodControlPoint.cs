@@ -22,7 +22,8 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         public double PercentSpace { get; set; }
         public string Name {get; set;}
         public string RequiredLegend { get; set; }
-
+        public int ForecastMonthStart { get; private set; }
+        public int ForecastMonthEnd { get; private set; }
 
         public FillType FillType
         {
@@ -90,6 +91,9 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             VariableRuleCurve = Convert.ToBoolean(tbl.Rows[0]["VariableRuleCurve"]);
 
             RequiredLegend = tbl.Rows[0]["RequiredLegend"].ToString();
+
+            ForecastMonthStart = Convert.ToInt32(tbl.Rows[0]["ForecastMonthStart"].ToString());
+            ForecastMonthEnd = Convert.ToInt32(tbl.Rows[0]["ForecastMonthEnd"].ToString());
         }
 
         
