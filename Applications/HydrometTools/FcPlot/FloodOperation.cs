@@ -9,8 +9,22 @@ using Reclamation.TimeSeries.Hydromet.Operations;
 using Math = Reclamation.TimeSeries.Math;
 namespace FcPlot
 {
+    /// <summary>
+    /// FloodOperation estimates targets into the future.  the primary target is based on
+    /// the current forecast.  Other user specified targets are included in the output.
+    /// </summary>
     public class FloodOperation
     {
+        /// <summary>
+        /// ComputeTargets method uses the a Rule curve, forecast, and historical average
+        /// to project flood target levels through the forecast period.
+        /// computes a target Seriesuses the current forecast and forecast volume period
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <param name="waterYear"></param>
+        /// <param name="start"></param>
+        /// <param name="optionalPercents"></param>
+        /// <returns></returns>
         public static SeriesList ComputeTargets(FloodControlPoint pt, 
             int waterYear, Point start,int[] optionalPercents)
         {
@@ -19,7 +33,7 @@ namespace FcPlot
             SeriesList rval = new SeriesList();
             Series avg30yrQU;
             var t1 = new DateTime(waterYear, pt.ForecastMonthStart, 1);
-            var t2 = new DateTime(waterYear, pt.ForecastMonthEnd, 1);
+            var t2 = new DateTime(waterYear, pt.ForecastMonthEnd, 1).EndOfMonth();
 
             //calculate forecast of most recent month
             Series forecast = GetLatestForecast(cbtt, waterYear);
@@ -39,12 +53,13 @@ namespace FcPlot
 
             // sum volume for the forecast period
 
-            double historicalAverageResidual = 0;
+            var t = new DateTime(start.DateTime.Year, start.DateTime.Month, 1);
+            double historicalAverageResidual = SumResidual(avg30yrQU, t, t2);
             double percent = forecastValue / historicalAverageResidual;
 
             
             //get thirty year average QU from daily 
-            avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", forecastMonth);
+            //avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", forecastMonth);
             Series targetx = CalculateTarget(pt,percent, waterYear, start, m_ruleCurve, avg30yrQU, t2, forecastValue);
             targetx.Name = "Forecast " + (100 * percent).ToString("F0") + " % "+(forecastValue/1000.0).ToString("F1");
             targetx.Add(start);
@@ -59,6 +74,24 @@ namespace FcPlot
                 targetx.Add(start);
                 rval.Add(targetx);
             }
+            return rval;
+        }
+
+        private static double SumResidual(Series avg30yrQU, DateTime t1, DateTime t2)
+        {
+            var rval = 0.0;
+
+            for (int i = 0; i < avg30yrQU.Count; i++)
+            {
+                var pt = avg30yrQU[i];
+
+                if( pt.DateTime >=t1 && pt.DateTime <=t2 &&   !pt.IsMissing)
+                {
+                    rval += pt.Value*1.98347;
+                }
+            }
+            
+
             return rval;
         }
 
