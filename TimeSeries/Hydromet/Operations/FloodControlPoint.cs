@@ -8,6 +8,11 @@ using Reclamation.TimeSeries.Hydromet;
 
 namespace Reclamation.TimeSeries.Hydromet.Operations
 {
+    /// <summary>
+    /// FloodControlPoint contains the key properties that
+    /// define flood control at a specific river location
+    /// downstream of one or more reservoirs.
+    /// </summary>
     public class FloodControlPoint
     {
 

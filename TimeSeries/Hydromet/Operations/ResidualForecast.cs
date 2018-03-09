@@ -8,6 +8,12 @@ using Reclamation.TimeSeries.Hydromet.Operations;
 
 namespace Reclamation.TimeSeries.Hydromet.Operations
 {
+    /// <summary>
+    /// ResidualForecast performs calculations using a specific 
+    /// FloodControlPoint and HydrometRuleCurve.  The calculations includes 
+    /// the amount of space in the reservoirs, the required space, and the residual expected inflow, based on the 
+    /// associated reservoirs,  actual inflows, outflows, and forecasted inflows.
+    /// </summary>
     public class ResidualForecast
     {
         string[] reservoirNames;
