@@ -61,16 +61,17 @@ namespace FcPlot
             //get thirty year average QU from daily 
             //avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", forecastMonth);
             Series targetx = CalculateTarget(pt,percent, waterYear, start, m_ruleCurve, avg30yrQU, t2, forecastValue);
-            targetx.Name = "Forecast " + (100 * percent).ToString("F0") + " % "+(forecastValue/1000.0).ToString("F1");
+            targetx.Name = "Forecast " + (100 * percent).ToString("F0") + "% "+(forecastValue/1000.0).ToString("F0");
             targetx.Add(start);
             rval.Add(targetx);
 
             for (int i = 0; i < optionalPercents.Length; i++)
             {
+                var fc = historicalAverageResidual * optionalPercents[i] / 100.0;
                 targetx = CalculateTarget(pt, optionalPercents[i]/100.0, waterYear, start,
                     m_ruleCurve, avg30yrQU  
-                    , t2, historicalAverageResidual* optionalPercents[i]/100.0);
-                targetx.Name = "Target (" + optionalPercents[i].ToString("F0") + "%)";
+                    , t2, fc);
+                targetx.Name = "Target (" + optionalPercents[i].ToString("F0") + "%) "+(fc/1000.0).ToString("F0");
                 targetx.Add(start);
                 rval.Add(targetx);
             }
