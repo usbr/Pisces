@@ -28,8 +28,8 @@ script:
   - mono ./testrunner/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe --out=/dev/null --workers=$WORKERS ./TimeSeries/bin/Debug/Reclamation.TimeSeries.dll
 
   notifications: 
-24   email: 
-25     recipients: 
-26       - ktarbet@usbr.gov 
-27       - jrocha@usbr.gov 
-28       - blounsbury@usbr.gov 
+   email: 
+    recipients: 
+      - ktarbet@usbr.gov 
+      - jrocha@usbr.gov 
+      - blounsbury@usbr.gov 
