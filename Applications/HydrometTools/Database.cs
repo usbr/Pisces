@@ -51,21 +51,26 @@ namespace HydrometTools
             return s_db;
         }
 
-        private static bool IsPasswordBlank()
+        internal static bool IsPasswordBlank()
         {
-            var pw = UserPreference.Lookup("timeseries_database_password","");
+            var pw = GetPassword();
             return pw == "";
         }
-        public static PostgreSQL GetServer(string dbname)
+
+        private static string GetPassword()
         {
-            var pw = UserPreference.Lookup("timeseries_database_password","");
+            var pw = UserPreference.Lookup("timeseries_database_password", "");
             if (pw != "")
             {
                 pw = StringCipher.Decrypt(pw, "");
-                if (pw == "")
-                    return null;
             }
-            else
+            return pw;
+        }
+
+        public static PostgreSQL GetServer(string dbname)
+        {
+            var pw = GetPassword();
+            if (pw == "")
             {
                 throw new Exception("Error: the password is blank. Please set this in the settings tab");
             }

@@ -1180,6 +1180,13 @@ namespace HydrometTools
             bool SaveToVMS = true;
             if (svr == HydrometHost.PNLinux && numRecordsWritten >0)
             { // saving to Postgresql/Linux
+
+                if( Database.IsPasswordBlank())
+                {
+                    MessageBox.Show("Warning: the database password is blank.");
+                    return;
+                }
+
                 SaveOptions o = new SaveOptions(m_interval);
                 if (o.ShowDialog() == DialogResult.OK)
                 {
