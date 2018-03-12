@@ -29,8 +29,10 @@ namespace FcPlot
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             Reclamation.Core.MonthDayRange monthDayRange1 = new Reclamation.Core.MonthDayRange();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBoxTargetPercentages = new System.Windows.Forms.TextBox();
             this.compareData = new System.Windows.Forms.Label();
             this.dataInitial = new System.Windows.Forms.Label();
             this.showGreenLines = new System.Windows.Forms.CheckBox();
@@ -41,18 +43,18 @@ namespace FcPlot
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxAlternateWaterYear = new System.Windows.Forms.TextBox();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.monthRangePicker1 = new Reclamation.TimeSeries.Forms.MonthRangePicker();
             this.textBoxWaterYear = new System.Windows.Forms.TextBox();
             this.comboBoxSite = new System.Windows.Forms.ComboBox();
             this.linkLabelReport = new System.Windows.Forms.LinkLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageGraph = new System.Windows.Forms.TabPage();
-            this.hydrometChart1 = new FcPlot.HydrometTeeChart();
             this.tabPageReport = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
             this.labelFlagLegend = new System.Windows.Forms.Label();
-            this.textBoxTargetPercentages = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.hydrometChart1 = new FcPlot.HydrometTeeChart();
+            this.monthRangePicker1 = new Reclamation.TimeSeries.Forms.MonthRangePicker();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageGraph.SuspendLayout();
@@ -82,6 +84,14 @@ namespace FcPlot
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(730, 84);
             this.panel1.TabIndex = 2;
+            // 
+            // textBoxTargetPercentages
+            // 
+            this.textBoxTargetPercentages.Location = new System.Drawing.Point(608, 31);
+            this.textBoxTargetPercentages.Name = "textBoxTargetPercentages";
+            this.textBoxTargetPercentages.Size = new System.Drawing.Size(115, 20);
+            this.textBoxTargetPercentages.TabIndex = 13;
+            this.toolTip1.SetToolTip(this.textBoxTargetPercentages, "space separated target levels: 100 120");
             // 
             // compareData
             // 
@@ -129,6 +139,7 @@ namespace FcPlot
             this.pcodeComparison.Name = "pcodeComparison";
             this.pcodeComparison.Size = new System.Drawing.Size(115, 20);
             this.pcodeComparison.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.pcodeComparison, "comparision series such as:  luc qu");
             // 
             // pcodeInitial
             // 
@@ -136,6 +147,7 @@ namespace FcPlot
             this.pcodeInitial.Name = "pcodeInitial";
             this.pcodeInitial.Size = new System.Drawing.Size(142, 20);
             this.pcodeInitial.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.pcodeInitial, "additional series such as:   bigi qd");
             // 
             // waterYearLabel
             // 
@@ -161,6 +173,7 @@ namespace FcPlot
             this.textBoxAlternateWaterYear.Name = "textBoxAlternateWaterYear";
             this.textBoxAlternateWaterYear.Size = new System.Drawing.Size(115, 20);
             this.textBoxAlternateWaterYear.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.textBoxAlternateWaterYear, "comparision year such as: 1997");
             // 
             // buttonRefresh
             // 
@@ -172,23 +185,13 @@ namespace FcPlot
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // monthRangePicker1
-            // 
-            this.monthRangePicker1.AutoSize = true;
-            this.monthRangePicker1.BeginningMonth = 10;
-            this.monthRangePicker1.Location = new System.Drawing.Point(222, 0);
-            this.monthRangePicker1.Margin = new System.Windows.Forms.Padding(4);
-            this.monthRangePicker1.MonthDayRange = monthDayRange1;
-            this.monthRangePicker1.Name = "monthRangePicker1";
-            this.monthRangePicker1.Size = new System.Drawing.Size(380, 35);
-            this.monthRangePicker1.TabIndex = 1;
-            // 
             // textBoxWaterYear
             // 
             this.textBoxWaterYear.Location = new System.Drawing.Point(63, 25);
             this.textBoxWaterYear.Name = "textBoxWaterYear";
             this.textBoxWaterYear.Size = new System.Drawing.Size(142, 20);
             this.textBoxWaterYear.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.textBoxWaterYear, "base year");
             // 
             // comboBoxSite
             // 
@@ -266,15 +269,6 @@ namespace FcPlot
             this.tabPageGraph.Text = "graph";
             this.tabPageGraph.UseVisualStyleBackColor = true;
             // 
-            // hydrometChart1
-            // 
-            this.hydrometChart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hydrometChart1.Location = new System.Drawing.Point(3, 3);
-            this.hydrometChart1.Margin = new System.Windows.Forms.Padding(4);
-            this.hydrometChart1.Name = "hydrometChart1";
-            this.hydrometChart1.Size = new System.Drawing.Size(716, 424);
-            this.hydrometChart1.TabIndex = 1;
-            // 
             // tabPageReport
             // 
             this.tabPageReport.Controls.Add(this.dataGridView1);
@@ -282,7 +276,7 @@ namespace FcPlot
             this.tabPageReport.Location = new System.Drawing.Point(4, 22);
             this.tabPageReport.Name = "tabPageReport";
             this.tabPageReport.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageReport.Size = new System.Drawing.Size(620, 406);
+            this.tabPageReport.Size = new System.Drawing.Size(722, 430);
             this.tabPageReport.TabIndex = 1;
             this.tabPageReport.Text = "report";
             this.tabPageReport.UseVisualStyleBackColor = true;
@@ -293,7 +287,7 @@ namespace FcPlot
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 35);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(614, 368);
+            this.dataGridView1.Size = new System.Drawing.Size(716, 392);
             this.dataGridView1.TabIndex = 0;
             // 
             // panel2
@@ -303,7 +297,7 @@ namespace FcPlot
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(614, 32);
+            this.panel2.Size = new System.Drawing.Size(716, 32);
             this.panel2.TabIndex = 1;
             // 
             // labelFlagLegend
@@ -315,12 +309,25 @@ namespace FcPlot
             this.labelFlagLegend.TabIndex = 4;
             this.labelFlagLegend.Text = "label2";
             // 
-            // textBoxTargetPercentages
+            // hydrometChart1
             // 
-            this.textBoxTargetPercentages.Location = new System.Drawing.Point(608, 31);
-            this.textBoxTargetPercentages.Name = "textBoxTargetPercentages";
-            this.textBoxTargetPercentages.Size = new System.Drawing.Size(115, 20);
-            this.textBoxTargetPercentages.TabIndex = 13;
+            this.hydrometChart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hydrometChart1.Location = new System.Drawing.Point(3, 3);
+            this.hydrometChart1.Margin = new System.Windows.Forms.Padding(4);
+            this.hydrometChart1.Name = "hydrometChart1";
+            this.hydrometChart1.Size = new System.Drawing.Size(716, 424);
+            this.hydrometChart1.TabIndex = 1;
+            // 
+            // monthRangePicker1
+            // 
+            this.monthRangePicker1.AutoSize = true;
+            this.monthRangePicker1.BeginningMonth = 10;
+            this.monthRangePicker1.Location = new System.Drawing.Point(222, 0);
+            this.monthRangePicker1.Margin = new System.Windows.Forms.Padding(4);
+            this.monthRangePicker1.MonthDayRange = monthDayRange1;
+            this.monthRangePicker1.Name = "monthRangePicker1";
+            this.monthRangePicker1.Size = new System.Drawing.Size(380, 35);
+            this.monthRangePicker1.TabIndex = 1;
             // 
             // FcPlotUI
             // 
@@ -368,5 +375,6 @@ namespace FcPlot
         private System.Windows.Forms.Label compareData;
         private System.Windows.Forms.Label dataInitial;
         private System.Windows.Forms.TextBox textBoxTargetPercentages;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
