@@ -352,48 +352,6 @@
     <Compile Include="Reports\Reports.Designer.cs">
       <DependentUpon>Reports.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\UpperSnake\americanfalls.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\americanfalls.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\islandpark.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\islandpark.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\jackson.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\jackson.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\littlewood.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\littlewood.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\milner.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\milner.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\minidoka.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\minidoka.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\MorningScript.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\MorningScript.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\palisades.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\palisades.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\ririe.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\ririe.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\UpperSnakeMorning.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\UpperSnakeMorning.Designer.cs">
-      <DependentUpon>UpperSnakeMorning.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reports\ViewReportsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -634,18 +592,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\Reports.resx">
       <DependentUpon>Reports.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Reports\UpperSnake\americanfalls.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\islandpark.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\jackson.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\littlewood.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\milner.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\minidoka.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\MorningScript.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\palisades.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\ririe.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\UpperSnakeMorning.resx">
-      <DependentUpon>UpperSnakeMorning.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ViewReportsForm.resx">
       <DependentUpon>ViewReportsForm.cs</DependentUpon>
