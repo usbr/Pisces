@@ -57,7 +57,7 @@ namespace Pisces.NunitTests.Database
         [Ignore("Ignore DatabaseServer tests per KTarbet.")]
         public void TestPostgresql()
         {
-            string str = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
+            //string str = AppDomain.CurrentDomain.SetupInformation.ConfigurationFile;
             // using database nunit owned by user running the test
             Logger.EnableLogger();
             var svr = TestPostgreSQL.GetPGServer(dbName:"postgres") as PostgreSQL;
