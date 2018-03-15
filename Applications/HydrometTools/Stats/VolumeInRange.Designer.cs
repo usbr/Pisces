@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxOldSChool = new System.Windows.Forms.CheckBox();
             this.AF = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.Range1 = new System.Windows.Forms.TextBox();
@@ -44,7 +45,6 @@
             this.textBoxEndYear = new System.Windows.Forms.TextBox();
             this.textBoxPcode = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBoxOldSChool = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,6 +72,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Year Summation";
             // 
+            // checkBoxOldSChool
+            // 
+            this.checkBoxOldSChool.AutoSize = true;
+            this.checkBoxOldSChool.Checked = true;
+            this.checkBoxOldSChool.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxOldSChool.Location = new System.Drawing.Point(125, 174);
+            this.checkBoxOldSChool.Name = "checkBoxOldSChool";
+            this.checkBoxOldSChool.Size = new System.Drawing.Size(53, 17);
+            this.checkBoxOldSChool.TabIndex = 42;
+            this.checkBoxOldSChool.Text = "report";
+            this.checkBoxOldSChool.UseVisualStyleBackColor = true;
+            // 
             // AF
             // 
             this.AF.AutoSize = true;
@@ -93,7 +105,7 @@
             // 
             // Range1
             // 
-            this.Range1.Location = new System.Drawing.Point(9, 43);
+            this.Range1.Location = new System.Drawing.Point(9, 46);
             this.Range1.Name = "Range1";
             this.Range1.Size = new System.Drawing.Size(52, 20);
             this.Range1.TabIndex = 37;
@@ -102,7 +114,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(67, 47);
+            this.label6.Location = new System.Drawing.Point(67, 50);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(16, 13);
             this.label6.TabIndex = 40;
@@ -110,7 +122,7 @@
             // 
             // Range2
             // 
-            this.Range2.Location = new System.Drawing.Point(89, 43);
+            this.Range2.Location = new System.Drawing.Point(89, 46);
             this.Range2.Name = "Range2";
             this.Range2.Size = new System.Drawing.Size(52, 20);
             this.Range2.TabIndex = 39;
@@ -146,15 +158,15 @@
             // 
             // textBoxYear
             // 
-            this.textBoxYear.Location = new System.Drawing.Point(9, 88);
+            this.textBoxYear.Location = new System.Drawing.Point(9, 90);
             this.textBoxYear.Name = "textBoxYear";
             this.textBoxYear.Size = new System.Drawing.Size(52, 20);
             this.textBoxYear.TabIndex = 0;
-            this.textBoxYear.Text = "2000";
+            this.textBoxYear.Text = "1981";
             // 
             // textBoxCbtt
             // 
-            this.textBoxCbtt.Location = new System.Drawing.Point(18, 138);
+            this.textBoxCbtt.Location = new System.Drawing.Point(18, 140);
             this.textBoxCbtt.Name = "textBoxCbtt";
             this.textBoxCbtt.Size = new System.Drawing.Size(52, 20);
             this.textBoxCbtt.TabIndex = 1;
@@ -180,7 +192,7 @@
             // 
             // textBoxEndYear
             // 
-            this.textBoxEndYear.Location = new System.Drawing.Point(106, 89);
+            this.textBoxEndYear.Location = new System.Drawing.Point(106, 91);
             this.textBoxEndYear.Name = "textBoxEndYear";
             this.textBoxEndYear.Size = new System.Drawing.Size(52, 20);
             this.textBoxEndYear.TabIndex = 31;
@@ -188,7 +200,7 @@
             // 
             // textBoxPcode
             // 
-            this.textBoxPcode.Location = new System.Drawing.Point(84, 139);
+            this.textBoxPcode.Location = new System.Drawing.Point(84, 141);
             this.textBoxPcode.Name = "textBoxPcode";
             this.textBoxPcode.Size = new System.Drawing.Size(33, 20);
             this.textBoxPcode.TabIndex = 2;
@@ -203,18 +215,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(538, 384);
             this.panel1.TabIndex = 40;
-            // 
-            // checkBoxOldSChool
-            // 
-            this.checkBoxOldSChool.AutoSize = true;
-            this.checkBoxOldSChool.Checked = true;
-            this.checkBoxOldSChool.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxOldSChool.Location = new System.Drawing.Point(125, 174);
-            this.checkBoxOldSChool.Name = "checkBoxOldSChool";
-            this.checkBoxOldSChool.Size = new System.Drawing.Size(104, 17);
-            this.checkBoxOldSChool.TabIndex = 42;
-            this.checkBoxOldSChool.Text = "old school report";
-            this.checkBoxOldSChool.UseVisualStyleBackColor = true;
             // 
             // VolumeInRange
             // 
