@@ -238,11 +238,13 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
          void ReadMonthlyForecast(DateTime t1, DateTime t2)
         {
-
-            fc = new HydrometMonthlySeries(controlPoint.StationQU, "FC");// hgh "fms"
+            var pc = "fc";
+            if (controlPoint.StationFC.ToLower() == "hgh")
+                pc = "fms";
+            fc = new HydrometMonthlySeries(controlPoint.StationFC, pc);// hgh "fms"
             fc.TimePostion = TimePostion.FirstOfMonth;
 
-            fcm = new HydrometMonthlySeries(controlPoint.StationQU, "FCM");
+            fcm = new HydrometMonthlySeries(controlPoint.StationFC, "FCM");
             fcm.TimePostion = TimePostion.MidMonth;
 
             fc.Read(t1, t2);
@@ -284,6 +286,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
             cbttList.Add(controlPoint.StationQU + " FC");
             cbttList.Add(controlPoint.StationQU + " FCM");
+          //  cbttList.Add(controlPoint.StationQU + " FCMS");
 
             return cbttList.ToArray();
         }

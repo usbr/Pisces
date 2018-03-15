@@ -11,14 +11,14 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
         public static HydrometRuleCurve Create(FloodControlPoint pt, int waterYear)
         {
-            var stationQU = pt.StationQU.ToLower();
-            if (stationQU == "heii")// || stationQU == "jck")
-                return new HeiiRuleCurve(stationQU, waterYear,pt.FillType);
-            if (stationQU == "hgh")
-                return new HghRuleCurve(stationQU,pt.FillType);
+            var cbtt = pt.StationFC.ToLower();
+            if (cbtt == "heii")// || stationQU == "jck")
+                return new HeiiRuleCurve(cbtt, waterYear,pt.FillType);
+            if (cbtt == "hgh")
+                return new HghRuleCurve(cbtt,pt.FillType);
 
-            if (stationQU == "wodi")
-                return new WodiRuleCurve(stationQU, waterYear, FillType.Fixed);
+            if (cbtt == "wodi")
+                return new WodiRuleCurve(cbtt, waterYear, FillType.Fixed);
 
           return new HydrometRuleCurve(pt);
             

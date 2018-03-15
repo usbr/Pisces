@@ -28,12 +28,9 @@ namespace FcPlot
         public static SeriesList ComputeTargets(FloodControlPoint pt, 
             int waterYear, Point start,int[] optionalPercents)
         {
-            string cbtt = pt.StationQU;
-            HydrometRuleCurve m_ruleCurve = RuleCurveFactory.Create(pt, 7100);
+            string cbtt = pt.StationFC;
+            
             SeriesList rval = new SeriesList();
-            Series avg30yrQU;
-            var t1 = new DateTime(waterYear, pt.ForecastMonthStart, 1);
-            var t2 = new DateTime(waterYear, pt.ForecastMonthEnd, 1).EndOfMonth();
 
             //calculate forecast of most recent month
             Series forecast = GetLatestForecast(cbtt, waterYear);
@@ -49,7 +46,73 @@ namespace FcPlot
             double forecastValue = forecast[forecastMonth - 1].Value;
             // average runoff  month - end(typically July) volume
 
-            avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", forecastMonth);
+            if (cbtt.ToLower() == "hgh")
+            {
+                var avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", 5);
+
+                // sum volume for the forecast period (may,sep)
+
+                var t = new DateTime(start.DateTime.Year, 5, 1);
+                var t2 = new DateTime(start.DateTime.Year, 9, 30);
+                double historicalAverageResidual = SumResidual(avg30yrQU, t, t2);
+                double percent = forecastValue / historicalAverageResidual;
+
+                var x = HGHTarget(pt, forecastValue, start.DateTime, t);
+                x.Name = "Forecast " + (100 * percent).ToString("F0") + "% " + (forecastValue / 1000.0).ToString("F0"); ;
+                rval.Add(x);
+                for (int i = 0; i < optionalPercents.Length; i++)
+                {
+                    var fc = historicalAverageResidual * optionalPercents[i] / 100.0;
+                    x = HGHTarget(pt, fc, start.DateTime, t);
+                    x.Name = "Target (" + optionalPercents[i].ToString("F0") + "%) " + (fc / 1000.0).ToString("F0");
+                    rval.Add(x);
+                }
+            }
+            else
+            {
+                rval.Add(GetTargets(pt, waterYear, start, optionalPercents, forecastMonth, forecastValue));
+            }
+
+            return rval;
+        }
+
+        private static Series HGHTarget(FloodControlPoint pt, double forecastValue, DateTime t1, DateTime t2)
+        {
+            HydrometRuleCurve m_ruleCurve = RuleCurveFactory.Create(pt, 7100);
+            Series target = new Series("Target");
+            
+            string flag = "";
+            DateTime t = t1;
+            while (t < t2.AddDays(-1))
+            {
+                t = t.AddDays(1).Date;
+                double val = -m_ruleCurve.LookupRequiredSpace(t, forecastValue, out flag) * pt.PercentSpace / 100 + pt.TotalUpstreamActiveSpace;
+                target.Add(t, val);
+            }
+            
+            return target;
+        }
+
+        /// <summary>
+        /// Create a list of targts
+        /// </summary>
+        /// <param name="pt"></param>
+        /// <param name="waterYear"></param>
+        /// <param name="start"></param>
+        /// <param name="optionalPercents"></param>
+        /// <param name="m_ruleCurve"></param>
+        /// <param name="t2"></param>
+        /// <param name="forecastMonth"></param>
+        /// <param name="forecastValue"></param>
+        /// <returns></returns>
+        private static SeriesList GetTargets(FloodControlPoint pt, int waterYear, Point start, int[] optionalPercents,  int forecastMonth, double forecastValue)
+        {
+            SeriesList rval = new SeriesList();
+            HydrometRuleCurve m_ruleCurve = RuleCurveFactory.Create(pt, 7100);
+            var t1 = new DateTime(waterYear, pt.ForecastMonthStart, 1);
+            var t2 = new DateTime(waterYear, pt.ForecastMonthEnd, 1).EndOfMonth();
+
+            var avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", forecastMonth);
 
             // sum volume for the forecast period
 
@@ -57,24 +120,25 @@ namespace FcPlot
             double historicalAverageResidual = SumResidual(avg30yrQU, t, t2);
             double percent = forecastValue / historicalAverageResidual;
 
-            
+
             //get thirty year average QU from daily 
             //avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", forecastMonth);
-            Series targetx = CalculateTarget(pt,percent, waterYear, start, m_ruleCurve, avg30yrQU, t2, forecastValue);
-            targetx.Name = "Forecast " + (100 * percent).ToString("F0") + "% "+(forecastValue/1000.0).ToString("F0");
+            Series targetx = CalculateTarget(pt, percent, waterYear, start, m_ruleCurve, avg30yrQU, t2, forecastValue);
+            targetx.Name = "Forecast " + (100 * percent).ToString("F0") + "% " + (forecastValue / 1000.0).ToString("F0");
             targetx.Add(start);
             rval.Add(targetx);
 
             for (int i = 0; i < optionalPercents.Length; i++)
             {
                 var fc = historicalAverageResidual * optionalPercents[i] / 100.0;
-                targetx = CalculateTarget(pt, optionalPercents[i]/100.0, waterYear, start,
-                    m_ruleCurve, avg30yrQU  
+                targetx = CalculateTarget(pt, optionalPercents[i] / 100.0, waterYear, start,
+                    m_ruleCurve, avg30yrQU
                     , t2, fc);
-                targetx.Name = "Target (" + optionalPercents[i].ToString("F0") + "%) "+(fc/1000.0).ToString("F0");
+                targetx.Name = "Target (" + optionalPercents[i].ToString("F0") + "%) " + (fc / 1000.0).ToString("F0");
                 targetx.Add(start);
                 rval.Add(targetx);
             }
+
             return rval;
         }
 
@@ -146,7 +210,10 @@ namespace FcPlot
 
         public static Series GetLatestForecast(string cbtt, Int32 waterYear)
         {
-            Series forecast = new HydrometMonthlySeries(cbtt,"FC");
+            var pc = "fc";
+            if (cbtt.ToLower() == "hgh")
+                pc = "fms";
+            Series forecast = new HydrometMonthlySeries(cbtt,pc);
             var t1 = new DateTime(waterYear, 1, 1);
             var t2 = new DateTime(waterYear, 7, 1);
             forecast.Read(t1, t2);

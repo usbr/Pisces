@@ -100,8 +100,8 @@ namespace FcPlot
                 {
                     cbttList.AddRange(OptionalCbttList(this.pcodeInitial.Text));
                 }
-                cache.Add(cbttList.ToArray(), requiredRange.DateTime1.AddDays(-1), requiredRange.DateTime2.AddDays(1), HydrometHost.PN, TimeInterval.Daily);
-                cache.Add(residForecast.MonthlyCbttPcodeList(), requiredRange.DateTime1, requiredRange.DateTime2, HydrometHost.PN, TimeInterval.Monthly);
+                cache.Add(cbttList.ToArray(), requiredRange.DateTime1.AddDays(-1), requiredRange.DateTime2.AddDays(1), HydrometHost.PNLinux, TimeInterval.Daily);
+                cache.Add(residForecast.MonthlyCbttPcodeList(), requiredRange.DateTime1, requiredRange.DateTime2, HydrometHost.PNLinux, TimeInterval.Monthly);
                 
                 // setup cache for alternate range
                 if (alternateRange.IsValid)

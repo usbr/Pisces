@@ -15,7 +15,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
     /// </summary>
     public class FloodControlPoint
     {
-
+        public string StationFC { get; set; }
         public string StationQU { get; set; }
         public string DailyStationQU { get; set; }
         public string StationQD { get; set; }
@@ -59,6 +59,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             StationQU = tbl.Rows[0]["StationQU"].ToString();
             StationQD = tbl.Rows[0]["StationQD"].ToString();
             DailyStationQU = tbl.Rows[0]["DailyStationQU"].ToString();
+            StationFC = tbl.Rows[0]["StationFC"].ToString();
 
             if (tbl.Rows[0]["FlagLegend"] != DBNull.Value)
             {
@@ -99,6 +100,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
             ForecastMonthStart = Convert.ToInt32(tbl.Rows[0]["ForecastMonthStart"].ToString());
             ForecastMonthEnd = Convert.ToInt32(tbl.Rows[0]["ForecastMonthEnd"].ToString());
+            
         }
 
         

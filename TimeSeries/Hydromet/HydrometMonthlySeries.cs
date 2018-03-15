@@ -74,7 +74,7 @@ namespace Reclamation.TimeSeries.Hydromet
         protected override Series CreateFromConnectionString()
         {
             string str = ConnectionStringToken("server");
-            HydrometHost svr = HydrometHost.PN;
+            HydrometHost svr = HydrometHost.PNLinux;
             if( str.Trim() != "")
                  svr = (HydrometHost)Enum.Parse(typeof(HydrometHost), str);
 
@@ -465,6 +465,7 @@ namespace Reclamation.TimeSeries.Hydromet
             tbl.Rows.Add("ECM", "feet");
             tbl.Rows.Add("FB", "feet");
             tbl.Rows.Add("FC", "1000 acre-feet");
+            tbl.Rows.Add("FMS", "1000 acre-feet");
             tbl.Rows.Add("FCH", "1000 acre-feet");
             tbl.Rows.Add("FCL", "1000 acre-feet");
             tbl.Rows.Add("FCM", "1000 acre-feet");
