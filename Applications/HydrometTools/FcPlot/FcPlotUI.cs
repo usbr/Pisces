@@ -119,12 +119,13 @@ namespace FcPlot
                 HydrometDailySeries.Cache = cache;
                 HydrometMonthlySeries.Cache = cache;
 
-                //compute residual forecast
+                    //compute residual forecast
                 residForecast.Compute(requiredRange.DateTime1, requiredRange.DateTime2);
                 requiredContent = -residForecast.SpaceRequired + pt.TotalUpstreamActiveSpace;
                 actualContent = residForecast.TotalContent;
                 requiredContent.Name = this.textBoxWaterYear.Text;
                 actualContent.Name = this.textBoxWaterYear.Text + " Actual";
+
                 if (this.pcodeInitial.Text.Length >= 1)
                 {
                     hmList = ReadHydrometOptionalData(Convert.ToInt32(this.textBoxWaterYear.Text), this.pcodeInitial.Text, requiredRange);
@@ -145,7 +146,7 @@ namespace FcPlot
                     }
                 }
 
-                if (showGreenLines.Checked == true)
+                if (showGreenLines.Checked == true) // display flood rule curves for various forecast levels
                 {
                     showRuleCurve = true;
                     // Green lines

@@ -87,7 +87,8 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             }
             Report.Add(qd);
             Report.Add(qu);
-            Report.Add(Residual);
+            if( controlPoint.StationFC.ToLower() != "hgh")
+               Report.Add(Residual);
             Report.Add(Space);
             Report.Add(SpaceRequired);
             Report.Add(diff);
@@ -141,6 +142,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
                 if (controlPoint.FillType == FillType.Variable)
                 {
                     resid = ResetResidualBasedOnForecast(t, resid);
+
                     if (resid != HydrometRuleCurve.MissingValue && t <= qu.MaxDateTime)
                     {
                         var quTemp = qu[t].Value;
@@ -186,8 +188,9 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             }
         }
 
-        
 
+
+        double m_fc = 0; // forecast value.
 
         private double ResetResidualBasedOnForecast(DateTime t, double resid)
         {
@@ -196,7 +199,10 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
                 if (fc.IndexOf(t) >= 0)
                 {
                     if (!fc[t].IsMissing)
+                    {
+                        m_fc = fc[t].Value; 
                         resid = fc[t].Value;
+                    }
                 }
             }
             else if (t.Day == 16) // check for mid month forecast
@@ -205,9 +211,16 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
                 if (fcm.IndexOf(tm) >= 0)
                 {
                     if (!fcm[tm].IsMissing)
-                        resid = fcm[tm].Value;
+                    {
+                        m_fc = fcm[t].Value;
+                        resid = fcm[t].Value;
+                    }
                 }
             }
+
+            if (this.controlPoint.StationFC.ToLower() == "hgh")
+                return m_fc;
+
             return resid;
         }
 
