@@ -165,7 +165,7 @@ namespace Reclamation.TimeSeries.Hydromet
         public static HydrometHost HydrometServerFromString(string server)
         {
             if (server == "")
-                return HydrometHost.PN; 
+                return HydrometHost.PNLinux; 
 
             HydrometHost rval = (HydrometHost)Enum.Parse(typeof(HydrometHost), server, true);
             return rval;

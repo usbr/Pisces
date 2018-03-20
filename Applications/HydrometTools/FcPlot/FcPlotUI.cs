@@ -111,8 +111,8 @@ namespace FcPlot
                     {
                         cbttListAlternate.AddRange(OptionalCbttList(this.pcodeComparison.Text));
                     }
-                    cache.Add(cbttListAlternate.ToArray(), alternateRange.DateTime1.AddDays(-1), alternateRange.DateTime2.AddDays(1), HydrometHost.PN, TimeInterval.Daily);
-                    cache.Add(residForecast.MonthlyCbttPcodeList(), alternateRange.DateTime1.AddDays(-1), alternateRange.DateTime2.AddDays(1), HydrometHost.PN, TimeInterval.Monthly);
+                    cache.Add(cbttListAlternate.ToArray(), alternateRange.DateTime1.AddDays(-1), alternateRange.DateTime2.AddDays(1), HydrometHost.PNLinux, TimeInterval.Daily);
+                    cache.Add(residForecast.MonthlyCbttPcodeList(), alternateRange.DateTime1.AddDays(-1), alternateRange.DateTime2.AddDays(1), HydrometHost.PNLinux, TimeInterval.Monthly);
                 }
                 
                 //add cache

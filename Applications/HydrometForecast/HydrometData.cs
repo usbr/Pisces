@@ -65,24 +65,24 @@ namespace HydrometForecast
                                      new DateTime(t.Year - 1, 1, 1),
                                      new DateTime(t.Year, 12, 31), s_server);
             }
-            if (cacheAverage) // get average values (special water year 9999 )
-            {
-                // TO DO... change pcode to average pcode....
-                var avgCodes = new List<string>();
-                for (int i = 0; i < cbttPcodeList.Length; i++)
-                {
-                    string[] tokens = cbttPcodeList[i].Split();
-                    var pc = HydrometMonthlySeries.LookupAveargePcode(tokens[1]);
-                    if( pc.Trim() != "")
-                       avgCodes.Add(tokens[0] + " " + pc);
-                }
+            //if (cacheAverage) // get average values (special water year 9999 )
+            //{
+            //    // TO DO... change pcode to average pcode....
+            //    var avgCodes = new List<string>();
+            //    for (int i = 0; i < cbttPcodeList.Length; i++)
+            //    {
+            //        string[] tokens = cbttPcodeList[i].Split();
+            //        var pc = HydrometMonthlySeries.LookupAveargePcode(tokens[1]);
+            //        if( pc.Trim() != "")
+            //           avgCodes.Add(tokens[0] + " " + pc);
+            //    }
 
-                Logger.WriteLine("Caching Hydromet Data for average years");
-                cache.Add(avgCodes.ToArray(),
-                                   new DateTime(9998, 10, 1),
-                                   new DateTime(9999, 9, 30), HydrometHost.PN);
+            //    Logger.WriteLine("Caching Hydromet Data for average years");
+            //    cache.Add(avgCodes.ToArray(),
+            //                       new DateTime(9998, 10, 1),
+            //                       new DateTime(9999, 9, 30), HydrometHost.PN);
 
-            }
+            //}
             HydrometMonthlySeries.Cache = cache;
             
             // Anderson forecast without cache  8 seconds.

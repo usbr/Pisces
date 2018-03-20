@@ -57,7 +57,7 @@ namespace Reclamation.TimeSeries.Hydromet
 
         public HydrometInstantSeries(string cbtt, string pcode)
         {
-            Init(cbtt, pcode, HydrometHost.PN);
+            Init(cbtt, pcode, HydrometHost.PNLinux);
         }
         public HydrometInstantSeries(TimeSeriesDatabase db, TimeSeriesDatabaseDataSet.SeriesCatalogRow sr)
             : base(db, sr)

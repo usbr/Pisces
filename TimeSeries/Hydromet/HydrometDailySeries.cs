@@ -359,7 +359,7 @@ namespace Reclamation.TimeSeries.Hydromet
                         select row.Field<string>("cbtt")
                           +" "+  row.Field<string>("pcode");
                            
-           Cache.Add(query.ToArray(),t1,t2, HydrometHost.PN,TimeInterval.Daily);
+           Cache.Add(query.ToArray(),t1,t2, HydrometHost.PNLinux,TimeInterval.Daily);
 
         }
 

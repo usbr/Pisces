@@ -43,7 +43,7 @@ END DATA
             DateTime t1 = new DateTime(2004, 1, 1);
             DateTime t2 = new DateTime(2004, 1, 2);
 
-            Series s = HydrometInfoUtility.Read("jck", "af", t1, t2, TimeInterval.Irregular, HydrometHost.PN);
+            Series s = HydrometInfoUtility.Read("jck", "af", t1, t2, TimeInterval.Irregular, HydrometHost.PNLinux);
             s.WriteToConsole();
             Assert.AreEqual(192, s.Count, "number of records read");
             //  143482.03 

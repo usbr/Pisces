@@ -21,7 +21,7 @@ namespace Reclamation.TimeSeries.AgriMet
         /// <param name="cbttList">list of cbtt to create charts for</param>
         /// <param name="year">year used to filter database of crop dates</param>
         /// <param name="date">terminate date (or if null use etr terminate date)</param>
-        public static void CreateCropReports(int year, string outputDirectory, HydrometHost host=HydrometHost.PN)
+        public static void CreateCropReports(int year, string outputDirectory, HydrometHost host=HydrometHost.PNLinux)
         {
             s_host = host;
             CropDatesDataSet.CropDatesDataTable  cropTable= new CropDatesDataSet.CropDatesDataTable();

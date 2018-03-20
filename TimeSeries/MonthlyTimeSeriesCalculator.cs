@@ -152,7 +152,7 @@ namespace Reclamation.TimeSeries
                 var query = s.SiteID + " " + String.Join("," + s.SiteID + " ", pcodes);
                 var pairs = query.Split(',');
                // 
-                HydrometInstantSeries.Cache.Add(pairs, t1, t2a, HydrometHost.PN, TimeInterval.Irregular);
+                HydrometInstantSeries.Cache.Add(pairs, t1, t2a, HydrometHost.PNLinux, TimeInterval.Irregular);
 
                 visitedSites.Add(tag);
                 Console.WriteLine(s.SiteID + " added to the cache");
@@ -167,7 +167,7 @@ namespace Reclamation.TimeSeries
                 var pairs = query.Split(',');
 
                 //HydrometDailySeries.Cache = new HydrometDataCache(); // clear out and make new cache.
-                HydrometDailySeries.Cache.Add(pairs, t1, t2a, HydrometHost.PN, TimeInterval.Daily);
+                HydrometDailySeries.Cache.Add(pairs, t1, t2a, HydrometHost.PNLinux, TimeInterval.Daily);
 
                 visitedSites.Add(tag);
                 Console.WriteLine(s.SiteID + " added to the cache");

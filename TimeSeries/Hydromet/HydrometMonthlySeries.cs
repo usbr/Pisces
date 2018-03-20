@@ -36,7 +36,7 @@ namespace Reclamation.TimeSeries.Hydromet
 
         string m_cbtt;
         string m_pcode;
-        HydrometHost server = HydrometHost.PN;
+        HydrometHost server = HydrometHost.PNLinux;
         public HydrometMonthlySeries(string cbtt, string pcode, HydrometHost server=HydrometHost.PNLinux)
         {
             this.TimeInterval = TimeSeries.TimeInterval.Monthly;
