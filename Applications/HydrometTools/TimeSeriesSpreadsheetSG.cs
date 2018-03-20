@@ -178,6 +178,12 @@ namespace HydrometTools
             string msg = "";
             try
             {
+                var db = Database.DB();
+                if (db == null)
+                {
+                    MessageBox.Show("Error connecting to the database.  Please check your password");
+                    return;
+                }
 
                 SpreadsheetRange ssRng = new SpreadsheetRange(wbView.RangeSelection);
                 var colNames = ssRng.SelectedRangeColumnNames;
@@ -193,7 +199,6 @@ namespace HydrometTools
                     var cbtt = tokens[0];
                     var pcode = tokens[1];
 
-                    var db = Database.DB();
                     var s = db.GetCalculationSeries(cbtt, pcode, interval);
 
                         if (s != null)
@@ -216,9 +221,16 @@ namespace HydrometTools
         void calculateMenu_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
-
+            
             try
             {
+                var db = Database.DB();
+                if (db == null)
+                {
+                    MessageBox.Show("Error connecting to the database.  Please check your password");
+                    return;
+                }
+
 
                 SpreadsheetRange ssRng = new SpreadsheetRange(wbView.RangeSelection);
                 var colNames = ssRng.SelectedRangeColumnNames;
