@@ -551,11 +551,11 @@ namespace HydrometTools
             // Delete any existing formats in the collection.
             conditions.Delete();
 
-            string formula = "=C2=\"e\"";
-            formula = formula.Replace("C", flagColumn);
+            string formula = "=OR(C2=\"e\",C2=\"C\")";
+            formula = formula.Replace("C2", flagColumn+"2");
             SpreadsheetGear.IFormatCondition condition = conditions.Add(
                 SpreadsheetGear.FormatConditionType.Expression,
-                SpreadsheetGear.FormatConditionOperator.Between, "="+flagColumn+"2=\"e\"", null);
+                SpreadsheetGear.FormatConditionOperator.Between, formula, null);
 
             condition.Font.Color = System.Drawing.Color.Black;
             condition.Interior.Color = System.Drawing.Color.Chartreuse;
