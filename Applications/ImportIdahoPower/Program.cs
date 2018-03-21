@@ -27,16 +27,23 @@ namespace ImportIdahoPower
             var hoursBack = Convert.ToInt32(args[2]);
             for (int i = 0; i < csv.Rows.Count; i++)
             {
-                var row = csv.Rows[i];
-                var id = row["id"].ToString();
-                if(id.Trim() == "")
+                try
                 {
-                    continue;
+                    var row = csv.Rows[i];
+                    var id = row["id"].ToString();
+                    if (id.Trim() == "")
+                    {
+                        continue;
+                    }
+                    Console.WriteLine(row["name"]);
+
+                    Series s = GetData(id, hoursBack);
+                    SaveToFile(row, s, dir);
                 }
-                Console.WriteLine(row["name"]);
-                
-                Series s = GetData(id,hoursBack);
-                SaveToFile(row, s,dir);
+                catch(Exception e)
+                {
+                    Console.WriteLine("Error "+e.Message);
+                }
             }
         }
 

@@ -1,0 +1,8 @@
+sitenumber,interval,"ipc_code",cbtt,pcode,id,name,,,,
+1321919001,instant,,mhro,q,18980,"Malheur River nr Namorf, OR  - flow",,,,
+1321919001,instant,,mhro,gh,20172,"Malheur River nr Namorf, OR -- guage height",,,,
+1322700001,instant,,bulo,q,18982,"Bully Creek near Vale, OR  - flow",,,,
+1322100001,instant,,mavo,q,18981,"MALHUER RIVER AT VINES CANYON NEAR VALE, OR - flow",,,,
+1322100001,instant,,mavo,gh,20174,"MALHUER RIVER AT VINES CANYON NEAR VALE, OR - guage height",,,,
+13087505,instant,,MHPI,Q,18943, Milner Power Plant,,,,
+13088000,instant,,MILI,QT,18941,Total Combined Flow MILI Q + MHPI QE + MHPI QZ,,,,
