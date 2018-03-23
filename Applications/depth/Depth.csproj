@@ -123,8 +123,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="License-LGPL.txt" />
+    <Content Include="samples\etcw.txt" />
     <Content Include="samples\test1.txt" />
     <Content Include="samples\test2.txt" />
+    <Content Include="samples\yrww.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
