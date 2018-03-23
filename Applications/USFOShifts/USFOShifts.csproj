@@ -72,6 +72,11 @@
       <Name>Reclamation.TimeSeries</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="site_list.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

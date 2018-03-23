@@ -31,9 +31,7 @@ namespace USFOShifts
             string cleanFile = args[0];
             string oldFile = args[1];
 
-            string[] cbtt = {"AFCI","BFCI","BMCI","CBCI","CRCI","ELCI","ENTI","GWCI","IDCI","LABI","LPPI",
-                                "MIII","MLCI","MPCI","NMCI","OSCI","PLCI","RECI","RSDI","SMCI","SNDI","TCNI",
-                                "TRCI","WACI"};
+            string[] cbtt = File.ReadAllLines("site_list.txt");
 
 
             //would store the old csv file in the attic and check it against yesterdays shifts
@@ -76,6 +74,7 @@ namespace USFOShifts
 
             for (int i = 0; i < cbtt.Length; i++)
             {
+                Console.WriteLine("cbtt='"+cbtt[i]+"'");
                 var tblNew = DataTableUtility.Select(csvNew, "cbtt='" + cbtt[i] + "'", "date_measured");
                 var tblOld = DataTableUtility.Select(csvOld, "cbtt='" + cbtt[i] + "'", "date_measured");
                 if(tblNew.Rows.Count > 0)
