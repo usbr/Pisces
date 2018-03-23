@@ -124,8 +124,8 @@ namespace FcPlot
             //get thirty year average QU from daily 
             //avg30yrQU = Get30YearAverageSeries(pt.DailyStationQU, "qu", forecastMonth);
             Series targetx = CalculateTarget(pt, percent, waterYear, start, m_ruleCurve, avg30yrQU, t2, forecastValue);
-            targetx.Name = "Forecast " + (100 * percent).ToString("F0") + "% " + (forecastValue / 1000.0).ToString("F0");
-            targetx.Add(start);
+            targetx.Name = "Forecast (" + (100 * percent).ToString("F0") + "%)" + (forecastValue / 1000.0).ToString("F0");
+            //targetx.Add(start);
             rval.Add(targetx);
 
             for (int i = 0; i < optionalPercents.Length; i++)
@@ -134,8 +134,8 @@ namespace FcPlot
                 targetx = CalculateTarget(pt, optionalPercents[i] / 100.0, waterYear, start,
                     m_ruleCurve, avg30yrQU
                     , t2, fc);
-                targetx.Name = "Target (" + optionalPercents[i].ToString("F0") + "%) " + (fc / 1000.0).ToString("F0");
-                targetx.Add(start);
+                targetx.Name = "Target (" + optionalPercents[i].ToString("F0") + "%) ";
+                //targetx.Add(start);
                 rval.Add(targetx);
             }
 
@@ -162,23 +162,24 @@ namespace FcPlot
 
         private static Series CalculateTarget(FloodControlPoint pt, double percent,
              int waterYear,
-            Point start, HydrometRuleCurve m_ruleCurve, Series avg30yrQU, 
+            Point start, HydrometRuleCurve m_ruleCurve, Series avg30yrQU,
              DateTime t2, double forecastValue)
         {
-            double runoffSum = 0;
+            //double runoffSum = 0;
             string flag = "";
             Series s = new Series();
             Series residual = new Series();
-            for (int i = 0; i < avg30yrQU.Count(); i++)
-            { // compute forecast runoff
-                var t = avg30yrQU[i].DateTime;
-                if (t > start.DateTime && t <= t2 && !avg30yrQU[i].IsMissing)
-                {
-                    runoffSum += avg30yrQU[i].Value * 1.98347*percent;
-                    var d = forecastValue - runoffSum; ;
-                    residual.Add(avg30yrQU[i].DateTime, d);
-                }
+            DateTime t = start.DateTime;
+
+            while (t <= t2)
+            {
+                int idx = avg30yrQU.IndexOf(t);
+                var sum = SumResidual(avg30yrQU, t, t2) * percent;
+                residual.Add(t, sum);
+                t = t.AddDays(1);
             }
+
+
 
             for (int i = 0; i < residual.Count(); i++)
             { // lookup space requirement in reservoir rule curve
