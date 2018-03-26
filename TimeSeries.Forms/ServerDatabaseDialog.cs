@@ -36,7 +36,7 @@ namespace Reclamation.TimeSeries.Forms
             clearItems = dashes + "  clear items  " + dashes;
 
             LoadDatabaseList();
-            this.labelUserName.Text = Environment.UserName.ToLower();
+            this.labeluserprompt.Text = "username (default='" + Environment.UserName.ToLower() + "')";
         }
 
         private void LoadDatabaseList()
@@ -61,6 +61,8 @@ namespace Reclamation.TimeSeries.Forms
             comboBox1.SelectedItem = s;
             comboBox1_SelectionChangeCommitted(comboBox1, EventArgs.Empty);
         }
+
+        public string User { get { return this.textBoxUser.Text; } }
 
         public string ServerName
         {
