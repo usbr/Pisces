@@ -15,7 +15,6 @@ namespace Pisces.NunitTests.Import
     {
 
         [Test]
-        //[Ignore("Until test data paths can be reliably resolved on Linux")]
         public void ImportDirectory()
         {
             var dir = Path.Combine(TestData.DataPath, "Scenarios", "dir_import");

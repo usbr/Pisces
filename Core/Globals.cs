@@ -10,7 +10,6 @@ namespace Reclamation.Core
 
     public static class Globals
     {
-        private static string s_testData = "";
         private static string s_cfgData = "";
 
         /// <summary>
@@ -20,24 +19,18 @@ namespace Reclamation.Core
         { 
             get
             {
-                if (s_testData != "")
-                    return s_testData;
+                string dir = System.AppDomain.CurrentDomain.BaseDirectory;
 
-                //string dir = Path.Combine(GetPathAbove("Pisces"), "PiscesTestData", "data");
-                // HACK
-                string dir = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "PiscesTestData", "data");
-                if (!Directory.Exists(dir))
+                int idx = dir.IndexOf("Pisces");
+
+                if( idx >= 0)
                 {
-                    dir = Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "PiscesTestData", "data");
+                    dir = dir.Substring(0, idx + "Pisces".Length);
                 }
 
-                if (!Directory.Exists(dir))
-                {
-                    dir = Path.Combine("/var", "tmp", "PiscesTestData", "data");
-                }
+                dir = Path.Combine(dir, "PiscesTestData", "data");
 
-                s_testData = dir;
-                return s_testData;
+                return dir;
             }
         }
 

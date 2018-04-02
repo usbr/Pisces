@@ -12,21 +12,13 @@ using System.Configuration;
 namespace Pisces.NunitTests.SeriesMath
 {
     [TestFixture]
-    [Ignore("Until paths to rating tables can be reliably resolved on Linux")]
     public class TestRatingTable
     {
         private string path;
 
         public TestRatingTable()
         {
-            if (LinuxUtility.IsLinux())
-            {
-                path = "/var/tmp/PiscesTestData";
-            }
-            else
-            {
-                path = Globals.TestDataPath;
-            }
+           path = Globals.TestDataPath;
         }
 
         [Test]
