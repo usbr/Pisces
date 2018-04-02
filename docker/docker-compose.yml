@@ -3,7 +3,7 @@ services:
   app:
     image: hello-world
     ports:
-      - "8000:8000"
+      - "80:80"
   db:
     image: pg
     ports:

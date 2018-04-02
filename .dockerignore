@@ -1,0 +1,7 @@
+.git
+.cache
+*.exe
+*.dll
+*/packages*
+*/PiscesTestData*
+*/Applications*
