@@ -68,7 +68,7 @@ END DATA
             var s = new HydrometDailySeries("jck", "qd");
             s.Read(new DateTime(2007, 10, 1), new DateTime(2007, 10, 5));
 
-            Assert.IsTrue(s.Count == 5);
+            Assert.IsTrue(s.Count == 5, " expected 5 points in jck_qu. number fount=" + s.Count);
             Assert.AreEqual(1910.0, s["2007-10-1"].Value);
         }
 
