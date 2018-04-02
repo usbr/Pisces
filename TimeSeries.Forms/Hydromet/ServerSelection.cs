@@ -63,12 +63,9 @@ namespace Reclamation.TimeSeries.Forms.Hydromet
         private void ReadSettings()
         {
             var svr = HydrometInfoUtility.HydrometServerFromPreferences();
-            if (svr == HydrometHost.PN)
-            {
-                this.radioButtonPnHydromet.Checked = true;
-            }
-            else
-                if (svr == HydrometHost.PNLinux)
+
+            // retiring PN 
+           if (svr == HydrometHost.PNLinux || svr == HydrometHost.PN)
             {
                 this.radioButtonBoiseLinux.Checked = true;
             }
