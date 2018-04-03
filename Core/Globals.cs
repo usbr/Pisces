@@ -10,8 +10,6 @@ namespace Reclamation.Core
 
     public static class Globals
     {
-        private static string s_cfgData = "";
-
         /// <summary>
         /// Returns Test data path, in the source code tree.
         /// </summary>
@@ -48,41 +46,12 @@ namespace Reclamation.Core
         {
             get
             {
-                if (s_cfgData != "")
-                    return s_cfgData;
-
-                string dir = Path.Combine(GetPathAbove("Pisces"), "Applications", "cfg");
-                Logger.WriteLine(dir);
-
-                s_cfgData = dir;
-                return s_cfgData;
+                string dir = GetPiscesDir();
+                dir = Path.Combine(dir, "Applications", "cfg");
+                return dir;
             }
         }
 
-
-        private static string GetPathAbove(string part)
-        {
-            string rval = "";
-            //asmList[6].CodeBase
-            //file:///C:/Users/KTarbet/Documents/project/Pisces/Core/bin/x86/Debug/Reclamation.Core.DLL
-            //Reclamation.Core, Version=2.0.0.10, Culture=neutral, PublicKeyToken=null
-            var asmList = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (Assembly item in asmList)
-            {
-                if (item.FullName.IndexOf("Reclamation.Core") == 0)
-                {
-                    Uri u = new Uri(item.CodeBase);
-                    var dir = u.AbsolutePath.Replace("%20", " ");
-                    int idx = dir.ToLower().LastIndexOf(part.ToLower() + "/");
-                    if (idx > 0)
-                        dir = dir.Substring(0, idx + part.Length); // include 'pisces'
-                    
-                    rval = Path.GetFullPath(dir);
-                    break;
-                }
-            }
-            return rval;
-        }
 
 
         public static string LocalConfigurationDataPath {
@@ -94,24 +63,6 @@ namespace Reclamation.Core
                 if (s == null || s == "")
                 {
                     Logger.WriteLine("Error: LocalConfigurationDataPath is not defined in the config file");
-                    return "";
-                }
-
-                return s;
-
-            }
-        }
-
-        public static string LocalConfigurationDataPath2
-        {
-
-            get
-            {
-
-                var s = ConfigurationManager.AppSettings["LocalConfigurationDataPath2"];
-                if (s == null || s == "")
-                {
-                    Logger.WriteLine("LocalConfigurationDataPath2 is not defined in the config file");
                     return "";
                 }
 

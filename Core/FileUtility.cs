@@ -440,10 +440,6 @@ namespace Reclamation.Core
             list.AddLast(Path.Combine(GetExecutableDirectory(), "cfg", filename));
             list.AddLast(Path.Combine(Globals.CfgDataPath, filename));
             list.AddLast(Path.Combine(Globals.LocalConfigurationDataPath, filename));
-            list.AddLast(Path.Combine(Globals.LocalConfigurationDataPath2, filename));
-            // Extremely hacky hacks I'd like to get rid of
-            list.AddLast(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "Metadata", filename));
-            list.AddLast(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "Metadata", filename));
 
             foreach (string path in list)
             {
