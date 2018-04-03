@@ -19,19 +19,26 @@ namespace Reclamation.Core
         { 
             get
             {
-                string dir = System.AppDomain.CurrentDomain.BaseDirectory;
-
-                int idx = dir.IndexOf("Pisces");
-
-                if( idx >= 0)
-                {
-                    dir = dir.Substring(0, idx + "Pisces".Length);
-                }
+                string dir = GetPiscesDir();
 
                 dir = Path.Combine(dir, "PiscesTestData", "data");
 
                 return dir;
             }
+        }
+
+        private static string GetPiscesDir()
+        {
+            string dir = System.AppDomain.CurrentDomain.BaseDirectory;
+
+            int idx = dir.ToLower().IndexOf("pisces");
+
+            if (idx >= 0)
+            {
+                dir = dir.Substring(0, idx + "Pisces".Length);
+            }
+
+            return dir;
         }
 
         /// <summary>
