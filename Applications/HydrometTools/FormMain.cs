@@ -521,24 +521,32 @@ namespace HydrometTools
             }
             else
                 if (tabControl1.SelectedTab == tabPageDay && dayEditor == null)
-                {
-                    dayEditor = new TimeSeriesEditor(TimeInterval.Irregular);
-                    dayEditor.Parent = tabPageDay;
-                    dayEditor.Dock = DockStyle.Fill;
-                }
-                else
+            {
+                dayEditor = new TimeSeriesEditor(TimeInterval.Irregular);
+                dayEditor.Parent = tabPageDay;
+                dayEditor.Dock = DockStyle.Fill;
+            }
+            else
                     if (tabControl1.SelectedTab == tabPageMPoll && mpollEditor == null)
-                    {
-                        HydrometHost svr = HydrometInfoUtility.HydrometServerFromPreferences();
-                        
-                            mpollEditor = new TimeSeriesEditor(TimeInterval.Monthly);
-                            mpollEditor.Parent = tabPageMPoll;
-                            mpollEditor.Dock = DockStyle.Fill;
-                    }
-                    else if (tabControl1.SelectedTab == tabPageSetup)
-                    {
+            {
+                HydrometHost svr = HydrometInfoUtility.HydrometServerFromPreferences();
+
+                mpollEditor = new TimeSeriesEditor(TimeInterval.Monthly);
+                mpollEditor.Parent = tabPageMPoll;
+                mpollEditor.Dock = DockStyle.Fill;
+            }
+            else if (tabControl1.SelectedTab == tabPageSetup)
+            {
+                if (setup1 == null)
+                {
+                    setup1 = new Settings();
+                    setup1.Parent = tabPageSetup;
+                    setup1.Dock = DockStyle.Fill;
+                }
+
+
                         setup1.ReadUserPref();
-                    }
+               }
                     //else if( tabControl1.SelectedTab == tabPageGraphTool && graphTabs == null)
                     //{
                     //    graphTabs = new Graphing.GraphingTabs();

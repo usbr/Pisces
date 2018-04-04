@@ -9,10 +9,11 @@ using Reclamation.TimeSeries.Forms.Alarms;
 
 namespace HydrometTools
 {
-	/// <summary>
-	/// Summary description for Setup.
-	/// </summary>
-	public class Settings : System.Windows.Forms.UserControl	{
+    /// <summary>
+    ///  Settings user interface allows choosing database, and entering password
+    ///  and other miscellaneous options
+    /// </summary>
+    public class Settings : System.Windows.Forms.UserControl	{
         private CheckBox checkBoxHideStatus;
         private CheckBox checkBoxCompute;
         private GroupBox groupBox2;
