@@ -184,5 +184,60 @@ namespace HydrometTools
             var rval = tbl.Rows[0]["report"].ToString();
             return rval;
         }
+
+        public static void InsertShift(string cbtt, string pcode, System.DateTime date_measured, double? discharge, double? gage_height, double shift, string comments, System.DateTime date_entered)
+        {
+            string sql = "select * from shifts where 2=1";
+            var svr = GetServer("hydromet");
+            DataTable shiftsDataTable = svr.Table("shifts",sql);
+
+            var shiftsRow = shiftsDataTable.NewRow();
+            shiftsRow["id"] = 0;
+            shiftsRow["cbtt"] = cbtt.ToUpper();
+            shiftsRow["pcode"] = pcode.ToUpper();
+            shiftsRow["date_measured"] = date_measured;
+            if (discharge.HasValue)
+            {
+                shiftsRow["discharge"] = discharge;
+            }
+            if (gage_height.HasValue)
+            {
+                shiftsRow["stage"] = gage_height;
+            }
+            shiftsRow["shift"] = shift;
+            shiftsRow["comments"] = comments;
+            shiftsRow["username"] = Environment.UserName.ToLower();
+            shiftsRow["date_entered"] = date_entered;
+            shiftsDataTable.Rows.Add(shiftsRow);
+            svr.SaveTable(shiftsDataTable);
+        }
+
+
+        public static DataTable GetShiftsTable(string cbtt = "")
+        {
+            string sql;
+            if (cbtt == "ALL")
+            {
+                sql = "select * from shifts order by date_entered DESC, date_measured DESC";
+            }
+            else
+            {
+                sql = "select * from shifts where cbtt = '" + cbtt + "' order by date_entered DESC, date_measured DESC LIMIT 20";
+            }
+            return GetServer("hydromet").Table("shifts", sql);
+        }
+
+        public static DataTable GetAllShifts()
+        {
+            string sql = "select * from shifts order by date_entered DESC, date_measured DESC";
+            return GetServer("hydromet").Table("shifts", sql);
+        }
+
+        public static DataTable GetDailyShifts(System.DateTime PreviousDay)
+        {
+            string sql = "select * from shifts where date_entered >'" + PreviousDay + "' order by date_entered";
+            return GetServer("hydromet").Table("shifts", sql);
+        }
+
     }
 }

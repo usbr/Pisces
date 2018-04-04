@@ -56,6 +56,7 @@ namespace HydrometTools
         private TabPage tabPageFdrImport;
         private Import.ImportFDRTemperature importFDRTemperature1;
         private TabPage tabPageRecords;
+        private TabPage tabPageShifts;
         private FcPlot.FcPlotUI fcUi;
 
 		public FormMain()
@@ -146,9 +147,9 @@ namespace HydrometTools
             this.tabPageDay = new System.Windows.Forms.TabPage();
             this.tabPageArc = new System.Windows.Forms.TabPage();
             this.tabPageMPoll = new System.Windows.Forms.TabPage();
+            this.tabPageRecords = new System.Windows.Forms.TabPage();
             this.tabPageSnowGG = new System.Windows.Forms.TabPage();
             this.tabPageSetup = new System.Windows.Forms.TabPage();
-            this.setup1 = new HydrometTools.Settings();
             this.tabPageUpdater = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPageDailyImport = new System.Windows.Forms.TabPage();
@@ -163,9 +164,8 @@ namespace HydrometTools
             this.tabPageReports = new System.Windows.Forms.TabPage();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tabPageRecords = new System.Windows.Forms.TabPage();
+            this.tabPageShifts = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
-            this.tabPageSetup.SuspendLayout();
             this.tabPageUpdater.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPageRating.SuspendLayout();
@@ -188,6 +188,7 @@ namespace HydrometTools
             this.tabControl1.Controls.Add(this.tabPageHydrographEditor);
             this.tabControl1.Controls.Add(this.tabPageStats);
             this.tabControl1.Controls.Add(this.tabPageReports);
+            this.tabControl1.Controls.Add(this.tabPageShifts);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -226,6 +227,16 @@ namespace HydrometTools
             this.tabPageMPoll.Text = "Monthly";
             this.tabPageMPoll.UseVisualStyleBackColor = true;
             // 
+            // tabPageRecords
+            // 
+            this.tabPageRecords.Location = new System.Drawing.Point(4, 22);
+            this.tabPageRecords.Name = "tabPageRecords";
+            this.tabPageRecords.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageRecords.Size = new System.Drawing.Size(934, 496);
+            this.tabPageRecords.TabIndex = 17;
+            this.tabPageRecords.Text = "Daily Records";
+            this.tabPageRecords.UseVisualStyleBackColor = true;
+            // 
             // tabPageSnowGG
             // 
             this.tabPageSnowGG.Location = new System.Drawing.Point(4, 22);
@@ -238,7 +249,6 @@ namespace HydrometTools
             // 
             // tabPageSetup
             // 
-            this.tabPageSetup.Controls.Add(this.setup1);
             this.tabPageSetup.Location = new System.Drawing.Point(4, 22);
             this.tabPageSetup.Name = "tabPageSetup";
             this.tabPageSetup.Padding = new System.Windows.Forms.Padding(3);
@@ -246,14 +256,6 @@ namespace HydrometTools
             this.tabPageSetup.TabIndex = 3;
             this.tabPageSetup.Text = "settings";
             this.tabPageSetup.UseVisualStyleBackColor = true;
-            // 
-            // setup1
-            // 
-            this.setup1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.setup1.Location = new System.Drawing.Point(3, 3);
-            this.setup1.Name = "setup1";
-            this.setup1.Size = new System.Drawing.Size(928, 490);
-            this.setup1.TabIndex = 0;
             // 
             // tabPageUpdater
             // 
@@ -391,15 +393,15 @@ namespace HydrometTools
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
-            // tabPageRecords
+            // tabPageShifts
             // 
-            this.tabPageRecords.Location = new System.Drawing.Point(4, 22);
-            this.tabPageRecords.Name = "tabPageRecords";
-            this.tabPageRecords.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageRecords.Size = new System.Drawing.Size(934, 496);
-            this.tabPageRecords.TabIndex = 17;
-            this.tabPageRecords.Text = "Daily Records";
-            this.tabPageRecords.UseVisualStyleBackColor = true;
+            this.tabPageShifts.Location = new System.Drawing.Point(4, 22);
+            this.tabPageShifts.Name = "tabPageShifts";
+            this.tabPageShifts.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageShifts.Size = new System.Drawing.Size(934, 496);
+            this.tabPageShifts.TabIndex = 18;
+            this.tabPageShifts.Text = "Shifts";
+            this.tabPageShifts.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -415,7 +417,6 @@ namespace HydrometTools
             this.Name = "FormMain";
             this.Text = "Hydromet/AgriMet Tools";
             this.tabControl1.ResumeLayout(false);
-            this.tabPageSetup.ResumeLayout(false);
             this.tabPageUpdater.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPageRating.ResumeLayout(false);
@@ -497,6 +498,7 @@ namespace HydrometTools
         private SnowGG.SnowGG snowGG1;
         private ImportDaily import1;
         DailyRecordWorkup records;
+        private Shift.ShiftInput shifts;
         private void UpdateTabs()
         {
 
@@ -597,7 +599,12 @@ namespace HydrometTools
 
             }
 
-
+            if( tabControl1.SelectedTab == tabPageShifts && shifts == null)
+            {
+                shifts = new Shift.ShiftInput();
+                shifts.Parent = tabPageShifts;
+                shifts.Dock = DockStyle.Fill;
+            }
 
             if (tabPageFcplot == null 
                 && FcPlotDataSet.HasRuleCurves())

@@ -385,6 +385,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="ShiftInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="SpreadsheetRange.cs" />
     <Compile Include="ssh\SecureCopy.cs" />
     <Compile Include="ssh\Utility.cs" />
@@ -600,6 +603,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SaveOptions.resx">
       <DependentUpon>SaveOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShiftInput.resx">
+      <DependentUpon>ShiftInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stats\MaxStat.resx">
       <DependentUpon>MaxStat.cs</DependentUpon>
