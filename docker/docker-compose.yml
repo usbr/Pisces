@@ -1,14 +1,28 @@
-version: "3"
+# Use postgres/example user/password credentials
+version: '3.1'
+
 services:
-  app:
-    image: hello-world
-    ports:
-      - "80:80"
+
   db:
-    image: postgres
+    image: postgres:9
     restart: always
-    environment: 
+    environment:
       POSTGRES_PASSWORD: hydromet
     ports:
-      - "5432:5432"
-    restart: 'always'
+      - 5432:5432
+   
+    volumes:
+      - c:\data\db:/data/db
+
+      
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+   
+  master:
+    image: master 
+      
+  
+   
