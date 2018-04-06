@@ -22,9 +22,9 @@ PNLinux,Irregular,recnet,http://lrgs1.pn.usbr.gov/pn-bin/api/instant
 PNLinux,Daily,recnet,http://lrgs1.pn.usbr.gov/pn-bin/api/daily
 PNLinux,Monthly,recnet,http://lrgs1.pn.usbr.gov/pn-bin/api/monthly
 
-PNLinux,Irregular,www,https://www.usbr.gov/pn-bin/instant.pl
-PNLinux,Daily,www,https://www.usbr.gov/pn-bin/daily.pl
-PNLinux,Monthly,www,https://www.usbr.gov/pn-bin/monthly.pl
+PNLinux,Irregular,www,https://www.usbr.gov/pn-bin/v1/instant.pl
+PNLinux,Daily,www,https://www.usbr.gov/pn-bin/v1/daily.pl
+PNLinux,Monthly,www,https://www.usbr.gov/pn-bin/v1/monthly.pl
 
 
 LCHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
