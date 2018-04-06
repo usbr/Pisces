@@ -5,7 +5,10 @@ services:
     ports:
       - "80:80"
   db:
-    image: pg
+    image: postgres
+    restart: always
+    environment: 
+      POSTGRES_PASSWORD: hydromet
     ports:
       - "5432:5432"
     restart: 'always'

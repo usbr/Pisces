@@ -14,3 +14,4 @@ GRANT USAGE ON SCHEMA hydromet TO grp_readonly;
 ALTER DEFAULT PRIVILEGES IN SCHEMA hydromet
     GRANT SELECT ON TABLES
     TO grp_readonly;
+
