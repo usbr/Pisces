@@ -16,5 +16,8 @@ oot@61f198fd41cd:/# cd /data/db
 oot@61f198fd41cd:/data/db# ./db_lean_restore
 
 
+docker-compose exec web sh
+
+
 
 
