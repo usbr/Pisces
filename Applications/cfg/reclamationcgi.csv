@@ -40,6 +40,12 @@ UCHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
 UCHDB,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
 UCHDB2,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
 UCHDB2,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+YAOHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+YAOHDB,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+ECOHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+ECOHDB,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+LBOHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+LBOHDB,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
 LocalSource,Irregular,recnet,http://localhost:8080/instant.bat
 LocalSource,Daily,recnet,http://localhost:8080/daily.bat
 LocalSource,Monthly,recnet,http://localhost:8080/monthly.bat
