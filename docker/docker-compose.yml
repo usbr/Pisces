@@ -15,7 +15,7 @@ services:
       - c:\data\db:/data/db
 
   api:
-    image: microsoft/dotnet
+    image: api  #microsoft/dotnet
     restart: always
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
@@ -23,21 +23,20 @@ services:
       - PiscesAPIDatabase=postgresql
 
     ports:
-      - 5000:80
+      - 5000:5000
 
     volumes:
-      - c:\Users\ktarbet\source\repos\Pisces\Applications\PiscesAPI\bin\Debug\netcoreapp2.0\:/data/api
+      - c:\data\api:/data/api
       
-   
       
- # adminer:
- #   image: adminer
- #   restart: always
- #   ports:
- #     - 8080:8080
-   
- # master:
- #   image: master 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  
+  master:
+    image: master 
       
   
    
