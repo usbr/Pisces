@@ -12,7 +12,7 @@ namespace Reclamation.TimeSeries.Hydromet
     /// </summary>
     public class HydrometInstantSeries : Reclamation.TimeSeries.Series
     {
-        static string[] GoodDataFlags = new string[] { "", " ", PointFlag.Edited,PointFlag.Computed };
+        static string[] GoodDataFlags = new string[] { "", " ", PointFlag.Edited,PointFlag.Computed, PointFlag.Estimated };
         private string pcode;
         private string cbtt;
         private static bool s_keepflaggedData = false;// flagged data
