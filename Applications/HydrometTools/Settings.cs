@@ -39,6 +39,7 @@ namespace HydrometTools
         bool Ready = false;
 		public Settings()
 		{
+            serverSelection1 = new Reclamation.TimeSeries.Forms.Hydromet.ServerSelection();
 			InitializeComponent();
 			ReadUserPref();
             Ready = true;

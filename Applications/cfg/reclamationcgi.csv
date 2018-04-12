@@ -27,9 +27,9 @@ PNLinux,Daily,www,https://www.usbr.gov/pn-bin/v1/daily.pl
 PNLinux,Monthly,www,https://www.usbr.gov/pn-bin/v1/monthly.pl
 
 
-YakimaLinux,Irregular,recnet,http://yaklinux/pn-bin/api/instant
-YakimaLinux,Daily,recnet,http://yaklinux/pn-bin/api/daily
-YakimaLinux,Monthly,recnet,http://yaklinux/pn-bin/api/monthly
+YakimaLinux,Irregular,recnet,http://yaklinux/pn-bin/instant
+YakimaLinux,Daily,recnet,http://yaklinux/pn-bin/daily
+YakimaLinux,Monthly,recnet,http://yaklinux/pn-bin/monthly
 
 
 LCHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com

@@ -74,8 +74,12 @@ namespace HydrometTools
             {
                 throw new Exception("Error: the password is blank. Please set this in the settings tab");
             }
+            HydrometHost h = HydrometInfoUtility.HydrometServerFromPreferences();
+            var server = ConfigurationManager.AppSettings["PostgresServer"];
+            if( h == HydrometHost.YakimaLinux)
+                server = ConfigurationManager.AppSettings["YakimaPostgresServer"];
 
-            BasicDBServer svr = PostgreSQL.GetPostgresServer(dbname, password: pw);
+            BasicDBServer svr = PostgreSQL.GetPostgresServer(dbname,server, password: pw);
             return svr as PostgreSQL;
         }
 

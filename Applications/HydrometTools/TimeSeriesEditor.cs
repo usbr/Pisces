@@ -1178,7 +1178,7 @@ namespace HydrometTools
             HydrometHost svr = HydrometInfoUtility.HydrometServerFromPreferences();
 
             bool SaveToVMS = true;
-            if (svr == HydrometHost.PNLinux && numRecordsWritten >0)
+            if ( IsLinuxServer(svr)  && numRecordsWritten >0)
             { // saving to Postgresql/Linux
 
                 if( Database.IsPasswordBlank())
@@ -1276,6 +1276,11 @@ namespace HydrometTools
                 }
 			}
 		}
+
+        private bool IsLinuxServer(HydrometHost svr)
+        {
+            return svr == HydrometHost.PNLinux || svr == HydrometHost.YakimaLinux;
+        }
 
         private static string SaveDayfileEdits(string hydrometScript, string[] arcCommands, string[] modifiedPcodes, string[] modifiedCbtt, DateRange range, Login login, string remoteFilename, string status)
         {

@@ -79,6 +79,10 @@ namespace Reclamation.TimeSeries.Forms.Hydromet
             {
                 this.radioButtonGP.Checked = true;
             }
+           else if  (svr == HydrometHost.YakimaLinux)
+            {
+                this.radioButtonYakLinux.Checked = true;
+            }
             else if (svr == HydrometHost.LocalSource)
             {
                 radioButtonLocal.Checked = true;
