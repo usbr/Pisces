@@ -17,7 +17,9 @@ namespace HydrometTools
 
 
             DataTable tbl = new DataTable();
-            if (HydrometInfoUtility.HydrometServerFromPreferences() == HydrometHost.GreatPlains)
+            var svr = HydrometInfoUtility.HydrometServerFromPreferences();
+
+            if (svr == HydrometHost.GreatPlains)
             {
                 string fn = Path.Combine("gp", "ratingtables.csv");
                 fn = FileUtility.GetFileReference(fn);
@@ -40,28 +42,28 @@ namespace HydrometTools
 
         private DataTable WebTable()
         {
-            string rt = ConfigurationManager.AppSettings["RatingTablePath"];
-            if (String.IsNullOrEmpty(rt))
-            {
-                MessageBox.Show("Error: RatingTablePath Not defined in config file");
-                rt = "http://lrgs1.pn.usbr.gov/rating_tables/";
-            }
-            var data = Web.GetPage(rt);
-
             DataTable rval = new DataTable();
             rval.Columns.Add("Site");
             rval.Columns.Add("Yparm");
             rval.Columns.Add("name");
-           rval.Columns.Add("date_modified");
+            rval.Columns.Add("date_modified");
+
+            string rt = HydrometInfoUtility.GetRatingTableURL();
+
+            if (rt == "")
+                return rval;
+
+            var data = Web.GetPage(rt);
+
             /* <a href="acao.csv">acao.csv</a>  */
             // "<tr><td valign=\"top\"><img src=\"/icons/text.gif\" alt=\"[TXT]\"></td><td><a href=\"acao_shift.csv\">acao_shift.csv</a>         </td><td align=\"right\">2016-01-15 07:02  </td><td align=\"right\">1.9K</td><td>&nbsp;</td></tr>"
-             Regex re = new Regex(
-      "<a href=\\\".*\\\">(?<name>.*)\\.(csv)</a>\\s*</td><td a"+
-      "lign=\\\"right\\\">(?<date_modified>[\\-0-9\\s\\:]*)",
-    RegexOptions.Multiline
-    | RegexOptions.CultureInvariant
-    | RegexOptions.Compiled
-    );
+            Regex re = new Regex(
+     "<a href=\\\".*\\\">(?<name>.*\\.(csv|txt))</a>\\s*</td><td a" +
+     "lign=\\\"right\\\">(?<date_modified>[\\-0-9\\s\\:]*)",
+   RegexOptions.Multiline
+   | RegexOptions.CultureInvariant
+   | RegexOptions.Compiled
+   );
 
             for (int i = 0; i < data.Length; i++)
             {
@@ -71,21 +73,22 @@ namespace HydrometTools
                     string n = m.Groups["name"].Value;
                     var tokens = n.Split('_');
                     var cbtt = tokens[0];
-                    var pcode = "q";
-                    if (tokens.Length == 2)
-                        pcode = tokens[1];
+                    //var pcode = "q";
+                    //if (tokens.Length == 2)
+                    //    pcode = tokens[1];
 
-                    if (pcode == "shift")
-                        continue;
+                    //if (pcode == "shift")
+                    //    continue;
 
                     var date_modified = m.Groups["date_modified"].Value;
 
-                    rval.Rows.Add(cbtt, pcode,n,date_modified);
+                    rval.Rows.Add(cbtt, "", n, date_modified);
                 }
             }
             return rval;
         }
 
+       
 
         public string cbtt
         {

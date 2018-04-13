@@ -820,12 +820,10 @@ VCAO        QJ      : 1966-1972, 1974, 1977
                 url = url.Replace("site=pali", "site=" + cbtt.Trim());
                 url = url.Replace("pcode=q", "pcode=" + pcode.Trim());
             }
-            else if( server == HydrometHost.PN || server == HydrometHost.PNLinux )
+            else if( server == HydrometHost.PN || server == HydrometHost.PNLinux 
+                || server == HydrometHost.YakimaLinux)
             {
-                url = ConfigurationManager.AppSettings["RatingTablePath"]+ratingName+".csv";
-
-                if( !NetworkUtility.Intranet)
-                    url = "https://www.usbr.gov/pn/hydromet/configurationdata/rating_tables/" + ratingName + ".csv";
+                url = GetRatingTableURL() + ratingName;
 
                 var tmp = FileUtility.GetTempFileName(".csv");
                 Web.GetFile(url, tmp);
@@ -1076,8 +1074,6 @@ VCAO        QJ      : 1966-1972, 1974, 1977
        
         public static string[] ArchiveParameters(string cbtt)
         {
-
-
             string key = " " + cbtt.PadRight(12).ToUpper();
             var rval = new List<string>();
             TextFile tf = ArcInventory;
@@ -1106,6 +1102,27 @@ VCAO        QJ      : 1966-1972, 1974, 1977
                 }
             }
             return rval.ToArray();
+        }
+
+
+        public static string GetRatingTableURL()
+        {
+            var svr = HydrometServerFromPreferences();
+            string rt = "";
+            if (svr == HydrometHost.PNLinux)
+                rt = ConfigurationManager.AppSettings["RatingTablePath"];
+            else
+            if (svr == HydrometHost.YakimaLinux)
+                rt = ConfigurationManager.AppSettings["YakimaRatingTablePath"];
+            else
+                return "";
+
+            if (String.IsNullOrEmpty(rt))
+            {
+                throw new Exception("Error: RatingTablePath Not defined in config file");
+            }
+
+            return rt;
         }
 
     }
