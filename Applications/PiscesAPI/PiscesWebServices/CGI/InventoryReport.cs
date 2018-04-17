@@ -123,7 +123,6 @@ namespace PiscesWebServices.CGI
                 if (maxYr > max)
                     max = maxYr;
 
-                //Console.WriteLine("por = "+por);
                 if (ui)
                 {
                     var cb = " <input type=\"checkbox\" name=\"pcode\" value=\"" + parms[i] + "\" id=\"" + parms[i] + "\">"+parms[i].ToUpper();

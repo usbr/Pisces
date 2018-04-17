@@ -41,13 +41,8 @@ namespace PiscesWebServices.CGI
                  if (i != vals.Length - 1)
                      sb.Append(delim);
              }
-             //Console.WriteLine(sb.ToString());
              WriteLine(sb.ToString());
 
-         }
-         public override void WriteLine(string s)
-         {
-             Console.Write(s + "\r\n");
          }
 
          public override string FormatFlag(object o)
@@ -95,7 +90,7 @@ namespace PiscesWebServices.CGI
 
          public override void WriteSeriesHeader(SeriesList list)
          {
-             HydrometWebUtility.PrintHydrometHeader();
+            WriteLine(HydrometWebUtility.HydrometHeader());
              WriteLine("BEGIN DATA");
 
              string headLine = "DATE      ";

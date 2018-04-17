@@ -72,11 +72,6 @@ namespace PiscesWebServices.CGI
         {
         }
 
-        public override void WriteLine(string s)
-        {
-            Console.WriteLine(s);
-        }
-
         public override void WriteSeriesHeader(SeriesList list)
         {
             WriteLine("<PRE>");

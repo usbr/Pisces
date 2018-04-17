@@ -205,10 +205,11 @@ namespace PiscesWebServices
         }
 
 
-        public static void PrintHydrometTrailer(string message="")
+        public static string PrintHydrometTrailer(string message="")
         {
-            Console.WriteLine("</pre>");
-            Console.WriteLine("</body></html>\n\n\n");
+            string rval = "</pre>" + Environment.NewLine
+                + "</body></html>" + Environment.NewLine;
+            return rval;
         }
 
         public static void PrintDisclamerLink()
@@ -221,27 +222,28 @@ namespace PiscesWebServices
         /// used by outside agencies and corporations.
         /// 
         /// </summary>
-        public static void PrintHydrometHeader()
+        public static string HydrometHeader()
         {
-            Console.WriteLine("<HTML>\n"
-                + "<HEAD><TITLE>Hydromet/AgriMet Data Access</title></head>\n"
-                + "<BODY BGCOLOR=#FFFFFF>");
+            string rval = "<HTML>\n" 
+                 + "<HEAD><TITLE>Hydromet/AgriMet Data Access</title></head>\n"
+                 + "<BODY BGCOLOR=#FFFFFF>"+Environment.NewLine
 
-            Console.WriteLine("<p><PRE>");
-            Console.WriteLine("<B>USBR Pacific Northwest Region");
-            Console.WriteLine("Hydromet/AgriMet Data Access</B><BR>");
-            Console.WriteLine("Although the US Bureau of Reclamation makes efforts to maintain the accuracy");
-            Console.WriteLine("of data found in the Hydromet system databases, the data is largely unverified");
-            Console.WriteLine("and should be considered preliminary and subject to change.  Data and services");
-            Console.WriteLine("are provided with the express understanding that the United States Government");
-            Console.WriteLine("makes no warranties, expressed or implied, concerning the accuracy, complete-");
-            Console.WriteLine("ness, usability or suitability for any particular purpose of the information");
-            Console.WriteLine("or data obtained by access to this computer system, and the United States");
-            Console.WriteLine("shall be under no liability whatsoever to any individual or group entity by");
-            Console.WriteLine("reason of any use made thereof. ");
-            Console.WriteLine("</PRE>");
-            Console.WriteLine("<p>");
-            Console.WriteLine("<PRE>");
+             + "<p><PRE>"+Environment.NewLine
+             + "<B>USBR Pacific Northwest Region"+Environment.NewLine
+             + "Hydromet/AgriMet Data Access</B><BR>"+Environment.NewLine
+             + "Although the US Bureau of Reclamation makes efforts to maintain the accuracy"+Environment.NewLine
+             + "of data found in the Hydromet system databases, the data is largely unverified"+Environment.NewLine
+             + "and should be considered preliminary and subject to change.  Data and services"+Environment.NewLine
+             + "are provided with the express understanding that the United States Government"+Environment.NewLine
+             + "makes no warranties, expressed or implied, concerning the accuracy, complete-"+Environment.NewLine
+             + "ness, usability or suitability for any particular purpose of the information"+Environment.NewLine
+             + "or data obtained by access to this computer system, and the United States"+Environment.NewLine
+             + "shall be under no liability whatsoever to any individual or group entity by"+Environment.NewLine
+             + "reason of any use made thereof. "+Environment.NewLine
+             + "</PRE>"+Environment.NewLine
+             + "<p>"+Environment.NewLine
+             + "<PRE>"+Environment.NewLine;
+            return rval;
         }
 
     }

@@ -14,25 +14,25 @@ namespace PiscesWebServices.CGI
     internal static class Help
     {
 
-        public static void Print()
+        public static string Print()
         {
-            Help.PrintInstant();
-            Help.PrintDaily();
-            Help.PrintMonthly();
-            Help.PrintWaterYear();
-            PrintInventory();
+          return  Help.PrintInstant()
+                + Help.PrintDaily()
+                + Help.PrintMonthly()
+                + Help.PrintWaterYear()
+                + PrintInventory();
         }
 
-        public static void PrintMonthly()
+        public static string PrintMonthly()
         {
             var r = new Dictionary<string, string>();
             r.Add("one parameter one site with flags", "list=heii qm&back=24&format=csv");
             r.Add("all parameters for a single site without flags", "list=heii qm&back=24&format=csv&flags=false");
             r.Add("multiple sites and parameters, with specific date range", "list=BEUO QU , BEU PM , BNOO PM , VAEO PM , RVDO PM , BLPO SE , LKCO SE , RCSO SE&start=2015-10-01&end=2016-09-30");
-            Print(r, "monthly", "Monthly database");
+            return Print(r, "monthly", "Monthly database");
         }
 
-        public static void PrintInstant()
+        public static string PrintInstant()
         {
             var r = new Dictionary<string, string>();
             r.Add("all parameters last 24 hours for specified site", "list=bigi&back=24");
@@ -43,10 +43,10 @@ namespace PiscesWebServices.CGI
             r.Add("15-minute idwr sites in Shef A format", "custom_list=idwr&format=shefa");
             r.Add("15-minute data, and 30 year daily average ", "list=heii q&daily=heii qd&format=realtime-graph");
             r.Add("most recent data for each series", "list=cra,crpo&format=recent");
-            Print(r,"instant","Near real-time data");
+            return Print(r,"instant","Near real-time data");
         }
 
-        internal static void PrintDaily()
+        internal static string PrintDaily()
         {
             var r = new Dictionary <string,string>();
             r.Add("all parameters last 24 days for specified site", "list=luc&back=24&format=csv");
@@ -60,27 +60,27 @@ namespace PiscesWebServices.CGI
             r.Add("html report with title", "list=LRS&flags=false&description=true&format=html&back=12&title=MixedCase");
 
 
-            Print(r, "daily", "Daily Data");
+            return Print(r, "daily", "Daily Data");
         }
 
-        internal static void PrintWaterYear()
+        internal static string PrintWaterYear()
         {
             var r = new Dictionary<string, string>();
             r.Add("water year report 2012", "site=abei&parameter=pp&start=2012&end=2012&format=usgs-html");
             r.Add("water year data.  Includes previous year and 30 year average", "site=culo&parameter=qd&start=2018&format=csv-analysis");
 
-            Print(r, "wyreport", "Water Year Report");
+           return Print(r, "wyreport", "Water Year Report");
         }
 
-        internal static void PrintInventory()
+        internal static string PrintInventory()
         {
             var r = new Dictionary<string, string>();
             r.Add("Daily Inventory", "site=hghm&interval=daily");
             r.Add("Instant Inventory", "site=hghm&interval=instant");
-            Print(r, "inventory", "Inventory");
+           return  Print(r, "inventory", "Inventory");
         }
 
-        private static void Print(Dictionary<string, string> d, string cgi, string header)
+        private static string Print(Dictionary<string, string> d, string cgi, string header)
         {
             DataTable t = new DataTable();
             t.Columns.Add("name");
@@ -97,7 +97,7 @@ namespace PiscesWebServices.CGI
                 t.Rows.Add(item.Key,example);
             }
             var s = DataTableOutput.ToHTML(t, true, header);
-            Console.WriteLine(s);
+            return s;
         }
 
         

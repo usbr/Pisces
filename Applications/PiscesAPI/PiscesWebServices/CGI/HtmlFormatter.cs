@@ -21,11 +21,6 @@ namespace PiscesWebServices.CGI
             m_title = title;
          }
 
-         public override void WriteLine(string s)
-         {
-             Console.WriteLine(s);
-         }
-
          public override void PrintRow(string t0, string[] vals, string[] flags)
          {
              StringBuilder sb = new StringBuilder(vals.Length * 8);
