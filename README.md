@@ -79,3 +79,9 @@ SHOW TOTAL,SPAC,HEII /QD,QU,AF
 ```
 
 
+
+## Boise State University - Computer Science Student Contributors
+
+Isaac Zurn, Soraya Yazdanpour, James Norwood, Sam McMahon, Rob Herrera, Ashley Gertman, Tara Felzien, Tyler Egan, Mack Bryan, Nate Brinton
+
+
