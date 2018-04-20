@@ -208,22 +208,37 @@ namespace FcPlot
 
             return list[0];
         }
-
+        /// <summary>
+        /// Finds forecast series.  Check if a mid-month forecast exists
+        /// and use that if available.  Handle special case for hungry horse (hgh)
+        /// </summary>
+        /// <param name="cbtt"></param>
+        /// <param name="waterYear"></param>
+        /// <returns></returns>
         public static Series GetLatestForecast(string cbtt, Int32 waterYear)
         {
             var pc = "fc";
             if (cbtt.ToLower() == "hgh")
-                pc = "fms";
-            Series forecast = new HydrometMonthlySeries(cbtt,pc);
+                pc = "fms"; // forecast (f) may (m) to september (s) == fms
+            Series fc = new HydrometMonthlySeries(cbtt,pc);
+            Series fcm = new HydrometMonthlySeries(cbtt, "fcm"); // mid month
             var t1 = new DateTime(waterYear, 1, 1);
             var t2 = new DateTime(waterYear, 7, 1);
-            forecast.Read(t1, t2);
-            return forecast;
+            fc.Read(t1, t2);
+            fcm.Read(t1, t2);
+
+            int i_fc = MonthOfLastForecast(fc);
+            int i_fcm = MonthOfLastForecast(fcm);
+
+            if (i_fcm > 0 && i_fcm >= i_fc)
+                return fcm;
+
+            return fc;
         }
 
-        private static Int32 MonthOfLastForecast(Series forecast)
+        private static int MonthOfLastForecast(Series forecast)
         {
-            Int32 month = 0;
+            int month = 0;
             for (int i = 0; i < forecast.Count(); i++)
             {
                 if (forecast[i].IsMissing == false)
