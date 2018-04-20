@@ -61,8 +61,7 @@ namespace HydrometTools
         private Button Lookbutton;
         private LinkLabel linkLabelOwrd;
         private LinkLabel linkLabelIdahoPower;
-
-        
+        private LinkLabel linkLabelPrint;
         Steema.TeeChart.Tools.Annotation annotation1;
 
 
@@ -287,6 +286,7 @@ namespace HydrometTools
             this.linkLabelIdahoPower = new System.Windows.Forms.LinkLabel();
             this.timeSelectorBeginEndWaterYear1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEndWaterYear();
             this.timeSelector2 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
+            this.linkLabelPrint = new System.Windows.Forms.LinkLabel();
             this.panelGraphTable.SuspendLayout();
             this.groupBoxMonthlyReports.SuspendLayout();
             this.SuspendLayout();
@@ -318,7 +318,7 @@ namespace HydrometTools
             // 
             this.linkLabelChartDetails.Location = new System.Drawing.Point(266, 67);
             this.linkLabelChartDetails.Name = "linkLabelChartDetails";
-            this.linkLabelChartDetails.Size = new System.Drawing.Size(72, 45);
+            this.linkLabelChartDetails.Size = new System.Drawing.Size(72, 29);
             this.linkLabelChartDetails.TabIndex = 18;
             this.linkLabelChartDetails.TabStop = true;
             this.linkLabelChartDetails.Text = "chart details";
@@ -751,8 +751,19 @@ namespace HydrometTools
             this.timeSelector2.T2 = new System.DateTime(2010, 5, 10, 11, 44, 21, 531);
             this.timeSelector2.TabIndex = 28;
             // 
+            // linkLabelPrint
+            // 
+            this.linkLabelPrint.Location = new System.Drawing.Point(266, 88);
+            this.linkLabelPrint.Name = "linkLabelPrint";
+            this.linkLabelPrint.Size = new System.Drawing.Size(50, 24);
+            this.linkLabelPrint.TabIndex = 46;
+            this.linkLabelPrint.TabStop = true;
+            this.linkLabelPrint.Text = "print";
+            this.linkLabelPrint.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelPrint_LinkClicked);
+            // 
             // TimeSeriesEditor
             // 
+            this.Controls.Add(this.linkLabelPrint);
             this.Controls.Add(this.linkLabelOwrd);
             this.Controls.Add(this.linkLabelIdahoPower);
             this.Controls.Add(this.Lookbutton);
@@ -1558,6 +1569,10 @@ namespace HydrometTools
             }
         }
 
-             
-	}
+        private void linkLabelPrint_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            tChart1.Printer.Landscape = true;
+            tChart1.Printer.Preview();
+        }
+    }
 }
