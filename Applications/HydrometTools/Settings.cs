@@ -239,7 +239,7 @@ namespace HydrometTools
             this.buttonShowPassword.Name = "buttonShowPassword";
             this.buttonShowPassword.Size = new System.Drawing.Size(75, 23);
             this.buttonShowPassword.TabIndex = 42;
-            this.buttonShowPassword.Text = "show password";
+            this.buttonShowPassword.Text = "show";
             this.buttonShowPassword.UseVisualStyleBackColor = true;
             this.buttonShowPassword.Click += new System.EventHandler(this.buttonShowPassword_Click);
             // 
@@ -486,7 +486,18 @@ namespace HydrometTools
 
         private void buttonShowPassword_Click(object sender, EventArgs e)
         {
-            this.textBoxDbPassword.PasswordChar = '\0';
+            if (buttonShowPassword.Text == "show")
+            {
+                this.textBoxDbPassword.PasswordChar = '\0';
+                buttonShowPassword.Text = "hide";
+            }
+            else
+            {
+                buttonShowPassword.Text = "show";
+                this.textBoxDbPassword.PasswordChar = '*';
+            }
+
+            
         }
 
         private void textBoxDbName_TextChanged(object sender, EventArgs e)
