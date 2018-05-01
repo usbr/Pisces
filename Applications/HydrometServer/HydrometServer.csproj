@@ -60,6 +60,7 @@
     <Compile Include="CommandLine\PiscesCommandLine.cs" />
     <Compile Include="CommandLine\CommandLineInput.cs" />
     <Compile Include="CommandLine\TablePrinter.cs" />
+    <Compile Include="EquationTemplates.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatingTableDownload.cs" />
