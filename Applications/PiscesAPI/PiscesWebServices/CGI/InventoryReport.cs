@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using Reclamation.Core;
 using Reclamation.TimeSeries;
-using System.Linq;
-using System.Web;
-using System.IO;
+using System;
+using System.Collections.Specialized;
 using System.Data;
-using Reclamation.Core;
-using System.Net;
+using System.Linq;
 using System.Text;
-using Reclamation.TimeSeries.Hydromet;
-using Reclamation.TimeSeries.Reports;
+using System.Text.RegularExpressions;
+using System.Web;
 
 namespace PiscesWebServices.CGI
 {
@@ -22,6 +17,7 @@ namespace PiscesWebServices.CGI
     {
         private TimeSeriesDatabase db;
         private string query;
+        StringBuilder m_sb = new StringBuilder();
 
         public InventoryReport(TimeSeriesDatabase db, string payload)
         {
@@ -30,9 +26,8 @@ namespace PiscesWebServices.CGI
         }
 
 
-        internal void Run()
+        internal string Run()
         {
-            Console.Write("Content-type: text/html\n\n");
             if (query == "")
             {
                 query = HydrometWebUtility.GetQuery();
@@ -61,7 +56,8 @@ namespace PiscesWebServices.CGI
             SetInterval(collection, out interval);
 
             PrintInventory(siteID, interval,ui);
-            
+
+            return "";
 
         }
 
@@ -71,7 +67,7 @@ namespace PiscesWebServices.CGI
                && collection["ui"].ToLower() == "true";
         }
 
-        private static void SetInterval(NameValueCollection collection, out TimeInterval interval)
+        private void SetInterval(NameValueCollection collection, out TimeInterval interval)
         {
             interval = TimeInterval.Daily;
             if (collection.AllKeys.Contains("interval"))
@@ -188,14 +184,14 @@ namespace PiscesWebServices.CGI
 
         private void WriteLine(string s)
         {
-            Console.WriteLine(s);
+            m_sb.AppendLine(s);
         }
 
 
-        private static void StopWithError(string message)
+        private  void StopWithError(string message)
         {
-            Console.WriteLine("Error: " + message);
-            Help.PrintInventory();
+            m_sb.AppendLine("Error: " + message);
+            m_sb.AppendLine(Help.PrintInventory());
             throw new Exception(message);
         }
 
