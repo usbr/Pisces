@@ -40,6 +40,15 @@ namespace Reclamation.TimeSeries.Hydromet
         {
             var rval = new string[] { };
 
+            var svr = HydrometInfoUtility.HydrometServerFromPreferences();
+
+            if( svr.ToString().ToLower().Contains("linux")
+                && db != null)
+            {
+                return db.GetParameters(cbtt, interval, false);
+                //return GetParametersFromPostgres(cbtt, interval, db);
+            }
+
             if (interval == TimeInterval.Daily)
             {
                 rval = HydrometInfoUtility.ArchiveParameters(cbtt);
@@ -58,31 +67,13 @@ namespace Reclamation.TimeSeries.Hydromet
 
             if (rval.Length == 0 && db != null)
             {
-                return GetParametersFromPostgres(cbtt,interval,db);
+                return db.GetParameters(cbtt, interval, false);
             }
             
             return rval;
 
         }
 
-        private static string[] GetParametersFromPostgres(string cbtt, TimeInterval interval,TimeSeriesDatabase db)
-        {
-            var rval = new List<string>();
-            var svr = db.Server;
-            //TimeSeriesDatabase p = new TimeSeriesDatabase(svr,false);
-            var sql = " lower(siteid) = '"+ svr.SafeSqlLiteral(cbtt.ToLower())+"' and TimeInterval = '"+interval.ToString()+"'";
-
-            var sc = db.GetSeriesCatalog(sql);
-            foreach (var item in sc)
-            {
-                TimeSeriesName tn = new TimeSeriesName(item.TableName);
-                rval.Add(tn.pcode);
-            }
-
-            return rval.ToArray();
-        }
-
-        
         /// <summary>
         /// Expand simplified query
         /// BOII MX,MN,MM
