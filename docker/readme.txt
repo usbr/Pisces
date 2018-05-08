@@ -22,4 +22,6 @@ docker run -v ${PWD}:/data/api api /bin/bash
 
 docker run -v c:\data\api:/data/api -p 5000:5000 api
 
+docker -D run -v c:\data\api:/data/api -p 5000:5000 -e PiscesAPIDatabase=postgres -e ConnectionString="server=db;database=timeseries;user id=web_user" api
+
 
