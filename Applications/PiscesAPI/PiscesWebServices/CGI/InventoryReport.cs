@@ -11,7 +11,14 @@ using System.Web;
 namespace PiscesWebServices.CGI
 {
     /// <summary>
-    /// inventory?site=ABEI&interval=daily[&ui=true|false]
+    /// inventory?site=ABEI&interval=daily[&ui=true|false][&format=csv|html]&por=false|true
+    /// 
+    /// site = cbtt  (required)
+    /// interval = daily or instant time step (default = 'daily')
+    /// ui = true to show html user interface for selecting parameters (default = 'false')
+    /// format = html or csv (default = 'html')
+    /// por = include period of record   (default = 'true')
+    /// 
     /// </summary>
     public partial class InventoryReport
     {
@@ -51,14 +58,33 @@ namespace PiscesWebServices.CGI
                 StopWithError("invalid query");
             }
 
-            TimeInterval interval;
             bool ui = LookupUI(collection);
-            SetInterval(collection, out interval);
+            var interval = GetInterval(collection);
 
-            PrintInventory(siteID, interval,ui);
+            string format = LookupFormat(collection);
 
-            return "";
+            if (format == "html")
+            {
+                PrintHtmlInventory(siteID, interval, ui);
+            }
+            else if (format == "csv")
+            {
+                PrintCsvInve
+            }
 
+            return m_sb.ToString();
+
+        }
+
+        private string LookupFormat(NameValueCollection collection)
+        {
+            var rval = "html";
+            if(collection.AllKeys.Contains("format"))
+            {
+                rval = collection["format"];
+            }
+
+            return rval;
         }
 
         private bool LookupUI(NameValueCollection collection)
@@ -67,9 +93,9 @@ namespace PiscesWebServices.CGI
                && collection["ui"].ToLower() == "true";
         }
 
-        private void SetInterval(NameValueCollection collection, out TimeInterval interval)
+        private TimeInterval GetInterval(NameValueCollection collection)
         {
-            interval = TimeInterval.Daily;
+            var interval = TimeInterval.Daily;
             if (collection.AllKeys.Contains("interval"))
             {
                 if (collection["interval"].ToLower() == "daily")
@@ -86,9 +112,10 @@ namespace PiscesWebServices.CGI
                         StopWithError("Error: bad or missing interval");
                     }
             }
+            return interval;
         }
 
-        private void PrintInventory(string siteID, TimeInterval interval, bool ui)
+        private void PrintHtmlInventory(string siteID, TimeInterval interval, bool ui)
         {
             var parms = db.GetParameters(siteID, interval);
             var desc = db.GetSiteDescription(siteID);
