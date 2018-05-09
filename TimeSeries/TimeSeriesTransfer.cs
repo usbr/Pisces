@@ -54,11 +54,11 @@ namespace Reclamation.TimeSeries
             var routes = RouteDestinations(list);
             foreach (string route in routes.Keys)
             {
-                WriteListToFile(routes[route], name, interval, route);
+                WriteListToOutgoingFile(routes[route], name, interval, route);
             }
 
         }
-        private void WriteListToFile(SeriesList list, string name, TimeInterval interval,  string route)
+        private void WriteListToOutgoingFile(SeriesList list, string name, TimeInterval interval,  string route)
         {
             var tmpFileName = FileUtility.GetTempFileName(".txt");
             File.Delete(tmpFileName);
@@ -84,11 +84,22 @@ namespace Reclamation.TimeSeries
             }
             if (File.Exists(tmpFileName))
             {
-                Logger.WriteLine("Moving: " + tmpFileName);
                 string fn = interval == TimeInterval.Daily ? "daily" : "instant";
                 var fileName = GetOutgoingFileName(fn, name, "all", route);
-                Logger.WriteLine("To: " + fileName);
-                File.Move(tmpFileName, fileName);
+
+                var dir = Path.GetDirectoryName(fileName);
+                if (! Directory.Exists(fileName))
+                {
+                    var msg = "Error:  Directory does not exist " + dir;
+                    Console.WriteLine(msg);
+                    Logger.WriteLine(msg);
+                }
+                else
+                {
+                    Logger.WriteLine("Moving: " + tmpFileName);
+                    Logger.WriteLine("To: " + fileName);
+                    File.Move(tmpFileName, fileName);
+                }
             }
         }
 
