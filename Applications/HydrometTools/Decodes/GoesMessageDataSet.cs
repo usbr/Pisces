@@ -15,7 +15,7 @@ namespace HydrometTools.Decodes
         public static MessageDataTable GetEDDNMessages(string nessid, string hoursBack="24")
         {
             var rval = new MessageDataTable();
-            string cgi = "http://lrgseddn3.cr.usgs.gov/cgi-bin/fieldtest.pl";
+            string cgi = "https://lrgseddn3.cr.usgs.gov/cgi-bin/fieldtest.pl";
             string postData = "DCPID=" + nessid + "&SINCE=" + hoursBack;
             var lines = Reclamation.Core.Web.GetPage(cgi, postData);
 
