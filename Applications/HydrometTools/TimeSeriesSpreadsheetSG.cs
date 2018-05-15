@@ -16,6 +16,7 @@ using Reclamation.TimeSeries.Forms;
 using Reclamation.TimeSeries;
 using System.Configuration;
 using Reclamation.TimeSeries.Parser;
+using Reclamation.TimeSeries.Decodes;
 
 namespace HydrometTools
 {
@@ -44,6 +45,7 @@ namespace HydrometTools
         ToolStripItem calculateMenu;
         ToolStripItem showEquationMenu;
         ToolStripItem interpolateWithStyleMenu;
+        ToolStripItem advancedRawData;
         ToolStripItem ScaleToVolumeMenu;
         ToolStripMenuItem flagMenu;
         ToolStripMenuItem ExcelMenu;
@@ -122,10 +124,66 @@ namespace HydrometTools
             fillGaps.Click += FillGaps_Click;
             advanced.DropDownItems.Add(fillGaps);
 
+            advancedRawData = new ToolStripMenuItem("decode raw data");
+            advancedRawData.Click += AdvancedRawData_Click;
+            advanced.DropDownItems.Add(advancedRawData);
+
 
             wbView.ContextMenuStrip.Opening += new CancelEventHandler(ContextMenuStrip_Opening);
 
             wbView.ContextMenuStrip.ShowItemToolTips = true;
+        }
+
+        /// <summary>
+        /// If Decodes software is installed locally
+        /// DECODE raw data for a single parameter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AdvancedRawData_Click(object sender, EventArgs e)
+        {
+            // determine siteid (cbtt) and pcode
+
+            SpreadsheetRange r = new SpreadsheetRange(wbView.RangeSelection);
+            var col = r.SelectedRangeColumnNames[0];
+
+                var tokens = col.Trim().Split(' ');
+            if (tokens.Length != 2)
+                return; 
+
+                var cbtt = tokens[0];
+                var pcode = tokens[1];
+
+            // find date range that is selected.
+            var t = r.SelectedDateRange;
+
+            var db = Database.DB();
+            if (db == null)
+            {
+                MessageBox.Show("Error connecting to the database.  Please check your password");
+                return;
+            }
+
+            var fn = FileUtility.GetSimpleTempFileName(".txt");
+
+            // run DECODES to create output file
+            DecodesUtility.RunDecodesRoutingSpec((PostgreSQL)db.Server,
+                "hydromet-tools", t.DateTime1, t.DateTime2, cbtt, fn);
+
+            TextFile tf = new TextFile(fn);
+            if( !HydrometInstantSeries.IsValidDMS3(tf) )
+            {
+                MessageBox.Show("Error reading Decodes output");
+                return;
+            }
+            // Read Decodes output 
+            var sl = HydrometInstantSeries.HydrometDMS3DataToSeriesList(tf);
+            // filter by cbtt and pcode
+
+            // filter by date range
+
+            // put values into hydromet tools
+
         }
 
         private void FillGaps_Click(object sender, EventArgs e)
@@ -427,6 +485,7 @@ namespace HydrometTools
             interpolateMenu.Enabled = true;
             ScaleToVolumeMenu.Enabled = true;
             regressionMenu.Enabled = false;
+            advancedRawData.Enabled = false;
 
             flagMenu.Enabled = true;
             interpolateWithStyleMenu.Enabled = false;
@@ -437,6 +496,8 @@ namespace HydrometTools
                 SpreadsheetRange ssRng = new SpreadsheetRange(wbView.RangeSelection);
 
                 calculateMenu.Enabled = ssRng.ValidCalculationRange;
+                
+                advancedRawData.Enabled = ssRng.ValidCalculationRange && wbView.RangeSelection.ColumnCount == 1;
 
                 if (ssRng.ValidInterpolationWithStyle)
                 {

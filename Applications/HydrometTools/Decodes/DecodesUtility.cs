@@ -128,5 +128,18 @@ namespace Reclamation.TimeSeries.Decodes
             PostgreSQL.ClearAllPools();
         }
 
+
+        /// <summary>
+        /// Runs a DECODES routing spec, for a specific site
+        /// </summary>
+        /// <returns></returns>
+        public static void RunDecodesRoutingSpec(PostgreSQL svr,string routingSpecName, 
+            DateTime t1, DateTime t2,
+            string siteid, string outputFileName)
+        {
+
+
+        }
+
     }
 }
