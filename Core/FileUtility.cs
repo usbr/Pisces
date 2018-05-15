@@ -182,8 +182,7 @@ namespace Reclamation.Core
         {
             string path = GetTempPath();
 
-            Random rnd = new Random();
-            string part1 = "t___" + rnd.Next(1200);
+            var part1 = Guid.NewGuid().ToString("N").Substring(0, 8).ToLower();
             var fn = Path.Combine(path, part1+ extension);
 
             if (File.Exists(fn))

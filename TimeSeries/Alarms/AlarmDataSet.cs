@@ -235,7 +235,6 @@ namespace Reclamation.TimeSeries.Alarms
                         if (c.Condition == AlarmType.Dropping
                             || c.Condition == AlarmType.Rising)
                         {
-                            // TO DO pull in previous data
                             CheckForRateOfChangeAlarm(s, alarm, c);
                         }
             }
