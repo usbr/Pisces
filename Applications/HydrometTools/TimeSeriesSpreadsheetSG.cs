@@ -149,26 +149,44 @@ namespace HydrometTools
 
                 var tokens = col.Trim().Split(' ');
             if (tokens.Length != 2)
-                return; 
+                return;
 
-                var cbtt = tokens[0];
-                var pcode = tokens[1];
+            var cbtt = tokens[0].ToLower();
+            var pcode = tokens[1].ToLower();
 
             // find date range that is selected.
             var t = r.SelectedDateRange;
+            // account for timezone offset and transmission time delay
+            // summer UTC-6h
+            // winter UTC-7h
 
-            var db = Database.DB();
-            if (db == null)
+            var t1 = t.DateTime1.AddHours(-24); 
+            var t2 = t.DateTime2.AddHours(+24);
+
+            var svr = Database.GetServer("hydromet_opendcs");
+            if (svr == null)
             {
                 MessageBox.Show("Error connecting to the database.  Please check your password");
                 return;
             }
 
             var fn = FileUtility.GetSimpleTempFileName(".txt");
+            var log = FileUtility.GetSimpleTempFileName(".txt");
 
             // run DECODES to create output file
-            DecodesUtility.RunDecodesRoutingSpec((PostgreSQL)db.Server,
-                "hydromet-tools", t.DateTime1, t.DateTime2, cbtt, fn);
+            DecodesUtility.RunDecodesRoutingSpec(svr,"hydromet-tools", t1, t2, cbtt, fn,log);
+            //Don't Go Karl!
+            foreach (var item in File.ReadAllLines(log))
+            {
+                Logger.WriteLine(item);
+            }
+
+            foreach (var item in File.ReadAllLines(fn))
+            {
+                Logger.WriteLine(item);
+            }
+           
+
 
             TextFile tf = new TextFile(fn);
             if( !HydrometInstantSeries.IsValidDMS3(tf) )
@@ -179,10 +197,26 @@ namespace HydrometTools
             // Read Decodes output 
             var sl = HydrometInstantSeries.HydrometDMS3DataToSeriesList(tf);
             // filter by cbtt and pcode
-
+            var s = sl.Find(x => x.Table.TableName == "instant_" + cbtt + "_" + pcode);
+            if( s == null)
+            {
+                Logger.WriteLine("Error: could not find decoded data for " + cbtt + "/" + pcode);
+                return;
+            }
+            // use dataview for sorted data
             // filter by date range
+            Series decoded = s.Clone();
+            for (int i = 0; i < s.Count; i++)
+            {
+                var pt = s[i];
+                if(pt.DateTime >= t.DateTime1 && pt.DateTime <= t.DateTime2)
+                {
+                    decoded.Add(pt);
+                }
+            }
 
             // put values into hydromet tools
+            r.InsertSeriesValues(decoded);
 
         }
 
@@ -496,8 +530,10 @@ namespace HydrometTools
                 SpreadsheetRange ssRng = new SpreadsheetRange(wbView.RangeSelection);
 
                 calculateMenu.Enabled = ssRng.ValidCalculationRange;
-                
-                advancedRawData.Enabled = ssRng.ValidCalculationRange && wbView.RangeSelection.ColumnCount == 1;
+
+                advancedRawData.Enabled = ssRng.ValidCalculationRange 
+                                          && wbView.RangeSelection.ColumnCount == 1 
+                                          && interval == TimeInterval.Irregular;
 
                 if (ssRng.ValidInterpolationWithStyle)
                 {
@@ -539,17 +575,17 @@ namespace HydrometTools
         /// Sets source data and type of data.
         /// </summary>
         /// <param name="tbl"></param>
-        /// <param name="db"></param>
-        public void  SetDataTable(DataTable tbl, TimeInterval db, bool scrollToTop) { 
+        /// <param name="ti"></param>
+        public void  SetDataTable(DataTable tbl, TimeInterval ti, bool scrollToTop) { 
             m_dataTable = tbl;
 
             this.interval = TimeInterval.Irregular;
 
-            if (db == TimeInterval.Monthly)
+            if (ti == TimeInterval.Monthly)
                 this.interval = TimeInterval.Monthly;
-            if (db == TimeInterval.Daily)
+            if (ti == TimeInterval.Daily)
                 this.interval = TimeInterval.Daily;
-            if (db == TimeInterval.Irregular)
+            if (ti == TimeInterval.Irregular)
                 this.interval = TimeInterval.Irregular;
 
             wbView.GetLock();
@@ -569,8 +605,8 @@ namespace HydrometTools
                 
                 range.CopyFromDataTable(m_dataTable, SpreadsheetGear.Data.SetDataFlags.None);
                 worksheet.UsedRange.Columns.AutoFit();
-                SetupFlagContextMenu(db);
-                FormatCells(db);
+                SetupFlagContextMenu(ti);
+                FormatCells(ti);
 
             }
             finally
