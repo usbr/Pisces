@@ -75,8 +75,6 @@
             // checkBoxOldSChool
             // 
             this.checkBoxOldSChool.AutoSize = true;
-            this.checkBoxOldSChool.Checked = true;
-            this.checkBoxOldSChool.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxOldSChool.Location = new System.Drawing.Point(125, 174);
             this.checkBoxOldSChool.Name = "checkBoxOldSChool";
             this.checkBoxOldSChool.Size = new System.Drawing.Size(53, 17);
@@ -87,6 +85,8 @@
             // AF
             // 
             this.AF.AutoSize = true;
+            this.AF.Checked = true;
+            this.AF.CheckState = System.Windows.Forms.CheckState.Checked;
             this.AF.Location = new System.Drawing.Point(125, 151);
             this.AF.Name = "AF";
             this.AF.Size = new System.Drawing.Size(88, 17);

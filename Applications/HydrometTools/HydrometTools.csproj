@@ -381,9 +381,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Look\NewLook.Designer.cs" />
-    <Compile Include="Look\Program.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Database.cs" />
     <Compile Include="ShiftInput.cs">
       <SubType>UserControl</SubType>

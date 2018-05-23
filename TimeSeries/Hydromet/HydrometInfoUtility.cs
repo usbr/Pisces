@@ -944,12 +944,13 @@ VCAO        QJ      : 1966-1972, 1974, 1977
                          RemoveExtraRows(tf);
 
                          s_mpollInventory = new DataTable();
-                        s_mpollInventory.Columns.Add("cbtt");
-                        s_mpollInventory.Columns.Add("pcode");
+                        var c1 = s_mpollInventory.Columns.Add("cbtt");
+                        var c2 = s_mpollInventory.Columns.Add("pcode");
                         s_mpollInventory.Columns.Add("years");
                         s_mpollInventory.Columns.Add("descr");
                         s_mpollInventory.Columns.Add("units");
 
+                        s_mpollInventory.PrimaryKey = new DataColumn[] { c1, c2 };
                         string cbtt = "";
                         string pcode = "";
                         string years = "";
