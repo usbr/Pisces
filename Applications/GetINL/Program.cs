@@ -4,6 +4,7 @@ using Reclamation.TimeSeries.Hydromet;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -174,7 +175,9 @@ namespace GetINL
             url += t.Year + "/" + t.Month.ToString().PadLeft(2, '0') + "/x" + t.Day.ToString().PadLeft(2, '0') + ".zip";
             var zip = FileUtility.GetTempFileName(".zip");
             Console.WriteLine("Downloading: " + url);
-            Web.GetFile(url, zip);
+            var x =File.ReadAllLines("login.txt");
+
+            Web.GetFile(url, zip,x[0],x[1]);
 
 
             var xmlFileName = FileUtility.GetTempFileName(".xml");
