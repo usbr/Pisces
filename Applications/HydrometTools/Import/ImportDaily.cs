@@ -313,6 +313,7 @@ namespace HydrometTools
             labelStatus.Text = "Saved  "+counter+" records to file " + fileName;
             Application.DoEvents();
 
+
             if(counter == 0)
                 return;
 
@@ -322,25 +323,60 @@ namespace HydrometTools
             if( !admin)
                 MessageBox.Show("You must enter the administrator password in the setup tab for this feature to work");
 
-            if (admin && login.ShowDialog() == DialogResult.OK)
+            HydrometHost svr = HydrometInfoUtility.HydrometServerFromPreferences();
+
+            if ( svr == HydrometHost.GreatPlains &&
+                admin && login.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
-                    var un = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
-                    Cursor = Cursors.WaitCursor;
-                     Application.DoEvents();
-                     var results = HydrometEditsVMS.SaveDailyData(login.Username, login.Password, fileName, HydrometDataUtility.CreateRemoteFileName(login.Username, TimeInterval.Daily),false,false);
-                    TimeSeriesEditor.ShowVmsStatus(results);
-                    textBoxLastUpdate.Text = DateTime.Now.ToShortDateString()+" "+ un;
-                    this.buttonSaveCsv_Click(this, EventArgs.Empty);
-                }
-                finally
-                {
-                    Cursor = Cursors.Default;
-                    Logger.WriteLine("done.", "ui");
-                }        
+                SaveToVMS(fileName, login);
+            }
+            else if( admin)
+            {
+                SaveToLinux(fileName);
             }
         }
+
+        private void SaveToVMS(string fileName, Login login)
+        {
+            try
+            {
+                var un = System.Security.Principal.WindowsIdentity.GetCurrent().Name.ToString();
+                Cursor = Cursors.WaitCursor;
+                Application.DoEvents();
+                var results = HydrometEditsVMS.SaveDailyData(login.Username, login.Password, fileName, HydrometDataUtility.CreateRemoteFileName(login.Username, TimeInterval.Daily), false, false);
+                TimeSeriesEditor.ShowVmsStatus(results);
+                textBoxLastUpdate.Text = DateTime.Now.ToShortDateString() + " " + un;
+                this.buttonSaveCsv_Click(this, EventArgs.Empty);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+                Logger.WriteLine("done.", "ui");
+            }
+        }
+
+        private void SaveToLinux(string filename)
+        {
+            HydrometHost svr = HydrometInfoUtility.HydrometServerFromPreferences();
+
+            if (svr == HydrometHost.PNLinux )
+            { // saving to Postgresql/Linux
+
+                if (Database.IsPasswordBlank())
+                {
+                    MessageBox.Show("Warning: the database password is blank.");
+                    return;
+                }
+
+                SaveOptions o = new SaveOptions(TimeInterval.Daily);
+                if (o.ShowDialog() == DialogResult.OK)
+                {
+                    Logger.WriteLine("Pisces import: " + filename, "ui");
+                    Database.ImportVMSTextFile(filename, o.ComputeDependencies);
+                }
+            }
+        }
+
 
         private int WriteArchivesImportFile(string cbtt, string pcode, string fileName , ExternalSource src)
         {
