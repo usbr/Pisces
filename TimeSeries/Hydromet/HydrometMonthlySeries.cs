@@ -1,9 +1,8 @@
 using Reclamation.Core;
+using Reclamation.TimeSeries.Analysis;
 using System;
 using System.Data;
 using System.Globalization;
-using Reclamation.TimeSeries.Analysis;
-using Reclamation.Core;
 
 namespace Reclamation.TimeSeries.Hydromet
 {
