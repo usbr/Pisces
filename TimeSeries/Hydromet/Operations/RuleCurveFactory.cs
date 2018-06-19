@@ -9,11 +9,11 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
     public class RuleCurveFactory
     {
 
-        public static HydrometRuleCurve Create(FloodControlPoint pt, int waterYear)
+        public static HydrometRuleCurve Create(FloodControlPoint pt, int waterYear,bool dashed)
         {
             var cbtt = pt.StationFC.ToLower();
             if (cbtt == "heii")// || stationQU == "jck")
-                return new HeiiRuleCurve(cbtt, waterYear,pt.FillType);
+                return new HeiiRuleCurve(cbtt, waterYear,pt.FillType,dashed);
             if (cbtt == "hgh")
                 return new HghRuleCurve(cbtt,pt.FillType);
 

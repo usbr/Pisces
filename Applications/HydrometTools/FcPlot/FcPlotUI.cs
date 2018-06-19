@@ -39,6 +39,7 @@ namespace FcPlot
             this.comboBoxSite.Items.Clear();
             this.comboBoxSite.Items.AddRange(FcPlotDataSet.GetNames());
 
+            checkBoxDashed.Visible = false;
         }
 
        
@@ -87,8 +88,10 @@ namespace FcPlot
                 Cursor = Cursors.WaitCursor;
                 Application.DoEvents();
                 FloodControlPoint pt = new FloodControlPoint(this.comboBoxSite.Text.ToString());
-                residForecast = new ResidualForecast(pt);
-                residForecastCompare = new ResidualForecast(pt);
+                checkBoxDashed.Visible = pt.StationFC.ToLower() == "heii";
+
+                residForecast = new ResidualForecast(pt,checkBoxDashed.Checked);
+                residForecastCompare = new ResidualForecast(pt,checkBoxDashed.Checked);
 
                 DateRange requiredRange = GetRequiredRange();
                 DateRange curveRange = GetRuleCurveRange();
@@ -167,10 +170,13 @@ namespace FcPlot
                     showRuleCurve = false;
                 }
                 hydrometChart1.SetLabels(pt.Name, "Content");
-                             
+
+
+                bool dashedLines = checkBoxDashed.Checked && pt.StationFC.ToLower() == "heii";
 
                 hydrometChart1.Fcplot(residForecast.TotalContent, requiredContent, alternateRequiredContent,
-                 alternateActualContent,ruleCurves, labelDates.ToArray(), pt.RequiredLegend, hmList,showRuleCurve);
+                 alternateActualContent,ruleCurves, labelDates.ToArray(), pt.RequiredLegend, hmList,showRuleCurve,
+                  dashedLines);
                 //compute the targets
                 if (pt.FillType == FillType.Variable && showTarget.Checked == true)
                 {
@@ -178,7 +184,7 @@ namespace FcPlot
                     {
                         actualContent.RemoveMissing();
                         var startPt = actualContent[actualContent.Count - 1];
-                        targets = FloodOperation.ComputeTargets(pt, Convert.ToInt32(this.textBoxWaterYear.Text),startPt, optionalPercents);
+                        targets = FloodOperation.ComputeTargets(pt, Convert.ToInt32(this.textBoxWaterYear.Text),startPt, optionalPercents,checkBoxDashed.Checked);
                         var aColors = new Color[] {Color.Black,Color.Maroon,Color.Indigo,Color.DarkSlateGray,Color.SaddleBrown };
                         for (int i = 0; i < targets.Count; i++)
                         {

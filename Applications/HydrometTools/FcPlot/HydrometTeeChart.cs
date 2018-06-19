@@ -66,7 +66,7 @@ namespace FcPlot
 
         internal void Fcplot(Series actual, Series required, Series alternateRequiredContent,
             Series alternateActualContent, SeriesList ruleCurves, DateTime[] labelDates, 
-            String RequiredLegend, SeriesList userInput,bool greenLines) 
+            String RequiredLegend, SeriesList userInput,bool greenLines, bool dashed) 
         {
             tChart1.Zoom.Undo();
             this.tChart1.Series.RemoveAllSeries();
@@ -78,7 +78,7 @@ namespace FcPlot
             //add green lines
             if (greenLines)
             {
-                AddRuleCurves(ruleCurves, labelDates);
+                AddRuleCurves(ruleCurves, labelDates,dashed);
             }
 
             Color[] colors = {Color.Black,Color.Orange,Color.DarkKhaki,Color.Brown,
@@ -127,7 +127,7 @@ namespace FcPlot
 
         }
 
-        private void AddRuleCurves(SeriesList ruleCurves, DateTime[] labelDates)
+        private void AddRuleCurves(SeriesList ruleCurves, DateTime[] labelDates,bool dashed)
         {
             for (int i = 0; i < ruleCurves.Count; i++)
             { 
@@ -139,6 +139,9 @@ namespace FcPlot
                 ts.Marks.Arrow.Visible = false;
                 ts.Marks.ArrowLength = 0;
                 ts.ShowInLegend = false;
+
+                if( dashed)
+                  ts.LinePen.Style = System.Drawing.Drawing2D.DashStyle.Dash;
 
                 ts.Title = s.Name;
                 ReadIntoTChart(s, ts);

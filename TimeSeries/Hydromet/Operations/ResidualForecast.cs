@@ -21,10 +21,12 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         HydrometMonthlySeries fc, fcm;
         public HydrometDailySeries qu, qd;
         SeriesList reservoirs;
+        bool m_dashed; // alternative rule curve (used at Heise,JCK,PAL)
 
         FloodControlPoint controlPoint;
-        public ResidualForecast(FloodControlPoint controlPoint)
+        public ResidualForecast(FloodControlPoint controlPoint, bool dashed)
         {
+            m_dashed = dashed;
             this.controlPoint = controlPoint;
             this.reservoirLags = controlPoint.ReservoirLags;
             this.reservoirNames = controlPoint.UpstreamReservoirs;
@@ -135,7 +137,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
            
 
-            m_ruleCurve = RuleCurveFactory.Create(controlPoint, wy);
+            m_ruleCurve = RuleCurveFactory.Create(controlPoint, wy,m_dashed);
 
             while (t <= _t2)
             {

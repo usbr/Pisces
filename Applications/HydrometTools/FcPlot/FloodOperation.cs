@@ -26,7 +26,7 @@ namespace FcPlot
         /// <param name="optionalPercents"></param>
         /// <returns></returns>
         public static SeriesList ComputeTargets(FloodControlPoint pt, 
-            int waterYear, Point start,int[] optionalPercents)
+            int waterYear, Point start,int[] optionalPercents, bool dashed)
         {
             string cbtt = pt.StationFC;
             
@@ -70,7 +70,7 @@ namespace FcPlot
             }
             else
             {
-                rval.Add(GetTargets(pt, waterYear, start, optionalPercents, forecastMonth, forecastValue));
+                rval.Add(GetTargets(pt, waterYear, start, optionalPercents, forecastMonth, forecastValue,dashed));
             }
 
             return rval;
@@ -78,7 +78,7 @@ namespace FcPlot
 
         private static Series HGHTarget(FloodControlPoint pt, double forecastValue, DateTime t1, DateTime t2)
         {
-            HydrometRuleCurve m_ruleCurve = RuleCurveFactory.Create(pt, 7100);
+            HydrometRuleCurve m_ruleCurve = RuleCurveFactory.Create(pt, 7100,false);
             Series target = new Series("Target");
             
             string flag = "";
@@ -105,10 +105,10 @@ namespace FcPlot
         /// <param name="forecastMonth"></param>
         /// <param name="forecastValue"></param>
         /// <returns></returns>
-        private static SeriesList GetTargets(FloodControlPoint pt, int waterYear, Point start, int[] optionalPercents,  int forecastMonth, double forecastValue)
+        private static SeriesList GetTargets(FloodControlPoint pt, int waterYear, Point start, int[] optionalPercents,  int forecastMonth, double forecastValue, bool dashed)
         {
             SeriesList rval = new SeriesList();
-            HydrometRuleCurve m_ruleCurve = RuleCurveFactory.Create(pt, 7100);
+            HydrometRuleCurve m_ruleCurve = RuleCurveFactory.Create(pt, 7100,dashed);
             var t1 = new DateTime(waterYear, pt.ForecastMonthStart, 1);
             var t2 = new DateTime(waterYear, pt.ForecastMonthEnd, 1).EndOfMonth();
 
