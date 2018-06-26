@@ -12,104 +12,70 @@ namespace Reclamation.TimeSeries.IdahoPower
     public class IdahoPowerSeries:Series
     {
 
-        string m_ipcoType;
-
-        public IdahoPowerSeries(string stationID, string ipcoType, TimeInterval interval)
+        public IdahoPowerSeries(string stationID, TimeInterval interval)
         {
             this.TimeInterval = interval;
             this.SiteID = stationID;
-            m_ipcoType = ipcoType;
         }
 
 
         protected override void ReadCore(DateTime t1, DateTime t2)
         {
             Clear();
-            var s = GetIdahoPowerData(this.SiteID, m_ipcoType, this.TimeInterval, t1, t2);
+            var s = ReadFromIdahoPower(SiteID, t1, t2);
             this.Add(s);
         }
-        /// <summary>
-        /// </summary>
-        /// <param name="stationID">example: 13245000</param>
-        /// <param name="ipcoType">Q,Qin,HW,Qx,S</param>
-        /// <param name="numDays">how many days back</param>
-        /// <returns></returns>
-        public static Series GetIdahoPowerData(string stationID, string ipcoType, int numDays, TimeInterval interval)
+
+        /*
+ * 
+Data Set Export - Flow.DayMean@13087505 Milner Lwr Pwr Plant at Milner - Range: 2017-05-12 00:00 - 2017-05-26 00:00 (UTC-07:00),,,,,
+Data on this site may be provisional and subject to revision,,,,,
+Timestamp (UTC-07:00),Value (Cubic Feet Per Second),Grade Code,Approval Level,Interpolation Type,Comment
+2017-05-12 00:00:00,5260,0,,8,
+2017-05-13 00:00:00,5250,0,,8,
+2017-05-14 00:00:00,5250,0,,8,
+2017-05-15 00:00:00,5260,0,,8,
+2017-05-16 00:00:00,5240,0,,8,
+2017-05-17 00:00:00,5240,0,,8,
+2017-05-18 00:00:00,5200,0,,8,
+2017-05-19 00:00:00,4290,0,,8,
+2017-05-20 00:00:00,2160,0,,8,
+2017-05-21 00:00:00,244,0,,8,
+2017-05-22 00:00:00,0,0,,8,
+2017-05-23 00:00:00,0,0,,8,
+2017-05-24 00:00:00,0,0,,8,
+2017-05-25 00:00:00,0,0,,8,
+2017-05-26 00:00:00,0,0,,8,         
+ */
+        private static Series ReadFromIdahoPower(string id, DateTime t1, DateTime t2)
         {
-            string xmlFileName = GetIdahoPowerXmlFile(stationID, interval, numDays);
+            //var url = "https://idastream.idahopower.com/Data/Export_Data/?dataset=18942&date=2017-05-12&endDate=2017-05-26&exporttype=csv&type=csv";
 
-            var s = ParseXmlData(xmlFileName, stationID, ipcoType, interval);
-            return s;
-        }
 
-        public static Series GetIdahoPowerData(string stationID, string ipcoType, TimeInterval interval, DateTime t1, DateTime t2)
-        {
-            if( t1 > DateTime.Now)
-                return new Series();
+            var url = "https://idastream.idahopower.com/Data/Export_Data/?dataset="
+                + id + "&date=" + t1.Date.ToString("yyyy-MM-dd")
+                + "&endDate=" + t2.AddDays(1).ToString("yyyy-MM-dd") + "&exporttype=csv&type=csv";
 
-            var ts = TimeSpan.FromTicks( DateTime.Now.Ticks- t1.Ticks );
+            var fn = DownloadAndUnzip(url);
 
-            string xmlFileName = GetIdahoPowerXmlFile(stationID, interval, ts.Days);
-
-            var s = ParseXmlData(xmlFileName, stationID, ipcoType, interval);
-
+            TextSeries s = new TextSeries(fn);
+            s.Read();
             s.Trim(t1, t2);
             return s;
         }
-
-
-        private static string GetIdahoPowerXmlFile(string stationID, TimeInterval interval, int numDays)
+        private static string DownloadAndUnzip(string url)
         {
-            string period = "d"; // daily
-            if (interval != TimeInterval.Daily)
-                period = "q"; // quarter hour (15 min)
+            var zip = FileUtility.GetTempFileName(".zip");
+            Console.WriteLine("Downloading: " + url);
+            Web.GetFile(url, zip);
 
-            // example: http://www.idahopower.com/OurEnvironment/WaterInformation/StreamFlow/GetStreamData.cfm?stationID=13289702&days=2&period=d
-            //<add key="idahoPowerURL" value="http://www.idahopower.com/OurEnvironment/WaterInformation/StreamFlow/GetStreamData.cfm?stationID=__stationid__&days=__days__&period=__period__"/>
 
-            string url = ConfigurationManager.AppSettings["idahoPowerURL"];
-            url = url.Replace("__stationid__", stationID);
-            url = url.Replace("__days__", numDays.ToString());
-            url = url.Replace("__period__", period);
-
-            string tmpFileName = FileUtility.GetTempFileName(".xml");
-            Web.GetFile(url, tmpFileName);
-            return tmpFileName;
+            var csv = FileUtility.GetTempFileName(".csv");
+            Console.WriteLine("Unzipping to-> " + csv);
+            ZipFileUtility.UnzipFile(zip, csv);
+            return csv;
         }
 
-
-        static Series ParseXmlData(string xmlFileName, string stationID, string ipcoType, TimeInterval interval)
-        {
-            string period = "d"; // daily
-            if (interval != TimeInterval.Daily)
-                period = "q"; // quarter hour (15 min)
-
-            Series s = new Series();
-            //s.TimeInterval = TimeInterval.Daily;   
-            XPathDocument doc = new XPathDocument(xmlFileName);
-            var nav = doc.CreateNavigator();
-            var ns = new XmlNamespaceManager(nav.NameTable);
-            ns.AddNamespace("ns1", "getStreamDataWS");
-            //            var query = "/ns1:Station[@Station_ID='13289702']/ns1:DataType[@TYPE='HW']/ns1:Reading[@PERIOD='D']";
-            //var query = "/ns1:Station[@Station_ID='13289702']/ns1:DataType[@TYPE='" + ipcoType + "']/ns1:Reading[@PERIOD='D']";
-            var query = "/ns1:Station[@Station_ID='" + stationID + "']/ns1:DataType[@TYPE='" + ipcoType + "']/ns1:Reading[@PERIOD='" + period.ToUpper() + "']";
-            var nodes = nav.Select(query, ns);
-
-            while (nodes.MoveNext())
-            {
-                DateTime t;
-                double d;
-                if (DateTime.TryParse(nodes.Current.GetAttribute("Date", ""), out t)
-                     && double.TryParse(nodes.Current.GetAttribute("Value", ""), out d))
-                {
-                    Console.WriteLine(t.ToString() + ", " + d);
-                    s.Add(t, d);
-                }
-            }
-            Console.WriteLine("Read " + s.Count + " data points  for " + ipcoType);
-            s.TimeInterval = Series.EstimateInterval(s);
-            return s;
-        }
 
 
     }

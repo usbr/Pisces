@@ -153,7 +153,6 @@
     <Compile Include="Estimation\Smoothing.cs" />
     <Compile Include="FileImporter.cs" />
     <Compile Include="HDB\HDBWebSeries.cs" />
-    <Compile Include="IdahoPower\Program.cs" />
     <Compile Include="Import\DirectoryScanner.cs" />
     <Compile Include="Import\BulkImportDirectory.cs" />
     <Compile Include="Import\XConnectTextFile.cs" />
@@ -621,7 +620,7 @@
     </PostBuildEvent>
   </PropertyGroup>
   <Target Name="AfterBuild">
-     <Copy SourceFiles="..\ThirdParty\libSQLite.Interop.so" DestinationFolder="$(OutputPath)" Condition=" $(OS) == 'Unix' " />
+    <Copy SourceFiles="..\ThirdParty\libSQLite.Interop.so" DestinationFolder="$(OutputPath)" Condition=" $(OS) == 'Unix' " />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

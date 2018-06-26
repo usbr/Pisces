@@ -24,13 +24,6 @@ namespace Reclamation.TimeSeries.Hydromet
             Init(cbtt, pcode, server);
         }
 
-        //public HydrometDailySeries(string seriesName)
-        //{
-        //    var tokens = seriesName.Split(new char[] { '_' }, StringSplitOptions.RemoveEmptyEntries);
-        //    if (tokens.Length != 2)
-        //        throw new ArgumentException("Invalid series name " + seriesName);
-        //    Init(tokens[0],tokens[1], HydrometHost.PN);
-        //}
 
         public HydrometDailySeries(string cbtt, string pcode)
         {
@@ -40,7 +33,6 @@ namespace Reclamation.TimeSeries.Hydromet
         public HydrometDailySeries(TimeSeriesDatabase db, TimeSeriesDatabaseDataSet.SeriesCatalogRow sr):base(db,sr)
         {
             HydrometInfoUtility.ParseConnectionString(ConnectionString, out server, out cbtt, out pcode);
-          //  State = HydrometInfoUtility.LookupState(cbtt);
         }
 
 

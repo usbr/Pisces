@@ -212,15 +212,7 @@ namespace HydrometTools
        
         private Series GetIdahoPowerSeries()
         {
-            var tokens = this.textBoxIdaCorp.Text.Split('/');
-            if (tokens.Length != 2)
-            {
-                MessageBox.Show("Error:  site id should look  like this '13245000/Q'");
-                return new Series();
-            }
-            string id = tokens[0];
-            string ipcoType = tokens[1];
-            var s = new Reclamation.TimeSeries.IdahoPower.IdahoPowerSeries(id,ipcoType, TimeInterval.Daily);
+            var s = new Reclamation.TimeSeries.IdahoPower.IdahoPowerSeries(textBoxIdaCorp.Text,TimeInterval.Daily);
             return s;
             
         }
