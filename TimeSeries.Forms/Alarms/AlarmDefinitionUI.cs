@@ -106,7 +106,7 @@ namespace Reclamation.TimeSeries.Forms.Alarms
          DataRowView currentDataRowView = (DataRowView)dataGridView1.CurrentRow.DataBoundItem;
          var alarm = (AlarmDataSet.alarm_definitionRow)currentDataRowView.Row;
 
-          m_ds.CreateAlarm(alarm,new Point(DateTime.Now,Convert.ToDouble(textBoxValue.Text)));
+          m_ds.ProcessAlarm(alarm,new Point(DateTime.Now,Convert.ToDouble(textBoxValue.Text)), AlarmProcesType.Create);
 
           MessageBox.Show("Your test alarm was submitted. \nVerify with the alarm status tab");
 

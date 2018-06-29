@@ -7,10 +7,7 @@ using System.Net.Mail;
 using System.Text.RegularExpressions;
 namespace Reclamation.TimeSeries.Alarms
 {
-}
-namespace Reclamation.TimeSeries.Alarms
-{
-
+    public enum AlarmProcesType {Create,Clear };
 
     public partial class AlarmDataSet
     {
@@ -205,51 +202,53 @@ namespace Reclamation.TimeSeries.Alarms
 
             foreach (var item in alarm.Rows) 
             {
-               if(  Check(s, (AlarmDataSet.alarm_definitionRow)item))
+               var row = (AlarmDataSet.alarm_definitionRow)item;
+               if (  Check(s, row, AlarmProcesType.Create ))
                 {
-
                     Logger.WriteLine("created alarm: " + s.SiteID + " " + s.Parameter);
                 }
-                else
+                else if( row.clear_condition.Trim() != "" && Check(s, row, AlarmProcesType.Clear))
                 {
-                    
+                    Logger.WriteLine("cleared alarm: " + s.SiteID + " " + s.Parameter);
                 }
             }
-            
-
-            
-
         }
 
-        private bool Check(Series s, alarm_definitionRow alarm)
+        private bool Check(Series s, alarm_definitionRow alarm, AlarmProcesType procesType)
         {
             Logger.WriteLine("found alarm definition " + s.SiteID + " " + s.Parameter);
 
-            AlarmRegex alarmEx = new AlarmRegex(alarm.alarm_condition);
+            AlarmRegex alarmEx = null;
+            if (procesType == AlarmProcesType.Create)
+                alarmEx = new AlarmRegex(alarm.alarm_condition);
+            else if (procesType == AlarmProcesType.Clear)
+                alarmEx = new AlarmRegex(alarm.clear_condition);
+            else
+                throw new NotImplementedException("AlarmProcessType "+procesType);
 
             if (alarmEx.IsMatch())
             {
                 var c = alarmEx.GetAlarmCondition();
                 if (c.Condition == AlarmType.Above)
                 {
-                    return CheckForAboveAlarm(s, alarm, c);
+                    return CheckForAboveAlarm(s, alarm, c,procesType);
                 }
                 else
                     if (c.Condition == AlarmType.Below)
                     {
-                        return CheckForBelowAlarm(s, alarm, c);
+                        return CheckForBelowAlarm(s, alarm, c, procesType);
                     }
                     else
                         if (c.Condition == AlarmType.Dropping
                             || c.Condition == AlarmType.Rising)
                         {
-                           return CheckForRateOfChangeAlarm(s, alarm, c);
+                           return CheckForRateOfChangeAlarm(s, alarm, c, procesType);
                         }
             }
             return false;
         }
 
-        private bool CheckForRateOfChangeAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        private bool CheckForRateOfChangeAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c, AlarmProcesType procesType)
         {
             Logger.WriteLine("Checking Rate of Change: " + c.Condition + " " + c.Value);
             // need data one time step before.. read from database.
@@ -278,14 +277,14 @@ namespace Reclamation.TimeSeries.Alarms
                     if (change > c.Value)
                     {
                         Console.WriteLine("Alarm "+c.Condition);
-                        return CreateAlarm(alarm, pt);
+                        return ProcessAlarm(alarm, pt,procesType);
                     }
                 }
             }
             return false;
         }
 
-        private bool CheckForAboveAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        private bool CheckForAboveAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c, AlarmProcesType procesType)
         {
             foreach (Point p in s)
             {
@@ -293,27 +292,26 @@ namespace Reclamation.TimeSeries.Alarms
                 {
                     Logger.WriteLine("alarm_condition: " + alarm.alarm_condition);
                     Logger.WriteLine("Alarm above found: " + p.Value);
-                    return CreateAlarm(alarm, p);
+                    return ProcessAlarm(alarm, p, procesType);
                 }
             }
             return false;
         }
 
-        private bool CheckForBelowAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        private bool CheckForBelowAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c, AlarmProcesType procesType)
         {
             foreach (Point p in s)
             {
                 if (!p.FlaggedBad && !p.IsMissing && p.Value < c.Value)
                 {
                     Console.WriteLine("Alarm below found");
-                    return CreateAlarm(alarm, p);
+                    return ProcessAlarm(alarm, p, procesType);
                 }
             }
             return false;
         }
 
-        public void ClearAlarm(AlarmDataSet.alarm_definitionRow alarm,
-                             Point pt)
+        public bool ClearAlarm(AlarmDataSet.alarm_definitionRow alarm)
         {
             var tbl = GetAlarmQueue(alarm.id);
 
@@ -323,8 +321,9 @@ namespace Reclamation.TimeSeries.Alarms
                 var row = tbl.Rows[0];
                 row["active"] = false;
                 m_server.SaveTable(tbl);
-
+                return true;
             }
+            return false;
         }
 
             /// <summary>
@@ -333,8 +332,16 @@ namespace Reclamation.TimeSeries.Alarms
             /// </summary>
             /// <param name="alarm"></param>
             /// <param name="pt"></param>
-            public bool CreateAlarm(AlarmDataSet.alarm_definitionRow alarm,
-                             Point pt)
+            public bool ProcessAlarm(AlarmDataSet.alarm_definitionRow alarm,
+                             Point pt,AlarmProcesType procesType)
+        {
+            if (procesType == AlarmProcesType.Create)
+                return CreateAlarm(alarm, pt);
+            else
+                return ClearAlarm(alarm);
+        }
+
+        private bool CreateAlarm(alarm_definitionRow alarm, Point pt)
         {
             var tbl = GetAlarmQueue(alarm.id);
 
