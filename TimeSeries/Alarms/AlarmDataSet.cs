@@ -205,15 +205,23 @@ namespace Reclamation.TimeSeries.Alarms
 
             foreach (var item in alarm.Rows) 
             {
-                Check(s, (AlarmDataSet.alarm_definitionRow)item);    
+               if(  Check(s, (AlarmDataSet.alarm_definitionRow)item))
+                {
+
+                    Logger.WriteLine("created alarm: " + s.SiteID + " " + s.Parameter);
+                }
+                else
+                {
+                    
+                }
             }
             
 
-            // TO DO  clear alarms if clear_condition
+            
 
         }
 
-        private void Check(Series s, alarm_definitionRow alarm)
+        private bool Check(Series s, alarm_definitionRow alarm)
         {
             Logger.WriteLine("found alarm definition " + s.SiteID + " " + s.Parameter);
 
@@ -224,23 +232,24 @@ namespace Reclamation.TimeSeries.Alarms
                 var c = alarmEx.GetAlarmCondition();
                 if (c.Condition == AlarmType.Above)
                 {
-                    CheckForAboveAlarm(s, alarm, c);
+                    return CheckForAboveAlarm(s, alarm, c);
                 }
                 else
                     if (c.Condition == AlarmType.Below)
                     {
-                        CheckForBelowAlarm(s, alarm, c);
+                        return CheckForBelowAlarm(s, alarm, c);
                     }
                     else
                         if (c.Condition == AlarmType.Dropping
                             || c.Condition == AlarmType.Rising)
                         {
-                            CheckForRateOfChangeAlarm(s, alarm, c);
+                           return CheckForRateOfChangeAlarm(s, alarm, c);
                         }
             }
+            return false;
         }
 
-        private void CheckForRateOfChangeAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        private bool CheckForRateOfChangeAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
         {
             Logger.WriteLine("Checking Rate of Change: " + c.Condition + " " + c.Value);
             // need data one time step before.. read from database.
@@ -269,14 +278,14 @@ namespace Reclamation.TimeSeries.Alarms
                     if (change > c.Value)
                     {
                         Console.WriteLine("Alarm "+c.Condition);
-                        CreateAlarm(alarm, pt);
-                        break;
+                        return CreateAlarm(alarm, pt);
                     }
                 }
             }
+            return false;
         }
 
-        private void CheckForAboveAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        private bool CheckForAboveAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
         {
             foreach (Point p in s)
             {
@@ -284,33 +293,47 @@ namespace Reclamation.TimeSeries.Alarms
                 {
                     Logger.WriteLine("alarm_condition: " + alarm.alarm_condition);
                     Logger.WriteLine("Alarm above found: " + p.Value);
-                    CreateAlarm(alarm, p);
-                    break;
+                    return CreateAlarm(alarm, p);
                 }
             }
+            return false;
         }
 
-        private void CheckForBelowAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
+        private bool CheckForBelowAlarm(Series s, alarm_definitionRow alarm, AlarmCondition c)
         {
             foreach (Point p in s)
             {
                 if (!p.FlaggedBad && !p.IsMissing && p.Value < c.Value)
                 {
                     Console.WriteLine("Alarm below found");
-                    CreateAlarm(alarm, p);
-                    break;
+                    return CreateAlarm(alarm, p);
                 }
+            }
+            return false;
+        }
+
+        public void ClearAlarm(AlarmDataSet.alarm_definitionRow alarm,
+                             Point pt)
+        {
+            var tbl = GetAlarmQueue(alarm.id);
+
+            if (tbl.Rows.Count == 1)
+            {
+                // set active flag to false... that clears the alarm.
+                var row = tbl.Rows[0];
+                row["active"] = false;
+                m_server.SaveTable(tbl);
+
             }
         }
 
-        
-        /// <summary>
-        ///  Check for alarm condition. If an alarm condition is found
-        ///  create an entry in the alarm_phone_queue.
-        /// </summary>
-        /// <param name="alarm"></param>
-        /// <param name="pt"></param>
-        public void CreateAlarm(AlarmDataSet.alarm_definitionRow alarm,
+            /// <summary>
+            ///  Check for alarm condition. If an alarm condition is found
+            ///  create an entry in the alarm_phone_queue.
+            /// </summary>
+            /// <param name="alarm"></param>
+            /// <param name="pt"></param>
+            public bool CreateAlarm(AlarmDataSet.alarm_definitionRow alarm,
                              Point pt)
         {
             var tbl = GetAlarmQueue(alarm.id);
@@ -318,7 +341,7 @@ namespace Reclamation.TimeSeries.Alarms
             if (tbl.Rows.Count == 1)
             {
                 Logger.WriteLine("Alarm already active in the queue: " + alarm.siteid + " " + alarm.parameter);
-                return;
+                return false;
             }
 
             SendEmail(alarm, pt);
@@ -339,6 +362,7 @@ namespace Reclamation.TimeSeries.Alarms
             row.active = true;
             tbl.Rows.Add(row);
             m_server.SaveTable(tbl);
+            return true;
         }
 
         private void SendEmail(alarm_definitionRow alarm, Point pt)
