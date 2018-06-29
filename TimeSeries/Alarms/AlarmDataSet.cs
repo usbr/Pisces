@@ -180,8 +180,9 @@ namespace Reclamation.TimeSeries.Alarms
             return tbl;
         }
         /// <summary>
-        /// Check each point in the series for an alarm
-        /// If there is an alarm condition add entry to alarm_phone_queue
+        /// Check each point in the series for an alarm condition
+        /// and for alarm clear condtion
+        /// update/instert alarm_phone_queue as needed
         /// </summary>
         /// <param name="s"></param>
         internal void Check(Series s)
@@ -317,9 +318,10 @@ namespace Reclamation.TimeSeries.Alarms
 
             if (tbl.Rows.Count == 1)
             {
+                var row = (AlarmDataSet.alarm_phone_queueRow)tbl.Rows[0];
                 // set active flag to false... that clears the alarm.
-                var row = tbl.Rows[0];
-                row["active"] = false;
+                //var row = tbl.Rows[0];
+                row.active = false;
                 m_server.SaveTable(tbl);
                 return true;
             }

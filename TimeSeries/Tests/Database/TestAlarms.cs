@@ -45,7 +45,7 @@ namespace Pisces.NunitTests.Database
             var ds = db.Alarms;
             ds.AddNewAlarmGroup("palisades");
             var def_id = ds.alarm_definition.Addalarm_definitionRow(true, "palisades",
-                "pal", "fb", "above 5520", "").id;
+                "pal", "fb", "above 5520", "below 5500 ").id;
             ds.SaveTable(ds.alarm_definition);
 
             var test = db.Server.Table("alarm_definition");
@@ -56,7 +56,7 @@ namespace Pisces.NunitTests.Database
             ds.SaveTable(ds.alarm_recipient);
 
             String file = Path.Combine(TestData.DataPath, "alarms", "pal_fb.csv");
-            TextSeries s = new TextSeries(file);
+            Series s = new TextSeries(file);
             //TO DO .. read flags
 
             s.Parameter = "fb";
@@ -70,6 +70,21 @@ namespace Pisces.NunitTests.Database
             var queue = ds.GetAlarmQueue(def_id);//"pal", "fb");
             Console.WriteLine(DataTableOutput.ToHTML(queue));
             Assert.AreEqual(1, queue.Rows.Count);
+
+            // Add some data that will Clear the Alarm
+            s = new Series();
+            s.Parameter = "fb";
+            s.SiteID = "pal";
+            DateTime t = DateTime.Now.Date;
+            s.Add(t.AddMinutes(15), 5500.12);
+            s.Add(t.AddMinutes(30), 5500.12);
+            s.Add(t.AddMinutes(45), 5499.12);
+            s.Add(t.AddMinutes(60), 5500.12);
+
+            ds.Check(s);
+            queue = ds.GetAlarmQueue(def_id);//"pal", "fb");
+            Assert.AreEqual(0, queue.Rows.Count,"queue should be empty");
+
         }
 
 
