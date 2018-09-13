@@ -50,7 +50,10 @@ Source:  "bin\debug\Reclamation.TimeSeries.Graphing.dll";   DestDir: "{app}";   
 Source:  "bin\debug\Pisces.exe";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\pscp.exe";   DestDir: "{app}";   Flags: ignoreversion
 ;Source:  "bin\debug\Excel.dll";   DestDir: "{app}";   Flags: ignoreversion
-Source:  "bin\debug\SpreadsheetGear.dll";   DestDir: "{app}";   Flags: ignoreversion
+;Source:  "bin\debug\SpreadsheetGear.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "bin\debug\SpreadsheetGear2012.Core.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "bin\debug\SpreadsheetGear2012.Drawing.dll";   DestDir: "{app}";   Flags: ignoreversion
+Source:  "bin\debug\SpreadsheetGear2012.Windows.Forms.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\TeeChart.dll";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\HydrometNotifications.exe";   DestDir: "{app}";   Flags: ignoreversion
 Source:  "bin\debug\Npgsql.dll";   DestDir: "{app}";   Flags: ignoreversion

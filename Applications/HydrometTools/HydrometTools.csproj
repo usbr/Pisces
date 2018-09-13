@@ -151,6 +151,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <COMReference Include="AxTeeChart">
+      <Guid>{5006E56D-FEDE-4C64-9CC2-78C320929406}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
     <Reference Include="Aga.Controls">
       <HintPath>..\..\ThirdParty\Aga.Controls.dll</HintPath>
     </Reference>
@@ -165,9 +173,9 @@
       <HintPath>..\..\packages\SSH.NET.2016.1.0-beta1\lib\net40\Renci.SshNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SpreadsheetGear">
-      <HintPath>..\..\..\..\..\..\..\HydrometTools\SpreadsheetGear.dll</HintPath>
-    </Reference>
+    <Reference Include="SpreadsheetGear2012.Core, Version=7.0.6.138, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL" />
+    <Reference Include="SpreadsheetGear2012.Drawing, Version=7.0.6.138, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL" />
+    <Reference Include="SpreadsheetGear2012.Windows.Forms, Version=7.0.6.138, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
@@ -185,6 +193,7 @@
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -205,9 +214,8 @@
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
     </COMReference>
-    <Reference Include="TeeChart, Version=3.5.3470.15475, Culture=neutral, PublicKeyToken=9c8126276c77bdb7, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Pisces\PaidThirdParty\TeeChart.dll</HintPath>
+    <Reference Include="TeeChart">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Steema Software\Steema TeeChart for .NET 2016 4.1.2016.10260\net40\x86\TeeChart.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -586,6 +594,7 @@
     <EmbeddedResource Include="Import\ImportFDRTemperature.resx">
       <DependentUpon>ImportFDRTemperature.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="RecordWorkup\DailyRecordWorkup.resx">
       <DependentUpon>DailyRecordWorkup.cs</DependentUpon>
     </EmbeddedResource>
@@ -997,7 +1006,6 @@
       <DependentUpon>Login.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="RatingTableDisplay.resx">
       <DependentUpon>RatingTableDisplay.cs</DependentUpon>
     </EmbeddedResource>

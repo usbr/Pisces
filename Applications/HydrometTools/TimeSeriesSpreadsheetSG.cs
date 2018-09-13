@@ -654,8 +654,8 @@ namespace HydrometTools
                 SpreadsheetGear.FormatConditionType.Expression,
                 SpreadsheetGear.FormatConditionOperator.Between, formula, null);
 
-            condition.Font.Color = System.Drawing.Color.Black;
-            condition.Interior.Color = System.Drawing.Color.Chartreuse;
+            condition.Font.Color = SpreadsheetGear.Colors.Black;// System.Drawing.Color.Black;
+            condition.Interior.Color = SpreadsheetGear.Colors.Chartreuse; // System.Drawing.Color.Chartreuse;
 
             formula = "=AND(C2<>\"e\",C2<>\"\",C2<>\" \")";
             formula = formula.Replace("C", flagColumn);
@@ -664,8 +664,8 @@ namespace HydrometTools
              SpreadsheetGear.FormatConditionType.Expression,
              SpreadsheetGear.FormatConditionOperator.Between, formula, null);
 
-            condition.Font.Color = System.Drawing.Color.Black;
-            condition.Interior.Color = System.Drawing.Color.Red;
+            condition.Font.Color = SpreadsheetGear.Colors.Black; // System.Drawing.Color.Black;
+            condition.Interior.Color = SpreadsheetGear.Colors.Red; // System.Drawing.Color.Red;
 
         }
         private void SetupFlagContextMenu(TimeInterval db)
