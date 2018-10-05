@@ -10,7 +10,8 @@ namespace HydrometForecast
     public class RunoffForecastTerm: ForecastTerm
     {
         List<string> runoffDetails;
-         public RunoffForecastTerm()
+        public Reclamation.TimeSeries.Series yData = new Series();
+        public RunoffForecastTerm()
         {
             ForecastTermType = "Runoff";
             IsXterm = false;
@@ -60,8 +61,8 @@ namespace HydrometForecast
              bool midMonth = forecastDate.Day != 1;
 
              var s = Reclamation.TimeSeries.Math.Subset(list[0], t1, t2);
-
-             double runoffSum = 0;
+            yData = list[0];
+            double runoffSum = 0;
              runoffDetails.Add("  Date   Runoff  Sum");
              for (int i = 0; i < s.Count; i++)
              {
@@ -92,8 +93,7 @@ namespace HydrometForecast
                     + " " + runoffSum.ToString("F2").PadLeft(6));
              }
 
-             runoffDetails.Add("");
-            
+             runoffDetails.Add("");                
 
              return runoffSum;
          }

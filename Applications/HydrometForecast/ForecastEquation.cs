@@ -172,6 +172,11 @@ namespace HydrometForecast
             tbl.Columns.Add("Difference2", typeof(double));
             tbl.Columns.Add("Error2", typeof(double));
 
+            foreach (var month in this.YTerm.MonthNames)
+            {
+                tbl.Columns.Add(month.ToString().ToUpper(), typeof(double));
+            }
+
 
             for (int i = 1; i < estimationFactors.Length; i++)
             {
@@ -181,6 +186,8 @@ namespace HydrometForecast
             }
 
             HydrometData.SetupHydrometData(StartYear,EndYear, GetCbttPcodeList().ToArray(),DateTime.MaxValue, true, true); // date is ignored when reading all years
+
+            string forecastPeriod = "";
 
             for (int year = year1; year <= year2; year++)
             {
@@ -215,6 +222,14 @@ namespace HydrometForecast
                         //row["Difference"+s] = diff;
                         //row["Error"+s] = (diff / actual) * 100.0;
                     }
+                                       
+                    forecastPeriod = fcResult.ForecastPeriod;
+                    var sTEMP = this.YTerm.yData;
+                    // [JR] last col in output table is idx-10
+                    for (int ithMon = 0; ithMon < sTEMP.Count(); ithMon++)
+                    {
+                        row[ithMon + 10] = sTEMP[ithMon].Value;
+                    }
 
                 }
                 catch (Exception ex)
@@ -227,11 +242,12 @@ namespace HydrometForecast
             }
 
             // add some notes
-            if (tbl.Rows.Count >= 3)
+            if (tbl.Rows.Count >= 4)
             {
                 tbl.Rows[0]["Notes"] = this.Name;
                 tbl.Rows[1]["Notes"] = "forecast Month " + forecastMonth;
                 tbl.Rows[2]["Notes"] = "forecast Day " + forecastDay;
+                tbl.Rows[3]["Notes"] = "forecast Period " + forecastPeriod;
             }
 
              var summaryRow = tbl.NewRow();
