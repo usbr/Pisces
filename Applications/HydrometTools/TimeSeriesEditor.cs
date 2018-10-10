@@ -425,6 +425,8 @@ namespace HydrometTools
             // 
             // 
             this.tChart1.Axes.Bottom.Title.Transparent = true;
+            this.tChart1.Axes.Bottom.Grid.Visible = true;
+            this.tChart1.Axes.Left.Grid.Visible = true;
             // 
             // 
             // 

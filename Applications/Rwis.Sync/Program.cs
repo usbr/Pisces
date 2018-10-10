@@ -17,6 +17,7 @@ namespace Rwis.Sync
         //[STAThreadAttribute]
         static void Main(string[] argList)
         {
+            //argList = new string[3] { "--update=PN", "t1=1980-01-01", "t2=2018-04-09" };
             Rwis.Sync.Program.SyncMain(argList);
         }
 
@@ -151,9 +152,9 @@ namespace Rwis.Sync
 
             Console.WriteLine("RWIS Sync.exe:  Completed " + DateTime.Now.ToString() + "\n");
 
-            var mem = GC.GetTotalMemory(true);
-            double mb = mem / 1024.0 / 1024.0;
-            Console.WriteLine("Mem Usage: " + mb.ToString("F3") + " Mb");
+            //var mem = GC.GetTotalMemory(true);
+            //double mb = mem / 1024.0 / 1024.0;
+            //Console.WriteLine("Mem Usage: " + mb.ToString("F3") + " Mb");
             perf.Report("RWIS Sync: finished ");
         }
 

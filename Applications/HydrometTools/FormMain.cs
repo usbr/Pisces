@@ -52,9 +52,9 @@ namespace HydrometTools
         private TabPage tabPageReports;
         private TabControl tabControl2;
         private TabPage tabPageDailyImport;
-        private ImportDaily importUI1;
+        //private ImportDaily importUI1;
         private TabPage tabPageFdrImport;
-        private Import.ImportFDRTemperature importFDRTemperature1;
+        //private Import.ImportFDRTemperature importFDRTemperature1;
         private TabPage tabPageRecords;
         private TabPage tabPageShifts;
         private FcPlot.FcPlotUI fcUi;

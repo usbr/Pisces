@@ -306,11 +306,11 @@ namespace Reclamation.TimeSeries.Graphing
         {
             if (toolStripButtonSelect.Checked)
             {
-                tChart1.Zoom.Allow = false;
+                tChart1.Zoom.Direction = Steema.TeeChart.ZoomDirections.None;//.Allow = false;
             }
             else
             {
-                tChart1.Zoom.Allow = true;
+                tChart1.Zoom.Direction = Steema.TeeChart.ZoomDirections.Both;//.Allow = true;
             }
         }
 

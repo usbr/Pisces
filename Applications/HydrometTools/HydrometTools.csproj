@@ -47,6 +47,7 @@
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>

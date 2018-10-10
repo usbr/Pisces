@@ -812,7 +812,7 @@ namespace HydrometTools
 			Steema.TeeChart.Styles.Line series1 = new Steema.TeeChart.Styles.Line();
 
 			series1.XValues.DateTime = true;
-			series1.ShowInLegend = true;
+			series1.Legend.Visible = true;
 			series1.Pointer.Visible = true;
 			series1.Pointer.HorizSize = 2;
 			series1.Pointer.VertSize = 2;

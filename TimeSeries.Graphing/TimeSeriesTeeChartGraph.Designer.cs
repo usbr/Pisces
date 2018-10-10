@@ -136,11 +136,12 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             // 
+            this.tChart1.Aspect.ColorPaletteIndex = 20;
             this.tChart1.Aspect.View3D = false;
-            this.tChart1.Aspect.ZOffset = 0D;
             // 
             // 
             // 
+            this.tChart1.Axes.Automatic = true;
             // 
             // 
             // 
@@ -151,54 +152,93 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             // 
+            this.tChart1.Axes.Bottom.Grid.Visible = false;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Bottom.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            // 
+            // 
+            // 
             this.tChart1.Axes.Bottom.Ticks.Transparency = 50;
             // 
             // 
             // 
-            this.tChart1.Axes.Bottom.Title.Transparent = true;
             // 
             // 
             // 
             // 
             // 
             // 
-            this.tChart1.Axes.Depth.Title.Transparent = true;
+            this.tChart1.Axes.Bottom.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             // 
             // 
             // 
             // 
             // 
             // 
-            this.tChart1.Axes.DepthTop.Title.Transparent = true;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
+            this.tChart1.Axes.Left.AxisPen.Visible = false;
             this.tChart1.Axes.Left.AxisPen.Width = 1;
             this.tChart1.Axes.Left.EndPosition = 99D;
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.Grid.Style = System.Drawing.Drawing2D.DashStyle.Solid;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.Labels.Font.Brush.Color = System.Drawing.Color.Gray;
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.MinorTicks.Visible = false;
             this.tChart1.Axes.Left.StartPosition = 1D;
             // 
             // 
             // 
             this.tChart1.Axes.Left.Ticks.Transparency = 70;
+            this.tChart1.Axes.Left.Ticks.Visible = false;
             // 
             // 
             // 
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tChart1.Axes.Left.Title.Font.Size = 12;
             this.tChart1.Axes.Left.Title.Font.SizeFloat = 12F;
-            this.tChart1.Axes.Left.Title.Transparent = true;
             // 
             // 
             // 
             // 
             // 
             // 
-            this.tChart1.Axes.Right.Title.Transparent = true;
+            this.tChart1.Axes.Right.AxisPen.Visible = false;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Right.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tChart1.Axes.Right.Visible = false;
             // 
             // 
@@ -206,8 +246,15 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             // 
-            this.tChart1.Axes.Top.Title.Transparent = true;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Top.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tChart1.Axes.Top.Visible = false;
+            this.tChart1.CurrentTheme = Steema.TeeChart.ThemeType.Report;
             this.tChart1.Cursor = System.Windows.Forms.Cursors.Default;
             this.tChart1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
@@ -216,6 +263,10 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            this.tChart1.Header.Font.Brush.Color = System.Drawing.Color.Gray;
             this.tChart1.Header.Font.Size = 12;
             this.tChart1.Header.Font.SizeFloat = 12F;
             this.tChart1.Header.Lines = new string[] {
@@ -223,7 +274,23 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Legend.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tChart1.Legend.LegendStyle = Steema.TeeChart.LegendStyles.Series;
+            // 
+            // 
+            // 
+            this.tChart1.Legend.Pen.Visible = false;
+            // 
+            // 
+            // 
+            this.tChart1.Legend.Shadow.Visible = false;
+            this.tChart1.Legend.Transparent = true;
             this.tChart1.Location = new System.Drawing.Point(0, 25);
             this.tChart1.Name = "tChart1";
             // 
@@ -233,6 +300,7 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             this.tChart1.Panel.Bevel.ColorTwo = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.tChart1.Panel.Bevel.StringColorTwo = "FFE0E0E0";
             // 
             // 
             // 
@@ -251,8 +319,16 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Walls.Back.Brush.Visible = false;
+            this.tChart1.Walls.Back.Transparent = true;
+            this.tChart1.Walls.Back.Visible = false;
             this.tChart1.Walls.Visible = false;
-            this.tChart1.ClickSeries += new Steema.TeeChart.TChart.SeriesEventHandler(this.tChart1_ClickSeries);
             this.tChart1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseDown);
             this.tChart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseMove);
             this.tChart1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseUp);
@@ -275,22 +351,45 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             // 
-            this.line1.Marks.Callout.ArrowHead = Steema.TeeChart.Styles.ArrowHeadStyles.None;
-            this.line1.Marks.Callout.ArrowHeadSize = 8;
+            this.line1.Marks.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             // 
             // 
             // 
-            this.line1.Marks.Callout.Brush.Color = System.Drawing.Color.Black;
-            this.line1.Marks.Callout.Distance = 0;
-            this.line1.Marks.Callout.Draw3D = false;
-            this.line1.Marks.Callout.Length = 10;
-            this.line1.Marks.Callout.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
-            this.line1.Marks.Callout.Visible = false;
+            this.line1.Marks.Brush.Gradient.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.line1.Marks.Brush.Gradient.MiddleColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.line1.Marks.Brush.Gradient.StartColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(215)))), ((int)(((byte)(0)))));
+            this.line1.Marks.Brush.Gradient.UseMiddle = true;
             // 
             // 
             // 
-            this.line1.Pointer.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
+            // 
+            // 
+            // 
+            this.line1.Marks.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            // 
+            // 
+            // 
+            this.line1.Marks.Pen.Color = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(92)))), ((int)(((byte)(147)))));
+            // 
+            // 
+            // 
+            this.line1.Marks.Shadow.Visible = false;
+            // 
+            // 
+            // 
+            this.line1.Marks.TailParams.CustomPointPos = ((System.Drawing.PointF)(resources.GetObject("resource.CustomPointPos")));
+            this.line1.Marks.TailParams.Margin = 0F;
+            this.line1.Marks.TailParams.PointerHeight = 8D;
+            this.line1.Marks.TailParams.PointerWidth = 8D;
+            this.line1.Marks.TailStyle = Steema.TeeChart.Styles.MarksTail.WithPointer;
+            this.line1.OriginalCursor = null;
+            // 
+            // 
+            // 
+            this.line1.Pointer.SizeDouble = 0D;
+            this.line1.Pointer.SizeUnits = Steema.TeeChart.Styles.PointerSizeUnits.Pixels;
             this.line1.Title = "line1";
+            this.line1.UseExtendedNumRange = false;
             // 
             // 
             // 

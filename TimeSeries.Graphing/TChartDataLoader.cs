@@ -137,7 +137,7 @@ namespace Reclamation.TimeSeries.Graphing
 
             double avg = AverageOfColumn(table, columnName, interval, showBadData);
             series1.XValues.DateTime = true;
-            series1.ShowInLegend = true;
+            series1.Legend.Visible = true;
             series1.Pointer.Visible = true;
             series1.Pointer.HorizSize = 2;
             series1.Pointer.VertSize = 2;
@@ -352,7 +352,7 @@ Color.Chartreuse, Color.Chocolate,Color.Coral,Color.CornflowerBlue};
         {
             Steema.TeeChart.Styles.Line series1 = new Steema.TeeChart.Styles.Line();
 
-            series1.ShowInLegend = true;
+            series1.Legend.Visible = true;
             
             series1.Pointer.HorizSize = 2;
             series1.Pointer.VertSize = 2;

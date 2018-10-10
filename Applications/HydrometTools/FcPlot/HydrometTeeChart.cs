@@ -138,7 +138,7 @@ namespace FcPlot
                 ts.Marks.Style = Steema.TeeChart.Styles.MarksStyles.Label;
                 ts.Marks.Arrow.Visible = false;
                 ts.Marks.ArrowLength = 0;
-                ts.ShowInLegend = false;
+                ts.Legend.Visible = false;
 
                 if( dashed)
                   ts.LinePen.Style = System.Drawing.Drawing2D.DashStyle.Dash;
