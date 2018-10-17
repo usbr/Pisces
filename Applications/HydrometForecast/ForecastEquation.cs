@@ -166,17 +166,12 @@ namespace HydrometForecast
             tbl.Columns.Add("Difference", typeof(double));
             tbl.Columns.Add("Error", typeof(double));
 
-
             tbl.Columns.Add("Actual Residual Volume", typeof(double));
             tbl.Columns.Add("Forecasted Residual Volume", typeof(double));
             tbl.Columns.Add("Difference2", typeof(double));
             tbl.Columns.Add("Error2", typeof(double));
 
-            foreach (var month in this.YTerm.MonthNames)
-            {
-                tbl.Columns.Add(month.ToString().ToUpper(), typeof(double));
-            }
-
+            bool firstTableRow = true;
 
             for (int i = 1; i < estimationFactors.Length; i++)
             {
@@ -224,12 +219,46 @@ namespace HydrometForecast
                     }
                                        
                     forecastPeriod = fcResult.ForecastPeriod;
+                    // [JR] Hacks to write the inputs to the MLR process
+                    #region
                     var sTEMP = this.YTerm.yData;
-                    // [JR] last col in output table is idx-10
                     for (int ithMon = 0; ithMon < sTEMP.Count(); ithMon++)
                     {
-                        row[ithMon + 10] = sTEMP[ithMon].Value;
+                        if (firstTableRow)
+                        {
+                            tbl.Columns.Add("Y-Runoff-" + sTEMP[ithMon].DateTime.ToString("MMM").ToUpper(), typeof(double));
+                        }
+                        row["Y-Runoff-" + sTEMP[ithMon].DateTime.ToString("MMM").ToUpper()] = sTEMP[ithMon].Value;
                     }
+                    foreach (var term in this.XTerms)
+                    {
+                        if (term.xData.Count() > 0)
+                        {
+                            var termName = "X" + term.Number + "-" + term.ForecastTermType;
+                            var sList = term.xData;
+                            var sSum = new Reclamation.TimeSeries.Series();
+                            for (int i = 0; i < sList.Count; i++)
+                            {
+                                foreach (var point in sList[i])
+                                {
+                                    if (i == 0)
+                                    {
+                                        sSum.Add(point.DateTime, 0.0);
+                                        if (firstTableRow)
+                                        {
+                                            tbl.Columns.Add(termName + "-" + point.DateTime.ToString("MMM").ToUpper(), typeof(double));
+                                        }
+                                    }
+                                    sSum[point.DateTime] = new Reclamation.TimeSeries.Point(point.DateTime, sSum[point.DateTime].Value + point.Value);
+                                }
+                            }
+                            foreach (var point in sSum)
+                            {
+                                row[termName + "-" + point.DateTime.ToString("MMM").ToUpper()] = point.Value;
+                            }
+                        }
+                    }
+                    #endregion
 
                 }
                 catch (Exception ex)
@@ -239,6 +268,10 @@ namespace HydrometForecast
 
                 
                 tbl.Rows.Add(row);
+                if (firstTableRow)
+                {
+                    firstTableRow = false;
+                }
             }
 
             // add some notes
@@ -253,19 +286,36 @@ namespace HydrometForecast
              var summaryRow = tbl.NewRow();
 
              summaryRow["Year"] = "Average";
-             summaryRow["Actual Forecast Period Volume"] = tbl.AsEnumerable().Average(x => x.Field<double>("Actual Forecast Period Volume"));
-             summaryRow["Forecasted Period Volume"] = tbl.AsEnumerable().Average(x => x.Field<double>("Forecasted Period Volume"));
-             summaryRow["Difference"] = tbl.AsEnumerable().Average(x => x.Field<double>("Difference"));
-             summaryRow["Error"] = tbl.AsEnumerable().Average(x => x.Field<double>("Error"));
+             //summaryRow["Actual Forecast Period Volume"] = tbl.AsEnumerable().Average(x => x.Field<double>("Actual Forecast Period Volume"));
+             //summaryRow["Forecasted Period Volume"] = tbl.AsEnumerable().Average(x => x.Field<double>("Forecasted Period Volume"));
+             //summaryRow["Difference"] = tbl.AsEnumerable().Average(x => x.Field<double>("Difference"));
+             //summaryRow["Error"] = tbl.AsEnumerable().Average(x => x.Field<double>("Error"));
 
+             //summaryRow["Actual Residual Volume"] = tbl.AsEnumerable().Average(x => x.Field<double>("Actual Residual Volume"));
+             //summaryRow["Forecasted Residual Volume"] = tbl.AsEnumerable().Average(x => x.Field<double>("Forecasted Residual Volume"));
+             //summaryRow["Difference2"] = tbl.AsEnumerable().Average(x => x.Field<double>("Difference2"));
+             //summaryRow["Error2"] = tbl.AsEnumerable().Average(x => x.Field<double>("Error2"));
+            
+            for (int i = 2; i< tbl.Columns.Count;i++)
+            {
+                var colName = tbl.Columns[i].ColumnName;
+                summaryRow[colName] = tbl.AsEnumerable().Average(x => x.Field<double>(colName));
+            }
 
-             summaryRow["Actual Residual Volume"] = tbl.AsEnumerable().Average(x => x.Field<double>("Actual Residual Volume"));
-             summaryRow["Forecasted Residual Volume"] = tbl.AsEnumerable().Average(x => x.Field<double>("Forecasted Residual Volume"));
-             summaryRow["Difference2"] = tbl.AsEnumerable().Average(x => x.Field<double>("Difference2"));
-             summaryRow["Error2"] = tbl.AsEnumerable().Average(x => x.Field<double>("Error2"));
+            // Get percent of average for MLR inputs
+            for (int i = 10; i < tbl.Columns.Count; i++)
+            {
+                var colName = tbl.Columns[i].ColumnName;
 
+                DataColumn ithColumn = tbl.Columns[colName];
+                foreach (DataRow row in tbl.Rows)
+                {
+                    double oldVal = row.Field<double>(ithColumn);
+                    row.SetField(ithColumn, oldVal / Convert.ToDouble(summaryRow[colName].ToString()));
+                }
+            }
 
-             tbl.Rows.Add(summaryRow);
+            tbl.Rows.Add(summaryRow);
 
             return tbl;
         }

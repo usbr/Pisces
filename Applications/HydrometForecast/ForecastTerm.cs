@@ -24,6 +24,7 @@ namespace HydrometForecast
         protected SeriesList list = new SeriesList();
         public bool IsXterm = true;
         public string ForecastTermType = "";
+        public Reclamation.TimeSeries.SeriesList xData = new SeriesList();
         
 
         public abstract double Evaluate(DateTime forecastDate, bool lookAhead, double estimationScaleFactor);
@@ -131,7 +132,6 @@ namespace HydrometForecast
             }
             rval.Add(s);
           
-
             return rval;
         }
 

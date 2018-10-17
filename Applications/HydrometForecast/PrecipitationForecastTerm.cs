@@ -30,7 +30,7 @@ namespace HydrometForecast
             {
                 MonthlyEstimation.EstimateFutureWithAverage(list,forecastDate,estimationScaleFactor);
             }
-
+            this.xData = list;
             ////WriteSeriesDataToConsole(list);
             
             double rval = WeightedSum();

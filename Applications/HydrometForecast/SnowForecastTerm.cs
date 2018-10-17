@@ -50,6 +50,7 @@ namespace HydrometForecast
                 CreateSeriesList();
                 list.Read(snowPeak, snowPeak.EndOfMonth());
                 MonthlyEstimation.EstimateMissingByGroup(list, forecastDate);
+                this.xData = list;
                 return WeightedSum();
             }
             else 
@@ -128,6 +129,7 @@ namespace HydrometForecast
                         throw new Exception(msg, error);
                     }
 
+                this.xData = list;
                 return rval;
                 
             }
