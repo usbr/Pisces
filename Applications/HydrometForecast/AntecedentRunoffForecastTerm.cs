@@ -18,6 +18,7 @@ namespace HydrometForecast
 
             MonthlyEstimation.EstimateFutureWithAverage(list,forecastDate, estimationScaleFactor);
 
+            this.xData = list;
             return WeightedSum();
 
         }

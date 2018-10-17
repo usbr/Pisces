@@ -171,7 +171,20 @@ namespace HydrometForecast
             tbl.Columns.Add("Difference2", typeof(double));
             tbl.Columns.Add("Error2", typeof(double));
 
-            bool firstTableRow = true;
+            // [JR] Hacks to write the inputs to the MLR process
+            foreach (var item in this.YTerm.MonthNames)
+            {
+                tbl.Columns.Add("Y-Runoff-" + item.ToUpper(), typeof(double));
+            }
+            for (int i = 0; i < this.XTerms.Count(); i++)
+            {
+                var ithTerm = this.XTerms[i];
+                var termName = "X" + ithTerm.Number + "-" + ithTerm.ForecastTermType;
+                foreach (var item in ithTerm.MonthNames)
+                {
+                    tbl.Columns.Add(termName + "-" + item.ToUpper(), typeof(double));
+                }
+            }
 
             for (int i = 1; i < estimationFactors.Length; i++)
             {
@@ -196,16 +209,17 @@ namespace HydrometForecast
                     var actual = YTerm.SeasonalRunoff(t);
                     row["Actual Forecast Period Volume"] = actual;
                     row["Forecasted Period Volume"] = fcResult.Forecast;
-                    var diff =  fcResult.Forecast - actual ; // convention of FORTRAN
+                    var diff = fcResult.Forecast - actual; // convention of FORTRAN
                     row["Difference"] = diff;
-                    row["Error"] = (diff / actual)*100.0;
+                    row["Error"] = (diff / actual) * 100.0;
 
                     var actualResid = actual - YTerm.RunoffToDate(t);
-                    var forecastResid = fcResult.GetForecastForSummary(lookAhead); 
+                    //var forecastResid = fcResult.GetForecastForSummary(lookAhead);
+                    var forecastResid = fcResult.Forecast - YTerm.RunoffToDate(t);
 
                     row["Actual Residual Volume"] = actualResid;
                     row["Forecasted Residual Volume"] = forecastResid;
-                    row["Difference2"] = forecastResid - actualResid ;
+                    row["Difference2"] = forecastResid - actualResid;
                     row["Error2"] = (forecastResid - actualResid) / actualResid * 100.0;
 
                     for (int i = 1; i < estimationFactors.Length; i++)
@@ -217,17 +231,13 @@ namespace HydrometForecast
                         //row["Difference"+s] = diff;
                         //row["Error"+s] = (diff / actual) * 100.0;
                     }
-                                       
+
                     forecastPeriod = fcResult.ForecastPeriod;
                     // [JR] Hacks to write the inputs to the MLR process
                     #region
                     var sTEMP = this.YTerm.yData;
                     for (int ithMon = 0; ithMon < sTEMP.Count(); ithMon++)
                     {
-                        if (firstTableRow)
-                        {
-                            tbl.Columns.Add("Y-Runoff-" + sTEMP[ithMon].DateTime.ToString("MMM").ToUpper(), typeof(double));
-                        }
                         row["Y-Runoff-" + sTEMP[ithMon].DateTime.ToString("MMM").ToUpper()] = sTEMP[ithMon].Value;
                     }
                     foreach (var term in this.XTerms)
@@ -244,10 +254,6 @@ namespace HydrometForecast
                                     if (i == 0)
                                     {
                                         sSum.Add(point.DateTime, 0.0);
-                                        if (firstTableRow)
-                                        {
-                                            tbl.Columns.Add(termName + "-" + point.DateTime.ToString("MMM").ToUpper(), typeof(double));
-                                        }
                                     }
                                     sSum[point.DateTime] = new Reclamation.TimeSeries.Point(point.DateTime, sSum[point.DateTime].Value + point.Value);
                                 }
@@ -259,28 +265,27 @@ namespace HydrometForecast
                         }
                     }
                     #endregion
-
                 }
                 catch (Exception ex)
                 {
                     row["Notes"] = ex.Message;
+                    for (int i = 2; i < row.ItemArray.Count(); i++)
+                    {
+                        row[i] = Double.NaN;
+                    }
                 }
-
-                
                 tbl.Rows.Add(row);
-                if (firstTableRow)
-                {
-                    firstTableRow = false;
-                }
             }
 
             // add some notes
-            if (tbl.Rows.Count >= 4)
+            if (tbl.Rows.Count >= 5)
             {
                 tbl.Rows[0]["Notes"] = this.Name;
-                tbl.Rows[1]["Notes"] = "forecast Month " + forecastMonth;
-                tbl.Rows[2]["Notes"] = "forecast Day " + forecastDay;
-                tbl.Rows[3]["Notes"] = "forecast Period " + forecastPeriod;
+                tbl.Rows[1]["Notes"] = "Current Forecast Month: " + forecastMonth;
+                tbl.Rows[2]["Notes"] = "Current Forecast Day: " + forecastDay;
+                tbl.Rows[3]["Notes"] = "Current Forecast Period: " + forecastPeriod;
+                tbl.Rows[4]["Notes"] = "Full Forecast Period: " + this.YTerm.MonthNames[0].ToString().ToUpper() +
+                    "-" + this.YTerm.MonthNames[this.YTerm.MonthNames.Count() - 1].ToString().ToUpper();
             }
 
              var summaryRow = tbl.NewRow();
@@ -299,7 +304,8 @@ namespace HydrometForecast
             for (int i = 2; i< tbl.Columns.Count;i++)
             {
                 var colName = tbl.Columns[i].ColumnName;
-                summaryRow[colName] = tbl.AsEnumerable().Average(x => x.Field<double>(colName));
+                var colAvg = tbl.AsEnumerable().Select(x => x.Field<double>(colName)).Where(s => s.ToString() != Double.NaN.ToString()).Average();
+                summaryRow[colName] = colAvg;
             }
 
             // Get percent of average for MLR inputs
