@@ -809,7 +809,7 @@ namespace Reclamation.TimeSeries
                     continue;
                 }
                 pt.Value = pt.Value * factor;
-                pt.Flag = "Edited";
+                pt.Flag = PointFlag.None;
                 s[i] = pt;
             }
         }

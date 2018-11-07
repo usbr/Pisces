@@ -407,7 +407,7 @@ namespace Reclamation.TimeSeries
         /// <returns></returns>
         public string[] GetParameters(string siteid, TimeInterval interval, bool quality=false)
         {
-            string sql = "Select parameter from seriescatalog where siteid = '" + siteid + "' and isfolder = 0 and timeinterval='"+interval.ToString()+"'";
+            string sql = "Select parameter from seriescatalog where siteid = '" + m_server.SafeSqlLiteral(siteid) + "' and isfolder = 0 and timeinterval='"+interval.ToString()+"'";
             var tbl = m_server.Table("a", sql);
 
             List<string> rval = new List<string>();

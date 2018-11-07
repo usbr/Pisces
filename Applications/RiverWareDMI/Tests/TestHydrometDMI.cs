@@ -37,7 +37,7 @@ namespace ReclamationTesting.RiverWareDmiTest
             //c:\temp\Storage.Jackson.txt
             
             Reclamation.Riverware.HydrometDMI dmi;
-            dmi = new Reclamation.Riverware.HydrometDMI(HydrometHost.PN, cf, t, DateTime.Now);
+            dmi = new Reclamation.Riverware.HydrometDMI(HydrometHost.PNLinux, cf, t, DateTime.Now);
             dmi.ExportTextFiles();
 
             foreach (var item in tempFiles)
@@ -58,7 +58,7 @@ namespace ReclamationTesting.RiverWareDmiTest
             //c:\temp\Storage.Jackson.txt
 
             Reclamation.Riverware.HydrometDMI dmi;
-            dmi = new Reclamation.Riverware.HydrometDMI(HydrometHost.PN, cf, t1, t2);
+            dmi = new Reclamation.Riverware.HydrometDMI(HydrometHost.PNLinux, cf, t1, t2);
             dmi.ExportTextFiles();
 
             foreach (var item in tempFiles)

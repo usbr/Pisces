@@ -32,13 +32,6 @@ namespace HydrometTools.Reports
                 yak.Parent = tabPageYakima;
                 yak.Dock = DockStyle.Fill;
             }
-            if (tabControl1.SelectedTab == tabPageUpperSnake)
-            {
-                var us = new UpperSnake.UpperSnakeMorning();
-                us.Parent = tabPageUpperSnake;
-                us.Dock = DockStyle.Fill;
-                us.LoadData();
-            }
         }
     }
 }

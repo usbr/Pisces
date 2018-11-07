@@ -16,6 +16,12 @@ namespace PiscesWebServices.CGI
         public string ContentType = "Content-type: text/html\n\n";
         private bool m_orderByDate = true;
 
+        StringBuilder m_sb = new StringBuilder();
+        public string Result()
+        {
+            return m_sb.ToString();
+        }
+
         public bool OrderByDate
         {
             get { return m_orderByDate; }
@@ -67,7 +73,10 @@ namespace PiscesWebServices.CGI
 
         public abstract void PrintRow(string t0, string[] vals, string[] flags);
 
-        public abstract void WriteLine(string s);
+        public void WriteLine(string s)
+        {
+            m_sb.AppendLine(s);
+        }
 
         /// <summary>
         /// Print DataTable composed of tablename,datetime,value[,flag]

@@ -772,7 +772,7 @@ namespace Reclamation.TimeSeries.Forms
 
                 if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    var svr = GetServer(dlg.ServerName, dlg.DatabaseName, dlg.DatabaseType, dlg.Password);
+                    var svr = GetServer(dlg.ServerName, dlg.DatabaseName, dlg.DatabaseType, dlg.Password,dlg.User);
 
                     engine1.Connect(svr);
                     DatabaseChanged();
@@ -784,10 +784,11 @@ namespace Reclamation.TimeSeries.Forms
             }
         }
 
-        private BasicDBServer GetServer(string server, string database, DatabaseType t, string password = "")
+        private BasicDBServer GetServer(string server, string database, DatabaseType t, string password = "",string user="")
         {
             BasicDBServer svr = null;
-            string user = Environment.UserName.ToLower();
+            if( user == "")
+                user = Environment.UserName.ToLower();
             if (t == DatabaseType.PostgreSql)
             {
                 svr = PostgreSQL.GetPostgresServer(database, server, user, password);

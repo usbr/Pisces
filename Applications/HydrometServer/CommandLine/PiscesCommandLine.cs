@@ -190,7 +190,7 @@ namespace HydrometServer.CommandLine
         {
             var table = list.ToDataTable(false);
            
-            TablePrinter.Print(table, 4);
+            TablePrinter.Print(table, 7);
         }
 
         /// <summary>

@@ -40,6 +40,15 @@ namespace Reclamation.TimeSeries.Hydromet
         {
             var rval = new string[] { };
 
+            var svr = HydrometInfoUtility.HydrometServerFromPreferences();
+
+            if( svr.ToString().ToLower().Contains("linux")
+                && db != null)
+            {
+                return db.GetParameters(cbtt, interval, false);
+                //return GetParametersFromPostgres(cbtt, interval, db);
+            }
+
             if (interval == TimeInterval.Daily)
             {
                 rval = HydrometInfoUtility.ArchiveParameters(cbtt);
@@ -58,31 +67,13 @@ namespace Reclamation.TimeSeries.Hydromet
 
             if (rval.Length == 0 && db != null)
             {
-                return GetParametersFromPostgres(cbtt,interval,db);
+                return db.GetParameters(cbtt, interval, false);
             }
             
             return rval;
 
         }
 
-        private static string[] GetParametersFromPostgres(string cbtt, TimeInterval interval,TimeSeriesDatabase db)
-        {
-            var rval = new List<string>();
-            var svr = db.Server;
-            //TimeSeriesDatabase p = new TimeSeriesDatabase(svr,false);
-            var sql = " lower(siteid) = '"+ svr.SafeSqlLiteral(cbtt.ToLower())+"' and TimeInterval = '"+interval.ToString()+"'";
-
-            var sc = db.GetSeriesCatalog(sql);
-            foreach (var item in sc)
-            {
-                TimeSeriesName tn = new TimeSeriesName(item.TableName);
-                rval.Add(tn.pcode);
-            }
-
-            return rval.ToArray();
-        }
-
-        
         /// <summary>
         /// Expand simplified query
         /// BOII MX,MN,MM
@@ -165,7 +156,7 @@ namespace Reclamation.TimeSeries.Hydromet
         public static HydrometHost HydrometServerFromString(string server)
         {
             if (server == "")
-                return HydrometHost.PN; 
+                return HydrometHost.PNLinux; 
 
             HydrometHost rval = (HydrometHost)Enum.Parse(typeof(HydrometHost), server, true);
             return rval;
@@ -820,12 +811,10 @@ VCAO        QJ      : 1966-1972, 1974, 1977
                 url = url.Replace("site=pali", "site=" + cbtt.Trim());
                 url = url.Replace("pcode=q", "pcode=" + pcode.Trim());
             }
-            else if( server == HydrometHost.PN || server == HydrometHost.PNLinux )
+            else if( server == HydrometHost.PN || server == HydrometHost.PNLinux 
+                || server == HydrometHost.YakimaLinux)
             {
-                url = ConfigurationManager.AppSettings["RatingTablePath"]+ratingName+".csv";
-
-                if( !NetworkUtility.Intranet)
-                    url = "https://www.usbr.gov/pn/hydromet/configurationdata/rating_tables/" + ratingName + ".csv";
+                url = GetRatingTableURL() + ratingName;
 
                 var tmp = FileUtility.GetTempFileName(".csv");
                 Web.GetFile(url, tmp);
@@ -955,12 +944,13 @@ VCAO        QJ      : 1966-1972, 1974, 1977
                          RemoveExtraRows(tf);
 
                          s_mpollInventory = new DataTable();
-                        s_mpollInventory.Columns.Add("cbtt");
-                        s_mpollInventory.Columns.Add("pcode");
+                        var c1 = s_mpollInventory.Columns.Add("cbtt");
+                        var c2 = s_mpollInventory.Columns.Add("pcode");
                         s_mpollInventory.Columns.Add("years");
                         s_mpollInventory.Columns.Add("descr");
                         s_mpollInventory.Columns.Add("units");
 
+                        s_mpollInventory.PrimaryKey = new DataColumn[] { c1, c2 };
                         string cbtt = "";
                         string pcode = "";
                         string years = "";
@@ -1076,8 +1066,6 @@ VCAO        QJ      : 1966-1972, 1974, 1977
        
         public static string[] ArchiveParameters(string cbtt)
         {
-
-
             string key = " " + cbtt.PadRight(12).ToUpper();
             var rval = new List<string>();
             TextFile tf = ArcInventory;
@@ -1106,6 +1094,27 @@ VCAO        QJ      : 1966-1972, 1974, 1977
                 }
             }
             return rval.ToArray();
+        }
+
+
+        public static string GetRatingTableURL()
+        {
+            var svr = HydrometServerFromPreferences();
+            string rt = "";
+            if (svr == HydrometHost.PNLinux)
+                rt = ConfigurationManager.AppSettings["RatingTablePath"];
+            else
+            if (svr == HydrometHost.YakimaLinux)
+                rt = ConfigurationManager.AppSettings["YakimaRatingTablePath"];
+            else
+                return "";
+
+            if (String.IsNullOrEmpty(rt))
+            {
+                throw new Exception("Error: RatingTablePath Not defined in config file");
+            }
+
+            return rt;
         }
 
     }

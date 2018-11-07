@@ -118,7 +118,7 @@ namespace Reclamation.RiverwareDmi
         private static void ReadFromHydromet(string controlFilename, string serverName, DateTime t1, DateTime t2)
         {
 
-            HydrometHost server = HydrometHost.PN;
+            HydrometHost server = HydrometHost.PNLinux;
             if (serverName.IndexOf("yakhyd") >= 0)
             {
                 server = HydrometHost.Yakima;

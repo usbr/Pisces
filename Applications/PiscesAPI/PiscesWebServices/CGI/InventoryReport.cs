@@ -1,27 +1,30 @@
-﻿using System;
-using System.Collections.Specialized;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using Reclamation.Core;
 using Reclamation.TimeSeries;
-using System.Linq;
-using System.Web;
-using System.IO;
+using System;
+using System.Collections.Specialized;
 using System.Data;
-using Reclamation.Core;
-using System.Net;
+using System.Linq;
 using System.Text;
-using Reclamation.TimeSeries.Hydromet;
-using Reclamation.TimeSeries.Reports;
+using System.Text.RegularExpressions;
+using System.Web;
 
 namespace PiscesWebServices.CGI
 {
     /// <summary>
-    /// inventory?site=ABEI&interval=daily[&ui=true|false]
+    /// inventory?site=ABEI&interval=daily[&ui=true|false][&format=csv|html]&por=false|true
+    /// 
+    /// site = cbtt  (required)
+    /// interval = daily or instant time step (default = 'daily')
+    /// ui = true to show html user interface for selecting parameters (default = 'false')
+    /// format = html or csv (default = 'html')
+    /// por = include period of record   (default = 'true')
+    /// 
     /// </summary>
     public partial class InventoryReport
     {
         private TimeSeriesDatabase db;
         private string query;
+        StringBuilder m_sb = new StringBuilder();
 
         public InventoryReport(TimeSeriesDatabase db, string payload)
         {
@@ -30,9 +33,8 @@ namespace PiscesWebServices.CGI
         }
 
 
-        internal void Run()
+        internal string Run()
         {
-            Console.Write("Content-type: text/html\n\n");
             if (query == "")
             {
                 query = HydrometWebUtility.GetQuery();
@@ -56,13 +58,33 @@ namespace PiscesWebServices.CGI
                 StopWithError("invalid query");
             }
 
-            TimeInterval interval;
             bool ui = LookupUI(collection);
-            SetInterval(collection, out interval);
+            var interval = GetInterval(collection);
 
-            PrintInventory(siteID, interval,ui);
-            
+            string format = LookupFormat(collection);
 
+            if (format == "html")
+            {
+                PrintHtmlInventory(siteID, interval, ui);
+            }
+            else if (format == "csv")
+            {
+                //PrintCsvInve
+            }
+
+            return m_sb.ToString();
+
+        }
+
+        private string LookupFormat(NameValueCollection collection)
+        {
+            var rval = "html";
+            if(collection.AllKeys.Contains("format"))
+            {
+                rval = collection["format"];
+            }
+
+            return rval;
         }
 
         private bool LookupUI(NameValueCollection collection)
@@ -71,9 +93,9 @@ namespace PiscesWebServices.CGI
                && collection["ui"].ToLower() == "true";
         }
 
-        private static void SetInterval(NameValueCollection collection, out TimeInterval interval)
+        private TimeInterval GetInterval(NameValueCollection collection)
         {
-            interval = TimeInterval.Daily;
+            var interval = TimeInterval.Daily;
             if (collection.AllKeys.Contains("interval"))
             {
                 if (collection["interval"].ToLower() == "daily")
@@ -90,9 +112,10 @@ namespace PiscesWebServices.CGI
                         StopWithError("Error: bad or missing interval");
                     }
             }
+            return interval;
         }
 
-        private void PrintInventory(string siteID, TimeInterval interval, bool ui)
+        private void PrintHtmlInventory(string siteID, TimeInterval interval, bool ui)
         {
             var parms = db.GetParameters(siteID, interval);
             var desc = db.GetSiteDescription(siteID);
@@ -123,7 +146,6 @@ namespace PiscesWebServices.CGI
                 if (maxYr > max)
                     max = maxYr;
 
-                //Console.WriteLine("por = "+por);
                 if (ui)
                 {
                     var cb = " <input type=\"checkbox\" name=\"pcode\" value=\"" + parms[i] + "\" id=\"" + parms[i] + "\">"+parms[i].ToUpper();
@@ -189,14 +211,14 @@ namespace PiscesWebServices.CGI
 
         private void WriteLine(string s)
         {
-            Console.WriteLine(s);
+            m_sb.AppendLine(s);
         }
 
 
-        private static void StopWithError(string message)
+        private  void StopWithError(string message)
         {
-            Console.WriteLine("Error: " + message);
-            Help.PrintInventory();
+            m_sb.AppendLine("Error: " + message);
+            m_sb.AppendLine(Help.PrintInventory());
             throw new Exception(message);
         }
 

@@ -54,11 +54,11 @@ namespace Reclamation.TimeSeries
             var routes = RouteDestinations(list);
             foreach (string route in routes.Keys)
             {
-                WriteListToFile(routes[route], name, interval, route);
+                WriteListToOutgoingFile(routes[route], name, interval, route);
             }
 
         }
-        private void WriteListToFile(SeriesList list, string name, TimeInterval interval,  string route)
+        private void WriteListToOutgoingFile(SeriesList list, string name, TimeInterval interval,  string route)
         {
             var tmpFileName = FileUtility.GetTempFileName(".txt");
             File.Delete(tmpFileName);
@@ -84,11 +84,22 @@ namespace Reclamation.TimeSeries
             }
             if (File.Exists(tmpFileName))
             {
-                Logger.WriteLine("Moving: " + tmpFileName);
                 string fn = interval == TimeInterval.Daily ? "daily" : "instant";
                 var fileName = GetOutgoingFileName(fn, name, "all", route);
-                Logger.WriteLine("To: " + fileName);
-                File.Move(tmpFileName, fileName);
+
+                var dir = Path.GetDirectoryName(fileName);
+                if (! Directory.Exists(fileName))
+                {
+                    var msg = "Error:  Directory does not exist " + dir;
+                    Console.WriteLine(msg);
+                    Logger.WriteLine(msg);
+                }
+                else
+                {
+                    Logger.WriteLine("Moving: " + tmpFileName);
+                    Logger.WriteLine("To: " + fileName);
+                    File.Move(tmpFileName, fileName);
+                }
             }
         }
 
@@ -151,6 +162,23 @@ namespace Reclamation.TimeSeries
         static string GetIncommingFileName(string prefix, string cbtt, string pcode, string fileExtension)
         {
             string incoming = ConfigurationManager.AppSettings["incoming"];
+            if (incoming == "" || incoming == null)
+            {
+                Console.WriteLine("Error: 'incoming' directory not defined in config file");
+                Logger.WriteLine("Error: 'incoming' directory not defined in config file");
+
+                // hack hack hack
+                // hack hack hack
+                if (LinuxUtility.IsLinux())
+                {
+                    incoming = "/tmp";
+                }
+                else
+                {
+                    incoming = "C:\\Temp\\";
+                }
+            }
+
             return Path.Combine(incoming, TimeSeriesTransfer.GetUniqueFileName(incoming, prefix, cbtt, pcode,fileExtension));
         }
 
@@ -161,12 +189,24 @@ namespace Reclamation.TimeSeries
             {
                 Console.WriteLine("Error: 'outgoing' directory not defined in config file");
                 Logger.WriteLine("Error: 'outgoing' directory not defined in config file");
+
+                // hack hack hack
+                if (LinuxUtility.IsLinux())
+                {
+                    outgoing = "/tmp";
+                } else
+                {
+                    outgoing = "C:\\Temp\\";
+                }
             }
+
             if (!Directory.Exists(outgoing) || outgoing == null)
             {
                 Console.WriteLine("Error: path does not exist: '" + outgoing + "'");
             }
-            if (route != "") // route is subdirectory i.e.  /home/hydromet/outgoing/route
+
+            // route is subdirectory i.e.  /home/hydromet/outgoing/route
+            if (route != "") 
                 outgoing = Path.Combine(outgoing, route);
 
             if( !Directory.Exists(outgoing))

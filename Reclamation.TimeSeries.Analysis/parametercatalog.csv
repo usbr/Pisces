@@ -1,0 +1,263 @@
+A_ID,timeinterval,units,statistic,name
+fd,Daily,feet,Avg,Reservoir Water Surface Elevation
+qp,Daily,cfs,Avg,Average Pump Discharge
+af,Daily,acre-feet,Inst,Reservoir Water Storage
+td,Daily,feet,Avg,Average Tailwater Stage
+tg,Daily,day,Sum,Growing Degree Days (50 Deg)
+tg32,Daily,day,Sum,Growing Degree Days (32 Deg)
+tg41,Daily,day,Sum,Growing Degree Days (41 Deg)
+tg50,Daily,day,Sum,Growing Degree Days (50 Deg)
+ud,Daily,degAz,Avg,Resultant Wind Direction
+wg,Daily,mph,Max,Peak Wind Gust
+wi,Daily,degF,Min,Minimum Water Temperature
+wk,Daily,degF,Max,Maximum Water Temperature
+wm,Daily,degC,Max,Maximum Water Temperature
+wn,Daily,degC,Min,Minimum Water Temperature
+wr,Daily,miles,Sum,Wind Run
+wy,Daily,degC,Avg,Average Water Temperature
+wz,Daily,degF,Avg,Average Water Temperature
+xb,Daily,degF,Min,Minimum Soil Temperature (1in)
+xc,Daily,degF,Min,Minimum Soil Temperature (4in)
+xd,Daily,degF,Min,Minimum Soil Temperature (8in)
+xf,Daily,degF,Max,Maximum Soil Temperature (1in)
+xg,Daily,degF,Max,Maximum Soil Temperature (4in)
+xh,Daily,degF,Max,Maximum Soil Temperature (8in)
+xj,Daily,degF,Avg,Average Soil Temperature (8in)
+xqd,Daily,cfs,Avg,Average Stream Flow
+ya,Daily,degF,Max,Maximum Shielded Canopy Temperature
+yb,Daily,degF,Min,Minimum Shielded Canopy Temperature
+yc,Daily,degF,Max,Maximum Shelter Temperature
+yd,Daily,degF,Min,Minimum Shelter Temperature
+yl,Daily,degF,Avg,Average Soil Temperature (1in)
+ym,Daily,degF,Avg,Average Dew Point Temperature
+yr,Daily,percent,Inst,Computed Total Dissolved Gas
+yw,Daily,degF,Avg,Average Soil Temperature (4in)
+yy,Daily,degF,Avg,Average Shelter Temperature
+z1,Daily,degF,Min,Minimum Unshielded Canopy Temperature
+z2,Daily,degF,Max,Maximum Unshielded Canopy Temperature
+z3,Daily,degF,Avg,Average Unshielded Canopy Temperature
+zcm,Daily,degF,Avg,Average Soil Temperature (40in)
+zcn,Daily,degF,Min,Minimum Soil Temperature (40in)
+zcx,Daily,degF,Max,Maximum Daily Soil Temperature (40in)
+zg,Daily,degF,Min,Minimum Soil Temperature (20in)
+zh,Daily,degF,Max,Maximum Daily Soil Temperature (20in)
+zk,Daily,degF,Min,Minimum Soil Temperature (2in)
+zl,Daily,degF,Max,Maximum Daily Soil Temperature (2in)
+zm,Daily,degF,Avg,Average Soil Temperature (2in)
+af,Irregular,acre-ft,Inst,Reservoir Water Storage
+au,Irregular,degF,Inst,Crop Canopy Temperature
+bga,Irregular,ug/L,Inst,Blue Green Algale
+bh,Irregular,mmHg,Inst,Barometric Pressure (Sea Level)
+bp,Irregular,inHg,Inst,Barometric Pressure (Sea Level)
+ch,Irregular,feet,Inst,Canal Gauge Height
+ch2,Irregular,feet,Inst,Canal Gauge Height (secondary)
+chl,Irregular,ug/L,Inst,Chlorophyll
+co,Irregular,degC,Inst,Air Temperature
+do,Irregular,ppm,Inst,Water Dissolved Oxygen 
+ea,Irregular,kPa,Avg,Actual Vapor Pressure
+eto,Irregular,mm/hr,Sum,Evapotranspiration (ASCE Grass Reference)
+etr,Irregular,mm/hr,Sum,Evapotranspiration (ASCE Alfalfa Reference)
+fb,Irregular,feet,Inst,Reservoir Water Surface Elevation
+fb2,Irregular,feet,Inst,Reservoir Water Surface Elevation (secondary)
+gh,Irregular,feet,Inst,River Water Surface Gauge Height
+gh2,Irregular,feet,Inst,River Water Surface Gauge Height (secondary)
+gz,Irregular,feet,Inst,Fish Screen Bypass Gauge Height
+hk,Irregular,feet,Inst,Diversion Pool Water Surface Elevation
+hp,Irregular,hours,Sum,Hours Pumped
+hq,Irregular,ft/sec,Avg,Water Velocity
+hqx,Irregular,ft/sec,Inst,Water Velocity X Component
+hqy,Irregular,ft/sec,Inst,Water Velocity Y Component
+ls,Irregular,acre-ft,Inst,Lake Water Storage
+lw,Irregular,kOhms,Inst,Leaf Wetness
+nt,Irregular,mmHG,Inst,Water Total Dissolved Gas
+ob,Irregular,degF,Inst,Instantaneous Air Temperature
+obm,Irregular,degF,Avg,Average Air Temperature
+obn,Irregular,degF,Min,Minimum Air Temperature
+obx,Irregular,degF,Max,Maximum Air Temperature
+pc,Irregular,inches,Inst,Cummulative Precipitation
+pi,Irregular,inches,Sum,Incremental Precipitation
+ced,Irregular,feet,Inst,Cell End Distance (ADVM)
+qc,Irregular,cfs,Inst,Canal Discharge
+qr,Irregular,cfs,Inst,Regulating Gate Discharge
+qs,Irregular,cfs,Inst,Spillway Discharge
+qt,Irregular,cfs,Inst,Total Powerplant Flow
+xac,Irregular,voltage,Inst,A/C power
+sd,Irregular,inches,Inst,Snow Depth
+se,Irregular,inches,Inst,Snow Water Content
+si,Irregular,langleys/hr,Avg,Incremental Solar Radiation
+sl,Irregular,degF,Inst,Soil Temperature (1in)
+sp,Irregular,inches,Inst,Snow Water Equivalent
+sq,Irregular,langleys,Sum,Cummulative Solar Radiation
+sq2,Irregular,langleys,Sum,Cummulative Diffuse Solar Radiation
+sv,Irregular,degF,Inst,Soil Temperature (8in)
+sw,Irregular,degF,Inst,Soil Temperature (4in)
+tp,Irregular,degF,Avg,Average Dew Point Temperature
+tpn,Irregular,degF,Min,Minimum Dew Point Temperature
+tpx,Irregular,degF,Max,Maximum Dew Point Temperature
+tu,Irregular,percent,Inst,Instantaneous Relative Humidity
+tun,Irregular,percent,Min,Minimum Relative Humidity
+tux,Irregular,percent,Max,Maximum Relative Humidity
+qe,Irregular,cfs,Inst,Power Discharge
+qe,Daily,cfs,Avg,Power Discharge
+rcd,Daily,feet,Avg,Gate 3 Opening
+rad,Daily,feet,Avg,Gate 1 Opening
+tv,Irregular,degF,Inst,Valve House Temperature
+tw,Irregular,feet,Inst,Tailbay Surface Water Elevation
+ui,Irregular,miles,Sum,Cummulative Wind Run
+ui2,Irregular,miles,Sum,Cummulative Wind Run (2ft)
+vb,Irregular,feet,Inst,Gage Height
+vv,Irregular,MW,Inst,Power Generation
+wc,Irregular,degC,Inst,Water Temperature
+wc2,Irregular,degC,Inst,Water Temperature
+wd,Irregular,degAz,Avg,Wind Direction 
+wds,Irregular,deg,StDev,Wind Direction Standard Deviation
+we,Irregular,uMHOS/cm,Inst,Water Specific Conductance
+wf,Irregular,degF,Inst,Water Temperature
+wf2,Irregular,degF,Inst,Water Temperature (secondary)
+wg,Irregular,mph,Max,Peak Wind Gust
+wp,Irregular,PH,Inst,Water pH Value
+ws,Irregular,mph,Avg,Average Wind Speed
+wt,Irregular,NTU,Inst,Water Turbidity
+z1,Irregular,degF,Inst,Unshielded Canopy Temperature
+za,Irregular,degF,Inst,Soil Temperature (2in)
+zb,Irregular,degF,Inst,Soil Temperature (20in)
+zc,Irregular,degF,Inst,Soil Temperature (40in)
+ac,Monthly,acres,Inst,End of Month Reservoir Water Surface Area
+af,Monthly,1000 af,Inst,End of Month Reservoir Water Content
+afa,Monthly,1000 af,Avg,Average End of Month Reservoir Water Surface Area
+afm,Monthly,1000 af,Inst,Mid-Month Reservoir Water Content
+ap1,Monthly,feet,Inst,First Year AOP Rule Curve
+ap2,Monthly,feet,Inst,Second Year AOP Rule Curve
+ap3,Monthly,feet,Inst,Third Year AOP Rule Curve
+ap4,Monthly,feet,Inst,Fourth Year AOP Rule Curve
+arc,Monthly,feet,Inst,Assured Refill Curve
+cc,Monthly,cfs,Avg,Canal Flow
+ci,Monthly,cfs,Avg,Reservoir Inflow
+cl,Monthly,cfs,Avg,Local Inflow
+cm,Monthly,cfs,Avg,Recorded Inflow
+co,Monthly,cfs,Avg,Reservoir Outflow
+cr1,Monthly,feet,Inst,First Year Critical Rule Curve
+cr2,Monthly,feet,Inst,Second Year Critical Rule Curve
+cr3,Monthly,feet,Inst,Third Year Critical Rule Curve
+cr4,Monthly,feet,Inst,Fourth Year Critical Rule Curve
+cs,Monthly,1000 af,Sum,Change in Reservoir Water Storage
+cu,Monthly,cfs,Avg,Unregulated Stream Flow
+e95,Monthly,1000 af,,95 Percent Confidence Error
+ecc,Monthly,feet,Inst,Energy Content Curve
+ecm,Monthly,feet,Inst,Mid-Month Energy Content Curve
+fb,Monthly,feet,Inst,End of Month Reservoir Water Surface Elevation
+fc,Monthly,1000 af,Inst,First of Month Residual Operating Forecast
+fch,Monthly,1000 af,Inst,150% First of Month Residual Operating Forecast
+fcl,Monthly,1000 af,Inst,50% First of Month Residual Operating Forecast
+fcm,Monthly,1000 af,Inst,Mid-Month Residual Operating Forecast
+fcn,Monthly,1000 af,Inst,100% First of Month Residual Operating Forecast
+fcp,Monthly,1000 af,Inst,Total Period First of Month Forecast
+fda,Monthly,1000 af,Inst,DEC-AUG Forecast
+fdj,Monthly,1000 af,Inst,DEC-JUN Forecast
+fjj,Monthly,1000 af,Inst,JAN-JUN Forecast
+fjy,Monthly,1000 af,Inst,JAN-JUL Forecast
+fny,Monthly,1000 af,Inst,NOV-JUL Forecast
+foj,Monthly,1000 af,Inst,OCT-JUN Forecast
+fos,Monthly,1000 af,Inst,OCT-SEP Forecast
+foy,Monthly,1000 af,Inst,OCT-JUL Forecast
+gro,Monthly,deg/date,Sum,"Growing Season (DegF,MMDD,MMDD)"
+hist,Monthly,1000 af,Inst,Historic Regenerated First of Month Forecast
+im,Monthly,1000 af,Avg,Reservoir Inflow
+ima,Monthly,1000 af,Avg,Average Reservoir Inflow
+lec,Monthly,feet,Inst,Lower Limit Energy Content Curve
+mm,Monthly,degF,Avg,Average Air Temperature
+mn,Monthly,degF,Min,Minimum Air Temperature
+mrc,Monthly,degF,Inst,Mandatory Rule Curve
+mx,Monthly,degF,Max,Maximum Air Temperature
+olk,Monthly,,Inst,"Weather Outlook: N=0, SN=-1, AN=+1"
+om,Monthly,1000 af,Sum,Reservoir Outflow
+oma,Monthly,1000 af,Avg,Average Reservoir Outflow
+pca,Monthly,1000 af,Inst,Principle Components First of Month Forecast
+pdr,Monthly,cfs,Inst,Power Discharge Requirements
+pm,Monthly,inches,Sum,Precipitation
+pma,Monthly,inches,Avg,Average Precipitation
+pp,Monthly,inches,Sum,Precipitation from Telemetry
+pv,Monthly,inches,Sum,Pan Evaporation
+qa,Monthly,1000 af,Avg,Stream Flow Adjusted for Storage
+qc,Monthly,1000 af,Avg,Canal Flow
+ql,Monthly,1000 af,Avg,Local Inflow
+qm,Monthly,1000 af,Avg,Recorded Stream Flow
+qu,Monthly,1000 af,Avg,Unregulated Stream Flow
+qua,Monthly,1000 af,Avg,Average Unregulated Stream Flow
+rf,Monthly,1000 af,Avg,Return Flow
+sd,Monthly,inches,Inst,First of Month Snow Depth
+se,Monthly,inches,Inst,First of Month Snow Water Content (Snotel)
+sem,Monthly,inches,Inst,Mid-Month Snow Water Content (Snotel)
+rbd,Daily,feet,Avg,Gate 2 Opening
+qv,Daily,cfs,Avg,Power Discharge
+bh,Daily,mmHg,Inst,Average Barometric Pressure (Sea Level)
+bn,Daily,inHG,Min,Minimum Barometric Pressure (Sea Level)
+bp,Daily,inHG,Avg,Average Barometric Pressure (Sea Level)
+bx,Daily,inHG,Max,Maximum Barometric Pressure (Sea Level)
+et,Daily,inches,Sum,Evapotranspiration (1982 K-P Alfalfa Reference)
+etos,Daily,inches,Sum,Evapotranspiration (ASCE Grass Reference)
+etrs,Daily,inches,Sum,Evapotranspiration (ASCE Alfalfa Reference)
+fb,Daily,feet,Inst,Reservoir Water Surface Elevation
+gain,Daily,cfs,Avg,Average Gain
+gd,Daily,feet,Avg,Average Stream Stage
+gj,Daily,feet,Avg,Average Canal Stage
+hh,Daily,feet,Avg,Canal Daily Average Shift
+hj,Daily,feet,Avg,Stream Daily Average Shift
+id,Daily,cfs,Avg,Computed Average Reservoir Inflow
+mm,Daily,degF,Avg,Average Air Temperature
+mn,Daily,degF,Min,Minimum Air Temperature
+mx,Daily,degF,Max,Maximum Air Temperature
+nt,Daily,mmHg,Inst,Water Total Dissolved Gas
+pc,Daily,inches,Inst,Cummulative Precipitation
+pe,Daily,inches,Sum,Total Pan Evaporation
+pp,Daily,inches,Sum,Daily Total Precipitation
+pu,Daily,inches,Sum,Cummulative Water Year Precipitation
+px,Daily,inches,Sum,Mannually Observed Daily Total Precipitation
+qd,Daily,cfs,Avg,Average Stream Discharge
+qj,Daily,cfs,Avg,Average Canal Discharge
+qrd,Daily,cfs,Avg,Average Stream Discharge Duplicate
+qsd,Daily,cfs,Avg,Average Spillway Discharge
+qt,Daily,cfs,Inst,Totalled Average Discharge
+qu,Daily,cfs,Avg,Estimated Average Unregulated Flow
+qx,Daily,cfs,Max,Maximum Discharge
+rhn,Daily,percent,Min,Minimum Relative Humidity
+se,Daily,inches,Inst,Snow Water Content
+so,Daily,inches,Sum,Cummulative Water Year Snow Water Equivalent
+sp,Daily,inches,Inst,Snow Water Equivalent
+sr,Daily,Langleys,Sum,Global Solar Radiation
+sr2,Daily,Langleys,Sum,Diffuse Solar Radiation
+sy,Daily,inches,Sum,Snow Moisture Content
+ta,Daily,percent,Avg,Average Relative Humidity
+qz,Irregular,cfs,Inst,Secondary Discharge
+ua,Daily,mph,Avg,Average Wind Speed
+sg,Monthly,inches,Inst,First of Month Snow Water Content (Snotel Ground-Truth)
+sgm,Monthly,inches,Inst,Mid-Month Snow Water Content (Snotel Ground-Truth)
+sk,Monthly,inches,Inst,First of Month Snow Water Content (Snotel)
+sm,Monthly,inches,Inst,First of Month Soil Moisture
+sma,Monthly,inches,Avg,Average Snow Moisture Accumulation
+sp,Monthly,inches,Inst,First of Month Snow Water Content (Hydromet Snow Pillow)
+spm,Monthly,inches,Inst,Mid-Month Snow Water Content (Hydromet Snow Pillow)
+ss,Monthly,inches,Inst,First of Month Snow Water Content (Hydromet Isotopic)
+ssm,Monthly,inches,Inst,Mid-Month Snow Water Content (Hydromet Isotopic)
+su,Monthly,inches,Inst,First of Month Snow Water Content (Snow Course)
+sua,Monthly,inches,Avg,Average Snow Water Content Accumulation
+sue,Monthly,inches,Inst,Estimated First of Month Snow Water Content (Snow Course)
+sum,Monthly,inches,Inst,Mid-Month Snow Water Content (Snow Course)
+vea,Monthly,feet,Inst,Variable Energy Content Curve (APR Forecast)
+vec,Monthly,feet,Inst,Variable Energy Content Curve
+vee,Monthly,feet,Inst,Variable Energy Content Curve (JUN Forecast)
+vef,Monthly,feet,Inst,Variable Energy Content Curve (FEB Forecast)
+vej,Monthly,feet,Inst,Variable Energy Content Curve (JAN Forecast)
+vem,Monthly,feet,Inst,Variable Energy Content Curve (MAR Forecast)
+vey,Monthly,feet,Inst,Variable Energy Content Curve (MAY Forecast)
+vg,Monthly,GWH,Sum,Monthly Total Power Generation
+vma,Monthly,feet,Inst,Mid-Month Variable Energy Content Curve (APR Forecast)
+vme,Monthly,feet,Inst,Mid-Month Variable Energy Content Curve (JUN Forecast)
+vmf,Monthly,feet,Inst,Mid-Month Variable Energy Content Curve (FEB Forecast)
+vmj,Monthly,feet,Inst,Mid-Month Variable Energy Content Curve (JAN Forecast)
+vmm,Monthly,feet,Inst,Mid-Month Variable Energy Content Curve (MAR Forecast)
+vmy,Monthly,feet,Inst,Mid-Month Variable Energy Content Curve (MAY Forecast)
+wa,Monthly,miles,Sum,Cummulative Wind Travel
+ys,Monthly,1000 af,Sum,Powerhouse Discharge
+q,Irregular,cfs,Inst,Discharge
+ssc,Irregular,count,Inst,Signal Strength Counts

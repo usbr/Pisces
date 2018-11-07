@@ -39,6 +39,8 @@ namespace Pisces.NunitTests.SeriesMath
         ///  10/8/2014 -- partial day  ends 12:00
         /// </summary>
         [Test, Category("Internal")]
+        [Ignore("Ignore internal tests per KTarbet.")]
+
         public void wrdo()
         {
             Logger.EnableLogger();

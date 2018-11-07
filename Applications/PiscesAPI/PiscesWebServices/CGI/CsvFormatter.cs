@@ -18,11 +18,6 @@ namespace PiscesWebServices.CGI
             ContentType = "Content-type: text/csv\nContent-Disposition: attachment; filename=hydromet.csv\n\n";
          }
 
-         public override void WriteLine(string s)
-         {
-             Console.WriteLine(s);
-         }
-
          public override void PrintRow(string t0, string[] vals, string[] flags)
          {
              StringBuilder sb = new StringBuilder(vals.Length * 8);
@@ -35,7 +30,7 @@ namespace PiscesWebServices.CGI
                  if (i != vals.Length - 1)
                      sb.Append(",");
              }
-             Console.WriteLine(sb.ToString());
+             WriteLine(sb.ToString());
 
          }
          public override string FormatNumber(object o)

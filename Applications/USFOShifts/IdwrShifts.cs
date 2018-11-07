@@ -31,9 +31,7 @@ namespace USFOShifts
             string cleanFile = args[0];
             string oldFile = args[1];
 
-            string[] cbtt = {"AFCI","BFCI","BMCI","CBCI","CRCI","ELCI","ENTI","GWCI","IDCI","LABI","LPPI",
-                                "MIII","MLCI","MPCI","NMCI","OSCI","PLCI","RECI","RSDI","SMCI","SNDI","TCNI",
-                                "TRCI","WACI"};
+            string[] cbtt = File.ReadAllLines("site_list.txt");
 
 
             //would store the old csv file in the attic and check it against yesterdays shifts
@@ -76,6 +74,7 @@ namespace USFOShifts
 
             for (int i = 0; i < cbtt.Length; i++)
             {
+                Console.WriteLine("cbtt='"+cbtt[i]+"'");
                 var tblNew = DataTableUtility.Select(csvNew, "cbtt='" + cbtt[i] + "'", "date_measured");
                 var tblOld = DataTableUtility.Select(csvOld, "cbtt='" + cbtt[i] + "'", "date_measured");
                 if(tblNew.Rows.Count > 0)
@@ -97,14 +96,15 @@ namespace USFOShifts
                         var shftOld = tblOld.Rows[tblOld.Rows.Count - 1]["shift"].ToString();
                         if (shftNew != shftOld && shftNew != "")
                         {
-                            InsertShiftToPostgres(cbtt[i], "ch", Convert.ToDouble(shftNew), dateMeasured, discharge, gh);
-                            emailMsg = emailMsg + cbtt[i] + " applied a shift of " + shftNew + ", ";
+                            emailMsg = InsertShift(cbtt, emailMsg, i, shftNew, dateMeasured, discharge, gh);
                         }
                     }
                     else if (shftNew != "")
                     {
-                        InsertShiftToPostgres(cbtt[i], "ch", Convert.ToDouble(shftNew), dateMeasured, discharge, gh);
-                        emailMsg = emailMsg + cbtt[i] + " applied a shift of " + shftNew + ", ";
+                        emailMsg = InsertShift(cbtt, emailMsg, i, shftNew, dateMeasured, discharge, gh);
+
+                        //InsertShiftToPostgres(cbtt[i], "ch", Convert.ToDouble(shftNew), dateMeasured, discharge, gh);
+                        //emailMsg = emailMsg + cbtt[i] + " applied a shift of " + shftNew + ", ";
                     }
 
                 }
@@ -134,6 +134,23 @@ namespace USFOShifts
             {
                 Console.WriteLine("No shift changes found");
             }
+        }
+
+        private static string InsertShift(string[] cbtt, string emailMsg, int i, string shftNew, string dateMeasured, double? discharge, double? gh)
+        {
+            double x = 0;
+            //x = Convert.ToDouble(shftNew);
+            if (double.TryParse(shftNew, out x))
+            {
+                InsertShiftToPostgres(cbtt[i], "ch", x, dateMeasured, discharge, gh);
+                emailMsg = emailMsg + cbtt[i] + " applied a shift of " + shftNew + ", ";
+            }
+            else
+            {
+                emailMsg = emailMsg + cbtt[i] + " Error reading Shift " + shftNew + ", ";
+            }
+
+            return emailMsg;
         }
 
         private static string ConvertCSVToShiftFormat(string html, string[] cbtt)

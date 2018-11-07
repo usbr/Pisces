@@ -16,10 +16,18 @@ namespace Pisces.NunitTests.SeriesMath
         [Test]
         public void AddBug()
         {
+            string path;
+            if (LinuxUtility.IsLinux())
+            {
+                path = "/tmp";
+            } else
+            {
+                path = "C:\\Temp\\";
+            }
            
             DateTime t1 = new DateTime(2013,1,1);
             var t2 = t1.AddDays(365);
-            var fn = FileUtility.GetTempFileNameInDirectory(@"c:\temp\",".pdb");
+            var fn = FileUtility.GetTempFileNameInDirectory(path, ".pdb");
             SQLiteServer svr = new SQLiteServer(fn);
             TimeSeriesDatabase db = new Reclamation.TimeSeries.TimeSeriesDatabase(svr,false);
             var s = new HydrometDailySeries("pal","af");

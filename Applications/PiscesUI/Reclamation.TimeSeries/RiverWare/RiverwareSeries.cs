@@ -176,37 +176,75 @@ namespace Reclamation.TimeSeries.RiverWare
              return new PeriodOfRecord(this.MinDateTime, this.MaxDateTime, Count);
          }
 
-         public override Series CreateScenario(TimeSeriesDatabaseDataSet.ScenarioRow scenario)
+        /// <summary>
+        /// Create series based on Scenario
+        /// Multiple Runs can be in the same file (Specified by Path.ScenarioNumber)
+        /// or Multiple Runs each in different file (Path.FileName)
+        /// or scenario can be by the Name
+        /// examples:  https://github.com/usbr/Pisces/issues/161
+        /// </summary>
+        /// <param name="scenario"></param>
+        /// <returns></returns>
+        public override Series CreateScenario(TimeSeriesDatabaseDataSet.ScenarioRow scenario)
          {
-             //string s = ConfigurationManager.AppSettings["scenarioList"];
-             string fn = ConnectionStringUtility.GetFileName(scenario.Path, m_db.Server.DataSource); 
-            
-            // TO DO..update scenarioNumber if needed
+           var fn = GetScenarioFileName(scenario);
+           int sn = GetScenarioNumber(scenario);
 
-            if (m_scenarioNumber >= 0 && m_db != null)
-             {
-                 
-                int idx = Array.IndexOf(m_db.GetScenarios().GetNames(), scenario.Name);
-                m_scenarioNumber = idx + 1;
-             }
-             else
-             {
-                 var path = Path.GetDirectoryName(fn);
-                 fn = Path.Combine(path, scenario.Name + ".rdf");
-                 Logger.WriteLine("Reading series from " + fn);
-                 if (!File.Exists(fn))
-                 {
-                     Logger.WriteLine("Error: Can't create scenario '" + scenario.Name + "'");
-                     return new Series();
-                 }
-             }
+           if (!File.Exists(fn))
+            {
+                Logger.WriteLine("Error: Can't create scenario '" + scenario.Name + "'");
+                return new Series();
+            }
 
-         var rval = new RiverWareSeries(fn, m_objectName, m_slotName, m_scenarioNumber, m_isSnapShot);
+         var rval = new RiverWareSeries(fn, m_objectName, m_slotName, sn, m_isSnapShot);
          rval.Appearance.LegendText = scenario.Name + " " + Name;
          rval.ScenarioName = scenario.Name;
          return rval;
              
          }
+
+        private int GetScenarioNumber(TimeSeriesDatabaseDataSet.ScenarioRow scenario)
+        {
+            var sn = ConnectionStringUtility.GetIntFromConnectionString(scenario.Path, "ScenarioNumber");
+            if (sn >= 0) // scenario number specified (use existing filename)
+            {
+                return sn;
+            }
+
+            if (m_scenarioNumber >= 0 && m_db != null)
+            {
+
+                int idx = Array.IndexOf(m_db.GetScenarios().GetNames(), scenario.Name);
+                if (idx >= 0)
+                    sn = idx + 1;
+            }
+            else
+            {
+                sn = m_scenarioNumber;
+            }
+            return sn;
+
+        }
+
+        private string GetScenarioFileName(TimeSeriesDatabaseDataSet.ScenarioRow scenario)
+        {
+            var rval = m_filename;
+            var pathFileName = ConnectionStringUtility.GetFileName(scenario.Path, m_db.Server.DataSource);
+
+            if (File.Exists(pathFileName)) // filename specified in path
+            {
+                rval = pathFileName;
+            }
+            else
+            { // derive filename from  ScenarioName 
+                var path = Path.GetDirectoryName(m_filename);
+                var x = Path.Combine(path, scenario.Name + ".rdf");
+                if (File.Exists(x))
+                    rval =x;
+            }
+
+            return rval;
+        }
 
          protected override void ReadCore(DateTime t1, DateTime t2)
         {

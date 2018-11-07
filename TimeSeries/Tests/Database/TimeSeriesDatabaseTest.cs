@@ -13,31 +13,41 @@ namespace Pisces.NunitTests.Database
     [TestFixture]
     public class TimeSeriesDatabaseTest
     {
-
-
         TimeSeriesDatabase db;
-       // string dataPath;
+        // string dataPath;
         string textFileName = "el68d_DigitizedChart.txt";
 
-        string tmpDir = @"C:\temp\db_test"; // test relative paths
+        string tmpDir;
 
         public TimeSeriesDatabaseTest()
         {
+            string path;
+            if (LinuxUtility.IsLinux())
+            {
+                path = "/tmp";
+            }
+            else
+            {
+                path = "C:\\Temp\\";
+            }
+
+            tmpDir = Path.Combine(path, "db_test");
+
             if (!Directory.Exists(tmpDir))
             {
                 Directory.CreateDirectory(tmpDir);
             }
-            string fn =Path.Combine(@"C:\temp","factory.pdb");
-            FileUtility.GetTempFileNameInDirectory(@"C:\temp\",".pdb");
+            string fn = Path.Combine(path, "factory.pdb");
+            FileUtility.GetTempFileNameInDirectory(path, ".pdb");
 
             SQLiteServer.CreateNewDatabase(fn);
             SQLiteServer svr = new SQLiteServer(fn);
-            db = new TimeSeriesDatabase(svr,false);
+            db = new TimeSeriesDatabase(svr, false);
 
             //string dataPath = ReclamationTesting.Properties.Settings.Default.DataPath;
             string dataPath = TestData.DataPath;
-           
-            File.Copy(Path.Combine(dataPath, textFileName), Path.Combine(tmpDir, textFileName),true);
+
+            File.Copy(Path.Combine(dataPath, textFileName), Path.Combine(tmpDir, textFileName), true);
             textFileName = Path.Combine(tmpDir, textFileName);
 
 
@@ -51,8 +61,6 @@ namespace Pisces.NunitTests.Database
 
         }
 
-        
-       
         /// <summary>
         /// TextSeries can be stored in the database and automatically update from
         /// the original text file if file has changed, and file still exists
@@ -72,8 +80,8 @@ namespace Pisces.NunitTests.Database
             Console.WriteLine(s.Units);
 
             s = db.GetSeries(sdi);
-            DateTime t1 = new DateTime(1999,1,1);
-            DateTime t2 = new DateTime(1999,1,1,23,59,59);
+            DateTime t1 = new DateTime(1999, 1, 1);
+            DateTime t2 = new DateTime(1999, 1, 1, 23, 59, 59);
             s.Read(t1, t2);
 
             Assert.AreEqual(43, s.Count);
@@ -89,24 +97,21 @@ namespace Pisces.NunitTests.Database
             sdi = db.AddSeries(s);
         }
 
-
-
         [Test]
         public void HydrometDailyFactory()
         {
-            Series s = new Reclamation.TimeSeries.Hydromet.HydrometDailySeries("jck", "af", HydrometHost.PN);
+            Series s = new Reclamation.TimeSeries.Hydromet.HydrometDailySeries("jck", "af", HydrometHost.PNLinux);
             s.Read(DateTime.Now.AddDays(-365), DateTime.Now.Date);
             int sdi = db.AddSeries(s);
             Assert.AreEqual("acre-feet", s.Units);
 
             s = db.GetSeries(sdi);
-            s.Read(DateTime.Now.AddDays(-365),DateTime.Now.Date);
+            s.Read(DateTime.Now.AddDays(-365), DateTime.Now.Date);
 
-            Assert.IsTrue(s.Count> 100,"count = "+s.Count);
+            Assert.IsTrue(s.Count > 100, "count = " + s.Count);
             Assert.IsTrue(s.ConnectionString.Contains("jck"));
 
         }
-
 
         [Test]
         public void HydrometAutoUpdate()
@@ -139,8 +144,8 @@ namespace Pisces.NunitTests.Database
             SeriesList sl = new SeriesList();
             sl.Add(s1);
             sl.Add(s2);
-            SimpleMathSeries c1 = new SimpleMathSeries("",sl,new MathOperation[]{ MathOperation.Add});
-            SimpleMathSeries c2 = new SimpleMathSeries("",sl, new MathOperation[] {MathOperation.Subtract});
+            SimpleMathSeries c1 = new SimpleMathSeries("", sl, new MathOperation[] { MathOperation.Add });
+            SimpleMathSeries c2 = new SimpleMathSeries("", sl, new MathOperation[] { MathOperation.Subtract });
 
             int sdi3 = db.AddSeries(c1);
             int sdi4 = db.AddSeries(c2);
@@ -153,20 +158,22 @@ namespace Pisces.NunitTests.Database
 
             Assert.AreEqual(515150.0 + 817782.0, s3[0].Value);
             Assert.AreEqual(515150.0 - 817782.0, s4[0].Value);
-
         }
-
-
-
 
         [Test]
         public void ExportDatabase()
         {
-            db.Export(@"C:\temp\export1");
-           // db.Import(@"C:\temp\export1");
+            string path;
+            if (LinuxUtility.IsLinux())
+            {
+                path = "/tmp";
+            }
+            else
+            {
+                path = "C:\\Temp\\";
+            }
+
+            db.Export(Path.Combine(path, "export1"));
         }
-
-        
-
     }
 }

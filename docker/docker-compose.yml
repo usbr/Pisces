@@ -1,0 +1,42 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres:9
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: hydromet
+    ports:
+      - 5432:5432
+   
+    volumes:
+      - c:\data\db:/data/db
+
+  api:
+    image: api  #microsoft/dotnet
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionString="server=lrgs1;database=timeseries;user id=web_user"
+      - PiscesAPIDatabase=postgresql
+
+    ports:
+      - 5000:5000
+
+    volumes:
+      - c:\data\api:/data/api
+      
+      
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+  
+#  master:
+#    image: master 
+      
+  
+   

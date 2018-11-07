@@ -1,5 +1,6 @@
 ﻿using Reclamation.Core;
 using Reclamation.TimeSeries;
+using Reclamation.TimeSeries.Hydromet;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,8 +29,9 @@ namespace HydrometTools
             {
                 checkBoxDependencies.Enabled = false;
                 checkBoxDependencies.Checked = false;
-
             }
+            HydrometHost svr = HydrometInfoUtility.HydrometServerFromPreferences();
+            this.checkBoxSaveVMS.Enabled = !(svr == HydrometHost.PNLinux || svr == HydrometHost.YakimaLinux);
         }
 
         public SaveOptions(TimeInterval interval)

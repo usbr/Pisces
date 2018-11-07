@@ -16,6 +16,7 @@ using Reclamation.TimeSeries.Forms;
 using Reclamation.TimeSeries;
 using System.Configuration;
 using Reclamation.TimeSeries.Parser;
+using Reclamation.TimeSeries.Decodes;
 
 namespace HydrometTools
 {
@@ -44,6 +45,7 @@ namespace HydrometTools
         ToolStripItem calculateMenu;
         ToolStripItem showEquationMenu;
         ToolStripItem interpolateWithStyleMenu;
+        ToolStripItem advancedRawData;
         ToolStripItem ScaleToVolumeMenu;
         ToolStripMenuItem flagMenu;
         ToolStripMenuItem ExcelMenu;
@@ -122,10 +124,100 @@ namespace HydrometTools
             fillGaps.Click += FillGaps_Click;
             advanced.DropDownItems.Add(fillGaps);
 
+            advancedRawData = new ToolStripMenuItem("decode raw data");
+            advancedRawData.Click += AdvancedRawData_Click;
+            advanced.DropDownItems.Add(advancedRawData);
+
 
             wbView.ContextMenuStrip.Opening += new CancelEventHandler(ContextMenuStrip_Opening);
 
             wbView.ContextMenuStrip.ShowItemToolTips = true;
+        }
+
+        /// <summary>
+        /// If Decodes software is installed locally
+        /// DECODE raw data for a single parameter
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AdvancedRawData_Click(object sender, EventArgs e)
+        {
+            // determine siteid (cbtt) and pcode
+
+            SpreadsheetRange r = new SpreadsheetRange(wbView.RangeSelection);
+            var col = r.SelectedRangeColumnNames[0];
+
+                var tokens = col.Trim().Split(' ');
+            if (tokens.Length != 2)
+                return;
+
+            var cbtt = tokens[0].ToLower();
+            var pcode = tokens[1].ToLower();
+
+            // find date range that is selected.
+            var t = r.SelectedDateRange;
+            // account for timezone offset and transmission time delay
+            // summer UTC-6h
+            // winter UTC-7h
+
+            var t1 = t.DateTime1.AddHours(-24); 
+            var t2 = t.DateTime2.AddHours(+24);
+
+            var svr = Database.GetServer("hydromet_opendcs");
+            if (svr == null)
+            {
+                MessageBox.Show("Error connecting to the database.  Please check your password");
+                return;
+            }
+
+            var fn = FileUtility.GetSimpleTempFileName(".txt");
+            var log = FileUtility.GetSimpleTempFileName(".txt");
+
+            // run DECODES to create output file
+            DecodesUtility.RunDecodesRoutingSpec(svr,"hydromet-tools", t1, t2, cbtt, fn,log);
+            //Don't Go Karl!
+            foreach (var item in File.ReadAllLines(log))
+            {
+                Logger.WriteLine(item);
+            }
+
+            foreach (var item in File.ReadAllLines(fn))
+            {
+                Logger.WriteLine(item);
+            }
+           
+
+
+            TextFile tf = new TextFile(fn);
+            if( !HydrometInstantSeries.IsValidDMS3(tf) )
+            {
+                MessageBox.Show("Error reading Decodes output");
+                return;
+            }
+            // Read Decodes output 
+            var sl = HydrometInstantSeries.HydrometDMS3DataToSeriesList(tf);
+            // filter by cbtt and pcode
+            var s = sl.Find(x => x.Table.TableName == "instant_" + cbtt + "_" + pcode);
+            if( s == null)
+            {
+                Logger.WriteLine("Error: could not find decoded data for " + cbtt + "/" + pcode);
+                return;
+            }
+            // use dataview for sorted data
+            // filter by date range
+            Series decoded = s.Clone();
+            for (int i = 0; i < s.Count; i++)
+            {
+                var pt = s[i];
+                if(pt.DateTime >= t.DateTime1 && pt.DateTime <= t.DateTime2)
+                {
+                    decoded.Add(pt);
+                }
+            }
+
+            // put values into hydromet tools
+            r.InsertSeriesValues(decoded);
+
         }
 
         private void FillGaps_Click(object sender, EventArgs e)
@@ -178,6 +270,12 @@ namespace HydrometTools
             string msg = "";
             try
             {
+                var db = Database.DB();
+                if (db == null)
+                {
+                    MessageBox.Show("Error connecting to the database.  Please check your password");
+                    return;
+                }
 
                 SpreadsheetRange ssRng = new SpreadsheetRange(wbView.RangeSelection);
                 var colNames = ssRng.SelectedRangeColumnNames;
@@ -193,7 +291,6 @@ namespace HydrometTools
                     var cbtt = tokens[0];
                     var pcode = tokens[1];
 
-                    var db = Database.DB();
                     var s = db.GetCalculationSeries(cbtt, pcode, interval);
 
                         if (s != null)
@@ -216,9 +313,16 @@ namespace HydrometTools
         void calculateMenu_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
-
+            
             try
             {
+                var db = Database.DB();
+                if (db == null)
+                {
+                    MessageBox.Show("Error connecting to the database.  Please check your password");
+                    return;
+                }
+
 
                 SpreadsheetRange ssRng = new SpreadsheetRange(wbView.RangeSelection);
                 var colNames = ssRng.SelectedRangeColumnNames;
@@ -415,6 +519,7 @@ namespace HydrometTools
             interpolateMenu.Enabled = true;
             ScaleToVolumeMenu.Enabled = true;
             regressionMenu.Enabled = false;
+            advancedRawData.Enabled = false;
 
             flagMenu.Enabled = true;
             interpolateWithStyleMenu.Enabled = false;
@@ -425,6 +530,10 @@ namespace HydrometTools
                 SpreadsheetRange ssRng = new SpreadsheetRange(wbView.RangeSelection);
 
                 calculateMenu.Enabled = ssRng.ValidCalculationRange;
+
+                advancedRawData.Enabled = ssRng.ValidCalculationRange 
+                                          && wbView.RangeSelection.ColumnCount == 1 
+                                          && interval == TimeInterval.Irregular;
 
                 if (ssRng.ValidInterpolationWithStyle)
                 {
@@ -466,17 +575,17 @@ namespace HydrometTools
         /// Sets source data and type of data.
         /// </summary>
         /// <param name="tbl"></param>
-        /// <param name="db"></param>
-        public void  SetDataTable(DataTable tbl, TimeInterval db, bool scrollToTop) { 
+        /// <param name="ti"></param>
+        public void  SetDataTable(DataTable tbl, TimeInterval ti, bool scrollToTop) { 
             m_dataTable = tbl;
 
             this.interval = TimeInterval.Irregular;
 
-            if (db == TimeInterval.Monthly)
+            if (ti == TimeInterval.Monthly)
                 this.interval = TimeInterval.Monthly;
-            if (db == TimeInterval.Daily)
+            if (ti == TimeInterval.Daily)
                 this.interval = TimeInterval.Daily;
-            if (db == TimeInterval.Irregular)
+            if (ti == TimeInterval.Irregular)
                 this.interval = TimeInterval.Irregular;
 
             wbView.GetLock();
@@ -496,8 +605,8 @@ namespace HydrometTools
                 
                 range.CopyFromDataTable(m_dataTable, SpreadsheetGear.Data.SetDataFlags.None);
                 worksheet.UsedRange.Columns.AutoFit();
-                SetupFlagContextMenu(db);
-                FormatCells(db);
+                SetupFlagContextMenu(ti);
+                FormatCells(ti);
 
             }
             finally
@@ -539,11 +648,11 @@ namespace HydrometTools
             // Delete any existing formats in the collection.
             conditions.Delete();
 
-            string formula = "=C2=\"e\"";
-            formula = formula.Replace("C", flagColumn);
+            string formula = "=OR(C2=\"e\",C2=\"C\")";
+            formula = formula.Replace("C2", flagColumn+"2");
             SpreadsheetGear.IFormatCondition condition = conditions.Add(
                 SpreadsheetGear.FormatConditionType.Expression,
-                SpreadsheetGear.FormatConditionOperator.Between, "="+flagColumn+"2=\"e\"", null);
+                SpreadsheetGear.FormatConditionOperator.Between, formula, null);
 
             condition.Font.Color = System.Drawing.Color.Black;
             condition.Interior.Color = System.Drawing.Color.Chartreuse;

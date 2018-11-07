@@ -1,9 +1,8 @@
 using Reclamation.Core;
+using Reclamation.TimeSeries.Analysis;
 using System;
 using System.Data;
 using System.Globalization;
-using Reclamation.TimeSeries.Analysis;
-using Reclamation.Core;
 
 namespace Reclamation.TimeSeries.Hydromet
 {
@@ -36,7 +35,7 @@ namespace Reclamation.TimeSeries.Hydromet
 
         string m_cbtt;
         string m_pcode;
-        HydrometHost server = HydrometHost.PN;
+        HydrometHost server = HydrometHost.PNLinux;
         public HydrometMonthlySeries(string cbtt, string pcode, HydrometHost server=HydrometHost.PNLinux)
         {
             this.TimeInterval = TimeSeries.TimeInterval.Monthly;
@@ -74,7 +73,7 @@ namespace Reclamation.TimeSeries.Hydromet
         protected override Series CreateFromConnectionString()
         {
             string str = ConnectionStringToken("server");
-            HydrometHost svr = HydrometHost.PN;
+            HydrometHost svr = HydrometHost.PNLinux;
             if( str.Trim() != "")
                  svr = (HydrometHost)Enum.Parse(typeof(HydrometHost), str);
 
@@ -465,6 +464,7 @@ namespace Reclamation.TimeSeries.Hydromet
             tbl.Rows.Add("ECM", "feet");
             tbl.Rows.Add("FB", "feet");
             tbl.Rows.Add("FC", "1000 acre-feet");
+            tbl.Rows.Add("FMS", "1000 acre-feet");
             tbl.Rows.Add("FCH", "1000 acre-feet");
             tbl.Rows.Add("FCL", "1000 acre-feet");
             tbl.Rows.Add("FCM", "1000 acre-feet");

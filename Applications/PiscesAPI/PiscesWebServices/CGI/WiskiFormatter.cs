@@ -19,11 +19,7 @@ namespace PiscesWebServices.CGI
              OrderByDate = false; // order by series(tablename)
          }
 
-         public override void WriteLine(string s)
-         {
-             Console.WriteLine(s);
-         }
-
+        
          public override void PrintRow(string t0, string[] vals, string[] flags)
          {
 

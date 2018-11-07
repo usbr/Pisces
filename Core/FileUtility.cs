@@ -182,8 +182,7 @@ namespace Reclamation.Core
         {
             string path = GetTempPath();
 
-            Random rnd = new Random();
-            string part1 = "t___" + rnd.Next(1200);
+            var part1 = Guid.NewGuid().ToString("N").Substring(0, 8).ToLower();
             var fn = Path.Combine(path, part1+ extension);
 
             if (File.Exists(fn))
@@ -421,66 +420,39 @@ namespace Reclamation.Core
                 bool rval = fi.CreationTime.AddMinutes(20) > DateTime.Now;
                 return rval;
             }
-            /// <summary>
-            /// Gets the full path to a file using the following preference order:
-            /// 1) exe path
-            /// 2) exe/cfg path 
-            /// 3) Globals.CfgDataPath (pisces/hydromet/cfg)
-            /// 3) Globals.LocalConfigurationDataPath  (set in app.config) 
-            /// </summary>
-            /// <param name="filename"></param>
-            /// <returns></returns>
-            public static string GetFileReference(string filename)
+
+        /// <summary>
+        /// Gets the full path to a file using the following preference order:
+        /// 1) exe path
+        /// 2) exe/cfg path 
+        /// 3) Globals.CfgDataPath (pisces/hydromet/cfg)
+        /// 3) Globals.LocalConfigurationDataPath  (set in app.config) 
+        /// 4) Root of the project source folder: System.AppDomain.CurrentDomain.BaseDirectory
+        /// </summary>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public static string GetFileReference(string filename)
+        {
+            // Build list of potential paths to look for file at
+            var list = new LinkedList<string>();
+            list.AddLast(Path.Combine(GetExecutableDirectory(), filename));
+            list.AddLast(Path.Combine(GetExecutableDirectory(), "cfg", filename));
+            list.AddLast(Path.Combine(Globals.CfgDataPath, filename));
+            list.AddLast(Path.Combine(Globals.LocalConfigurationDataPath, filename));
+
+            foreach (string path in list)
             {
-                string rval = Path.Combine(GetExecutableDirectory(), filename);
-                if (File.Exists(rval))
+                if (File.Exists(path))
                 {
-                    Logger.WriteLine("Using local file " + rval);
-                    return rval;
+                    Logger.WriteLine("found file in pisces root " + path);
+                    return path;
                 }
-
-                rval = Path.Combine(GetExecutableDirectory(), "cfg", filename);
-                if (File.Exists(rval))
-                {
-                    Logger.WriteLine("Using local file in cfg " + rval);
-                    return rval;
-                }
-
-                rval = Path.Combine(Globals.CfgDataPath, filename);
-                if (File.Exists(rval))
-                {
-                    Logger.WriteLine("Using local file in cfg " + rval);
-                    return rval;
-                }
-
-                rval = Path.Combine(Globals.LocalConfigurationDataPath, filename);
-                Logger.WriteLine("Requesting file '" + rval + "'");
-
-                if (File.Exists(rval))
-                {
-                    Logger.WriteLine("found file in LocalConfigurationDataPath " + rval);
-                    return rval;
-                }
-                rval = Path.Combine(Globals.LocalConfigurationDataPath2, filename);
-                Logger.WriteLine("Requesting file '" + rval + "'");
-
-                if (File.Exists(rval))
-                {
-                    Logger.WriteLine("found file in LocalConfigurationDataPath2 " + rval);
-                    return rval;
-                }
-
-
-                Logger.WriteLine("File Exists  = " + File.Exists(rval));
-                
-                if (!File.Exists(rval))
-                {
-                    Logger.WriteLine("Warning: could not find " + filename);
-                  //  throw new FileNotFoundException(filename);
-                }
-
-                return rval;
             }
+
+            // Case where file not found.
+            Logger.WriteLine("Warning: could not find " + filename);
+            throw new FileNotFoundException(filename);
+        }
 
         /// <summary>
         /// Move a file to sub directory, creating sub directory as needed.

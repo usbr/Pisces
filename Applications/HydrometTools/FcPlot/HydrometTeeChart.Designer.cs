@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HydrometTeeChart));
             this.panel1 = new System.Windows.Forms.Panel();
             this.linkLabelEdit = new System.Windows.Forms.LinkLabel();
             this.tChart1 = new Steema.TeeChart.TChart();
@@ -61,6 +62,7 @@
             // 
             // 
             this.tChart1.Aspect.View3D = false;
+            this.tChart1.Aspect.ZOffset = 0D;
             // 
             // 
             // 
@@ -75,14 +77,6 @@
             // 
             // 
             // 
-//            this.tChart1.Axes.Depth.LabelsAsSeriesTitles = true;
-            // 
-            // 
-            // 
-//            this.tChart1.Axes.DepthTop.LabelsAsSeriesTitles = true;
-            // 
-            // 
-            // 
             // 
             // 
             // 
@@ -93,11 +87,25 @@
             // 
             // 
             // 
+            this.tChart1.Axes.Left.Title.Font.Size = 12;
+            this.tChart1.Axes.Left.Title.Font.SizeFloat = 12F;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
             this.tChart1.Axes.Top.Labels.Visible = false;
+            this.tChart1.Cursor = System.Windows.Forms.Cursors.Default;
             this.tChart1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            this.tChart1.Header.Font.Size = 12;
+            this.tChart1.Header.Font.SizeFloat = 12F;
             this.tChart1.Header.Lines = new string[] {
         ""};
             this.tChart1.Location = new System.Drawing.Point(0, 23);
@@ -109,6 +117,10 @@
             // 
             // 
             this.tChart1.Panel.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            // 
+            // 
+            // 
+            this.tChart1.Panel.Brush.Gradient.Visible = false;
             // 
             // 
             // 
@@ -139,7 +151,25 @@
             // 
             // 
             // 
+            this.line1.Marks.Callout.ArrowHead = Steema.TeeChart.Styles.ArrowHeadStyles.None;
+            this.line1.Marks.Callout.ArrowHeadSize = 8;
+            // 
+            // 
+            // 
+            this.line1.Marks.Callout.Brush.Color = System.Drawing.Color.Black;
+            this.line1.Marks.Callout.Distance = 0;
+            this.line1.Marks.Callout.Draw3D = false;
+            this.line1.Marks.Callout.Length = 10;
+            this.line1.Marks.Callout.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
+            this.line1.Marks.Callout.Visible = false;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
             this.line1.Pointer.Brush.Color = System.Drawing.Color.Red;
+            this.line1.Pointer.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
             this.line1.Title = "line1";
             // 
             // 

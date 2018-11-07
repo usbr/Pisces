@@ -29,9 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Reclamation.Core.MonthDayRange monthDayRange1 = new Reclamation.Core.MonthDayRange();
-            Reclamation.TimeSeries.Forms.Graphing.GraphSettings graphSettings1 = new Reclamation.TimeSeries.Forms.Graphing.GraphSettings();
+            Reclamation.Core.MonthDayRange monthDayRange2 = new Reclamation.Core.MonthDayRange();
+            Reclamation.TimeSeries.Forms.Graphing.GraphSettings graphSettings2 = new Reclamation.TimeSeries.Forms.Graphing.GraphSettings();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxAnnotate = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxWY2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.yearSelector1 = new Reclamation.TimeSeries.Forms.YearSelector();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timeSeriesGraph1 = new Reclamation.TimeSeries.Graphing.TimeSeriesTeeChartGraph();
-            this.checkBoxAnnotate = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -73,6 +73,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(732, 131);
             this.panel1.TabIndex = 0;
+            // 
+            // checkBoxAnnotate
+            // 
+            this.checkBoxAnnotate.AutoSize = true;
+            this.checkBoxAnnotate.Checked = true;
+            this.checkBoxAnnotate.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAnnotate.Location = new System.Drawing.Point(94, 100);
+            this.checkBoxAnnotate.Name = "checkBoxAnnotate";
+            this.checkBoxAnnotate.Size = new System.Drawing.Size(109, 17);
+            this.checkBoxAnnotate.TabIndex = 13;
+            this.checkBoxAnnotate.Text = "date/value tooltip";
+            this.checkBoxAnnotate.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -233,7 +245,7 @@
             this.monthRangePicker1.BeginningMonth = 10;
             this.monthRangePicker1.Location = new System.Drawing.Point(377, 23);
             this.monthRangePicker1.Margin = new System.Windows.Forms.Padding(4);
-            this.monthRangePicker1.MonthDayRange = monthDayRange1;
+            this.monthRangePicker1.MonthDayRange = monthDayRange2;
             this.monthRangePicker1.Name = "monthRangePicker1";
             this.monthRangePicker1.Size = new System.Drawing.Size(351, 48);
             this.monthRangePicker1.TabIndex = 1;
@@ -253,7 +265,7 @@
             // 
             this.timeSeriesGraph1.AnnotationOnMouseMove = false;
             this.timeSeriesGraph1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeSeriesGraph1.GraphSettings = graphSettings1;
+            this.timeSeriesGraph1.GraphSettings = graphSettings2;
             this.timeSeriesGraph1.Location = new System.Drawing.Point(0, 131);
             this.timeSeriesGraph1.Margin = new System.Windows.Forms.Padding(4);
             this.timeSeriesGraph1.MissingDataValue = -999D;
@@ -264,16 +276,6 @@
             this.timeSeriesGraph1.SubTitle = "";
             this.timeSeriesGraph1.TabIndex = 1;
             this.timeSeriesGraph1.Title = "";
-            // 
-            // checkBoxAnnotate
-            // 
-            this.checkBoxAnnotate.AutoSize = true;
-            this.checkBoxAnnotate.Location = new System.Drawing.Point(94, 100);
-            this.checkBoxAnnotate.Name = "checkBoxAnnotate";
-            this.checkBoxAnnotate.Size = new System.Drawing.Size(109, 17);
-            this.checkBoxAnnotate.TabIndex = 13;
-            this.checkBoxAnnotate.Text = "date/value tooltip";
-            this.checkBoxAnnotate.UseVisualStyleBackColor = true;
             // 
             // SnowGG
             // 

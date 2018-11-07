@@ -1,343 +1,342 @@
 cbtt,pcode,Name,usgs,OWRD,Notes,IDWR,Excel,IdahoPower,nrcs,Updated
-"AFCI","QJ","AFCI QJ - St. Anthony Union Feeder Canal","","","Imported successfully back to 1977","13050530","","","","10/25/2013 BOR\jmaxon"
-"ALPY","QD","ALPY QD - Snake River above Reservoir near Alpine, WY","13022500","","2004-2008 kt","","","","","11/19/2015 BOR\ktarbet"
-"AMF","ID","AMF ID - American Falls Reservoir at American Falls, ID","","","","","AMF ID","","",""
-"AMF","GAIN","AMF GAIN - American Falls Reservoir at American Falls, ID","","","","","","","",""
-"AMFI","QD","AMFI QD - Snake River at Neeley, ID","13077000","","","","","","","11/19/2015 BOR\ktarbet"
-"AMRW","QD","AMRW QD - American River near Nile, WA","12488500","","","","","","","11/20/2015 BOR\jluna"
-"ANAW","QD","ANAW QD - SNAKE RIVER NR ANATONE, WASHINGTON","13334300","","2002-2008 kt","","","","","11/20/2015 BOR\jluna"
-"ANCI","QJ","ANCI QJ - Anderson Canal","","","Imported successfully back to 1977","13037505","","","","10/25/2013 BOR\jmaxon"
-"ANDI","QD","ANDI QD - South Fork Boise River at Anderson Ranch Dam","13190500","","good thru 2013","","","","","11/20/2015 BOR\jluna"
-"ANDI","QU","ANDI QU - South Fork Boise River at Anderson Ranch Dam","","","no qd's imported, therefore no qu change","","ANDI QU","","",""
-"ANTI","QD","ANTI QD - Henrys Fork at St. Anthony, ID","13050500","","2000-2008","","","","","11/20/2015 BOR\jluna"
-"APP","QD","APP QD - APPLEGATE RESERVOIR","14361900","","","","","","",""
-"APPO","QD","APPO QD - APPLEGATE RIVER NEAR COPPER","14362000","","","","","","","11/20/2015 BOR\jluna"
-"APRO","QD","APRO QD - APPLEGATE RIVER NEAR APPLEGATE","14366000","","","","","","","11/20/2015 BOR\jluna"
-"ARCI","QD","ARCI QD - BIG LOST RIVER NEAR ARCO","13132500","","","","","","","11/20/2015 BOR\jluna"
-"ARK","ID","ARK ID - Arrowrock Dam and Reservoir","","","","","ARK ID","","",""
-"ARKI","QU","ARKI QU - Middle Fork Boise River at Arrowrock Dam","","","re-ran 2003-2008, major changes in 2004 and 2008, minor in 2005,2007","","ARKI QU","","",""
-"ASCI","QJ","ASCI QJ - Aberdeen-Springfield Canal","","","Imported successfully back to 1994","13061610","","","","10/25/2013 BOR\jmaxon"
-"AUCI","QJ","AUCI QJ - St. Anthony Union Canal","","","Imported successfully back to 1977","13049725","","","","10/25/2013 BOR\jmaxon"
-"BASO","QD","BASO QD - Bear Creek below Ashland Cr. at Ashland, OR cfs","14354200","","","","","","","11/20/2015 BOR\jluna"
-"BASO","QU","BASO QU - Bear Creek below Ashland Cr. at Ashland, OR","14354200","","","","","","","11/20/2015 BOR\jluna"
-"BBYI","QU","BBYI QU - BLACKFOOT RIV BYPASS NR BLACKFOOT, ID","13068495","","","","","","","11/20/2015 BOR\jluna"
-"BCCO","QJ","BCCO QJ - Bear Creek Canal at Medford, OR","","14358000","","","","","",""
-"BCMO","QD","BCMO QD - Bear Creek at Mouth below Central Point, OR","","14358800","","","","","","11/20/2015 BOR\jluna"
-"BDDI","QD","BDDI QD - Boise River below Diversion Dam near Boise","13203510","","","","","","",""
-"BENO","QD","BENO QD - Deschutes River at Benham Falls, OR","","14064500","","","","","","11/20/2015 BOR\jluna"
-"BENO","QU","BENO QU - Deschutes River at Benham Falls, OR","","14064500","","","","","",""
-"BERO","QD","BERO QD - BEAR CREEK NEAR WALLOWA","13330500","","","","","","","1/2/2015 BOR\wmedley"
-"BEUO","QD","BEUO QD - North Fork Malheur River at Beulah","13217500","","good through WY 2012","","","","","11/20/2015 BOR\jluna"
-"BEUO","QU","BEUO QU - North Fork Malheur River at Beulah","","","re-ran qu 2003-2008, changes in all years","","BEUO QU","","",""
-"BFCI","QJ","BFCI QJ - Blackfoot Canal","","","Imported successfully back to 1977","13061430","","","","10/25/2013 BOR\jmaxon"
-"BFKY","QD","BFKY QD - Buffalo Fork above Lava Creek near Moran, WY","13011900","","2001-2008 jh","","","","","11/20/2015 BOR\jluna"
-"BFTI","QD","BFTI QD - Snake River near Blackfoot, ID","13069500","","2003-2008 jh","","","","","11/20/2015 BOR\jluna"
-"BIGI","QD","BIGI QD - Boise River at Glenwood Bridge","13206000","","2003-2008 jh","","","","","9/21/2017 BOR\KTarbet"
-"BILI","QD","BILI QD - Billingsly Creek near Haggerman at Hwy 20","","","test","","","13134750/Q","","11/20/2015 BOR\jluna"
-"BILI","QJ","BILI QJ - Billingsley Creek near Hagerman at Hwy 30","","","","","","","",""
-"BIRO","QD","BIRO QD - Birch Creek near Reith, OR","","14025000","","","","","","11/20/2015 BOR\jluna"
-"BKPI","QJ","BKPI QJ - Boelky Pump","","","Imported successfully back to 1978","13054031","","","","10/25/2013 BOR\jmaxon"
-"BLFI","QD","BLFI QD - Blackfoot River near Blackfoot, ID","13068500","","","","","","","11/20/2015 BOR\jluna"
-"BMCI","QJ","BMCI QJ - Butte and Market Lake Canal","","","Imported successfully back to 1977","13057025","","","","10/25/2013 BOR\jmaxon"
-"BOMI","QD","BOMI QD - Boise River near Middleton, ID","","","usgs 1974 - 1997 ID Power","","","13210050/Q","","6/30/2016 BOR\KTarbet"
-"BOOI","QJ","BOOI QJ - Rudy Canal","","","Imported successfully back to 1977","13038085","","","","10/25/2013 BOR\jmaxon"
-"BPPI","QJ","BPPI QJ - Bob Parkinson Pump","","","Imported successfully back to 1978","13054420","","","","10/25/2013 BOR\jmaxon"
-"BRFI","QD","BRFI QD - South Fork Boise River near Featherville","13186000","","2003-2008 jh","","","","","11/20/2015 BOR\jluna"
-"BRN","ID","BRN ID - BROWNLEE RESERVOIR","","","","","BRN ID","13289702/Q","","11/20/2015 BOR\jluna"
-"BRON","QD","BRON QD  - BRUNEAU RV AT ROWLAND, NV","13161500","","","","","","","11/20/2015 BOR\jluna"
-"BSCI","QD","BSCI QD - Boise River South Channel near Eagle","13206305","","2001-2008 jh","","","","","11/20/2015 BOR\jluna"
-"BSEI","QJ","BSEI QJ - New York Canal Diversion from Boise River","","","ID Power after 1995,   usgs data : 1989-02-23 through 1995-09-30","","","13203000/Q","","11/20/2015 BOR\jluna"
-"BTSI","QD","BTSI QD - Boise River near Twin Springs, Idaho","13185000","","2011 kt","","","","","11/20/2015 BOR\jluna"
-"BUL","QD","BUL QD - Bully Creek Dam and Reservoir near Vale, OR","","","","","","13227000/Q","",""
-"BUL","QU","BUL QU - Bully Creek Dam and Reservoir near Vale, OR","","","no published qd values, did not re-run qu","","BUL QU","","",""
-"BULO","QD","BULO QD - Bully Creek near Vale, Or","","","","","","13227000/Q","",""
-"BURI","QJ","BURI QJ - Burgess Canal","","","Imported successfully back to 1977","13038110","","","","10/25/2013 BOR\jmaxon"
-"CAPO","QD","CAPO QD - Crooked River at Prineville, OR","","14081500","","","","","","8/16/2017 BOR\crunyan"
-"CBCI","QJ","CBCI QJ - Corbett Canal","","","Imported successfully back to 1994","13061650","","","","10/25/2013 BOR\jmaxon"
-"CCPI","QJ","CCPI QJ - Canyon Creek Lateral Pump","","","Imported successfully back to 1977","13054801","","","","10/25/2013 BOR\jmaxon"
-"CECI","QJ","CECI QJ - Clark and Edwards Canal","","","Imported successfully back to 1977","13038115","","","","10/25/2013 BOR\jmaxon"
-"CFCI","QJ","CFCI QJ - Consolidated Farmers Canal","","","Imported successfully back to 1977","13050545","","","","10/25/2013 BOR\jmaxon"
-"CFMM","GD","CFMM GD - Flathead River at Columbia Falls, MT","12363000","","","","","","","11/20/2015 BOR\jluna"
-"CFMM","QD","CFMM QD - Flathead River at Columbia Falls, MT","12363000","","1984 - 2008 kt","","","","","1/2/2015 BOR\wmedley"
-"CFMM","QU","CFMM QU - Flathead River at Columbia Falls, MT","","","re-ran qu 1984-2008, changes throughout, major changes 1987,1997,2002","","CFMM QU","","",""
-"CFMM","GAIN","CFMM GAIN - Flathead River at Columbia Falls, MT","","","","","CFMM gain","","",""
-"CHCI","QJ","CHCI QJ - Chester Canal","","","Imported successfully back to 1977","13048705","","","","10/25/2013 BOR\jmaxon"
-"CHEI","QD","CHEI QD - Falls River near Chester, ID","13049500","","1984 - 2008 kt","","","","","11/20/2015 BOR\jluna"
-"CHJ","ID","CHJ ID - CHIEF JOSEPH DAM","","","","","CHJ ID","","",""
-"CRAO","QD","CRAO QD - Deschutes River below Crane Prairie Res., OR","","14054000","","","","","","11/20/2015 BOR\jluna"
-"CRAO","QU","CRAO QU - Deschutes River below Crane Prairie Res., OR","","","no published data for qd, did not re-run qu","","CRAO QU","","",""
-"CRCI","QJ","CRCI  QJ - Crosscut Canal at End","","","Imported successfully back to 1977","13050018","","","","10/25/2013 BOR\jmaxon"
-"CRCO","QJ","CRCO QJ - Crooked River Feed Canal near Prineville, OR","","14080590","","","","","","10/19/2016 BOR\crunyan"
-"CREO","QD","CREO QD - Crescent Creek at Crescent Lake, OR","","14060000","","","","","","11/20/2015 BOR\jluna"
-"CREO","QU","CREO QU - Crescent Creek at Crescent Lake, OR","","14060000","","","","","",""
-"CROO","QD","CROO QD - Crooked River bel Opal Springs nr Culver, OR (USGS)","14087400","","* 2004-2008 jh","","","","","11/20/2015 BOR\jluna"
-"CRPO","QD","CRPO QD - Crooked River above Prineville Reservoir, nr Post OR","14079800","","no data found","","","","",""
-"CRSI","QD","CRSI QD - N FK CLEARWATER RIVER NR CANYON RANGER STATION, IDAH","13340600","","1998-2008 jh","","","","","11/20/2015 BOR\jluna"
-"CRWI","QD","CRWI QD","13265500","","","","","","","11/20/2015 BOR\jluna"
-"CSC","ID","CSC ID - Cascade Dam and Lake Cascade at Cascade, Idaho","","","","","CSC ID","","",""
-"CSCI","QD","CSCI QD - North Fork Payette near Cascade, ID","","","also see usgs (next in list)","","","13245000/Q","","11/20/2015 BOR\jluna"
-"CSCI","QD","CSCI QD - North Fork Payette River at Cascade, Idaho","13245000","","also see idaho power (above)","","","","","1/5/2015 BOR\wmedley"
-"CSCI","QU","CSCI QU - North Fork Payette River at Cascade, Idaho","","","re-ran 2007, no changes to qu","","CSCI QU","","",""
-"CSRI","QD","CSRI QD - East Fork Salmon River nr Clayton, ID","","","","","","13298050/Q","","11/20/2015 BOR\jluna"
-"CULO","QD","CULO QD - Deschutes River near Culver, OR (USGS)","14076500","","* 2004-2008 jh","","","","","11/20/2015 BOR\jluna"
-"CULVER","QD","CULVER QD - Sum: Deschutes at Culver and Crooked bel Opal Sprgs","","","MDE","","","","",""
-"CVPI","QJ","CVPI  QJ - Clementsville Pump","","","Imported successfully back to 1990","13054042","","","","10/25/2013 BOR\jmaxon"
-"CXCI","QJ","CXCI  QJ - Crosscut Canal at Head","","","","13049560","","","",""
-"CXMI","QJ","CXMI  QJ - Crosscut Canal at Middle","","","Imported successfully back to 1977","13050016","","","","10/25/2013 BOR\jmaxon"
-"DEBO","QD","DEBO QD - Deschutes River below Bend","","14070500","","","","","","11/20/2015 BOR\jluna"
-"DEDI","QD","DEDI QD - Deadwood River below Deadwood Dam","13236500","","updated through 2013","","","","","11/20/2015 BOR\jluna"
-"DEDI","QU","DEDI QU - Deadwood River below Deadwood Dam","","","re-ran 2008, no changes","","DEDI QU","","",""
-"DGGI","QD","DGGI QD - Teton River above S. Leigh Creek","13052200","","","","","","","11/20/2015 BOR\jluna"
-"DLLO","QD","DLLO QD - Tualatin River near Dilley, Oregon","14203500","","1982,85,2002,2005-2008 kt","","","","","11/20/2015 BOR\jluna"
-"DLLO","QU","DLLO QU - Tualatin River near Dilley, Oregon","","","re-ran qu 1982-2008, small changes throughout, major in early 1980's, 2001","","DLLO QU","","",""
-"DNCI","QJ","DNCI  QJ - Danskin Canal","","","Imported successfully back to 1977","13061995","","","","10/25/2013 BOR\jmaxon"
-"DRCO","QD","DRCO QD - Deer Creek above Phillips Lake","","13275200","need to look into more","","","","","11/20/2015 BOR\jluna"
-"EGCI","QJ","EGCI  QJ - Egin Canal","","","","13050525","","","","10/30/2013 BOR\jmaxon"
-"EGLO","QD","EGLO QD - Rogue at Dodge Bridge ,Eagle Point Oregon","14339000","","","","","","","11/20/2015 BOR\jluna"
-"EMI","QD","EMI QD - Emigrant Dam and Lake near Ashland, OR","","","","","","","",""
-"EMM","QD","EMM QD - Black Canyon Dam and Reservoir near Emmett, ID","13249500","","a few before 2003, 2003-2008 kt","","","","","1/14/2016 BOR\KTarbet"
-"EMM","QU","EMM QU - Black Canyon Dam and Reservoir near Emmett, ID","","","re-ran 1986-2008, major changes in 1991,1999,2000","","EMM QU","","",""
-"ENTI","QJ","ENTI  QJ - Enterprize Canal","","","Imported successfully back to 1977","13037985","","","","10/25/2013 BOR\jmaxon"
-"ERCI","QJ","ERCI QJ - Eagle Rock Canal at Head","","","","13037975","","","",""
-"ETNI","QJ","ETNI QJ - Emmett I.D Northside Canal","","","","","","","",""
-"ETSI","QJ","ETSI QJ - Emmett I.D. Southside Canal","","","","","","","",""
-"FALI","QD","FALI QD - Falls River near Squirrel, ID","13047500","","1976 various 1983 - 1991, 2003-2008 kt","","","","","11/20/2015 BOR\jluna"
-"FARI","QJ","FARI QJ - Farmers Friend Canal (Henrys Fork)","","","Imported successfully back to 1977","13049705","","","","10/25/2013 BOR\jmaxon"
-"FCFM","QD","FCFM QD - North Fork Flathead River near Columbia Falls, MT","12355500","","1982 - 2008 kt","","","","","11/20/2015 BOR\jluna"
-"FFCI","QJ","FFCI QJ - Farmers Friend Canal (Snake River)","","","Imported successfully back to 1977","13037980","","","","10/25/2013 BOR\jmaxon"
-"FHPI","QJ","FHPI QJ - Fort Hall Michaud Pump","","","Imported successfully back to 1977","13075900","","","","10/25/2013 BOR\jmaxon"
-"FLGY","QD","FLGY QD - Snake River near Flagg Ranch, WY","13010065","","2004 - 2008 kt","","","","","11/20/2015 BOR\jluna"
-"FRCI","QJ","FRCI QJ - Fall River Canal","","","Imported successfully back to 1977","13048560","","","","10/25/2013 BOR\jmaxon"
-"FRMO","QD","FRMO QD - Tualatin River at Farmington","","14206500","*(usgs data 1939-1976) updated 2008 only","","","","","11/20/2015 BOR\jluna"
-"GCL","QD","GCL QD - Grand Coulee Dam, WA","","MDE","no data changed, MDE","","","","",""
-"GCL","ID","GCL ID - Grand Coulee Dam, WA","","","","","GCL ID","","",""
-"GOSI","QD","GOSI  QD - Goose Creek above Trapper Creek near Oakley","13082500","","","","","","","11/20/2015 BOR\jluna"
-"GRAO","QD","GRAO QD - Rogue at Grants Pass","14361500","","","","","","","11/20/2015 BOR\jluna"
-"GREY","QD","GREY QD - Greys River above Reservoir near Alpine, WY","13023000","","2003- 2008 kt","","","","","11/20/2015 BOR\jluna"
-"GROY","QD","GROY QD - GROS VENTRE RIVER AT ZENITH, WYOMING","13015000","","2002-2008 kt","","","","","11/20/2015 BOR\jluna"
-"GRS","QD","GRS QD - Grassy Lake near Moran, WY","","","","","","","",""
-"GRS","QU","GRS QU - Grassy Lake near Moran, WY","","","no published qd values, did not re-run, qu values look ok","","GRS QU","","",""
-"GSPO","QD","GSPO QD - Green Springs Powerplant near Ashland, OR","11516100","","no usgs or owrd data","","","","",""
-"GSTO","QD","GSTO QD - Tualatin River at Gaston, Oregon","","14202510","no data found","","","","","11/20/2015 BOR\jluna"
-"GVII","QJ","GVII QJ - GrandView Irr. Canal nr Grand View ID (Idaho Power)","13171200","","usgs 1985-07-17   2001-10-31","","","13171200","",""
-"GVMI","QJ","GVMI QJ - GrandView Mutual Cnl nr Grand View,ID","13171300","","Gage established on March 27, 1986. Station discontinued by USGS in Oct. 2001. Gage reestablished by Idaho Power Co. March 2002 to current year","","","13171300","",""
-"GVSI","QJ","GVSI QJ -  Snake River Irr Canal nr Grand View,ID","13171100","","IDWR; Oct. 30, 1985 to Oct. 31, 2001. USGS; Nov. 1, 2001- Oct. 2001; March 2002 to current year, Idaho Power Co., irrigation seasons only","","","13171100","",""
-"GWCI","QJ","GWCI QJ - Great Western Canal","","","Imported successfully back to 1977","13057135","","","","10/25/2013 BOR\jmaxon"
-"GWSI","QD","GWSI QD - GREAT WESTERN SPILLBACK NR IDAHO FALLS, IDAHO","13057132","","1987-2008 jh","","","","","11/20/2015 BOR\jluna"
-"HALI","QD","HALI QD - BIG WOOD RIVER AT HAILEY","13139510","","*(usgs data 1915-2004)","","","","","11/20/2015 BOR\jluna"
-"HARI","QJ","HARI QJ - Harrison Canal","","","Imported successfully back to 1977","13038055","","","","10/25/2013 BOR\jmaxon"
-"HCDI","QD","HCDI QD - Snake River at Hells Canyon Dam (Idaho Power)","13290450","","","","","13290450","","1/13/2015 BOR\wmedley"
-"HCDI","QD","HCDI QD - Snake River at Hells Canyon Dam (Idaho Power)","13290450","","2001-2008 jh","","","","",""
-"HCFI","QD","HCFI QD - HENRYS FORK BLW COFFEE POT RAPIDS NR MACKS INN ID","13041010","","","","","","","11/20/2015 BOR\jluna"
-"HEII","QD","HEII QD - Snake River near Heise, ID","13037500","","2013 updated","","","","","7/18/2016 BOR\pcooper"
-"HEII","QU","HEII QU - Snake River near Heise, ID","","","re-ran qu 2007-2008, changes 2007,2008","","HEII QU","","",""
-"HEII","GAIN","HEII GAIN - Snake River near Heise, ID","","","","","","","",""
-"HENI","QD","HENI QD - Henrys Fork near Lake, ID","13039500","","2003-2008 jh","","","","","11/20/2015 BOR\jluna"
-"HENI","QU","HENI QU - Henrys Fork near Lake, ID","","","re-ran qu 2003-2008, changes 2004-2008","","HENI QU","","",""
-"HFAI","QD","HFAI QD - Henrys Fork near Ashton, ID","13046000","","2001-2008 jh","","","","","11/20/2015 BOR\jluna"
-"HGHM","QD","HGHM QD - S.Fk. Flathead Riv nr Columbia Falls at Hungry Horse","12362500","","updated to wy 2013","","","","","11/20/2015 BOR\jluna"
-"HGHM","QU","HGHM QU - S.Fk. Flathead Riv nr Columbia Falls at Hungry Horse","","","re-ran qu 2007-2008, changes in 2007,2008","","HGHM QU","","",""
-"HOTI","QD","HOTI QD - BRUNEAU RIVER NEAR HOT SPRINGS,ID","13168500","","1996, 2001-2008 jh","","","","","11/20/2015 BOR\jluna"
-"HRSI","QD","HRSI QD - Payette River near Horseshoe Bend, ID","13247500","","good thru 2013","","","","","11/20/2015 BOR\jluna"
-"HRSI","QU","HRSI QU - Payette River near Horseshoe Bend, ID","","","qd good thru 2008, did not re-run qu","","HRSI QU","","",""
-"IDCI","QJ","IDCI QJ - Idaho Canal","","","Imported successfully back to 1994","13057145","","","","10/25/2013 BOR\jmaxon"
-"IMNO","QD","IMNO QD - IMNAHA RIVER AT IMNAHA,OREGON","13292000","","","","","","","11/20/2015 BOR\jluna"
-"INCI","QJ","INCI QJ - Independent Canal","","","Imported successfully back to 1977","13050535","","","","10/25/2013 BOR\jmaxon"
-"ISCI","QD","ISCI QD - Island Canal","13038210","","no data found","","","","",""
-"ISCI","QJ","ISCI QJ - Island Canal","","","Imported successfully back to 1977","13038210","","","","10/25/2013 BOR\jmaxon"
-"ISL","ID","ISL ID - Island Park Dam and Reservoir, ID","","","","","ISL ID","","",""
-"ISLI","QD","ISLI QD - Henrys Fork near Island Park, ID","13042500","","updated thru wy 2013","","","","","11/20/2015 BOR\jluna"
-"ISLI","QU","ISLI QU - Henrys Fork near Island Park, ID","","","re-ran qu 2007-2008, diff 2007,2008","","ISLI QU","","",""
-"JBGN","QD","JBGN QD - JARBIDGE RV BLW JARBIDGE, NV","13162225","","","","","","","11/20/2015 BOR\jluna"
-"JCK","QD","JCK QD - Jackson Lake at Dam on Snake River near Moran, WY","13011000","","updated thru 2013","","","","","11/20/2015 BOR\jluna"
-"JCK","QU","JCK QU - Jackson Lake at Dam on Snake River near Moran, WY","","","no changes in qd, did not re-run qu, looks good","","JCK QU","","",""
-"JKSY","QD","JKSY QD - Snake River below Flat Creek near Jackson, WY","13018750","","updated thru 2008","","","","","11/20/2015 BOR\jluna"
-"JKSY","GAIN","JKSY GAIN - Snake River below Flat Creek near Jackson, WY","","","","","","","",""
-"JOHI","QD","JOHI QD - JOHNSON CREEK AT YELLOW PINE, ID","13313000","","1996,2001-2009 jh","","","","","11/20/2015 BOR\jluna"
-"JRPI","QJ","JRPI QJ - J. Ricks Pump","","","Imported successfully back to 1987","13053971","","","","10/25/2013 BOR\jmaxon"
-"kkkkk","","","","","","","","","",""
-"KRSI","QD","KRSI QD - South Fork Salmon River near Krassel RS","13310700","","*(usgs 1966-1998)1998-2009 needs updated jh","","","","","11/20/2015 BOR\jluna"
-"LABI","QJ","LABI QJ - West Labelle and Long Island Canal","","","Imported successfully back to 1977","13038225","","","","10/25/2013 BOR\jmaxon"
-"LACI","QJ","LACI QJ - East Labelle Canal","","","Imported successfully back to 1977","13038150","","","","10/25/2013 BOR\jmaxon"
-"LAPO","QD","LAPO QD - Little Deschutes River near LaPine, OR","","14063000","*1984-1987,2004-2009 jh","","","","","11/20/2015 BOR\jluna"
-"LEMI","QD","LEMI QD - Lemhi River below L5 Diversion, ID","13305310","","*(usgs 1993-2000,2001-2007) 2001,2007-2009 needs updated jh","","","","","11/20/2015 BOR\jluna"
-"LFPI","QD","LFPI QD - LAKE FORK PAYETTE RIVER AB JUMBO CR NR MCCALL ID","13240000","","","","","","","11/20/2015 BOR\jluna"
-"LINI","QD","LINI QD - BIG LOST R AT LINCOLN BLVD BRIDGE NR ATOMIC CITY","13132535","","","","","","","11/20/2015 BOR\jluna"
-"LMHI","QD","LMHI QD - Lemhi River near Lemhi, ID","13305000","","","","","","","11/20/2015 BOR\jluna"
-"LOCI","QD","LOCI QD - LOCHSA RIVER NR LOWELL, IDAHO","13337000","","","","","","","11/20/2015 BOR\jluna"
-"LOLI","QD","LOLI QD - Lolo Creek nr Greer, ID","13339500","","","","","","","11/20/2015 BOR\jluna"
-"LORI","QD","LORI QD - Snake River at Lorenzo, ID","13038500","","1996,2003-2008 jh","","","","","11/20/2015 BOR\jluna"
-"LPPI","QJ","LPPI QJ -PA Lateral Pump Canal","","","Imported successfully back to 1976","13085800","","","","10/25/2013 BOR\jmaxon"
-"LUC","QD","LUC QD - Lucky Peak Lake near Boise, ID","13202000","","updated through wy 2012","","","","","11/20/2015 BOR\jluna"
-"LUC","ID","LUC ID - Lucky Peak Lake near Boise, ID","","","","","LUC ID","","",""
-"LUC","QU","LUC QU - Lucky Peak Lake near Boise, ID","","","did not re-run qu, no published qd data, qu looks good","","LUC QU","","",""
-"LWOI","QD","LWOI QD - Little Wood River above High Five Creek, ID","13147900","","*(usgs 1958-1974,1979-1983) 1983-2008 needs updated jh","","","","","11/20/2015 BOR\jluna"
-"MABO","QD","MABO QD - North Fork Malheur River abv Beulah Res, OR","","13216500","updated through 2012 td","","","","","11/20/2015 BOR\jluna"
-"MADO","QD","MADO QD - Malheur River near Drewsey, OR","","13214000","updated through 2012","","","","","11/20/2015 BOR\jluna"
-"MALO","QD","MALO QD - Malheur River at 36th St. Bridge near Ontario, OR","13233990","","ID Power","","","13233990","",""
-"MCKO","QD","MCKO QD - Mckay Creek near Pendleton, OR","","14023500","updated through WY 2011","","","","","11/20/2015 BOR\jluna"
-"MCKO","QU","MCKO QU - Mckay Creek near Pendleton, OR","","","re-ran qu 2004-2008, major changes 2004, minor changes in other years","","MCKO QU","","",""
-"MDNI","QJ","MDNI QJ - Main Drain North near Heyburn, ID","","","No data to compare","13085065","","","",""
-"MFDO","QD","MFDO QD - Bear Creek at Medford, OR","14357500","","","","","","","11/20/2015 BOR\jluna"
-"MFDO","QU","MFDO QU - Bear Creek at Medford, OR","","","re-ran qu 2003-2008,","","MFDO QU","","",""
-"MFPI","QD","MFPI QD - Middle Fork Payette River at Crouch, ID","13237920","","2003-2008 jh","","","","","11/20/2015 BOR\jluna"
-"MHPI","QD","MHPI QD - Milner Power Plant (Idaho Power Co.)","","","ID Power","","","","",""
-"MIDI","QD","MIDI QD - MF Salmon River at Middle Fork Lodge, ID","13309220","","(usgs 1998-2000,2004-2005,2007-2009) 1998,2003,2005-2007 jh","","","","","6/24/2016 BOR\KTarbet"
-"MIII","QJ","MIII QJ - Milner-Gooding Canal below N.S. X-Cut","","","","13086530","","","","11/15/2013 BOR\jmaxon"
-"MILI","QD","MILI QD - Snake River at Milner, Idaho","13087995","","(usgs 1909-1992) 2003-2009 jh","","","","","11/20/2015 BOR\jluna"
-"MILI","QT","MILI QT - Milner QT","13088000","","","","","","","1/23/2015 BOR\wmedley"
-"MIN","ID","MIN ID - Minidoka Dam and Lake Walcott, ID","","","","","MIN ID","","",""
-"MINI","QD","MINI QD - Snake River near Minidoka, ID","13081500","","2003-2009 jh","","","","","11/20/2015 BOR\jluna"
-"MLCI","QJ","MLCI QJ - Milner Irrigation Pump Canal","","","","13086000","","","",""
-"MNNI","QD","MNNI QD - Snake River near Menan (USGS)","13057000","","2001-2009 jh","","","","","11/20/2015 BOR\jluna"
-"MNTN","QD","MNTN QD - OWYHEE R NR MOUNTAIN CITY","13175100","","(usgs 1991-1995,1997-2006) 2006-2008 jh","","","","","11/20/2015 BOR\jluna"
-"MORI","QD","MORI QD - Mores Creek above Robie Creek, ID","13200000","","1979-1980,2008-2009 jh","","","","","11/20/2015 BOR\jluna"
-"MPCI","QJ","MPCI QJ - Minidoka North Side Pump Canal","","","","13080000","","","",""
-"MRYI","QJ","MRYI QJ - Marysville Canal","","","Imported successfully back to 1977","13047475","","","","10/25/2013 BOR\jmaxon"
-"MSEY","QD","MSEY QD - Snake River at Moose, WY","13013650","","","","","","","11/20/2015 BOR\jluna"
-"MSSI","QD","MSSI QD - Middle Fork Salmon River at Mouth nr Shoup","13310199","","","","","","","11/20/2015 BOR\jluna"
-"MXCI","QJ","MXCI QJ - North Side X-Cut Diversion from Milner-Gooding Canal","","","Imported successfully back to 1977","13086520","","","","10/25/2013 BOR\jmaxon"
-"MYKO","QD","MYKO QD - Mckay Creek near Pilot Rock, OR","","14022500","usgs 1986-1989, owrd 2005-2008 jh","","","","","11/20/2015 BOR\jluna"
-"NFTI","QD","NFTI QD - North Fork Teton River near Sugar City, ID","13055250","","(usgs 2003-2004) 2004-2008 jh","","","","","11/20/2015 BOR\jluna"
-"NLCI","QJ","NLCI QJ - New Lavaside Canal","","","Imported successfully back to 1995","13061520","","","","10/25/2013 BOR\jmaxon"
-"NPAO","QD","NPAO QD - N. Powder River bel Anthony Cr nr North Powder","","13282550","not decoded beginning 2007","","","","","11/20/2015 BOR\jluna"
-"NPDO","QD","NPDO QD - Powder River abv Thief Valley Res nr. North Powder","","13284900","OWRD has a little data in 1980, did not import","","","","","11/20/2015 BOR\jluna"
-"OCHO","QD","OCHO QD - Ochoco Creek below Ochoco Reservoir, OR","","14085300","updated to 2012 td","","","","","11/20/2015 BOR\jluna"
-"OCHO","QJ","OCHO QJ - Ochoco Feed CN nr Prineville","","14085200","","","","","","11/20/2015 BOR\jluna"
-"OCHO","QU","OCHO QU - Ochoco Creek below Ochoco Reservoir, OR","","","re-ran qu 1984-2008, major changes 1998","","OCHO QU","","",""
-"OCRO","QD","OCRO QD - Ochoco Cr. above Reservoir nr Prineville, OR","","14082550","1999-2008 jh","","","","","11/20/2015 BOR\jluna"
-"ORCI","QD","ORCI QD - Owyhee River at Crutcher Crossing","13176400","","","","","","","2/16/2016 BOR\KTarbet"
-"ORFI","QD","ORFI QD - CLEARWATER RIVER AT OROFINO, IDAHO","13340000","","(usgs 1964-1976,1978-1987) 2001-2008 jh","","","","","1/23/2015 BOR\wmedley"
-"OSCI","QJ","OSCI QJ - Osgood Canal","","","Imported successfully back to 1994","13057125","","","","10/25/2013 BOR\jmaxon"
-"OWY","QD","OWY QD - Lake Owyhee and Owyhee River near Nyssa, OR","13183000","","updated to 2012 td","","","","","11/20/2015 BOR\jluna"
-"OWY","QU","OWY QU - Lake Owyhee and Owyhee River near Nyssa, OR","","","re-ran qu 2007-2008. some changes 2008","","OWY QU","","",""
-"PABI","QD","PABI QD - North Fork Payette near Banks, ID","13246000","","Added to Hydromet 7/28/10","","","","","11/20/2015 BOR\jluna"
-"PAL","ID","PAL ID - Palisades Reservoir near Irwin, ID","","","","","PAL ID","","",""
-"PAL","GAIN","PAL GAIN - Palisades Reservoir near Irwin, ID","","","","","","","",""
-"PALI","QD","PALI QD - Snake River near Irwin, ID","13032500","","1989-1992, some sparse points in earlier years jh","","","","","11/20/2015 BOR\jluna"
-"PALI","QU","PALI QU - Snake River near Irwin, ID","","","re-ran qu 1989-2008, only changes 2007","","PALI QU","","",""
-"PARI","QD","PARI QD - Boise River near Parma, ID","13213000","","1982-1983, 2002-2009 jh","","","","","11/20/2015 BOR\jluna"
-"PAYI","QD","PAYI QD - North Fork Payette River at McCall, Idaho","13239000","","1917,2002-2009 jh","","","","","11/20/2015 BOR\jluna"
-"PAYI","QU","PAYI QU - North Fork Payette River at McCall, Idaho","","","re-ran 2002-2008, major changes 2008","","PAYI QU","","",""
-"PCKY","QD","PCKY QD - Pacific Creek at Moran, WY","13011500","","1986-1992,1998,2001-2008 jh","","","","","11/20/2015 BOR\jluna"
-"PDTO","QD","PDTO QD - Umatilla River at Pendleton, OR","","14021000","*owrd 1971-1989, 1993-2008 jh","","","","","11/20/2015 BOR\jluna"
-"PECI","QJ","PECI QJ - Peoples Canal","","","Imported successfully back to 1977","13061525","","","","10/25/2013 BOR\jmaxon"
-"PHL","QD","PHL QD - Mason Dam and Phillips Lake near Sumpter, OR","","13275300","updated through 2012 td","","","","","11/20/2015 BOR\jluna"
-"PHL","QU","PHL QU - Mason Dam and Phillips Lake near Sumpter, OR","","","re-ran qu data for 1967-2008, major changes 1967-1983, spotty changes after","","PHL QU","","",""
-"PIHI","QD","PIHI QD - PORTNEUF RIVER AT POCATELLO, IDAHO","13075500","","","","","","","12/2/2016 BOR\pcooper"
-"PLCI","QJ","PLCI QJ - Palisades Canal","","","Imported successfully back to 1990","13033010","","","","10/25/2013 BOR\jmaxon"
-"PLEI","QD","PLEI QD - Payette River near Letha, ID","13250000","","2003-2009 jh","","","","","11/20/2015 BOR\jluna"
-"POCI","QJ","POCI QJ - Porter Canal","","","Imported successfully back to 1995","13057250","","","","10/25/2013 BOR\jmaxon"
-"PODO","QU","#N/A","","","","","PODO QU","","",""
-"PRCI","QD","PRCI - NF COEUR D ALENE R AB SHOSHONE CK NR PRICHARD ID","12411000","","","","","","","11/20/2015 BOR\jluna"
-"PRHO","QD","PRHO QD - Powder River at Hudspeth Lane near Sumpter, OR","","13275105","(owrd 1979-1995) 1995-1999 jh","","","","","11/20/2015 BOR\jluna"
-"PRKI","QJ","PRKI QJ - Parks and Lewisville Canal","","","Imported successfully back to 1977","13038305","","","","10/25/2013 BOR\jmaxon"
-"PRLI","QD","PRLI QD - South Fork Payette River at Lowman, ID","13235000","","2003-2009 jh","","","","","11/20/2015 BOR\jluna"
-"PRPI","QD","PRPI QD - Payette River near Payette, ID","13251000","","2003-2009 jh","","","","","11/20/2015 BOR\jluna"
-"PRRO","QD","PRRO QD - Powder River nr. Richland, OR","","","","","","13286700/Q","","11/20/2015 BOR\jluna"
-"PRVO","QD","PRVO QD - Crooked River near Prineville, OR","","14080500","owrd 1992-2012, usgs to 1991 td","","","","","8/16/2017 BOR\crunyan"
-"PRVO","QU","PRVO QU - Crooked River near Prineville, OR","","","re-ran qu 1983-2008, changes 1999,2000,2003","","PRVO QU","","",""
-"PWDO","QD","PWDO QD - Powder River at Baker, OR","","13277000","*a few sporadic changes 1981-1996 jh","","","","","11/20/2015 BOR\jluna"
-"PWDO","QU","PWDO QU - Powder River at Baker, OR","","","updated 1982-2008 differences before 1999","","PWDO QU","","",""
-"RDWI","QJ","RDWI QJ - Reid Canal","","","Imported successfully back to 1977","13038431","","","","10/25/2013 BOR\jmaxon"
-"RECI","QJ","RECI QJ - Reservation Canal at Head","","","Imported successfully back to 1977","13060500","","","","10/25/2013 BOR\jmaxon"
-"REXI","QD","REXI QD - Henrys Fork near Rexburg, ID","13056500","","2003-2009 jh","","","","","11/20/2015 BOR\jluna"
-"RGCI","QJ","RGCI QJ - Rigby Canal","","","Imported successfully back to 1977","13038180","","","","10/25/2013 BOR\jmaxon"
-"RICI","QJ","RICI QJ - Riverside Canal","","","Imported successfully back to 1977","13061705","","","","10/25/2013 BOR\jmaxon"
-"RIGI","QD","RIGI QD - Little Salmon River at Riggins, ID","13316500","","(usgs 1990-1993,1996-1998,2001-2005) 2005-2009 jh","","","","","11/20/2015 BOR\jluna"
-"RIR","QD","RIR QD - Ririe Dam and Lake near Ririe, ID","13058000","","13057950","","","","","11/20/2015 BOR\jluna"
-"RIR","QU","RIR QU - Ririe Dam and Lake near Ririe, ID","","","","","RIR QU","","",""
-"RJPI","QJ","RJPI QJ - Ray and John Brown Pump","","","Imported successfully back to 1980","13054111","","","","10/25/2013 BOR\jmaxon"
-"ROMO","QD","ROMO QD - Owyhee River near Rome, OR","13181000","","2007-2012 td","","","","","11/20/2015 BOR\jluna"
-"RRPI","QJ","RRPI QJ - R. Brent Ricks Pump","","","No Data to compare","13054762","","","",""
-"RSDI","QJ","RSDI QJ - Reservation Canal at Drop","","","Imported successfully back to 2000","13065500","","","","10/25/2013 BOR\jmaxon"
-"RXRI","QJ","RXRI QJ - Rexburg Irrigation Canal","","","Imported successfully back to 1977","13055334","","","","10/25/2013 BOR\jmaxon"
-"SALY","QD","SALY QD - Salt River above Reservoir near Etna, WY","13027500","","2003-2009 jh","","","","","11/20/2015 BOR\jluna"
-"SBEO","QJ","SBEO QJ - Columbia Exchange Canal near Hermiston, OR","","14019109","Added to Hydromet 5/10/2012. JRocha","","","","","11/20/2015 BOR\jluna"
-"SCLO","QD","SCLO QD - Scoggins Creek above Henry Hagg Lake, OR","","14202850","1976-1996, 2006-2008 jh","","","","","11/20/2015 BOR\jluna"
-"SCOO","QD","SCOO QD - Scoggins Creek below Henry Hagg Lake, Oregon","","14202980","2002-2006 jh","","","","","11/20/2015 BOR\jluna"
-"SCOO","QU","SCOO QU - Scoggins Creek below Henry Hagg Lake, Oregon","","","re-ran qu 2003-2008, major changes in 2003,2006","","SCOO QU","","",""
-"SELI","QD","SELI QD - SELWAY RIVER NR LOWELL, IDAHO","13336500","","*(usgs 1929-1987) 2001-2009 jh","","","","","11/20/2015 BOR\jluna"
-"SFSI","QD","SFSI QD EF of SF Salmon River at Stibnite ID","13311000","","","","","","","11/20/2015 BOR\jluna"
-"SHYI","QD","SHYI QD - Snake River near Shelley, ID","13060000","","2003-2009 jh","","","","","11/20/2015 BOR\jluna"
-"SHYI","GAIN","SHYI GAIN - Snake River near Shelley, ID","13060000","","","","","","",""
-"SIFI","QD","SIFI QD - Snake River near Idaho Falls, ID","13057155","","1987-2009 jh","","","","","11/20/2015 BOR\jluna"
-"SJNO","QD","SJNO QD - Snake River at Johnson Bar, OR (Idaho Power)","13290460","","","","","13290460","",""
-"SKHI","QD","SKHI QD - Snake River at King Hill, ID","13154500","","(usgs 1908-1976,1979-1987,1990-1992,1996-1997)   1976-1979,1987-1990,1992-1995,1996-2009 jh","","","","","11/20/2015 BOR\jluna"
-"SMNI","QD","SMNI QD - Salmon River at Salmon, ID","13302500","","(usgs 1911-1916, 1919-1977,1978-1979, 1996-1997, 2001-2005)   1977-1978,1979-1996,1997-2001,2005-2009 jh","","","","","11/20/2015 BOR\jluna"
-"SNAI","QD","SNAI QD - Snake River at Blackfoot, ID","13062500","","2003-2009 jh","","","","","11/20/2015 BOR\jluna"
-"SNDI","QJ","SNDI QJ - Sand Creek at Wolverine Road","","","Imported successfully back to 2000","13064500","","","","10/25/2013 BOR\jmaxon"
-"SNYI","QD","SNYI QD - Snake River at Nyssa, OR (USGS)","13213100","","2003-1009 jh","","","","","11/20/2015 BOR\jluna"
-"SOL","QD","SOL QD - Soldiers Meadow Reservoir","","","no data found","","","","",""
-"SOL","QU","SOL QU - Soldiers Meadow Reservoir","","","did not re-run qu, no published qd data, qu looks good","","SOL QU","","",""
-"SPDI","QD","SPDI QD - CLEARWATER RIVER AT SPAULDING, IDAHO","13342500","","2002-2009 jh","","","","","11/20/2015 BOR\jluna"
-"SPPI","QJ","SPPI QJ - Southpipe Pump","","","Imported successfully back to 1990","13053951","","","","10/25/2013 BOR\jmaxon"
-"SQWI","QD","SQWI QD - Squaw Creek at Sweet, ID","13249195","","","","","13249195","",""
-"SQWI","QD","SQWI QD - Squaw Creek at Sweet, ID","","","ID Power","","","","",""
-"SRKI","QD","SRKI QD - Snake River at Kimberly","13090000","","","","","","","11/20/2015 BOR\jluna"
-"STFI","QD","STFI QD - Snake River nr Twin Falls ID","13090500","","usgs data 1910's-1940's, nothing after until recently.  did not import","","","","","11/20/2015 BOR\jluna"
-"STII","QD","STII QD - S FK CLEARWATER RIVER AT STITES, IDAHO","13338500","","(usgs 1964-1976,1978-1987) 1976-1978,1987-2008 jh","","","","","11/20/2015 BOR\jluna"
-"SUCI","QJ","SUCI QJ - Salem Union Canal","","","Imported successfully back to 1977","13049805","","","","10/25/2013 BOR\jmaxon"
-"SWAI","QD","SWAI QD - Snake River near Murphy","13172500","","","","","13172500","","11/20/2015 BOR\jluna"
-"SWAI","QD","SWAI QD - Snake River near Murphy, ID (Idaho Power)","13172500","","2002-2008 jh idaho power/usgs","","","","",""
-"SWBI","QD","SWBI QD - Sweetwater Creek below Diversion nr Waha, ID","13342250","","2002-2006 sl","","","","",""
-"SWTI","QD","SWTI QD - Sweetwater Creek at Mouth at Sweetwater, ID","13342340","","2007-2009 jh","","","","","7/12/2017 BOR\KTarbet"
-"TCNI","QJ","TCNI QJ - Twin Falls North Side Canal","","","","13087000","","","",""
-"TCSI","QJ","TCSI QJ - Twin Falls South Side Canal","","","","13087500","","","",""
-"TDA","QD","TDA QD - COLUMBIA RIVER AT THE DALLES","","","MDE","","","","",""
-"TDA","ID","TDA ID - COLUMBIA RIVER AT THE DALLES","","","","","TDA ID","","",""
-"TEAI","QD","TEAI QD - Teton River near St. Anthony, ID","13055000","","","","","","","11/20/2015 BOR\jluna"
-"Test","test","st marys","5018500","","","","","","",""
-"TGCI","QJ","TGCI QJ - Twin Groves Canal","","","Imported successfully back to 1977","13049710","","","","10/25/2013 BOR\jmaxon"
-"THF","QD","THF QD - Thief Valley Dam and Reservoir near North Powder, OR","","13285500","(owrd 1978-1980) 1980-1995 jh","","","","","11/20/2015 BOR\jluna"
-"THF","ID","THF ID - Thief Valley Dam and Reservoir near North Powder, OR","","13285500","","","THF ID","","",""
-"TICI","QJ","TICI QJ - Teton Irrigation Canal","","","Imported successfully back to 1977","13055040","","","","10/25/2013 BOR\jmaxon"
-"TITI","QJ","TITI QJ - Teton Island Feeder Canal","","","Imported successfully back to 1976","13055210","","","","10/25/2013 BOR\jmaxon"
-"TLCI","QJ","TLCI QJ - Texas and Liberty Canal","","","Imported successfully back to 1977","13038434","","","","10/25/2013 BOR\jmaxon"
-"TNCM","QD","TNCM QD - South Fork Flathead River near Twincreek, MT","12359800","","(usgs 1964-1982) 1984-2008 jh","","","","","11/20/2015 BOR\jluna"
-"TOPI","QD","TOPI QD - PORTNEUF RIVER AT TOPAZ ID","13073000","","","","","","","11/20/2015 BOR\jluna"
-"TRAI","QD","TRAI QD - Trapper Creek nr Oakly ID","13083000","","","","","","","11/20/2015 BOR\jluna"
-"TRCI","QJ","TRCI QJ - Trego Canal","","","Imported successfully back to 1994","13062050","","","","10/25/2013 BOR\jmaxon"
-"TRYO","QD","TRYO QD - GRANDE RONDE RIV AT TROY","13333000","","(usgs 1990-1992) 1967,1982,1983-1986,1994-2008) jh","","","","","11/20/2015 BOR\jluna"
-"TTNI","QD","TTNI QD","13055198","","","","","","","7/25/2012 BOR\ktarbet"
-"TTXI","QD","TTXI QD  -S FK TETON RIVER AT REXBURG, IDAHO","13055340","","","","","","","11/20/2015 BOR\jluna"
-"TUMO","QD","TUMO QD - Tumalo Creek blw Tumalo Feed Canal nr Bend","","14073520","","","","","","11/20/2015 BOR\jluna"
-"UMAO","QD","UMAO QD - Umatilla River near Umatilla, OR","14033500","","1983-2008 jh","","","","","11/20/2015 BOR\jluna"
-"UMDO","QD","UMDO QD - Umatilla River ar I84 near Stanfield, OR","","14031050","2004-2008 jh","","","","","11/20/2015 BOR\jluna"
-"UMMO","QD","UMMO QD - Umatilla River above Butter Creek nr Hermiston","","14031600","owrd/usgs not found","","","","","9/1/2016 BOR\KTarbet"
-"UMTO","QD","UMTO QD - Umatilla River at City of Hermiston W.W. Treatment P","","14032400","no usgs number","","","","","11/20/2015 BOR\jluna"
-"UMUO","QD","UMUO QD - Umatilla River nr Echo, OR","","14029900","2005-2008 jh","","","","","11/20/2015 BOR\jluna"
-"UNY","QD","UNY QD - Unity Reservoir and Burnt River near Unity, Oregon","","13273000","(Owrd 1931-1999) updated through 2012 td","","","","","11/20/2015 BOR\jluna"
-"UNY","QU","UNY QU - Unity Reservoir and Burnt River near Unity, Oregon","","","re-ran qu 1960-2008, major changes 1986,2002","","UNY QU","","",""
-"VALO","QD","VALO QD - Malheur River below Nevada Dam near Vale, OR","13233300","","","","","","","12/2/2016 BOR\KTarbet"
-"VALO","QU","VALO QU - Malheur River below Nevada Dam near Vale, OR","","","re-ran qu 2000-2008, major changes 2006,2008","","VALO QU","","",""
-"VLCI","QJ","VLCI QJ - Snake River Valley Canal","","","Imported successfully back to 1977","13059525","","","","10/25/2013 BOR\jmaxon"
-"VSPI","QJ","VSPI QJ - Val Schwiendiman Pump","","","Imported successfully back to 1978","13054705","","","","10/25/2013 BOR\jmaxon"
-"WACI","QJ","WACI QJ - Watson Canal","","","Imported successfully back to 1976","13062506","","","","10/25/2013 BOR\jmaxon"
-"WARO","QD","WARO QD - Malheur River bel Warm Springs Res nr Riverside, OR","13215000","","1990-1991, 1996, 2003-2012 td","","","","","11/20/2015 BOR\jluna"
-"WARO","QU","WARO QU - Malheur River bel Warm Springs Res nr Riverside, OR","","","re-ran qu 1990-2008, major change 2000","","WARO QU","","",""
-"WAS","QD","WAS QD - Clear Lake nr Government Camp (Wasco Dam), OR","","","no usgs number","","","","",""
-"WBCI","QD","WBCI QD - Webb Creek near Sweetwater, ID","13342295","","2008-2009 jh","","","","","11/20/2015 BOR\jluna"
-"WBFI","QJ","WBFI QC - Willow Creek Below Floodway Channel nr.  Ucon, ID","13058530","","","","","","","5/12/2016 BOR\KTarbet"
-"WCBI","QD","WCBI QD - Webb Creek bel Diversion","","","no usgs number","","","","",""
-"WEII","QD","WEII QD - Snake River at Weiser, ID (USGS)","13269000","","2003-2009 jh","","","","","11/20/2015 BOR\jluna"
-"WFCI","QJ","WFCI QJ - Wilford Canal","","","Imported successfully back to 1977","13055030","","","","10/25/2013 BOR\jmaxon"
-"WFWI","QD","WFWI QD - Willow Creek Floodway at Mouth near Idaho Falls, ID","13058529","","","","","","","11/20/2015 BOR\jluna"
-"WGCM","QD","WGCM QD - Middle Fork Flathead River near West Glacier, MT","12358500","","1983-2008 jh","","","","","11/20/2015 BOR\jluna"
-"WHBI","QD","WHBI QD - SALMON RIVER AT WHITE BIRD, IDAHO","13317000","","2001-2008 jh","","","","","11/20/2015 BOR\jluna"
-"WICO","QD","WICO QD - Deschutes River below Wickiup Res., OR","","14056500","(usgs 1991-2008) 1975-1979 jh","","","","","2/19/2016 BOR\KTarbet"
-"WICO","QU","WICO QU - Deschutes River below Wickiup Res., OR","","","reran qu 1983-2008, major changes in 2008","","WICO QU","","",""
-"WIFI","QD","WIFI QD - Sand Creek above Willow Creek Diversion nr Ukon, ID","13058510","","","","","","","11/20/2015 BOR\jluna"
-"WILI","QD","WILI QD - Willow Creek Floodway Channel nr Ukon, ID","13058520","","1985-2008 jh","","","","","11/20/2015 BOR\jluna"
-"WLDN","QD","WLDN QD - Owyhee Rvr bel Wildhorse Dam nr Gold Ck,NV (USGS)","13174500","","updated through 2012 td","","","","","11/20/2015 BOR\jluna"
-"WLDN","QU","WLDN QU - Owyhee Rvr bel Wildhorse Dam nr Gold Ck,NV (USGS)","","","re-ran qu 1984-2008, no major changes","","WLDN QU","","",""
-"WLWI","QD","WLWI - QD Willow Creek near Bellevue, ID","13140900","","","","","13140900","",""
-"WLWI","QJ","WLWI QJ - Willow Creek near Bellevue, ID","","","Error retrieving data","13140900","","","",""
-"WODI","QD","WODI QD - Little Wood River near Carey, ID","13148500","","updated through sep 2013 td","","","","","12/2/2016 BOR\pcooper"
-"WODI","QU","WODI QU - Little Wood River near Carey, ID","","","re-ran qu 2005-2009, some changes in 2008","","WODI QU","","",""
-"WSLO","QD","WSLO QD - Tualatin River near West Linn, OR","14207500","","2002-2008 jh","","","","","11/20/2015 BOR\jluna"
-"WSRI","QD","WSRI QD - WEISER R NR WEISER","13266000","","2002-2008 jh","","","","","11/20/2015 BOR\jluna"
-"WTXI","QD","WTXI QD - Willow Creek below Tex Creek near Ririe, ID","13057940","","1985-1992, 2001-2008 jh","","","","","11/20/2015 BOR\jluna"
-"WVCI","QJ","WVCI QJ - Woodville Canal","","","Imported successfully back to 1994","13059505","","","","10/25/2013 BOR\jmaxon"
-"YOKO","QD","YOKO QD  - Umatilla River at Yoakum, OR","","14026000","","","","","","11/20/2015 BOR\jluna"
-"YOKO","QD","YOKO QD - Umatilla River at Yoakum, OR","14026000","","1969-1991 jh","","","","",""
+AFCI,QJ,AFCI QJ - St. Anthony Union Feeder Canal,,,Imported successfully back to 1977,13050530,,,,10/25/2013 BOR\jmaxon
+ALPY,QD,"ALPY QD - Snake River above Reservoir near Alpine, WY",13022500,,2004-2008 kt,,,,,11/19/2015 BOR\ktarbet
+AMF,ID,"AMF ID - American Falls Reservoir at American Falls, ID",,,,,AMF ID,,,
+AMF,GAIN,"AMF GAIN - American Falls Reservoir at American Falls, ID",,,,,,,,
+AMFI,QD,"AMFI QD - Snake River at Neeley, ID",13077000,,,,,,,11/19/2015 BOR\ktarbet
+AMRW,QD,"AMRW QD - American River near Nile, WA",12488500,,,,,,,11/20/2015 BOR\jluna
+ANAW,QD,"ANAW QD - SNAKE RIVER NR ANATONE, WASHINGTON",13334300,,2002-2008 kt,,,,,11/20/2015 BOR\jluna
+ANCI,QJ,ANCI QJ - Anderson Canal,,,Imported successfully back to 1977,13037505,,,,10/25/2013 BOR\jmaxon
+ANDI,QD,ANDI QD - South Fork Boise River at Anderson Ranch Dam,13190500,,good thru 2013,,,,,11/20/2015 BOR\jluna
+ANDI,QU,ANDI QU - South Fork Boise River at Anderson Ranch Dam,,,"no qd's imported, therefore no qu change",,ANDI QU,,,
+ANTI,QD,"ANTI QD - Henrys Fork at St. Anthony, ID",13050500,,2000-2008,,,,,11/20/2015 BOR\jluna
+APP,QD,APP QD - APPLEGATE RESERVOIR,14361900,,,,,,,
+APPO,QD,APPO QD - APPLEGATE RIVER NEAR COPPER,14362000,,,,,,,11/20/2015 BOR\jluna
+APRO,QD,APRO QD - APPLEGATE RIVER NEAR APPLEGATE,14366000,,,,,,,11/20/2015 BOR\jluna
+ARCI,QD,ARCI QD - BIG LOST RIVER NEAR ARCO,13132500,,,,,,,11/20/2015 BOR\jluna
+ARK,ID,ARK ID - Arrowrock Dam and Reservoir,,,,,ARK ID,,,
+ARKI,QU,ARKI QU - Middle Fork Boise River at Arrowrock Dam,,,"re-ran 2003-2008, major changes in 2004 and 2008, minor in 2005,2007",,ARKI QU,,,
+ASCI,QJ,ASCI QJ - Aberdeen-Springfield Canal,,,Imported successfully back to 1994,13061610,,,,10/25/2013 BOR\jmaxon
+AUCI,QJ,AUCI QJ - St. Anthony Union Canal,,,Imported successfully back to 1977,13049725,,,,10/25/2013 BOR\jmaxon
+BASO,QD,"BASO QD - Bear Creek below Ashland Cr. at Ashland, OR cfs",14354200,,,,,,,11/20/2015 BOR\jluna
+BASO,QU,"BASO QU - Bear Creek below Ashland Cr. at Ashland, OR",14354200,,,,,,,11/20/2015 BOR\jluna
+BBYI,QU,"BBYI QU - BLACKFOOT RIV BYPASS NR BLACKFOOT, ID",13068495,,,,,,,11/20/2015 BOR\jluna
+BCCO,QJ,"BCCO QJ - Bear Creek Canal at Medford, OR",,14358000,,,,,,
+BCMO,QD,"BCMO QD - Bear Creek at Mouth below Central Point, OR",,14358800,,,,,,11/20/2015 BOR\jluna
+BDDI,QD,BDDI QD - Boise River below Diversion Dam near Boise,13203510,,,,,,,
+BENO,QD,"BENO QD - Deschutes River at Benham Falls, OR",,14064500,,,,,,11/20/2015 BOR\jluna
+BENO,QU,"BENO QU - Deschutes River at Benham Falls, OR",,14064500,,,,,,
+BERO,QD,BERO QD - BEAR CREEK NEAR WALLOWA,13330500,,,,,,,1/2/2015 BOR\wmedley
+BEUO,QD,BEUO QD - North Fork Malheur River at Beulah,13217500,,good through WY 2012,,,,,11/20/2015 BOR\jluna
+BEUO,QU,BEUO QU - North Fork Malheur River at Beulah,,,"re-ran qu 2003-2008, changes in all years",,BEUO QU,,,
+BFCI,QJ,BFCI QJ - Blackfoot Canal,,,Imported successfully back to 1977,13061430,,,,10/25/2013 BOR\jmaxon
+BFKY,QD,"BFKY QD - Buffalo Fork above Lava Creek near Moran, WY",13011900,,2001-2008 jh,,,,,11/20/2015 BOR\jluna
+BFTI,QD,"BFTI QD - Snake River near Blackfoot, ID",13069500,,2003-2008 jh,,,,,11/20/2015 BOR\jluna
+BIGI,QD,BIGI QD - Boise River at Glenwood Bridge,13206000,,2003-2008 jh,,,,,9/21/2017 BOR\KTarbet
+BILI,QD,BILI QD - Billingsly Creek near Haggerman at Hwy 20,,,test,,,18845,,11/20/2015 BOR\jluna
+BILI,QJ,BILI QJ - Billingsley Creek near Hagerman at Hwy 30,,,,,,,,
+BIRO,QD,"BIRO QD - Birch Creek near Reith, OR",,14025000,,,,,,11/20/2015 BOR\jluna
+BKPI,QJ,BKPI QJ - Boelky Pump,,,Imported successfully back to 1978,13054031,,,,10/25/2013 BOR\jmaxon
+BLFI,QD,"BLFI QD - Blackfoot River near Blackfoot, ID",13068500,,,,,,,11/20/2015 BOR\jluna
+BMCI,QJ,BMCI QJ - Butte and Market Lake Canal,,,Imported successfully back to 1977,13057025,,,,10/25/2013 BOR\jmaxon
+BOMI,QD,"BOMI QD - Boise River near Middleton, ID",,,usgs 1974 - 1997 ID Power,,,18880,,6/30/2016 BOR\KTarbet
+BOOI,QJ,BOOI QJ - Rudy Canal,,,Imported successfully back to 1977,13038085,,,,10/25/2013 BOR\jmaxon
+BPPI,QJ,BPPI QJ - Bob Parkinson Pump,,,Imported successfully back to 1978,13054420,,,,10/25/2013 BOR\jmaxon
+BRFI,QD,BRFI QD - South Fork Boise River near Featherville,13186000,,2003-2008 jh,,,,,11/20/2015 BOR\jluna
+BRN,ID,BRN ID - BROWNLEE RESERVOIR,,,,,BRN ID,20177,,11/20/2015 BOR\jluna
+BRON,QD,"BRON QD  - BRUNEAU RV AT ROWLAND, NV",13161500,,,,,,,11/20/2015 BOR\jluna
+BSCI,QD,BSCI QD - Boise River South Channel near Eagle,13206305,,2001-2008 jh,,,,,11/20/2015 BOR\jluna
+BSEI,QJ,BSEI QJ - New York Canal Diversion from Boise River,,,"ID Power after 1995,   usgs data : 1989-02-23 through 1995-09-30",,,18879,,11/20/2015 BOR\jluna
+BTSI,QD,"BTSI QD - Boise River near Twin Springs, Idaho",13185000,,2011 kt,,,,,11/20/2015 BOR\jluna
+BUL,QU,"BUL QU - Bully Creek Dam and Reservoir near Vale, OR",,,"no published qd values, did not re-run qu",,BUL QU,,,
+BULO,QD,"BULO QD - Bully Creek near Vale, Or",,,,,,20192,,
+BURI,QJ,BURI QJ - Burgess Canal,,,Imported successfully back to 1977,13038110,,,,10/25/2013 BOR\jmaxon
+CAPO,QD,"CAPO QD - Crooked River at Prineville, OR",,14081500,,,,,,8/16/2017 BOR\crunyan
+CBCI,QJ,CBCI QJ - Corbett Canal,,,Imported successfully back to 1994,13061650,,,,10/25/2013 BOR\jmaxon
+CCPI,QJ,CCPI QJ - Canyon Creek Lateral Pump,,,Imported successfully back to 1977,13054801,,,,10/25/2013 BOR\jmaxon
+CECI,QJ,CECI QJ - Clark and Edwards Canal,,,Imported successfully back to 1977,13038115,,,,10/25/2013 BOR\jmaxon
+CFCI,QJ,CFCI QJ - Consolidated Farmers Canal,,,Imported successfully back to 1977,13050545,,,,10/25/2013 BOR\jmaxon
+CFMM,GD,"CFMM GD - Flathead River at Columbia Falls, MT",12363000,,,,,,,11/20/2015 BOR\jluna
+CFMM,QD,"CFMM QD - Flathead River at Columbia Falls, MT",12363000,,1984 - 2008 kt,,,,,1/2/2015 BOR\wmedley
+CFMM,QU,"CFMM QU - Flathead River at Columbia Falls, MT",,,"re-ran qu 1984-2008, changes throughout, major changes 1987,1997,2002",,CFMM QU,,,
+CFMM,GAIN,"CFMM GAIN - Flathead River at Columbia Falls, MT",,,,,CFMM gain,,,
+CHCI,QJ,CHCI QJ - Chester Canal,,,Imported successfully back to 1977,13048705,,,,10/25/2013 BOR\jmaxon
+CHEI,QD,"CHEI QD - Falls River near Chester, ID",13049500,,1984 - 2008 kt,,,,,11/20/2015 BOR\jluna
+CHJ,ID,CHJ ID - CHIEF JOSEPH DAM,,,,,CHJ ID,,,
+CRAO,QD,"CRAO QD - Deschutes River below Crane Prairie Res., OR",,14054000,,,,,,11/20/2015 BOR\jluna
+CRAO,QU,"CRAO QU - Deschutes River below Crane Prairie Res., OR",,,"no published data for qd, did not re-run qu",,CRAO QU,,,
+CRCI,QJ,CRCI  QJ - Crosscut Canal at End,,,Imported successfully back to 1977,13050018,,,,10/25/2013 BOR\jmaxon
+CRCO,QJ,"CRCO QJ - Crooked River Feed Canal near Prineville, OR",,14080590,,,,,,10/19/2016 BOR\crunyan
+CREO,QD,"CREO QD - Crescent Creek at Crescent Lake, OR",,14060000,,,,,,11/20/2015 BOR\jluna
+CREO,QU,"CREO QU - Crescent Creek at Crescent Lake, OR",,14060000,,,,,,
+CROO,QD,"CROO QD - Crooked River bel Opal Springs nr Culver, OR (USGS)",14087400,,* 2004-2008 jh,,,,,11/20/2015 BOR\jluna
+CRPO,QD,"CRPO QD - Crooked River above Prineville Reservoir, nr Post OR",14079800,,no data found,,,,,
+CRSI,QD,"CRSI QD - N FK CLEARWATER RIVER NR CANYON RANGER STATION, IDAH",13340600,,1998-2008 jh,,,,,11/20/2015 BOR\jluna
+CRWI,QD,CRWI QD,13265500,,,,,,,11/20/2015 BOR\jluna
+CSC,ID,"CSC ID - Cascade Dam and Lake Cascade at Cascade, Idaho",,,,,CSC ID,,,
+CSCI,QD,"CSCI QD - North Fork Payette near Cascade, ID",,,also see usgs (next in list),,,19033,,11/20/2015 BOR\jluna
+CSCI,QD,"CSCI QD - North Fork Payette River at Cascade, Idaho",13245000,,also see idaho power (above),,,,,1/5/2015 BOR\wmedley
+CSCI,QU,"CSCI QU - North Fork Payette River at Cascade, Idaho",,,"re-ran 2007, no changes to qu",,CSCI QU,,,
+CSRI,QD,"CSRI QD - East Fork Salmon River nr Clayton, ID",,,,,,18924,,11/20/2015 BOR\jluna
+CULO,QD,"CULO QD - Deschutes River near Culver, OR (USGS)",14076500,,* 2004-2008 jh,,,,,11/20/2015 BOR\jluna
+CULVER,QD,CULVER QD - Sum: Deschutes at Culver and Crooked bel Opal Sprgs,,,MDE,,,,,
+CVPI,QJ,CVPI  QJ - Clementsville Pump,,,Imported successfully back to 1990,13054042,,,,10/25/2013 BOR\jmaxon
+CXCI,QJ,CXCI  QJ - Crosscut Canal at Head,,,,13049560,,,,
+CXMI,QJ,CXMI  QJ - Crosscut Canal at Middle,,,Imported successfully back to 1977,13050016,,,,10/25/2013 BOR\jmaxon
+DEBO,QD,DEBO QD - Deschutes River below Bend,,14070500,,,,,,11/20/2015 BOR\jluna
+DEDI,QD,DEDI QD - Deadwood River below Deadwood Dam,13236500,,updated through 2013,,,,,11/20/2015 BOR\jluna
+DEDI,QU,DEDI QU - Deadwood River below Deadwood Dam,,,"re-ran 2008, no changes",,DEDI QU,,,
+DGGI,QD,DGGI QD - Teton River above S. Leigh Creek,13052200,,,,,,,11/20/2015 BOR\jluna
+DLLO,QD,"DLLO QD - Tualatin River near Dilley, Oregon",14203500,,"1982,85,2002,2005-2008 kt",,,,,11/20/2015 BOR\jluna
+DLLO,QU,"DLLO QU - Tualatin River near Dilley, Oregon",,,"re-ran qu 1982-2008, small changes throughout, major in early 1980's, 2001",,DLLO QU,,,
+DNCI,QJ,DNCI  QJ - Danskin Canal,,,Imported successfully back to 1977,13061995,,,,10/25/2013 BOR\jmaxon
+DRCO,QD,DRCO QD - Deer Creek above Phillips Lake,,13275200,need to look into more,,,,,11/20/2015 BOR\jluna
+EGCI,QJ,EGCI  QJ - Egin Canal,,,,13050525,,,,10/30/2013 BOR\jmaxon
+EGLO,QD,"EGLO QD - Rogue at Dodge Bridge ,Eagle Point Oregon",14339000,,,,,,,11/20/2015 BOR\jluna
+EMI,QD,"EMI QD - Emigrant Dam and Lake near Ashland, OR",,,,,,,,
+EMM,QD,"EMM QD - Black Canyon Dam and Reservoir near Emmett, ID",13249500,,"a few before 2003, 2003-2008 kt",,,,,1/14/2016 BOR\KTarbet
+EMM,QU,"EMM QU - Black Canyon Dam and Reservoir near Emmett, ID",,,"re-ran 1986-2008, major changes in 1991,1999,2000",,EMM QU,,,
+ENTI,QJ,ENTI  QJ - Enterprize Canal,,,Imported successfully back to 1977,13037985,,,,10/25/2013 BOR\jmaxon
+ERCI,QJ,ERCI QJ - Eagle Rock Canal at Head,,,,13037975,,,,
+ETNI,QJ,ETNI QJ - Emmett I.D Northside Canal,,,,,,,,
+ETSI,QJ,ETSI QJ - Emmett I.D. Southside Canal,,,,,,,,
+FALI,QD,"FALI QD - Falls River near Squirrel, ID",13047500,,"1976 various 1983 - 1991, 2003-2008 kt",,,,,11/20/2015 BOR\jluna
+FARI,QJ,FARI QJ - Farmers Friend Canal (Henrys Fork),,,Imported successfully back to 1977,13049705,,,,10/25/2013 BOR\jmaxon
+FCFM,QD,"FCFM QD - North Fork Flathead River near Columbia Falls, MT",12355500,,1982 - 2008 kt,,,,,11/20/2015 BOR\jluna
+FFCI,QJ,FFCI QJ - Farmers Friend Canal (Snake River),,,Imported successfully back to 1977,13037980,,,,10/25/2013 BOR\jmaxon
+FHPI,QJ,FHPI QJ - Fort Hall Michaud Pump,,,Imported successfully back to 1977,13075900,,,,10/25/2013 BOR\jmaxon
+FLGY,QD,"FLGY QD - Snake River near Flagg Ranch, WY",13010065,,2004 - 2008 kt,,,,,11/20/2015 BOR\jluna
+FRCI,QJ,FRCI QJ - Fall River Canal,,,Imported successfully back to 1977,13048560,,,,10/25/2013 BOR\jmaxon
+FRMO,QD,FRMO QD - Tualatin River at Farmington,,14206500,*(usgs data 1939-1976) updated 2008 only,,,,,11/20/2015 BOR\jluna
+GCL,QD,"GCL QD - Grand Coulee Dam, WA",,MDE,"no data changed, MDE",,,,,
+GCL,ID,"GCL ID - Grand Coulee Dam, WA",,,,,GCL ID,,,
+GOSI,QD,GOSI  QD - Goose Creek above Trapper Creek near Oakley,13082500,,,,,,,11/20/2015 BOR\jluna
+GRAO,QD,GRAO QD - Rogue at Grants Pass,14361500,,,,,,,11/20/2015 BOR\jluna
+GREY,QD,"GREY QD - Greys River above Reservoir near Alpine, WY",13023000,,2003- 2008 kt,,,,,11/20/2015 BOR\jluna
+GROY,QD,"GROY QD - GROS VENTRE RIVER AT ZENITH, WYOMING",13015000,,2002-2008 kt,,,,,11/20/2015 BOR\jluna
+GRS,QD,"GRS QD - Grassy Lake near Moran, WY",,,,,,,,
+GRS,QU,"GRS QU - Grassy Lake near Moran, WY",,,"no published qd values, did not re-run, qu values look ok",,GRS QU,,,
+GSPO,QD,"GSPO QD - Green Springs Powerplant near Ashland, OR",11516100,,no usgs or owrd data,,,,,
+GSTO,QD,"GSTO QD - Tualatin River at Gaston, Oregon",,14202510,no data found,,,,,11/20/2015 BOR\jluna
+GVII,QJ,GVII QJ - GrandView Irr. Canal nr Grand View ID (Idaho Power),13171200,,usgs 1985-07-17   2001-10-31,,,13171200,,
+GVMI,QJ,"GVMI QJ - GrandView Mutual Cnl nr Grand View,ID",13171300,,"Gage established on March 27, 1986. Station discontinued by USGS in Oct. 2001. Gage reestablished by Idaho Power Co. March 2002 to current year",,,13171300,,
+GVSI,QJ,"GVSI QJ -  Snake River Irr Canal nr Grand View,ID",13171100,,"IDWR; Oct. 30, 1985 to Oct. 31, 2001. USGS; Nov. 1, 2001- Oct. 2001; March 2002 to current year, Idaho Power Co., irrigation seasons only",,,13171100,,
+GWCI,QJ,GWCI QJ - Great Western Canal,,,Imported successfully back to 1977,13057135,,,,10/25/2013 BOR\jmaxon
+GWSI,QD,"GWSI QD - GREAT WESTERN SPILLBACK NR IDAHO FALLS, IDAHO",13057132,,1987-2008 jh,,,,,11/20/2015 BOR\jluna
+HALI,QD,HALI QD - BIG WOOD RIVER AT HAILEY,13139510,,*(usgs data 1915-2004),,,,,11/20/2015 BOR\jluna
+HARI,QJ,HARI QJ - Harrison Canal,,,Imported successfully back to 1977,13038055,,,,10/25/2013 BOR\jmaxon
+HCDI,QD,HCDI QD - Snake River at Hells Canyon Dam (Idaho Power),13290450,,,,,13290450,,1/13/2015 BOR\wmedley
+HCDI,QD,HCDI QD - Snake River at Hells Canyon Dam (Idaho Power),13290450,,2001-2008 jh,,,,,
+HCFI,QD,HCFI QD - HENRYS FORK BLW COFFEE POT RAPIDS NR MACKS INN ID,13041010,,,,,,,11/20/2015 BOR\jluna
+HEII,QD,"HEII QD - Snake River near Heise, ID",13037500,,2013 updated,,,,,7/18/2016 BOR\pcooper
+HEII,QU,"HEII QU - Snake River near Heise, ID",,,"re-ran qu 2007-2008, changes 2007,2008",,HEII QU,,,
+HEII,GAIN,"HEII GAIN - Snake River near Heise, ID",,,,,,,,
+HENI,QD,"HENI QD - Henrys Fork near Lake, ID",13039500,,2003-2008 jh,,,,,11/20/2015 BOR\jluna
+HENI,QU,"HENI QU - Henrys Fork near Lake, ID",,,"re-ran qu 2003-2008, changes 2004-2008",,HENI QU,,,
+HFAI,QD,"HFAI QD - Henrys Fork near Ashton, ID",13046000,,2001-2008 jh,,,,,11/20/2015 BOR\jluna
+HGHM,QD,HGHM QD - S.Fk. Flathead Riv nr Columbia Falls at Hungry Horse,12362500,,updated to wy 2013,,,,,11/20/2015 BOR\jluna
+HGHM,QU,HGHM QU - S.Fk. Flathead Riv nr Columbia Falls at Hungry Horse,,,"re-ran qu 2007-2008, changes in 2007,2008",,HGHM QU,,,
+HOTI,QD,"HOTI QD - BRUNEAU RIVER NEAR HOT SPRINGS,ID",13168500,,"1996, 2001-2008 jh",,,,,11/20/2015 BOR\jluna
+HRSI,QD,"HRSI QD - Payette River near Horseshoe Bend, ID",13247500,,good thru 2013,,,,,11/20/2015 BOR\jluna
+HRSI,QU,"HRSI QU - Payette River near Horseshoe Bend, ID",,,"qd good thru 2008, did not re-run qu",,HRSI QU,,,
+IDCI,QJ,IDCI QJ - Idaho Canal,,,Imported successfully back to 1994,13057145,,,,10/25/2013 BOR\jmaxon
+IMNO,QD,"IMNO QD - IMNAHA RIVER AT IMNAHA,OREGON",13292000,,,,,,,11/20/2015 BOR\jluna
+INCI,QJ,INCI QJ - Independent Canal,,,Imported successfully back to 1977,13050535,,,,10/25/2013 BOR\jmaxon
+ISCI,QD,ISCI QD - Island Canal,13038210,,no data found,,,,,
+ISCI,QJ,ISCI QJ - Island Canal,,,Imported successfully back to 1977,13038210,,,,10/25/2013 BOR\jmaxon
+ISL,ID,"ISL ID - Island Park Dam and Reservoir, ID",,,,,ISL ID,,,
+ISLI,QD,"ISLI QD - Henrys Fork near Island Park, ID",13042500,,updated thru wy 2013,,,,,11/20/2015 BOR\jluna
+ISLI,QU,"ISLI QU - Henrys Fork near Island Park, ID",,,"re-ran qu 2007-2008, diff 2007,2008",,ISLI QU,,,
+JBGN,QD,"JBGN QD - JARBIDGE RV BLW JARBIDGE, NV",13162225,,,,,,,11/20/2015 BOR\jluna
+JCK,QD,"JCK QD - Jackson Lake at Dam on Snake River near Moran, WY",13011000,,updated thru 2013,,,,,11/20/2015 BOR\jluna
+JCK,QU,"JCK QU - Jackson Lake at Dam on Snake River near Moran, WY",,,"no changes in qd, did not re-run qu, looks good",,JCK QU,,,
+JKSY,QD,"JKSY QD - Snake River below Flat Creek near Jackson, WY",13018750,,updated thru 2008,,,,,11/20/2015 BOR\jluna
+JKSY,GAIN,"JKSY GAIN - Snake River below Flat Creek near Jackson, WY",,,,,,,,
+JOHI,QD,"JOHI QD - JOHNSON CREEK AT YELLOW PINE, ID",13313000,,"1996,2001-2009 jh",,,,,11/20/2015 BOR\jluna
+JRPI,QJ,JRPI QJ - J. Ricks Pump,,,Imported successfully back to 1987,13053971,,,,10/25/2013 BOR\jmaxon
+kkkkk,,,,,,,,,,
+KRSI,QD,KRSI QD - South Fork Salmon River near Krassel RS,13310700,,*(usgs 1966-1998)1998-2009 needs updated jh,,,,,11/20/2015 BOR\jluna
+LABI,QJ,LABI QJ - West Labelle and Long Island Canal,,,Imported successfully back to 1977,13038225,,,,10/25/2013 BOR\jmaxon
+LACI,QJ,LACI QJ - East Labelle Canal,,,Imported successfully back to 1977,13038150,,,,10/25/2013 BOR\jmaxon
+LAPO,QD,"LAPO QD - Little Deschutes River near LaPine, OR",,14063000,"*1984-1987,2004-2009 jh",,,,,11/20/2015 BOR\jluna
+LEMI,QD,"LEMI QD - Lemhi River below L5 Diversion, ID",13305310,,"*(usgs 1993-2000,2001-2007) 2001,2007-2009 needs updated jh",,,,,11/20/2015 BOR\jluna
+LFPI,QD,LFPI QD - LAKE FORK PAYETTE RIVER AB JUMBO CR NR MCCALL ID,13240000,,,,,,,11/20/2015 BOR\jluna
+LINI,QD,LINI QD - BIG LOST R AT LINCOLN BLVD BRIDGE NR ATOMIC CITY,13132535,,,,,,,11/20/2015 BOR\jluna
+LMHI,QD,"LMHI QD - Lemhi River near Lemhi, ID",13305000,,,,,,,11/20/2015 BOR\jluna
+LOCI,QD,"LOCI QD - LOCHSA RIVER NR LOWELL, IDAHO",13337000,,,,,,,11/20/2015 BOR\jluna
+LOLI,QD,"LOLI QD - Lolo Creek nr Greer, ID",13339500,,,,,,,11/20/2015 BOR\jluna
+LORI,QD,"LORI QD - Snake River at Lorenzo, ID",13038500,,"1996,2003-2008 jh",,,,,11/20/2015 BOR\jluna
+LPPI,QJ,LPPI QJ -PA Lateral Pump Canal,,,Imported successfully back to 1976,13085800,,,,10/25/2013 BOR\jmaxon
+LUC,QD,"LUC QD - Lucky Peak Lake near Boise, ID",13202000,,updated through wy 2012,,,,,11/20/2015 BOR\jluna
+LUC,ID,"LUC ID - Lucky Peak Lake near Boise, ID",,,,,LUC ID,,,
+LUC,QU,"LUC QU - Lucky Peak Lake near Boise, ID",,,"did not re-run qu, no published qd data, qu looks good",,LUC QU,,,
+LWOI,QD,"LWOI QD - Little Wood River above High Five Creek, ID",13147900,,"*(usgs 1958-1974,1979-1983) 1983-2008 needs updated jh",,,,,11/20/2015 BOR\jluna
+MABO,QD,"MABO QD - North Fork Malheur River abv Beulah Res, OR",,13216500,updated through 2012 td,,,,,11/20/2015 BOR\jluna
+MADO,QD,"MADO QD - Malheur River near Drewsey, OR",,13214000,updated through 2012,,,,,11/20/2015 BOR\jluna
+MALO,QD,"MALO QD - Malheur River at 36th St. Bridge near Ontario, OR",13233990,,ID Power,,,13233990,,
+MCKO,QD,"MCKO QD - Mckay Creek near Pendleton, OR",,14023500,updated through WY 2011,,,,,11/20/2015 BOR\jluna
+MCKO,QU,"MCKO QU - Mckay Creek near Pendleton, OR",,,"re-ran qu 2004-2008, major changes 2004, minor changes in other years",,MCKO QU,,,
+MDNI,QJ,"MDNI QJ - Main Drain North near Heyburn, ID",,,No data to compare,13085065,,,,
+MFDO,QD,"MFDO QD - Bear Creek at Medford, OR",14357500,,,,,,,11/20/2015 BOR\jluna
+MFDO,QU,"MFDO QU - Bear Creek at Medford, OR",,,"re-ran qu 2003-2008,",,MFDO QU,,,
+MFPI,QD,"MFPI QD - Middle Fork Payette River at Crouch, ID",13237920,,2003-2008 jh,,,,,11/20/2015 BOR\jluna
+MHPI,QD,MHPI QD - Milner Power Plant (Idaho Power Co.),,,ID Power,,,,,
+MIDI,QD,"MIDI QD - MF Salmon River at Middle Fork Lodge, ID",13309220,,"(usgs 1998-2000,2004-2005,2007-2009) 1998,2003,2005-2007 jh",,,,,6/24/2016 BOR\KTarbet
+MIII,QJ,MIII QJ - Milner-Gooding Canal below N.S. X-Cut,,,,13086530,,,,11/15/2013 BOR\jmaxon
+MILI,QD,"MILI QD - Snake River at Milner, Idaho",13087995,,(usgs 1909-1992) 2003-2009 jh,,,,,11/20/2015 BOR\jluna
+MILI,QT,MILI QT - Milner QT,13088000,,,,,,,1/23/2015 BOR\wmedley
+MIN,ID,"MIN ID - Minidoka Dam and Lake Walcott, ID",,,,,MIN ID,,,
+MINI,QD,"MINI QD - Snake River near Minidoka, ID",13081500,,2003-2009 jh,,,,,11/20/2015 BOR\jluna
+MLCI,QJ,MLCI QJ - Milner Irrigation Pump Canal,,,,13086000,,,,
+MNNI,QD,MNNI QD - Snake River near Menan (USGS),13057000,,2001-2009 jh,,,,,11/20/2015 BOR\jluna
+MNTN,QD,MNTN QD - OWYHEE R NR MOUNTAIN CITY,13175100,,"(usgs 1991-1995,1997-2006) 2006-2008 jh",,,,,11/20/2015 BOR\jluna
+MORI,QD,"MORI QD - Mores Creek above Robie Creek, ID",13200000,,"1979-1980,2008-2009 jh",,,,,11/20/2015 BOR\jluna
+MPCI,QJ,MPCI QJ - Minidoka North Side Pump Canal,,,,13080000,,,,
+MRYI,QJ,MRYI QJ - Marysville Canal,,,Imported successfully back to 1977,13047475,,,,10/25/2013 BOR\jmaxon
+MSEY,QD,"MSEY QD - Snake River at Moose, WY",13013650,,,,,,,11/20/2015 BOR\jluna
+MSSI,QD,MSSI QD - Middle Fork Salmon River at Mouth nr Shoup,13310199,,,,,,,11/20/2015 BOR\jluna
+MXCI,QJ,MXCI QJ - North Side X-Cut Diversion from Milner-Gooding Canal,,,Imported successfully back to 1977,13086520,,,,10/25/2013 BOR\jmaxon
+MYKO,QD,"MYKO QD - Mckay Creek near Pilot Rock, OR",,14022500,"usgs 1986-1989, owrd 2005-2008 jh",,,,,11/20/2015 BOR\jluna
+NFTI,QD,"NFTI QD - North Fork Teton River near Sugar City, ID",13055250,,(usgs 2003-2004) 2004-2008 jh,,,,,11/20/2015 BOR\jluna
+NLCI,QJ,NLCI QJ - New Lavaside Canal,,,Imported successfully back to 1995,13061520,,,,10/25/2013 BOR\jmaxon
+NPAO,QD,NPAO QD - N. Powder River bel Anthony Cr nr North Powder,,13282550,not decoded beginning 2007,,,,,11/20/2015 BOR\jluna
+NPDO,QD,NPDO QD - Powder River abv Thief Valley Res nr. North Powder,,13284900,"OWRD has a little data in 1980, did not import",,,,,11/20/2015 BOR\jluna
+OCHO,QD,"OCHO QD - Ochoco Creek below Ochoco Reservoir, OR",,14085300,updated to 2012 td,,,,,11/20/2015 BOR\jluna
+OCHO,QJ,OCHO QJ - Ochoco Feed CN nr Prineville,,14085200,,,,,,11/20/2015 BOR\jluna
+OCHO,QU,"OCHO QU - Ochoco Creek below Ochoco Reservoir, OR",,,"re-ran qu 1984-2008, major changes 1998",,OCHO QU,,,
+OCRO,QD,"OCRO QD - Ochoco Cr. above Reservoir nr Prineville, OR",,14082550,1999-2008 jh,,,,,11/20/2015 BOR\jluna
+ORCI,QD,ORCI QD - Owyhee River at Crutcher Crossing,13176400,,,,,,,2/16/2016 BOR\KTarbet
+ORFI,QD,"ORFI QD - CLEARWATER RIVER AT OROFINO, IDAHO",13340000,,"(usgs 1964-1976,1978-1987) 2001-2008 jh",,,,,1/23/2015 BOR\wmedley
+OSCI,QJ,OSCI QJ - Osgood Canal,,,Imported successfully back to 1994,13057125,,,,10/25/2013 BOR\jmaxon
+OWY,QD,"OWY QD - Lake Owyhee and Owyhee River near Nyssa, OR",13183000,,updated to 2012 td,,,,,11/20/2015 BOR\jluna
+OWY,QU,"OWY QU - Lake Owyhee and Owyhee River near Nyssa, OR",,,re-ran qu 2007-2008. some changes 2008,,OWY QU,,,
+PABI,QD,"PABI QD - North Fork Payette near Banks, ID",13246000,,Added to Hydromet 7/28/10,,,,,11/20/2015 BOR\jluna
+PAL,ID,"PAL ID - Palisades Reservoir near Irwin, ID",,,,,PAL ID,,,
+PAL,GAIN,"PAL GAIN - Palisades Reservoir near Irwin, ID",,,,,,,,
+PALI,QD,"PALI QD - Snake River near Irwin, ID",13032500,,"1989-1992, some sparse points in earlier years jh",,,,,11/20/2015 BOR\jluna
+PALI,QU,"PALI QU - Snake River near Irwin, ID",,,"re-ran qu 1989-2008, only changes 2007",,PALI QU,,,
+PARI,QD,"PARI QD - Boise River near Parma, ID",13213000,,"1982-1983, 2002-2009 jh",,,,,11/20/2015 BOR\jluna
+PAYI,QD,"PAYI QD - North Fork Payette River at McCall, Idaho",13239000,,"1917,2002-2009 jh",,,,,11/20/2015 BOR\jluna
+PAYI,QU,"PAYI QU - North Fork Payette River at McCall, Idaho",,,"re-ran 2002-2008, major changes 2008",,PAYI QU,,,
+PCKY,QD,"PCKY QD - Pacific Creek at Moran, WY",13011500,,"1986-1992,1998,2001-2008 jh",,,,,11/20/2015 BOR\jluna
+PDTO,QD,"PDTO QD - Umatilla River at Pendleton, OR",,14021000,"*owrd 1971-1989, 1993-2008 jh",,,,,11/20/2015 BOR\jluna
+PECI,QJ,PECI QJ - Peoples Canal,,,Imported successfully back to 1977,13061525,,,,10/25/2013 BOR\jmaxon
+PHL,QD,"PHL QD - Mason Dam and Phillips Lake near Sumpter, OR",,13275300,updated through 2012 td,,,,,11/20/2015 BOR\jluna
+PHL,QU,"PHL QU - Mason Dam and Phillips Lake near Sumpter, OR",,,"re-ran qu data for 1967-2008, major changes 1967-1983, spotty changes after",,PHL QU,,,
+PIHI,QD,"PIHI QD - PORTNEUF RIVER AT POCATELLO, IDAHO",13075500,,,,,,,12/2/2016 BOR\pcooper
+PLCI,QJ,PLCI QJ - Palisades Canal,,,Imported successfully back to 1990,13033010,,,,10/25/2013 BOR\jmaxon
+PLEI,QD,"PLEI QD - Payette River near Letha, ID",13250000,,2003-2009 jh,,,,,11/20/2015 BOR\jluna
+POCI,QJ,POCI QJ - Porter Canal,,,Imported successfully back to 1995,13057250,,,,10/25/2013 BOR\jmaxon
+PODO,QU,#N/A,,,,,PODO QU,,,
+PRCI,QD,PRCI - NF COEUR D ALENE R AB SHOSHONE CK NR PRICHARD ID,12411000,,,,,,,11/20/2015 BOR\jluna
+PRHO,QD,"PRHO QD - Powder River at Hudspeth Lane near Sumpter, OR",,13275105,(owrd 1979-1995) 1995-1999 jh,,,,,11/20/2015 BOR\jluna
+PRKI,QJ,PRKI QJ - Parks and Lewisville Canal,,,Imported successfully back to 1977,13038305,,,,10/25/2013 BOR\jmaxon
+PRLI,QD,"PRLI QD - South Fork Payette River at Lowman, ID",13235000,,2003-2009 jh,,,,,11/20/2015 BOR\jluna
+PRPI,QD,"PRPI QD - Payette River near Payette, ID",13251000,,2003-2009 jh,,,,,11/20/2015 BOR\jluna
+PRRO,QD,"PRRO QD - Powder River nr. Richland, OR",,,,,,18906,,11/20/2015 BOR\jluna
+PRVO,QD,"PRVO QD - Crooked River near Prineville, OR",,14080500,"owrd 1992-2012, usgs to 1991 td",,,,,8/16/2017 BOR\crunyan
+PRVO,QU,"PRVO QU - Crooked River near Prineville, OR",,,"re-ran qu 1983-2008, changes 1999,2000,2003",,PRVO QU,,,
+PWDO,QD,"PWDO QD - Powder River at Baker, OR",,13277000,*a few sporadic changes 1981-1996 jh,,,,,11/20/2015 BOR\jluna
+PWDO,QU,"PWDO QU - Powder River at Baker, OR",,,updated 1982-2008 differences before 1999,,PWDO QU,,,
+RDWI,QJ,RDWI QJ - Reid Canal,,,Imported successfully back to 1977,13038431,,,,10/25/2013 BOR\jmaxon
+RECI,QJ,RECI QJ - Reservation Canal at Head,,,Imported successfully back to 1977,13060500,,,,10/25/2013 BOR\jmaxon
+REXI,QD,"REXI QD - Henrys Fork near Rexburg, ID",13056500,,2003-2009 jh,,,,,11/20/2015 BOR\jluna
+RGCI,QJ,RGCI QJ - Rigby Canal,,,Imported successfully back to 1977,13038180,,,,10/25/2013 BOR\jmaxon
+RICI,QJ,RICI QJ - Riverside Canal,,,Imported successfully back to 1977,13061705,,,,10/25/2013 BOR\jmaxon
+RIGI,QD,"RIGI QD - Little Salmon River at Riggins, ID",13316500,,"(usgs 1990-1993,1996-1998,2001-2005) 2005-2009 jh",,,,,11/20/2015 BOR\jluna
+RIR,QD,"RIR QD - Ririe Dam and Lake near Ririe, ID",13058000,,13057950,,,,,11/20/2015 BOR\jluna
+RIR,QU,"RIR QU - Ririe Dam and Lake near Ririe, ID",,,,,RIR QU,,,
+RJPI,QJ,RJPI QJ - Ray and John Brown Pump,,,Imported successfully back to 1980,13054111,,,,10/25/2013 BOR\jmaxon
+ROMO,QD,"ROMO QD - Owyhee River near Rome, OR",13181000,,2007-2012 td,,,,,11/20/2015 BOR\jluna
+RRPI,QJ,RRPI QJ - R. Brent Ricks Pump,,,No Data to compare,13054762,,,,
+RSDI,QJ,RSDI QJ - Reservation Canal at Drop,,,Imported successfully back to 2000,13065500,,,,10/25/2013 BOR\jmaxon
+RXRI,QJ,RXRI QJ - Rexburg Irrigation Canal,,,Imported successfully back to 1977,13055334,,,,10/25/2013 BOR\jmaxon
+SALY,QD,"SALY QD - Salt River above Reservoir near Etna, WY",13027500,,2003-2009 jh,,,,,11/20/2015 BOR\jluna
+SBEO,QJ,"SBEO QJ - Columbia Exchange Canal near Hermiston, OR",,14019109,Added to Hydromet 5/10/2012. JRocha,,,,,11/20/2015 BOR\jluna
+SCLO,QD,"SCLO QD - Scoggins Creek above Henry Hagg Lake, OR",,14202850,"1976-1996, 2006-2008 jh",,,,,11/20/2015 BOR\jluna
+SCOO,QD,"SCOO QD - Scoggins Creek below Henry Hagg Lake, Oregon",,14202980,2002-2006 jh,,,,,11/20/2015 BOR\jluna
+SCOO,QU,"SCOO QU - Scoggins Creek below Henry Hagg Lake, Oregon",,,"re-ran qu 2003-2008, major changes in 2003,2006",,SCOO QU,,,
+SELI,QD,"SELI QD - SELWAY RIVER NR LOWELL, IDAHO",13336500,,*(usgs 1929-1987) 2001-2009 jh,,,,,11/20/2015 BOR\jluna
+SFSI,QD,SFSI QD EF of SF Salmon River at Stibnite ID,13311000,,,,,,,11/20/2015 BOR\jluna
+SHYI,QD,"SHYI QD - Snake River near Shelley, ID",13060000,,2003-2009 jh,,,,,11/20/2015 BOR\jluna
+SHYI,GAIN,"SHYI GAIN - Snake River near Shelley, ID",13060000,,,,,,,
+SIFI,QD,"SIFI QD - Snake River near Idaho Falls, ID",13057155,,1987-2009 jh,,,,,11/20/2015 BOR\jluna
+SJNO,QD,"SJNO QD - Snake River at Johnson Bar, OR (Idaho Power)",13290460,,,,,13290460,,
+SKHI,QD,"SKHI QD - Snake River at King Hill, ID",13154500,,"(usgs 1908-1976,1979-1987,1990-1992,1996-1997)   1976-1979,1987-1990,1992-1995,1996-2009 jh",,,,,11/20/2015 BOR\jluna
+SMNI,QD,"SMNI QD - Salmon River at Salmon, ID",13302500,,"(usgs 1911-1916, 1919-1977,1978-1979, 1996-1997, 2001-2005)   1977-1978,1979-1996,1997-2001,2005-2009 jh",,,,,11/20/2015 BOR\jluna
+SNAI,QD,"SNAI QD - Snake River at Blackfoot, ID",13062500,,2003-2009 jh,,,,,11/20/2015 BOR\jluna
+SNDI,QJ,SNDI QJ - Sand Creek at Wolverine Road,,,Imported successfully back to 2000,13064500,,,,10/25/2013 BOR\jmaxon
+SNYI,QD,"SNYI QD - Snake River at Nyssa, OR (USGS)",13213100,,2003-1009 jh,,,,,11/20/2015 BOR\jluna
+SOL,QD,SOL QD - Soldiers Meadow Reservoir,,,no data found,,,,,
+SOL,QU,SOL QU - Soldiers Meadow Reservoir,,,"did not re-run qu, no published qd data, qu looks good",,SOL QU,,,
+SPDI,QD,"SPDI QD - CLEARWATER RIVER AT SPAULDING, IDAHO",13342500,,2002-2009 jh,,,,,11/20/2015 BOR\jluna
+SPPI,QJ,SPPI QJ - Southpipe Pump,,,Imported successfully back to 1990,13053951,,,,10/25/2013 BOR\jmaxon
+SQWI,QD,"SQWI QD - Squaw Creek at Sweet, ID",13249195,,,,,13249195,,
+SQWI,QD,"SQWI QD - Squaw Creek at Sweet, ID",,,ID Power,,,,,
+SRKI,QD,SRKI QD - Snake River at Kimberly,13090000,,,,,,,11/20/2015 BOR\jluna
+STFI,QD,STFI QD - Snake River nr Twin Falls ID,13090500,,"usgs data 1910's-1940's, nothing after until recently.  did not import",,,,,11/20/2015 BOR\jluna
+STII,QD,"STII QD - S FK CLEARWATER RIVER AT STITES, IDAHO",13338500,,"(usgs 1964-1976,1978-1987) 1976-1978,1987-2008 jh",,,,,11/20/2015 BOR\jluna
+SUCI,QJ,SUCI QJ - Salem Union Canal,,,Imported successfully back to 1977,13049805,,,,10/25/2013 BOR\jmaxon
+SWAI,QD,SWAI QD - Snake River near Murphy,13172500,,,,,13172500,,11/20/2015 BOR\jluna
+SWAI,QD,"SWAI QD - Snake River near Murphy, ID (Idaho Power)",13172500,,2002-2008 jh idaho power/usgs,,,,,
+SWBI,QD,"SWBI QD - Sweetwater Creek below Diversion nr Waha, ID",13342250,,2002-2006 sl,,,,,
+SWTI,QD,"SWTI QD - Sweetwater Creek at Mouth at Sweetwater, ID",13342340,,2007-2009 jh,,,,,7/12/2017 BOR\KTarbet
+TCNI,QJ,TCNI QJ - Twin Falls North Side Canal,,,,13087000,,,,
+TCSI,QJ,TCSI QJ - Twin Falls South Side Canal,,,,13087500,,,,
+TDA,QD,TDA QD - COLUMBIA RIVER AT THE DALLES,,,MDE,,,,,
+TDA,ID,TDA ID - COLUMBIA RIVER AT THE DALLES,,,,,TDA ID,,,
+TEAI,QD,"TEAI QD - Teton River near St. Anthony, ID",13055000,,,,,,,11/20/2015 BOR\jluna
+Test,test,st marys,5018500,,,,,,,
+TGCI,QJ,TGCI QJ - Twin Groves Canal,,,Imported successfully back to 1977,13049710,,,,10/25/2013 BOR\jmaxon
+THF,QD,"THF QD - Thief Valley Dam and Reservoir near North Powder, OR",,13285500,(owrd 1978-1980) 1980-1995 jh,,,,,11/20/2015 BOR\jluna
+THF,ID,"THF ID - Thief Valley Dam and Reservoir near North Powder, OR",,13285500,,,THF ID,,,
+TICI,QJ,TICI QJ - Teton Irrigation Canal,,,Imported successfully back to 1977,13055040,,,,10/25/2013 BOR\jmaxon
+TITI,QJ,TITI QJ - Teton Island Feeder Canal,,,Imported successfully back to 1976,13055210,,,,10/25/2013 BOR\jmaxon
+TLCI,QJ,TLCI QJ - Texas and Liberty Canal,,,Imported successfully back to 1977,13038434,,,,10/25/2013 BOR\jmaxon
+TNCM,QD,"TNCM QD - South Fork Flathead River near Twincreek, MT",12359800,,(usgs 1964-1982) 1984-2008 jh,,,,,11/20/2015 BOR\jluna
+TOPI,QD,TOPI QD - PORTNEUF RIVER AT TOPAZ ID,13073000,,,,,,,11/20/2015 BOR\jluna
+TRAI,QD,TRAI QD - Trapper Creek nr Oakly ID,13083000,,,,,,,11/20/2015 BOR\jluna
+TRCI,QJ,TRCI QJ - Trego Canal,,,Imported successfully back to 1994,13062050,,,,10/25/2013 BOR\jmaxon
+TRYO,QD,TRYO QD - GRANDE RONDE RIV AT TROY,13333000,,"(usgs 1990-1992) 1967,1982,1983-1986,1994-2008) jh",,,,,11/20/2015 BOR\jluna
+TTNI,QD,TTNI QD,13055198,,,,,,,7/25/2012 BOR\ktarbet
+TTXI,QD,"TTXI QD  -S FK TETON RIVER AT REXBURG, IDAHO",13055340,,,,,,,11/20/2015 BOR\jluna
+TUMO,QD,TUMO QD - Tumalo Creek blw Tumalo Feed Canal nr Bend,,14073520,,,,,,11/20/2015 BOR\jluna
+UMAO,QD,"UMAO QD - Umatilla River near Umatilla, OR",14033500,,1983-2008 jh,,,,,11/20/2015 BOR\jluna
+UMDO,QD,"UMDO QD - Umatilla River ar I84 near Stanfield, OR",,14031050,2004-2008 jh,,,,,11/20/2015 BOR\jluna
+UMMO,QD,UMMO QD - Umatilla River above Butter Creek nr Hermiston,,14031600,owrd/usgs not found,,,,,9/1/2016 BOR\KTarbet
+UMTO,QD,UMTO QD - Umatilla River at City of Hermiston W.W. Treatment P,,14032400,no usgs number,,,,,11/20/2015 BOR\jluna
+UMUO,QD,"UMUO QD - Umatilla River nr Echo, OR",,14029900,2005-2008 jh,,,,,11/20/2015 BOR\jluna
+UNY,QD,"UNY QD - Unity Reservoir and Burnt River near Unity, Oregon",,13273000,(Owrd 1931-1999) updated through 2012 td,,,,,11/20/2015 BOR\jluna
+UNY,QU,"UNY QU - Unity Reservoir and Burnt River near Unity, Oregon",,,"re-ran qu 1960-2008, major changes 1986,2002",,UNY QU,,,
+VALO,QD,"VALO QD - Malheur River below Nevada Dam near Vale, OR",13233300,,,,,,,12/2/2016 BOR\KTarbet
+VALO,QU,"VALO QU - Malheur River below Nevada Dam near Vale, OR",,,"re-ran qu 2000-2008, major changes 2006,2008",,VALO QU,,,
+VLCI,QJ,VLCI QJ - Snake River Valley Canal,,,Imported successfully back to 1977,13059525,,,,10/25/2013 BOR\jmaxon
+VSPI,QJ,VSPI QJ - Val Schwiendiman Pump,,,Imported successfully back to 1978,13054705,,,,10/25/2013 BOR\jmaxon
+WACI,QJ,WACI QJ - Watson Canal,,,Imported successfully back to 1976,13062506,,,,10/25/2013 BOR\jmaxon
+WARO,QD,"WARO QD - Malheur River bel Warm Springs Res nr Riverside, OR",13215000,,"1990-1991, 1996, 2003-2012 td",,,,,11/20/2015 BOR\jluna
+WARO,QU,"WARO QU - Malheur River bel Warm Springs Res nr Riverside, OR",,,"re-ran qu 1990-2008, major change 2000",,WARO QU,,,
+WAS,QD,"WAS QD - Clear Lake nr Government Camp (Wasco Dam), OR",,,no usgs number,,,,,
+WBCI,QD,"WBCI QD - Webb Creek near Sweetwater, ID",13342295,,2008-2009 jh,,,,,11/20/2015 BOR\jluna
+WBFI,QJ,"WBFI QC - Willow Creek Below Floodway Channel nr.  Ucon, ID",13058530,,,,,,,5/12/2016 BOR\KTarbet
+WCBI,QD,WCBI QD - Webb Creek bel Diversion,,,no usgs number,,,,,
+WEII,QD,"WEII QD - Snake River at Weiser, ID (USGS)",13269000,,2003-2009 jh,,,,,11/20/2015 BOR\jluna
+WFCI,QJ,WFCI QJ - Wilford Canal,,,Imported successfully back to 1977,13055030,,,,10/25/2013 BOR\jmaxon
+WFWI,QD,"WFWI QD - Willow Creek Floodway at Mouth near Idaho Falls, ID",13058529,,,,,,,11/20/2015 BOR\jluna
+WGCM,QD,"WGCM QD - Middle Fork Flathead River near West Glacier, MT",12358500,,1983-2008 jh,,,,,11/20/2015 BOR\jluna
+WHBI,QD,"WHBI QD - SALMON RIVER AT WHITE BIRD, IDAHO",13317000,,2001-2008 jh,,,,,11/20/2015 BOR\jluna
+WICO,QD,"WICO QD - Deschutes River below Wickiup Res., OR",,14056500,(usgs 1991-2008) 1975-1979 jh,,,,,2/19/2016 BOR\KTarbet
+WICO,QU,"WICO QU - Deschutes River below Wickiup Res., OR",,,"reran qu 1983-2008, major changes in 2008",,WICO QU,,,
+WIFI,QD,"WIFI QD - Sand Creek above Willow Creek Diversion nr Ukon, ID",13058510,,,,,,,11/20/2015 BOR\jluna
+WILI,QD,"WILI QD - Willow Creek Floodway Channel nr Ukon, ID",13058520,,1985-2008 jh,,,,,11/20/2015 BOR\jluna
+WLDN,QD,"WLDN QD - Owyhee Rvr bel Wildhorse Dam nr Gold Ck,NV (USGS)",13174500,,updated through 2012 td,,,,,11/20/2015 BOR\jluna
+WLDN,QU,"WLDN QU - Owyhee Rvr bel Wildhorse Dam nr Gold Ck,NV (USGS)",,,"re-ran qu 1984-2008, no major changes",,WLDN QU,,,
+WLWI,QD,"WLWI - QD Willow Creek near Bellevue, ID",13140900,,,,,13140900,,
+WLWI,QJ,"WLWI QJ - Willow Creek near Bellevue, ID",,,Error retrieving data,13140900,,,,
+WODI,QD,"WODI QD - Little Wood River near Carey, ID",13148500,,updated through sep 2013 td,,,,,12/2/2016 BOR\pcooper
+WODI,QU,"WODI QU - Little Wood River near Carey, ID",,,"re-ran qu 2005-2009, some changes in 2008",,WODI QU,,,
+WSLO,QD,"WSLO QD - Tualatin River near West Linn, OR",14207500,,2002-2008 jh,,,,,11/20/2015 BOR\jluna
+WSRI,QD,WSRI QD - WEISER R NR WEISER,13266000,,2002-2008 jh,,,,,11/20/2015 BOR\jluna
+WTXI,QD,"WTXI QD - Willow Creek below Tex Creek near Ririe, ID",13057940,,"1985-1992, 2001-2008 jh",,,,,11/20/2015 BOR\jluna
+WVCI,QJ,WVCI QJ - Woodville Canal,,,Imported successfully back to 1994,13059505,,,,10/25/2013 BOR\jmaxon
+YOKO,QD,"YOKO QD  - Umatilla River at Yoakum, OR",,14026000,,,,,,11/20/2015 BOR\jluna
+YOKO,QD,"YOKO QD - Umatilla River at Yoakum, OR",14026000,,1969-1991 jh,,,,,

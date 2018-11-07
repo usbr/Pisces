@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelYearCount = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxYear = new System.Windows.Forms.TextBox();
@@ -37,7 +38,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxEndYear = new System.Windows.Forms.TextBox();
             this.textBoxPcode = new System.Windows.Forms.TextBox();
-            this.labelYearCount = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,6 +60,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "inputs";
             // 
+            // labelYearCount
+            // 
+            this.labelYearCount.AutoSize = true;
+            this.labelYearCount.Location = new System.Drawing.Point(82, 92);
+            this.labelYearCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.labelYearCount.Name = "labelYearCount";
+            this.labelYearCount.Size = new System.Drawing.Size(47, 13);
+            this.labelYearCount.TabIndex = 33;
+            this.labelYearCount.Text = "10 years";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -80,7 +90,7 @@
             // 
             // textBoxYear
             // 
-            this.textBoxYear.Location = new System.Drawing.Point(6, 46);
+            this.textBoxYear.Location = new System.Drawing.Point(6, 49);
             this.textBoxYear.Name = "textBoxYear";
             this.textBoxYear.Size = new System.Drawing.Size(52, 20);
             this.textBoxYear.TabIndex = 0;
@@ -89,7 +99,7 @@
             // 
             // textBoxCbtt
             // 
-            this.textBoxCbtt.Location = new System.Drawing.Point(86, 46);
+            this.textBoxCbtt.Location = new System.Drawing.Point(86, 49);
             this.textBoxCbtt.Name = "textBoxCbtt";
             this.textBoxCbtt.Size = new System.Drawing.Size(52, 20);
             this.textBoxCbtt.TabIndex = 1;
@@ -98,7 +108,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 66);
+            this.label4.Location = new System.Drawing.Point(6, 73);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 13);
             this.label4.TabIndex = 32;
@@ -115,7 +125,7 @@
             // 
             // textBoxEndYear
             // 
-            this.textBoxEndYear.Location = new System.Drawing.Point(6, 83);
+            this.textBoxEndYear.Location = new System.Drawing.Point(6, 90);
             this.textBoxEndYear.Name = "textBoxEndYear";
             this.textBoxEndYear.Size = new System.Drawing.Size(52, 20);
             this.textBoxEndYear.TabIndex = 31;
@@ -124,28 +134,18 @@
             // 
             // textBoxPcode
             // 
-            this.textBoxPcode.Location = new System.Drawing.Point(143, 47);
+            this.textBoxPcode.Location = new System.Drawing.Point(143, 50);
             this.textBoxPcode.Name = "textBoxPcode";
             this.textBoxPcode.Size = new System.Drawing.Size(33, 20);
             this.textBoxPcode.TabIndex = 2;
             this.textBoxPcode.Text = "QU";
-            // 
-            // labelYearCount
-            // 
-            this.labelYearCount.AutoSize = true;
-            this.labelYearCount.Location = new System.Drawing.Point(82, 85);
-            this.labelYearCount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.labelYearCount.Name = "labelYearCount";
-            this.labelYearCount.Size = new System.Drawing.Size(47, 13);
-            this.labelYearCount.TabIndex = 33;
-            this.labelYearCount.Text = "10 years";
             // 
             // MultiWaterYearSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MultiWaterYearSelector";
             this.Size = new System.Drawing.Size(212, 138);
             this.groupBox1.ResumeLayout(false);

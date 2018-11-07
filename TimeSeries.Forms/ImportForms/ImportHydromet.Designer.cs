@@ -38,8 +38,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.radioButtonBoise = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.radioButtonHyd1 = new System.Windows.Forms.RadioButton();
             this.radioButtonGP = new System.Windows.Forms.RadioButton();
             this.radioButtonYakima = new System.Windows.Forms.RadioButton();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -47,7 +47,6 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             this.radioButtonFifteenMinute = new System.Windows.Forms.RadioButton();
             this.radioButtonDailyAverage = new System.Windows.Forms.RadioButton();
             this.checkBoxSimpleName = new System.Windows.Forms.CheckBox();
-            this.radioButtonHyd1 = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -152,23 +151,11 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             this.label4.TabIndex = 8;
             this.label4.Text = "enter station pcode pair";
             // 
-            // radioButtonBoise
-            // 
-            this.radioButtonBoise.AutoSize = true;
-            this.radioButtonBoise.Checked = true;
-            this.radioButtonBoise.Location = new System.Drawing.Point(18, 19);
-            this.radioButtonBoise.Name = "radioButtonBoise";
-            this.radioButtonBoise.Size = new System.Drawing.Size(94, 17);
-            this.radioButtonBoise.TabIndex = 10;
-            this.radioButtonBoise.Text = "boise (pnhyd0)";
-            this.radioButtonBoise.UseVisualStyleBackColor = true;
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.radioButtonHyd1);
             this.groupBox2.Controls.Add(this.radioButtonGP);
             this.groupBox2.Controls.Add(this.radioButtonYakima);
-            this.groupBox2.Controls.Add(this.radioButtonBoise);
             this.groupBox2.Location = new System.Drawing.Point(15, 154);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(179, 110);
@@ -176,10 +163,22 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Server";
             // 
+            // radioButtonHyd1
+            // 
+            this.radioButtonHyd1.AutoSize = true;
+            this.radioButtonHyd1.Checked = true;
+            this.radioButtonHyd1.Location = new System.Drawing.Point(19, 22);
+            this.radioButtonHyd1.Name = "radioButtonHyd1";
+            this.radioButtonHyd1.Size = new System.Drawing.Size(50, 17);
+            this.radioButtonHyd1.TabIndex = 13;
+            this.radioButtonHyd1.TabStop = true;
+            this.radioButtonHyd1.Text = "boise";
+            this.radioButtonHyd1.UseVisualStyleBackColor = true;
+            // 
             // radioButtonGP
             // 
             this.radioButtonGP.AutoSize = true;
-            this.radioButtonGP.Location = new System.Drawing.Point(18, 83);
+            this.radioButtonGP.Location = new System.Drawing.Point(18, 65);
             this.radioButtonGP.Name = "radioButtonGP";
             this.radioButtonGP.Size = new System.Drawing.Size(79, 17);
             this.radioButtonGP.TabIndex = 12;
@@ -189,7 +188,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             // radioButtonYakima
             // 
             this.radioButtonYakima.AutoSize = true;
-            this.radioButtonYakima.Location = new System.Drawing.Point(18, 60);
+            this.radioButtonYakima.Location = new System.Drawing.Point(18, 42);
             this.radioButtonYakima.Name = "radioButtonYakima";
             this.radioButtonYakima.Size = new System.Drawing.Size(101, 17);
             this.radioButtonYakima.TabIndex = 11;
@@ -250,16 +249,6 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             this.checkBoxSimpleName.Text = "use this simple name in the Pisces tree";
             this.checkBoxSimpleName.UseVisualStyleBackColor = true;
             // 
-            // radioButtonHyd1
-            // 
-            this.radioButtonHyd1.AutoSize = true;
-            this.radioButtonHyd1.Location = new System.Drawing.Point(19, 40);
-            this.radioButtonHyd1.Name = "radioButtonHyd1";
-            this.radioButtonHyd1.Size = new System.Drawing.Size(94, 17);
-            this.radioButtonHyd1.TabIndex = 13;
-            this.radioButtonHyd1.Text = "boise (pnhyd1)";
-            this.radioButtonHyd1.UseVisualStyleBackColor = true;
-            // 
             // ImportHydromet
             // 
             this.AcceptButton = this.buttonOK;
@@ -305,7 +294,6 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.RadioButton radioButtonBoise;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioButtonYakima;
         private System.Windows.Forms.GroupBox groupBox3;

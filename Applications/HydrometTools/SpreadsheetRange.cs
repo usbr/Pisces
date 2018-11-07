@@ -53,7 +53,7 @@ namespace HydrometTools
         }
 
         /// <summary>
-        /// return a DateRange specifying the first and last Date in a continous single column range.
+        /// return a DateRange specifying the first and last Date in a continuous single column range.
         /// </summary>
         public DateRange SelectedDateRange
         {

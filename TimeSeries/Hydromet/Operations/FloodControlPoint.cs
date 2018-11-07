@@ -8,9 +8,14 @@ using Reclamation.TimeSeries.Hydromet;
 
 namespace Reclamation.TimeSeries.Hydromet.Operations
 {
+    /// <summary>
+    /// FloodControlPoint contains the key properties that
+    /// define flood control at a specific river location
+    /// downstream of one or more reservoirs.
+    /// </summary>
     public class FloodControlPoint
     {
-
+        public string StationFC { get; set; }
         public string StationQU { get; set; }
         public string DailyStationQU { get; set; }
         public string StationQD { get; set; }
@@ -22,7 +27,8 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         public double PercentSpace { get; set; }
         public string Name {get; set;}
         public string RequiredLegend { get; set; }
-
+        public int ForecastMonthStart { get; private set; }
+        public int ForecastMonthEnd { get; private set; }
 
         public FillType FillType
         {
@@ -53,6 +59,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             StationQU = tbl.Rows[0]["StationQU"].ToString();
             StationQD = tbl.Rows[0]["StationQD"].ToString();
             DailyStationQU = tbl.Rows[0]["DailyStationQU"].ToString();
+            StationFC = tbl.Rows[0]["StationFC"].ToString();
 
             if (tbl.Rows[0]["FlagLegend"] != DBNull.Value)
             {
@@ -90,6 +97,10 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             VariableRuleCurve = Convert.ToBoolean(tbl.Rows[0]["VariableRuleCurve"]);
 
             RequiredLegend = tbl.Rows[0]["RequiredLegend"].ToString();
+
+            ForecastMonthStart = Convert.ToInt32(tbl.Rows[0]["ForecastMonthStart"].ToString());
+            ForecastMonthEnd = Convert.ToInt32(tbl.Rows[0]["ForecastMonthEnd"].ToString());
+            
         }
 
         

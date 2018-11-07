@@ -51,18 +51,14 @@ namespace PiscesWebServices.CGI
             }
          }
 
-        private static void StopWithError(string message)
+        private void StopWithError(string message)
         {
-            Console.Write("Content-type: text/html\n\n");
-            Help.PrintInstant();
-            Console.WriteLine("Error: " + message);
+            WriteLine("Content-type: text/html\n\n");
+            WriteLine(Help.PrintInstant());
+            WriteLine("Error: " + message);
             throw new Exception(message);
         }
 
-        public override void WriteLine(string s)
-         {
-             Console.WriteLine(s);
-         }
 
          public override void PrintRow(string t0, string[] vals, string[] flags)
          {

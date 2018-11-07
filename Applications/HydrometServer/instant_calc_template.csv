@@ -1,0 +1,4 @@
+output	input	Equation	siteFilter
+q	gh	"FileRatingTable(%site%_gh,""%site%.csv"")"	"siteid in ('amrw','augw','bicw','bum','chrw','cle','clfw','easw','elnw','kac','kee','kiow','lnrw','medw','nacw','nryw','parw','rbdw','rim','sucw','teaw','ticw','tnaw','tufw','umtw','wonw','ygvw','yrcw','yrpw','yrww','yumw')"
+hj	gh	LookupShift(%site%_gh)	
+qc	ch		"siteid in ('chcw','etcw','kesw','kncw','ktcw','nscw','rozw','rscw','rzcw','sexw','sncw','souw','tiew','wapw','wesw','wopw')"

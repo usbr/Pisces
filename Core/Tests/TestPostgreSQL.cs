@@ -12,10 +12,11 @@ namespace Reclamation.Core.Tests
 
         public static BasicDBServer GetPGServer(string ipaddress = "localhost", string dbName = "nunit")
         {
-            return PostgreSQL.GetPostgresServer(dbName,ipaddress);
+            return PostgreSQL.GetPostgresServer(dbName, ipaddress, "test", "test");
         }
 
         [Test, Category("DatabaseServer")]
+        [Ignore("Ignore DatabaseServer tests per KTarbet.")]
         public void ADLogin()
         {
             var psql = GetPGServer();
@@ -44,6 +45,7 @@ namespace Reclamation.Core.Tests
         /// Test inserting many smaller batches 
         /// </summary>
         [Test, Category("DatabaseServer")]
+        [Ignore("Ignore DatabaseServer tests per KTarbet.")]
         public void InsertSpeedTest()
         {
             var svr = GetPGServer() as PostgreSQL;
@@ -60,6 +62,7 @@ namespace Reclamation.Core.Tests
         /// Test inserting many smaller batches, with overlapping data
         /// </summary>
         [Test, Category("DatabaseServer")]
+        [Ignore("Ignore DatabaseServer tests per KTarbet.")]
         public void UpsertSpeedTest()
         {
             var svr = GetPGServer() as PostgreSQL;
@@ -116,6 +119,7 @@ namespace Reclamation.Core.Tests
         /// AgriMet crops charts use a reserved word in the column name
         /// </summary>
         [Test, Category("DatabaseServer")]
+        [Ignore("Ignore DatabaseServer tests per KTarbet.")]
         public void ColumnNameReservedWord()
         {
             var psql = GetPGServer();

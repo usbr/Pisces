@@ -12,7 +12,10 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
     public enum FillType { Fixed, Variable };
 
     /// <summary>
-    /// Base Class for Rule Curves.
+    /// The primary purpose of HydrometRuleCurve is to determine the
+    /// space requirement for any date and residula forecast. HydrometRuleCurve
+    /// is Base Class for all Rule Curves.  HydrometRuleCurve handles over 90% of the
+    /// cases.  Inherit from this class for custom curves such as Heise and Little Wood.
     /// </summary>
     public class HydrometRuleCurve
     {

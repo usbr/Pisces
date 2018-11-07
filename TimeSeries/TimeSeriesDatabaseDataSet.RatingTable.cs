@@ -54,7 +54,7 @@ namespace Reclamation.TimeSeries
                 //m_cbtt = cbtt;
                 //tring fileName = cbtt + "_" + pcode + ".txt";
                 
-                var tf = new TextFile(fileName.ToLower());
+                var tf = new TextFile(fileName);
                 int idx = tf.IndexOf("BEGIN TABLE"); // hydromet raw dumps
                 if (idx < 0)
                     idx = 0;

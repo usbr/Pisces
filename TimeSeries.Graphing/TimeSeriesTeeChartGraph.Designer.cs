@@ -186,6 +186,11 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.Title.Font.Size = 12;
+            this.tChart1.Axes.Left.Title.Font.SizeFloat = 12F;
             this.tChart1.Axes.Left.Title.Transparent = true;
             // 
             // 
@@ -208,6 +213,11 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            this.tChart1.Header.Font.Size = 12;
+            this.tChart1.Header.Font.SizeFloat = 12F;
             this.tChart1.Header.Lines = new string[] {
         ""};
             // 

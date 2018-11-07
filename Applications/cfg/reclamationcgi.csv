@@ -22,9 +22,14 @@ PNLinux,Irregular,recnet,http://lrgs1.pn.usbr.gov/pn-bin/api/instant
 PNLinux,Daily,recnet,http://lrgs1.pn.usbr.gov/pn-bin/api/daily
 PNLinux,Monthly,recnet,http://lrgs1.pn.usbr.gov/pn-bin/api/monthly
 
-PNLinux,Irregular,www,https://www.usbr.gov/pn-bin/instant.pl
-PNLinux,Daily,www,https://www.usbr.gov/pn-bin/daily.pl
-PNLinux,Monthly,www,https://www.usbr.gov/pn-bin/monthly.pl
+PNLinux,Irregular,www,https://www.usbr.gov/pn-bin/v1/instant.pl
+PNLinux,Daily,www,https://www.usbr.gov/pn-bin/v1/daily.pl
+PNLinux,Monthly,www,https://www.usbr.gov/pn-bin/v1/monthly.pl
+
+
+YakimaLinux,Irregular,recnet,http://yaklinux/pn-bin/instant
+YakimaLinux,Daily,recnet,http://yaklinux/pn-bin/daily
+YakimaLinux,Monthly,recnet,http://yaklinux/pn-bin/monthly
 
 
 LCHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
@@ -35,6 +40,12 @@ UCHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
 UCHDB,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
 UCHDB2,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
 UCHDB2,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+YAOHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+YAOHDB,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+ECOHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+ECOHDB,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+LBOHDB,Daily,recnet,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
+LBOHDB,Daily,www,http://ibr3lcrsrv01.bor.doi.net:8080/HDB_CGI.com
 LocalSource,Irregular,recnet,http://localhost:8080/instant.bat
 LocalSource,Daily,recnet,http://localhost:8080/daily.bat
 LocalSource,Monthly,recnet,http://localhost:8080/monthly.bat

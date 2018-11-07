@@ -79,3 +79,15 @@ SHOW TOTAL,SPAC,HEII /QD,QU,AF
 ```
 
 
+Another example of equation that is not user friendly.
+
+```
+ CASE  WHEN <<input2>> > .001 THEN (<<input1>>gsc(1264,385,<<tsbt>>)+gsc(1264,386,<<tsbt>>) + gsc(1264,393,<<tsbt>>)) * ( gsc(1264,388,<<tsbt>>)*power(<<input2>>,2) - gsc(1264,387,<<tsbt>>)<<input2>> + gsc(1264,389,<<tsbt>>) ) ELSE 0 END
+ ```
+
+
+## Boise State University - Computer Science Student Contributors
+
+Isaac Zurn, Soraya Yazdanpour, James Norwood, Sam McMahon, Rob Herrera, Ashley Gertman, Tara Felzien, Tyler Egan, Mack Bryan, Nate Brinton
+
+

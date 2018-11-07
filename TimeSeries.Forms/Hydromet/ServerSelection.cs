@@ -63,12 +63,9 @@ namespace Reclamation.TimeSeries.Forms.Hydromet
         private void ReadSettings()
         {
             var svr = HydrometInfoUtility.HydrometServerFromPreferences();
-            if (svr == HydrometHost.PN)
-            {
-                this.radioButtonPnHydromet.Checked = true;
-            }
-            else
-                if (svr == HydrometHost.PNLinux)
+
+            // retiring PN 
+           if (svr == HydrometHost.PNLinux || svr == HydrometHost.PN)
             {
                 this.radioButtonBoiseLinux.Checked = true;
             }
@@ -81,6 +78,10 @@ namespace Reclamation.TimeSeries.Forms.Hydromet
                     if (svr == HydrometHost.GreatPlains)
             {
                 this.radioButtonGP.Checked = true;
+            }
+           else if  (svr == HydrometHost.YakimaLinux)
+            {
+                this.radioButtonYakLinux.Checked = true;
             }
             else if (svr == HydrometHost.LocalSource)
             {

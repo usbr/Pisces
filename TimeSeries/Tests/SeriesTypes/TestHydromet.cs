@@ -43,7 +43,7 @@ END DATA
             DateTime t1 = new DateTime(2004, 1, 1);
             DateTime t2 = new DateTime(2004, 1, 2);
 
-            Series s = HydrometInfoUtility.Read("jck", "af", t1, t2, TimeInterval.Irregular, HydrometHost.PN);
+            Series s = HydrometInfoUtility.Read("jck", "af", t1, t2, TimeInterval.Irregular, HydrometHost.PNLinux);
             s.WriteToConsole();
             Assert.AreEqual(192, s.Count, "number of records read");
             //  143482.03 
@@ -68,7 +68,7 @@ END DATA
             var s = new HydrometDailySeries("jck", "qd");
             s.Read(new DateTime(2007, 10, 1), new DateTime(2007, 10, 5));
 
-            Assert.IsTrue(s.Count == 5);
+            Assert.IsTrue(s.Count == 5, " expected 5 points in jck_qu. number fount=" + s.Count);
             Assert.AreEqual(1910.0, s["2007-10-1"].Value);
         }
 

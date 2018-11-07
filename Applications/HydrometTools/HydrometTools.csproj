@@ -45,6 +45,8 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\Pisces\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -156,6 +158,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ThirdParty\DgvFilterPopup.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\..\packages\SSH.NET.2016.1.0-beta1\lib\net40\Renci.SshNet.dll</HintPath>
       <Private>True</Private>
@@ -171,11 +176,17 @@
       <Name>System.Data</Name>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.SQLite, Version=1.0.108.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Data.SQLite.Core.1.0.108.0\lib\net451\System.Data.SQLite.dll</HintPath>
+    </Reference>
     <Reference Include="System.Design">
       <Name>System.Design</Name>
     </Reference>
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Web">
       <Name>System.Web</Name>
@@ -341,48 +352,6 @@
     <Compile Include="Reports\Reports.Designer.cs">
       <DependentUpon>Reports.cs</DependentUpon>
     </Compile>
-    <Compile Include="Reports\UpperSnake\americanfalls.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\americanfalls.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\islandpark.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\islandpark.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\jackson.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\jackson.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\littlewood.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\littlewood.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\milner.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\milner.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\minidoka.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\minidoka.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\MorningScript.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\MorningScript.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\palisades.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\palisades.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\ririe.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\ririe.Designer.cs" />
-    <Compile Include="Reports\UpperSnake\UpperSnakeMorning.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Reports\UpperSnake\UpperSnakeMorning.Designer.cs">
-      <DependentUpon>UpperSnakeMorning.cs</DependentUpon>
-    </Compile>
     <Compile Include="Reports\ViewReportsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -412,10 +381,10 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Look\NewLook.Designer.cs" />
-    <Compile Include="Look\Program.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Database.cs" />
+    <Compile Include="ShiftInput.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="SpreadsheetRange.cs" />
     <Compile Include="ssh\SecureCopy.cs" />
     <Compile Include="ssh\Utility.cs" />
@@ -599,7 +568,6 @@
     <Content Include="RecordWorkup\192.txt" />
     <Content Include="RecordWorkup\readme.txt" />
     <Content Include="Stats\Report.txt" />
-    <Content Include="version-notes.txt" />
     <EmbeddedResource Include="Advanced\EquationEditorTable.resx">
       <DependentUpon>EquationEditorTable.cs</DependentUpon>
     </EmbeddedResource>
@@ -624,18 +592,6 @@
     <EmbeddedResource Include="Reports\Reports.resx">
       <DependentUpon>Reports.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Reports\UpperSnake\americanfalls.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\islandpark.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\jackson.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\littlewood.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\milner.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\minidoka.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\MorningScript.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\palisades.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\ririe.resx" />
-    <EmbeddedResource Include="Reports\UpperSnake\UpperSnakeMorning.resx">
-      <DependentUpon>UpperSnakeMorning.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Reports\ViewReportsForm.resx">
       <DependentUpon>ViewReportsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -644,6 +600,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SaveOptions.resx">
       <DependentUpon>SaveOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShiftInput.resx">
+      <DependentUpon>ShiftInput.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Stats\MaxStat.resx">
       <DependentUpon>MaxStat.cs</DependentUpon>
@@ -930,7 +889,9 @@
     <None Include="Decodes\GoesMessageDataSet.xss">
       <DependentUpon>GoesMessageDataSet.xsd</DependentUpon>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <EmbeddedResource Include="Graphing\RatingTableGraph.resx">
       <DependentUpon>RatingTableGraph.cs</DependentUpon>
     </EmbeddedResource>
@@ -1059,20 +1020,24 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Reclamation.Core.csproj">
-      <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
+      <Project>{80c73d4c-43cf-42de-addc-7b0f06ecf086}</Project>
       <Name>Reclamation.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Reclamation.Windows\Reclamation.Windows.csproj">
       <Project>{c9278b32-7c94-4532-9f4c-92109a6b8e03}</Project>
       <Name>Reclamation.Windows</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HydrometNotifications\HydrometNotifications.csproj">
-      <Project>{09B73D14-AFBB-434E-A71D-73248CBBF0A3}</Project>
-      <Name>HydrometNotifications</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj">
       <Project>{37b543f5-03a5-479e-b20c-7b4acc53d16a}</Project>
       <Name>Reclamation.TimeSeries.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries\Reclamation.TimeSeries.csproj">
+      <Project>{5dd20a8a-4037-4885-ab91-2f5a3d1f48b4}</Project>
+      <Name>Reclamation.TimeSeries</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HydrometNotifications\HydrometNotifications.csproj">
+      <Project>{09B73D14-AFBB-434E-A71D-73248CBBF0A3}</Project>
+      <Name>HydrometNotifications</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj">
       <Project>{862135b0-793a-4f06-b731-26c61b3ad068}</Project>
@@ -1081,10 +1046,6 @@
     <ProjectReference Include="..\..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
       <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>
       <Name>Reclamation.TimeSeries.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\TimeSeries\Reclamation.TimeSeries.csproj">
-      <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
-      <Name>Reclamation.TimeSeries</Name>
     </ProjectReference>
     <ProjectReference Include="..\PiscesUI\Pisces.csproj">
       <Project>{60537c98-6e33-42f7-9b7d-9b326abc019e}</Project>
@@ -1115,4 +1076,11 @@
     </PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets'))" />
+  </Target>
 </Project>

@@ -23,8 +23,8 @@ namespace PiscesWebServices.CGI
             {
                 var s = list[idx];
                 var tn = s.Table.TableName;
-                Console.Write(s.SiteID.ToUpper().PadRight(8)+" # ");
-                Console.WriteLine(GetLast(table, tn));
+                var x = s.SiteID.ToUpper().PadRight(8) + " # ";
+                WriteLine(x+GetLast(table, tn));
             }
 
         }
@@ -33,7 +33,7 @@ namespace PiscesWebServices.CGI
         /// get most recent value for this table, or 'missing'
         /// </summary>
         /// <param name="table"></param>
-        /// <param name="tn"></param>
+        /// <param name="tablename"></param>
         /// <returns></returns>
         private string GetLast(DataTable table, string tablename)
         {
@@ -70,11 +70,6 @@ namespace PiscesWebServices.CGI
 
         public override void PrintRow(string t0, string[] vals, string[] flags)
         {
-        }
-
-        public override void WriteLine(string s)
-        {
-            Console.WriteLine(s);
         }
 
         public override void WriteSeriesHeader(SeriesList list)

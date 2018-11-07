@@ -103,6 +103,7 @@
             this.radioButtonPnHydromet.Size = new System.Drawing.Size(152, 20);
             this.radioButtonPnHydromet.TabIndex = 0;
             this.radioButtonPnHydromet.Text = "Boise Hydromet";
+            this.radioButtonPnHydromet.Visible = false;
             this.radioButtonPnHydromet.CheckedChanged += new System.EventHandler(this.serverChanged);
             // 
             // radioButtonYakHydromet

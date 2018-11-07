@@ -9,7 +9,8 @@ using Reclamation.TimeSeries.Alarms;
 namespace Pisces.NunitTests.Database
 {
     /// <summary>
-    /// Test Regular Expression used to parse alarm definition
+    /// Test Alarm System.
+    /// Regular Expressions are used to parse alarm definition
     /// https://github.com/usbr/Pisces/wiki/alarm-description
     /// </summary>
     [TestFixture]
@@ -32,6 +33,10 @@ namespace Pisces.NunitTests.Database
             return db;
         }
 
+
+        /// <summary>
+        /// Simulate alarm at Palisades
+        /// </summary>
         [Test]
         public void DatabaseAboveAlarmTest()
         {

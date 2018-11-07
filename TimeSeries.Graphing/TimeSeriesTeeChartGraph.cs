@@ -227,6 +227,7 @@ namespace Reclamation.TimeSeries.Graphing
 
         private void toolStripButtonPrin_Click(object sender, EventArgs e)
         {
+            tChart1.Printer.Landscape = true;
             tChart1.Printer.Preview();
         }
 

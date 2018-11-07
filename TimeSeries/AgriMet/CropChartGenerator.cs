@@ -21,7 +21,7 @@ namespace Reclamation.TimeSeries.AgriMet
         /// <param name="cbttList">list of cbtt to create charts for</param>
         /// <param name="year">year used to filter database of crop dates</param>
         /// <param name="date">terminate date (or if null use etr terminate date)</param>
-        public static void CreateCropReports(int year, string outputDirectory, HydrometHost host=HydrometHost.PN)
+        public static void CreateCropReports(int year, string outputDirectory, HydrometHost host=HydrometHost.PNLinux)
         {
             s_host = host;
             CropDatesDataSet.CropDatesDataTable  cropTable= new CropDatesDataSet.CropDatesDataTable();
@@ -52,7 +52,7 @@ namespace Reclamation.TimeSeries.AgriMet
             {
                
 
-                var cropDates = cropTable.Where(x => x.cbtt == cbttList[i]
+               var cropDates = cropTable.Where(x => x.cbtt == cbttList[i]
                      && !x.IsterminatedateNull()
                      && !x.IsstartdateNull()
                      && !x.IsfullcoverdateNull()).ToArray();
@@ -292,14 +292,25 @@ namespace Reclamation.TimeSeries.AgriMet
             int numDaysRead = etTodayDate - etStartDate - 1;
             et.Read(t.AddDays(-numDaysRead), t.AddDays(-1));
 
-            var pcode = new string[]{"MX","MN","PP","TA","UA","WG" };
+            var pcode = new string[]{"MX","MN","PP","TA","UA","WG","ZK","ZL","ZM","XG","XC","YW","XH","XD","XJ","ZH","ZG" };
             var htmlPcode = new string[] {
                 "{site_high_temp}",
                 "{site_low_temp}",
                 "{site_precip}",
                 "{site_humidity}",
                 "{site_wind}",
-                "{site_max_wind}" };
+                "{site_max_wind}",
+                "{site_zk}",
+                "{site_zl}",
+                "{site_zm}",
+                "{site_xg}",
+                "{site_xc}",
+                "{site_yw}",
+                "{site_xh}",
+                "{site_xd}",
+                "{site_xj}",
+                "{site_zh}",
+                "{site_zg}"};
 
             DateTime yesterday = DateTime.Now.Date.AddDays(-1);
             for (int i = 0; i < pcode.Length; i++)
@@ -352,6 +363,24 @@ namespace Reclamation.TimeSeries.AgriMet
 
 
             File.WriteAllText(outputfn, contents);
+            // reomve soil temperature entries that are empty
+
+            var x = File.ReadAllLines(outputfn);
+            List<string> y = new List<string>();
+
+            for (int i = 0; i < x.Length; i++)
+            {
+               if( x[i].IndexOf("SOIL TEMPERATURE</b>: </font>") >=0 )
+                {
+                    // skip lines without soil temp
+                }
+                else
+                {
+                    y.Add(x[i]);
+                }
+            }
+
+            File.WriteAllLines(outputfn, y.ToArray());
     
         }
 

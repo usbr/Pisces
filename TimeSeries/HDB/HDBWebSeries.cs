@@ -5,7 +5,7 @@ using System.Net;
 namespace Reclamation.TimeSeries.HDB
 {
 
-    public enum HDBServer { UCHDB2, LCHDB2, ECAOHDB };
+    public enum HDBServer { UCHDB2, LCHDB2, ECOHDB, YAOHDB, LBOHDB };
 
 
     /// <summary>

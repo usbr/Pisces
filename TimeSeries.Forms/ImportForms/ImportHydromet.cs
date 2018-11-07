@@ -17,7 +17,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
      
                 radioButtonDailyAverage.Checked = true;
-                radioButtonBoise.Checked = true;
+                radioButtonHyd1.Checked = true;
                 this.dateTimePicker2.Value = DateTime.Now.AddDays(-1);
 
                 this.textBox1.Text = Properties.Settings.Default.HydrometInput;
@@ -68,45 +68,6 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             }
         }
 
-        //public string Units
-        //{
-        //    get
-        //    {
-        //        switch (ParameterCode)
-        //        {
-        //            case "af":
-        //                {
-        //                    return "acre feet";
-        //                }
-        //            case "qd":
-        //                {
-        //                    return "cfs";
-        //                }
-        //            case "qj":
-        //                {
-        //                    return "cfs";
-        //                }
-        //            case "wi":
-        //                {
-        //                    return "cfs";
-        //                }
-        //            case "wk":
-        //                {
-        //                    return "cfs";
-        //                }
-        //            case "wz":
-        //                {
-        //                    return "cfs";
-        //                }
-        //            case "gh":
-        //                {
-        //                    return "feet";
-        //                }
-        //            default:
-        //                return "acre feet";
-        //        }
-        //    }
-        //}
         
         public string Cbtt
         {
@@ -124,16 +85,16 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
         {
             get
             {
-                if (this.radioButtonBoise.Checked)
-                    return HydrometHost.PN;
-
                 if (this.radioButtonYakima.Checked)
                     return HydrometHost.Yakima;
 
                 if (this.radioButtonHyd1.Checked)
                     return HydrometHost.PNLinux;
 
-                return HydrometHost.GreatPlains;
+                if( this.radioButtonGP.Checked)
+                  return HydrometHost.GreatPlains;
+
+                return HydrometHost.PNLinux; // default
 
             }
         }

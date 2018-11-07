@@ -34,13 +34,13 @@ namespace PiscesAPI.Controllers
 
 
         /// <summary>
-        /// Retrieve daily TS data
+        /// Retrieve instant time (typically 15 minute) series data
         /// </summary>
         [HttpPost()]
         [ProducesResponseType(typeof(string), 200)]
         [ProducesResponseType(typeof(string), 400)]
         [ProducesResponseType(typeof(void), 500)]
-        public string Post()
+        public ContentResult Post()
         {
             var sr = new System.IO.StreamReader(Request.Body);
             var body = sr.ReadToEnd();
@@ -51,8 +51,7 @@ namespace PiscesAPI.Controllers
             var db = Database.GetTimeSeriesDatabase();
             var w = new WebTimeSeriesWriter(db, Reclamation.TimeSeries.TimeInterval.Irregular, body);
             var x = w.Run(Response);
-            return x;
-
+            return Content(x, Response.ContentType);
         }
 
     }

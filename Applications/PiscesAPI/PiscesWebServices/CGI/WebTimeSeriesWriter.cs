@@ -208,37 +208,18 @@ namespace PiscesWebServices.CGI
         }
         internal string Run(HttpResponse response)
         {
-            string fn = System.IO.Path.GetTempPath();
-            fn = System.IO.Path.Combine(fn, Guid.NewGuid() + ".hydromet-web");
-            StreamWriter sw = new StreamWriter(fn);
-            Console.SetOut(sw);
+            SeriesList list = CreateSeriesList();
 
-            try
+            if (list.Count == 0)
             {
-                SeriesList list = CreateSeriesList();
-
-                if (list.Count == 0)
-                {
-                    StopWithError("Error: list of series is empty");
-                    response.StatusCode = 500;
-                }
-
-                WriteSeries(list);
-            }
-            finally
-            {
-                if (sw != null)
-                    sw.Close();
-
+                StopWithError("Error: list of series is empty");
+                response.StatusCode = 500;
             }
 
-            var x = System.IO.File.ReadAllText(fn);
+            var x =WriteSeries(list);
 
-            StreamWriter standardOutput = new StreamWriter(Console.OpenStandardOutput());
-            standardOutput.AutoFlush = true;
-            Console.SetOut(standardOutput);
-            System.IO.File.Delete(fn);
 
+            response.ContentType = "text/html";
             if (Format == "csv")
             {
                 response.ContentType = "text/csv";
@@ -248,8 +229,8 @@ namespace PiscesWebServices.CGI
             }
             else if (Format == "html")
                 response.ContentType = "text/html";
-            else
-                response.ContentType = "text/plain";
+            //else
+              //  response.ContentType = "text/plain";
             return x;
         }
 
@@ -270,7 +251,7 @@ namespace PiscesWebServices.CGI
         /// Gets the queried series and generates simple text output
         /// </summary>
         /// <returns></returns>
-        private void WriteSeries(SeriesList list)
+        private string WriteSeries(SeriesList list)
         {
 
             m_formatter.WriteSeriesHeader(list);
@@ -295,6 +276,7 @@ namespace PiscesWebServices.CGI
             }
             m_formatter.WriteSeriesTrailer();
 
+            return m_formatter.Result();
         }
 
         

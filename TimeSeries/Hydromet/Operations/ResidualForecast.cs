@@ -8,6 +8,12 @@ using Reclamation.TimeSeries.Hydromet.Operations;
 
 namespace Reclamation.TimeSeries.Hydromet.Operations
 {
+    /// <summary>
+    /// ResidualForecast performs calculations using a specific 
+    /// FloodControlPoint and HydrometRuleCurve.  The calculations includes 
+    /// the amount of space in the reservoirs, the required space, and the residual expected inflow, based on the 
+    /// associated reservoirs,  actual inflows, outflows, and forecasted inflows.
+    /// </summary>
     public class ResidualForecast
     {
         string[] reservoirNames;
@@ -15,10 +21,12 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         HydrometMonthlySeries fc, fcm;
         public HydrometDailySeries qu, qd;
         SeriesList reservoirs;
+        bool m_dashed; // alternative rule curve (used at Heise,JCK,PAL)
 
         FloodControlPoint controlPoint;
-        public ResidualForecast(FloodControlPoint controlPoint)
+        public ResidualForecast(FloodControlPoint controlPoint, bool dashed)
         {
+            m_dashed = dashed;
             this.controlPoint = controlPoint;
             this.reservoirLags = controlPoint.ReservoirLags;
             this.reservoirNames = controlPoint.UpstreamReservoirs;
@@ -81,7 +89,8 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             }
             Report.Add(qd);
             Report.Add(qu);
-            Report.Add(Residual);
+            if( controlPoint.StationFC.ToLower() != "hgh")
+               Report.Add(Residual);
             Report.Add(Space);
             Report.Add(SpaceRequired);
             Report.Add(diff);
@@ -128,13 +137,14 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
            
 
-            m_ruleCurve = RuleCurveFactory.Create(controlPoint, wy);
+            m_ruleCurve = RuleCurveFactory.Create(controlPoint, wy,m_dashed);
 
             while (t <= _t2)
             {
                 if (controlPoint.FillType == FillType.Variable)
                 {
                     resid = ResetResidualBasedOnForecast(t, resid);
+
                     if (resid != HydrometRuleCurve.MissingValue && t <= qu.MaxDateTime)
                     {
                         var quTemp = qu[t].Value;
@@ -180,8 +190,9 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             }
         }
 
-        
 
+
+        double m_fc = 0; // forecast value.
 
         private double ResetResidualBasedOnForecast(DateTime t, double resid)
         {
@@ -190,7 +201,10 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
                 if (fc.IndexOf(t) >= 0)
                 {
                     if (!fc[t].IsMissing)
+                    {
+                        m_fc = fc[t].Value; 
                         resid = fc[t].Value;
+                    }
                 }
             }
             else if (t.Day == 16) // check for mid month forecast
@@ -199,9 +213,16 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
                 if (fcm.IndexOf(tm) >= 0)
                 {
                     if (!fcm[tm].IsMissing)
-                        resid = fcm[tm].Value;
+                    {
+                        m_fc = fcm[t].Value;
+                        resid = fcm[t].Value;
+                    }
                 }
             }
+
+            if (this.controlPoint.StationFC.ToLower() == "hgh")
+                return m_fc;
+
             return resid;
         }
 
@@ -232,11 +253,13 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
          void ReadMonthlyForecast(DateTime t1, DateTime t2)
         {
-
-            fc = new HydrometMonthlySeries(controlPoint.StationQU, "FC");// hgh "fms"
+            var pc = "fc";
+            if (controlPoint.StationFC.ToLower() == "hgh")
+                pc = "fms";
+            fc = new HydrometMonthlySeries(controlPoint.StationFC, pc);// hgh "fms"
             fc.TimePostion = TimePostion.FirstOfMonth;
 
-            fcm = new HydrometMonthlySeries(controlPoint.StationQU, "FCM");
+            fcm = new HydrometMonthlySeries(controlPoint.StationFC, "FCM");
             fcm.TimePostion = TimePostion.MidMonth;
 
             fc.Read(t1, t2);
@@ -278,6 +301,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
             cbttList.Add(controlPoint.StationQU + " FC");
             cbttList.Add(controlPoint.StationQU + " FCM");
+          //  cbttList.Add(controlPoint.StationQU + " FCMS");
 
             return cbttList.ToArray();
         }
