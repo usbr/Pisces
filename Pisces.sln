@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reclamation.TimeSeries", "TimeSeries\Reclamation.TimeSeries.csproj", "{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}"
 EndProject
@@ -62,7 +62,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportOWRD", "Applications\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateDailyCalculations", "Applications\CreateDailyCalculations\CreateDailyCalculations.csproj", "{9C591F97-0713-44BA-AEB6-4147A5202CED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildTestDatabase", "Applications\BuildTestDatabase\BuildTestDatabase.csproj", "{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildTestDatabase", "Applications\BuildTestDatabase\BuildTestDatabase.csproj", "{5BFFE433-C7EF-4ADC-A5A6-C005452FF0A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -94,8 +94,8 @@ Global
 		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D427C920-62C7-41D3-BCE1-27E315C2D122}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Debug|Any CPU.Build.0 = Debug|x86
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{AAB62A5F-54CA-4115-92FE-91D54B9E932A}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{096B4316-5684-463D-8AB7-AF121EFB6D92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -138,8 +138,8 @@ Global
 		{B5149AE3-25DC-4ED3-8C22-6E429AA9532E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5149AE3-25DC-4ED3-8C22-6E429AA9532E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5149AE3-25DC-4ED3-8C22-6E429AA9532E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.Debug|Any CPU.Build.0 = Debug|x86
+		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{60537C98-6E33-42F7-9B7D-9B326ABC019E}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{DF7D7FCA-F5A0-4950-9E1A-354331D190ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -174,10 +174,10 @@ Global
 		{9C591F97-0713-44BA-AEB6-4147A5202CED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C591F97-0713-44BA-AEB6-4147A5202CED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C591F97-0713-44BA-AEB6-4147A5202CED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BFFE433-C7EF-4ADC-A5A6-C005452FF0A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BFFE433-C7EF-4ADC-A5A6-C005452FF0A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BFFE433-C7EF-4ADC-A5A6-C005452FF0A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BFFE433-C7EF-4ADC-A5A6-C005452FF0A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -205,7 +205,7 @@ Global
 		{6F7C6C62-721C-4AF6-AF29-70E69989CCE1} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 		{98584217-A9DA-4375-9DC4-D82CF6899162} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 		{9C591F97-0713-44BA-AEB6-4147A5202CED} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
-		{3373ABA9-BB17-4C4D-BEA2-BCEF7E9D603C} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
+		{5BFFE433-C7EF-4ADC-A5A6-C005452FF0A1} = {461202B2-A773-45DD-A2BC-E3AB5E70D88E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3F4C9525-1F25-425A-9DAF-CFE9A51060A3}
