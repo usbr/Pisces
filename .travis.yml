@@ -27,6 +27,6 @@ script:
 notifications: 
   email: 
     recipients: 
-      - ktarbet@usbr.gov 
+      - ktarbet@gmail.com
       - jrocha@usbr.gov 
       - blounsbury@usbr.gov 
