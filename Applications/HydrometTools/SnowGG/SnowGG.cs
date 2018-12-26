@@ -96,6 +96,7 @@ namespace HydrometTools.SnowGG
 
                 var wyList = PiscesAnalysis.WaterYears(sl, waterYears, false, 10,true);
 
+                wyList = ApplyDeltas(wyList, waterYears);
                 AddStatistics(wyList);
 
                 if (checkBoxGP.Checked)
@@ -138,6 +139,49 @@ namespace HydrometTools.SnowGG
             if (File.Exists(fn))
                 gs.Read(fn);
             return gs;
+        }
+
+        private SeriesList ApplyDeltas(SeriesList wyList, int[] waterYears)
+        {
+            int sCount = wyList.Count;
+            if (checkBoxDeltas.Checked && sCount > 1)
+            {
+                var deltaList = new SeriesList();
+                Series s1 = wyList[0];
+                s1.RemoveMissing();
+                deltaList.Add(s1);
+
+                for (int sIdx = 1; sIdx < sCount; sIdx++)
+                {
+                    var ithS = wyList[sIdx];
+                    var deltaS = new Series();
+                    int deltaCounter = 0;
+                    for (int ptIdx = 1; ptIdx < ithS.Count; ptIdx++)// Reclamation.TimeSeries.Point pt in ithS)
+                    {
+                        if (ithS[ptIdx].DateTime == s1.MaxDateTime)
+                        {
+                            deltaS.Add(s1[ithS[ptIdx].DateTime]);
+                            deltaCounter++;
+                        }
+                        else if (ithS[ptIdx].DateTime > s1.MaxDateTime)
+                        {
+                            deltaS.Add(ithS[ptIdx].DateTime, deltaS[deltaCounter - 1].Value + ithS[ptIdx].Value - ithS[ptIdx - 1].Value);
+                            deltaCounter++;
+                        }
+                    }
+                    deltaS.Units = s1.Units;
+                    deltaS.Name = waterYears[sIdx].ToString("F0") + " deltas";
+                    // [JR] Displays original data in addition to delta curves
+                    wyList.Add(deltaS);
+                    // [JR] Only shows delta curves
+                    deltaList.Add(deltaS);
+                }
+                return deltaList;
+            }
+            else
+            {
+                return wyList;
+            }
         }
 
         private void AddStatistics(SeriesList wyList)

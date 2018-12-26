@@ -33,6 +33,7 @@
             Reclamation.TimeSeries.Forms.Graphing.GraphSettings graphSettings2 = new Reclamation.TimeSeries.Forms.Graphing.GraphSettings();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxAnnotate = new System.Windows.Forms.CheckBox();
+            this.checkBoxDeltas = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBoxPctls = new System.Windows.Forms.TextBox();
             this.checkBoxPctls = new System.Windows.Forms.CheckBox();
@@ -59,6 +60,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.checkBoxDeltas);
             this.panel1.Controls.Add(this.checkBoxAnnotate);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.checkBoxGP);
@@ -89,6 +91,16 @@
             this.checkBoxAnnotate.TabIndex = 13;
             this.checkBoxAnnotate.Text = "date/value tooltip";
             this.checkBoxAnnotate.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDeltas
+            // 
+            this.checkBoxDeltas.AutoSize = true;
+            this.checkBoxDeltas.Location = new System.Drawing.Point(250, 123);
+            this.checkBoxDeltas.Name = "checkBoxDeltas";
+            this.checkBoxDeltas.Size = new System.Drawing.Size(182, 21);
+            this.checkBoxDeltas.TabIndex = 14;
+            this.checkBoxDeltas.Text = "Apply Deltas to 1st Year";
+            this.checkBoxDeltas.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -358,5 +370,6 @@
         private System.Windows.Forms.CheckBox checkBoxAnnotate;
         private System.Windows.Forms.TextBox textBoxPctls;
         private System.Windows.Forms.CheckBox checkBoxPctls;
+        private System.Windows.Forms.CheckBox checkBoxDeltas;
     }
 }
