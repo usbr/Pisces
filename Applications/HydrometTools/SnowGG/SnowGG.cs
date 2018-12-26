@@ -143,16 +143,32 @@ namespace HydrometTools.SnowGG
         private void AddStatistics(SeriesList wyList)
         {
 
-            bool anyStats = checkBoxMax.Checked || checkBoxMin.Checked || checkBoxAvg.Checked;
+            bool anyStats = checkBoxMax.Checked || checkBoxMin.Checked || checkBoxAvg.Checked || checkBoxPctls.Checked;
 
             if (!anyStats)
                 return;
 
             int y1 =1990;
             int y2 =2011;
+            int[] pctls = new int[] { };
 
             int.TryParse(this.textBoxWY1.Text, out y1);
             int.TryParse(this.textBoxWY2.Text, out y2);
+
+            if (checkBoxPctls.Checked)
+            {
+                try
+                {
+                    string values = textBoxPctls.Text;
+                    string[] tokens = values.Split(',');
+                    pctls = Array.ConvertAll<string, int>(tokens, int.Parse);
+                }
+                catch
+                {
+                    pctls = new int[] { 10, 50, 90 };
+                }
+
+            }
 
             DateTime t1 = new DateTime(y1 - 1, 10, 1);
             DateTime t2 = new DateTime(y2  , 9, 30);
@@ -164,7 +180,7 @@ namespace HydrometTools.SnowGG
             s.Appearance.LegendText = "";
            
             YearRange yr = new YearRange(2000, 10);
-            var list = Math.SummaryHydrograph(s, new int[] { }, yr.DateTime1, checkBoxMax.Checked, checkBoxMin.Checked, checkBoxAvg.Checked, false); //, false);
+            var list = Math.SummaryHydrograph(s, pctls, yr.DateTime1, checkBoxMax.Checked, checkBoxMin.Checked, checkBoxAvg.Checked, false); //, false);
            
             
             wyList.Add(list);

@@ -71,7 +71,7 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -1041,6 +1041,10 @@
       <Project>{37b543f5-03a5-479e-b20c-7b4acc53d16a}</Project>
       <Name>Reclamation.TimeSeries.Excel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj">
+      <Project>{862135b0-793a-4f06-b731-26c61b3ad068}</Project>
+      <Name>Reclamation.TimeSeries.Graphing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\TimeSeries\Reclamation.TimeSeries.csproj">
       <Project>{5dd20a8a-4037-4885-ab91-2f5a3d1f48b4}</Project>
       <Name>Reclamation.TimeSeries</Name>
@@ -1048,10 +1052,6 @@
     <ProjectReference Include="..\HydrometNotifications\HydrometNotifications.csproj">
       <Project>{09B73D14-AFBB-434E-A71D-73248CBBF0A3}</Project>
       <Name>HydrometNotifications</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj">
-      <Project>{862135b0-793a-4f06-b731-26c61b3ad068}</Project>
-      <Name>Reclamation.TimeSeries.Graphing</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
       <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>
