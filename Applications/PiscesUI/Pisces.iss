@@ -14,7 +14,6 @@ VersionInfoVersion={#AppVerStr}
 VersionInfoTextVersion={#AppVerStr}
 OutputBaseFilename=Pisces3-setup
 ;show dialogs even if previous install found
-DisableWelcomePage=no
 DisableDirPage=no
 DisableProgramGroupPage=no
 AlwaysShowDirOnReadyPage=yes
