@@ -26,24 +26,34 @@ namespace FcPlot
         /// <param name="optionalPercents"></param>
         /// <returns></returns>
         public static SeriesList ComputeTargets(FloodControlPoint pt, 
-            int waterYear, Point start,int[] optionalPercents, bool dashed)
+            int waterYear, Point start,int[] optionalPercents, bool dashed, bool forecastOverride, string forecastValIn)
         {
             string cbtt = pt.StationFC;
             
             SeriesList rval = new SeriesList();
 
-            //calculate forecast of most recent month
-            Series forecast = GetLatestForecast(cbtt, waterYear);
-            int forecastMonth = MonthOfLastForecast(forecast);
-
-            //if no forecast cannot compute target
-            if (forecastMonth == 0)
+            Series forecast = new Series();
+            int forecastMonth = 0;
+            double forecastValue = 0;
+            if (forecastOverride)
             {
-                return rval;
+                forecastMonth = DateTime.Now.Month;// System.Math.Min(1, DateTime.Now.Month);
+                forecastValue = Convert.ToDouble(forecastValIn);
             }
+            else
+            {
+                //calculate forecast of most recent month
+                forecast = GetLatestForecast(cbtt, waterYear);
+                forecastMonth = MonthOfLastForecast(forecast);
 
-            //value of forecast to use for percent of average
-            double forecastValue = forecast[forecastMonth - 1].Value;
+                //if no forecast cannot compute target
+                if (forecastMonth == 0)
+                {
+                    return rval;
+                }
+                //value of forecast to use for percent of average
+                forecastValue = forecast[forecastMonth - 1].Value;
+            }
             // average runoff  month - end(typically July) volume
 
             if (cbtt.ToLower() == "hgh")
@@ -70,7 +80,7 @@ namespace FcPlot
             }
             else
             {
-                rval.Add(GetTargets(pt, waterYear, start, optionalPercents, forecastMonth, forecastValue,dashed));
+                rval.Add(GetTargets(pt, waterYear, start, optionalPercents, forecastMonth, forecastValue, dashed));
             }
 
             return rval;
@@ -105,7 +115,8 @@ namespace FcPlot
         /// <param name="forecastMonth"></param>
         /// <param name="forecastValue"></param>
         /// <returns></returns>
-        private static SeriesList GetTargets(FloodControlPoint pt, int waterYear, Point start, int[] optionalPercents,  int forecastMonth, double forecastValue, bool dashed)
+        private static SeriesList GetTargets(FloodControlPoint pt, int waterYear, Point start, int[] optionalPercents,  
+            int forecastMonth, double forecastValue, bool dashed)
         {
             SeriesList rval = new SeriesList();
             HydrometRuleCurve m_ruleCurve = RuleCurveFactory.Create(pt, 7100,dashed);

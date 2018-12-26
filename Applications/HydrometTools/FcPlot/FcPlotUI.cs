@@ -178,13 +178,14 @@ namespace FcPlot
                  alternateActualContent,ruleCurves, labelDates.ToArray(), pt.RequiredLegend, hmList,showRuleCurve,
                   dashedLines);
                 //compute the targets
-                if (pt.FillType == FillType.Variable && showTarget.Checked == true)
-                {
+                if (pt.FillType == FillType.Variable && (showTarget.Checked == true || checkBoxOverrideFcast.Checked == true))
+                { 
                     if (Convert.ToInt32(this.textBoxWaterYear.Text) == DateTime.Now.WaterYear())
                     {
                         actualContent.RemoveMissing();
                         var startPt = actualContent[actualContent.Count - 1];
-                        targets = FloodOperation.ComputeTargets(pt, Convert.ToInt32(this.textBoxWaterYear.Text),startPt, optionalPercents,checkBoxDashed.Checked);
+                        targets = FloodOperation.ComputeTargets(pt, Convert.ToInt32(this.textBoxWaterYear.Text), startPt, 
+                            optionalPercents, checkBoxDashed.Checked, this.checkBoxOverrideFcast.Checked, this.textBoxOverrideFcast.Text);
                         var aColors = new Color[] {Color.Black,Color.Maroon,Color.Indigo,Color.DarkSlateGray,Color.SaddleBrown };
                         for (int i = 0; i < targets.Count; i++)
                         {
