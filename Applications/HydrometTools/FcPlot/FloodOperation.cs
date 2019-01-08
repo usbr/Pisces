@@ -215,11 +215,11 @@ namespace FcPlot
             s2.Read(t1, t2);
 
             // Resolve current WY
-            // [JR] Don't know why this is hard coded to the current WY...
+            // [JR] Don't know why this was hard coded to the current WY...
             int currWY = DateTime.Now.Year;
-            if (DateTime.Now.Month >9)
+            if (DateTime.Now.Month > 9)
             {
-                currWY = currWY - 1;
+                currWY = currWY + 1;
             }
 
             DateTime t = new DateTime(currWY, forecastMonth, 1);
