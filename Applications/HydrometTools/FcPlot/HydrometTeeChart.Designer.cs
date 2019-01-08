@@ -41,16 +41,18 @@
             this.panel1.Controls.Add(this.linkLabelEdit);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(492, 23);
+            this.panel1.Size = new System.Drawing.Size(656, 28);
             this.panel1.TabIndex = 0;
             // 
             // linkLabelEdit
             // 
             this.linkLabelEdit.AutoSize = true;
-            this.linkLabelEdit.Location = new System.Drawing.Point(8, 5);
+            this.linkLabelEdit.Location = new System.Drawing.Point(11, 6);
+            this.linkLabelEdit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.linkLabelEdit.Name = "linkLabelEdit";
-            this.linkLabelEdit.Size = new System.Drawing.Size(24, 13);
+            this.linkLabelEdit.Size = new System.Drawing.Size(31, 17);
             this.linkLabelEdit.TabIndex = 0;
             this.linkLabelEdit.TabStop = true;
             this.linkLabelEdit.Text = "edit";
@@ -61,11 +63,12 @@
             // 
             // 
             // 
+            this.tChart1.Aspect.ColorPaletteIndex = 20;
             this.tChart1.Aspect.View3D = false;
-            this.tChart1.Aspect.ZOffset = 0D;
             // 
             // 
             // 
+            this.tChart1.Axes.Automatic = true;
             // 
             // 
             // 
@@ -73,6 +76,10 @@
             // 
             // 
             this.tChart1.Axes.Bottom.AxisPen.Width = 1;
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Bottom.Grid.Visible = false;
             this.tChart1.Axes.Bottom.Increment = 30D;
             // 
             // 
@@ -80,13 +87,62 @@
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Bottom.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Bottom.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tChart1.Axes.DrawBehind = false;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.AxisPen.Visible = false;
             this.tChart1.Axes.Left.AxisPen.Width = 1;
             // 
             // 
             // 
+            this.tChart1.Axes.Left.Grid.Style = System.Drawing.Drawing2D.DashStyle.Solid;
             // 
             // 
             // 
+            this.tChart1.Axes.Left.Labels.ClipText = false;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.Labels.Font.Brush.Color = System.Drawing.Color.Gray;
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.MinorTicks.Visible = false;
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.Ticks.Visible = false;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tChart1.Axes.Left.Title.Font.Size = 12;
             this.tChart1.Axes.Left.Title.Font.SizeFloat = 12F;
             // 
@@ -95,7 +151,32 @@
             // 
             // 
             // 
+            this.tChart1.Axes.Right.AxisPen.Visible = false;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Right.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Top.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tChart1.Axes.Top.Labels.Visible = false;
+            this.tChart1.CurrentTheme = Steema.TeeChart.ThemeType.Report;
             this.tChart1.Cursor = System.Windows.Forms.Cursors.Default;
             this.tChart1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
@@ -104,11 +185,38 @@
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            this.tChart1.Header.Font.Brush.Color = System.Drawing.Color.Gray;
             this.tChart1.Header.Font.Size = 12;
             this.tChart1.Header.Font.SizeFloat = 12F;
             this.tChart1.Header.Lines = new string[] {
         ""};
-            this.tChart1.Location = new System.Drawing.Point(0, 23);
+            // 
+            // 
+            // 
+            this.tChart1.Legend.Alignment = Steema.TeeChart.LegendAlignments.Top;
+            this.tChart1.Legend.CheckBoxes = true;
+            this.tChart1.Legend.DrawBehind = false;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Legend.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            // 
+            // 
+            // 
+            this.tChart1.Legend.Pen.Visible = false;
+            // 
+            // 
+            // 
+            this.tChart1.Legend.Shadow.Visible = false;
+            this.tChart1.Legend.Transparent = true;
+            this.tChart1.Location = new System.Drawing.Point(0, 28);
+            this.tChart1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tChart1.Name = "tChart1";
             // 
             // 
@@ -126,11 +234,20 @@
             // 
             this.tChart1.Panel.ImageBevel.Width = 1;
             this.tChart1.Series.Add(this.line1);
-            this.tChart1.Size = new System.Drawing.Size(492, 330);
+            this.tChart1.Size = new System.Drawing.Size(656, 406);
             this.tChart1.TabIndex = 1;
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Walls.Back.Brush.Visible = false;
+            this.tChart1.Walls.Back.Transparent = true;
+            this.tChart1.Walls.Back.Visible = false;
             this.tChart1.Walls.Visible = false;
             // 
             // line1
@@ -151,17 +268,38 @@
             // 
             // 
             // 
-            this.line1.Marks.Callout.ArrowHead = Steema.TeeChart.Styles.ArrowHeadStyles.None;
-            this.line1.Marks.Callout.ArrowHeadSize = 8;
+            this.line1.Marks.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             // 
             // 
             // 
-            this.line1.Marks.Callout.Brush.Color = System.Drawing.Color.Black;
-            this.line1.Marks.Callout.Distance = 0;
-            this.line1.Marks.Callout.Draw3D = false;
-            this.line1.Marks.Callout.Length = 10;
-            this.line1.Marks.Callout.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
-            this.line1.Marks.Callout.Visible = false;
+            this.line1.Marks.Brush.Gradient.EndColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.line1.Marks.Brush.Gradient.MiddleColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.line1.Marks.Brush.Gradient.StartColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(215)))), ((int)(((byte)(0)))));
+            this.line1.Marks.Brush.Gradient.UseMiddle = true;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.line1.Marks.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            // 
+            // 
+            // 
+            this.line1.Marks.Pen.Color = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(92)))), ((int)(((byte)(147)))));
+            // 
+            // 
+            // 
+            this.line1.Marks.Shadow.Visible = false;
+            // 
+            // 
+            // 
+            this.line1.Marks.TailParams.CustomPointPos = ((System.Drawing.PointF)(resources.GetObject("resource.CustomPointPos")));
+            this.line1.Marks.TailParams.Margin = 0F;
+            this.line1.Marks.TailParams.PointerHeight = 8D;
+            this.line1.Marks.TailParams.PointerWidth = 8D;
+            this.line1.Marks.TailStyle = Steema.TeeChart.Styles.MarksTail.WithPointer;
+            this.line1.OriginalCursor = null;
             // 
             // 
             // 
@@ -169,8 +307,10 @@
             // 
             // 
             this.line1.Pointer.Brush.Color = System.Drawing.Color.Red;
-            this.line1.Pointer.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
+            this.line1.Pointer.SizeDouble = 0D;
+            this.line1.Pointer.SizeUnits = Steema.TeeChart.Styles.PointerSizeUnits.Pixels;
             this.line1.Title = "line1";
+            this.line1.UseExtendedNumRange = false;
             // 
             // 
             // 
@@ -184,12 +324,13 @@
             // 
             // HydrometTeeChart
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tChart1);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "HydrometTeeChart";
-            this.Size = new System.Drawing.Size(492, 353);
+            this.Size = new System.Drawing.Size(656, 434);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

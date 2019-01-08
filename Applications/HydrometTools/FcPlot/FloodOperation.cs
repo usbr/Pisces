@@ -214,7 +214,15 @@ namespace FcPlot
             var s2 = new HydrometDailySeries(cbtt, pcode, HydrometHost.PNLinux);
             s2.Read(t1, t2);
 
-            DateTime t = new DateTime(2018, forecastMonth, 1);
+            // Resolve current WY
+            // [JR] Don't know why this is hard coded to the current WY...
+            int currWY = DateTime.Now.Year;
+            if (DateTime.Now.Month >9)
+            {
+                currWY = currWY - 1;
+            }
+
+            DateTime t = new DateTime(currWY, forecastMonth, 1);
             var list = Math.SummaryHydrograph(s2, new int[] { }, t, false,false,true, false); 
 
             return list[0];

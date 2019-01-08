@@ -158,16 +158,19 @@ namespace HydrometTools.SnowGG
                     int deltaCounter = 0;
                     for (int ptIdx = 1; ptIdx < ithS.Count; ptIdx++)// Reclamation.TimeSeries.Point pt in ithS)
                     {
-                        if (ithS[ptIdx].DateTime == s1.MaxDateTime)
+                        if (ithS[ptIdx].DateTime < s1.MaxDateTime)
+                        {
+                            deltaS.Add(ithS[ptIdx].DateTime,double.NaN);
+                        }
+                        else if (ithS[ptIdx].DateTime == s1.MaxDateTime)
                         {
                             deltaS.Add(s1[ithS[ptIdx].DateTime]);
-                            deltaCounter++;
                         }
                         else if (ithS[ptIdx].DateTime > s1.MaxDateTime)
                         {
                             deltaS.Add(ithS[ptIdx].DateTime, deltaS[deltaCounter - 1].Value + ithS[ptIdx].Value - ithS[ptIdx - 1].Value);
-                            deltaCounter++;
                         }
+                        deltaCounter++;
                     }
                     deltaS.Units = s1.Units;
                     deltaS.Name = waterYears[sIdx].ToString("F0") + " deltas";

@@ -60,8 +60,9 @@ namespace FcPlot
 
         internal void SetLabels(string title, string yAxis)
         {
-            tChart1.Axes.Left.Title.Text = yAxis;
-            tChart1.Text = title;
+            tChart1.Axes.Left.Title.Caption = yAxis;
+            tChart1.Axes.Left.FixedLabelSize = false;
+            tChart1.Text = title;            
         }
 
         internal void Fcplot(Series actual, Series required, Series alternateRequiredContent,
