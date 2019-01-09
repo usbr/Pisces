@@ -46,6 +46,7 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // toolStrip1
             // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonPrin,
             this.toolStripButtonEditGraph,
@@ -56,7 +57,7 @@ namespace Reclamation.TimeSeries.Graphing
             this.toolStripButtonSelect});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(668, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(891, 28);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -66,7 +67,7 @@ namespace Reclamation.TimeSeries.Graphing
             this.toolStripButtonPrin.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonPrin.Image")));
             this.toolStripButtonPrin.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonPrin.Name = "toolStripButtonPrin";
-            this.toolStripButtonPrin.Size = new System.Drawing.Size(36, 22);
+            this.toolStripButtonPrin.Size = new System.Drawing.Size(43, 25);
             this.toolStripButtonPrin.Text = "Print";
             this.toolStripButtonPrin.ToolTipText = "print";
             this.toolStripButtonPrin.Click += new System.EventHandler(this.toolStripButtonPrin_Click);
@@ -76,7 +77,7 @@ namespace Reclamation.TimeSeries.Graphing
             this.toolStripButtonEditGraph.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButtonEditGraph.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonEditGraph.Name = "toolStripButtonEditGraph";
-            this.toolStripButtonEditGraph.Size = new System.Drawing.Size(66, 22);
+            this.toolStripButtonEditGraph.Size = new System.Drawing.Size(83, 25);
             this.toolStripButtonEditGraph.Text = "Edit Graph";
             this.toolStripButtonEditGraph.Click += new System.EventHandler(this.toolStripButtonEditGraph_Click);
             // 
@@ -86,7 +87,7 @@ namespace Reclamation.TimeSeries.Graphing
             this.toolStripButtonUndoZoom.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonUndoZoom.Image")));
             this.toolStripButtonUndoZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonUndoZoom.Name = "toolStripButtonUndoZoom";
-            this.toolStripButtonUndoZoom.Size = new System.Drawing.Size(75, 22);
+            this.toolStripButtonUndoZoom.Size = new System.Drawing.Size(93, 25);
             this.toolStripButtonUndoZoom.Text = "Undo Zoom";
             this.toolStripButtonUndoZoom.Click += new System.EventHandler(this.toolStripButtonUndoZoom_Click);
             // 
@@ -96,7 +97,7 @@ namespace Reclamation.TimeSeries.Graphing
             this.toolStripButtonZoomOut.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonZoomOut.Image")));
             this.toolStripButtonZoomOut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonZoomOut.Name = "toolStripButtonZoomOut";
-            this.toolStripButtonZoomOut.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonZoomOut.Size = new System.Drawing.Size(23, 25);
             this.toolStripButtonZoomOut.Text = "-";
             this.toolStripButtonZoomOut.ToolTipText = "zoom out";
             this.toolStripButtonZoomOut.Click += new System.EventHandler(this.toolStripButtonZoomOut_Click);
@@ -107,7 +108,7 @@ namespace Reclamation.TimeSeries.Graphing
             this.toolStripButtonZoomIn.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonZoomIn.Image")));
             this.toolStripButtonZoomIn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonZoomIn.Name = "toolStripButtonZoomIn";
-            this.toolStripButtonZoomIn.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonZoomIn.Size = new System.Drawing.Size(23, 25);
             this.toolStripButtonZoomIn.Text = "+";
             this.toolStripButtonZoomIn.ToolTipText = "zoom in";
             this.toolStripButtonZoomIn.Click += new System.EventHandler(this.toolStripButtonZoomIn_Click);
@@ -116,7 +117,7 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             this.toolStripComboBoxDragPoints.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.toolStripComboBoxDragPoints.Name = "toolStripComboBoxDragPoints";
-            this.toolStripComboBoxDragPoints.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBoxDragPoints.Size = new System.Drawing.Size(160, 28);
             this.toolStripComboBoxDragPoints.ToolTipText = "drag points for selected series";
             this.toolStripComboBoxDragPoints.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxDragPoints_SelectedIndexChanged);
             // 
@@ -127,12 +128,15 @@ namespace Reclamation.TimeSeries.Graphing
             this.toolStripButtonSelect.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonSelect.Image")));
             this.toolStripButtonSelect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonSelect.Name = "toolStripButtonSelect";
-            this.toolStripButtonSelect.Size = new System.Drawing.Size(42, 22);
+            this.toolStripButtonSelect.Size = new System.Drawing.Size(53, 25);
             this.toolStripButtonSelect.Text = "Select";
             this.toolStripButtonSelect.Click += new System.EventHandler(this.toolStripButtonSelect_Click);
             // 
             // tChart1
             // 
+            this.tChart1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
@@ -177,6 +181,7 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             this.tChart1.Axes.Bottom.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tChart1.Axes.DrawBehind = false;
             // 
             // 
             // 
@@ -193,6 +198,7 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             // 
+            this.tChart1.Axes.Left.Labels.ClipText = false;
             // 
             // 
             // 
@@ -200,6 +206,7 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             this.tChart1.Axes.Left.Labels.Font.Brush.Color = System.Drawing.Color.Gray;
+            this.tChart1.Axes.Left.Labels.OnAxis = false;
             // 
             // 
             // 
@@ -256,7 +263,6 @@ namespace Reclamation.TimeSeries.Graphing
             this.tChart1.Axes.Top.Visible = false;
             this.tChart1.CurrentTheme = Steema.TeeChart.ThemeType.Report;
             this.tChart1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.tChart1.Dock = System.Windows.Forms.DockStyle.Fill;
             // 
             // 
             // 
@@ -274,13 +280,15 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             // 
+            this.tChart1.Legend.CheckBoxes = true;
             // 
             // 
             // 
             // 
             // 
             // 
-            this.tChart1.Legend.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.tChart1.Legend.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(102)))), ((int)(((byte)(163)))));
+            this.tChart1.Legend.FontSeriesColor = true;
             this.tChart1.Legend.LegendStyle = Steema.TeeChart.LegendStyles.Series;
             // 
             // 
@@ -291,7 +299,8 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             this.tChart1.Legend.Shadow.Visible = false;
             this.tChart1.Legend.Transparent = true;
-            this.tChart1.Location = new System.Drawing.Point(0, 25);
+            this.tChart1.Location = new System.Drawing.Point(0, 31);
+            this.tChart1.Margin = new System.Windows.Forms.Padding(4);
             this.tChart1.Name = "tChart1";
             // 
             // 
@@ -314,8 +323,9 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             this.tChart1.Panel.ImageBevel.Width = 1;
             this.tChart1.Series.Add(this.line1);
-            this.tChart1.Size = new System.Drawing.Size(668, 453);
+            this.tChart1.Size = new System.Drawing.Size(891, 558);
             this.tChart1.TabIndex = 2;
+            this.tChart1.Axes.Left.FixedLabelSize = false;
             // 
             // 
             // 
@@ -402,12 +412,13 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // TimeSeriesTeeChartGraph
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tChart1);
             this.Controls.Add(this.toolStrip1);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TimeSeriesTeeChartGraph";
-            this.Size = new System.Drawing.Size(668, 478);
+            this.Size = new System.Drawing.Size(891, 588);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
