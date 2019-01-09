@@ -49,7 +49,6 @@ namespace HydrometTools
         private LinkLabel linkLabelUsgs;
         private ComboBox comboBoxEnableDragPoint;
         private Label label1;
-        private Steema.TeeChart.Styles.Line line1;
         private ComboBox comboBoxInterval;
         private Label labelFillGap;
         private Button buttonForward;
@@ -62,6 +61,9 @@ namespace HydrometTools
         private LinkLabel linkLabelOwrd;
         private LinkLabel linkLabelIdahoPower;
         private LinkLabel linkLabelPrint;
+        private Button buttonHideTable;
+        private TimeSeriesSpreadsheetSG uc;
+        private Button buttonHideGraph;
         Steema.TeeChart.Tools.Annotation annotation1;
 
 
@@ -69,7 +71,7 @@ namespace HydrometTools
 		{
 			InitializeComponent();
 #if SpreadsheetGear
-            var uc = new TimeSeriesSpreadsheetSG();
+            uc = new TimeSeriesSpreadsheetSG();
 #else
             var uc = new TimeSeriesSpreadsheet();
 #endif
@@ -268,7 +270,6 @@ namespace HydrometTools
             this.panelGraphTable = new System.Windows.Forms.Panel();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.tChart1 = new Steema.TeeChart.TChart();
-            this.line1 = new Steema.TeeChart.Styles.Line();
             this.labelFileName = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonOpenFile = new System.Windows.Forms.Button();
@@ -287,6 +288,8 @@ namespace HydrometTools
             this.timeSelectorBeginEndWaterYear1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEndWaterYear();
             this.timeSelector2 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
             this.linkLabelPrint = new System.Windows.Forms.LinkLabel();
+            this.buttonHideTable = new System.Windows.Forms.Button();
+            this.buttonHideGraph = new System.Windows.Forms.Button();
             this.panelGraphTable.SuspendLayout();
             this.groupBoxMonthlyReports.SuspendLayout();
             this.SuspendLayout();
@@ -295,7 +298,7 @@ namespace HydrometTools
             // 
             this.comboBoxInputs.Location = new System.Drawing.Point(3, 28);
             this.comboBoxInputs.Name = "comboBoxInputs";
-            this.comboBoxInputs.Size = new System.Drawing.Size(313, 21);
+            this.comboBoxInputs.Size = new System.Drawing.Size(313, 24);
             this.comboBoxInputs.TabIndex = 23;
             this.toolTip1.SetToolTip(this.comboBoxInputs, "example:  JCK AF, AMF AF");
             this.comboBoxInputs.SelectedIndexChanged += new System.EventHandler(this.comboBoxInputs_SelectedIndexChanged);
@@ -341,7 +344,7 @@ namespace HydrometTools
             this.checkBoxShowBadData.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxShowBadData.Location = new System.Drawing.Point(351, 39);
             this.checkBoxShowBadData.Name = "checkBoxShowBadData";
-            this.checkBoxShowBadData.Size = new System.Drawing.Size(115, 17);
+            this.checkBoxShowBadData.Size = new System.Drawing.Size(150, 21);
             this.checkBoxShowBadData.TabIndex = 32;
             this.checkBoxShowBadData.Text = "graph flagged data";
             this.checkBoxShowBadData.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -354,7 +357,7 @@ namespace HydrometTools
             this.checkBoxShowPoints.AutoSize = true;
             this.checkBoxShowPoints.Location = new System.Drawing.Point(351, 57);
             this.checkBoxShowPoints.Name = "checkBoxShowPoints";
-            this.checkBoxShowPoints.Size = new System.Drawing.Size(82, 17);
+            this.checkBoxShowPoints.Size = new System.Drawing.Size(104, 21);
             this.checkBoxShowPoints.TabIndex = 33;
             this.checkBoxShowPoints.Text = "show points";
             this.checkBoxShowPoints.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -391,9 +394,9 @@ namespace HydrometTools
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelGraphTable.Controls.Add(this.splitter1);
             this.panelGraphTable.Controls.Add(this.tChart1);
-            this.panelGraphTable.Location = new System.Drawing.Point(0, 115);
+            this.panelGraphTable.Location = new System.Drawing.Point(34, 115);
             this.panelGraphTable.Name = "panelGraphTable";
-            this.panelGraphTable.Size = new System.Drawing.Size(918, 459);
+            this.panelGraphTable.Size = new System.Drawing.Size(856, 459);
             this.panelGraphTable.TabIndex = 27;
             // 
             // splitter1
@@ -409,11 +412,12 @@ namespace HydrometTools
             // 
             // 
             // 
+            this.tChart1.Aspect.ColorPaletteIndex = 20;
             this.tChart1.Aspect.View3D = false;
-            this.tChart1.Aspect.ZOffset = 0D;
             // 
             // 
             // 
+            this.tChart1.Axes.Automatic = true;
             // 
             // 
             // 
@@ -421,42 +425,71 @@ namespace HydrometTools
             // 
             // 
             this.tChart1.Axes.Bottom.AxisPen.Width = 1;
-            // 
-            // 
-            // 
-            this.tChart1.Axes.Bottom.Title.Transparent = true;
-            this.tChart1.Axes.Bottom.Grid.Visible = true;
             this.tChart1.Axes.Bottom.Grid.DrawEvery = 1;
-            this.tChart1.Axes.Left.Grid.Visible = true;
-            this.tChart1.Axes.Left.FixedLabelSize = false;
-            this.tChart1.Axes.Right.FixedLabelSize = false;
+            this.tChart1.Axes.Bottom.Grid.Visible = true;
             // 
             // 
             // 
             // 
             // 
             // 
-            this.tChart1.Axes.Depth.Title.Transparent = true;
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Bottom.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             // 
             // 
             // 
             // 
             // 
             // 
-            this.tChart1.Axes.DepthTop.Title.Transparent = true;
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Bottom.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             // 
             // 
             // 
             // 
             // 
             // 
+            this.tChart1.Axes.Left.AxisPen.Visible = false;
             this.tChart1.Axes.Left.AxisPen.Width = 1;
             this.tChart1.Axes.Left.EndPosition = 99D;
+            this.tChart1.Axes.Left.FixedLabelSize = false;
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.Grid.Style = System.Drawing.Drawing2D.DashStyle.Solid;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.Labels.Font.Brush.Color = System.Drawing.Color.Gray;
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.MinorTicks.Visible = false;
             this.tChart1.Axes.Left.StartPosition = 1D;
             // 
             // 
             // 
-            this.tChart1.Axes.Left.Title.Transparent = true;
+            this.tChart1.Axes.Left.Ticks.Visible = false;
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Left.Title.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             // 
             // 
             // 
@@ -464,7 +497,9 @@ namespace HydrometTools
             // 
             // 
             this.tChart1.Axes.Right.AxisPen.Transparency = 77;
+            this.tChart1.Axes.Right.AxisPen.Visible = false;
             this.tChart1.Axes.Right.AxisPen.Width = 0;
+            this.tChart1.Axes.Right.FixedLabelSize = false;
             // 
             // 
             // 
@@ -472,20 +507,40 @@ namespace HydrometTools
             // 
             // 
             // 
-            this.tChart1.Axes.Right.Title.Transparent = true;
             // 
             // 
             // 
             // 
             // 
             // 
-            this.tChart1.Axes.Top.Title.Transparent = true;
+            this.tChart1.Axes.Right.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Axes.Top.Labels.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.tChart1.Axes.Top.Visible = false;
             this.tChart1.BackColor = System.Drawing.Color.Transparent;
+            this.tChart1.CurrentTheme = Steema.TeeChart.ThemeType.Report;
             this.tChart1.Dock = System.Windows.Forms.DockStyle.Left;
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Header.Font.Brush.Color = System.Drawing.Color.Gray;
             this.tChart1.Header.Lines = new string[] {
         ""};
             // 
@@ -499,6 +554,15 @@ namespace HydrometTools
             // 
             this.tChart1.Legend.Font.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(102)))), ((int)(((byte)(163)))));
             this.tChart1.Legend.FontSeriesColor = true;
+            // 
+            // 
+            // 
+            this.tChart1.Legend.Pen.Visible = false;
+            // 
+            // 
+            // 
+            this.tChart1.Legend.Shadow.Visible = false;
+            this.tChart1.Legend.Transparent = true;
             this.tChart1.Location = new System.Drawing.Point(0, 0);
             this.tChart1.Name = "tChart1";
             // 
@@ -516,73 +580,30 @@ namespace HydrometTools
             // 
             // 
             this.tChart1.Panel.Brush.Gradient.Visible = false;
-            this.tChart1.Series.Add(this.line1);
             this.tChart1.Size = new System.Drawing.Size(510, 459);
             this.tChart1.TabIndex = 3;
             // 
             // 
             // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            // 
+            this.tChart1.Walls.Back.Brush.Visible = false;
+            this.tChart1.Walls.Back.Transparent = true;
+            this.tChart1.Walls.Back.Visible = false;
             this.tChart1.Walls.Visible = false;
             this.tChart1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseDown);
             this.tChart1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseUp);
-            // 
-            // line1
-            // 
-            // 
-            // 
-            // 
-            this.line1.Brush.Color = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(102)))), ((int)(((byte)(163)))));
-            this.line1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(102)))), ((int)(((byte)(163)))));
-            this.line1.ColorEach = false;
-            // 
-            // 
-            // 
-            this.line1.LinePen.Color = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(61)))), ((int)(((byte)(98)))));
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.line1.Marks.Callout.ArrowHead = Steema.TeeChart.Styles.ArrowHeadStyles.None;
-            this.line1.Marks.Callout.ArrowHeadSize = 8;
-            // 
-            // 
-            // 
-            this.line1.Marks.Callout.Brush.Color = System.Drawing.Color.Black;
-            this.line1.Marks.Callout.Distance = 0;
-            this.line1.Marks.Callout.Draw3D = false;
-            this.line1.Marks.Callout.Length = 10;
-            this.line1.Marks.Callout.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
-            this.line1.Marks.Callout.Visible = false;
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            // 
-            this.line1.Pointer.Brush.Gradient.Transparency = 100;
-            this.line1.Pointer.Style = Steema.TeeChart.Styles.PointerStyles.Rectangle;
-            this.line1.Title = "line1";
-            // 
-            // 
-            // 
-            this.line1.XValues.DataMember = "X";
-            this.line1.XValues.Order = Steema.TeeChart.Styles.ValueListOrder.Ascending;
-            // 
-            // 
-            // 
-            this.line1.YValues.DataMember = "Y";
             // 
             // labelFileName
             // 
             this.labelFileName.AutoSize = true;
             this.labelFileName.Location = new System.Drawing.Point(101, 7);
             this.labelFileName.Name = "labelFileName";
-            this.labelFileName.Size = new System.Drawing.Size(35, 13);
+            this.labelFileName.Size = new System.Drawing.Size(46, 17);
             this.labelFileName.TabIndex = 29;
             this.labelFileName.Text = "label2";
             // 
@@ -591,7 +612,7 @@ namespace HydrometTools
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(49, 7);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 13);
+            this.label2.Size = new System.Drawing.Size(61, 17);
             this.label2.TabIndex = 30;
             this.label2.Text = "filename";
             // 
@@ -621,7 +642,7 @@ namespace HydrometTools
             this.comboBoxEnableDragPoint.FormattingEnabled = true;
             this.comboBoxEnableDragPoint.Location = new System.Drawing.Point(151, 64);
             this.comboBoxEnableDragPoint.Name = "comboBoxEnableDragPoint";
-            this.comboBoxEnableDragPoint.Size = new System.Drawing.Size(109, 21);
+            this.comboBoxEnableDragPoint.Size = new System.Drawing.Size(109, 24);
             this.comboBoxEnableDragPoint.TabIndex = 36;
             this.comboBoxEnableDragPoint.SelectedIndexChanged += new System.EventHandler(this.comboBoxEnableDragPointSelectedIndexChanged);
             // 
@@ -630,7 +651,7 @@ namespace HydrometTools
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(157, 51);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
+            this.label1.Size = new System.Drawing.Size(79, 17);
             this.label1.TabIndex = 37;
             this.label1.Text = "drag points";
             // 
@@ -645,7 +666,7 @@ namespace HydrometTools
             "60 minutes"});
             this.comboBoxInterval.Location = new System.Drawing.Point(716, 43);
             this.comboBoxInterval.Name = "comboBoxInterval";
-            this.comboBoxInterval.Size = new System.Drawing.Size(115, 21);
+            this.comboBoxInterval.Size = new System.Drawing.Size(115, 24);
             this.comboBoxInterval.TabIndex = 38;
             this.comboBoxInterval.Visible = false;
             // 
@@ -654,7 +675,7 @@ namespace HydrometTools
             this.labelFillGap.AutoSize = true;
             this.labelFillGap.Location = new System.Drawing.Point(716, 22);
             this.labelFillGap.Name = "labelFillGap";
-            this.labelFillGap.Size = new System.Drawing.Size(74, 13);
+            this.labelFillGap.Size = new System.Drawing.Size(99, 17);
             this.labelFillGap.TabIndex = 39;
             this.labelFillGap.Text = "fill gap interval";
             this.labelFillGap.Visible = false;
@@ -677,7 +698,7 @@ namespace HydrometTools
             this.includeMonthlyFlags.AutoSize = true;
             this.includeMonthlyFlags.Location = new System.Drawing.Point(93, 17);
             this.includeMonthlyFlags.Name = "includeMonthlyFlags";
-            this.includeMonthlyFlags.Size = new System.Drawing.Size(48, 17);
+            this.includeMonthlyFlags.Size = new System.Drawing.Size(60, 21);
             this.includeMonthlyFlags.TabIndex = 4;
             this.includeMonthlyFlags.Text = "flags";
             this.includeMonthlyFlags.UseVisualStyleBackColor = true;
@@ -687,7 +708,7 @@ namespace HydrometTools
             this.MonthlyInventory.AutoSize = true;
             this.MonthlyInventory.Location = new System.Drawing.Point(10, 36);
             this.MonthlyInventory.Name = "MonthlyInventory";
-            this.MonthlyInventory.Size = new System.Drawing.Size(50, 13);
+            this.MonthlyInventory.Size = new System.Drawing.Size(66, 17);
             this.MonthlyInventory.TabIndex = 3;
             this.MonthlyInventory.TabStop = true;
             this.MonthlyInventory.Text = "inventory";
@@ -698,7 +719,7 @@ namespace HydrometTools
             this.USGSMonthlyReport.AutoSize = true;
             this.USGSMonthlyReport.Location = new System.Drawing.Point(6, 18);
             this.USGSMonthlyReport.Name = "USGSMonthlyReport";
-            this.USGSMonthlyReport.Size = new System.Drawing.Size(63, 13);
+            this.USGSMonthlyReport.Size = new System.Drawing.Size(82, 17);
             this.USGSMonthlyReport.TabIndex = 2;
             this.USGSMonthlyReport.TabStop = true;
             this.USGSMonthlyReport.Text = "USGS table";
@@ -739,7 +760,7 @@ namespace HydrometTools
             // timeSelectorBeginEndWaterYear1
             // 
             this.timeSelectorBeginEndWaterYear1.Location = new System.Drawing.Point(543, 22);
-            this.timeSelectorBeginEndWaterYear1.Margin = new System.Windows.Forms.Padding(4);
+            this.timeSelectorBeginEndWaterYear1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.timeSelectorBeginEndWaterYear1.Name = "timeSelectorBeginEndWaterYear1";
             this.timeSelectorBeginEndWaterYear1.Size = new System.Drawing.Size(131, 62);
             this.timeSelectorBeginEndWaterYear1.T1 = new System.DateTime(2009, 10, 1, 0, 0, 0, 0);
@@ -749,6 +770,7 @@ namespace HydrometTools
             // timeSelector2
             // 
             this.timeSelector2.Location = new System.Drawing.Point(500, 31);
+            this.timeSelector2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.timeSelector2.Name = "timeSelector2";
             this.timeSelector2.ShowTime = false;
             this.timeSelector2.Size = new System.Drawing.Size(195, 46);
@@ -766,8 +788,36 @@ namespace HydrometTools
             this.linkLabelPrint.Text = "print";
             this.linkLabelPrint.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelPrint_LinkClicked);
             // 
+            // buttonHideTable
+            // 
+            this.buttonHideTable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHideTable.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.buttonHideTable.Location = new System.Drawing.Point(890, 115);
+            this.buttonHideTable.Name = "buttonHideTable";
+            this.buttonHideTable.Size = new System.Drawing.Size(25, 456);
+            this.buttonHideTable.TabIndex = 47;
+            this.buttonHideTable.Text = "\r\nH\r\ni\r\nd\r\ne\r\n\r\nT\r\na\r\nb\r\nl\r\ne\r\n";
+            this.buttonHideTable.UseVisualStyleBackColor = true;
+            this.buttonHideTable.Click += new System.EventHandler(this.buttonHideTable_Click);
+            // 
+            // buttonHideGraph
+            // 
+            this.buttonHideGraph.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonHideGraph.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.buttonHideGraph.Location = new System.Drawing.Point(3, 115);
+            this.buttonHideGraph.Name = "buttonHideGraph";
+            this.buttonHideGraph.Size = new System.Drawing.Size(25, 456);
+            this.buttonHideGraph.TabIndex = 48;
+            this.buttonHideGraph.Text = "\r\nH\r\ni\r\nd\r\ne\r\n\r\nG\r\nr\r\na\r\np\r\nh\r\n";
+            this.buttonHideGraph.UseVisualStyleBackColor = true;
+            this.buttonHideGraph.Click += new System.EventHandler(this.buttonHideGraph_Click);
+            // 
             // TimeSeriesEditor
             // 
+            this.Controls.Add(this.buttonHideGraph);
+            this.Controls.Add(this.buttonHideTable);
             this.Controls.Add(this.linkLabelPrint);
             this.Controls.Add(this.linkLabelOwrd);
             this.Controls.Add(this.linkLabelIdahoPower);
@@ -1578,6 +1628,43 @@ namespace HydrometTools
         {
             tChart1.Printer.Landscape = true;
             tChart1.Printer.Preview();
+        }
+
+        private bool tableHidden = false;
+        private void buttonHideTable_Click(object sender, EventArgs e)
+        {
+            if (!tableHidden)
+            {
+                this.splitter1.SplitPosition = 99999999;
+                uc.Hide();
+                this.buttonHideTable.Text = "\r\nU\r\nn\r\nh\r\ni\r\nd\r\ne\r\n\r\nT\r\na\r\nb\r\nl\r\ne\r\n";
+            }
+            else
+            {
+                this.splitter1.SplitPosition = this.panelGraphTable.Width / 2;
+                uc.Show();
+                this.buttonHideTable.Text = "\r\nH\r\ni\r\nd\r\ne\r\n\r\nT\r\na\r\nb\r\nl\r\ne\r\n";
+            }
+            tableHidden = !tableHidden;
+        }
+
+        private bool graphHidden = false;
+        private void buttonHideGraph_Click(object sender, EventArgs e)
+        {
+            if (!graphHidden)
+            {
+                this.splitter1.SplitPosition = 0;
+                tChart1.Hide();
+                this.buttonHideGraph.Text = "\r\nU\r\nn\r\nh\r\ni\r\nd\r\ne\r\n\r\nG\r\nr\r\na\r\np\r\nh\r\n";
+            }
+            else
+            {
+                this.splitter1.SplitPosition = this.panelGraphTable.Width / 2;
+                tChart1.Show();
+                tChart1.Width = this.panelGraphTable.Width / 2;
+                this.buttonHideGraph.Text = "\r\nH\r\ni\r\nd\r\ne\r\n\r\nG\r\nr\r\na\r\np\r\nh\r\n";
+            }
+            graphHidden = !graphHidden;
         }
     }
 }
