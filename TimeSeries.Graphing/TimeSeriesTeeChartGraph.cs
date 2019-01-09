@@ -27,6 +27,7 @@ namespace Reclamation.TimeSeries.Graphing
             seriesList = new SeriesList();
             analysisType = AnalysisType.TimeSeries;
             _missingDataValue = Point.MissingValueFlag;
+            this.tChart1.Axes.Left.FixedLabelSize = false;
             dragPoint1 = new Steema.TeeChart.Tools.DragPoint();
             this.dragPoint1.Style = Steema.TeeChart.Tools.DragPointStyles.Y;
             this.tChart1.Tools.Add(this.dragPoint1);
