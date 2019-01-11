@@ -18,6 +18,11 @@ namespace FcPlot
         {
             InitializeComponent();
             optionalPercents = new int[] { };  
+            // Show targets by default from Jan-Jul
+            if (DateTime.Now.Month <= 7)
+            {
+                this.showTarget.Checked = true;
+            }
 
         }
 

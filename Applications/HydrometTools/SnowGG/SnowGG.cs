@@ -155,29 +155,43 @@ namespace HydrometTools.SnowGG
                 {
                     var ithS = wyList[sIdx];
                     var deltaS = new Series();
+                    var deltaNoZeroS = new Series();
                     int deltaCounter = 0;
-                    for (int ptIdx = 1; ptIdx < ithS.Count; ptIdx++)// Reclamation.TimeSeries.Point pt in ithS)
+                    for (int ptIdx = 1; ptIdx < ithS.Count; ptIdx++)
                     {
                         if (ithS[ptIdx].DateTime < s1.MaxDateTime)
                         {
                             deltaS.Add(ithS[ptIdx].DateTime,double.NaN);
+                            deltaNoZeroS.Add(ithS[ptIdx].DateTime, double.NaN);
                         }
                         else if (ithS[ptIdx].DateTime == s1.MaxDateTime)
                         {
                             deltaS.Add(s1[ithS[ptIdx].DateTime]);
+                            deltaNoZeroS.Add(s1[ithS[ptIdx].DateTime]);
                         }
                         else if (ithS[ptIdx].DateTime > s1.MaxDateTime)
                         {
-                            deltaS.Add(ithS[ptIdx].DateTime, deltaS[deltaCounter - 1].Value + ithS[ptIdx].Value - ithS[ptIdx - 1].Value);
+                            // Filter out projected zeros but keep the running negatives in terms of calculating the evolving
+                            //  delta-differenced values
+                            var calcVal = deltaS[deltaCounter - 1].Value + ithS[ptIdx].Value - ithS[ptIdx - 1].Value;
+                            deltaS.Add(ithS[ptIdx].DateTime, calcVal);
+                            if (calcVal < 0)
+                            {
+                                deltaNoZeroS.Add(ithS[ptIdx].DateTime, 0);
+                            }
+                            else
+                            {
+                                deltaNoZeroS.Add(ithS[ptIdx].DateTime, calcVal);
+                            }                            
                         }
                         deltaCounter++;
                     }
-                    deltaS.Units = s1.Units;
-                    deltaS.Name = waterYears[sIdx].ToString("F0") + " deltas";
+                    deltaNoZeroS.Units = s1.Units;
+                    deltaNoZeroS.Name = waterYears[sIdx].ToString("F0") + " deltas";
                     // [JR] Displays original data in addition to delta curves
-                    wyList.Add(deltaS);
+                    //wyList.Add(deltaS);
                     // [JR] Only shows delta curves
-                    deltaList.Add(deltaS);
+                    deltaList.Add(deltaNoZeroS);
                 }
                 return deltaList;
             }
