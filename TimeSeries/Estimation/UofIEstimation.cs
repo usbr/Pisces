@@ -290,54 +290,55 @@ namespace Reclamation.TimeSeries
             }
         }
 
-
-
         /// <summary>
-        /// Spline Interpolation using a math/stats assembly from http://www.alglib.net/download.php
-        /// Interpolation method mimics UofI disaggregation method of taking a 31 day window and interpolating
-        /// the values in index numbers 11 - 21
+        /// Interpolation method mimics UofI disaggregation method of taking a 
+        /// 31 day window and interpolating the values in index numbers 11 - 21
         /// Lots of magic numbers...
         /// </summary>
+        /// <param name="sOrig"></param>
+        /// <returns></returns>
         private static Series SplineCalc(Series sOrig)
         {
+            Series sNewInterp = new Series();
+
             // Magic numbers to assign index values to the data points
-            double[] X = new double[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
+            float[] X = new float[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 };
             // Magic numbers for values to be overwritten with interpolated values
-            double[] evalpts = new double[] { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 };
+            float[] evalpts = new float[] { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 };
 
             // Generates values from the input series corresponding with 'X'
-            List<double> tempVals = new List<double>();
-            for (int i = 0; i < 10; i++) { tempVals.Add(sOrig[i].Value); }
-            for (int i = 21; i < 31; i++) { tempVals.Add(sOrig[i].Value); }
-            double[] Y = tempVals.ToArray();
+            List<float> tempVals = new List<float>();
+            for (int i = 0; i < 10; i++) { tempVals.Add((float)sOrig[i].Value); }
+            for (int i = 21; i < 31; i++) { tempVals.Add((float)sOrig[i].Value); }
+            float[] Y = tempVals.ToArray();
 
             //This Cubic Spline replicates the Excel output used by UofI's A.Acharya and Dr.Ryu.
-            alglib.spline1dinterpolant C = new alglib.spline1dinterpolant();
-            var results = new List<double>();
-            for (int i = 0; i < evalpts.Length; i++)
-            {
-                double evalpt = evalpts[i];
-                alglib.spline1dbuildcubic(X, Y, out C);
-                double s = alglib.spline1dcalc(C, evalpt);
-                results.Add(s);
-            }
+            float[] ys = CubicSpline.Compute(X, Y, evalpts);
 
             // Loop to populate interpolated series.
-            Series sNewInterp = new Series();
             for (int j = 0; j < sOrig.Count; j++)
             {
                 if (j >= 10 && j <= 20)
-                {   // Assigns interpolated value to the new series so long as the interpolated value is > 0
-                    if (results[j - 10] > 0)
-                    { sNewInterp.Add(sOrig[j].DateTime, results[j - 10], sOrig[j].Flag); }
-                    else { sNewInterp.Add(sOrig[j]); }
+                {
+                    // Assigns interpolated value to the new series so long as 
+                    // the interpolated value is > 0
+                    if (ys[j - 10] > 0)
+                    {
+                        sNewInterp.Add(sOrig[j].DateTime, ys[j - 10], sOrig[j].Flag);
+                    }
+                    else
+                    {
+                        sNewInterp.Add(sOrig[j]);
+                    }
                 }
-                else { sNewInterp.Add(sOrig[j]); }
+                else
+                {
+                    sNewInterp.Add(sOrig[j]);
+                }
             }
+
             return sNewInterp;
         }
-
-
 
         /// <summary>
         /// Calculates the monthly average for a monthly series
