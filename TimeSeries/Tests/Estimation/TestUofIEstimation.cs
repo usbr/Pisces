@@ -8,15 +8,15 @@ using Reclamation.TimeSeries;
 using System.IO;
 using Math = Reclamation.TimeSeries.Math;
 
-namespace Reclamation.TimeSeries
+namespace Pisces.NunitTests.Estimation
 {
     [TestFixture]
-    public class TestUofIDisaggregation
+    public class TestUofIEstimation
     {
 
         public static void Main()
         {
-            TestUofIDisaggregation t = new TestUofIDisaggregation();
+            TestUofIEstimation t = new TestUofIEstimation();
             t.UofIDisaggregation();
         }
 
@@ -24,7 +24,7 @@ namespace Reclamation.TimeSeries
         static DateTime t2 = new DateTime(1997, 12, 31);
 
         string path = "";
-        public TestUofIDisaggregation()
+        public TestUofIEstimation()
         {
             string zipFile = Path.Combine(TestData.DataPath, "UofIDisaggregationTest.zip");
              path = FileUtility.GetTempPath() + @"\UofIDisaggregationTest.pdb";
@@ -45,7 +45,7 @@ namespace Reclamation.TimeSeries
             Series known= DB.GetSeriesFromName("C#Disaggregated");
             known.Read(t1,t2);
             
-            Series infilled = Disaggregation.RMSEInterp(daily, monthly);
+            Series infilled = Math.RMSEInterp(daily, monthly);
             var s = infilled.Subset(t1, t2);
             s.TimeInterval = TimeInterval.Daily;
             
@@ -67,7 +67,7 @@ namespace Reclamation.TimeSeries
             monthly.Read();
             known.Read(t1, t2);
 
-            Series infilled = Disaggregation.UofIStreamflowDisaggregation(daily, monthly);
+            Series infilled = Math.UofIStreamflowDisaggregation(daily, monthly);
             var s = infilled.Subset(t1, t2);
             double diff = 0.0;
             for (int i = 0; i < known.Count; i++)
@@ -91,7 +91,7 @@ namespace Reclamation.TimeSeries
             monthly.Read();
 
             // disaggregated daily summed to monthly acre-feet
-            Series infilled = Disaggregation.RMSEInterp(daily, monthly);
+            Series infilled = Math.RMSEInterp(daily, monthly);
             Series infilledMonthlySumAcreFeet = Math.MonthlySum(infilled) * 1.98347;
             infilledMonthlySumAcreFeet.TimeInterval = TimeInterval.Monthly;
             
@@ -115,8 +115,8 @@ namespace Reclamation.TimeSeries
             monthly.Read();
 
             // disaggregate and merge
-            Series infilled = Disaggregation.RMSEInterp(daily, monthly);
-            Disaggregation.MergeCheckMassBalance(daily, infilled);
+            Series infilled = Math.RMSEInterp(daily, monthly);
+            Math.MergeCheckMassBalance(daily, infilled);
 
             // generate series of monthly volumes only for months with a computed value,
             // these will be compared to the observed monthly
