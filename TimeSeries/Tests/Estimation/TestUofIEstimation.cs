@@ -54,6 +54,7 @@ namespace Pisces.NunitTests.Estimation
         }
 
         [Test]
+        [Ignore("Ignore alglib tests, not mono compatible.")]
         public void UofIInterpolation()
         {
             SQLiteServer pDB = new SQLiteServer(path);
