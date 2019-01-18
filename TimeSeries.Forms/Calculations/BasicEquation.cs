@@ -58,7 +58,7 @@ namespace Reclamation.TimeSeries.Forms.Calculations
             }
             set
             {
-                comboBoxInterval.SelectedValue = value.ToString();
+                comboBoxInterval.SelectedItem = value.ToString();
             }
         }
 

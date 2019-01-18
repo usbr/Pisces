@@ -31,7 +31,16 @@ namespace Reclamation.TimeSeries.Forms.Calculations
 
             m_series = s;
             basicEquation1.SeriesExpression = m_series.Expression;
-            basicEquation1.SiteID = m_series.SiteID;
+            if (string.IsNullOrEmpty(m_series.SiteID))
+            {
+                basicEquation1.SiteID = m_series.Name;
+            }
+            else
+            {
+                basicEquation1.SiteID = m_series.SiteID;
+            }
+            basicEquation1.Parameter = m_series.Parameter;
+            basicEquation1.TimeInterval = m_series.TimeInterval;
         }
 
         public bool Calculate

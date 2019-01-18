@@ -116,7 +116,6 @@
             this.textBoxParameter.Name = "textBoxParameter";
             this.textBoxParameter.Size = new System.Drawing.Size(122, 20);
             this.textBoxParameter.TabIndex = 21;
-            this.textBoxParameter.Text = "default";
             this.toolTip1.SetToolTip(this.textBoxParameter, "enter a simple name  like boise_flow");
             // 
             // tabControl1
