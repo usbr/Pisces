@@ -355,7 +355,7 @@ namespace HydrometTools
 		public void ReadUserPref()
 		{
 
-            this.checkBoxAdmin.Checked = UserPreference.Lookup("Admin") == "True" ;
+            this.checkBoxAdmin.Checked = UserPreference.Lookup("Admin") == "False" ;
             this.checkBoxHideStatus.Checked = UserPreference.Lookup("HideStatusDialog") == "True";
             this.checkBoxCompute.Checked = UserPreference.Lookup("EnableComputations") == "True";
             //this.checkBoxAgrimet.Checked = UserPreference.Lookup("AgrimetCalculations") == "True";
