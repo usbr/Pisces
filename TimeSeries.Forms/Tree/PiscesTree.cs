@@ -25,9 +25,11 @@ namespace Reclamation.TimeSeries.Forms
             treeView1.SelectionChanged += new EventHandler(treeView1_SelectionChanged);
             treeView1.SelectionMode = TreeSelectionMode.Multi;
             treeView1.NodeControls.Clear();
+            treeView1.AutoRowHeight = true;
 
             NodeStateIcon ni = new NodeStateIcon();
             ni.DataPropertyName = "Icon";
+            ni.ScaleMode = ImageScaleMode.Fit;
             treeView1.NodeControls.Add(ni);
 
             NodeTextBox tb = new NodeTextBox();
