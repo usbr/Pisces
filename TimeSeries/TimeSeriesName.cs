@@ -88,14 +88,14 @@ namespace Reclamation.TimeSeries
             return rval;
         }
 
-        private void Init(string name, string defaultInterval)
+        private void Init(string name, string interval)
         {
-            m_defaultInterval = defaultInterval;
+            m_defaultInterval = interval;
             m_name = name;
             Parse();   
             if (!Valid)
             {
-                Logger.WriteLine("Init(): Invalid table name '" + name + "'   [" +defaultInterval+"]" );
+                Logger.WriteLine("Init(): Invalid table name '" + name + "'   [" +interval+"]" );
             }
         }
 
@@ -112,10 +112,18 @@ namespace Reclamation.TimeSeries
 
         public string GetTableName()
         {
-            if( Valid)
-            return interval + "_" + siteid + "_" + pcode;
+            var tableName = string.Empty;
+            if (Valid)
+            {
+                if (string.IsNullOrEmpty(pcode))
+                    tableName = interval + "_" + m_name;
+                else
+                    tableName = interval + "_" + siteid + "_" + pcode;
+            }
+            else
+                throw new Exception("GetTableName(): Invalid name : " + tableName);
 
-            throw new Exception("GetTableName(): Invalid name :"+interval + "_" + siteid + "_" + pcode);
+            return tableName;
         }
 
          private void Parse()
@@ -127,15 +135,15 @@ namespace Reclamation.TimeSeries
             siteid = "";
             pcode = "";
             interval = "";
-            Valid = m.Success;
-            if (Valid)
+            Valid = true;
+            if (m.Success)
             {
                 interval = m.Groups["prefix"].Value.ToLower();
                 siteid = m.Groups["cbtt"].Value.ToLower();
                 pcode = m.Groups["pcode"].Value.ToLower() ;
-                if (interval == "" && m_defaultInterval != "")
-                    interval = m_defaultInterval;
             }
+            if (interval == "" && m_defaultInterval != "")
+                interval = m_defaultInterval;
         }
 
 

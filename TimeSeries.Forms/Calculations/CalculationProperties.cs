@@ -51,30 +51,39 @@ namespace Reclamation.TimeSeries.Forms.Calculations
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            m_series.Expression = basicEquation1.SeriesExpression;
-            var a = this.basicEquation1.SiteID + "_" + basicEquation1.Parameter;
-            if (a != "")
-            {
-                m_series.Name = a;
-                string tn = basicEquation1.TimeInterval.ToString().ToLower() + "_" + TimeSeriesDatabase.SafeTableName(a);
-                tn = tn.Replace("irregular", "instant");
-                m_series.Table.TableName = tn;
-                
-                TimeSeriesName x = new TimeSeriesName(a, basicEquation1.TimeInterval);
-                m_series.Parameter = x.pcode;
-                m_series.SiteID = x.siteid;
-            }
-            
             string errorMessage = "";
+
+            m_series.Expression = basicEquation1.SeriesExpression;
+            var a = this.basicEquation1.SiteID;
+            if (!string.IsNullOrEmpty(basicEquation1.Parameter))
+                a += "_" + basicEquation1.Parameter;
+
+            m_series.Name = a;
+            string tn = basicEquation1.TimeInterval.ToString().ToLower() + "_" + TimeSeriesDatabase.SafeTableName(a);
+            tn = tn.Replace("irregular", "instant");
+            m_series.Table.TableName = tn;
             m_series.TimeInterval = basicEquation1.TimeInterval;
 
-            var xcs = m_db.GetCalculationSeries(m_series.SiteID,m_series.Parameter ,m_series.TimeInterval);
+            CalculationSeries xcs;
+            TimeSeriesName tsName;
+            if (a.Contains("_"))
+            {
+                tsName = new TimeSeriesName(basicEquation1.SiteID, basicEquation1.Parameter, basicEquation1.TimeInterval);
+                m_series.Parameter = tsName.pcode;
+                m_series.SiteID = tsName.siteid;
+                xcs = m_db.GetCalculationSeries(m_series.SiteID, m_series.Parameter, m_series.TimeInterval);
+            }
+            else
+            {
+                tsName = new TimeSeriesName(m_series.Name, m_series.TimeInterval);
+                xcs = m_db.GetCalculationSeries(m_series.Name, m_series.TimeInterval);
+            }
 
             if( xcs != null) 
             {
                 errorMessage = "This calculation already exists.";
                 MessageBox.Show("Error: "+errorMessage);
-                DialogResult = System.Windows.Forms.DialogResult.None;
+                DialogResult = DialogResult.None;
             }
             else
             if ( 
@@ -82,7 +91,7 @@ namespace Reclamation.TimeSeries.Forms.Calculations
                || m_series.IsValidExpression(basicEquation1.SeriesExpression, out errorMessage) 
                 )
             {
-                DialogResult = System.Windows.Forms.DialogResult.OK;
+                DialogResult = DialogResult.OK;
             }
             else
             {
