@@ -52,7 +52,7 @@ namespace Reclamation.TimeSeries
             Calculate(TimeSeriesDatabase.MinDateTime, TimeSeriesDatabase.MaxDateTime);
         }
 
-        internal string[] GetDependentVariables()
+        internal List<string> GetDependentVariables()
         {
             List<string> rval = new List<string>();
             string equation = ExpressionPreProcessor();
@@ -71,7 +71,7 @@ namespace Reclamation.TimeSeries
                 rval.Add(n);
             }
 
-            return rval.ToArray();
+            return rval;
         }
 
 

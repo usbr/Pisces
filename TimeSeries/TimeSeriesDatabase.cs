@@ -1352,6 +1352,28 @@ namespace Reclamation.TimeSeries
             return cs;
         }
 
+        /// <summary>
+        /// Factory Method to Create a CalculationSeries
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="interval"></param>
+        /// <returns></returns>
+        public CalculationSeries GetCalculationSeries(string name, TimeInterval interval)
+        {
+            var tsn = new TimeSeriesName(name, interval);
+
+            string filter = " tablename = '" + tsn.GetTableName().ToLower()
+                + "' and provider = 'CalculationSeries'";
+
+            var sr = GetSeriesRow(filter);
+            if (sr == null)
+                return null;
+            var cs = GetSeries(sr.id) as CalculationSeries;
+            //cs.Parser = m_db.Parser; 
+
+            return cs;
+        }
+
         //public Series GetSeries(string siteID, string parameterCode, TimeInterval timeInterval)
         //{
         //    return GetSeriesFromTableName(siteID + "_" + parameterCode,timeInterval.ToString().ToLower());

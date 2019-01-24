@@ -27,7 +27,6 @@ namespace Reclamation.TimeSeries.Graphing
             seriesList = new SeriesList();
             analysisType = AnalysisType.TimeSeries;
             _missingDataValue = Point.MissingValueFlag;
-            this.tChart1.Axes.Left.FixedLabelSize = false;
             dragPoint1 = new Steema.TeeChart.Tools.DragPoint();
             this.dragPoint1.Style = Steema.TeeChart.Tools.DragPointStyles.Y;
             this.tChart1.Tools.Add(this.dragPoint1);
@@ -307,11 +306,11 @@ namespace Reclamation.TimeSeries.Graphing
         {
             if (toolStripButtonSelect.Checked)
             {
-                tChart1.Zoom.Direction = Steema.TeeChart.ZoomDirections.None;//.Allow = false;
+                tChart1.Zoom.Allow = false;
             }
             else
             {
-                tChart1.Zoom.Direction = Steema.TeeChart.ZoomDirections.Both;//.Allow = true;
+                tChart1.Zoom.Allow = true;
             }
         }
 

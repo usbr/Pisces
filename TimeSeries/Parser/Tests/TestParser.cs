@@ -67,7 +67,7 @@ namespace Reclamation.TimeSeries.Parser.Tests
                 System.Console.WriteLine("'"+item+"'");
             }
 
-            Assert.IsTrue(vars.Length == 1,"string parameter is not a variable");
+            Assert.IsTrue(vars.Count == 1,"string parameter is not a variable");
 
             Assert.IsTrue(vars[0] == "fc");
         }
