@@ -32,9 +32,10 @@
     <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="SpreadsheetGear2012.Core, Version=7.0.6.138, Culture=neutral, PublicKeyToken=39c186f5904944ec" />
-    <Reference Include="SpreadsheetGear2012.Drawing, Version=7.0.6.138, Culture=neutral, PublicKeyToken=39c186f5904944ec" />
-    <Reference Include="SpreadsheetGear2012.Windows.Forms, Version=7.0.6.138, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL" />
+    <Reference Include="SpreadsheetGear, Version=5.1.1.134, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\PaidThirdParty\SpreadsheetGear.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />

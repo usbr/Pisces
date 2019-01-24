@@ -71,8 +71,9 @@
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SpreadsheetGear" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
-      <HintPath>..\..\..\..\..\..\..\HydrometTools\SpreadsheetGear.dll</HintPath>
+    <Reference Include="SpreadsheetGear, Version=5.1.1.134, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\PaidThirdParty\SpreadsheetGear.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -408,6 +409,14 @@
     <None Include="Resources\folder_closed_32.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj">
+      <Project>{37b543f5-03a5-479e-b20c-7b4acc53d16a}</Project>
+      <Name>Reclamation.TimeSeries.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj">
+      <Project>{862135b0-793a-4f06-b731-26c61b3ad068}</Project>
+      <Name>Reclamation.TimeSeries.Graphing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rwis.Sync\Rwis.Sync.csproj">
       <Project>{d2b37530-5d24-4772-8480-325920744643}</Project>
       <Name>Rwis.Sync</Name>

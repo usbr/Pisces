@@ -63,20 +63,19 @@ namespace HydrometPisces
             // 
             // listBox1
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(11, 137);
+            this.listBox1.Location = new System.Drawing.Point(3, 126);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(263, 225);
+            this.listBox1.Size = new System.Drawing.Size(271, 108);
             this.listBox1.TabIndex = 2;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 118);
+            this.label1.Location = new System.Drawing.Point(8, 110);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 3;
@@ -84,8 +83,8 @@ namespace HydrometPisces
             // 
             // button2
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(154, 464);
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(193, 240);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(81, 23);
             this.button2.TabIndex = 4;
@@ -131,11 +130,10 @@ namespace HydrometPisces
             // 
             // serverSelection1
             // 
-            this.serverSelection1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.serverSelection1.Location = new System.Drawing.Point(14, 374);
+            this.serverSelection1.Location = new System.Drawing.Point(3, 277);
             this.serverSelection1.Margin = new System.Windows.Forms.Padding(2);
             this.serverSelection1.Name = "serverSelection1";
-            this.serverSelection1.Size = new System.Drawing.Size(253, 134);
+            this.serverSelection1.Size = new System.Drawing.Size(269, 224);
             this.serverSelection1.TabIndex = 9;
             // 
             // HydrometCommandLine
@@ -143,6 +141,7 @@ namespace HydrometPisces
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.Controls.Add(this.serverSelection1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -152,7 +151,6 @@ namespace HydrometPisces
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.serverSelection1);
             this.MinimumSize = new System.Drawing.Size(260, 0);
             this.Name = "HydrometCommandLine";
             this.Size = new System.Drawing.Size(282, 518);
