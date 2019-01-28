@@ -112,38 +112,30 @@ namespace Reclamation.TimeSeries
 
         public string GetTableName()
         {
-            var tableName = string.Empty;
             if (Valid)
-            {
-                if (string.IsNullOrEmpty(pcode))
-                    tableName = interval + "_" + m_name;
-                else
-                    tableName = interval + "_" + siteid + "_" + pcode;
-            }
-            else
-                throw new Exception("GetTableName(): Invalid name : " + tableName);
+                return interval + "_" + siteid + "_" + pcode;
 
-            return tableName;
+            throw new Exception("GetTableName(): Invalid name : " + interval + "_" + siteid + "_" + pcode);
         }
 
          private void Parse()
         {
 
-            string pattern = @"^(?<prefix>(instant|daily|monthly))?_?(?<cbtt>[a-zA-Z][a-zA-Z0-9]{1,7}\w)_(?<pcode>[a-zA-Z0-9_]{1,8}$)";
+            string pattern = @"^(?<prefix>(instant|daily|monthly))?_?(?<cbtt>[a-zA-Z][a-zA-Z0-9]+\w)_(?<pcode>[a-zA-Z0-9_]+$)";
             var m = Regex.Match(m_name, pattern);
 
             siteid = "";
             pcode = "";
             interval = "";
-            Valid = true;
-            if (m.Success)
+            Valid = m.Success;
+            if (Valid)
             {
                 interval = m.Groups["prefix"].Value.ToLower();
                 siteid = m.Groups["cbtt"].Value.ToLower();
                 pcode = m.Groups["pcode"].Value.ToLower() ;
+                if (interval == "" && m_defaultInterval != "")
+                    interval = m_defaultInterval;
             }
-            if (interval == "" && m_defaultInterval != "")
-                interval = m_defaultInterval;
         }
 
 
