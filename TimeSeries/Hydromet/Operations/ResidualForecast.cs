@@ -223,6 +223,11 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             if (this.controlPoint.StationFC.ToLower() == "hgh")
                 return m_fc;
 
+            if (double.IsNaN(resid))
+            {
+                resid = 0.0;
+            }
+
             return resid;
         }
 

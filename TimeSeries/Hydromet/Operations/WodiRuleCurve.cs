@@ -80,6 +80,17 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             var reqfc = ComputeWodiRequired(t, resid);
            var reqfil = base.LookupRequiredSpace(t, resid, out flag);
 
+            if (waterYear > 5000)
+            {
+                this.waterYear = DateTime.Now.Year;
+                if (DateTime.Now.Month > 9)
+                {
+                    this.waterYear = DateTime.Now.Year + 1;
+                }
+                ReadQUAverage();
+                qu = AverageSeries30Year();
+            }
+
            var t2 = t;
            if (t > qu.MaxDateTime)
                t2 = qu.MaxDateTime;
@@ -106,7 +117,8 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         private double ComputeWodiRequired(DateTime t, double resid)
         {
             // apr 1-sep 30, based on forecast
-            if (t.Month >= 4 && t.Month <= 9)
+            //if (t.Month >= 4 && t.Month <= 9)
+            try
             {
                 double avgqu = quSumJuly[t.Month-1].Value;
                 // compute percent of average
@@ -124,7 +136,8 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
                 var req = Reclamation.TimeSeries.Math.Interpolate(tblfc, fcSep,"forecast", "space");
                 return req;
             }
-            else
+            //else
+            catch
             {
                 return 0;
             }

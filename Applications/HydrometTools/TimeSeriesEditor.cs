@@ -797,7 +797,7 @@ namespace HydrometTools
             this.buttonHideTable.Name = "buttonHideTable";
             this.buttonHideTable.Size = new System.Drawing.Size(25, 456);
             this.buttonHideTable.TabIndex = 47;
-            this.buttonHideTable.Text = "\r\n>\r\n> \r\nH\r\ni\r\nd\r\ne\r\n\r\nT\r\na\r\nb\r\nl\r\ne\r\n \r\n>\r\n>";
+            this.buttonHideTable.Text = "\r\n>\r\n>\r\n \r\nH\r\ni\r\nd\r\ne\r\n\r\nT\r\na\r\nb\r\nl\r\ne\r\n \r\n>\r\n>";
             this.buttonHideTable.UseVisualStyleBackColor = true;
             this.buttonHideTable.Click += new System.EventHandler(this.buttonHideTable_Click);
             // 
@@ -810,7 +810,7 @@ namespace HydrometTools
             this.buttonHideGraph.Name = "buttonHideGraph";
             this.buttonHideGraph.Size = new System.Drawing.Size(25, 456);
             this.buttonHideGraph.TabIndex = 48;
-            this.buttonHideGraph.Text = "\r\n<\r\n< \r\nH\r\ni\r\nd\r\ne\r\n\r\nG\r\nr\r\na\r\np\r\nh\r\n \r\n<\r\n<";
+            this.buttonHideGraph.Text = "\r\n<\r\n<\r\n \r\nH\r\ni\r\nd\r\ne\r\n\r\nG\r\nr\r\na\r\np\r\nh\r\n \r\n<\r\n<";
             this.buttonHideGraph.UseVisualStyleBackColor = true;
             this.buttonHideGraph.Click += new System.EventHandler(this.buttonHideGraph_Click);
             // 
@@ -1671,7 +1671,7 @@ namespace HydrometTools
                 {
                     tChart1.Width = this.panelGraphTable.Width / 2;
                 }
-                this.buttonHideGraph.Text = "\r\n<\r\n< \r\nH\r\ni\r\nd\r\ne\r\n\r\nG\r\nr\r\na\r\np\r\nh\r\n \r\n<\r\n<";
+                this.buttonHideGraph.Text = "\r\n<\r\n<\r\n \r\nH\r\ni\r\nd\r\ne\r\n\r\nG\r\nr\r\na\r\np\r\nh\r\n \r\n<\r\n<";
             }
             graphHidden = !graphHidden;
         }
