@@ -31,7 +31,7 @@ namespace Reclamation.TimeSeries.Forms.Calculations
 
             m_series = s;
             basicEquation1.SeriesExpression = m_series.Expression;
-            basicEquation1.SiteID = m_series.SiteID;
+            basicEquation1.SiteID = string.IsNullOrEmpty(m_series.SiteID) ? "untitled" : m_series.SiteID;
             basicEquation1.Parameter = m_series.Parameter;
             basicEquation1.TimeInterval = m_series.TimeInterval;
         }
