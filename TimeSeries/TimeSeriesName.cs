@@ -121,7 +121,7 @@ namespace Reclamation.TimeSeries
          private void Parse()
         {
 
-            string pattern = @"^(?<prefix>(instant|daily|monthly))?_?(?<cbtt>[a-zA-Z][a-zA-Z0-9]+\w)_(?<pcode>[a-zA-Z0-9_]+$)";
+            string pattern = @"^(?<prefix>(instant|daily|monthly))?_?(?<cbtt>[a-zA-Z][a-zA-Z0-9_\s]+\w)_(?<pcode>[a-zA-Z0-9_]+$)";
             var m = Regex.Match(m_name, pattern);
 
             siteid = "";
