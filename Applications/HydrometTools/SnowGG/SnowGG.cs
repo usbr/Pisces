@@ -74,49 +74,82 @@ namespace HydrometTools.SnowGG
                 timeSeriesGraph1.AnnotationOnMouseMove = checkBoxAnnotate.Checked;
                 Cursor = Cursors.WaitCursor;
                 Application.DoEvents();
-                string pcode = DeterminePcode();
+                string pcodeOrig = DeterminePcode();
 
                 timeSeriesGraph1.Clear();
 
-                string cbtt = comboBoxCbtt.Text.Trim();
-
-                if (cbtt.Trim() == "" || pcode.Trim() == "")
-                    return;
-
-                UserPreference.Save("Snowgg->cbtt", cbtt);
-                UserPreference.Save("Snowgg->pcode", comboBoxPcode.Text.Trim());
-
-                int[] waterYears = this.yearSelector1.SelectedYears;
-                var server = HydrometInfoUtility.HydrometServerFromPreferences();
-                var range = monthRangePicker1.MonthDayRange;
-
-                Series s = new HydrometDailySeries(cbtt, pcode, server);
-                var sl = new SeriesList();
-                sl.Add(s);
-
-                var wyList = PiscesAnalysis.WaterYears(sl, waterYears, false, 10,true);
-
-                wyList = ApplyDeltas(wyList, waterYears);
-                AddStatistics(wyList);
-
-                if (checkBoxGP.Checked)
+                string cbttOrig = comboBoxCbtt.Text.Trim();
+                
+                var seriesList = new List<string>();
+                if ((cbttOrig.Trim() == "" || pcodeOrig.Trim() == "") && textBoxMultiple.Text == "")
                 {
-                    GPAverage(cbtt, server, range, wyList);
+                    return;
+                }
+                else
+                {
+                    if (!checkBoxUseList.Checked)
+                    {
+                        UserPreference.Save("Snowgg->cbtt", cbttOrig);
+                        UserPreference.Save("Snowgg->pcode", comboBoxPcode.Text.Trim());
+                        seriesList.Add(cbttOrig + "_" + pcodeOrig);
+                    }
+                    else
+                    {
+                        var seriesItems = textBoxMultiple.Text.Split(',');
+                        foreach (string item in seriesItems)
+                        {
+                            if (item.Trim().Split(' ').Length == 2)
+                            {
+                                seriesList.Add(item.Trim().Split(' ')[0] + "_" + item.Trim().Split(' ')[1]);
+                            }
+                        }
+                    }
                 }
 
-                var mp = ReadMpollData(pcode, cbtt);
-                mp.RemoveMissing();
-                if( mp.Count >0)
-                    wyList.Add(mp);
+                SeriesList finalSeriesCollection = new SeriesList();
+                foreach (string series in seriesList)
+                {
+                    string cbtt = series.Split('_')[0];
+                    comboBoxCbtt.Text = cbtt;
+                    string pcode = series.Split('_')[1];
+                    comboBoxPcode.Text = pcode;
+                    int[] waterYears = this.yearSelector1.SelectedYears;
+                    var server = HydrometInfoUtility.HydrometServerFromPreferences();
+                    var range = monthRangePicker1.MonthDayRange;
 
-                // remove months outside selected range
-                var list = FilterBySelectedRange(range, wyList);
+                    Series s = new HydrometDailySeries(cbtt, pcode, server);
+                    var sl = new SeriesList();
+                    sl.Add(s);
+
+                    var wyList = PiscesAnalysis.WaterYears(sl, waterYears, false, 10, true);
+
+                    wyList = ApplyDeltas(wyList, waterYears);
+                    AddStatistics(wyList);
+
+                    if (checkBoxGP.Checked)
+                    {
+                        GPAverage(cbtt, server, range, wyList);
+                    }
+
+                    var mp = ReadMpollData(pcode, cbtt);
+                    mp.RemoveMissing();
+                    if (mp.Count > 0)
+                        wyList.Add(mp);
+
+                    // remove months outside selected range
+                    var list = FilterBySelectedRange(range, wyList);
+                    finalSeriesCollection.Add(list);
+                }                
 
                 this.timeSeriesGraph1.AnalysisType = AnalysisType.WaterYears;
-                this.timeSeriesGraph1.Series = list;
-                this.timeSeriesGraph1.Title = HydrometInfoUtility.LookupSiteDescription(cbtt) + "  Elevation:" + HydrometInfoUtility.LookupElevation(cbtt);
+                this.timeSeriesGraph1.Series = finalSeriesCollection;
+                if (seriesList.Count == 1)
+                {
+                    this.timeSeriesGraph1.Title = HydrometInfoUtility.LookupSiteDescription(cbttOrig) + "  Elevation:" + HydrometInfoUtility.LookupElevation(pcodeOrig);
+                }
                 this.timeSeriesGraph1.Draw(true);
-
+                comboBoxCbtt.Text = cbttOrig;
+                comboBoxPcode.Text = pcodeOrig;
 
                 timeSeriesGraph1.GraphSettings = GetGraphSettings();
             }
@@ -409,6 +442,12 @@ namespace HydrometTools.SnowGG
                // Reset();
         }
 
+        private void useList_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxCbtt.Enabled = !comboBoxCbtt.Enabled;
+            comboBoxPcode.Enabled = !comboBoxPcode.Enabled;
+            textBoxMultiple.Enabled = !textBoxMultiple.Enabled;
+        }
 
     }
 }
