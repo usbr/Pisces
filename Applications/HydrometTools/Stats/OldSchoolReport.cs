@@ -15,7 +15,7 @@ namespace HydrometTools.Stats
 
         internal static void Display(Series series1, string title, string option,
             string cbtt, string pcode, MonthDayRange range, 
-            int wy1, int wy2)
+            int wy1, int wy2, Series series2)
         {
             var s = series1.Copy();
             var report = new List<string>();
@@ -47,7 +47,12 @@ namespace HydrometTools.Stats
 
             }
             report.Add("");
-            report.Add("Average of  " + s.Count + " years:  " + Reclamation.TimeSeries.Math.AverageOfSeries(s).ToString("f0"));
+            report.Add("Average of " + s.Count + " years:  " + Reclamation.TimeSeries.Math.AverageOfSeries(s).ToString("f0"));
+            report.Add("");
+            report.Add("WY" + series2.MaxDateTime.Year + ": " + series2[0].Value.ToString("f2") +
+                " (" + (100 * series2[0].Value / Reclamation.TimeSeries.Math.AverageOfSeries(s)).ToString("f2") +
+                "% of Avg)");
+
             var fn = FileUtility.GetTempFileName("check.txt");
             File.WriteAllLines(fn, report.ToArray());
 
