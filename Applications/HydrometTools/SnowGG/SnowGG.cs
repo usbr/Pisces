@@ -67,6 +67,19 @@ namespace HydrometTools.SnowGG
                 this.checkBoxMpoll.Checked = false;
         }
 
+        private List<string> snowGgColors = new List<string> {
+            "Blue",
+            "ForestGreen",
+            "Fuchsia",
+            "DarkRed",
+            "LimeGreen",
+            "GoldenRod",
+            "Aqua",
+            "SlateGray",
+            "DarkSalmon",
+            "Peru"
+        };
+
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             try
@@ -79,7 +92,8 @@ namespace HydrometTools.SnowGG
                 timeSeriesGraph1.Clear();
 
                 string cbttOrig = comboBoxCbtt.Text.Trim();
-                
+                string cbtt = cbttOrig, pcode = pcodeOrig;
+
                 var seriesList = new List<string>();
                 if ((cbttOrig.Trim() == "" || pcodeOrig.Trim() == "") && textBoxMultiple.Text == "")
                 {
@@ -106,14 +120,14 @@ namespace HydrometTools.SnowGG
                     }
                 }
 
+                int[] waterYears = this.yearSelector1.SelectedYears;
                 SeriesList finalSeriesCollection = new SeriesList();
                 foreach (string series in seriesList)
                 {
-                    string cbtt = series.Split('_')[0];
+                    cbtt = series.Split('_')[0];
                     comboBoxCbtt.Text = cbtt;
-                    string pcode = series.Split('_')[1];
+                    pcode = series.Split('_')[1];
                     comboBoxPcode.Text = pcode;
-                    int[] waterYears = this.yearSelector1.SelectedYears;
                     var server = HydrometInfoUtility.HydrometServerFromPreferences();
                     var range = monthRangePicker1.MonthDayRange;
 
@@ -122,6 +136,12 @@ namespace HydrometTools.SnowGG
                     sl.Add(s);
 
                     var wyList = PiscesAnalysis.WaterYears(sl, waterYears, false, 10, true);
+
+                    foreach (var item in wyList)
+                    {
+                        item.Name = cbtt + " " + pcode;
+                    }
+
 
                     wyList = ApplyDeltas(wyList, waterYears);
                     AddStatistics(wyList);
@@ -139,15 +159,46 @@ namespace HydrometTools.SnowGG
                     // remove months outside selected range
                     var list = FilterBySelectedRange(range, wyList);
                     finalSeriesCollection.Add(list);
-                }                
+                }
+
+                // Set series line colors
+                var uniqueSeriesNames = new List<string>();
+                var uniqueSeriesColors = new List<string>();
+                int colorCounter = 0;
+                foreach (var item in finalSeriesCollection)
+                {
+                    // set line color by year which is identified in the legendtext field
+                    if (!uniqueSeriesNames.Contains(item.Appearance.LegendText) && !item.Appearance.LegendText.Contains("%") && 
+                        !item.Appearance.LegendText.Contains("avg") && !item.Appearance.LegendText.Contains("max") && !item.Appearance.LegendText.Contains("min"))
+                    {
+                        uniqueSeriesNames.Add(item.Appearance.LegendText);//.Name);
+                        uniqueSeriesColors.Add(snowGgColors[colorCounter]);
+                        colorCounter = (colorCounter + 1) % snowGgColors.Count;
+                    }
+                }
+                foreach (var item in finalSeriesCollection)
+                {
+                    try
+                    {
+                        int colIdx = uniqueSeriesNames.IndexOf(item.Appearance.LegendText);//.Name);
+                        item.Appearance.Color = uniqueSeriesColors[colIdx];
+                    }
+                    catch
+                    {
+                        item.Appearance.Color = "Black";
+                    }
+                }
 
                 this.timeSeriesGraph1.AnalysisType = AnalysisType.WaterYears;
                 this.timeSeriesGraph1.Series = finalSeriesCollection;
                 if (seriesList.Count == 1)
                 {
-                    this.timeSeriesGraph1.Title = HydrometInfoUtility.LookupSiteDescription(cbttOrig) + "  Elevation:" + HydrometInfoUtility.LookupElevation(pcodeOrig);
+                    this.timeSeriesGraph1.Title = HydrometInfoUtility.LookupSiteDescription(cbtt) + "  Elevation:" + HydrometInfoUtility.LookupElevation(pcode);
                 }
+                //timeSeriesGraph1.GraphSettings = GetGraphSettings();
+
                 this.timeSeriesGraph1.Draw(true);
+
                 comboBoxCbtt.Text = cbttOrig;
                 comboBoxPcode.Text = pcodeOrig;
 

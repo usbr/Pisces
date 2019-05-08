@@ -80,6 +80,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             var reqfc = ComputeWodiRequired(t, resid);
            var reqfil = base.LookupRequiredSpace(t, resid, out flag);
 
+            // [JR] Catches a wierd-case where the QU time-series has dates in the 7100-year range
             if (waterYear > 5000)
             {
                 this.waterYear = DateTime.Now.Year;
@@ -87,7 +88,6 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
                 {
                     this.waterYear = DateTime.Now.Year + 1;
                 }
-                ReadQUAverage();
                 qu = AverageSeries30Year();
             }
 
@@ -117,6 +117,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         private double ComputeWodiRequired(DateTime t, double resid)
         {
             // apr 1-sep 30, based on forecast
+            // [JR] replace if-else with try-catch to allow WODI FC to process outside of the APR-SEP period
             //if (t.Month >= 4 && t.Month <= 9)
             try
             {
