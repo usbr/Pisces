@@ -709,7 +709,7 @@ namespace Reclamation.TimeSeries
         /// </summary>
         public static Series Shift(Series s, int timeOffset)
         {
-            
+
             Series rval = s.Clone();
             if (timeOffset == 0)
                 return s.Copy();
@@ -719,9 +719,9 @@ namespace Reclamation.TimeSeries
                 Point pt = s[i];
                 pt.Flag = PointFlag.Edited;
                 if (s.TimeInterval == TimeInterval.Daily)
-            {
+                {
                     pt.DateTime = pt.DateTime.AddDays(timeOffset);
-            }
+                }
                 else if (s.TimeInterval == TimeInterval.Monthly)
                 {// maintain end of month or first of month
                     bool eom = pt.DateTime.EndOfMonth() == pt.DateTime;
@@ -735,11 +735,15 @@ namespace Reclamation.TimeSeries
                     if (fom)
                         pt.DateTime = pt.DateTime.FirstOfMonth();
                 }
+                else if (s.TimeInterval == TimeInterval.Hourly)
+                {
+                    pt.DateTime = pt.DateTime.AddHours(timeOffset);
+                }
                 else
                 {
-                    throw new NotImplementedException("time offset not implemented for "+s.TimeInterval);
+                    throw new NotImplementedException("time offset not implemented for " + s.TimeInterval);
                 }
-                
+
                 rval.Add(pt);
             }
             return rval;

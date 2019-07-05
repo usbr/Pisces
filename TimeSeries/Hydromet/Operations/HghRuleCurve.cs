@@ -16,7 +16,8 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         {
             flag = "";
             if (t.Month >= 5 && t.Month <= 9)
-                return HydrometRuleCurve.MissingValue;
+                //return HydrometRuleCurve.MissingValue;
+                return 0.0;
             return base.LookupRequiredSpace(t, resid, out flag);
         }
     }

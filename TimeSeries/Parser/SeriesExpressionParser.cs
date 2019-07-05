@@ -500,15 +500,18 @@ ISBN: 0072134852
                 {
                     s.Read(t1.AddDays(-timeOffset), t2.AddDays(-timeOffset));
                 }
+                else if (s.TimeInterval == TimeInterval.Monthly)
+                {
+                    s.Read(t1.AddMonths(-timeOffset), t2.AddMonths(-timeOffset));
+                }
+                else if (s.TimeInterval == TimeInterval.Hourly)
+                {
+                    s.Read(t1.AddHours(-timeOffset), t2.AddHours(-timeOffset));
+                }
                 else
-                    if (s.TimeInterval == TimeInterval.Monthly)
-                    {
-                        s.Read(t1.AddMonths(-timeOffset), t2.AddMonths(-timeOffset));
-                    }
-                    else
-                    {
-                        throw new ArgumentException(" Error unsupported interval :" + s.TimeInterval);
-                    }
+                {
+                    throw new ArgumentException(" Error unsupported interval :" + s.TimeInterval);
+                }
                 return Math.Shift(s, timeOffset);
             }
 
