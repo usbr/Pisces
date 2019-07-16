@@ -82,8 +82,6 @@ namespace Reclamation.TimeSeries
             var t1a = t1;
             var t2a = t2;
 
-           
-
             Logger.OnLogEvent += Logger_OnLogEvent;
 
             var seriesBeforeCalc = this.Clone();
@@ -96,18 +94,13 @@ namespace Reclamation.TimeSeries
                    t1a = this.AdjustStartingDateFromProperties(t1, t2a);// DO DO??? needed??
                }
 
-
             Exception error = new Exception();
 
             if (Expression != null && Expression.Trim() != "")
             {
                 string tmpExpression = Expression;
-
                 Logger.WriteLine("begin Calculate()");
-
-                
                 Expression = ExpressionPreProcessor();
-
                 ParserResult result = null;
                 try
                 {
@@ -172,8 +165,7 @@ namespace Reclamation.TimeSeries
                             //if(canSave)
                             m_db.SaveProperties(this); // time interval, units, are dependent on calculation.
                         }
-                    }
-                   
+                    }                   
                 }
                 else
                 {

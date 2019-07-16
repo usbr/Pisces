@@ -110,9 +110,10 @@ namespace Reclamation.TimeSeries.Usgs
 		/// <param name="t2">ending DateTime</param>
         protected override void ReadCore(DateTime t1, DateTime t2)
 		{
-            if (t2 >= DateTime.Now.Date)
-            { // don't waste time looking to the future
-                t2 = DateTime.Now.Date;
+            if (t2 > DateTime.Now.Date.AddDays(1))
+            { 
+                // don't waste time looking to the future - [JR] lol!
+                t2 = DateTime.Now.Date.AddDays(1);
             }
             if (m_db != null)
             {
