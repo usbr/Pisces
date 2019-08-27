@@ -118,10 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBox1.Text" xml:space="preserve">
-    <value>Please send feedback to Karl Tarbet
-
-ktarbet@usbr.gov    (208) 378-5272
-
+    <value>
+            
+Original Author Karl Tarbet
+  
+https://github.com/ktarbet
+      
 Thanks to:
 Rob Herrera - Asterisk Alarm integration
 John Hildreth - Estimation of missing data
