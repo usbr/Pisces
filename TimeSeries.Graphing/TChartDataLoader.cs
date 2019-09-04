@@ -121,8 +121,6 @@ namespace Reclamation.TimeSeries.Graphing
                 series.Stairs = list[i].Appearance.StairStep;
                 string units = list[i].Units;
 
-                series.Color = Color.FromName(list[i].Appearance.Color.ToString());
-
                 if (multiLeftAxis)
                     SetupMultiLeftAxis(chart1,series, units);
                 else
