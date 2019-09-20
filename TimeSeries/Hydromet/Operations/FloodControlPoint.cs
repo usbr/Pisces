@@ -29,6 +29,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         public string RequiredLegend { get; set; }
         public int ForecastMonthStart { get; private set; }
         public int ForecastMonthEnd { get; private set; }
+        public string EspNode { get; set; }
 
         public FillType FillType
         {
@@ -60,6 +61,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             StationQD = tbl.Rows[0]["StationQD"].ToString();
             DailyStationQU = tbl.Rows[0]["DailyStationQU"].ToString();
             StationFC = tbl.Rows[0]["StationFC"].ToString();
+            EspNode = tbl.Rows[0]["EspNode"].ToString();
 
             if (tbl.Rows[0]["FlagLegend"] != DBNull.Value)
             {
