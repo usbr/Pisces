@@ -205,7 +205,7 @@ namespace Reclamation.Core
                     sql += "   NULL,\n";
             }
             sql += "\n)";
-            Console.WriteLine(sql);
+            //Console.WriteLine(sql);
             RunSqlCommand(sql);
             SqlCommands.Add(sql);
         }
@@ -244,7 +244,7 @@ namespace Reclamation.Core
             if (s == "System.DateTime")
                 return "DateTime";
 
-            if (s == "System.Double")
+            if (s == "System.Double" || s == "System.Single")
                 return "float(53)";
 
             if (s == "System.Boolean")
