@@ -616,10 +616,9 @@ namespace Reclamation.TimeSeries
 
        
 
-        public static Series AnnualSum(Series s,
-            MonthDayRange range, int beginningMonth)
+        public static Series AnnualSum(Series s, MonthDayRange range, int beginningMonth)
         {
-            return AnnualSum(s, range, beginningMonth,false);
+            return AnnualSum(s, range, beginningMonth, false);
         }
 
 
@@ -712,10 +711,15 @@ namespace Reclamation.TimeSeries
             return rval;
         }
         /// <summary>
-        /// find sum for each year.
+        /// Find sum for each year given a period-range
         /// </summary>
-        public static Series AnnualSum(Series s, 
-            MonthDayRange range,int beginningMonth, bool hasTraces)
+        /// <param name="s">Input series</param>
+        /// <param name="range">Month range to span for the summation</param>
+        /// <param name="beginningMonth"></param>
+        /// <param name="hasTraces"></param>
+        /// <param name="overlapYears">n-years to span for the summation</param>
+        /// <returns></returns>
+        public static Series AnnualSum(Series s, MonthDayRange range,int beginningMonth, bool hasTraces, int overlapYears=0)
         {
             if (s.Count == 0)
             {
@@ -737,6 +741,12 @@ namespace Reclamation.TimeSeries
             {
                 YearRange yr = new YearRange(wy, beginningMonth);
                 DateRange dr = new DateRange(range, yr.Year, yr.BeginningMonth);
+                // subset by the required summation period
+                if (overlapYears > 0)
+                {
+                    dr.DateTime2.AddYears(overlapYears);
+                    dr = new DateRange(dr.DateTime1, dr.DateTime2.AddYears(overlapYears));
+                }
 
                 Series subset = Math.Subset(s,dr);
                 
