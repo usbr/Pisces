@@ -744,8 +744,11 @@ namespace Reclamation.TimeSeries
                 // subset by the required summation period
                 if (overlapYears > 0)
                 {
-                    dr.DateTime2.AddYears(overlapYears);
                     dr = new DateRange(dr.DateTime1, dr.DateTime2.AddYears(overlapYears));
+                }
+                if (overlapYears < 0)
+                {
+                    dr = new DateRange(dr.DateTime1.AddYears(overlapYears), dr.DateTime2);
                 }
 
                 Series subset = Math.Subset(s,dr);
