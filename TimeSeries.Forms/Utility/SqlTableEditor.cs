@@ -34,7 +34,12 @@ namespace Reclamation.Core
 			InitializeComponent();
 
             LoadTableList();
+      this.dataGrid1.DataError += DataGrid1_DataError;
 		}
+
+    private void DataGrid1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+    {
+    }
 
     private void LoadTableList()
     {
