@@ -192,7 +192,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 if (this.radioButtonAF.Checked) { parameter = "AF"; }
                 if (this.radioButtonFB.Checked) { parameter = "FB"; }
                 if (this.radioButtonGH.Checked) { parameter = "GH"; }
-                if (this.radioButtonQD.Checked) { parameter = this.textBoxSID.Text; }
+                if (this.radioButtonQD.Checked) { parameter = "QD"; }// this.textBoxSID.Text; }
 
                 this.tStart = timeSelectorBeginEnd1.T1;
                 this.tEnd = timeSelectorBeginEnd1.T2;
