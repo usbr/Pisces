@@ -134,7 +134,7 @@ namespace HydrometServer
             }
             else if (agency == "IDPWR")
             {
-                var ratingTable = new Reclamation.TimeSeries.IdahoPower.IdahoPowerRatingTables(cbtt);
+                var ratingTable = new Reclamation.TimeSeries.IdahoPower.IdahoPowerRatingTables(cbtt, stationID);
                 ratingTable.CreateFullRatingTableFromWeb();
                 fullRatingTable = ratingTable.fullRatingTable;
                 webRdbTable = ratingTable.webRdbTable;
