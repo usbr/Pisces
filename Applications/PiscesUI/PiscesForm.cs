@@ -24,6 +24,8 @@ namespace Reclamation.TimeSeries.Forms
         private DisplayOptionsDialog displayOptionsDialog1;
         private IScenarioSelector scenarioChooser1;
         private PluginManager m_pluginManager;
+        private List<string> hideItemsPiscesOpen = new List<string> {
+            "addExcel", "addHDBconfig", "addHDBmodeldata", "addHDBseries" };
 
         public PiscesForm(string fileName)
         {
@@ -562,26 +564,7 @@ namespace Reclamation.TimeSeries.Forms
                 && folderSelected && singleSelection
                 && CurrentFolder.ID == CurrentFolder.ParentID;
 
-            bool canAddStuff = (CurrentFolder != null);
-
-            AddMenu.Enabled = canAddStuff; // hydromet,access,excel, usgs... are below this
-
-            var hideItemsPiscesOpen = new List<string> { "addExcel", "addHDBconfig",
-             "addHDBmodeldata", "addHDBseries" };
-
-            var addMenuItem = AddMenu as ToolStripDropDownItem;
-            foreach (var item in addMenuItem.DropDownItems)
-            {
-                var toolstripItem = item as ToolStripMenuItem;
-                if (toolstripItem != null)
-                {
-                    toolstripItem.Enabled = canAddStuff;
-#if PISCES_OPEN
-                    toolstripItem.Visible = !hideItemsPiscesOpen.Contains(toolstripItem.Name);
-#endif
-                }
-
-            }
+            AddMenu.Enabled = (CurrentFolder != null); 
 
             menuUpdate.Enabled = anySelected;
             menuDelete.Enabled = anySelected;
@@ -1170,6 +1153,37 @@ namespace Reclamation.TimeSeries.Forms
                    dlg.FileName, tree1.SelectedFolder, DB);
 
             }
+        }
+
+        private void toolStripMenuItemLocal_DropDownOpening(object sender, EventArgs e)
+        {
+            foreach (var item in toolStripMenuItemLocal.DropDownItems)
+            {
+                var toolstripItem = item as ToolStripMenuItem;
+                if (toolstripItem != null)
+                {
+#if PISCES_OPEN
+                    toolstripItem.Visible = !hideItemsPiscesOpen.Contains(toolstripItem.Name);
+#endif
+                }
+
+            }
+        }
+
+        private void toolStripMenuItemWeb_DropDownOpening(object sender, EventArgs e)
+        {
+            foreach (var item in toolStripMenuItemWeb.DropDownItems)
+            {
+                var toolstripItem = item as ToolStripMenuItem;
+                if (toolstripItem != null)
+                {
+#if PISCES_OPEN
+                    toolstripItem.Visible = !hideItemsPiscesOpen.Contains(toolstripItem.Name);
+#endif
+                }
+
+            }
+
         }
     }
 
