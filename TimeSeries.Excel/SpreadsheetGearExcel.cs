@@ -5,6 +5,8 @@ using SpreadsheetGear;
 using SpreadsheetGear.Advanced.Cells;
 using System.IO;
 using Reclamation.Core;
+using System.Globalization;
+
 namespace Reclamation.TimeSeries.Excel
 {
 
@@ -325,29 +327,42 @@ namespace Reclamation.TimeSeries.Excel
             return t;
         }
 
-        public static bool TryReadingDate(IWorkbook workbook, IValue v, out DateTime t)
-        {
-            t = DateTime.MinValue;
-            if (v.Type == SpreadsheetGear.Advanced.Cells.ValueType.Number)
-            {
-                t = DoubleToDateTime(v.Number,workbook);
-            }
-            else
-                if (v.Type == SpreadsheetGear.Advanced.Cells.ValueType.Text)
-                {
-                    return DateTime.TryParse(v.Text, out t);
-                }
-                else
-                {
-                    return false;
-                }
+    public static bool TryReadingDate(IWorkbook workbook, IValue v, out DateTime t)
+    {
+      t = DateTime.MinValue;
+      if (v.Type == SpreadsheetGear.Advanced.Cells.ValueType.Number)
+      {
+        t = DoubleToDateTime(v.Number, workbook);
+        return true;
+      }
 
+      if (v.Type == SpreadsheetGear.Advanced.Cells.ValueType.Text)
+      {
+        bool rval = TryParseDateTime(v.Text, out t);
+        if( !rval)
+          Console.WriteLine("Error parsing:'"+v.Text+"'");
+        return rval;
+      }
 
-            return true;
+      return false;
 
-        }
+    }
 
-        private static Dictionary<string, SpreadsheetGearExcel> s_cache = new Dictionary<string, SpreadsheetGearExcel>();
+    private static bool TryParseDateTime(String s, out DateTime t)
+    {
+
+      if (DateTime.TryParse(s, out t))
+        return true;
+      // try some other formats.
+      string[] formats = { "ddMMMyyyy HHmm", //01Nov2019  0000
+                           "ddMMMyyyy  HHmm", //01Nov2019   0000 (two spaces between)
+                             "ddMMMyyyy  HH:mm", //01Nov2019   0000 (two spaces between)
+                         };
+      return DateTime.TryParseExact(s.ToUpper(), formats, new CultureInfo("en-US"),DateTimeStyles.None ,out t);
+
+    }
+
+    private static Dictionary<string, SpreadsheetGearExcel> s_cache = new Dictionary<string, SpreadsheetGearExcel>();
 
         /// <summary>
         /// loads spreadsheet from disk or gets a referecne to cached refererence

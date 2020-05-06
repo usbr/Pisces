@@ -232,5 +232,24 @@ namespace Pisces.NunitTests.SeriesTypes
 
         }
 
+    /// <summary>
+    /// Import series with date format: 01Nov2019  0800
+    /// </summary>
+    [Test]
+    public void USACEDateFormat()
+    {
+      string filename = Path.Combine(TestData.DataPath, "CumbR_BarbourvilleKY.xlsx");
+      Assert.IsTrue(System.IO.File.Exists(filename), "missing file " + filename);
+
+      SpreadsheetGearSeries xls = new SpreadsheetGearSeries(filename,
+          "Sheet1", "Date", "CumbR_BarbourvilleKY", false);
+      xls.Read();
+
+      Assert.AreEqual(4416, xls.Count);
+      Assert.AreEqual(771, xls[0].Value, 0.001);
+      Assert.AreEqual(2050, xls[4415].Value, 0.001);
     }
+
+
+  }
 }
