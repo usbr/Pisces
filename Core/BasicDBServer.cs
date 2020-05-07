@@ -54,7 +54,7 @@ namespace Reclamation.Core
         {
             string sql = "select count(*) as count,max(" + columnName + ") as max from " + tableName
                + " Where "+columnName+" >0 ";
-            DataTable tbl =Table("seriescatalog", sql);
+            DataTable tbl =Table(tableName, sql);
             int count = Convert.ToInt32(tbl.Rows[0]["count"]);
             if (count == 0)
             {
