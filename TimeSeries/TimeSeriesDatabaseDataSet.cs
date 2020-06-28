@@ -325,6 +325,13 @@ namespace Reclamation.TimeSeries
             }
 
 
+            /// <summary>
+            /// Creates root level folder
+            /// </summary>
+            /// <param name="folderName"></param>
+            /// <param name="id"></param>
+            /// <param name="parentID"></param>
+            /// <returns></returns>
             public int AddFolder(string folderName, int id, int parentID)
             {
                 AddSeriesCatalogRow(id, parentID, 1, 0, "", folderName, "", "", "", "", "", "", "", "", "", 0);

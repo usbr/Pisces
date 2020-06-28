@@ -78,6 +78,8 @@ namespace Reclamation.TimeSeries
 							return;
 						}
 
+						if (_cache.Count > 5)
+							_cache.Clear();
 						allValues = GetValues(table.Rows[0]);
 						_cache.Add(_timeseries_blobs_id, allValues);
 					}
@@ -94,7 +96,14 @@ namespace Reclamation.TimeSeries
 			}
 		}
 
-		 
+		public override Series CreateScenario(TimeSeriesDatabaseDataSet.ScenarioRow scenario)
+		{
+
+
+			return base.CreateScenario(scenario);
+		}
+
+
 		//https://stackoverflow.com/questions/7013771/decompress-byte-array-to-string-via-binaryreader-yields-empty-string
 		static byte[] Decompress(byte[] data)
 		{

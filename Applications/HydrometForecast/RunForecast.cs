@@ -329,7 +329,7 @@ namespace HydrometForecast
                 for (int i = 0; i < forecastToRun.Length; i++)
                 {
                     ForecastEquation eq = GetEquation(forecastToRun[i]);
-                    var tbl = eq.RunHistoricalForecasts(eq.StartYear, eq.EndYear,checkBoxLookAhead.Checked, t.Month,estimationFactors);
+                    var tbl = eq.RunHistoricalForecasts(eq.StartYear, eq.EndYear+1,checkBoxLookAhead.Checked, t.Month,estimationFactors);
                     var fn = FileUtility.GetTempFileName(".csv");
                     CsvFile.WriteToCSV(tbl, fn,false);
                     List<string> output = new List<string>();
