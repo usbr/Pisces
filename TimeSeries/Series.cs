@@ -786,7 +786,26 @@ namespace Reclamation.TimeSeries
             // TO DO.  _missingRecordCount--; if flagged missing
             table.Rows[index].Delete();
             table.AcceptChanges();
-            
+
+        }
+
+        /// <summary>
+        /// Removes a point from the Series
+        /// </summary>
+        /// <param name="index"></param>
+        public void RemoveAt(DateTime t)
+        {
+            DataRow[] foundRows;
+            string filter = "[datetime] = '" + t + "'";
+            foundRows = table.Select(filter);
+
+            foreach (DataRow dr in foundRows)
+            {
+                table.Rows[dr.Table.Rows.IndexOf(dr)].Delete();
+            }
+
+            table.AcceptChanges();
+
         }
 
         /// <summary>
