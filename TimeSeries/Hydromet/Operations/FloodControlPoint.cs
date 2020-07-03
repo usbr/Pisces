@@ -30,6 +30,8 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
         public int ForecastMonthStart { get; private set; }
         public int ForecastMonthEnd { get; private set; }
         public string EspNode { get; set; }
+        public string ResOpsInflow { get; set; }
+        public string ResOpsOutflow { get; set; }
 
         public FillType FillType
         {
@@ -38,7 +40,6 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
                 if (VariableRuleCurve)
                     m_fillType = FillType.Variable;
                 return m_fillType; 
-            
             }
         }
 
@@ -62,6 +63,8 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             DailyStationQU = tbl.Rows[0]["DailyStationQU"].ToString();
             StationFC = tbl.Rows[0]["StationFC"].ToString();
             EspNode = tbl.Rows[0]["EspNode"].ToString();
+            ResOpsInflow = tbl.Rows[0]["ResOpsInflow"].ToString();
+            ResOpsOutflow = tbl.Rows[0]["ResOpsOutflow"].ToString();
 
             if (tbl.Rows[0]["FlagLegend"] != DBNull.Value)
             {
