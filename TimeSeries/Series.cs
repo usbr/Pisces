@@ -861,8 +861,6 @@ namespace Reclamation.TimeSeries
         /// <param name="flag"></param>
         public void Add(DateTime t, double val, string flag)
         {
-
-
             // TO DO: if the underlying table supports multiple tables 
             // need to use table.NewRow() and column indexes for data and date and flag,
             object o = val;
@@ -872,16 +870,31 @@ namespace Reclamation.TimeSeries
                 o = DBNull.Value;
             }
 
-            
-            
-            if (HasFlags)
+            int insertIdx;
+            if (this.table.Rows.Count < 1 || t < DateTime.Parse(this.table.Compute("Min([datetime])", string.Empty).ToString()))
             {
-                this.table.Rows.Add(new object[] { t, o, flag });
+                insertIdx = 0;
+            }
+            else if (t > DateTime.Parse(this.table.Compute("Max([datetime])", string.Empty).ToString()))
+            {
+                insertIdx = this.table.Rows.Count;
             }
             else
             {
-                this.table.Rows.Add(new object[] { t, o });
+                DataRow[] rows = this.table.Select("[datetime] < #" + t + "#");
+                insertIdx = this.table.Rows.IndexOf(rows[rows.Length - 1]) + 1;
             }
+
+            var newRow = this.table.NewRow();
+            if (HasFlags)
+            {
+                newRow.ItemArray = new object[] { t, o, flag };
+            }
+            else
+            {
+                newRow.ItemArray = new object[] { t, o };
+            }
+            this.table.Rows.InsertAt(newRow, insertIdx);
         }
         
        
