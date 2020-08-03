@@ -50,7 +50,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
         DateTime _t1, _t2;
 
-        public void Compute(DateTime t1, DateTime t2)
+        public void Compute(DateTime t1, DateTime t2, HydrometHost svr)
         {
             _t1 = t1;
             _t2 = t2;
@@ -58,7 +58,7 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             {
                 ReadMonthlyForecast(t1, t2);
             }
-            ReadDaily(t1, t2);
+            ReadDaily(t1, t2, svr);
 
             TotalContent = reservoirs[0].Copy();
             for (int i = 1; i < reservoirNames.Length; i++)
@@ -233,10 +233,10 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
 
        
 
-        private void ReadDaily(DateTime t1, DateTime t2)
+        private void ReadDaily(DateTime t1, DateTime t2, HydrometHost svr)
         {
-            qu = new HydrometDailySeries(controlPoint.StationQU, "QU");
-            qd = new HydrometDailySeries(controlPoint.StationQD, "QD");
+            qu = new HydrometDailySeries(controlPoint.StationQU, "QU", svr);
+            qd = new HydrometDailySeries(controlPoint.StationQD, "QD", svr);
             
             qu.Read(t1, t2);
             qd.Read(t1, t2);

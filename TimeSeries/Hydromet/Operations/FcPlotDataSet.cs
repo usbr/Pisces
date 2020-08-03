@@ -112,10 +112,11 @@ namespace Reclamation.TimeSeries.Hydromet.Operations
             return rval.ToArray();
         }
 
-        public static string[] GetNames()
+        public static string[] GetNames(string region = "PN")
         {
             DataTable tbl = new CsvFile(LookupFile("ControlPoints"));
             tbl = DataTableUtility.Select(tbl," Enabled = true","");
+            tbl = DataTableUtility.Select(tbl, " Region = '" + region + "'", "");
             return DataTableUtility.Strings(tbl, "", "Name");
         }
     }

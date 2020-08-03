@@ -46,7 +46,7 @@ namespace Reclamation.TimeSeries.Hydromet
             if (query.Length >0)
             {
                 DataTable m_table = new DataTable();
-                if (interval == TimeInterval.Monthly)
+                if (interval == TimeInterval.Monthly && svr != HydrometHost.GreatPlains)
                 {
                     m_table = HydrometDataUtility.MPollTable(svr, query, t1, t2);
                 }
