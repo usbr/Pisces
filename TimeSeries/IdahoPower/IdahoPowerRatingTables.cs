@@ -33,9 +33,13 @@ namespace Reclamation.TimeSeries.IdahoPower
             this.cbtt = cbtt;
 
             // Get and assign rating table file from the web
-            string idprURL = "https://pstest.idahopower.com/RatingsService/Index?id=S-QRiv.Rating@XXXX";
+            string idprURL = "https://ps.idahopower.com/RatingsService/Index?id=S-QRiv.Rating@XXXX";
             downloadURL = idprURL.Replace("XXXX", stationId);
-            var newData = Web.GetPage(idprURL.Replace("XXXX", stationId));
+            if (stationId.IndexOf('@') > 0)
+            {
+                downloadURL = idprURL.Replace("@XXXX", " " + stationId);
+            }
+            var newData = Web.GetPage(downloadURL);
             if (newData.Count() == 0 )
             {
                 throw new Exception("Idaho Power data not found. Check inputs or retry later."); 

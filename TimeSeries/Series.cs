@@ -871,11 +871,11 @@ namespace Reclamation.TimeSeries
             }
 
             int insertIdx;
-            if (this.table.Rows.Count < 1 || t < DateTime.Parse(this.table.Compute("Min([datetime])", string.Empty).ToString()))
+            if (this.table.Rows.Count < 1 || t < this.MinDateTime)
             {
                 insertIdx = 0;
             }
-            else if (t > DateTime.Parse(this.table.Compute("Max([datetime])", string.Empty).ToString()))
+            else if (t > this.MaxDateTime)
             {
                 insertIdx = this.table.Rows.Count;
             }

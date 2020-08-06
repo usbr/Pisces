@@ -70,7 +70,7 @@ namespace Reclamation.TimeSeries.Usgs
                 // OLD URL
                 //string url = "http://nwis.waterdata.usgs.gov/nwis/gwlevels?site_no=444401116463001&agency_cd=USGS&format=rdb";
                 string url = "https://waterservices.usgs.gov/nwis/gwlevels/?format=rdb&sites=444401116463001";
-                url = url.Replace("site_no=444401116463001", "site_no=" + m_site_no);
+                url = url.Replace("sites=444401116463001", "sites=" + m_site_no);
                 Messages.Add(url);
                 ReadSeriesData(url,TimeSeriesDatabase.MinDateTime,TimeSeriesDatabase.MaxDateTime);
             }
@@ -99,14 +99,27 @@ namespace Reclamation.TimeSeries.Usgs
             else
             {
                 string url = "https://waterservices.usgs.gov/nwis/gwlevels/?format=rdb&sites=444401116463001";
-                url = url.Replace("site_no=444401116463001", "site_no=" + m_site_no);
+                url = url.Replace("sites=444401116463001", "sites=" + m_site_no);
                 Messages.Add(url);
                 ReadSeriesData(url,t1,t2);
             }
         }
 
+        private bool offsetReadingsWithSiteElevation = true;
+
         private void ReadSeriesData(string url,DateTime t1, DateTime t2)
         {
+            double siteElev = -999.0;
+            if (offsetReadingsWithSiteElevation)
+            {
+                string siteInfoUrl = @"https://waterservices.usgs.gov/nwis/site/?format=rdb&sites=" + m_site_no;
+
+                var data = Reclamation.Core.Web.GetPage(siteInfoUrl);
+                UsgsRDBFile rdb = new UsgsRDBFile(data);
+                DataTable tbl = DataTableUtility.Transpose(rdb);
+                siteElev = Convert.ToDouble(rdb.Rows[0]["alt_va"]);
+            }
+
             url += "&startDT=" + t1.ToString("yyyy-MM-dd") + "&endDT=" + t2.ToString("yyyy-MM-dd");
             string[] response = Web.GetPage(url, true);
 
@@ -140,15 +153,29 @@ namespace Reclamation.TimeSeries.Usgs
                 Point pt = Point.Missing;
                 pt.DateTime = t;
                 pt.Flag = row["lev_status_cd"].ToString();
-                if (!Double.TryParse(row[m_columnName].ToString(), out  d))
+                try
                 {
-                    Messages.Add("Error reading '" + row[m_columnName] + "' as a number");
-                    AddMissing(t);
+                    if (!Double.TryParse(row[m_columnName].ToString(), out d))
+                    {
+                        Messages.Add("Error reading '" + row[m_columnName] + "' as a number");
+                        AddMissing(t);
+                    }
+                    else
+                    {
+                        if (offsetReadingsWithSiteElevation)
+                        {
+                            pt.Value = siteElev - d;
+                        }
+                        else
+                        {
+                            pt.Value = d;
+                        }
+                        Add(pt);
+                    }
                 }
-                else
+                catch
                 {
-                    pt.Value = d;
-                    Add(pt);
+                    //[JR] fix this!
                 }
             }
         }
