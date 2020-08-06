@@ -204,9 +204,84 @@ namespace Reclamation.TimeSeries.Graphing
             }
         }
 
+        private void tChart1_ClickLegend(object sender, MouseEventArgs e)
+        {
+            Steema.TeeChart.Chart myChart = (Steema.TeeChart.Chart)sender;
+            int idx = myChart.Legend.Clicked(e.X, e.Y);
+
+            if (idx >= 0)
+            {
+                switch (e.Button)
+                {
+                    case MouseButtons.Left:
+                        if (this.tChart1.Series[idx] is Steema.TeeChart.Styles.Line)
+                        {
+                            int currWidth = (this.tChart1.Series[idx] as Steema.TeeChart.Styles.Line).LinePen.Width;
+                            int newWidth = currWidth + 1;
+                            if (newWidth > 5)
+                            {
+                                newWidth = 1;
+                            }
+                            (this.tChart1.Series[idx] as Steema.TeeChart.Styles.Line).LinePen.Width = newWidth;
+                        }
+                        break;
+
+                    case MouseButtons.Right:
+                        var lineStyle = new List<System.Drawing.Drawing2D.DashStyle> { System.Drawing.Drawing2D.DashStyle.Dash, System.Drawing.Drawing2D.DashStyle.DashDot ,
+                            System.Drawing.Drawing2D.DashStyle.DashDotDot, System.Drawing.Drawing2D.DashStyle.Dot, System.Drawing.Drawing2D.DashStyle.Solid};
+                        if (this.tChart1.Series[idx] is Steema.TeeChart.Styles.Line)
+                        {
+                            int lineStyleIdx = lineStyle.IndexOf((this.tChart1.Series[idx] as Steema.TeeChart.Styles.Line).LinePen.Style) + 1;
+                            if (lineStyleIdx == lineStyle.Count)
+                            {
+                                lineStyleIdx = 0;
+                            }
+                            (this.tChart1.Series[idx] as Steema.TeeChart.Styles.Line).LinePen.Style = lineStyle[lineStyleIdx];
+                        }
+                        break;
+
+                    case MouseButtons.Middle:
+                        break;
+                }
+            }
+        }
+
         private void tChart1_ClickSeries(object sender, Steema.TeeChart.Styles.Series s, int valueIndex, MouseEventArgs e)
         {
             int idx = this.tChart1.Series.IndexOf(s);
+            switch (e.Button)
+            {
+                case MouseButtons.Left:
+                    if (this.tChart1.Series[idx] is Steema.TeeChart.Styles.Line)
+                    {
+                        int currWidth = (this.tChart1.Series[idx] as Steema.TeeChart.Styles.Line).LinePen.Width;
+                        int newWidth = currWidth + 1;
+                        if (newWidth > 5)
+                        {
+                            newWidth = 1;
+                        }
+                        (this.tChart1.Series[idx] as Steema.TeeChart.Styles.Line).LinePen.Width = newWidth;
+                    }
+                    break;
+
+                case MouseButtons.Right:
+                    var lineStyle = new List<System.Drawing.Drawing2D.DashStyle> { System.Drawing.Drawing2D.DashStyle.Dash, System.Drawing.Drawing2D.DashStyle.DashDot ,
+                    System.Drawing.Drawing2D.DashStyle.DashDotDot, System.Drawing.Drawing2D.DashStyle.Dot, System.Drawing.Drawing2D.DashStyle.Solid};
+                    if (this.tChart1.Series[idx] is Steema.TeeChart.Styles.Line)
+                    {
+                        int lineStyleIdx = lineStyle.IndexOf((this.tChart1.Series[idx] as Steema.TeeChart.Styles.Line).LinePen.Style) + 1;
+                        if (lineStyleIdx == lineStyle.Count)
+                        {
+                            lineStyleIdx = 0;
+                        }
+                        (this.tChart1.Series[idx] as Steema.TeeChart.Styles.Line).LinePen.Style = lineStyle[lineStyleIdx];
+                    }
+                    break;
+
+                case MouseButtons.Middle:
+                    break;
+            }
+            
             Reclamation.Core.Logger.WriteLine(s.Title);
         }
 
@@ -306,11 +381,11 @@ namespace Reclamation.TimeSeries.Graphing
         {
             if (toolStripButtonSelect.Checked)
             {
-                tChart1.Zoom.Allow = false;
+                tChart1.Zoom.Direction = Steema.TeeChart.ZoomDirections.None;
             }
             else
             {
-                tChart1.Zoom.Allow = true;
+                tChart1.Zoom.Direction = Steema.TeeChart.ZoomDirections.Both;
             }
         }
 

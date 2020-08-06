@@ -214,6 +214,8 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             this.tChart1.Legend.LegendStyle = Steema.TeeChart.LegendStyles.Series;
+            //this.tChart1.Legend.CheckBoxes = true;
+            this.tChart1.ClickLegend += new System.Windows.Forms.MouseEventHandler(this.tChart1_ClickLegend);
             this.tChart1.Location = new System.Drawing.Point(0, 25);
             this.tChart1.Name = "tChart1";
             // 
@@ -242,7 +244,7 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             // 
             this.tChart1.Walls.Visible = false;
-            this.tChart1.ClickSeries += new Steema.TeeChart.TChart.SeriesEventHandler(this.tChart1_ClickSeries);
+            this.tChart1.ClickSeries += new Steema.TeeChart.SeriesEventHandler(this.tChart1_ClickSeries);
             this.tChart1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseDown);
             this.tChart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseMove);
             this.tChart1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseUp);
