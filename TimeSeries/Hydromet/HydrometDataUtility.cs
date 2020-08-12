@@ -14,15 +14,16 @@ namespace Reclamation.TimeSeries.Hydromet
     /// </summary>
     public class HydrometDataUtility
 	{
+        public static int yearNow = DateTime.Now.Year - 1;
         /// <summary>
-        /// Start of 30 year averaging period 1980-10-1
+        /// Start of 30 year averaging period Ex:1990-10-1 (increments on 1/1/20X1)
         /// </summary>
-        public static DateTime T1Thirty = new DateTime(1980, 10, 1);
+        public static DateTime T1Thirty = new DateTime(yearNow - 30 - (yearNow - 30) % 10, 10, 1);
 
         /// <summary>
-        /// End of 30 year averaging period 2010-9-30
+        /// End of 30 year averaging period Ex:2020-9-30 (increments on 1/1/20X1)
         /// </summary>
-        public static DateTime T2Thirty = new DateTime(2010, 9, 30);
+        public static DateTime T2Thirty = new DateTime(yearNow - yearNow % 10, 9, 30);
 
         public static DataTable DayFilesTable(HydrometHost svr, string query, DateTime t1, DateTime t2, int back = 0, int interval = 0)
         {
