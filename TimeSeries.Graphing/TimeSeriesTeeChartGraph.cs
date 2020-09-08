@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Text;
+using System.Linq;
 using System.Windows.Forms;
 using Reclamation.TimeSeries.Forms.Graphing;
 
@@ -32,7 +33,68 @@ namespace Reclamation.TimeSeries.Graphing
             this.tChart1.Tools.Add(this.dragPoint1);
             this.dragPoint1.Drag += new Steema.TeeChart.Tools.DragPointEventHandler(dragPoint1_Drag);
             annotation1 = new Steema.TeeChart.Tools.Annotation(tChart1.Chart);
-            annotation1.Active = false;
+            annotation1.Position = Steema.TeeChart.Tools.AnnotationPositions.LeftTop;
+            annotation1.Shape.Shadow.Visible = false;
+            annotation1.Shape.Pen.Visible = false;
+            //annotation1. .forma.Callout = Steema.TeeChart.Tools.AnnotationCallout.
+            annotation1.Active = true;
+        }
+
+        void SetupTChartNearestPointTool()
+        {
+            this.tChart1.Tools.Clear();
+
+            if (annotation1.Active)
+            {
+                // set tool-tip pop-up for the FC-Ops added series
+                for (int i = 0; i < this.tChart1.Series.Count; i++)
+                {
+
+                    Steema.TeeChart.Tools.NearestPoint nearestPoint2 = new Steema.TeeChart.Tools.NearestPoint(this.tChart1[i]);
+                    nearestPoint2.Direction = Steema.TeeChart.Tools.NearestPointDirection.Horizontal;
+                    nearestPoint2.Pen.Color = this.tChart1[i].Color;
+                    nearestPoint2.Brush.Color = this.tChart1[i].Color;
+                    nearestPoint2.Size = 5;
+                    nearestPoint2.Style = Steema.TeeChart.Tools.NearestPointStyles.Circle;
+                    nearestPoint2.DrawLine = false;
+                    this.tChart1.Tools.Add(nearestPoint2);
+
+                    this.tChart1.Series[i].GetSeriesMark += Form1_GetSeriesMark;
+                }
+
+                // Add point tooltips
+                Steema.TeeChart.Tools.MarksTip marksTip1 = new Steema.TeeChart.Tools.MarksTip(this.tChart1.Chart);
+                marksTip1.Style = Steema.TeeChart.Styles.MarksStyles.XY;
+                marksTip1.Active = true;
+                marksTip1.MouseDelay = 0;
+                marksTip1.HideDelay = 999999;
+                marksTip1.MouseAction = Steema.TeeChart.Tools.MarksTipMouseAction.Move;
+                marksTip1.BackColor = Color.LightSteelBlue;
+                marksTip1.ForeColor = Color.Black;
+                //this.tChart1.Tools.Add(marksTip1);
+            }
+        }
+
+        void Form1_GetSeriesMark(Steema.TeeChart.Styles.Series series, Steema.TeeChart.Styles.GetSeriesMarkEventArgs e)
+        {
+            var t = DateTime.FromOADate(Convert.ToDouble(series.XValues[e.ValueIndex].ToString()));
+            var val = Convert.ToDouble(series.YValues[e.ValueIndex].ToString()).ToString("#,###,###.##");
+
+            int yr = 0;
+            if (int.TryParse(series.Title, out yr))
+            {
+                DateTime strDate = DateTime.Parse(t.ToString("MM/dd/") + series.Title);
+                if (shiftAnnotationDate && t.Month >= 10)
+                { // get proper date from water year
+                    yr--;
+                    strDate = DateTime.Parse(t.ToString("MM/dd/" + yr));
+                }
+                e.MarkText = "Series: " + series.Title + "\r\nDate-Time: " + strDate.ToString("MMM-d-yyyy") + "\r\nValue: " + val;
+            }
+            else
+            {
+                e.MarkText = "Series: " + series.Title + "\r\nDate-Time: " + t.ToString("MMM-d-yyyy") + "\r\nValue: " + val;
+            }
         }
 
         public bool AnnotationOnMouseMove
@@ -44,6 +106,19 @@ namespace Reclamation.TimeSeries.Graphing
             set
             {
                 annotation1.Active = value;
+            }
+        }
+
+        private bool shiftAnnotationDate = true;
+        public bool AnnotationDateShift
+        {
+            get
+            {
+                return shiftAnnotationDate;
+            }
+            set
+            {
+                shiftAnnotationDate = value;
             }
         }
 
@@ -202,6 +277,8 @@ namespace Reclamation.TimeSeries.Graphing
                     loader.Clear();
                     break;
             }
+
+            SetupTChartNearestPointTool();
         }
 
         private void tChart1_ClickLegend(object sender, MouseEventArgs e)
@@ -387,43 +464,6 @@ namespace Reclamation.TimeSeries.Graphing
             {
                 tChart1.Zoom.Direction = Steema.TeeChart.ZoomDirections.Both;
             }
-        }
-
-        private void DrawAnnotation(int seriesIndex, int pointIndex)
-        {
-            annotation1.Active = true;
-            var s = tChart1[seriesIndex];
-
-            var t = DateTime.FromOADate(s.XValues[pointIndex]);
-
-            var syr = s.Title;
-            int yr = 0;
-            var strDate = s.Title + t.ToString("-MM-dd");
-            if( int.TryParse(syr, out yr) && t.Month >=10)
-            { // get proper date from water year
-                yr--;
-                strDate = yr+ t.ToString("-MM-dd");
-            }
-
-            string tip = strDate + " " + s.YValues[pointIndex].ToString();
-            annotation1.Text = tip;
-
-        }
-        private void tChart1_MouseMove(object sender, MouseEventArgs e)
-        {
-
-            if (!annotation1.Active)
-                return;
-            for (int i = 0; i < tChart1.Series.Count; i++)
-            {
-                int idx = tChart1[i].Clicked(e.X, e.Y);
-                if (idx != -1)
-                {
-                    DrawAnnotation(i, idx);
-                    return;
-                }
-            }
-           // annotation1.Active = false;
         }
 
         /// <summary>

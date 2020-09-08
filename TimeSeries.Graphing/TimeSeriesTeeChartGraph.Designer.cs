@@ -246,7 +246,6 @@ namespace Reclamation.TimeSeries.Graphing
             this.tChart1.Walls.Visible = false;
             this.tChart1.ClickSeries += new Steema.TeeChart.SeriesEventHandler(this.tChart1_ClickSeries);
             this.tChart1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseDown);
-            this.tChart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseMove);
             this.tChart1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tChart1_MouseUp);
             // 
             // line1

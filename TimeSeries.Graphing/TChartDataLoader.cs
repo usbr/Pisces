@@ -148,34 +148,9 @@ namespace Reclamation.TimeSeries.Graphing
             series1.Pointer.HorizSize = 2;
             series1.Pointer.VertSize = 2;
 
-            //Color[] oldColors = {Color.Red,Color.Green,Color.Blue,Color.Black,Color.Orange, Color.Aquamarine,
-            //    Color.DarkGreen,Color.Purple,Color.Aqua,Color.BlueViolet,Color.Brown,Color.BurlyWood,
-            //    Color.CadetBlue,Color.Chartreuse, Color.Chocolate,Color.Coral,Color.CornflowerBlue };
-
-            // High-contrast color palette from https://sashamaps.net/docs/tools/20-colors/
-            Color[] colors =
-            {
-                ColorTranslator.FromHtml("#4363d8"),
-                ColorTranslator.FromHtml("#f58231"),
-                ColorTranslator.FromHtml("#e6194B"),
-                ColorTranslator.FromHtml("#3cb44b"),
-                ColorTranslator.FromHtml("#ffe119"),
-                ColorTranslator.FromHtml("#911eb4"),
-                ColorTranslator.FromHtml("#42d4f4"),
-                ColorTranslator.FromHtml("#f032e6"),
-                ColorTranslator.FromHtml("#bfef45"),
-                ColorTranslator.FromHtml("#fabed4"),
-                ColorTranslator.FromHtml("#469990"),
-                ColorTranslator.FromHtml("#dcbeff"),
-                ColorTranslator.FromHtml("#9A6324"),
-                ColorTranslator.FromHtml("#fffac8"),
-                ColorTranslator.FromHtml("#800000"),
-                ColorTranslator.FromHtml("#aaffc3"),
-                ColorTranslator.FromHtml("#808000"),
-                ColorTranslator.FromHtml("#ffd8b1"),
-                ColorTranslator.FromHtml("#000075"),
-                ColorTranslator.FromHtml("#a9a9a9")
-            };
+            Color[] colors = {Color.Red,Color.Green,Color.Blue,Color.Black,Color.Orange, Color.SteelBlue,
+                Color.DarkGreen,Color.Purple,Color.DeepSkyBlue,Color.BlueViolet,Color.Maroon,Color.Chocolate,
+                Color.RoyalBlue,Color.LimeGreen, Color.Goldenrod,Color.Coral,Color.DarkViolet};
 
             if (chart1.Series.Count < colors.Length)
             {
