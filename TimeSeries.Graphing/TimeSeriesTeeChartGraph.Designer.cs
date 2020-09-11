@@ -33,20 +33,20 @@ namespace Reclamation.TimeSeries.Graphing
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TimeSeriesTeeChartGraph));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonPrin = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonEditGraph = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonUndoZoom = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripComboBoxZoomType = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripButtonZoomOut = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonZoomIn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonUndoZoom = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBoxDragPoints = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripButtonSelect = new System.Windows.Forms.ToolStripButton();
             this.tChart1 = new Steema.TeeChart.TChart();
             this.line1 = new Steema.TeeChart.Styles.Line();
-            this.toolStripComboBoxZoomType = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,7 +68,7 @@ namespace Reclamation.TimeSeries.Graphing
             this.toolStripButtonSelect});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(668, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(865, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -84,6 +84,11 @@ namespace Reclamation.TimeSeries.Graphing
             this.toolStripButtonPrin.ToolTipText = "print";
             this.toolStripButtonPrin.Click += new System.EventHandler(this.toolStripButtonPrin_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
             // toolStripButtonEditGraph
             // 
             this.toolStripButtonEditGraph.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -94,16 +99,27 @@ namespace Reclamation.TimeSeries.Graphing
             this.toolStripButtonEditGraph.Text = "Edit Graph";
             this.toolStripButtonEditGraph.Click += new System.EventHandler(this.toolStripButtonEditGraph_Click);
             // 
-            // toolStripButtonUndoZoom
+            // toolStripSeparator2
             // 
-            this.toolStripButtonUndoZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonUndoZoom.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline);
-            this.toolStripButtonUndoZoom.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonUndoZoom.Image")));
-            this.toolStripButtonUndoZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonUndoZoom.Name = "toolStripButtonUndoZoom";
-            this.toolStripButtonUndoZoom.Size = new System.Drawing.Size(39, 22);
-            this.toolStripButtonUndoZoom.Text = "Reset";
-            this.toolStripButtonUndoZoom.Click += new System.EventHandler(this.toolStripButtonUndoZoom_Click);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(45, 22);
+            this.toolStripLabel1.Text = "Zoom: ";
+            // 
+            // toolStripComboBoxZoomType
+            // 
+            this.toolStripComboBoxZoomType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBoxZoomType.Items.AddRange(new object[] {
+            "Zoom Both",
+            "Zoom Horizontal",
+            "Zoom Vertical"});
+            this.toolStripComboBoxZoomType.Name = "toolStripComboBoxZoomType";
+            this.toolStripComboBoxZoomType.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBoxZoomType.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxZoomType_SelectedIndexChanged);
             // 
             // toolStripButtonZoomOut
             // 
@@ -126,6 +142,28 @@ namespace Reclamation.TimeSeries.Graphing
             this.toolStripButtonZoomIn.Text = "+";
             this.toolStripButtonZoomIn.ToolTipText = "zoom in";
             this.toolStripButtonZoomIn.Click += new System.EventHandler(this.toolStripButtonZoomIn_Click);
+            // 
+            // toolStripButtonUndoZoom
+            // 
+            this.toolStripButtonUndoZoom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonUndoZoom.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline);
+            this.toolStripButtonUndoZoom.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonUndoZoom.Image")));
+            this.toolStripButtonUndoZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonUndoZoom.Name = "toolStripButtonUndoZoom";
+            this.toolStripButtonUndoZoom.Size = new System.Drawing.Size(39, 22);
+            this.toolStripButtonUndoZoom.Text = "Reset";
+            this.toolStripButtonUndoZoom.Click += new System.EventHandler(this.toolStripButtonUndoZoom_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(74, 22);
+            this.toolStripLabel2.Text = "Drag Points: ";
             // 
             // toolStripComboBoxDragPoints
             // 
@@ -326,7 +364,7 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             this.tChart1.Panel.ImageBevel.Width = 1;
             this.tChart1.Series.Add(this.line1);
-            this.tChart1.Size = new System.Drawing.Size(668, 453);
+            this.tChart1.Size = new System.Drawing.Size(865, 569);
             this.tChart1.TabIndex = 2;
             // 
             // 
@@ -420,44 +458,6 @@ namespace Reclamation.TimeSeries.Graphing
             // 
             this.line1.YValues.DataMember = "Y";
             // 
-            // toolStripComboBoxZoomType
-            // 
-            this.toolStripComboBoxZoomType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBoxZoomType.Items.AddRange(new object[] {
-            "Zoom Both",
-            "Zoom Horizontal",
-            "Zoom Vertical"});
-            this.toolStripComboBoxZoomType.Name = "toolStripComboBoxZoomType";
-            this.toolStripComboBoxZoomType.Size = new System.Drawing.Size(121, 25);
-            this.toolStripComboBoxZoomType.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxZoomType_SelectedIndexChanged);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(45, 22);
-            this.toolStripLabel1.Text = "Zoom: ";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(74, 22);
-            this.toolStripLabel2.Text = "Drag Points: ";
-            // 
             // TimeSeriesTeeChartGraph
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -465,7 +465,7 @@ namespace Reclamation.TimeSeries.Graphing
             this.Controls.Add(this.tChart1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "TimeSeriesTeeChartGraph";
-            this.Size = new System.Drawing.Size(668, 478);
+            this.Size = new System.Drawing.Size(865, 594);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

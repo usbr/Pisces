@@ -296,13 +296,17 @@ namespace Reclamation.TimeSeries.Graphing
             modifySeriesAppearance(idx, e);            
             Reclamation.Core.Logger.WriteLine(s.Title);
         }
-
+        
+        public static Color[] fillColors = { Color.LightGray, Color.White, Color.LightSalmon, Color.LightGreen, Color.LightSkyBlue, Color.LightGoldenrodYellow};
+        public static Color[] lineColors = { Color.Red, Color.Green, Color.Blue, Color.Orange, Color.Purple, Color.Gray };
 
         private static int colorCounter = 0;
+        private static int selIdx = 0;
         private void modifySeriesAppearance(int idx, MouseEventArgs e)
         {
             switch (e.Button)
             {
+                // Cycle through line widths
                 case MouseButtons.Left:
                     if (this.tChart1.Series[idx] is Steema.TeeChart.Styles.Line)
                     {
@@ -316,6 +320,7 @@ namespace Reclamation.TimeSeries.Graphing
                     }
                     break;
 
+                // Cycle through line styles
                 case MouseButtons.Right:
                     var lineStyle = new List<System.Drawing.Drawing2D.DashStyle> { System.Drawing.Drawing2D.DashStyle.Dash, System.Drawing.Drawing2D.DashStyle.DashDot ,
                     System.Drawing.Drawing2D.DashStyle.DashDotDot, System.Drawing.Drawing2D.DashStyle.Dot, System.Drawing.Drawing2D.DashStyle.Solid};
@@ -330,22 +335,45 @@ namespace Reclamation.TimeSeries.Graphing
                     }
                     break;
 
+                // Nothing yet
                 case MouseButtons.Middle:
                     break;
 
+                // Add area shading to line
                 case MouseButtons.XButton1:
-                    this.tChart1.Series[idx].Color = TChartDataLoader.colors[colorCounter];
-                    colorCounter--;
-                    if (colorCounter < 0)
+                    if (this.tChart1.Series[idx] is Steema.TeeChart.Styles.Line)
                     {
-                        colorCounter = TChartDataLoader.colors.Count() - 1;
+                        var s = this.tChart1.Series[idx];
+                        Steema.TeeChart.Styles.Area areaChart1 = new Steema.TeeChart.Styles.Area();
+                        areaChart1.DataSource = s;
+                        areaChart1.AreaLines.Visible = false;
+                        //areaChart1.Opacity = 0;
+                        //areaChart1.Transparency = 100;
+                        areaChart1.AreaBrush.Solid = true;
+                        areaChart1.AreaBrush.Transparency = 100;
+                        areaChart1.Legend.Visible = false;
+                        tChart1.Chart.Series.Add(areaChart1);
+                        tChart1.Series.MoveTo(this.tChart1.Series[this.tChart1.Series.Count - 1], 0);
                     }
                     break;
 
+                // Cycle through colors
                 case MouseButtons.XButton2:
-                    this.tChart1.Series[idx].Color = TChartDataLoader.colors[colorCounter];
+                    if (idx != selIdx)
+                    {
+                        selIdx = idx;
+                        colorCounter = 0;
+                    }
+                    if (this.tChart1.Series[idx] is Steema.TeeChart.Styles.Line)
+                    {
+                        this.tChart1.Series[idx].Color = lineColors[colorCounter];
+                    }
+                    if (this.tChart1.Series[idx] is Steema.TeeChart.Styles.Area)
+                    {
+                        this.tChart1.Series[idx].Color = fillColors[colorCounter];
+                    }
                     colorCounter++;
-                    if (colorCounter >= TChartDataLoader.colors.Count())
+                    if (colorCounter >= lineColors.Count())
                     {
                         colorCounter = 0;
                     }
