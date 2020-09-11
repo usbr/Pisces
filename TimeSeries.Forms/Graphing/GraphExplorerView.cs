@@ -26,6 +26,7 @@ namespace Reclamation.TimeSeries.Graphing
             var uc = new TimeSeriesZedGraph();
             InitControl(uc);
         }
+
         public GraphExplorerView(ITimeSeriesGraph timeSeriesGraph)
         {
             InitControl(timeSeriesGraph);

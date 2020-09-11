@@ -137,6 +137,10 @@ namespace Reclamation.TimeSeries.Graphing
             }
         }
 
+        public static Color[] colors = {Color.Red,Color.Green,Color.Blue,Color.Black,Color.Orange, Color.SteelBlue,
+                Color.DarkGreen,Color.Purple,Color.DeepSkyBlue,Color.BlueViolet,Color.Maroon,Color.Chocolate,
+                Color.RoyalBlue,Color.LimeGreen, Color.Goldenrod,Color.Coral,Color.DarkViolet};
+
         public Steema.TeeChart.Styles.Line CreateSeries(DataTable table, string columnName, TimeInterval interval, bool showBadData)
         {
             Steema.TeeChart.Styles.Line series1 = new Steema.TeeChart.Styles.Line();
@@ -146,15 +150,11 @@ namespace Reclamation.TimeSeries.Graphing
             series1.Legend.Visible = true;
             series1.Pointer.Visible = true;
             series1.Pointer.HorizSize = 2;
-            series1.Pointer.VertSize = 2;
-
-            Color[] colors = {Color.Red,Color.Green,Color.Blue,Color.Black,Color.Orange, Color.SteelBlue,
-                Color.DarkGreen,Color.Purple,Color.DeepSkyBlue,Color.BlueViolet,Color.Maroon,Color.Chocolate,
-                Color.RoyalBlue,Color.LimeGreen, Color.Goldenrod,Color.Coral,Color.DarkViolet};
+            series1.Pointer.VertSize = 2;            
 
             if (chart1.Series.Count < colors.Length)
             {
-                series1.Color = colors[chart1.Series.Count];
+                series1.Color = colors[chart1.Series.Count];                
             }
 
             series1.Title = columnName;
