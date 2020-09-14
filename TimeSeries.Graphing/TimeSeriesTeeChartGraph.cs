@@ -346,9 +346,9 @@ namespace Reclamation.TimeSeries.Graphing
                         var s = this.tChart1.Series[idx];
                         Steema.TeeChart.Styles.Area areaChart1 = new Steema.TeeChart.Styles.Area();
                         areaChart1.DataSource = s;
+                        areaChart1.VertAxis = s.VertAxis;
+                        areaChart1.HorizAxis = s.HorizAxis;
                         areaChart1.AreaLines.Visible = false;
-                        //areaChart1.Opacity = 0;
-                        //areaChart1.Transparency = 100;
                         areaChart1.AreaBrush.Solid = true;
                         areaChart1.AreaBrush.Transparency = 100;
                         areaChart1.Legend.Visible = false;
