@@ -478,7 +478,7 @@ namespace Reclamation.TimeSeries.Graphing
         //private Steema.TeeChart.Editor editor1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButtonEditGraph;
-        private Steema.TeeChart.TChart tChart1;
+        public Steema.TeeChart.TChart tChart1;
         private System.Windows.Forms.ToolStripButton toolStripButtonUndoZoom;
         private System.Windows.Forms.ToolStripButton toolStripButtonZoomOut;
         private System.Windows.Forms.ToolStripButton toolStripButtonZoomIn;

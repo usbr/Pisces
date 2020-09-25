@@ -47,6 +47,9 @@ namespace Reclamation.TimeSeries.IDWR
                 case "AF":
                     Units = "acre-feet";
                     break;
+                default:
+                    Units = "cfs";
+                    break;
             }
             Name = parameter + "_" + station;
             Table.TableName = "IdwrDaily" + parameter.ToString() + "_" + station;
@@ -102,7 +105,7 @@ namespace Reclamation.TimeSeries.IDWR
             return JsonConvert.DeserializeObject<List<TsData>>(restResponse.Content);
         }
 
-        private List<TsData> IdwrApiQuerySiteDataALC(string siteID, string yearList)
+        private List<TsDataALC> IdwrApiQuerySiteDataALC(string siteID, string yearList)
         {
             // Working API Call
             //https://research.idwr.idaho.gov/apps/Shared/WaterServices/Accounting/model?siteid=10055500&yearlist=2016,2015&yeartype=CY&f=json
@@ -114,7 +117,7 @@ namespace Reclamation.TimeSeries.IDWR
             request.AddParameter("f", "json");
             IRestResponse restResponse = idwrClient.Execute(request);
             var result = JsonConvert.DeserializeObject<List<TsDataALC>>(restResponse.Content);
-            return result.Cast<TsData>().ToList();
+            return result.Cast<TsDataALC>().ToList();
         }
 
         /// <summary>
@@ -132,52 +135,97 @@ namespace Reclamation.TimeSeries.IDWR
 
             var yearlist = YearsToQuery(station, t1, t2);
 
-            var jsonResponse = new List<TsData>();
             try
             {
+                var pars = parameter.Split('.');
+                if (pars.Count() > 1)
+                {
+                    if (pars[0].ToLower() != "hst")
+                    {
+                        dataType = DataType.ALC;
+                    }
+                    parameter = pars[1];
+                }
                 if (dataType == DataType.HST)
-                    jsonResponse = IdwrApiQuerySiteDataHST(station, yearlist);
+                {
+                    var jsonResponse = IdwrApiQuerySiteDataHST(station, yearlist);
+                    foreach (var item in jsonResponse)
+                    {
+                        var t = DateTime.Parse(item.Date);
+                        if (t >= t1 && t <= t2)
+                        {
+                            string value = "";
+                            switch (parameter)
+                            {
+                                case ("GH"):
+                                    value = item.GH;
+                                    break;
+                                case ("FB"):
+                                    value = item.FB;
+                                    break;
+                                case ("AF"):
+                                    value = item.AF;
+                                    break;
+                                case ("QD"):
+                                    value = item.QD;
+                                    break;
+                                default:
+                                    value = "NaN";
+                                    break;
+                            }
+                            if (value == "NaN")
+                            {
+                                rval.AddMissing(t);
+                            }
+                            else
+                            {
+                                rval.Add(item.Date, Convert.ToDouble(value));
+                            }
+                        }
+                    }
+                }
                 else
-                    jsonResponse = IdwrApiQuerySiteDataALC(station, yearlist);
+                {
+                    var jsonResponse = IdwrApiQuerySiteDataALC(station, yearlist);
+                    foreach (var item in jsonResponse)
+                    {
+                        var t = DateTime.Parse(item.Date);
+                        if (t >= t1 && t <= t2)
+                        {
+                            string value = "";
+                            switch (parameter)
+                            {
+                                case ("NATQ"):
+                                    value = item.NATQ;
+                                    break;
+                                case ("ACTQ"):
+                                    value = item.ACTQ;
+                                    break;
+                                case ("STRQ"):
+                                    value = item.STRQ;
+                                    break;
+                                case ("GANQ"):
+                                    value = item.GANQ;
+                                    break;
+                                default:
+                                    value = "NaN";
+                                    break;
+                            }
+                            if (value == "NaN")
+                            {
+                                rval.AddMissing(t);
+                            }
+                            else
+                            {
+                                rval.Add(item.Date, Convert.ToDouble(value));
+                            }
+                        }
+                    }
+                }
             }
             catch
             {
                 return rval;
-            }
-
-            foreach (var item in jsonResponse)
-            {
-                var t = DateTime.Parse(item.Date);
-                if (t >= t1 && t <= t2)
-                {
-                    string value = "";
-                    switch (parameter)
-                    {
-                        case ("GH"):
-                            value = item.GH;
-                            break;
-                        case ("FB"):
-                            value = item.FB;
-                            break;
-                        case ("AF"):
-                            value = item.AF;
-                            break;
-                        case ("QD"):
-                            value = item.QD;
-                            break;
-                        default:
-                            value = "NaN";
-                            break;
-                    }
-                    if (value == "NaN")
-                    {
-                        rval.AddMissing(t);
-                    }
-                    else
-                    {
-                        rval.Add(item.Date, Convert.ToDouble(value));
-                    }
-                }
             }
 
             return rval;
@@ -307,7 +355,7 @@ namespace Reclamation.TimeSeries.IDWR
         /// </summary>
         /// <param name="siteID"></param>
         /// <returns></returns>
-        public static DataTable GetIdwrSiteInfo(string siteID)
+        public static DataTable GetIdwrSiteInfo(string siteID, Reclamation.TimeSeries.IDWR.DataType dType)
         {
             var dTab = new DataTable();
             dTab.Columns.Add("SiteID", typeof(string));
@@ -316,7 +364,7 @@ namespace Reclamation.TimeSeries.IDWR
             dTab.Columns.Add("FullName", typeof(string));
             dTab.Columns.Add("Years", typeof(string));
             var sInfo = IdwrApiQuerySiteInfo(siteID);
-            var sYears = IdwrApiQuerySiteYears(siteID, DataType.HST);
+            var sYears = IdwrApiQuerySiteYears(siteID, dType);// DataType.HST);
             var dRow = dTab.NewRow();
             dRow["SiteID"] = sInfo[0].SiteId;
             dRow["SiteType"] = sInfo[0].SiteType;

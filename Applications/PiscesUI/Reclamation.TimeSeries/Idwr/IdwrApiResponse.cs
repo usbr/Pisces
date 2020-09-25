@@ -46,10 +46,16 @@ namespace Reclamation.TimeSeries.IDWR
         [JsonProperty("Surface Elevation (Feet)")] public virtual string FB { get; set; }
     }
 
-    public class TsDataALC : TsData
+    public class TsDataALC
     {
-        [JsonProperty("Actual Flow (CFS)")] public override string QD { get; set; }
-        [JsonProperty("Current Contents (AF)")] public override string AF { get; set; }
+        [JsonProperty("SiteID")] public string SiteID { get; set; }
+        [JsonProperty("SiteType")] public string SiteType { get; set; }
+        [JsonProperty("Accounting Date")] public string Date { get; set; }
+
+        [JsonProperty("Natural Flow (CFS)")] public virtual string NATQ { get; set; }
+        [JsonProperty("Actual Flow (CFS)")] public virtual string ACTQ { get; set; }
+        [JsonProperty("Stored Flow (CFS)")] public virtual string STRQ { get; set; }
+        [JsonProperty("Reach Gain (CFS)")] public virtual string GANQ { get; set; }
     }
 
 }

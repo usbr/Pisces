@@ -31,6 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.radioButtonAF = new System.Windows.Forms.RadioButton();
             this.radioButtonFB = new System.Windows.Forms.RadioButton();
             this.radioButtonGH = new System.Windows.Forms.RadioButton();
@@ -51,6 +52,13 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.timeSelectorBeginEnd1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
+            this.radioButtonHistorical = new System.Windows.Forms.RadioButton();
+            this.radioButtonAccounting = new System.Windows.Forms.RadioButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.radioButtonNatQ = new System.Windows.Forms.RadioButton();
+            this.radioButtonActQ = new System.Windows.Forms.RadioButton();
+            this.radioButtonStorQ = new System.Windows.Forms.RadioButton();
+            this.radioButtonGainQ = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -67,7 +75,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 244);
+            this.label2.Location = new System.Drawing.Point(24, 310);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(103, 13);
             this.label2.TabIndex = 5;
@@ -75,17 +83,32 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.radioButtonGainQ);
+            this.groupBox1.Controls.Add(this.radioButtonStorQ);
+            this.groupBox1.Controls.Add(this.radioButtonActQ);
+            this.groupBox1.Controls.Add(this.radioButtonNatQ);
+            this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.radioButtonAF);
             this.groupBox1.Controls.Add(this.radioButtonFB);
             this.groupBox1.Controls.Add(this.radioButtonGH);
             this.groupBox1.Controls.Add(this.radioButtonQD);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Location = new System.Drawing.Point(215, 244);
+            this.groupBox1.Location = new System.Drawing.Point(8, 347);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(199, 115);
+            this.groupBox1.Size = new System.Drawing.Size(400, 115);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select data type to import";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(232, 16);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 13);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Accounting";
             // 
             // radioButtonAF
             // 
@@ -125,7 +148,6 @@
             this.radioButtonQD.Name = "radioButtonQD";
             this.radioButtonQD.Size = new System.Drawing.Size(70, 17);
             this.radioButtonQD.TabIndex = 2;
-            this.radioButtonQD.TabStop = true;
             this.radioButtonQD.Text = "Flow (cfs)";
             this.radioButtonQD.UseVisualStyleBackColor = true;
             // 
@@ -135,15 +157,15 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(13, 16);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(122, 13);
+            this.label3.Size = new System.Drawing.Size(50, 13);
             this.label3.TabIndex = 0;
-            this.label3.Text = "daily - one value per day";
+            this.label3.Text = "Historical";
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(247, 365);
+            this.buttonOK.Location = new System.Drawing.Point(247, 468);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 8;
@@ -155,7 +177,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(333, 365);
+            this.buttonCancel.Location = new System.Drawing.Point(333, 468);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -165,7 +187,7 @@
             // linkLabelIdwrApiInfo
             // 
             this.linkLabelIdwrApiInfo.AutoSize = true;
-            this.linkLabelIdwrApiInfo.Location = new System.Drawing.Point(9, 370);
+            this.linkLabelIdwrApiInfo.Location = new System.Drawing.Point(10, 473);
             this.linkLabelIdwrApiInfo.Name = "linkLabelIdwrApiInfo";
             this.linkLabelIdwrApiInfo.Size = new System.Drawing.Size(78, 13);
             this.linkLabelIdwrApiInfo.TabIndex = 9;
@@ -218,7 +240,7 @@
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(24, 119);
+            this.labelName.Location = new System.Drawing.Point(24, 137);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(41, 13);
             this.labelName.TabIndex = 14;
@@ -227,7 +249,7 @@
             // labelSID
             // 
             this.labelSID.AutoSize = true;
-            this.labelSID.Location = new System.Drawing.Point(24, 138);
+            this.labelSID.Location = new System.Drawing.Point(24, 156);
             this.labelSID.Name = "labelSID";
             this.labelSID.Size = new System.Drawing.Size(45, 13);
             this.labelSID.TabIndex = 15;
@@ -238,7 +260,7 @@
             this.labelYears.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelYears.AutoSize = true;
-            this.labelYears.Location = new System.Drawing.Point(24, 157);
+            this.labelYears.Location = new System.Drawing.Point(24, 175);
             this.labelYears.MaximumSize = new System.Drawing.Size(350, 0);
             this.labelYears.Name = "labelYears";
             this.labelYears.Size = new System.Drawing.Size(86, 13);
@@ -248,7 +270,7 @@
             // labelSType
             // 
             this.labelSType.AutoSize = true;
-            this.labelSType.Location = new System.Drawing.Point(228, 138);
+            this.labelSType.Location = new System.Drawing.Point(228, 156);
             this.labelSType.Name = "labelSType";
             this.labelSType.Size = new System.Drawing.Size(58, 13);
             this.labelSType.TabIndex = 17;
@@ -256,16 +278,18 @@
             // 
             // textBoxSID
             // 
-            this.textBoxSID.Location = new System.Drawing.Point(70, 135);
+            this.textBoxSID.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxSID.Location = new System.Drawing.Point(70, 153);
             this.textBoxSID.Name = "textBoxSID";
-            this.textBoxSID.Size = new System.Drawing.Size(139, 20);
+            this.textBoxSID.ReadOnly = true;
+            this.textBoxSID.Size = new System.Drawing.Size(139, 13);
             this.textBoxSID.TabIndex = 18;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 391);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 494);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(420, 22);
             this.statusStrip1.TabIndex = 19;
@@ -279,7 +303,7 @@
             // 
             // timeSelectorBeginEnd1
             // 
-            this.timeSelectorBeginEnd1.Location = new System.Drawing.Point(10, 260);
+            this.timeSelectorBeginEnd1.Location = new System.Drawing.Point(133, 303);
             this.timeSelectorBeginEnd1.Name = "timeSelectorBeginEnd1";
             this.timeSelectorBeginEnd1.ShowTime = false;
             this.timeSelectorBeginEnd1.Size = new System.Drawing.Size(199, 46);
@@ -287,11 +311,87 @@
             this.timeSelectorBeginEnd1.T2 = new System.DateTime(2008, 3, 12, 7, 55, 34, 320);
             this.timeSelectorBeginEnd1.TabIndex = 1;
             // 
+            // radioButtonHistorical
+            // 
+            this.radioButtonHistorical.AutoSize = true;
+            this.radioButtonHistorical.Checked = true;
+            this.radioButtonHistorical.Location = new System.Drawing.Point(80, 117);
+            this.radioButtonHistorical.Name = "radioButtonHistorical";
+            this.radioButtonHistorical.Size = new System.Drawing.Size(68, 17);
+            this.radioButtonHistorical.TabIndex = 20;
+            this.radioButtonHistorical.TabStop = true;
+            this.radioButtonHistorical.Text = "Historical";
+            this.radioButtonHistorical.UseVisualStyleBackColor = true;
+            this.radioButtonHistorical.CheckedChanged += new System.EventHandler(this.radioButtonHistorical_CheckedChanged);
+            // 
+            // radioButtonAccounting
+            // 
+            this.radioButtonAccounting.AutoSize = true;
+            this.radioButtonAccounting.Location = new System.Drawing.Point(246, 115);
+            this.radioButtonAccounting.Name = "radioButtonAccounting";
+            this.radioButtonAccounting.Size = new System.Drawing.Size(79, 17);
+            this.radioButtonAccounting.TabIndex = 21;
+            this.radioButtonAccounting.Text = "Accounting";
+            this.radioButtonAccounting.UseVisualStyleBackColor = true;
+            this.radioButtonAccounting.CheckedChanged += new System.EventHandler(this.radioButtonAccounting_CheckedChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(24, 119);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(50, 13);
+            this.label6.TabIndex = 22;
+            this.label6.Text = "Dataset: ";
+            // 
+            // radioButtonNatQ
+            // 
+            this.radioButtonNatQ.AutoSize = true;
+            this.radioButtonNatQ.Location = new System.Drawing.Point(235, 32);
+            this.radioButtonNatQ.Name = "radioButtonNatQ";
+            this.radioButtonNatQ.Size = new System.Drawing.Size(107, 17);
+            this.radioButtonNatQ.TabIndex = 7;
+            this.radioButtonNatQ.Text = "Natural Flow (cfs)";
+            this.radioButtonNatQ.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonActQ
+            // 
+            this.radioButtonActQ.AutoSize = true;
+            this.radioButtonActQ.Location = new System.Drawing.Point(235, 50);
+            this.radioButtonActQ.Name = "radioButtonActQ";
+            this.radioButtonActQ.Size = new System.Drawing.Size(103, 17);
+            this.radioButtonActQ.TabIndex = 8;
+            this.radioButtonActQ.Text = "Actual Flow (cfs)";
+            this.radioButtonActQ.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonStorQ
+            // 
+            this.radioButtonStorQ.AutoSize = true;
+            this.radioButtonStorQ.Location = new System.Drawing.Point(235, 68);
+            this.radioButtonStorQ.Name = "radioButtonStorQ";
+            this.radioButtonStorQ.Size = new System.Drawing.Size(104, 17);
+            this.radioButtonStorQ.TabIndex = 9;
+            this.radioButtonStorQ.Text = "Stored Flow (cfs)";
+            this.radioButtonStorQ.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonGainQ
+            // 
+            this.radioButtonGainQ.AutoSize = true;
+            this.radioButtonGainQ.Location = new System.Drawing.Point(235, 86);
+            this.radioButtonGainQ.Name = "radioButtonGainQ";
+            this.radioButtonGainQ.Size = new System.Drawing.Size(105, 17);
+            this.radioButtonGainQ.TabIndex = 10;
+            this.radioButtonGainQ.Text = "Reach Gain (cfs)";
+            this.radioButtonGainQ.UseVisualStyleBackColor = true;
+            // 
             // ImportIdwrData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(420, 413);
+            this.ClientSize = new System.Drawing.Size(420, 516);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.radioButtonAccounting);
+            this.Controls.Add(this.radioButtonHistorical);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.textBoxSID);
             this.Controls.Add(this.labelSType);
@@ -346,5 +446,13 @@
         private System.Windows.Forms.TextBox textBoxSID;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.RadioButton radioButtonHistorical;
+        private System.Windows.Forms.RadioButton radioButtonAccounting;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.RadioButton radioButtonGainQ;
+        private System.Windows.Forms.RadioButton radioButtonStorQ;
+        private System.Windows.Forms.RadioButton radioButtonActQ;
+        private System.Windows.Forms.RadioButton radioButtonNatQ;
     }
 }
