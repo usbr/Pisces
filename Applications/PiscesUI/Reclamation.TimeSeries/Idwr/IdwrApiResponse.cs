@@ -51,11 +51,24 @@ namespace Reclamation.TimeSeries.IDWR
         [JsonProperty("SiteID")] public string SiteID { get; set; }
         [JsonProperty("SiteType")] public string SiteType { get; set; }
         [JsonProperty("Accounting Date")] public string Date { get; set; }
-
+        [JsonProperty("HSTDate")] public string HistDate { get; set; }
+        // F IDWR Data Type
         [JsonProperty("Natural Flow (CFS)")] public virtual string NATQ { get; set; }
         [JsonProperty("Actual Flow (CFS)")] public virtual string ACTQ { get; set; }
         [JsonProperty("Stored Flow (CFS)")] public virtual string STRQ { get; set; }
         [JsonProperty("Reach Gain (CFS)")] public virtual string GANQ { get; set; }
+        // R IDWR Data Type
+        [JsonProperty("Reservoir Evaporation (CFS)")] public virtual string EVAP { get; set; }
+        [JsonProperty("Total Evaporation (AF)")] public virtual string TOTEVAP { get; set; }
+        [JsonProperty("Accrued Storage (CFS)")] public virtual string STORACC { get; set; }
+        [JsonProperty("Total Accrual (AF)")] public virtual string TOTACC { get; set; }
+        [JsonProperty("Current Contents (AF)")] public virtual string CURSTOR { get; set; }
+        // D & P IDWR Data Type
+        [JsonProperty("Flow (CFS)")] public virtual string DIV { get; set; }
+        [JsonProperty("Total Diversion to Date (AF)")] public virtual string TOTDIVVOL { get; set; }
+        [JsonProperty("Daily Storage Diversion (CFS)")] public virtual string STORDIV { get; set; }
+        [JsonProperty("Storage Diversion to Date (AF)")] public virtual string STORDIVVOL { get; set; }
+        [JsonProperty("Remaining Storage (AF)")] public virtual string STORBAL { get; set; }     
     }
 
 }

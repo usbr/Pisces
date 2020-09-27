@@ -207,6 +207,36 @@ namespace Reclamation.TimeSeries.IDWR
                                 case ("GANQ"):
                                     value = item.GANQ;
                                     break;
+                                case ("EVAP"):
+                                    value = item.EVAP;
+                                    break;
+                                case ("TOTEVAP"):
+                                    value = item.TOTEVAP;
+                                    break;
+                                case ("STORACC"):
+                                    value = item.STORACC;
+                                    break;
+                                case ("TOTACC"):
+                                    value = item.TOTACC;
+                                    break;
+                                case ("CURSTOR"):
+                                    value = item.CURSTOR;
+                                    break;
+                                case ("DIV"):
+                                    value = item.DIV;
+                                    break;
+                                case ("TOTDIVVOL"):
+                                    value = item.TOTDIVVOL;
+                                    break;
+                                case ("STORDIV"):
+                                    value = item.STORDIV;
+                                    break;
+                                case ("STORDIVVOL"):
+                                    value = item.STORDIVVOL;
+                                    break;
+                                case ("STORBAL"):
+                                    value = item.STORBAL;
+                                    break;
                                 default:
                                     value = "NaN";
                                     break;

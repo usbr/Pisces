@@ -117,6 +117,8 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             }
         }
 
+        private static string selectedSiteType;
+
         private void comboBoxRiverSites_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxRiverSites.SelectedValue is string)
@@ -137,14 +139,12 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                     this.radioButtonHistorical.Text = "Historical (" + dRow[0]["HSTCount"].ToString() + " years)";
                     this.radioButtonAccounting.Text = "Accounting(" + dRow[0]["ALCCount"].ToString() + " years)";
                 }
+                selectedSiteType = dTab.Rows[0]["SiteType"].ToString();
 
                 if (this.radioButtonHistorical.Checked)
                 {
-                    this.radioButtonNatQ.Enabled = false;
-                    this.radioButtonActQ.Enabled = false;
-                    this.radioButtonStorQ.Enabled = false;
-                    this.radioButtonGainQ.Enabled = false;
-                    switch (dTab.Rows[0]["SiteType"].ToString())
+                    this.tabControl1.Enabled = false;
+                    switch (selectedSiteType)
                     {
                         case "F":
                         case "Y":
@@ -192,7 +192,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                             }
                     }
                 }
-                else
+                else //this.radioButtonAccounting.Checked
                 {
                     this.radioButtonQD.Enabled = false;
                     this.radioButtonGH.Enabled = false;
@@ -202,11 +202,40 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                     this.radioButtonGH.Checked = false;
                     this.radioButtonFB.Checked = false;
                     this.radioButtonAF.Checked = false;
-                    this.radioButtonNatQ.Enabled = true;
-                    this.radioButtonActQ.Enabled = true;
-                    this.radioButtonStorQ.Enabled = true;
-                    this.radioButtonGainQ.Enabled = true;
-                    this.radioButtonNatQ.Checked = true;
+                    this.tabControl1.Enabled = true;
+
+                    switch (selectedSiteType)
+                    {
+                        case "F":
+                            {
+                                this.tabControl1.SelectedTab = tabControl1.TabPages["tabPageStream"];
+                                this.radioButtonNatQ.Checked = true;
+                                this.buttonOK.Enabled = true;
+                                break;
+                            }
+                        case "R":
+                            {
+                                this.tabControl1.SelectedTab = tabControl1.TabPages["tabPageReservoir"];
+                                this.radioButtonTotAcc.Checked = true;
+                                this.buttonOK.Enabled = true;
+                                break;
+                            }
+                        case "D":
+                        case "P":
+                            {
+                                this.tabControl1.SelectedTab = tabControl1.TabPages["tabPageDiversion"];
+                                this.radioButtonStorDiv2Date.Checked = true;
+                                this.buttonOK.Enabled = true;
+                                break;
+                            }
+                        default:
+                            {
+                                this.tabControl1.TabPages["tabPageStream"].Select();
+                                this.radioButtonNatQ.Checked = true;
+                                this.buttonOK.Enabled = false;
+                                break;
+                            }
+                    }
                 }
                 this.labelName.Text = "Name: " + dTab.Rows[0]["FullName"].ToString();
                 //this.labelSID.Text = "Site ID: " + dTab.Rows[0]["SiteID"].ToString();
@@ -241,15 +270,39 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 toolStripStatusLabel1.Text = "Requesting Site Time Series API Data...";
                 this.station = this.textBoxSID.Text;
                 this.parameter = "";
-                if (this.radioButtonAF.Checked) { parameter = "HST.AF"; }
-                if (this.radioButtonFB.Checked) { parameter = "HST.FB"; }
-                if (this.radioButtonGH.Checked) { parameter = "HST.GH"; }
-                if (this.radioButtonQD.Checked) { parameter = "HST.QD"; }
-                if (this.radioButtonNatQ.Checked) { parameter = "ALC.NATQ"; }
-                if (this.radioButtonActQ.Checked) { parameter = "ALC.ACTQ"; }
-                if (this.radioButtonStorQ.Checked) { parameter = "ALC.STRQ"; }
-                if (this.radioButtonGainQ.Checked) { parameter = "ALC.GANQ"; }
-
+                if (this.radioButtonHistorical.Checked)
+                {
+                    if (this.radioButtonAF.Checked) { parameter = "HST.AF"; }
+                    if (this.radioButtonFB.Checked) { parameter = "HST.FB"; }
+                    if (this.radioButtonGH.Checked) { parameter = "HST.GH"; }
+                    if (this.radioButtonQD.Checked) { parameter = "HST.QD"; }
+                }
+                else
+                {
+                    if (selectedSiteType == "F")
+                    {
+                        if (this.radioButtonNatQ.Checked) { parameter = "ALC.NATQ"; }
+                        if (this.radioButtonActQ.Checked) { parameter = "ALC.ACTQ"; }
+                        if (this.radioButtonStorQ.Checked) { parameter = "ALC.STRQ"; }
+                        if (this.radioButtonGainQ.Checked) { parameter = "ALC.GANQ"; }
+                    }
+                    if (selectedSiteType == "R")
+                    {
+                        if (this.radioButtonResEvap.Checked) { parameter = "ALC.EVAP"; }
+                        if (this.radioButtonTotEvap.Checked) { parameter = "ALC.TOTEVAP"; }
+                        if (this.radioButtonAccStor.Checked) { parameter = "ALC.STORACC"; }
+                        if (this.radioButtonTotAcc.Checked) { parameter = "ALC.TOTACC"; }
+                        if (this.radioButtonCurrAf.Checked) { parameter = "ALC.CURSTOR"; }
+                    }
+                    if (selectedSiteType == "D" || selectedSiteType == "P")
+                    {
+                        if (this.radioButtonDivFlow.Checked) { parameter = "ALC.DIV"; }
+                        if (this.radioButtonTotDiv2Date.Checked) { parameter = "ALC.TOTDIVVOL"; }
+                        if (this.radioButtonStorDiv.Checked) { parameter = "ALC.STORDIV"; }
+                        if (this.radioButtonStorDiv2Date.Checked) { parameter = "ALC.STORDIVVOL"; }
+                        if (this.radioButtonRemStor.Checked) { parameter = "ALC.STORBAL"; }
+                    }
+                }
                 this.tStart = timeSelectorBeginEnd1.T1;
                 this.tEnd = timeSelectorBeginEnd1.T2;
 
