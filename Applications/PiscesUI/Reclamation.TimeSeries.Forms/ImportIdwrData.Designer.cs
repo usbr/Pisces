@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportIdwrData));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -72,7 +73,12 @@
             this.radioButtonHistorical = new System.Windows.Forms.RadioButton();
             this.radioButtonAccounting = new System.Windows.Forms.RadioButton();
             this.label6 = new System.Windows.Forms.Label();
+            this.radioButtonSiteNameSort = new System.Windows.Forms.RadioButton();
+            this.radioButtonSiteIdSort = new System.Windows.Forms.RadioButton();
+            this.label7 = new System.Windows.Forms.Label();
             this.timeSelectorBeginEnd1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBoxSiteFilter = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageStream.SuspendLayout();
@@ -438,7 +444,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 99);
+            this.label5.Location = new System.Drawing.Point(9, 127);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(161, 13);
             this.label5.TabIndex = 13;
@@ -447,7 +453,7 @@
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(24, 137);
+            this.labelName.Location = new System.Drawing.Point(24, 165);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(41, 13);
             this.labelName.TabIndex = 14;
@@ -456,7 +462,7 @@
             // labelSID
             // 
             this.labelSID.AutoSize = true;
-            this.labelSID.Location = new System.Drawing.Point(24, 156);
+            this.labelSID.Location = new System.Drawing.Point(24, 184);
             this.labelSID.Name = "labelSID";
             this.labelSID.Size = new System.Drawing.Size(45, 13);
             this.labelSID.TabIndex = 15;
@@ -467,7 +473,7 @@
             this.labelYears.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelYears.AutoSize = true;
-            this.labelYears.Location = new System.Drawing.Point(24, 175);
+            this.labelYears.Location = new System.Drawing.Point(24, 203);
             this.labelYears.MaximumSize = new System.Drawing.Size(350, 0);
             this.labelYears.Name = "labelYears";
             this.labelYears.Size = new System.Drawing.Size(86, 13);
@@ -477,7 +483,7 @@
             // labelSType
             // 
             this.labelSType.AutoSize = true;
-            this.labelSType.Location = new System.Drawing.Point(228, 156);
+            this.labelSType.Location = new System.Drawing.Point(228, 184);
             this.labelSType.Name = "labelSType";
             this.labelSType.Size = new System.Drawing.Size(58, 13);
             this.labelSType.TabIndex = 17;
@@ -486,7 +492,7 @@
             // textBoxSID
             // 
             this.textBoxSID.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBoxSID.Location = new System.Drawing.Point(70, 153);
+            this.textBoxSID.Location = new System.Drawing.Point(70, 181);
             this.textBoxSID.Name = "textBoxSID";
             this.textBoxSID.ReadOnly = true;
             this.textBoxSID.Size = new System.Drawing.Size(139, 13);
@@ -511,12 +517,10 @@
             // radioButtonHistorical
             // 
             this.radioButtonHistorical.AutoSize = true;
-            this.radioButtonHistorical.Checked = true;
-            this.radioButtonHistorical.Location = new System.Drawing.Point(80, 117);
+            this.radioButtonHistorical.Location = new System.Drawing.Point(80, 145);
             this.radioButtonHistorical.Name = "radioButtonHistorical";
             this.radioButtonHistorical.Size = new System.Drawing.Size(68, 17);
             this.radioButtonHistorical.TabIndex = 20;
-            this.radioButtonHistorical.TabStop = true;
             this.radioButtonHistorical.Text = "Historical";
             this.radioButtonHistorical.UseVisualStyleBackColor = true;
             this.radioButtonHistorical.CheckedChanged += new System.EventHandler(this.radioButtonHistorical_CheckedChanged);
@@ -524,7 +528,7 @@
             // radioButtonAccounting
             // 
             this.radioButtonAccounting.AutoSize = true;
-            this.radioButtonAccounting.Location = new System.Drawing.Point(246, 115);
+            this.radioButtonAccounting.Location = new System.Drawing.Point(246, 143);
             this.radioButtonAccounting.Name = "radioButtonAccounting";
             this.radioButtonAccounting.Size = new System.Drawing.Size(79, 17);
             this.radioButtonAccounting.TabIndex = 21;
@@ -535,11 +539,43 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 119);
+            this.label6.Location = new System.Drawing.Point(24, 147);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(50, 13);
             this.label6.TabIndex = 22;
             this.label6.Text = "Dataset: ";
+            // 
+            // radioButtonSiteNameSort
+            // 
+            this.radioButtonSiteNameSort.AutoSize = true;
+            this.radioButtonSiteNameSort.Checked = true;
+            this.radioButtonSiteNameSort.Location = new System.Drawing.Point(319, 98);
+            this.radioButtonSiteNameSort.Name = "radioButtonSiteNameSort";
+            this.radioButtonSiteNameSort.Size = new System.Drawing.Size(53, 17);
+            this.radioButtonSiteNameSort.TabIndex = 23;
+            this.radioButtonSiteNameSort.TabStop = true;
+            this.radioButtonSiteNameSort.Text = "Name";
+            this.radioButtonSiteNameSort.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonSiteIdSort
+            // 
+            this.radioButtonSiteIdSort.AutoSize = true;
+            this.radioButtonSiteIdSort.Location = new System.Drawing.Point(378, 98);
+            this.radioButtonSiteIdSort.Name = "radioButtonSiteIdSort";
+            this.radioButtonSiteIdSort.Size = new System.Drawing.Size(36, 17);
+            this.radioButtonSiteIdSort.TabIndex = 24;
+            this.radioButtonSiteIdSort.Text = "ID";
+            this.radioButtonSiteIdSort.UseVisualStyleBackColor = true;
+            this.radioButtonSiteIdSort.CheckedChanged += new System.EventHandler(this.radioButtonSiteIdSort_CheckedChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(241, 100);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(72, 13);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "Sort Sites by: ";
             // 
             // timeSelectorBeginEnd1
             // 
@@ -551,11 +587,41 @@
             this.timeSelectorBeginEnd1.T2 = new System.DateTime(2008, 3, 12, 7, 55, 34, 320);
             this.timeSelectorBeginEnd1.TabIndex = 1;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(33, 100);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(75, 13);
+            this.label8.TabIndex = 26;
+            this.label8.Text = "Filter Sites by: ";
+            // 
+            // comboBoxSiteFilter
+            // 
+            this.comboBoxSiteFilter.FormattingEnabled = true;
+            this.comboBoxSiteFilter.Items.AddRange(new object[] {
+            "A - Show All Sites",
+            "F - Streams",
+            "R - Reservoirs",
+            "D - Diversions",
+            "P - Pumps"});
+            this.comboBoxSiteFilter.Location = new System.Drawing.Point(114, 97);
+            this.comboBoxSiteFilter.Name = "comboBoxSiteFilter";
+            this.comboBoxSiteFilter.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxSiteFilter.TabIndex = 27;
+            this.comboBoxSiteFilter.Text = "A - Show All Sites";
+            this.comboBoxSiteFilter.SelectedIndexChanged += new System.EventHandler(this.comboBoxSiteFilter_SelectedIndexChanged);
+            // 
             // ImportIdwrData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(420, 516);
+            this.Controls.Add(this.comboBoxSiteFilter);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.radioButtonSiteIdSort);
+            this.Controls.Add(this.radioButtonSiteNameSort);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.radioButtonAccounting);
             this.Controls.Add(this.radioButtonHistorical);
@@ -576,6 +642,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.timeSelectorBeginEnd1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(436, 451);
             this.Name = "ImportIdwrData";
             this.Text = "Import IDWR Data";
@@ -642,5 +709,10 @@
         private System.Windows.Forms.RadioButton radioButtonTotDiv2Date;
         private System.Windows.Forms.RadioButton radioButtonStorDiv;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.RadioButton radioButtonSiteNameSort;
+        private System.Windows.Forms.RadioButton radioButtonSiteIdSort;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox comboBoxSiteFilter;
     }
 }

@@ -366,6 +366,7 @@ namespace Reclamation.TimeSeries.IDWR
             dTab.Columns.Add("SiteName", typeof(string));
             dTab.Columns.Add("HSTCount", typeof(string));
             dTab.Columns.Add("ALCCount", typeof(string));
+            dTab.Columns.Add("SiteLabel", typeof(string));
             foreach (var item in data)
             {
                 var dRow = dTab.NewRow();
@@ -374,6 +375,7 @@ namespace Reclamation.TimeSeries.IDWR
                 dRow["SiteName"] = item.SiteName;
                 dRow["HSTCount"] = item.HSTCount;
                 dRow["ALCCount"] = item.ALCCount;
+                dRow["SiteLabel"] = item.SiteName + " (" + item.SiteID + ")";
                 dTab.Rows.Add(dRow);
             }
             return dTab;

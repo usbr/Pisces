@@ -77,22 +77,41 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
 
         private DataTable riverSitesTable;
 
-        private void comboBoxRiverSystems_SelectedIndexChanged(object sender, EventArgs e)
+        private void FilterSites()
         {
-            toolStripStatusLabel1.Text = "Requesting River Sites API Data...";
-            statusStrip1.Refresh();
-            if (comboBoxRiverSystems.SelectedValue is string)
+            if (riverSitesTable != null)
             {
-                this.comboBoxRiverSites.DataSource = null;
-                this.comboBoxRiverSites.Items.Clear();
-                var dTab = IDWRDailySeries.GetIdwrRiverSites(this.comboBoxRiverSystems.SelectedValue.ToString());
-                DataView dv = dTab.DefaultView;
-                dv.Sort = "SiteName asc";
-                dTab = dv.ToTable();
-                riverSitesTable = dTab;
-                this.comboBoxRiverSites.DataSource = dTab;
+                // Sort
+                DataView dv = riverSitesTable.DefaultView;
+                if (this.radioButtonSiteNameSort.Checked)
+                {
+                    dv.Sort = "SiteName asc";
+                }
+                else
+                {
+                    dv.Sort = "SiteID asc";
+                }
+                riverSitesTable = dv.ToTable();
+
+                // Filter
+                var filterVar = this.comboBoxSiteFilter.SelectedItem.ToString().Split('-')[0].Trim();
+                DataTable tempDtab = riverSitesTable.Clone();
+                if (filterVar != "A")
+                {
+                    var filterRows = riverSitesTable.Select("SiteType = '" + filterVar + "'");
+                    foreach (DataRow row in filterRows)
+                    {
+                        tempDtab.ImportRow(row);
+                    }
+                    this.comboBoxRiverSites.DataSource = tempDtab;
+                }
+                else
+                {
+                    this.comboBoxRiverSites.DataSource = riverSitesTable;
+                }
+                
                 this.comboBoxRiverSites.ValueMember = "SiteID";
-                this.comboBoxRiverSites.DisplayMember = "SiteName";
+                this.comboBoxRiverSites.DisplayMember = "SiteLabel";
 
                 ComboBox senderComboBox = this.comboBoxRiverSites;
                 int width = senderComboBox.DropDownWidth;
@@ -103,9 +122,9 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                     ? SystemInformation.VerticalScrollBarWidth : 0;
 
                 int newWidth, maxWidth = 156;
-                for (int i = 0; i < dTab.Rows.Count; i++)
+                for (int i = 0; i < riverSitesTable.Rows.Count; i++)
                 {
-                    string s = dTab.Rows[i]["SiteName"].ToString();
+                    string s = riverSitesTable.Rows[i]["SiteName"].ToString();
                     newWidth = (int)g.MeasureString(s, font).Width
                         + vertScrollBarWidth;
                     if (maxWidth < newWidth)
@@ -113,7 +132,21 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 }
                 senderComboBox.DropDownWidth = maxWidth;
                 toolStripStatusLabel1.Text = "Done!";
-                ValidateDates(sender, e);
+                ValidateDates();
+            }
+        }
+
+        private void comboBoxRiverSystems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            toolStripStatusLabel1.Text = "Requesting River Sites API Data...";
+            statusStrip1.Refresh();
+            if (comboBoxRiverSystems.SelectedValue is string)
+            {
+                this.comboBoxRiverSites.DataSource = null;
+                this.comboBoxRiverSites.Items.Clear();
+                var dTab = IDWRDailySeries.GetIdwrRiverSites(this.comboBoxRiverSystems.SelectedValue.ToString());
+                riverSitesTable = dTab;
+                FilterSites();
             }
         }
 
@@ -137,7 +170,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 if (dRow.Length > 0)
                 {
                     this.radioButtonHistorical.Text = "Historical (" + dRow[0]["HSTCount"].ToString() + " years)";
-                    this.radioButtonAccounting.Text = "Accounting(" + dRow[0]["ALCCount"].ToString() + " years)";
+                    this.radioButtonAccounting.Text = "Accounting (" + dRow[0]["ALCCount"].ToString() + " years)";
                 }
                 selectedSiteType = dTab.Rows[0]["SiteType"].ToString();
 
@@ -244,7 +277,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
                 this.labelSType.Text = "Site Type: " + dTab.Rows[0]["SiteType"].ToString();
                 toolStripStatusLabel1.Text = "Done!";
                 statusStrip1.Refresh();
-                ValidateDates(sender, e);
+                ValidateDates();
             }
         }
 
@@ -256,6 +289,16 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
         private void radioButtonAccounting_CheckedChanged(object sender, EventArgs e)
         {
             this.comboBoxRiverSites_SelectedIndexChanged(sender, e);
+        }
+
+        private void radioButtonSiteIdSort_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterSites();
+        }
+
+        private void comboBoxSiteFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterSites();
         }
 
         private void idwrOkButton_Click(object sender, EventArgs e)
@@ -311,7 +354,7 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             }
         }
 
-        private void ValidateDates(object sender, EventArgs e)
+        private void ValidateDates()
         {
             this.tStart = timeSelectorBeginEnd1.T1;
             this.tEnd = timeSelectorBeginEnd1.T2;
