@@ -413,10 +413,6 @@
     <None Include="Resources\folder_closed_32.bmp" />
   </ItemGroup>
   <ItemGroup>    
-    <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj">
-      <Project>{862135b0-793a-4f06-b731-26c61b3ad068}</Project>
-      <Name>Reclamation.TimeSeries.Graphing</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Rwis.Sync\Rwis.Sync.csproj">
       <Project>{d2b37530-5d24-4772-8480-325920744643}</Project>
       <Name>Rwis.Sync</Name>
