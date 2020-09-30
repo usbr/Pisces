@@ -413,6 +413,10 @@
     <None Include="Resources\folder_closed_32.bmp" />
   </ItemGroup>
   <ItemGroup>    
+    <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj">
+      <Project>{862135b0-793a-4f06-b731-26c61b3ad068}</Project>
+      <Name>Reclamation.TimeSeries.Graphing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rwis.Sync\Rwis.Sync.csproj">
       <Project>{d2b37530-5d24-4772-8480-325920744643}</Project>
       <Name>Rwis.Sync</Name>
@@ -420,6 +424,10 @@
     <ProjectReference Include="..\..\Core\Reclamation.Core.csproj">
       <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
       <Name>Reclamation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
+      <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>
+      <Name>Reclamation.TimeSeries.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\TimeSeries\Reclamation.TimeSeries.csproj">
       <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
