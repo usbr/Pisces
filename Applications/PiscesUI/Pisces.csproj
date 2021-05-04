@@ -44,7 +44,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;PISCES_OPEN2</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PISCES_OPEN</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -71,7 +71,10 @@
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SpreadsheetGear2012.Core, Version=7.0.6.138, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL" />
+    <Reference Include="SpreadsheetGear, Version=5.1.1.134, Culture=neutral, PublicKeyToken=39c186f5904944ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\PaidThirdParty\SpreadsheetGear.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -94,9 +97,9 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TeeChart, Version=4.1.2016.10264, Culture=neutral, PublicKeyToken=9c8126276c77bdb7, processorArchitecture=MSIL">
+    <Reference Include="TeeChart, Version=3.5.3700.30575, Culture=neutral, PublicKeyToken=9c8126276c77bdb7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\TeeChart.dll</HintPath>
+      <HintPath>..\..\PaidThirdParty\TeeChart.dll</HintPath>
     </Reference>
     <Reference Include="XYFile">
       <HintPath>..\..\ThirdParty\Modsim\XYFile.dll</HintPath>
@@ -145,6 +148,12 @@
     </Compile>
     <Compile Include="Reclamation.TimeSeries\BpaHydsim\HydSimScenarioPicker.Designer.cs">
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
+    </Compile>    
+    <Compile Include="FormTeeChartLicense.cs" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTeeChartLicense.Designer.cs" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
+      <DependentUpon>FormTeeChartLicense.cs</DependentUpon>
     </Compile>
     <Compile Include="PiscesForm.cs">
       <SubType>Form</SubType>
@@ -198,6 +207,9 @@
     <EmbeddedResource Include="Reclamation.TimeSeries\BpaHydsim\HydSimScenarioPicker.resx">
       <DependentUpon>HydSimScenarioPicker.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>    
+    <EmbeddedResource Include="FormTeeChartLicense.resx" Condition="!$(DefineConstants.Contains('PISCES_OPEN'))">
+      <DependentUpon>FormTeeChartLicense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PiscesForm.resx">
       <DependentUpon>PiscesForm.cs</DependentUpon>
@@ -400,19 +412,7 @@
     <None Include="Reclamation.TimeSeries\RBMS\Export - DH Manual Monitoring - Oct 2015.csv" />
     <None Include="Resources\folder_closed_32.bmp" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\TimeSeries.Excel\Reclamation.TimeSeries.Excel.csproj">
-      <Project>{37b543f5-03a5-479e-b20c-7b4acc53d16a}</Project>
-      <Name>Reclamation.TimeSeries.Excel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
-      <Project>{a7e73f2a-ca66-4bc8-934a-b5068c566f10}</Project>
-      <Name>Reclamation.TimeSeries.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\TimeSeries.Graphing\Reclamation.TimeSeries.Graphing.csproj">
-      <Project>{862135b0-793a-4f06-b731-26c61b3ad068}</Project>
-      <Name>Reclamation.TimeSeries.Graphing</Name>
-    </ProjectReference>
+  <ItemGroup>    
     <ProjectReference Include="..\Rwis.Sync\Rwis.Sync.csproj">
       <Project>{d2b37530-5d24-4772-8480-325920744643}</Project>
       <Name>Rwis.Sync</Name>
@@ -420,6 +420,10 @@
     <ProjectReference Include="..\..\Core\Reclamation.Core.csproj">
       <Project>{80C73D4C-43CF-42DE-ADDC-7B0F06ECF086}</Project>
       <Name>Reclamation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TimeSeries.Forms\Reclamation.TimeSeries.Forms.csproj">
+      <Project>{A7E73F2A-CA66-4BC8-934A-B5068C566F10}</Project>
+      <Name>Reclamation.TimeSeries.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\TimeSeries\Reclamation.TimeSeries.csproj">
       <Project>{5DD20A8A-4037-4885-AB91-2F5A3D1F48B4}</Project>
