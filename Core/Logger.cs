@@ -44,9 +44,11 @@ namespace Reclamation.Core
         }
 
         static bool s_keepHistoryInMemory = false;
-        public static void EnableLogger(bool keepHistoryInMemory=false)
+        static bool s_logInAppDirectory = false;
+        public static void EnableLogger(bool keepHistoryInMemory=false, bool logInAppDirectory = false)
         {
             s_keepHistoryInMemory = keepHistoryInMemory;
+            s_logInAppDirectory = logInAppDirectory;
             InitTracing();
             if (_traceSwitch.Level == TraceLevel.Off)
                 _traceSwitch.Level = TraceLevel.Verbose;
@@ -100,8 +102,11 @@ namespace Reclamation.Core
                 {
                     // if any tracing.. save to log.
                     //string logName = Path.GetFileNameWithoutExtension(Application.ExecutablePath) + ".log";
-                    //logName = Path.Combine(FileUtility.GetLocalApplicationPath(), Assembly.GetEntryAssembly().GetName().Name);               
-                    logName = Path.Combine(FileUtility.GetExecutableDirectory(), Assembly.GetEntryAssembly().GetName().Name);
+                    logName = Path.Combine(FileUtility.GetLocalApplicationPath(), Assembly.GetEntryAssembly().GetName().Name);
+                    if (s_logInAppDirectory)
+                    {
+                        logName = Path.Combine(FileUtility.GetExecutableDirectory(), Assembly.GetEntryAssembly().GetName().Name);
+                    }                    
                     logName = logName + ".log";
                     using (var stream = File.Open(logName, FileMode.Append))
                     {
