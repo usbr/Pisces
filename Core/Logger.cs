@@ -91,20 +91,28 @@ namespace Reclamation.Core
         /// </summary>
         public static void InitTracing()
         {
+
             if (_traceSwitch == null)
             {
                 _traceSwitch = new TraceSwitch("LoggingLevel", "Controls level of Trace logging output");
+                _traceSwitch.Level = TraceLevel.Verbose;
                 if (_traceSwitch.Level != TraceLevel.Off)
-                { // if any tracing.. save to log.
+                {
+                    // if any tracing.. save to log.
                     //string logName = Path.GetFileNameWithoutExtension(Application.ExecutablePath) + ".log";
-                    logName = Path.Combine(FileUtility.GetLocalApplicationPath(), Assembly.GetEntryAssembly().GetName().Name);
+                    //logName = Path.Combine(FileUtility.GetLocalApplicationPath(), Assembly.GetEntryAssembly().GetName().Name);               
+                    logName = Path.Combine(FileUtility.GetExecutableDirectory(), Assembly.GetEntryAssembly().GetName().Name);
                     logName = logName + ".log";
-                    FileStream fs = new FileStream(logName, FileMode.Append);
-                    TextWriterTraceListener listener = new TextWriterTraceListener(fs);
-                    Trace.Listeners.Add(listener);
+                    using (var stream = File.Open(logName, FileMode.Append))
+                    {
+                        // Use stream
+                        TextWriterTraceListener listener = new TextWriterTraceListener(stream);
+                        Trace.Listeners.Add(listener);
+                    }
                 }
                 Trace.AutoFlush = true;
             }
         }
+
     }
 }
