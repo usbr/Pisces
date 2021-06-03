@@ -51,6 +51,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.linkLabelUSGSInfo = new System.Windows.Forms.LinkLabel();
             this.timeSelectorBeginEnd1 = new Reclamation.TimeSeries.Forms.TimeSelectorBeginEnd();
+            this.radioButtonGwDepths = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -83,6 +84,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.radioButtonGwDepths);
             this.groupBox1.Controls.Add(this.textBoxCustomRealTime);
             this.groupBox1.Controls.Add(this.radioButtonCustomRealTime);
             this.groupBox1.Controls.Add(this.textBoxCustomDaily);
@@ -108,7 +110,7 @@
             // textBoxCustomRealTime
             // 
             this.textBoxCustomRealTime.Location = new System.Drawing.Point(130, 210);
-            this.textBoxCustomRealTime.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxCustomRealTime.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxCustomRealTime.Name = "textBoxCustomRealTime";
             this.textBoxCustomRealTime.Size = new System.Drawing.Size(63, 20);
             this.textBoxCustomRealTime.TabIndex = 14;
@@ -128,7 +130,7 @@
             // textBoxCustomDaily
             // 
             this.textBoxCustomDaily.Location = new System.Drawing.Point(130, 112);
-            this.textBoxCustomDaily.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
+            this.textBoxCustomDaily.Margin = new System.Windows.Forms.Padding(1);
             this.textBoxCustomDaily.Name = "textBoxCustomDaily";
             this.textBoxCustomDaily.Size = new System.Drawing.Size(63, 20);
             this.textBoxCustomDaily.TabIndex = 12;
@@ -158,11 +160,11 @@
             // radioButtonGwLevels
             // 
             this.radioButtonGwLevels.AutoSize = true;
-            this.radioButtonGwLevels.Location = new System.Drawing.Point(216, 39);
+            this.radioButtonGwLevels.Location = new System.Drawing.Point(216, 36);
             this.radioButtonGwLevels.Name = "radioButtonGwLevels";
-            this.radioButtonGwLevels.Size = new System.Drawing.Size(114, 17);
+            this.radioButtonGwLevels.Size = new System.Drawing.Size(169, 17);
             this.radioButtonGwLevels.TabIndex = 9;
-            this.radioButtonGwLevels.Text = "groundwater levels";
+            this.radioButtonGwLevels.Text = "groundwater levels (wrt datum)";
             this.radioButtonGwLevels.UseVisualStyleBackColor = true;
             // 
             // label5
@@ -301,6 +303,16 @@
             this.timeSelectorBeginEnd1.T2 = new System.DateTime(2008, 3, 12, 7, 55, 34, 320);
             this.timeSelectorBeginEnd1.TabIndex = 1;
             // 
+            // radioButtonGwDepths
+            // 
+            this.radioButtonGwDepths.AutoSize = true;
+            this.radioButtonGwDepths.Location = new System.Drawing.Point(216, 55);
+            this.radioButtonGwDepths.Name = "radioButtonGwDepths";
+            this.radioButtonGwDepths.Size = new System.Drawing.Size(180, 17);
+            this.radioButtonGwDepths.TabIndex = 15;
+            this.radioButtonGwDepths.Text = "groundwater depths (wrt surface)";
+            this.radioButtonGwDepths.UseVisualStyleBackColor = true;
+            // 
             // ImportUsgsData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,5 +360,6 @@
         private System.Windows.Forms.RadioButton radioButtonCustomDaily;
         private System.Windows.Forms.TextBox textBoxCustomRealTime;
         private System.Windows.Forms.RadioButton radioButtonCustomRealTime;
+        private System.Windows.Forms.RadioButton radioButtonGwDepths;
     }
 }

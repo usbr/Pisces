@@ -277,8 +277,10 @@ namespace Reclamation.TimeSeries.Forms
                 if (w.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
 
-                    if(w.ImportType == ExcelImportType.Standard)
-                           ImportExcelStandard(openExcelDialog.FileName);
+                    if (w.ImportType == ExcelImportType.Standard)
+                    {
+                        ImportExcelStandard(openExcelDialog.FileName);
+                    }
                     else if (w.ImportType == ExcelImportType.WaterYear)
                     {
                         ImportExcelWaterYear(openExcelDialog.FileName);
@@ -287,9 +289,27 @@ namespace Reclamation.TimeSeries.Forms
                     {
                         ImportExcelDatabaseStyle(openExcelDialog.FileName);
                     }
+                    else if (w.ImportType == ExcelImportType.Traces)
+                    {
+                        ImportExcelTraces(openExcelDialog.FileName);
+                    }
                 }
             }
         }
+
+
+        private void ImportExcelTraces(string filename)
+        {
+#if !PISCES_OPEN
+            ImportExcelTraces dlg = new ImportExcelTraces(filename);
+            if (dlg.ShowDialog() == DialogResult.OK)
+            {
+
+            }
+#endif
+        }
+        
+
 
         private void ImportExcelDatabaseStyle(string filename)
         {
@@ -327,6 +347,7 @@ namespace Reclamation.TimeSeries.Forms
             }
 #endif
         }
+
 
         private void ImportExcelWaterYear(string filename)
         {
@@ -370,24 +391,41 @@ namespace Reclamation.TimeSeries.Forms
             if (dlg.ShowDialog() == DialogResult.OK)
             {
                 var messageList = new List<string>();
-                for (int i = 0; i < dlg.ValueColumns.Length; i++)
+                // No scenarios 
+                if (dlg.ScenarioValues == null)
                 {
-                    Series s = SpreadsheetGearSeries.ReadFromWorkbook(dlg.WorkBook, dlg.SheetName, dlg.DateColumn, dlg.ValueColumns[i],false,dlg.ComboBoxUnits.Text);
-                    if (s.Count > 0)
+                    for (int i = 0; i < dlg.ValueColumns.Length; i++)
                     {
-                        DB.AddSeries(s, CurrentFolder);
-                    }
-                    else
-                    {
-                        //messageList.Add("No data in the selection.  File " + openExcelDialog.FileName);
-                        messageList.Add("No data in the selection.  Worksheet: " + dlg.SheetName);
-                    }
+                        Series s = SpreadsheetGearSeries.ReadFromWorkbook(dlg.WorkBook, dlg.SheetName, dlg.DateColumn, dlg.ValueColumns[i], false, dlg.ComboBoxUnits.Text);
+                        if (s.Count > 0)
+                        {
+                            DB.AddSeries(s, CurrentFolder);
+                        }
+                        else
+                        {
+                            messageList.Add("No data in the selection.  Worksheet: " + dlg.SheetName);
+                        }
 
-                    if (s.Messages.Count > 0)
-                    {
-                        messageList.Add(s.Messages.ToString());
+                        if (s.Messages.Count > 0)
+                        {
+                            messageList.Add(s.Messages.ToString());
+                        }
                     }
+                }
+                // Process all scenarios
+                else
+                {
+                    var scenarioList = dlg.ScenarioValues;
+                    for (int i = 0; i < dlg.ValueColumns.Length; i++)
+                    {
+                        SeriesList sList = new SeriesList();
+                        foreach (string scenario in scenarioList)
+                        {
+                            Series s = SpreadsheetGearSeries.ReadFromWorkbook(dlg.WorkBook, dlg.SheetName, dlg.DateColumn, dlg.ValueColumns[i], dlg.ScenarioColumn, scenario, dlg.ComboBoxUnits.Text);
+                            sList.Add(s);
 
+                        }
+                    }
                 }
                 if (messageList.Count > 0)
                 {
@@ -604,9 +642,19 @@ namespace Reclamation.TimeSeries.Forms
                     foreach (string siteID in dlg.SiteIDs)
                     {
                         Series s = new Series();
-                        if (dlg.IsGroundWaterLevel)
+                        if (dlg.IsGroundWaterLevel || dlg.IsGroundWaterDepth)
                         {
-                            s = Usgs.UsgsGroundWaterLevelSeries.Read(siteID, TimeSeriesDatabase.MinDateTime, TimeSeriesDatabase.MaxDateTime);//, dlg.T1, dlg.T2);
+                            if (dlg.IsGroundWaterDepth)
+                            {
+                                var sTemp = new Usgs.UsgsGroundWaterLevelSeries(siteID, true);
+                                sTemp.Read(TimeSeriesDatabase.MinDateTime, TimeSeriesDatabase.MaxDateTime);
+                                s = sTemp;
+                                //s = Usgs.UsgsGroundWaterLevelSeries.Read(siteID, TimeSeriesDatabase.MinDateTime, TimeSeriesDatabase.MaxDateTime);//, dlg.T1, dlg.T2);
+                            }
+                            else
+                            {
+                                s = Usgs.UsgsGroundWaterLevelSeries.Read(siteID, TimeSeriesDatabase.MinDateTime, TimeSeriesDatabase.MaxDateTime);//, dlg.T1, dlg.T2);
+                            }
                         }
                         else
                             if (!dlg.IsRealTime)

@@ -41,6 +41,11 @@ namespace Reclamation.TimeSeries.Forms.ImportForms
             get { return this.radioButtonGwLevels.Checked; }
         }
 
+        public bool IsGroundWaterDepth
+        {
+            get { return this.radioButtonGwDepths.Checked; }
+        }
+
         public string[] SiteIDs
         {
             get { return this.textBoxSiteNumber.Text.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries); }

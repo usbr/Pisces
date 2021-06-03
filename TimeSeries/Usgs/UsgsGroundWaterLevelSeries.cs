@@ -14,7 +14,10 @@ namespace Reclamation.TimeSeries.Usgs
         string m_columnName;
         string m_site_no;
         //string m_flagColumnName;
-        public UsgsGroundWaterLevelSeries(string site_no)
+
+        private bool offsetReadingsWithSiteElevation = true;
+
+        public UsgsGroundWaterLevelSeries(string site_no, bool getDepth = false)
         {
             this.SiteID = site_no;
             m_site_no = site_no;
@@ -25,6 +28,10 @@ namespace Reclamation.TimeSeries.Usgs
             TimeInterval = TimeInterval.Daily;
             Source = "USGS";
             Provider = "UsgsGroundWaterLevelSeries";
+            if (getDepth)
+            {
+                this.offsetReadingsWithSiteElevation = false;
+            }
         }
 
         public UsgsGroundWaterLevelSeries( TimeSeriesDatabase db, Reclamation.TimeSeries.TimeSeriesDatabaseDataSet.SeriesCatalogRow sr)
@@ -105,7 +112,6 @@ namespace Reclamation.TimeSeries.Usgs
             }
         }
 
-        private bool offsetReadingsWithSiteElevation = true;
 
         private void ReadSeriesData(string url,DateTime t1, DateTime t2)
         {
