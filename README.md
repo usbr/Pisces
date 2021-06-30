@@ -1,5 +1,5 @@
 Linux
-[![Pisces Build](https://api.travis-ci.org/usbr/Pisces.svg)](https://www.travis-ci.com/github/usbr/Pisces)
+[![Pisces Build](https://www.travis-ci.com/usbr/Pisces.svg?branch=master)](https://www.travis-ci.com/github/usbr/Pisces)
 Windows
 [![Build status](https://ci.appveyor.com/api/projects/status/vrtk5m141gfrb6gt?svg=true)](https://ci.appveyor.com/project/ktarbet/pisces)
 
