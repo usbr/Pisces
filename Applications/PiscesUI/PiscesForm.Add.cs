@@ -289,10 +289,10 @@ namespace Reclamation.TimeSeries.Forms
                     {
                         ImportExcelDatabaseStyle(openExcelDialog.FileName);
                     }
-                    else if (w.ImportType == ExcelImportType.Traces)
-                    {
-                        ImportExcelTraces(openExcelDialog.FileName);
-                    }
+                    //else if (w.ImportType == ExcelImportType.Traces)
+                    //{
+                    //    ImportExcelTraces(openExcelDialog.FileName);
+                    //}
                 }
             }
         }
