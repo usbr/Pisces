@@ -30,7 +30,7 @@ namespace Reclamation.Core
             {
                 if (key != null)
                 {
-                    return "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + fileName;
+                    return "Provider=Microsoft.ACE.OLEDB.14.0;Data Source=" + fileName;
                 }
                 else
                 {

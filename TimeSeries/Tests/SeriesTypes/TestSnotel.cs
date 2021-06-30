@@ -9758,6 +9758,7 @@ namespace Pisces.NunitTests.SeriesTypes
 
 
         [Test, Category("Internal")]
+        [Ignore("Ignore internal tests per KTarbet.")]
         public void SnotelSnowDepth()
         {
             //var s= NrcsSnotelSeries.GetNRCS("jkpi", "sd", "15E09S");
@@ -9767,6 +9768,7 @@ namespace Pisces.NunitTests.SeriesTypes
         }
 
         [Test, Category("Internal")]
+        [Ignore("Ignore internal tests per KTarbet.")]
         public void SnotelSnowWaterEquivalent()
         {
             var s = new NrcsSnotelSeries("550", "WTEQ.I-1 (in)");
