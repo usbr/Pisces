@@ -166,7 +166,7 @@ namespace Reclamation.Core
         public static string GetLocalApplicationPath()
         {
             string s = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string n = Assembly.GetEntryAssembly().GetName().Name;
+            string n = Assembly.GetCallingAssembly().GetName().Name;
 
             s = Path.Combine(s, "Reclamation");
             s = Path.Combine(s, n);

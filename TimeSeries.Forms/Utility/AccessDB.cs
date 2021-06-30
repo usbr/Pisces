@@ -26,7 +26,7 @@ namespace Reclamation.Core
 
         if (Path.GetExtension(fileName).ToLower() == ".mdb" || Path.GetExtension(fileName).ToLower() == ".accdb")
         {
-            using (RegistryKey key = Registry.ClassesRoot.OpenSubKey("Microsoft.ACE.OLEDB.12.0"))
+            using (RegistryKey key = Registry.ClassesRoot.OpenSubKey("Microsoft.ACE.OLEDB.14.0"))
             {
                 if (key != null)
                 {

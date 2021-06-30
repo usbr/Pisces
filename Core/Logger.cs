@@ -102,10 +102,10 @@ namespace Reclamation.Core
                 {
                     // if any tracing.. save to log.
                     //string logName = Path.GetFileNameWithoutExtension(Application.ExecutablePath) + ".log";
-                    logName = Path.Combine(FileUtility.GetLocalApplicationPath(), Assembly.GetEntryAssembly().GetName().Name);
+                    logName = Path.Combine(FileUtility.GetLocalApplicationPath(), Assembly.GetCallingAssembly().GetName().Name);
                     if (s_logInAppDirectory)
                     {
-                        logName = Path.Combine(FileUtility.GetExecutableDirectory(), Assembly.GetEntryAssembly().GetName().Name);
+                        logName = Path.Combine(FileUtility.GetExecutableDirectory(), Assembly.GetCallingAssembly().GetName().Name);
                     }                    
                     logName = logName + ".log";
                     using (var stream = File.Open(logName, FileMode.Append))
